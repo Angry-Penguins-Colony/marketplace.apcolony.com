@@ -6,6 +6,7 @@ import PageNotFound from 'pages/PageNotFound';
 import { routeNames } from 'routes';
 import routes from 'routes';
 import '@elrondnetwork/dapp-core/build/index.css';
+import WIPModal from 'components/Modals/WIPModal/WIPModal';
 
 const environment = 'devnet';
 
@@ -17,7 +18,9 @@ const {
 } = DappUI;
 
 const App = () => {
-  return (
+  return <>
+    <WIPModal />
+
     <Router>
       <DappProvider
         environment={environment}
@@ -45,7 +48,7 @@ const App = () => {
         </Layout>
       </DappProvider>
     </Router>
-  );
+  </>;
 };
 
 export default App;
