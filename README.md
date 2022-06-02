@@ -1,5 +1,6 @@
 # dapp-marketplace
 
+[![Node.js CI](https://github.com/Angry-Penguins-Colony/dapp-marketplace/actions/workflows/node.js.yml/badge.svg)](https://github.com/Angry-Penguins-Colony/dapp-marketplace/actions/workflows/node.js.yml)
 
 ## Requirements
 
