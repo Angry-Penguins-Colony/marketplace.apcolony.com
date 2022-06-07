@@ -1,0 +1,79 @@
+@import './../../../assets/sass/var.scss';
+
+.navbar {
+    background-color: white;
+    border-radius: 9999px;
+    padding: 25px 40px;
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
+    .navItem {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        .icon {
+            fill: $primary;
+            width: 25px;
+            max-height: 25px;
+        }
+
+        &.marketIcon {
+            .icon {
+                max-height: 26px;
+            }
+        }
+
+        &.labIcon {
+            .icon {
+                max-height: 23px;
+            }
+        }
+
+        p {
+            display: none;
+
+            text-align: center;
+            color: $dark;
+            font-family: 'CHEDROS', sans-serif;
+            position: absolute;
+            top: 15px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        p:before {
+            content: "";
+            display: inline-block;
+            height: 6px;
+            width: 6px;
+            border-radius: 10px;
+            background-color: $primary;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: -7px;
+        }
+
+        &.active {
+            .icon {
+                position: relative;
+                top: -12px;
+            }
+
+            p {
+                display: inline-block;
+            }
+        }
+    }
+}
