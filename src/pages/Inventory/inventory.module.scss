@@ -1,0 +1,21 @@
+#mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 80px 20px;
+    background-image: url('./../../assets/img/bgHeaderMobile.png');
+    background-size: cover;
+
+    .icon {
+        height: 35px;
+        fill: white;
+    }
+
+    h1 {
+        color: white;
+        font-family: 'CHEDROS', sans-serif;
+        font-weight: bold;
+        position: relative;
+        top: -0.1em;
+    }
+}
