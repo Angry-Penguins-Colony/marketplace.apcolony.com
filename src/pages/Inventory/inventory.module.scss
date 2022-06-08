@@ -1,13 +1,20 @@
+@import './../../assets/sass/var.scss';
+
+// body can't scrollable directly
+body {
+    overflow: hidden;
+}
+
 #mobile-header {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    padding: 80px 20px;
+    padding: 60px 30px 80px 30px;
     background-image: url('./../../assets/img/bgHeaderMobile.png');
     background-size: cover;
 
     .icon {
-        height: 35px;
+        height: 25px;
         fill: white;
     }
 
@@ -17,5 +24,286 @@
         font-weight: bold;
         position: relative;
         top: -0.1em;
+        font-size: 2rem;
+    }
+}
+
+#body-content {
+    background-image: url('./../../assets/img/Bg_invetory_mobile_APC.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+
+    border-radius: 40px 40px 0 0;
+    position: relative;
+    top: -40px;
+
+    padding: 15px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    height: calc(100vh - 176px + 40px);
+
+    > header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        h2 {
+            font-family: 'CHEDROS', sans-serif;
+            font-weight: bold;
+            font-size: 1.8rem;
+        }
+
+        .wallet-address {
+            display: flex;
+            justify-content: center;
+            gap: 1em;
+            width: 80%;
+
+            span {
+                max-width: 65%;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                font-size: 1.1rem;
+                font-family: 'Config Rounded Text', sans-serif;
+            }
+
+            .share {
+                .icon {
+                    fill: $primary;
+                    width: 1.2em;
+                }
+            }
+        }
+    }
+
+    #navigation-type {
+        display: flex;
+        justify-content: flex-start;
+        gap: 3px;
+
+        .item {
+            font-size: 1.2rem;
+            font-family: 'Config Rounded', sans-serif;
+            font-weight: 600;
+            padding: 6px 20px;
+
+            &.active {
+                background-color: $primary;
+                color: white;
+                border-radius: 999px;
+            }
+        }
+    }
+
+    #inventory {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        height: inherit;
+        position: relative;
+
+        > header {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .title {
+                display: flex;
+                justify-content: flex-start;
+                align-items: baseline;
+                gap: 10px;
+
+                h3 {
+                    font-family: 'CHEDROS', sans-serif;
+                    font-weight: bold;
+                    font-size: 1.4rem;
+                    white-space: nowrap;
+                }
+
+                .number-items {
+                    font-family: 'CHEDROS', sans-serif;
+                    font-weight: bold;
+                    font-size: 1.2rem;
+                    color: white;
+                    background-color: $primary;
+                    border-radius: 999px;
+                    line-height: initial;
+                    height: 2rem;
+                    width: 2rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .info {
+                    font-family: 'Config Rounded', sans-serif;
+                    font-weight: 300;
+                    font-style: italic;
+                    color: #797979;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    line-height: 1.1;
+                }
+            }
+
+            .nav {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+                position: relative;
+
+                .sort {
+                    background-color: $primary;
+                    border-radius: 999px;
+                    height: 2rem;
+                    width: 2rem;
+                    min-width: 2rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    .icon-sort {
+                        fill: white;
+                        width: 0.8rem;
+                        height: auto;
+                    }
+                }
+
+                .filter {
+                    border-radius: 999px;
+                    padding: 5px 15px;
+
+                    display: flex;
+                    gap: 5px;
+                    align-items: center;
+
+                    font-family: 'Config Rounded';
+                    font-weight: 600;
+                }
+
+                .select-filter {
+                    background-color: $primary;
+
+                    svg {
+                        stroke: white;
+                        width: 1.2rem;
+                        margin-right: 5px;
+                    }
+
+                    .name,
+                    .number {
+                        color: white;
+                    }
+
+                }
+
+                .attribute-info {
+                    display: flex;
+                    gap: 5px;
+                    align-items: center;
+
+                    overflow-y: auto;
+                    position: relative;
+
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        bottom: 0;
+                        right: 0;
+                        top: 0;
+                        width: 80px;
+                        background: linear-gradient(to left, #E0E9F6 0%, #E0E9F600 100%);
+                    }
+
+                    .filter {
+                        border: #284A8B solid 1px;
+
+                        .name {
+                            color: #284A8B;
+                        }
+
+                        .number {
+                            color: #284b8b88;
+                        }
+                    }
+                }
+
+                .reset-filter {
+                    background-color: #5078DF;
+                    border-radius: 999px;
+                    height: 2rem;
+                    width: 2rem;
+                    min-width: 2rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    position: absolute;
+                    top: 0;
+                    right: -1rem;
+
+                    .icon {
+                        fill: white;
+                        width: 0.8rem;
+                        height: auto;
+                    }
+                }
+            }
+        }
+
+        > .all-items {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 10px;
+
+            overflow-y: auto;
+
+            position: absolute;
+            top: 95px;
+            bottom: -15px;
+            padding-bottom: 120px;
+
+            .item {
+                position: relative;
+                border-radius: 10px;
+                overflow: hidden;
+                flex-basis: calc(50% - 5px);
+
+                img {
+                    width: 100%;
+                    z-index: 0;
+                }
+
+                .name {
+                    position: absolute;
+                    bottom: 6%;
+                    left: 10%;
+                    right: 0;
+                    color: white;
+                    font-family: 'CHEDROS', sans-serif;
+                    font-weight: bold;
+                    font-size: 1.4rem;
+                    z-index: 2;
+                }
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    height: 30%;
+                    background: linear-gradient(to top, #080D26ff 0%, #080D2600 100%);
+                    z-index: 1;
+                }
+            }
+        }
     }
 }
