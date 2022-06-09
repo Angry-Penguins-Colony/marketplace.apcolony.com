@@ -2,7 +2,7 @@
 
 .all-items {
     position: absolute;
-    top: 200px;
+    top: 160px;
     bottom: -15px;
     left: 0;
     right: 0;
@@ -10,6 +10,10 @@
     width: 100%;
     padding-bottom: 120px;
     overflow-y: auto;
+
+    &.has-filter {
+        top: 200px;
+    }
 
     > h2 {
         display: none;
@@ -59,6 +63,50 @@
             }
         }
     }
+
+    &.eggs {
+        > .content {
+            .item {
+                background-color: white;
+
+                .name {
+                    color: #080D26;
+                    bottom: 6%;
+                    left: 0;
+                    right: 0;
+                    text-align: center;
+                }
+
+                &::after {
+                    background: linear-gradient(to top, #E9EEF2ff 0%, #E9EEF200 100%);
+                }
+            }
+        }
+    }
+
+    &.items {
+        > .content {
+            .item {
+                background-image: url('./../../assets/img/Grey_penguin.png');
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-color: white;
+
+                .name {
+                    color: #080D26;
+                    bottom: 6%;
+                    left: 0;
+                    right: 0;
+                    text-align: center;
+                }
+
+                &::after {
+                    background: linear-gradient(to top, #E9EEF2ff 0%, #E9EEF200 100%);
+                }
+            }
+        }
+    }
 }
 
 // desktop
@@ -72,6 +120,10 @@
         left: 0;
         right: 0;
         padding-bottom: 0;
+
+        &.has-filter {
+            top: 0;
+        }
 
         > h2 {
             display: block;

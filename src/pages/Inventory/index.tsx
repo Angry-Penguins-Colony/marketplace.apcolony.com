@@ -9,12 +9,15 @@ import ItemsInventory from './ItemsInventory';
 import NavigationType from './NavigationType';
 import NavInventory from './NavInventory';
 
+
+const typeWithFilter = ['penguins', 'items'];
+
 const Inventory = () => {
 
     const walletAddress = 'erd10000000000000000000000000000000000000000000000000000000000';
 
     // get items
-    const items = [
+    const penguinsItems = [
         {
             image: '/Fargerik_bg-overlay.png',
             name: 'Penguin #1'
@@ -64,6 +67,64 @@ const Inventory = () => {
             name: 'Penguin #12'
         }
     ];
+    const eggsItems = [
+        {
+            image: '/Blue_egg.png',
+            name: 'Egg #1'
+        },
+        {
+            image: '/Blue_egg.png',
+            name: 'Egg #2'
+        },
+        {
+            image: '/Gold_egg.png',
+            name: 'Egg #3'
+        },
+        {
+            image: '/Blue_egg.png',
+            name: 'Egg #4'
+        }
+    ];
+    const itemsItems = [
+        {
+            image: '/CGS_Bec Piece EGLD_TK02.png',
+            name: 'Beack #1'
+        }
+    ];
+
+
+    const [items, setItems] = React.useState(penguinsItems);
+    const [itemsType, setItemsType] = React.useState('penguins');
+
+    function itemsTypeChange(type: string) {
+        switch (type) {
+            case 'penguins':
+                setItems(penguinsItems);
+                setItemsType('penguins');
+                break;
+            case 'eggs':
+                setItems(eggsItems);
+                setItemsType('eggs');
+                break;
+            case 'items':
+                setItems(itemsItems);
+                setItemsType('items');
+                break;
+            default:
+                setItems(penguinsItems);
+                setItemsType('penguins');
+                break;
+        }
+    }
+
+    function addArticle(txt: string) {
+        const firstLetter = txt.charAt(0).toUpperCase();
+        if (firstLetter === 'A' || firstLetter === 'E' || firstLetter === 'I' || firstLetter === 'O' || firstLetter === 'U') {
+            return 'an ' + txt;
+        } else {
+            return 'a ' + txt;
+        }
+    }
 
     return (
         <>
@@ -117,7 +178,7 @@ const Inventory = () => {
                     </p>
                 </header>
 
-                <NavigationType className={style['navigation-type']} />
+                <NavigationType className={style['navigation-type']} onChangeType={itemsTypeChange} itemsType={itemsType} />
 
                 <section id={style.filter}>
                     <div className={style['number-items']}>
@@ -139,14 +200,14 @@ const Inventory = () => {
                         </div>
                     </div>
                     <div className={style.title}>
-                        <h3>My Penguins</h3>
+                        <h3>My {itemsType.charAt(0).toUpperCase() + itemsType.slice(1)}</h3>
                         {/* TODO: Bind this value */}
                         <span className={style['number-items']}>18</span>
-                        <p className={style.info}>(Select a penguin to customize it)</p>
+                        <p className={style.info}>(Select {addArticle(itemsType.slice(0, -1))} to customize it)</p>
                     </div>
-                    <NavInventory />
+                    <NavInventory type={itemsType} typeWithFilter={typeWithFilter} />
                 </section>
-                <ItemsInventory items={items} className={style['items-inventory']} title={'My Penguins'} />
+                <ItemsInventory items={items} className={style['items-inventory']} type={itemsType} hasFilter={typeWithFilter.includes(itemsType)} />
             </div>
         </>
     );

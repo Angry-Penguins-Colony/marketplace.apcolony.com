@@ -4,14 +4,18 @@ import style from './item-inventory.module.scss';
 const ItemsInventory = ({
     className = '',
     items,
-    title
+    type,
+    hasFilter
 }: {
     className?: string,
     items: any[],
-    title: string
+    type: string,
+    hasFilter: boolean,
 }) => {
+    const title = 'My ' + type.charAt(0).toUpperCase() + type.slice(1);
+
     return (
-        <div className={style['all-items'] + ' ' + className}>
+        <div className={style['all-items'] + ' ' + className + ' ' + style[type] + (hasFilter ? ' ' + style['has-filter'] : '')}>
             <h2>{title}</h2>
             <div className={style.content}>
                 {

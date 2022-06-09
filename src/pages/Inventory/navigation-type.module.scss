@@ -10,11 +10,16 @@
         font-family: 'Config Rounded', sans-serif;
         font-weight: 600;
         padding: 6px 20px;
+        cursor: pointer;
 
         &.active {
             background-color: $primary;
             color: white;
             border-radius: 999px;
+        }
+
+        &:hover:not(.active) {
+            color: $primary;
         }
     }
 }
