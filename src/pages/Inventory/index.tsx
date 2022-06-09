@@ -1,7 +1,9 @@
 import * as React from 'react';
 import BackIcon from 'components/Icons/BackIcon';
+import DiscordIcon from 'components/Icons/DiscordIcon';
 import KebabIcon from 'components/Icons/KebabIcon';
 import ShareIcon from 'components/Icons/ShareIcon';
+import TwitterIcon from 'components/Icons/TwitterIcon';
 import style from './inventory.module.scss';
 import ItemsInventory from './ItemsInventory';
 import NavigationType from './NavigationType';
@@ -66,7 +68,30 @@ const Inventory = () => {
     return (
         <>
             <div id={style['desktop-header']}>
-
+                <header>
+                    <div className={style.left}>
+                        <img src="/logo.png" alt="Logo Angry Penguins" />
+                        <nav>
+                            <div className={style.item}>Home</div>
+                            <div className={style.item}>Shop</div>
+                            <div className={style.item}>My Inventory</div>
+                            <div className={style.item}>Customize</div>
+                        </nav>
+                    </div>
+                    <div className={style.right}>
+                        <div className={style.social}>
+                            <div className={style.twitter + ' ' + style.icon}>
+                                <TwitterIcon />
+                            </div>
+                            <div className={style.discord + ' ' + style.icon}>
+                                <DiscordIcon />
+                            </div>
+                        </div>
+                        <div className={style.profile}>
+                            <img src="/pingouin emperor.png" alt="Your profile image" />
+                        </div>
+                    </div>
+                </header>
             </div>
             <div id={style['mobile-header']}>
                 <BackIcon className={style.icon} />
