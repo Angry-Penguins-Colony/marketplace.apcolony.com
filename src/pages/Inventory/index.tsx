@@ -1,18 +1,73 @@
 import * as React from 'react';
 import BackIcon from 'components/Icons/BackIcon';
-import CrossIcon from 'components/Icons/CrossIcon';
 import KebabIcon from 'components/Icons/KebabIcon';
-import SettingIcon from 'components/Icons/SettingIcon';
 import ShareIcon from 'components/Icons/ShareIcon';
-import SortIcon from 'components/Icons/SortIcon';
 import style from './inventory.module.scss';
+import ItemsInventory from './ItemsInventory';
+import NavigationType from './NavigationType';
+import NavInventory from './NavInventory';
 
 const Inventory = () => {
 
     const walletAddress = 'erd10000000000000000000000000000000000000000000000000000000000';
 
+    // get items
+    const items = [
+        {
+            image: '/Fargerik_bg-overlay.png',
+            name: 'Penguin #1'
+        },
+        {
+            image: '/Fargerik_bg-overlay.png',
+            name: 'Penguin #2'
+        },
+        {
+            image: '/Fargerik_bg-overlay.png',
+            name: 'Penguin #3'
+        },
+        {
+            image: '/Fargerik_bg-overlay.png',
+            name: 'Penguin #4'
+        },
+        {
+            image: '/Fargerik_bg-overlay.png',
+            name: 'Penguin #5'
+        },
+        {
+            image: '/Fargerik_bg-overlay.png',
+            name: 'Penguin #6'
+        },
+        {
+            image: '/Fargerik_bg-overlay.png',
+            name: 'Penguin #7'
+        },
+        {
+            image: '/Fargerik_bg-overlay.png',
+            name: 'Penguin #8'
+        },
+        {
+            image: '/Fargerik_bg-overlay.png',
+            name: 'Penguin #9'
+        },
+        {
+            image: '/Fargerik_bg-overlay.png',
+            name: 'Penguin #10'
+        },
+        {
+            image: '/Fargerik_bg-overlay.png',
+            name: 'Penguin #11'
+        },
+        {
+            image: '/Fargerik_bg-overlay.png',
+            name: 'Penguin #12'
+        }
+    ];
+
     return (
         <>
+            <div id={style['desktop-header']}>
+
+            </div>
             <div id={style['mobile-header']}>
                 <BackIcon className={style.icon} />
                 <h1>My Inventory</h1>
@@ -37,103 +92,36 @@ const Inventory = () => {
                     </p>
                 </header>
 
-                <section id={style['navigation-type']}>
-                    <span className={style.item + ' ' + style.active}>Penguins</span>
-                    <span className={style.item}>Eggs</span>
-                    <span className={style.item}>items</span>
-                </section>
+                <NavigationType className={style['navigation-type']} />
 
-                <section id={style.inventory}>
-                    <header>
-                        <div className={style.title}>
-                            <h3>My Penguins</h3>
-                            {/* TODO: Bind this value */}
-                            <span className={style['number-items']}>18</span>
-                            <p className={style.info}>(Select a penguin to customize it)</p>
-                        </div>
-                        <div className={style.nav}>
-                            <div className={style.sort}>
-                                <SortIcon className={style['icon-sort']} />
-                            </div>
-                            <div className={style['select-filter'] + ' ' + style.filter}>
-                                <SettingIcon />
-                                <span className={style.name}>Background</span>
-                                <span className={style.number}>5</span>
-                            </div>
-                            <div className={style['attribute-info']}>
-                                <div className={style.filter}>
-                                    <span className={style.name}>Hat</span>
-                                    <span className={style.number}>3</span>
-                                </div>
-                                <div className={style.filter}>
-                                    <span className={style.name}>Eyes</span>
-                                    <span className={style.number}>8</span>
-                                </div>
-                                <div className={style.filter}>
-                                    <span className={style.name}>Beack</span>
-                                    <span className={style.number}>8</span>
-                                </div>
-                                <div className={style.filter}>
-                                    <span className={style.name}>Beack</span>
-                                    <span className={style.number}>8</span>
-                                </div>
-                            </div>
-                            <div className={style['reset-filter']}>
-                                <CrossIcon className={style.icon} />
-                            </div>
-                        </div>
-                    </header>
-                    <div className={style['all-items']}>
+                <section id={style.filter}>
+                    <div className={style['number-items']}>
                         <div className={style.item}>
-                            <img src="/Fargerik_bg-overlay.png" />
-                            <div className={style.name}>Penguin #1</div>
+                            <p className={style.number}>12</p>
+                            <p className={style.name}>Penguins</p>
                         </div>
                         <div className={style.item}>
-                            <img src="/Fargerik_bg-overlay.png" />
-                            <div className={style.name}>Penguin #2</div>
+                            <p className={style.number}>5</p>
+                            <p className={style.name}>Eggs</p>
                         </div>
                         <div className={style.item}>
-                            <img src="/Fargerik_bg-overlay.png" />
-                            <div className={style.name}>Penguin #3</div>
+                            <p className={style.number}>45</p>
+                            <p className={style.name}>Items</p>
                         </div>
                         <div className={style.item}>
-                            <img src="/Fargerik_bg-overlay.png" />
-                            <div className={style.name}>Penguin #4</div>
-                        </div>
-                        <div className={style.item}>
-                            <img src="/Fargerik_bg-overlay.png" />
-                            <div className={style.name}>Penguin #5</div>
-                        </div>
-                        <div className={style.item}>
-                            <img src="/Fargerik_bg-overlay.png" />
-                            <div className={style.name}>Penguin #6</div>
-                        </div>
-                        <div className={style.item}>
-                            <img src="/Fargerik_bg-overlay.png" />
-                            <div className={style.name}>Penguin #7</div>
-                        </div>
-                        <div className={style.item}>
-                            <img src="/Fargerik_bg-overlay.png" />
-                            <div className={style.name}>Penguin #8</div>
-                        </div>
-                        <div className={style.item}>
-                            <img src="/Fargerik_bg-overlay.png" />
-                            <div className={style.name}>Penguin #9</div>
-                        </div>
-                        <div className={style.item}>
-                            <img src="/Fargerik_bg-overlay.png" />
-                            <div className={style.name}>Penguin #10</div>
-                        </div>
-                        <div className={style.item}>
-                            <img src="/Fargerik_bg-overlay.png" />
-                            <div className={style.name}>Penguin #11</div>
-                        </div>
-                        <div className={style.item}>
-                            <img src="/Fargerik_bg-overlay.png" />
-                            <div className={style.name}>Penguin #12</div>
+                            <p className={style.number}>2</p>
+                            <p className={style.name}>Sold</p>
                         </div>
                     </div>
+                    <div className={style.title}>
+                        <h3>My Penguins</h3>
+                        {/* TODO: Bind this value */}
+                        <span className={style['number-items']}>18</span>
+                        <p className={style.info}>(Select a penguin to customize it)</p>
+                    </div>
+                    <NavInventory />
                 </section>
+                <ItemsInventory items={items} className={style['items-inventory']} title={'My Penguins'} />
             </div>
         </>
     );

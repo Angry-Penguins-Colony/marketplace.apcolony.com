@@ -79,3 +79,10 @@
         }
     }
 }
+
+// desktop
+@media (min-width:800px) {
+    .navbar {
+        display: none;
+    }
+}
