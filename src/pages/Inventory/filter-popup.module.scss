@@ -1,0 +1,161 @@
+@import './../../assets/sass/var.scss';
+
+.popup {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background-color: rgba(8, 13, 38, 0.8);
+
+    &.open {}
+
+    &.close {
+        top: 100%;
+    }
+
+    > .close {
+        background-color: #5078DF;
+        border-radius: 999px;
+        height: 2.8rem;
+        width: 2.8rem;
+        min-width: 2.8rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        margin: 36px 45px 15px auto;
+
+        svg {
+            fill: white;
+            width: 0.9rem;
+            height: auto;
+        }
+    }
+
+    .content {
+        background-color: $primary;
+        height: calc(100% - 90px);
+        border-radius: 50px 50px 0 0;
+        padding: 25px 0;
+        position: relative;
+
+        > header {
+            margin: 0 50px;
+
+            h2 {
+                font-family: 'CHEDROS', sans-serif;
+                font-weight: bold;
+                color: white;
+                margin-bottom: 10px;
+            }
+
+            .search-bar {
+                background-color: #E9EEF2;
+                border-radius: 999px;
+                padding: 10px 20px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                svg {
+                    height: 1.4rem;
+                    fill: $primary;
+                }
+
+                input {
+                    background-color: transparent;
+                    border: none;
+                    width: 100%;
+                    font-family: 'Config Rounded', sans-serif;
+
+                    &::placeholder {
+                        font-family: 'Config Rounded', sans-serif;
+                        font-style: italic;
+                        color: rgba(8, 13, 38, 0.2);
+                        font-size: 1.1rem;
+                    }
+                }
+            }
+        }
+
+        .list {
+            .item-list {
+                display: flex;
+                padding: 25px 50px;
+                gap: 25px;
+                border-bottom: 1px solid white;
+
+                .icon {
+                    img {
+                        width: 24px;
+                    }
+
+                    svg {
+                        fill: white;
+                        width: 1.6rem;
+                        height: auto;
+                    }
+                }
+
+                .name {
+                    width: 100%;
+                    font-family: 'CHEDROS', sans-serif;
+                    font-weight: bold;
+                    color: white;
+                    font-size: 1.4rem;
+                    position: relative;
+                    top: 2px;
+                }
+
+                .toggle {
+                    svg {
+                        fill: white;
+                        width: 1.3rem;
+                        height: auto;
+                    }
+                }
+
+                &.filter {
+                    svg {
+                        stroke: white;
+                    }
+                }
+            }
+        }
+
+        .control {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 40px;
+            gap: 15px;
+            position: absolute;
+            bottom: 60px;
+            left: 0;
+            right: 0;
+
+            button {
+                white-space: nowrap;
+                background-color: transparent;
+                border: white 2px solid;
+                border-radius: 999px;
+                color: white;
+                font-family: 'CHEDROS', sans-serif;
+                font-weight: bold;
+                font-size: 1.5rem;
+                cursor: pointer;
+                padding: 4px 10px 2px 10px;
+                flex: 1;
+
+                &.filled {
+                    flex: 2;
+                    background-color: white;
+                    color: $primary;
+                }
+
+            }
+        }
+    }
+}
