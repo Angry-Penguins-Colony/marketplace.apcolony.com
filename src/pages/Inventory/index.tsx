@@ -17,56 +17,85 @@ const Inventory = () => {
     const walletAddress = 'erd10000000000000000000000000000000000000000000000000000000000';
 
     // get items
-    const penguinsItems = [
-        {
-            image: '/Fargerik_bg-overlay.png',
-            name: 'Penguin #1'
-        },
-        {
-            image: '/Fargerik_bg-overlay.png',
-            name: 'Penguin #2'
-        },
-        {
-            image: '/Fargerik_bg-overlay.png',
-            name: 'Penguin #3'
-        },
-        {
-            image: '/Fargerik_bg-overlay.png',
-            name: 'Penguin #4'
-        },
-        {
-            image: '/Fargerik_bg-overlay.png',
-            name: 'Penguin #5'
-        },
-        {
-            image: '/Fargerik_bg-overlay.png',
-            name: 'Penguin #6'
-        },
-        {
-            image: '/Fargerik_bg-overlay.png',
-            name: 'Penguin #7'
-        },
-        {
-            image: '/Fargerik_bg-overlay.png',
-            name: 'Penguin #8'
-        },
-        {
-            image: '/Fargerik_bg-overlay.png',
-            name: 'Penguin #9'
-        },
-        {
-            image: '/Fargerik_bg-overlay.png',
-            name: 'Penguin #10'
-        },
-        {
-            image: '/Fargerik_bg-overlay.png',
-            name: 'Penguin #11'
-        },
-        {
-            image: '/Fargerik_bg-overlay.png',
-            name: 'Penguin #12'
-        }
-    ];
+    const penguinsItems: {
+        image: string,
+        name: string,
+        score?: number,
+        added?: string,
+    }[] = [
+            {
+                image: '/Fargerik_bg-overlay.png',
+                name: 'Penguin #1',
+                score: 6196,
+                added: '2019-01-01',
+            },
+            {
+                image: '/Fargerik_bg-overlay.png',
+                name: 'Penguin #2',
+                score: 946,
+                added: '2020-01-01',
+            },
+            {
+                image: '/Fargerik_bg-overlay.png',
+                name: 'Penguin #3',
+                score: 9814,
+                added: '2058-01-01',
+            },
+            {
+                image: '/Fargerik_bg-overlay.png',
+                name: 'Penguin #4',
+                score: 789,
+                added: '2002-01-01',
+            },
+            {
+                image: '/Fargerik_bg-overlay.png',
+                name: 'Penguin #5',
+                score: 9416,
+                added: '2019-01-01',
+            },
+            {
+                image: '/Fargerik_bg-overlay.png',
+                name: 'Penguin #6',
+                score: 16,
+                added: '2019-05-01',
+            },
+            {
+                image: '/Fargerik_bg-overlay.png',
+                name: 'Penguin #7',
+                score: 49,
+                added: '2019-12-01',
+            },
+            {
+                image: '/Fargerik_bg-overlay.png',
+                name: 'Penguin #8',
+                score: 837,
+                added: '2019-07-01',
+            },
+            {
+                image: '/Fargerik_bg-overlay.png',
+                name: 'Penguin #9',
+                score: 378,
+                added: '2019-08-01',
+            },
+            {
+                image: '/Fargerik_bg-overlay.png',
+                name: 'Penguin #10',
+                score: 3453,
+                added: '2019-01-10',
+            },
+            {
+                image: '/Fargerik_bg-overlay.png',
+                name: 'Penguin #11',
+                score: 387,
+                added: '2019-01-15',
+            },
+            {
+                image: '/Fargerik_bg-overlay.png',
+                name: 'Penguin #12',
+                score: 83,
+                added: '2019-01-21',
+            }
+        ];
     const eggsItems = [
         {
             image: '/Blue_egg.png',
@@ -88,10 +117,30 @@ const Inventory = () => {
     const itemsItems = [
         {
             image: '/CGS_Bec Piece EGLD_TK02.png',
-            name: 'Beack #1'
+            name: 'Beack #1',
+            score: 3453,
+            added: '2019-01-10',
+        },
+        {
+            image: '/CGS_Bec Piece EGLD_TK02.png',
+            name: 'Beack #2',
+            score: 7,
+            added: '2020-01-10',
+        },
+        {
+            image: '/CGS_Bec Piece EGLD_TK02.png',
+            name: 'Beack #3',
+            score: 277,
+            added: '2018-01-10',
+        },
+        {
+            image: '/CGS_Bec Piece EGLD_TK02.png',
+            name: 'Beack #4',
+            score: 9999,
+            added: '2010-01-10',
         }
     ];
-
+    // TODO: find a way to sort items when is getting from the api
 
     const [items, setItems] = React.useState(penguinsItems);
     const [itemsType, setItemsType] = React.useState('penguins');
@@ -101,6 +150,7 @@ const Inventory = () => {
             case 'penguins':
                 setItems(penguinsItems);
                 setItemsType('penguins');
+                // sortBy('recently-added');
                 break;
             case 'eggs':
                 setItems(eggsItems);
@@ -109,10 +159,12 @@ const Inventory = () => {
             case 'items':
                 setItems(itemsItems);
                 setItemsType('items');
+                // sortBy('recently-added');
                 break;
             default:
                 setItems(penguinsItems);
                 setItemsType('penguins');
+                // sortBy('recently-added');
                 break;
         }
     }
@@ -125,6 +177,39 @@ const Inventory = () => {
             return 'a ' + txt;
         }
     }
+
+    function sortBy(type: string) {
+        console.log(type);
+        console.table(items);
+        switch (type) {
+            case 'recently-added':
+                setItems([...items.sort((a, b) => {
+                    return new Date(b.added || '1970-01-01').getTime() - new Date(a.added || '1970-01-01').getTime();
+                }
+                )]);
+                break;
+            case 'rarity-high-to-low':
+                setItems([...items.sort((a, b) => {
+                    return (b.score || 0) - (a.score || 0);
+                }
+                )]);
+                break;
+            case 'rarity-low-to-high':
+                setItems([...items.sort((a, b) => {
+                    return (a.score || 0) - (b.score || 0);
+                }
+                )]);
+                break;
+            default:
+                setItems([...items.sort((a, b) => {
+                    return new Date(b.added || '1970-01-01').getTime() - new Date(a.added || '1970-01-01').getTime();
+                }
+                )]);
+                break;
+        }
+        console.table(items);
+    }
+    // sortBy('recently-added'); // default sort
 
     return (
         <>
@@ -205,7 +290,7 @@ const Inventory = () => {
                         <span className={style['number-items']}>18</span>
                         <p className={style.info}>(Select {addArticle(itemsType.slice(0, -1))} to customize it)</p>
                     </div>
-                    <NavInventory type={itemsType} typeWithFilter={typeWithFilter} />
+                    <NavInventory type={itemsType} typeWithFilter={typeWithFilter} sortByFunction={sortBy} />
                 </section>
                 <ItemsInventory items={items} className={style['items-inventory']} type={itemsType} hasFilter={typeWithFilter.includes(itemsType)} />
             </div>

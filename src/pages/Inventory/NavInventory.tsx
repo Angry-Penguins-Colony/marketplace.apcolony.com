@@ -8,11 +8,15 @@ import style from './nav-inventory.module.scss';
 const NavInventory = ({
     className = '',
     type,
-    typeWithFilter
+    typeWithFilter,
+    sortByFunction = function () {
+        // do nothing
+    },
 }: {
     className?: string,
     type: string,
     typeWithFilter: string[],
+    sortByFunction?: (type: string) => void,
 }) => {
     const [filterIsOpen, setFilterIsOpen] = React.useState(false);
 
@@ -43,7 +47,8 @@ const NavInventory = ({
 
         setCurrentSortType(sortTypes.find(type => type.value === sortType) || sortTypes[0]);
 
-        // TODO: sort items
+        // sort items
+        sortByFunction(sortType);
 
         setSortPopupIsOpen(false);
     }
