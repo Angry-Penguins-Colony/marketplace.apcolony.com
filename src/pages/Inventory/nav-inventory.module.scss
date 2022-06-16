@@ -7,6 +7,43 @@
         display: none;
     }
 
+    .filter-popup {
+        background-color: $primary;
+        border-radius: 5px;
+        padding: 10px;
+        position: absolute;
+        left: 0;
+        top: 35px;
+        z-index: 1;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        cursor: pointer;
+
+        .title {
+            font-family: 'Config Rounded', sans-serif;
+            font-weight: 600;
+            color: rgba(233, 238, 242, 0.5);
+        }
+
+        .sort-type {
+            font-family: 'Config Rounded Text', sans-serif;
+            color: white;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding-right: 20px;
+            position: relative;
+
+            &.active:after {
+                content: "✓";
+                position: absolute;
+                right: 0;
+            }
+        }
+    }
+
     .content {
         display: flex;
         gap: 5px;
@@ -124,6 +161,10 @@
             font-size: 1.4rem;
             text-transform: uppercase;
             margin-bottom: 0.5rem;
+        }
+
+        .filter-popup {
+            top: 65px;
         }
 
         > .content {

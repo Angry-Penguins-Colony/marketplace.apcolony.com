@@ -20,6 +20,38 @@ const NavInventory = ({
         setFilterIsOpen(true);
     }
 
+    const sortTypes = [
+        {
+            name: 'Recently Added',
+            value: 'recently-added'
+        },
+        {
+            name: 'Rarity: High to low',
+            value: 'rarity-high-to-low'
+        },
+        {
+            name: 'Rarity: Low to high',
+            value: 'rarity-low-to-high'
+        }
+    ];
+
+    const [currentSortType, setCurrentSortType] = React.useState(sortTypes[0]);
+    const [sortPopupIsOpen, setSortPopupIsOpen] = React.useState(false);
+
+    function changeSort(sortType: string) {
+        console.log('change sort to ' + sortType);
+
+        setCurrentSortType(sortTypes.find(type => type.value === sortType) || sortTypes[0]);
+
+        // TODO: sort items
+
+        setSortPopupIsOpen(false);
+    }
+
+    function toggleSortPopup() {
+        setSortPopupIsOpen(!sortPopupIsOpen);
+    }
+
     return (
         <>
             {
@@ -27,8 +59,26 @@ const NavInventory = ({
                     <>
                         <div className={style.nav + ' ' + className}>
                             <h2>Filters</h2>
+                            {
+                                sortPopupIsOpen && (
+                                    <div className={style['filter-popup']}>
+                                        <p className={style.title}>Sort by</p>
+                                        {
+                                            sortTypes.map((sortType, index) => (
+                                                <p
+                                                    key={index}
+                                                    className={style['sort-type'] + ' ' + (sortType.value === currentSortType.value ? style.active : '')}
+                                                    onClick={() => changeSort(sortType.value)}
+                                                >
+                                                    {sortType.name}
+                                                </p>
+                                            ))
+                                        }
+                                    </div>
+                                )
+                            }
                             <div className={style.content}>
-                                <div className={style.sort}>
+                                <div className={style.sort} onClick={toggleSortPopup}>
                                     <SortIcon className={style['icon-sort']} />
                                 </div>
                                 <div className={style['select-filter'] + ' ' + style.filter} onClick={(openFilter)}>
