@@ -12,11 +12,17 @@ const NavInventory = ({
     sortByFunction = function () {
         // do nothing
     },
+    filterData = [],
+    changeFilters = function () {
+        // do nothing
+    }
 }: {
     className?: string,
     type: string,
     typeWithFilter: string[],
     sortByFunction?: (type: string) => void,
+    filterData?: any[],
+    changeFilters?: (filters: any[]) => void
 }) => {
     const [filterIsOpen, setFilterIsOpen] = React.useState(false);
 
@@ -90,47 +96,48 @@ const NavInventory = ({
                                     <SettingIcon />
                                     <span className={style.name}>Filters</span>
                                 </div>
-                                <div className={style.filter}>
-                                    <span className={style.name}>Hat</span>
-                                    <span className={style.number}>3</span>
-                                </div>
-                                <div className={style.filter}>
-                                    <span className={style.name}>Eyes</span>
-                                    <span className={style.number}>8</span>
-                                </div>
-                                <div className={style.filter}>
-                                    <span className={style.name}>Beack</span>
-                                    <span className={style.number}>8</span>
-                                </div>
-                                <div className={style.filter}>
-                                    <span className={style.name}>Beack</span>
-                                    <span className={style.number}>8</span>
-                                </div>
-                                <div className={style.filter}>
-                                    <span className={style.name}>Body</span>
-                                    <span className={style.number}>3</span>
-                                </div>
-                                <div className={style.filter}>
-                                    <span className={style.name}>Body</span>
-                                    <span className={style.number}>3</span>
-                                </div>
-                                <div className={style.filter}>
-                                    <span className={style.name}>Hat</span>
-                                    <span className={style.number}>3</span>
-                                </div>
-                                <div className={style.filter}>
-                                    <span className={style.name}>Hat</span>
-                                    <span className={style.number}>3</span>
-                                </div>
-                                <div className={style['reset-filter'] + ' ' + style.desktop}>
-                                    <CrossIcon className={style.icon} />
-                                </div>
+                                {
+                                    filterData.length > 0 && (
+                                        filterData.map((filter, index) => (
+                                            <div className={style.filter} key={index}>
+                                                <span className={style.name}>{filter.name}</span>
+                                                <span className={style.number}>{filter.number}</span>
+                                            </div>
+                                        ))
+                                    )
+                                }
+                                {
+                                    filterData.length > 0 && (
+                                        <div className={style['reset-filter'] + ' ' + style.desktop}
+                                            onClick={() => {
+                                                changeFilters([]);
+                                            }} >
+                                            <CrossIcon className={style.icon} />
+                                        </div>
+                                    )
+                                }
                             </div>
-                            <div className={style['reset-filter'] + ' ' + style.mobile}>
-                                <CrossIcon className={style.icon} />
-                            </div>
+                            {
+                                filterData.length > 0 && (
+                                    <div className={style['reset-filter'] + ' ' + style.mobile}
+                                        onClick={() => {
+                                            changeFilters([]);
+                                        }} >
+                                        <CrossIcon className={style.icon} />
+                                    </div>
+                                )
+                            }
                         </div>
-                        <FilterPopup isOpen={filterIsOpen} closeFilter={() => setFilterIsOpen(false)} />
+                        <FilterPopup
+                            isOpen={filterIsOpen}
+                            closeFilter={() => setFilterIsOpen(false)}
+                            changeFilters={
+                                (filters) => {
+                                    changeFilters(filters);
+                                    setFilterIsOpen(false);
+                                }
+                            }
+                        />
                     </>
                 )
             }

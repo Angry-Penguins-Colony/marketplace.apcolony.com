@@ -8,12 +8,26 @@ import style from './filter-popup.module.scss';
 const FilterPopup = ({
     className = '',
     isOpen = false,
-    closeFilter
+    closeFilter,
+    changeFilters = function () {
+        // do nothing
+    }
 }: {
     className?: string,
     isOpen?: boolean,
     closeFilter?: () => void,
+    changeFilters?: (filters: any[]) => void
 }) => {
+
+    // tmp var
+    const selectedFilters = [
+        {
+            name: 'Hat',
+            value: 'hat',
+            number: 3
+        }
+    ];
+
     return (
         <div className={style.popup + ' ' + className + ' ' + (isOpen ? style.open : style.close)}>
             <div className={style.close} onClick={closeFilter}>
@@ -28,7 +42,6 @@ const FilterPopup = ({
                     </div>
                 </header>
                 <div className={style.list}>
-                    <ItemList title='Filter' icon={<SettingIcon />} className={style.filter} />
                     <ItemList title='Background' icon='/background_icon.png' />
                     <ItemList title='Hats' icon='/hat_icon.png' />
                     <ItemList title='Eyes' icon='/eyes_icon.png' />
@@ -37,8 +50,8 @@ const FilterPopup = ({
                     <ItemList title='Weapons' icon='/weapons_icon.png' />
                 </div>
                 <div className={style.control}>
-                    <button>Clear All</button>
-                    <button className={style.filled}>Apply</button>
+                    <button onClick={() => changeFilters([])}>Clear All</button>
+                    <button className={style.filled} onClick={() => changeFilters(selectedFilters)}>Apply</button>
                 </div>
             </div>
         </div>
@@ -57,18 +70,13 @@ const ItemList = ({
 }: {
     className?: string,
     isOpen?: boolean,
-    icon: string | React.ReactNode,
+    icon: string,
     title: string,
 }) => {
     return (
         <div className={style['item-list'] + ' ' + className + ' ' + (isOpen ? style.open : style.close)}>
             <div className={style.icon}>
-                {
-                    // if icon is string, then add img with src
-                    typeof icon === 'string' ?
-                        <img src={icon} alt={title} />
-                        : icon
-                }
+                <img src={icon} alt={title} />
             </div>
             <div className={style.name}>{title}</div>
             <div className={style.toggle}>

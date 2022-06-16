@@ -150,7 +150,6 @@ const Inventory = () => {
             case 'penguins':
                 setItems(penguinsItems);
                 setItemsType('penguins');
-                // sortBy('recently-added');
                 break;
             case 'eggs':
                 setItems(eggsItems);
@@ -159,12 +158,10 @@ const Inventory = () => {
             case 'items':
                 setItems(itemsItems);
                 setItemsType('items');
-                // sortBy('recently-added');
                 break;
             default:
                 setItems(penguinsItems);
                 setItemsType('penguins');
-                // sortBy('recently-added');
                 break;
         }
     }
@@ -209,7 +206,35 @@ const Inventory = () => {
         }
         console.table(items);
     }
-    // sortBy('recently-added'); // default sort
+
+
+    // tmp var    
+    const [filterData, setFilterData] = React.useState([
+        {
+            name: 'Hat',
+            value: 'hat',
+            number: 3
+        },
+        {
+            name: 'Eyes',
+            value: 'eyes',
+            number: 8
+        },
+        {
+            name: 'Beack',
+            value: 'beack',
+            number: 8
+        },
+        {
+            name: 'Body',
+            value: 'body',
+            number: 2
+        }
+    ]);
+
+    function changeFilters(newFilterData: any[]) {
+        setFilterData(newFilterData);
+    }
 
     return (
         <>
@@ -290,7 +315,8 @@ const Inventory = () => {
                         <span className={style['number-items']}>18</span>
                         <p className={style.info}>(Select {addArticle(itemsType.slice(0, -1))} to customize it)</p>
                     </div>
-                    <NavInventory type={itemsType} typeWithFilter={typeWithFilter} sortByFunction={sortBy} />
+                    <NavInventory type={itemsType} typeWithFilter={typeWithFilter} sortByFunction={sortBy}
+                        filterData={filterData} changeFilters={changeFilters} />
                 </section>
                 <ItemsInventory items={items} className={style['items-inventory']} type={itemsType} hasFilter={typeWithFilter.includes(itemsType)} />
             </div>
