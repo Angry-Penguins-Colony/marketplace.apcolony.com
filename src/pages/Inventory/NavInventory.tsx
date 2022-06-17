@@ -2,7 +2,7 @@ import * as React from 'react';
 import CrossIcon from 'components/Icons/CrossIcon';
 import SettingIcon from 'components/Icons/SettingIcon';
 import SortIcon from 'components/Icons/SortIcon';
-import FilterPopup from './FilterPopup';
+import FilterPopup from './filterPopup/FilterPopup';
 import style from './nav-inventory.module.scss';
 
 const NavInventory = ({
@@ -12,7 +12,10 @@ const NavInventory = ({
     sortByFunction = function () {
         // do nothing
     },
-    filterData = [],
+    filterData = {
+        items: [],
+        selected: []
+    },
     changeFilters = function () {
         // do nothing
     }
@@ -21,8 +24,44 @@ const NavInventory = ({
     type: string,
     typeWithFilter: string[],
     sortByFunction?: (type: string) => void,
-    filterData?: any[],
-    changeFilters?: (filters: any[]) => void
+    filterData?: {
+        items: {
+            title: string;
+            value: string;
+            icon: string;
+            attributes: {
+                name: string;
+                number: number;
+                value: string;
+                isSelected: boolean;
+                isTmpSelected: boolean;
+            }[];
+        }[];
+        selected: {
+            name: string;
+            value: string;
+            number: number;
+        }[];
+    },
+    changeFilters?: (filters: {
+        items: {
+            title: string;
+            value: string;
+            icon: string;
+            attributes: {
+                name: string;
+                number: number;
+                value: string;
+                isSelected: boolean;
+                isTmpSelected: boolean;
+            }[];
+        }[];
+        selected: {
+            name: string;
+            value: string;
+            number: number;
+        }[];
+    }) => void
 }) => {
     const [filterIsOpen, setFilterIsOpen] = React.useState(false);
 
@@ -97,8 +136,8 @@ const NavInventory = ({
                                     <span className={style.name}>Filters</span>
                                 </div>
                                 {
-                                    filterData.length > 0 && (
-                                        filterData.map((filter, index) => (
+                                    filterData.selected.length > 0 && (
+                                        filterData.selected.map((filter, index) => (
                                             <div className={style.filter} key={index}>
                                                 <span className={style.name}>{filter.name}</span>
                                                 <span className={style.number}>{filter.number}</span>
@@ -107,10 +146,15 @@ const NavInventory = ({
                                     )
                                 }
                                 {
-                                    filterData.length > 0 && (
+                                    filterData.selected.length > 0 && (
                                         <div className={style['reset-filter'] + ' ' + style.desktop}
                                             onClick={() => {
-                                                changeFilters([]);
+                                                changeFilters(
+                                                    {
+                                                        ...filterData,
+                                                        selected: []
+                                                    }
+                                                );
                                             }} >
                                             <CrossIcon className={style.icon} />
                                         </div>
@@ -118,10 +162,15 @@ const NavInventory = ({
                                 }
                             </div>
                             {
-                                filterData.length > 0 && (
+                                filterData.selected.length > 0 && (
                                     <div className={style['reset-filter'] + ' ' + style.mobile}
                                         onClick={() => {
-                                            changeFilters([]);
+                                            changeFilters(
+                                                {
+                                                    ...filterData,
+                                                    selected: []
+                                                }
+                                            );
                                         }} >
                                         <CrossIcon className={style.icon} />
                                     </div>
@@ -132,11 +181,14 @@ const NavInventory = ({
                             isOpen={filterIsOpen}
                             closeFilter={() => setFilterIsOpen(false)}
                             changeFilters={
-                                (filters) => {
+                                (filters, closePopup = true) => {
                                     changeFilters(filters);
-                                    setFilterIsOpen(false);
+                                    if (closePopup) {
+                                        setFilterIsOpen(false);
+                                    }
                                 }
                             }
+                            filterData={filterData}
                         />
                     </>
                 )

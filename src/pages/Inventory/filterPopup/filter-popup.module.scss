@@ -1,4 +1,4 @@
-@import './../../assets/sass/var.scss';
+@import './../../../assets/sass/var.scss';
 
 .popup {
     position: fixed;
@@ -83,43 +83,6 @@
         .list {
             max-height: calc(100% - 130px);
             overflow: auto;
-
-            .item-list {
-                display: flex;
-                padding: 25px 50px;
-                gap: 25px;
-                border-bottom: 1px solid white;
-
-                .icon {
-                    img {
-                        width: 24px;
-                    }
-
-                    svg {
-                        fill: white;
-                        width: 1.6rem;
-                        height: auto;
-                    }
-                }
-
-                .name {
-                    width: 100%;
-                    font-family: 'CHEDROS', sans-serif;
-                    font-weight: bold;
-                    color: white;
-                    font-size: 1.4rem;
-                    position: relative;
-                    top: 2px;
-                }
-
-                .toggle {
-                    svg {
-                        fill: white;
-                        width: 1.3rem;
-                        height: auto;
-                    }
-                }
-            }
         }
 
         .control {
@@ -141,6 +104,7 @@
                 right: -40px;
                 height: 38px;
                 background: linear-gradient(to top, rgba(80, 120, 223, 1) 0%, rgba(80, 120, 223, 0) 100%);
+                pointer-events: none;
             }
 
             button {

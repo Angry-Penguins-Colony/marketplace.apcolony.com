@@ -9,8 +9,7 @@ import ItemsInventory from './ItemsInventory';
 import NavigationType from './NavigationType';
 import NavInventory from './NavInventory';
 
-
-const typeWithFilter = ['penguins', 'items'];
+const typeWithFilter = ['penguins'];
 
 const Inventory = () => {
 
@@ -22,24 +21,98 @@ const Inventory = () => {
         name: string,
         score?: number,
         added?: string,
+        attributes?: {
+            traitType: string,
+            value: string
+        }[]
     }[] = [
             {
-                image: '/Fargerik_bg-overlay.png',
-                name: 'Penguin #1',
-                score: 6196,
+                image: 'https://media.elrond.com/nfts/asset/QmW8g9GXXZR1JhDW7XNMybyRrWqWiUHa1N26DEYSoFwxMc',
+                name: 'Penguin #4987',
+                score: 5464,
                 added: '2019-01-01',
+                attributes: [
+                    {
+                        traitType: 'background',
+                        value: 'Blue Gradient'
+                    },
+                    {
+                        traitType: 'beak',
+                        value: 'Straw'
+                    },
+                    {
+                        traitType: 'clothes',
+                        value: 'Coat With Brown Fur'
+                    },
+                    {
+                        traitType: 'hat',
+                        value: 'Blue Bitcoin Cap'
+                    },
+                    {
+                        traitType: 'skin',
+                        value: 'Claw Marks'
+                    },
+                    {
+                        traitType: 'weapon',
+                        value: 'Snowboard'
+                    }
+                ]
             },
             {
-                image: '/Fargerik_bg-overlay.png',
-                name: 'Penguin #2',
-                score: 946,
+                image: 'https://media.elrond.com/nfts/asset/QmSLvDdsZ9GPC9VcvdGdfSbRVvxoMwfMdXPgmWeafzbMgy',
+                name: 'Penguin #1155',
+                score: 177,
                 added: '2020-01-01',
+                attributes: [
+                    {
+                        traitType: 'background',
+                        value: 'Dark Blue'
+                    },
+                    {
+                        traitType: 'eyes',
+                        value: 'Black'
+                    },
+                    {
+                        traitType: 'skin',
+                        value: 'Black'
+                    },
+                    {
+                        traitType: 'weapon',
+                        value: 'Fishing Rifle'
+                    }
+                ]
             },
             {
-                image: '/Fargerik_bg-overlay.png',
-                name: 'Penguin #3',
+                image: 'https://media.elrond.com/nfts/asset/QmXMKmMguQFhXqx7qdCLnDhB9AFhyFYpMmBPMyHBqc2w8p',
+                name: 'Penguin #4782',
                 score: 9814,
                 added: '2058-01-01',
+                attributes: [
+                    {
+                        traitType: 'background',
+                        value: 'Red',
+                    },
+                    {
+                        traitType: 'beak',
+                        value: 'Pipe',
+                    },
+                    {
+                        traitType: 'clothes',
+                        value: 'Red Lifejacket',
+                    },
+                    {
+                        traitType: 'eyes',
+                        value: 'Red',
+                    },
+                    {
+                        traitType: 'skin',
+                        value: 'Light Frozen',
+                    },
+                    {
+                        traitType: 'weapon',
+                        value: 'Axe',
+                    }
+                ]
             },
             {
                 image: '/Fargerik_bg-overlay.png',
@@ -176,8 +249,6 @@ const Inventory = () => {
     }
 
     function sortBy(type: string) {
-        console.log(type);
-        console.table(items);
         switch (type) {
             case 'recently-added':
                 setItems([...items.sort((a, b) => {
@@ -207,33 +278,211 @@ const Inventory = () => {
         console.table(items);
     }
 
+    // TODO: number of items per attribute
+    const [filterData, setFilterData] = React.useState({
+        items: [
+            {
+                title: 'Background',
+                value: 'background',
+                icon: '/background_icon.png',
+                attributes: [
+                    {
+                        name: 'Blue Gradient',
+                        number: 150,
+                        value: 'blue-gradient',
+                        isSelected: false,
+                        isTmpSelected: false,
+                    },
+                    {
+                        name: 'Dark Blue',
+                        number: 75,
+                        value: 'dark-blue',
+                        isSelected: false,
+                        isTmpSelected: false,
+                    },
+                    {
+                        name: 'Red',
+                        number: 135,
+                        value: 'red',
+                        isSelected: false,
+                        isTmpSelected: false,
+                    }
+                ]
+            },
+            {
+                title: 'Hat',
+                value: 'hat',
+                icon: '/hat_icon.png',
+                attributes: [
+                    {
+                        name: 'Blue Bitcoin Cap',
+                        number: 150,
+                        value: 'blue-bitcoin-cap',
+                        isSelected: false,
+                        isTmpSelected: false,
+                    }
+                ]
+            },
+            {
+                title: 'Eyes',
+                value: 'eyes',
+                icon: '/eyes_icon.png',
+                attributes: [
+                    {
+                        name: 'Blue',
+                        number: 150,
+                        value: 'hat-blue',
+                        isSelected: false,
+                        isTmpSelected: false,
+                    },
+                    {
+                        name: 'Red',
+                        number: 75,
+                        value: 'hat-red',
+                        isSelected: false,
+                        isTmpSelected: false,
+                    },
+                    {
+                        name: 'Yellow',
+                        number: 135,
+                        value: 'hat-yellow',
+                        isSelected: false,
+                        isTmpSelected: false,
+                    }
+                ]
+            },
+            {
+                title: 'Beak',
+                value: 'beak',
+                icon: '/beack_icon.png',
+                attributes: [
+                    {
+                        name: 'Straw',
+                        number: 150,
+                        value: 'straw',
+                        isSelected: false,
+                        isTmpSelected: false,
+                    },
+                    {
+                        name: 'Pipe',
+                        number: 75,
+                        value: 'pipe',
+                        isSelected: false,
+                        isTmpSelected: false,
+                    }
+                ]
+            },
+            {
+                title: 'Clothes',
+                value: 'clothes',
+                icon: '/clothes_icon.png',
+                attributes: [
+                    {
+                        name: 'Coat With Brown Fur',
+                        number: 150,
+                        value: 'coat-with-brown-fur',
+                        isSelected: false,
+                        isTmpSelected: false,
+                    },
+                    {
+                        name: 'Red Lifejacket',
+                        number: 75,
+                        value: 'red-lifejacket',
+                        isSelected: false,
+                        isTmpSelected: false,
+                    }
+                ]
+            },
+            {
+                title: 'Weapons',
+                value: 'weapons',
+                icon: '/weapons_icon.png',
+                attributes: [
+                    {
+                        name: 'Snowboard',
+                        number: 150,
+                        value: 'snowboard',
+                        isSelected: false,
+                        isTmpSelected: false,
+                    },
+                    {
+                        name: 'Fishing Rifle',
+                        number: 75,
+                        value: 'fishing-rifle',
+                        isSelected: false,
+                        isTmpSelected: false,
+                    },
+                    {
+                        name: 'Axe',
+                        number: 135,
+                        value: 'axe',
+                        isSelected: false,
+                        isTmpSelected: false,
+                    }
+                ]
+            },
+            {
+                title: 'Skin',
+                value: 'skin',
+                icon: '/skin_icon.png',
+                attributes: [
+                    {
+                        name: 'Claw Marks',
+                        number: 150,
+                        value: 'claw-marks',
+                        isSelected: false,
+                        isTmpSelected: false,
+                    },
+                    {
+                        name: 'Black',
+                        number: 75,
+                        value: 'black',
+                        isSelected: false,
+                        isTmpSelected: false,
+                    },
+                    {
+                        name: 'Light Frozen',
+                        number: 135,
+                        value: 'light-frozen',
+                        isSelected: false,
+                        isTmpSelected: false,
+                    }
+                ]
+            }
+        ],
+        selected: []
+    });
 
-    // tmp var    
-    const [filterData, setFilterData] = React.useState([
-        {
-            name: 'Hat',
-            value: 'hat',
-            number: 3
-        },
-        {
-            name: 'Eyes',
-            value: 'eyes',
-            number: 8
-        },
-        {
-            name: 'Beack',
-            value: 'beack',
-            number: 8
-        },
-        {
-            name: 'Body',
-            value: 'body',
-            number: 2
-        }
-    ]);
 
-    function changeFilters(newFilterData: any[]) {
-        setFilterData(newFilterData);
+    function changeFilters(newFilterData: any) {
+        setFilterData({
+            ...newFilterData,
+            selected: newFilterData.items.map((item:
+                {
+                    title: string;
+                    value: string;
+                    icon: string;
+                    attributes: {
+                        name: string;
+                        number: number;
+                        value: string;
+                        isSelected: boolean;
+                        isTmpSelected: boolean;
+                    }[];
+                }) => {
+                const number = item.attributes.filter((attr: { isSelected: boolean; }) => attr.isSelected).length;
+
+                if (number > 0) {
+                    return {
+                        name: item.title,
+                        value: item.value,
+                        number: number
+                    };
+                } else {
+                    return null;
+                }
+            }).filter((item: any) => item !== null)
+        });
     }
 
     return (
@@ -318,7 +567,7 @@ const Inventory = () => {
                     <NavInventory type={itemsType} typeWithFilter={typeWithFilter} sortByFunction={sortBy}
                         filterData={filterData} changeFilters={changeFilters} />
                 </section>
-                <ItemsInventory items={items} className={style['items-inventory']} type={itemsType} hasFilter={typeWithFilter.includes(itemsType)} />
+                <ItemsInventory items={items} className={style['items-inventory']} type={itemsType} hasFilter={typeWithFilter.includes(itemsType)} filters={filterData} />
             </div>
         </>
     );
