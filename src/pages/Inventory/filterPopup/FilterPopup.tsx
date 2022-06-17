@@ -60,11 +60,6 @@ const FilterPopup = ({
         }[];
     }
 }) => {
-
-    // tmp var
-    const [selectedFilters, setSelectedFilters] = React.useState([]);
-
-
     function toggleAttribute(attributeValue: string, itemValue: string) {
         // change isTmpSelected
         const newFilterData = {
@@ -151,7 +146,7 @@ const FilterPopup = ({
                 </header>
                 <div className={style.list}>
                     {
-                        filterData.items.map((item, index) => {
+                        filterData.items.map((item) => {
                             return (
                                 <ItemList
                                     title={item.title}

@@ -88,9 +88,7 @@ const NavInventory = ({
     const [sortPopupIsOpen, setSortPopupIsOpen] = React.useState(false);
 
     function changeSort(sortType: string) {
-        console.log('change sort to ' + sortType);
-
-        setCurrentSortType(sortTypes.find(type => type.value === sortType) || sortTypes[0]);
+        setCurrentSortType(sortTypes.find(aType => aType.value === sortType) || sortTypes[0]);
 
         // sort items
         sortByFunction(sortType);

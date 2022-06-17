@@ -1,5 +1,4 @@
 import React from 'react';
-import { logout, useGetAccountInfo } from '@elrondnetwork/dapp-core';
 import HomeIcon from 'components/Icons/HomeIcon';
 import LabIcon from 'components/Icons/LabIcon';
 import MarketIcon from 'components/Icons/MarketIcon';

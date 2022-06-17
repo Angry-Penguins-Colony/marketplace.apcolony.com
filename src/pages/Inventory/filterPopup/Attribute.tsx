@@ -3,15 +3,17 @@ import CheckIcon from 'components/Icons/CheckIcon';
 import style from './attribute.module.scss';
 
 export const Attribute = ({
-    className = '', name, number, value, isSelected = false, isTmpSelected = false, toggle = function () {
+    className = '',
+    name,
+    number,
+    isTmpSelected = false,
+    toggle = function () {
         // do nothing
     }
 }: {
     className?: string;
     name: string;
     number: number;
-    value: string;
-    isSelected?: boolean;
     isTmpSelected?: boolean;
     toggle?: () => void;
 }) => {

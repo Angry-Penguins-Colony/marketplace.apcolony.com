@@ -40,8 +40,6 @@ export const ItemList = ({
                         key={attr.value}
                         name={attr.name}
                         number={attr.number}
-                        value={attr.value}
-                        isSelected={attr.isSelected}
                         isTmpSelected={attr.isTmpSelected}
                         toggle={() => toggleAttribute(attr.value, value)} />
                 ))}
