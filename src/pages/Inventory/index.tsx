@@ -1,6 +1,7 @@
 import * as React from 'react';
 import BackIcon from 'components/Icons/BackIcon';
 import DiscordIcon from 'components/Icons/DiscordIcon';
+import EditIcon from 'components/Icons/EditIcon';
 import KebabIcon from 'components/Icons/KebabIcon';
 import ShareIcon from 'components/Icons/ShareIcon';
 import TwitterIcon from 'components/Icons/TwitterIcon';
@@ -541,6 +542,17 @@ const Inventory = () => {
                         </div>
                     </p>
                 </header>
+
+                <div className={style['edit-background']}>
+                    <div className={style.content} onClick={
+                        () => {
+                            // TODO: add edit action
+                        }
+                    }>
+                        <p>edit background</p>
+                        <EditIcon className={style.icon} />
+                    </div>
+                </div>
 
                 <NavigationType className={style['navigation-type']} onChangeType={itemsTypeChange} itemsType={itemsType} />
 

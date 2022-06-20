@@ -161,6 +161,10 @@ body {
         }
     }
 
+    .edit-background {
+        display: none;
+    }
+
     #filter {
         display: flex;
         flex-direction: column;
@@ -288,6 +292,38 @@ body {
 
             .wallet-address {
                 width: 100%;
+            }
+        }
+
+        .edit-background {
+            grid-area: edit-background;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            padding-right: 40px;
+
+            .content {
+                display: flex;
+                gap: 7px;
+                border-radius: 999px;
+                border: 2px solid rgba(255, 255, 255, 0.8);
+                padding: 5px 15px;
+
+                position: relative;
+                top: -25px;
+
+                p {
+                    font-family: 'Config Rounded', sans-serif;
+                    font-weight: 500;
+                    font-size: 1.2rem;
+                    color: rgba(255, 255, 255, 0.8);
+                    text-transform: capitalize;
+                }
+
+                .icon {
+                    fill: rgba(255, 255, 255, 0.8);
+                    height: 1.2rem;
+                }
             }
         }
 
