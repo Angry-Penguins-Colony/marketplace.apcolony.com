@@ -63,6 +63,7 @@
             justify-content: center;
             align-items: center;
             margin-right: 5px;
+            cursor: pointer;
 
             .icon-sort {
                 fill: white;
@@ -87,6 +88,7 @@
             background-color: $primary;
             border-color: $primary;
             margin: 0 5px;
+            cursor: pointer;
 
             svg {
                 stroke: white;
@@ -139,6 +141,8 @@
         top: 0;
         right: -0.5rem;
         z-index: 1;
+
+        cursor: pointer;
 
         .icon {
             fill: white;

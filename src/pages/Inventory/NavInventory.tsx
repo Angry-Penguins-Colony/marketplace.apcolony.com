@@ -100,6 +100,30 @@ const NavInventory = ({
         setSortPopupIsOpen(!sortPopupIsOpen);
     }
 
+
+    function resetFilters() {
+        // replace all isTmpSelected and isSelected to false
+        const newFilterData = {
+            ...filterData,
+            items: filterData.items.map(item => {
+                return {
+                    ...item,
+                    attributes: item.attributes.map(attribute => {
+                        return {
+                            ...attribute,
+                            isTmpSelected: false,
+                            isSelected: false
+                        };
+                    }
+                    )
+                };
+            }
+            )
+        };
+
+        changeFilters(newFilterData);
+    }
+
     return (
         <>
             {
@@ -146,14 +170,7 @@ const NavInventory = ({
                                 {
                                     filterData.selected.length > 0 && (
                                         <div className={style['reset-filter'] + ' ' + style.desktop}
-                                            onClick={() => {
-                                                changeFilters(
-                                                    {
-                                                        ...filterData,
-                                                        selected: []
-                                                    }
-                                                );
-                                            }} >
+                                            onClick={resetFilters} >
                                             <CrossIcon className={style.icon} />
                                         </div>
                                     )
@@ -162,14 +179,7 @@ const NavInventory = ({
                             {
                                 filterData.selected.length > 0 && (
                                     <div className={style['reset-filter'] + ' ' + style.mobile}
-                                        onClick={() => {
-                                            changeFilters(
-                                                {
-                                                    ...filterData,
-                                                    selected: []
-                                                }
-                                            );
-                                        }} >
+                                        onClick={resetFilters} >
                                         <CrossIcon className={style.icon} />
                                     </div>
                                 )

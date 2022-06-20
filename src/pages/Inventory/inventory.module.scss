@@ -151,6 +151,8 @@ body {
             }
 
             .share {
+                cursor: pointer;
+
                 .icon {
                     fill: $primary;
                     width: 1.2em;

@@ -24,6 +24,7 @@
     .header {
         display: flex;
         gap: 25px;
+        cursor: pointer;
 
         .icon {
             img {
@@ -60,5 +61,6 @@
         display: flex;
         flex-direction: column;
         gap: 8px;
+        margin-top: 8px;
     }
 }
