@@ -1,6 +1,66 @@
 @import './../../../assets/sass/var.scss';
 
 footer#main-footer {
+    display: none;
+
+    form#newsletter-form {
+        position: relative;
+        width: fit-content;
+
+        input {
+            border-radius: 999px;
+            padding: 0.8rem 1.6rem;
+            border: none;
+            padding-right: 105px;
+            font-family: 'Config Rounded', sans-serif;
+            font-weight: bold;
+            font-size: 1.2rem;
+
+            &::placeholder {
+                color: rgba(0, 0, 0, 0.7);
+            }
+        }
+
+        button {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+
+            background-color: $primary;
+            border: none;
+            border-radius: 999px;
+            font-size: 1.2rem;
+            color: white;
+            font-family: 'Config Rounded', sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 0.8rem 1.6rem;
+        }
+    }
+
+    .social {
+        display: flex;
+        gap: 10px;
+
+        .icon {
+            overflow: hidden;
+            border-radius: 9999px;
+            border: $primary 2px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background-color: white;
+
+            svg {
+                fill: $primary;
+                width: 15px;
+            }
+        }
+    }
+
     .newsletter {
         display: flex;
         flex-direction: column;
@@ -9,7 +69,7 @@ footer#main-footer {
         gap: 2rem;
 
         background: url('./../../../assets/img/newsletter-bg.png') no-repeat center top;
-        padding: 60px 20px;
+        padding: 60px 20px 120px 20px;
 
         h2 {
             font-family: 'CHEDROS', sans-serif;
@@ -20,63 +80,129 @@ footer#main-footer {
             text-transform: uppercase;
         }
 
-        form {
-            position: relative;
+        .social {
+            margin-top: 10px;
+        }
+    }
 
-            input {
-                border-radius: 999px;
-                padding: 0.8rem 1.6rem;
-                border: none;
-                padding-right: 105px;
-                font-family: 'Config Rounded', sans-serif;
+    .footer {
+        background-color: white;
+        border-radius: 60px 60px 0 0;
+        position: relative;
+        top: -60px;
+        padding: 0 60px;
+
+        &::after {
+            content: "";
+            position: absolute;
+            height: 60px;
+            background-color: white;
+            left: 0;
+            right: 0;
+        }
+
+        > * {
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        .main {
+            padding: 25px 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #080d2680;
+            display: grid;
+            grid-template-columns: 2fr 2fr 3fr;
+            grid-template-rows: auto;
+            grid-template-areas: auto;
+            grid-gap: 30px;
+
+            h2 {
+                font-family: 'CHEDROS', sans-serif;
+                font-size: 1.5rem;
                 font-weight: bold;
-                font-size: 1.2rem;
+                color: #242424;
+                text-transform: uppercase;
+                margin-bottom: 1rem;
+            }
 
-                &::placeholder {
-                    color: rgba(0, 0, 0, 0.7);
+            form#newsletter-form {
+                left: -1rem;
+
+                input {
+                    background-color: #E9EEF2;
                 }
             }
 
-            button {
-                position: absolute;
-                right: 0;
-                top: 0;
-                bottom: 0;
+            .nav {
 
-                background-color: $primary;
-                border: none;
-                border-radius: 999px;
-                font-size: 1.2rem;
-                color: white;
-                font-family: 'Config Rounded', sans-serif;
-                font-weight: bold;
-                text-transform: uppercase;
-                padding: 0.8rem 1.6rem;
+                .content {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 2rem;
+
+                    .column {
+
+                        display: flex;
+                        flex-direction: column;
+                        gap: 1rem;
+
+                        a {
+                            font-family: 'Config Rounded', sans-serif;
+                            font-weight: 500;
+                            font-size: 1.2rem;
+                            color: #242424;
+                        }
+                    }
+                }
+            }
+
+            .join-us {
+                form {
+                    margin-bottom: 1rem;
+                }
+
+                .info {
+                    font-family: 'Config Rounded', sans-serif;
+                    font-style: italic;
+                    color: #24242480;
+                    margin-bottom: 1rem;
+                }
             }
         }
 
-        .join-us {
-            .social {
+        .privacy {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+
+            .webdesign-by {
                 display: flex;
-                gap: 10px;
-                position: relative;
-                top: -10px;
+                gap: 4px;
+                align-items: center;
 
-                .icon {
-                    overflow: hidden;
-                    border-radius: 9999px;
-                    border: $primary 2px solid;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 30px;
-                    height: 30px;
-                    background-color: white;
+                span {
+                    color: #3D3D3D;
+                    font-family: 'Config Rounded', sans-serif;
+                    font-size: 1rem;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                }
 
-                    svg {
-                        fill: $primary;
-                        width: 15px;
-                    }
+                svg {
+                    height: 0.6rem;
+                    fill: #242424;
+                }
+            }
+
+            .privacy-policy {
+                display: flex;
+                gap: 15px;
+
+                a {
+                    color: rgba(36, 36, 36, 0.5);
+                    font-family: 'Config Rounded', sans-serif;
+                    font-size: 1.1rem;
+                    font-weight: 600;
                 }
             }
         }
@@ -84,4 +210,33 @@ footer#main-footer {
 }
 
 // desktop
-@media (min-width:800px) {}
+@media (max-width:1000px) {
+    footer#main-footer {
+        .footer {
+            .main {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
+                grid-template-areas: "a b"
+                    "c c";
+
+                .logo {
+                    grid-area: a;
+                }
+
+                .nav {
+                    grid-area: b;
+                }
+
+                .join-us {
+                    grid-area: c;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width:800px) {
+    footer#main-footer {
+        display: block;
+    }
+}
