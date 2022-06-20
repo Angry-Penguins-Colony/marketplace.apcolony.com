@@ -15,7 +15,7 @@
         top: 100%;
     }
 
-    > .close {
+    .close {
         background-color: #5078DF;
         border-radius: 999px;
         height: 2.8rem;
@@ -24,14 +24,17 @@
         display: flex;
         justify-content: center;
         align-items: center;
-
-        margin: 36px 45px 15px auto;
+        cursor: pointer;
 
         svg {
             fill: white;
             width: 0.9rem;
             height: auto;
         }
+    }
+
+    > .close {
+        margin: 36px 45px 15px auto;
     }
 
     .content {
@@ -43,6 +46,15 @@
 
         > header {
             margin: 0 50px;
+            position: relative;
+
+            .close {
+                display: none;
+                position: absolute;
+                top: -5px;
+                right: -20px;
+                border: white solid 1px;
+            }
 
             h2 {
                 font-family: 'CHEDROS', sans-serif;
@@ -126,6 +138,28 @@
                     color: $primary;
                 }
 
+            }
+        }
+    }
+}
+
+// desktop
+@media (min-width:800px) {
+    .popup {
+        > .close {
+            display: none;
+        }
+
+        .content {
+            max-width: 500px;
+            margin: auto;
+            border-radius: 20px;
+            margin-top: 45px;
+
+            > header {
+                .close {
+                    display: flex;
+                }
             }
         }
     }

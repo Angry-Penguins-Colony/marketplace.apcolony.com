@@ -138,6 +138,9 @@ const FilterPopup = ({
             </div>
             <div className={style.content}>
                 <header>
+                    <div className={style.close} onClick={closeFilter}>
+                        <CrossIcon />
+                    </div>
                     <h2>Properties</h2>
                     <div className={style['search-bar']}>
                         <SearchIcon />
