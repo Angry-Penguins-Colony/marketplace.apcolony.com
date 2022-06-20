@@ -9,6 +9,11 @@ import ItemsInventory from './ItemsInventory';
 import NavigationType from './NavigationType';
 import NavInventory from './NavInventory';
 
+// TODO
+// - bind number of element at left
+// - bind number of element in filter popup
+// - do search bar in filter ? thinks not
+
 const typeWithFilter = ['penguins'];
 
 const Inventory = () => {
@@ -542,19 +547,19 @@ const Inventory = () => {
                 <section id={style.filter}>
                     <div className={style['number-items']}>
                         <div className={style.item}>
-                            <p className={style.number}>12</p>
+                            <p className={style.number}>{penguinsItems.length}</p>
                             <p className={style.name}>Penguins</p>
                         </div>
                         <div className={style.item}>
-                            <p className={style.number}>5</p>
+                            <p className={style.number}>{eggsItems.length}</p>
                             <p className={style.name}>Eggs</p>
                         </div>
                         <div className={style.item}>
-                            <p className={style.number}>45</p>
+                            <p className={style.number}>{itemsItems.length}</p>
                             <p className={style.name}>Items</p>
                         </div>
                         <div className={style.item}>
-                            <p className={style.number}>2</p>
+                            <p className={style.number}>?</p>
                             <p className={style.name}>Sold</p>
                         </div>
                     </div>
