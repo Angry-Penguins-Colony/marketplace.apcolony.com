@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Filters from './Filters';
 import style from './item-inventory.module.scss';
 
 const ItemsInventory = ({
@@ -12,25 +13,7 @@ const ItemsInventory = ({
     items: any[],
     type: string,
     hasFilter: boolean,
-    filters?: {
-        items: {
-            title: string;
-            value: string;
-            icon: string;
-            attributes: {
-                name: string;
-                number: number;
-                value: string;
-                isSelected: boolean;
-                isTmpSelected: boolean;
-            }[];
-        }[];
-        selected: {
-            name: string;
-            value: string;
-            number: number;
-        }[];
-    }
+    filters?: Filters
 }) => {
     const title = 'My ' + type.charAt(0).toUpperCase() + type.slice(1);
 

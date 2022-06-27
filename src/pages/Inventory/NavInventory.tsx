@@ -3,6 +3,7 @@ import CrossIcon from 'components/Icons/CrossIcon';
 import SettingIcon from 'components/Icons/SettingIcon';
 import SortIcon from 'components/Icons/SortIcon';
 import FilterPopup from './filterPopup/FilterPopup';
+import Filters from './Filters';
 import style from './nav-inventory.module.scss';
 
 const NavInventory = ({
@@ -24,44 +25,8 @@ const NavInventory = ({
     type: string,
     typeWithFilter: string[],
     sortByFunction?: (type: string) => void,
-    filterData?: {
-        items: {
-            title: string;
-            value: string;
-            icon: string;
-            attributes: {
-                name: string;
-                number: number;
-                value: string;
-                isSelected: boolean;
-                isTmpSelected: boolean;
-            }[];
-        }[];
-        selected: {
-            name: string;
-            value: string;
-            number: number;
-        }[];
-    },
-    changeFilters?: (filters: {
-        items: {
-            title: string;
-            value: string;
-            icon: string;
-            attributes: {
-                name: string;
-                number: number;
-                value: string;
-                isSelected: boolean;
-                isTmpSelected: boolean;
-            }[];
-        }[];
-        selected: {
-            name: string;
-            value: string;
-            number: number;
-        }[];
-    }) => void
+    filterData?: Filters,
+    changeFilters?: (filters: Filters) => void
 }) => {
     const [filterIsOpen, setFilterIsOpen] = React.useState(false);
 

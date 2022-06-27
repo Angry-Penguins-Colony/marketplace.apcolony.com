@@ -1,6 +1,7 @@
 import * as React from 'react';
 import CrossIcon from 'components/Icons/CrossIcon';
 import SearchIcon from 'components/Icons/SearchIcon';
+import Filters from '../Filters';
 import style from './filter-popup.module.scss';
 import { ItemList } from './ItemList';
 
@@ -19,46 +20,10 @@ const FilterPopup = ({
     className?: string,
     isOpen?: boolean,
     closeFilter?: () => void,
-    changeFilters?: (filters: {
-        items: {
-            title: string;
-            value: string;
-            icon: string;
-            attributes: {
-                name: string;
-                number: number;
-                value: string;
-                isSelected: boolean;
-                isTmpSelected: boolean;
-            }[];
-        }[];
-        selected: {
-            name: string;
-            value: string;
-            number: number;
-        }[];
-    },
+    changeFilters?: (filters: Filters,
         closePopup?: boolean
     ) => void,
-    filterData?: {
-        items: {
-            title: string;
-            value: string;
-            icon: string;
-            attributes: {
-                name: string;
-                number: number;
-                value: string;
-                isSelected: boolean;
-                isTmpSelected: boolean;
-            }[];
-        }[];
-        selected: {
-            name: string;
-            value: string;
-            number: number;
-        }[];
-    }
+    filterData?: Filters
 }) => {
     function toggleAttribute(attributeValue: string, itemValue: string) {
         // change isTmpSelected
