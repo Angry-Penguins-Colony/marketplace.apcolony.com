@@ -121,55 +121,55 @@ const Inventory = () => {
                 ]
             },
             {
-                image: '/Fargerik_bg-overlay.png',
+                image: '/img/Fargerik_bg-overlay.png',
                 name: 'Penguin #4',
                 score: 789,
                 added: '2002-01-01',
             },
             {
-                image: '/Fargerik_bg-overlay.png',
+                image: '/img/Fargerik_bg-overlay.png',
                 name: 'Penguin #5',
                 score: 9416,
                 added: '2019-01-01',
             },
             {
-                image: '/Fargerik_bg-overlay.png',
+                image: '/img/Fargerik_bg-overlay.png',
                 name: 'Penguin #6',
                 score: 16,
                 added: '2019-05-01',
             },
             {
-                image: '/Fargerik_bg-overlay.png',
+                image: '/img/Fargerik_bg-overlay.png',
                 name: 'Penguin #7',
                 score: 49,
                 added: '2019-12-01',
             },
             {
-                image: '/Fargerik_bg-overlay.png',
+                image: '/img/Fargerik_bg-overlay.png',
                 name: 'Penguin #8',
                 score: 837,
                 added: '2019-07-01',
             },
             {
-                image: '/Fargerik_bg-overlay.png',
+                image: '/img/Fargerik_bg-overlay.png',
                 name: 'Penguin #9',
                 score: 378,
                 added: '2019-08-01',
             },
             {
-                image: '/Fargerik_bg-overlay.png',
+                image: '/img/Fargerik_bg-overlay.png',
                 name: 'Penguin #10',
                 score: 3453,
                 added: '2019-01-10',
             },
             {
-                image: '/Fargerik_bg-overlay.png',
+                image: '/img/Fargerik_bg-overlay.png',
                 name: 'Penguin #11',
                 score: 387,
                 added: '2019-01-15',
             },
             {
-                image: '/Fargerik_bg-overlay.png',
+                image: '/img/Fargerik_bg-overlay.png',
                 name: 'Penguin #12',
                 score: 83,
                 added: '2019-01-21',
@@ -177,43 +177,43 @@ const Inventory = () => {
         ];
     const eggsItems = [
         {
-            image: '/Blue_egg.png',
+            image: '/img/eggs/Blue_egg.png',
             name: 'Egg #1'
         },
         {
-            image: '/Blue_egg.png',
+            image: '/img/eggs/Blue_egg.png',
             name: 'Egg #2'
         },
         {
-            image: '/Gold_egg.png',
+            image: '/img/eggs/Gold_egg.png',
             name: 'Egg #3'
         },
         {
-            image: '/Blue_egg.png',
+            image: '/img/eggs/Blue_egg.png',
             name: 'Egg #4'
         }
     ];
     const itemsItems = [
         {
-            image: '/CGS_Bec Piece EGLD_TK02.png',
+            image: '/img/items/CGS_Bec Piece EGLD_TK02.png',
             name: 'Beack #1',
             score: 3453,
             added: '2019-01-10',
         },
         {
-            image: '/CGS_Bec Piece EGLD_TK02.png',
+            image: '/img/items/CGS_Bec Piece EGLD_TK02.png',
             name: 'Beack #2',
             score: 7,
             added: '2020-01-10',
         },
         {
-            image: '/CGS_Bec Piece EGLD_TK02.png',
+            image: '/img/items/CGS_Bec Piece EGLD_TK02.png',
             name: 'Beack #3',
             score: 277,
             added: '2018-01-10',
         },
         {
-            image: '/CGS_Bec Piece EGLD_TK02.png',
+            image: '/img/items/CGS_Bec Piece EGLD_TK02.png',
             name: 'Beack #4',
             score: 9999,
             added: '2010-01-10',
@@ -290,7 +290,7 @@ const Inventory = () => {
             {
                 title: 'Background',
                 value: 'background',
-                icon: '/background_icon.png',
+                icon: '/img/icon/background_icon.png',
                 attributes: [
                     {
                         name: 'Blue Gradient',
@@ -318,7 +318,7 @@ const Inventory = () => {
             {
                 title: 'Hat',
                 value: 'hat',
-                icon: '/hat_icon.png',
+                icon: '/img/icon/hat_icon.png',
                 attributes: [
                     {
                         name: 'Blue Bitcoin Cap',
@@ -332,7 +332,7 @@ const Inventory = () => {
             {
                 title: 'Eyes',
                 value: 'eyes',
-                icon: '/eyes_icon.png',
+                icon: '/img/icon/eyes_icon.png',
                 attributes: [
                     {
                         name: 'Blue',
@@ -360,7 +360,7 @@ const Inventory = () => {
             {
                 title: 'Beak',
                 value: 'beak',
-                icon: '/beack_icon.png',
+                icon: '/img/icon/beack_icon.png',
                 attributes: [
                     {
                         name: 'Straw',
@@ -381,7 +381,7 @@ const Inventory = () => {
             {
                 title: 'Clothes',
                 value: 'clothes',
-                icon: '/clothes_icon.png',
+                icon: '/img/icon/clothes_icon.png',
                 attributes: [
                     {
                         name: 'Coat With Brown Fur',
@@ -402,7 +402,7 @@ const Inventory = () => {
             {
                 title: 'Weapons',
                 value: 'weapons',
-                icon: '/weapons_icon.png',
+                icon: '/img/icon/weapons_icon.png',
                 attributes: [
                     {
                         name: 'Snowboard',
@@ -430,7 +430,7 @@ const Inventory = () => {
             {
                 title: 'Skin',
                 value: 'skin',
-                icon: '/skin_icon.png',
+                icon: '/img/icon/skin_icon.png',
                 attributes: [
                     {
                         name: 'Claw Marks',
@@ -496,7 +496,7 @@ const Inventory = () => {
             <div id={style['desktop-header']}>
                 <header>
                     <div className={style.left}>
-                        <img src="/logo.png" alt="Logo Angry Penguins" />
+                        <img src="/img/logo/logo.png" alt="Logo Angry Penguins" />
                         <nav>
                             <div className={style.item}>Home</div>
                             <div className={style.item}>Shop</div>
@@ -514,7 +514,7 @@ const Inventory = () => {
                             </div>
                         </div>
                         <div className={style.profile}>
-                            <img src="/pingouin emperor.png" alt="Your profile image" />
+                            <img src="/img/pingouin emperor.png" alt="Your profile image" />
                         </div>
                     </div>
                 </header>

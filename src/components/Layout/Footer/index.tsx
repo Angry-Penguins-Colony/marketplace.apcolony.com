@@ -31,7 +31,7 @@ const Footer = () => {
       <div className={style.footer}>
         <div className={style.main}>
           <div className={style.logo}>
-            <img src="/logo-blue.svg" alt="logo Angry Penguins" />
+            <img src="/img/logo/logo-blue.svg" alt="logo Angry Penguins" />
           </div>
           <div className={style.nav}>
             <h2>Angry Penguins</h2>
