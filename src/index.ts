@@ -6,12 +6,13 @@ import config from "./config";
 import { CIDKvp } from "./structs/CIDKvp";
 import { UserSigner } from "@elrondnetwork/erdjs-walletcore/out";
 import 'dotenv/config'
+import { getSignerFromEnv } from "./utils";
 
 main();
 
 async function main() {
     console.log("Hello World");
-    const gateway = new Gateway(config.gatewayUrl, config.customisationContract, UserSigner.fromPem(process.env.CID_PEM ?? ""), config.gatewayOptions);
+    const gateway = new Gateway(config.gatewayUrl, config.customisationContract, getSignerFromEnv(), config.gatewayOptions);
 
     while (true) {
 

@@ -1,5 +1,30 @@
+import { UserSigner } from "@elrondnetwork/erdjs-walletcore/out";
+import { ISigner } from "@elrondnetwork/erdjs-walletcore/out/interface";
+import { Address, IAddress } from "@elrondnetwork/erdjs/out";
+import "dotenv/config";
 
 export function requestsPerMinutesToMinTime(perMinutes: number): number {
     const perSeconds = perMinutes / 60;
     return 1 / perSeconds * 1000;
+}
+
+export function getRandomIn<T>(array: T[]): T {
+    return array[Math.floor(Math.random() * array.length)];
+}
+
+
+export function getSignerFromEnv(): ISigner {
+    return UserSigner.fromPem(getFromEnv("CID_PEM"));
+}
+
+export function getSenderAddress(): IAddress {
+    return new Address(getFromEnv("SENDER_BECH32"));
+}
+
+function getFromEnv(varName: string): string {
+    const value = process.env[varName];
+    if (!value) {
+        throw new Error(`Missing ${varName} environment variable.`);
+    }
+    return value;
 }

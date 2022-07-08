@@ -1,4 +1,5 @@
 import { capitalize } from "ts-apc-utils";
+import { getRandomIn } from "../utils";
 
 export default class RenderAttributes {
 
@@ -17,5 +18,27 @@ export default class RenderAttributes {
 
     public hasSlot(slot: string): boolean {
         return this._itemsBySlot.has(slot);
+    }
+
+    public static getRandom(): RenderAttributes {
+
+        const { minSlot, maxSlot, prefixes, itemsNames } = {
+            minSlot: 1,
+            maxSlot: 3,
+            prefixes: ["pirate", "cold", "french", "acidic", "flat", "jumpy", "graceful", "happy", "high", "icy", "immense", "precious", "sticky", "sweet", "tasty", "tender", "toxic", "warm", "wet", "wooden", "wonderful", "yellow", "zippy"],
+            itemsNames: ["hat", "shirt", "pants", "shoes"]
+        }
+
+        const itemsBySlot = new Map<string, string>();
+        const slot = Math.floor(Math.random() * (maxSlot - minSlot + 1)) + minSlot;
+
+        for (let i = 0; i <= slot; i++) {
+
+            const itemName = getRandomIn(prefixes) + " " + getRandomIn(itemsNames);
+
+            itemsBySlot.set("slot #" + i.toString(), itemName);
+        }
+
+        return new RenderAttributes(itemsBySlot);
     }
 }

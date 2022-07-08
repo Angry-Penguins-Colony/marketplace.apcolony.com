@@ -2,33 +2,21 @@ import { functionNames, officialGatewayMaxRPS } from "../const";
 import { CIDKvp } from "../structs/CIDKvp";
 import RenderAttributes from "../structs/RenderAttributes";
 import Bottleneck from "bottleneck";
-import { requestsPerMinutesToMinTime } from "../utils";
+import { getSenderAddress, requestsPerMinutesToMinTime } from "../utils";
 import { IAddress, IContractFunction, ISmartContract, SmartContract, StringValue, Transaction, TransactionPayload } from "@elrondnetwork/erdjs/out";
 import fetch from "node-fetch";
 import GatewayOnNetwork from "./GatewayOnNetwork";
 import { ISigner } from "@elrondnetwork/erdjs-walletcore/out/interface";
 import { INetworkProvider } from "@elrondnetwork/erdjs-network-providers/out/interface";
 import { ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
+import { TransactionResult } from "../interfaces/TransactionResult";
+import { IGatewayOptions } from "../interfaces/IGatewayOptions";
 
-
-interface TransactionResult {
-    nonce: number;
-    hash: string;
-}
-
-export interface GatewayOptions {
-    readGateway?: {
-        url: string;
-        maxRPS: number,
-        maxConcurrent: number
-    }
-}
 
 export default class Gateway {
 
     private readonly _customisationContract: ISmartContract;
     private readonly _signer: ISigner;
-    private readonly _networkProvider: INetworkProvider;
     private readonly _readGateway: string;
     private readonly _readGatewayLimiter: Bottleneck;
 
@@ -39,19 +27,13 @@ export default class Gateway {
         gatewayUrl: string,
         customisationContractAddress: IAddress,
         signer: ISigner,
-        options?: GatewayOptions
+        options?: IGatewayOptions
     ) {
 
         this._readGateway = options?.readGateway?.url ?? gatewayUrl;
         this._signer = signer;
-
-        this._networkProvider = new ProxyNetworkProvider(gatewayUrl, {
-            timeout: 60000
-        });
         this._customisationContract = new SmartContract({ address: customisationContractAddress });
-        this._gatewayOnNetwork = new GatewayOnNetwork(this._networkProvider);
-
-
+        this._gatewayOnNetwork = new GatewayOnNetwork(gatewayUrl, getSenderAddress());
 
         this._readGatewayLimiter = new Bottleneck({
             maxConcurrent: options?.readGateway?.maxConcurrent ?? 1,
@@ -63,9 +45,7 @@ export default class Gateway {
     public async getToBuildQueue(): Promise<RenderAttributes[]> {
 
         const json = await this.query(this._customisationContract.getAddress(), functionNames.getImagesToRender);
-        const data = json.data.data;
-
-        console.log(data);
+        console.log(json.data);
 
         throw new Error("Method not implemented.");
     }
@@ -96,21 +76,7 @@ export default class Gateway {
             chainID: this._gatewayOnNetwork.networkConfig.ChainID,
         });
 
-        return this.sendTransaction(tx);
-    }
-
-    private async sendTransaction(tx: Transaction): Promise<TransactionResult> {
-        await this._gatewayOnNetwork.sync();
-
-        const nonce = this._gatewayOnNetwork.nonce;
-        tx.setNonce(nonce);
-        this._gatewayOnNetwork.incrementNonce();
-
-        await this._signer.sign(tx);
-
-        const hash = await this._networkProvider.sendTransaction(tx);
-
-        return { hash, nonce };
+        return this._gatewayOnNetwork.sendTransaction(tx, this._signer);
     }
 
     private async query(address: IAddress, funcName: string, args: [] = []) {
