@@ -4,6 +4,7 @@ import RenderAttributes from "../structs/RenderAttributes";
 import Bottleneck from "bottleneck";
 import { requestsPerMinutesToMinTime } from "../utils";
 import { IAddress, IContractFunction, ISmartContract, SmartContract } from "@elrondnetwork/erdjs/out";
+import fetch from "node-fetch";
 
 export interface GatewayOptions {
     readGateway?: {

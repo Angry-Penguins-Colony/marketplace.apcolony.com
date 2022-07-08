@@ -1,16 +1,9 @@
-import { Address, IAddress } from "@elrondnetwork/erdjs/out";
-import { GatewayOptions } from "./classes/Gateway";
+import { Address } from "@elrondnetwork/erdjs/out";
+import { IConfig } from "./interfaces/IConfig";
 
-interface Config {
-    msBetweenUpdate: number;
-    gatewayUrl: string;
-    customisationContract: IAddress;
-    gatewayOptions?: GatewayOptions;
-}
-
-const config: Config = {
+const config: IConfig = {
     msBetweenUpdate: 500,
-    gatewayUrl: "",
+    gatewayUrl: "https://devnet-gateway.elrond.com",
     customisationContract: new Address(""),
 };
 

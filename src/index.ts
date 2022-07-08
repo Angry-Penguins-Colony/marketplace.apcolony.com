@@ -1,11 +1,9 @@
 import { sleep } from "ts-apc-utils";
 import Gateway from "./classes/Gateway";
-import IRender from "./classes/IRender";
+import IRender from "./interfaces/IRender";
 import Renderer from "./classes/Renderer";
 import config from "./config";
 import { CIDKvp } from "./structs/CIDKvp";
-import RenderAttributes from "./structs/RenderAttributes";
-
 
 main();
 
