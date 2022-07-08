@@ -1,9 +1,10 @@
 import { NetworkConfig, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import { INetworkProvider } from "@elrondnetwork/erdjs-network-providers/out/interface";
 import { ISigner } from "@elrondnetwork/erdjs-walletcore/out/interface";
-import { IAddress, Transaction } from "@elrondnetwork/erdjs/out";
+import { IAddress, ISmartContract, StringValue, Transaction, TransactionPayload } from "@elrondnetwork/erdjs/out";
 import { sleep } from "ts-apc-utils";
 import { TransactionResult } from "../interfaces/TransactionResult";
+import { CIDKvp } from "../structs/CIDKvp";
 
 
 enum SyncState {
@@ -13,7 +14,7 @@ enum SyncState {
 }
 
 
-export default class GatewayOnNetwork {
+export default class WriteGateway {
 
     private _opt_nonce: number | undefined = undefined;
     private _opt_networkConfig: NetworkConfig | undefined;
@@ -21,6 +22,7 @@ export default class GatewayOnNetwork {
 
     private readonly _senderAddress: IAddress;
     private readonly _networkProvider: INetworkProvider
+    private readonly _signer: ISigner;
 
     private get nonce(): number {
         if (!this._opt_nonce) {
@@ -38,15 +40,12 @@ export default class GatewayOnNetwork {
         return this._opt_networkConfig;
     }
 
-    constructor(gatewayUrl: string, senderAddress: IAddress) {
+    constructor(gatewayUrl: string, senderAddress: IAddress, signer: ISigner) {
         this._networkProvider = new ProxyNetworkProvider(gatewayUrl, {
             timeout: 60000
         });
         this._senderAddress = senderAddress;
-    }
-
-    public incrementNonce(): void {
-        this._opt_nonce = this.nonce + 1;
+        this._signer = signer;
     }
 
     public async sync() {
@@ -76,14 +75,43 @@ export default class GatewayOnNetwork {
         }
     }
 
-    public async sendTransaction(tx: Transaction, signer: ISigner): Promise<TransactionResult> {
+    public async setCid(cid: CIDKvp[], customisationContract: ISmartContract): Promise<TransactionResult> {
+        if (cid.length == 0) throw new Error("No CID to send");
+
+        await this.sync();
+
+        const func = { name: "setCidOf" };
+        const args = cid
+            .flatMap(({ cid, attributes }) => [
+                new StringValue(attributes.toAttributes()),
+                new StringValue(cid)
+            ]);
+
+        let payload = TransactionPayload.contractCall()
+            .setFunction(func)
+            .setArgs(args)
+            .build();
+
+        const tx = customisationContract.call({
+            func: func,
+            args: args,
+            value: "",
+            gasLimit: (cid.length * 7_000_000) + payload.length() * 1500,
+            gasPrice: this.networkConfig.MinGasPrice,
+            chainID: this.networkConfig.ChainID,
+        });
+
+        return this.sendTransaction(tx);
+    }
+
+    public async sendTransaction(tx: Transaction): Promise<TransactionResult> {
         await this.sync();
 
         const nonce = this.nonce;
         tx.setNonce(nonce);
-        this.incrementNonce();
+        this._opt_nonce = this.nonce + 1;
 
-        await signer.sign(tx);
+        await this._signer.sign(tx);
 
         const hash = await this._networkProvider.sendTransaction(tx);
 

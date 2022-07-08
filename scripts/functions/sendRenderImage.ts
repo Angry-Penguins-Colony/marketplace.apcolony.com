@@ -1,13 +1,13 @@
 import { SmartContract, StringValue, TransactionPayload } from "@elrondnetwork/erdjs/out";
-import GatewayOnNetwork from "../../src/classes/GatewayOnNetwork";
+import WriteGateway from "../../src/classes/WriteGateway";
 import config from "../../src/config";
 import RenderAttributes from "../../src/structs/RenderAttributes";
-import { getSenderAddress, getSignerFromEnv } from "../../src/utils";
+import { envVariables } from "../../src/utils";
 
 export async function sendRenderImage(attributes: RenderAttributes) {
 
     const smartContract = new SmartContract({ address: config.customisationContract });
-    const gatewayOnNetwork = new GatewayOnNetwork(config.gatewayUrl, getSenderAddress());
+    const gatewayOnNetwork = new WriteGateway(config.gatewayUrl, envVariables.senderAddress, envVariables.signer);
 
     await gatewayOnNetwork.sync();
 
@@ -23,5 +23,5 @@ export async function sendRenderImage(attributes: RenderAttributes) {
     });
 
 
-    return gatewayOnNetwork.sendTransaction(tx, getSignerFromEnv());
+    return gatewayOnNetwork.sendTransaction(tx);
 }

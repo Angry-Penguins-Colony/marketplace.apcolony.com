@@ -1,24 +1,27 @@
 import { sleep } from "ts-apc-utils";
-import Gateway from "./classes/Gateway";
+import ReadGateway from "./classes/ReadGateway";
 import IRender from "./interfaces/IRender";
 import Renderer from "./classes/Renderer";
 import config from "./config";
 import { CIDKvp } from "./structs/CIDKvp";
-import { UserSigner } from "@elrondnetwork/erdjs-walletcore/out";
 import 'dotenv/config'
-import { getSignerFromEnv } from "./utils";
+import WriteGateway from "./classes/WriteGateway";
+import { envVariables } from "./utils";
+import { SmartContract } from "@elrondnetwork/erdjs/out";
 
 main();
 
 async function main() {
-    console.log("Hello World");
-    const gateway = new Gateway(config.gatewayUrl, config.customisationContract, getSignerFromEnv(), config.gatewayOptions);
+
+    const readGateway = new ReadGateway(config.gatewayUrl, config.customisationContract, config.gatewayOptions);
+    const writeGateway = new WriteGateway(config.gatewayUrl, envVariables.senderAddress, envVariables.signer);
+    const customisationSC = new SmartContract({ address: config.customisationContract });
 
     while (true) {
 
-        const queue = await gateway.getToBuildQueue();
+        const queue = await readGateway.getToBuildQueue();
 
-        console.log(`Processing ${queue.length} elements fromm the rendering queue...`)
+        console.log(`Processing ${queue.length} elements from the rendering queue...`)
 
         if (queue.length > 0) {
             const render: IRender = new Renderer();
@@ -31,7 +34,7 @@ async function main() {
 
             const cid = await Promise.all(promise_cid) as CIDKvp[];
 
-            await gateway.setCid(cid);
+            await writeGateway.setCid(cid, customisationSC);
         }
 
         await sleep(config.msBetweenUpdate)

@@ -12,14 +12,12 @@ export function getRandomIn<T>(array: T[]): T {
     return array[Math.floor(Math.random() * array.length)];
 }
 
-
-export function getSignerFromEnv(): ISigner {
-    return UserSigner.fromPem(getFromEnv("CID_PEM"));
+export const envVariables = {
+    signer: UserSigner.fromPem(getFromEnv("CID_PEM")),
+    senderAddress: Address.fromString(getFromEnv("CID_ADDRESS")),
 }
 
-export function getSenderAddress(): IAddress {
-    return new Address(getFromEnv("SENDER_BECH32"));
-}
+Object.freeze(envVariables)
 
 function getFromEnv(varName: string): string {
     const value = process.env[varName];
