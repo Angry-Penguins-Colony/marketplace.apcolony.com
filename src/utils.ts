@@ -13,8 +13,8 @@ export function getRandomIn<T>(array: T[]): T {
 }
 
 export const envVariables = {
-    signer: UserSigner.fromPem(getFromEnv("CID_PEM")),
-    senderAddress: Address.fromString(getFromEnv("CID_ADDRESS")),
+    signer: UserSigner.fromPem(getFromEnv("SENDER_PEM")),
+    senderAddress: Address.fromString(getFromEnv("SENDER_BECH32")),
 }
 
 Object.freeze(envVariables)
