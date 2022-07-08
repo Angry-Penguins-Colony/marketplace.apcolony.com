@@ -11,7 +11,7 @@ main();
 
 async function main() {
     console.log("Hello World");
-    const gateway = new Gateway(config.gatewayUrl);
+    const gateway = new Gateway(config.gatewayUrl, config.customisationContract, config.gatewayOptions);
 
     while (true) {
 
