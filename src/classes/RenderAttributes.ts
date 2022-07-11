@@ -1,25 +1,39 @@
 import { capitalize, sortImages } from "../utils/utils";
 import { Request } from 'express';
-import Config from "./config";
+
+interface ICidGetter {
+    getCid(slot: string, itemName: string): string
+}
 
 /**
  * The items to render.
  */
 export default class RenderAttributes {
 
-    public readonly config: Config;
+    private readonly _cidGetter: ICidGetter;
+    private readonly _layersOrder: string[];
+    private readonly _defaultLayers: { [key: string]: string; };
+
     private readonly _itemsBySlot: Map<string, string>;
 
     public get itemsBySlot(): Map<string, string> {
         return new Map<string, string>(this._itemsBySlot);
     }
 
-    constructor(itemsBySlot: Iterable<readonly [string, string]>, config: Config) {
+    constructor(
+        itemsBySlot: Iterable<readonly [string, string]>,
+        cidGetter: ICidGetter,
+        layersOrder: string[],
+        defaultLayers: { [key: string]: string; }
+    ) {
 
-        this.config = config;
+        this._cidGetter = cidGetter;
+        this._layersOrder = layersOrder;
+        this._defaultLayers = defaultLayers;
 
         this._itemsBySlot = new Map<string, string>(itemsBySlot);
         this.addDefaultValues(this._itemsBySlot);
+
     }
 
     public toAttributes() {
@@ -51,7 +65,7 @@ export default class RenderAttributes {
 
         if (!item) throw "Missing item";
 
-        return this.config.getCid(slot, item);
+        return this._cidGetter.getCid(slot, item);
     }
 
     public hasSlot(slot: string): boolean {
@@ -60,9 +74,9 @@ export default class RenderAttributes {
 
     public doEquipDefaultItem(slot: string): boolean {
 
-        if (!this.config.defaultLayers) return false;
+        if (!this._defaultLayers) return false;
 
-        const defaultItem = this.config.defaultLayers[slot];
+        const defaultItem = this._defaultLayers[slot];
         const currentItem = this._itemsBySlot.get(slot);
 
         return defaultItem == currentItem;
@@ -70,20 +84,21 @@ export default class RenderAttributes {
 
     public toPaths(): string[] {
 
-        if (!this.config) throw "Missing config";
-
         const paths: [string, string][] = [];
 
         this._itemsBySlot.forEach((item, slot) => {
-            if (!this.config) throw "Missing config";
-            paths.push([slot, this.toPath(slot, item, this.config)]);
+            paths.push([slot, this.toPath(slot, item)]);
         });
 
-        return sortImages(paths, this.config.layersOrder)
+        return sortImages(paths, this._layersOrder)
             .map(kvp => kvp[1]);
     }
 
-    public static fromRequest(req: Request, config: Config) {
+    public static fromRequest(
+        req: Request,
+        cidGetter: ICidGetter,
+        layersOrder: string[],
+        defaultLayers: { [key: string]: string; }) {
         const itemsBySlot = new Map<string, string>();
 
         for (const key in req.query) {
@@ -92,18 +107,21 @@ export default class RenderAttributes {
             itemsBySlot.set(key, value.toString());
         }
 
-        return new RenderAttributes(itemsBySlot, config);
+        return new RenderAttributes(
+            itemsBySlot,
+            cidGetter,
+            layersOrder,
+            defaultLayers
+        );
     }
 
     private addDefaultValues(itemsBySlot: Map<string, string>) {
 
-        if (!this.config) throw "Missing config";
-
-        for (const slot in this.config.defaultLayers) {
+        for (const slot in this._defaultLayers) {
 
             if (itemsBySlot.has(slot)) continue;
 
-            const defaultImage = this.config.defaultLayers[slot];
+            const defaultImage = this._defaultLayers[slot];
 
             if (defaultImage != undefined) {
                 itemsBySlot.set(slot, defaultImage);
@@ -112,7 +130,7 @@ export default class RenderAttributes {
     }
 
     // TODO: move to IPFS cache class
-    private toPath(slot: string, filename: string, config: Config) {
-        return "./ipfscache/" + config.getCid(slot, filename) + ".png";
+    private toPath(slot: string, filename: string) {
+        return "./ipfscache/" + this._cidGetter.getCid(slot, filename) + ".png";
     }
 }

@@ -68,7 +68,7 @@ export default class Config {
         }
     }
 
-    public getCid(slot: string, itemName: string) {
+    public getCid(slot: string, itemName: string): string {
 
         for (const plugin of this.plugins) {
             if (plugin.getCID) {
