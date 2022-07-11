@@ -13,7 +13,7 @@ main();
 
 async function main() {
 
-    const readGateway = new ReadGateway(config.gatewayUrl, config.customisationContract, config.gatewayOptions);
+    const readGateway = new ReadGateway(config.gatewayUrl, config.customisationContract, config.readGatewayOptions);
     const writeGateway = new WriteGateway(config.gatewayUrl, envVariables.senderAddress, envVariables.signer);
     const customisationSC = new SmartContract({ address: config.customisationContract });
 

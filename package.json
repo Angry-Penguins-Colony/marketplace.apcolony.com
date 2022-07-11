@@ -8,7 +8,8 @@
     "start:inspect": "node --inspect dist/src/index.js",
     "start:dev": "ts-node src/index.ts",
     "start:dev:watch": "nodemon src/index.ts",
-    "send:renderImage": "ts-node scripts/sendRenderImageRandom.ts"
+    "send:renderImage": "ts-node scripts/sendRenderImageRandom.ts",
+    "get:queue": "ts-node scripts/getToBuildQueue.ts"
   },
   "repository": {
     "type": "git",

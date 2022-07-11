@@ -5,13 +5,14 @@ import { requestsPerMinutesToMinTime } from "../utils";
 import { IAddress, ISmartContract, SmartContract } from "@elrondnetwork/erdjs/out";
 import fetch from "node-fetch";
 import { IGatewayOptions } from "../interfaces/IGatewayOptions";
+import { ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 
 
 export default class ReadGateway {
 
     private readonly _customisationContract: ISmartContract;
-    private readonly _readGateway: string;
-    private readonly _readGatewayLimiter: Bottleneck;
+    private readonly _gateway: ProxyNetworkProvider;
+    private readonly _requestLimiter: Bottleneck;
 
 
     constructor(
@@ -19,51 +20,34 @@ export default class ReadGateway {
         customisationContractAddress: IAddress,
         options?: IGatewayOptions
     ) {
+        this._gateway = new ProxyNetworkProvider(gatewayUrl);
 
-        this._readGateway = options?.readGateway?.url ?? gatewayUrl;
         this._customisationContract = new SmartContract({ address: customisationContractAddress });
 
-        this._readGatewayLimiter = new Bottleneck({
-            maxConcurrent: options?.readGateway?.maxConcurrent ?? 1,
-            minTime: requestsPerMinutesToMinTime(options?.readGateway?.maxRPS ?? officialGatewayMaxRPS)
+        this._requestLimiter = new Bottleneck({
+            maxConcurrent: options?.maxConcurrent ?? 1,
+            minTime: requestsPerMinutesToMinTime(options?.maxRPS ?? officialGatewayMaxRPS)
         });
     }
 
 
     public async getToBuildQueue(): Promise<RenderAttributes[]> {
 
-        const json = await this.query(this._customisationContract.getAddress(), functionNames.getImagesToRender);
-        console.log(json.data);
+        const output = await this._gateway.queryContract({
+            address: this._customisationContract.getAddress(),
+            func: {
+                toString(): string {
+                    return functionNames.getImagesToRender;
+                }
+            },
+            getEncodedArguments() {
+                return [];
+            },
+        });
+
+        const decodedData = output.returnData.map(data => Buffer.from(data, "base64").toString());
+        console.log(decodedData);
 
         throw new Error("Method not implemented.");
-    }
-
-    private async query(address: IAddress, funcName: string, args: [] = []) {
-        const res = await this._readGatewayLimiter.schedule(
-            fetch,
-            this._readGateway + "/vm-values/string",
-            {
-                method: "POST",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    "scAddress": address.bech32(),
-                    "funcName": funcName,
-                    "args": args
-                })
-            }
-        );
-
-        const json = await res.json();
-
-        if (json.data == null) {
-
-            console.log(json);
-            throw new Error("No data returned from the gateway. Got error message: " + json.error);
-        }
-
-        return json;
     }
 }

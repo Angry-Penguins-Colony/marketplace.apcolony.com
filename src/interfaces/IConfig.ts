@@ -5,5 +5,5 @@ export interface IConfig {
     msBetweenUpdate: number;
     gatewayUrl: string;
     customisationContract: IAddress;
-    gatewayOptions?: IGatewayOptions;
+    readGatewayOptions?: IGatewayOptions;
 }
