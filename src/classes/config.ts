@@ -19,6 +19,20 @@ export default class Config {
 
     readonly plugins: IPlugin[];
 
+    public get allCIDs(): string[] {
+        const cids = [] as string[];
+
+        for (const slotKey in this.itemsCID) {
+            for (const itemKey in this.itemsCID[slotKey]) {
+                const cid = this.itemsCID[slotKey][itemKey];
+                cids.push(cid);
+            }
+        }
+
+
+        return cids;
+    }
+
     constructor(config: IConfigOptions, plugins: IPlugin[] = []) {
 
         if (!config) throw new Error("config is undefined");
@@ -84,20 +98,6 @@ export default class Config {
         if (this.itemsCID[slot][itemName] == undefined) throw new UnknownItem(itemName, "getCid");
 
         return this.itemsCID[slot][itemName];
-    }
-
-    public allCIDs(): string[] {
-        const cids = [] as string[];
-
-        for (const slotKey in this.itemsCID) {
-            for (const itemKey in this.itemsCID[slotKey]) {
-                const cid = this.itemsCID[slotKey][itemKey];
-                cids.push(cid);
-            }
-        }
-
-
-        return cids;
     }
 
     public toPaths(renderAttributes: RenderAttributes): string[] {

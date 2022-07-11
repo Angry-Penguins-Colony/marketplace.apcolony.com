@@ -17,7 +17,7 @@ export default class IPFSCache {
     }
 
     public async downloadAllItemsCIDs(config: Config): Promise<void[]> {
-        return this.downloadCIDs(config.allCIDs());
+        return this.downloadCIDs(config.allCIDs);
     }
 
     public async downloadItems(renderAttributes: RenderAttributes, config: Config) {

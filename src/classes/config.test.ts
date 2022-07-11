@@ -16,7 +16,7 @@ describe("allCIDs", () => {
             }
         });
 
-        expect(config.allCIDs()).toEqual([
+        expect(config.allCIDs).toEqual([
             "Qmb6GRsRAxMfUHo9es7p8D9PNQSpejmfM2pRPExxAYkKF8",
             "QmY9fuMbpLoiG2T7VqyWJqhSsWkZukg9pN9oTCTXKHm4D1",
             "QmePoBRS7KkVV4ZF4Pb2Sc1f2gKDe5ow2zsEC2ajWFvKoJ",
@@ -28,7 +28,7 @@ describe("allCIDs", () => {
             itemsCID: {}
         });
 
-        expect(config.allCIDs()).toEqual([]);
+        expect(config.allCIDs).toEqual([]);
     })
 })
 

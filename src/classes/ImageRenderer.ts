@@ -20,9 +20,7 @@ export default class ImageRenderer {
     }
 
     public async downloadImages() {
-        const cid = this.config.allCIDs();
-
-        const downloadPromises = cid
+        const downloadPromises = this.config.allCIDs
             .map((cid) => this.ipfsCache.downloadCID(cid));
 
         await Promise.all(downloadPromises);
