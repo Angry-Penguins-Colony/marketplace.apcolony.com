@@ -45,9 +45,10 @@ export default class ReadGateway {
             },
         });
 
-        const decodedData = output.returnData.map(data => Buffer.from(data, "base64").toString());
-        console.log(decodedData);
+        const renderAttributes = output.returnData
+            .map(data => Buffer.from(data, "base64").toString())
+            .map(attributes => RenderAttributes.fromAttributes(attributes));
 
-        throw new Error("Method not implemented.");
+        return renderAttributes
     }
 }
