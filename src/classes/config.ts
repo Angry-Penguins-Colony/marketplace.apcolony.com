@@ -114,7 +114,7 @@ export default class Config {
     }
 
     private toPath(slot: string, filename: string) {
-        return "./ipfscache/" + this.getCid(slot, filename) + ".png";
+        return `./${this.ipfsCacheFolder}/${this.getCid(slot, filename)}.png`;
     }
 }
 
