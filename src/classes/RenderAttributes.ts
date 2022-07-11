@@ -7,7 +7,7 @@ import { capitalize } from "../utils/utils";
 export default class RenderAttributes {
 
     private readonly _layersOrder: string[];
-    private readonly _defaultLayers: { [key: string]: string; };
+    private readonly _defaultLayers: { [key: string]: string; } | undefined;
 
     private readonly _itemsBySlot: Map<string, string>;
 
@@ -35,7 +35,7 @@ export default class RenderAttributes {
     constructor(
         itemsBySlot: Iterable<readonly [string, string]>,
         layersOrder: string[],
-        defaultLayers: { [key: string]: string; }
+        defaultLayers?: { [key: string]: string; }
     ) {
 
         this._layersOrder = layersOrder;
