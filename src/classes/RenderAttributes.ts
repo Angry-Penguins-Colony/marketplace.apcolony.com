@@ -46,7 +46,7 @@ export default class RenderAttributes {
 
     }
 
-    public getAllKvps(): [string, string][] {
+    public getItemsBySlot(): [string, string][] {
         return Array.from(this._itemsBySlot.entries());
     }
 

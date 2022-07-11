@@ -105,7 +105,7 @@ export default class Config {
 
         const paths: [string, string][] = [];
 
-        renderAttributes.getAllKvps().forEach(([item, slot]) => {
+        renderAttributes.getItemsBySlot().forEach(([slot, item]) => {
             paths.push([slot, this.toPath(slot, item)]);
         });
 

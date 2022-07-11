@@ -22,7 +22,7 @@ export default class IPFSCache {
 
     public async downloadItems(renderAttributes: RenderAttributes, config: Config) {
 
-        const allCIDs = renderAttributes.getAllKvps()
+        const allCIDs = renderAttributes.getItemsBySlot()
             .map(([slot, item]) => config.getCid(slot, item));
 
         return this.downloadCIDs(allCIDs);
