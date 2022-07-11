@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { downloadImage, isCID } from '../utils/utils';
+import { downloadImage, isCID, sleep } from '../utils/utils';
 import Config from './config';
 import RenderAttributes from './RenderAttributes';
 import colors from "colors";
@@ -43,6 +43,7 @@ export default class IPFSCache {
         if (!fs.existsSync(savePathFolders)) fs.mkdirSync(savePathFolders, { recursive: true });
 
         await downloadImage(this._ipfsGateway + cid + "/" + cidPathSuffix, savePath);
+        await sleep(50); // sleep to let the file be written
         await this.assertImageInGoodFormat(savePath);
     }
 
