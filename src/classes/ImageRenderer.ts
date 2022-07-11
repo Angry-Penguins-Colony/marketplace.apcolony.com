@@ -3,7 +3,6 @@ import mergeImages from 'merge-images';
 import { Canvas, Image } from 'canvas';
 import IPlugin from "../interfaces/IPlugin";
 import colors from "colors";
-import { tryRewriteLogLine } from "../utils/utils";
 import Config from "./config";
 import IPFSCache from "./ipfscache";
 
@@ -22,23 +21,11 @@ export default class ImageRenderer {
 
     public async downloadImages() {
         const cid = this.config.allCIDs();
-        let downloadedImages = 0;
-        const totalImages = cid.length;
 
-        console.log(`⌛ Downloading ${totalImages} images async.`);
-
-        const downloadPromises = cid.map((cid) => {
-            return this.ipfsCache.downloadCID(cid)
-                .then(() => {
-                    downloadedImages++;
-
-                    tryRewriteLogLine(`⌛ Downloaded ${downloadedImages}/${totalImages} images.\r`);
-                })
-        });
+        const downloadPromises = cid
+            .map((cid) => this.ipfsCache.downloadCID(cid));
 
         await Promise.all(downloadPromises);
-
-        tryRewriteLogLine("✔ All images downloaded.\n");
     }
 
 

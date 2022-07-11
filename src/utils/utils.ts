@@ -99,14 +99,3 @@ export function requestsPerMinutesToMinTime(perMinutes: number): number {
 export function sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-
-
-export function tryRewriteLogLine(msg: string) {
-    if (process.stdout.clearLine && process.stdout.write) {
-        process.stdout.clearLine(0);
-        process.stdout.write(msg);
-    }
-    else {
-        console.log(msg);
-    }
-}
