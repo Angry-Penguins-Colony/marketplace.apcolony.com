@@ -43,10 +43,19 @@ export default class IPFSCache {
         if (!fs.existsSync(savePathFolders)) fs.mkdirSync(savePathFolders, { recursive: true });
 
         await downloadImage(this._ipfsGateway + cid + "/" + cidPathSuffix, savePath);
+        await this.assertImageInGoodFormat(savePath);
+    }
 
-        const depth = (await sharp(savePath).metadata()).depth;
+    private async assertImageInGoodFormat(path: string): Promise<void> {
+
+        const image = sharp(path);
+
+        const metadata = await image.metadata()
+            .catch((err) => { throw new Error(`Cannot get metadata of ${path}. The error is ` + err) });
+
+        const depth = metadata.depth;
         if (depth != "uchar") {
-            console.log(colors.yellow(`[WARNING] The image ${cid} is not encoded with the recommanded 8 bits per channel. This can lead to graphics errors.`));
+            throw new Error(`The image ${path} is not encoded with 8 bits per channel. NodeJS can't support it.`);
         }
     }
 
