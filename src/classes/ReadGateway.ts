@@ -33,6 +33,7 @@ export default class ReadGateway {
 
     public async getToBuildQueue(): Promise<RenderAttributes[]> {
 
+        // TODO: use _requestLimiter
         const output = await this._gateway.queryContract({
             address: this._customisationContract.getAddress(),
             func: {
