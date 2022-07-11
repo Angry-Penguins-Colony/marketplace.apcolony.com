@@ -1,10 +1,11 @@
-import IConfigOptions from "../../IConfigOptions";
+import IConfigOptions from "../../../interfaces/IConfigOptions";
 import RenderAttributes from "../../RenderAttributes";
 import { MissingSlot } from "../../../errors/configErrors";
 import { pad } from "../../../utils/utils";
-import IPlugin from "../IPlugin";
+import IPlugin from "../../../interfaces/IPlugin";
 import { CannotSetBadgeInDefaultLayers, CannotUseBadgeAsSlotName } from "./errors";
 import IBadgeConfig from "./IBadgeConfig";
+import IServices from "../../../interfaces/IServices";
 
 
 export default class BadgePlugin implements IPlugin {
@@ -23,19 +24,19 @@ export default class BadgePlugin implements IPlugin {
         return [this.badgeSlotName];
     }
 
-    isSyncPlugin() {
-        return false;
-    }
-
     getCID(slot: string, itemName: string): string | undefined {
 
         if (slot == this.badgeSlotName) {
-            const cid = this.config.badgesFolderCID + "/" + this.config.badgePrefix + pad(parseInt(itemName), 5) + this.config.badgeSuffix;
-            return cid;
+            return this.getBadgeCID(parseInt(itemName));
         }
         else {
             return undefined;
         }
+    }
+
+    getBadgeCID(number: number): string {
+        const cid = this.config.badgesFolderCID + "/" + this.config.badgePrefix + pad(number, 5) + this.config.badgeSuffix;
+        return cid;
     }
 
     checkConfig(config: IConfigOptions): boolean {
@@ -52,13 +53,17 @@ export default class BadgePlugin implements IPlugin {
         return true;
     }
 
-    async beforeRender(renderAttributes: RenderAttributes): Promise<RenderAttributes> {
+    async beforeRender(renderAttributes: RenderAttributes, services: IServices): Promise<RenderAttributes> {
         if (renderAttributes.hasSlot(this.badgeSlotName) == false) return renderAttributes;
 
         renderAttributes = this.tryUnequipBadge(renderAttributes) ?? renderAttributes;
 
         if (renderAttributes.hasSlot(this.badgeSlotName) == true) {
-            await ipfsCache.downloadCID(renderAttributes.getCid(this.badgeSlotName));
+
+            const item = renderAttributes.getItem(this.badgeSlotName);
+            const cid = this.getBadgeCID(parseInt(item));
+
+            await services.ipfsCache.downloadCID(cid);
         }
 
         return renderAttributes;
@@ -80,7 +85,7 @@ export default class BadgePlugin implements IPlugin {
         for (const [slot] of itemsBySlots) {
             if (deleteBadge.includes(slot) && !renderAttributes.doEquipDefaultItem(slot)) {
                 itemsBySlots.delete(this.badgeSlotName);
-                return new RenderAttributes(itemsBySlots, renderAttributes.config);
+                return new RenderAttributes(itemsBySlots, renderAttributes.layersOrder, renderAttributes.defaultLayers);
             }
         }
     }

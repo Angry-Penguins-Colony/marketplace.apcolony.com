@@ -1,33 +1,43 @@
-import { capitalize, sortImages } from "../utils/utils";
-import { Request } from 'express';
+import { capitalize } from "../utils/utils";
 
-interface ICidGetter {
-    getCid(slot: string, itemName: string): string
-}
 
 /**
  * The items to render.
  */
 export default class RenderAttributes {
 
-    private readonly _cidGetter: ICidGetter;
     private readonly _layersOrder: string[];
     private readonly _defaultLayers: { [key: string]: string; };
 
     private readonly _itemsBySlot: Map<string, string>;
 
+    /**
+     * Return a copy of itemsBySlot. Modify it will not modify the defaultLayers of the RenderAttributes.
+     */
     public get itemsBySlot(): Map<string, string> {
         return new Map<string, string>(this._itemsBySlot);
     }
 
+    /**
+     * Return a copy of layersOrder. Modify it will not modify the defaultLayers of the RenderAttributes.
+     */
+    public get layersOrder(): string[] {
+        return Array.from(this._layersOrder);
+    }
+
+    /**
+     * Return a copy of defaultLayers. Modify it will not modify the defaultLayers of the RenderAttributes.
+     */
+    public get defaultLayers(): { [key: string]: string; } {
+        return Object.assign({}, this._defaultLayers);
+    }
+
     constructor(
         itemsBySlot: Iterable<readonly [string, string]>,
-        cidGetter: ICidGetter,
         layersOrder: string[],
         defaultLayers: { [key: string]: string; }
     ) {
 
-        this._cidGetter = cidGetter;
         this._layersOrder = layersOrder;
         this._defaultLayers = defaultLayers;
 
@@ -36,36 +46,16 @@ export default class RenderAttributes {
 
     }
 
-    public toAttributes() {
-
-        return Array.from(this._itemsBySlot.entries())
-            .filter(([slot]) => !this.doEquipDefaultItem(slot))
-            .map(entry => capitalize(entry[0]) + ":" + capitalize(entry[1].replace("-", " ")))
-            .join(";");
+    public getAllKvps(): [string, string][] {
+        return Array.from(this._itemsBySlot.entries());
     }
 
-    public toFilename() {
-        return Array.from(this._itemsBySlot.entries())
-            .map(entry => entry[0] + "_" + entry[1])
-            .join("+");
-    }
-
-    public allCIDs(): string[] {
-        const allCIDs = [] as string[];
-
-        for (const [slot] of this._itemsBySlot) {
-            allCIDs.push(this.getCid(slot));
-        }
-
-        return allCIDs;
-    }
-
-    public getCid(slot: string) {
+    public getItem(slot: string): string {
         const item = this._itemsBySlot.get(slot);
 
-        if (!item) throw "Missing item";
+        if (!item) throw new Error("Missing item for slot: " + slot);
 
-        return this._cidGetter.getCid(slot, item);
+        return item;
     }
 
     public hasSlot(slot: string): boolean {
@@ -82,39 +72,6 @@ export default class RenderAttributes {
         return defaultItem == currentItem;
     }
 
-    public toPaths(): string[] {
-
-        const paths: [string, string][] = [];
-
-        this._itemsBySlot.forEach((item, slot) => {
-            paths.push([slot, this.toPath(slot, item)]);
-        });
-
-        return sortImages(paths, this._layersOrder)
-            .map(kvp => kvp[1]);
-    }
-
-    public static fromRequest(
-        req: Request,
-        cidGetter: ICidGetter,
-        layersOrder: string[],
-        defaultLayers: { [key: string]: string; }) {
-        const itemsBySlot = new Map<string, string>();
-
-        for (const key in req.query) {
-            const value = req.query[key];
-            if (value == undefined) continue;
-            itemsBySlot.set(key, value.toString());
-        }
-
-        return new RenderAttributes(
-            itemsBySlot,
-            cidGetter,
-            layersOrder,
-            defaultLayers
-        );
-    }
-
     private addDefaultValues(itemsBySlot: Map<string, string>) {
 
         for (const slot in this._defaultLayers) {
@@ -129,8 +86,17 @@ export default class RenderAttributes {
         }
     }
 
-    // TODO: move to IPFS cache class
-    private toPath(slot: string, filename: string) {
-        return "./ipfscache/" + this._cidGetter.getCid(slot, filename) + ".png";
+    public toAttributes() {
+
+        return Array.from(this._itemsBySlot.entries())
+            .filter(([slot]) => !this.doEquipDefaultItem(slot))
+            .map(entry => capitalize(entry[0]) + ":" + capitalize(entry[1].replace("-", " ")))
+            .join(";");
+    }
+
+    public toFilename() {
+        return Array.from(this._itemsBySlot.entries())
+            .map(entry => entry[0] + "_" + entry[1])
+            .join("+");
     }
 }

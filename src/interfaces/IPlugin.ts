@@ -1,5 +1,6 @@
-import IConfigOptions from "../IConfigOptions";
-import RenderAttributes from "../RenderAttributes";
+import IConfigOptions from "./IConfigOptions";
+import RenderAttributes from "../classes/RenderAttributes";
+import IServices from "./IServices";
 
 export default interface IPlugin {
 
@@ -13,9 +14,6 @@ export default interface IPlugin {
      */
     checkConfig?(config: IConfigOptions): void;
 
-
-    afterPrimarySetup?(workers: import("cluster").Worker[]): void;
-
     /**
      * Override the CID for an item.
      */
@@ -25,7 +23,7 @@ export default interface IPlugin {
      * Modify the attributes before the render
      * @param renderAttributes modified attributes
      */
-    beforeRender?(renderAttributes: RenderAttributes): Promise<RenderAttributes>;
+    beforeRender?(renderAttributes: RenderAttributes, services: IServices): Promise<RenderAttributes>;
 
     /**
      * Called after the render is complete

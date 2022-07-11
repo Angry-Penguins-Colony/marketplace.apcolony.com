@@ -7,18 +7,25 @@ import sharp from 'sharp';
 const Hash = require('ipfs-only-hash')
 
 export default class IPFSCache {
-    private readonly _config: Config;
 
-    constructor(config: Config) {
-        this._config = config;
+    private readonly _ipfsGateway: string;
+    private readonly _ipfsCacheFolder: string;
+
+    constructor(ipfsGateway: string, ipfsCacheFolder: string) {
+        this._ipfsCacheFolder = ipfsCacheFolder;
+        this._ipfsGateway = ipfsGateway;
     }
 
-    public async downloadAllItemsCIDs(): Promise<void[]> {
-        return this.downloadCIDs(this._config.allCIDs());
+    public async downloadAllItemsCIDs(config: Config): Promise<void[]> {
+        return this.downloadCIDs(config.allCIDs());
     }
 
-    public async downloadItems(renderAttributes: RenderAttributes) {
-        return this.downloadCIDs(renderAttributes.allCIDs());
+    public async downloadItems(renderAttributes: RenderAttributes, config: Config) {
+
+        const allCIDs = renderAttributes.getAllKvps()
+            .map(([slot, item]) => config.getCid(slot, item));
+
+        return this.downloadCIDs(allCIDs);
     }
 
     public async downloadCIDs(cid: string[]) {
@@ -35,7 +42,7 @@ export default class IPFSCache {
 
         if (!fs.existsSync(savePathFolders)) fs.mkdirSync(savePathFolders, { recursive: true });
 
-        await downloadImage(this._config.ipfsGateway + cid + "/" + cidPathSuffix, savePath);
+        await downloadImage(this._ipfsGateway + cid + "/" + cidPathSuffix, savePath);
 
         const depth = (await sharp(savePath).metadata()).depth;
         if (depth != "uchar") {
@@ -44,7 +51,7 @@ export default class IPFSCache {
     }
 
     private getPath(cid: string): string {
-        return `${this._config.ipfsCacheFolder}/${cid}.png`;
+        return `${this._ipfsCacheFolder}/${cid}.png`;
     }
 
     private async existInCache(cid: string): Promise<boolean> {

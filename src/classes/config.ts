@@ -1,7 +1,9 @@
 import ImageMIMEType from '../enums/ImageMIMEType';
 import { UnknownSlot, UnknownItem, MissingSlot } from '../errors/configErrors';
-import IPlugin from './plugins/IPlugin';
-import IConfigOptions from './IConfigOptions';
+import IPlugin from '../interfaces/IPlugin';
+import IConfigOptions from '../interfaces/IConfigOptions';
+import RenderAttributes from './RenderAttributes';
+import { sortImages } from '../utils/utils';
 
 export default class Config {
 
@@ -68,6 +70,7 @@ export default class Config {
         }
     }
 
+
     public getCid(slot: string, itemName: string): string {
 
         for (const plugin of this.plugins) {
@@ -95,6 +98,23 @@ export default class Config {
 
 
         return cids;
+    }
+
+    public toPaths(renderAttributes: RenderAttributes): string[] {
+
+
+        const paths: [string, string][] = [];
+
+        renderAttributes.getAllKvps().forEach(([item, slot]) => {
+            paths.push([slot, this.toPath(slot, item)]);
+        });
+
+        return sortImages(paths, renderAttributes.layersOrder)
+            .map(kvp => kvp[1]);
+    }
+
+    private toPath(slot: string, filename: string) {
+        return "./ipfscache/" + this.getCid(slot, filename) + ".png";
     }
 }
 

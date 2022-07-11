@@ -1,7 +1,7 @@
 import RenderAttributes from "./RenderAttributes";
 import mergeImages from 'merge-images';
 import { Canvas, Image } from 'canvas';
-import IPlugin from "./plugins/IPlugin";
+import IPlugin from "../interfaces/IPlugin";
 import colors from "colors";
 import { tryRewriteLogLine } from "../utils/utils";
 import Config from "./config";
@@ -17,7 +17,7 @@ export default class ImageRenderer {
     ) {
         this.config = config;
         this.mimeType = config.renderMIMEType;
-        this.ipfsCache = new IPFSCache(config);
+        this.ipfsCache = new IPFSCache(config.ipfsGateway, config.ipfsCacheFolder);
     }
 
     public async downloadImages() {
@@ -45,48 +45,44 @@ export default class ImageRenderer {
     public async render(renderAttributes: RenderAttributes, plugins: IPlugin[]): Promise<Buffer> {
 
         const watch = new RenderingTimeWatcher();
-        watch.startRender();
+        watch.start();
 
-        watch.start(RenderingKey.BeforeRender);
         for (const plugin of plugins) {
             if (plugin.beforeRender) {
-                renderAttributes = await plugin.beforeRender(renderAttributes);
+                renderAttributes = await plugin.beforeRender(renderAttributes, {
+                    config: this.config,
+                    ipfsCache: this.ipfsCache
+                });
             }
         }
-        watch.end(RenderingKey.BeforeRender);
+        watch.next();
 
-        watch.start(RenderingKey.Merge);
-        let imageBuffer = await this.merge(renderAttributes.toPaths(), {
+        let imageBuffer = await this.merge(this.config.toPaths(renderAttributes), {
             format: this.mimeType
         });
-        watch.end(RenderingKey.Merge);
+        watch.next();
 
-        watch.start(RenderingKey.ModifyRender);
         for (const plugin of plugins) {
             if (plugin.modifyRender) {
                 imageBuffer = await plugin.modifyRender(imageBuffer, renderAttributes);
             }
         }
-        watch.end(RenderingKey.ModifyRender);
+        watch.next();
 
-        watch.start(RenderingKey.OnRenderComplete);
         for (const plugin of plugins) {
             if (plugin.onRenderComplete) {
                 plugin.onRenderComplete(imageBuffer, renderAttributes);
             }
         }
-        watch.end(RenderingKey.OnRenderComplete);
+        watch.next();
 
-
-        watch.start(RenderingKey.LateModifyRender);
         for (const plugin of plugins) {
             if (plugin.lateModifyRender) {
                 imageBuffer = await plugin.lateModifyRender(imageBuffer, renderAttributes);
             }
         }
-        watch.end(RenderingKey.LateModifyRender);
 
-        watch.endRender();
+        watch.end();
         watch.log();
 
         return imageBuffer;
@@ -118,34 +114,39 @@ enum RenderingKey {
 }
 
 class RenderingTimeWatcher {
-    private startTime: Map<RenderingKey, number> = new Map();
     private duration: Map<RenderingKey, number> = new Map();
+    private currentWatch: { key: RenderingKey, start: number } | undefined;
 
-    private renderStart: number | undefined;
-    private renderEnd: number | undefined;
+    private startTime: number | undefined = undefined;
+    private endTime: number | undefined = undefined;
 
-    public startRender() {
-        this.renderStart = new Date().getTime();
+    public start() {
+        this.startTime = Date.now()
+
+        this.next();
     }
 
-    public endRender() {
-        this.renderEnd = new Date().getTime();
+    public next() {
+        if (this.currentWatch) {
+            this.duration.set(this.currentWatch.key, Date.now() - this.currentWatch.start);
+        }
+
+        this.currentWatch = {
+            key: this.getNextKey(),
+            start: Date.now()
+        }
     }
 
-    public start(key: RenderingKey) {
-        this.startTime.set(key, new Date().getTime());
+    public end() {
+        this.endTime = Date.now();
     }
 
-    public end(key: RenderingKey) {
-        const startTime = this.startTime.get(key);
-
-        if (!startTime) throw new Error(`Start time not found for key ${key}`);
-
-        this.duration.set(key, new Date().getTime() - startTime);
+    private getNextKey(): RenderingKey {
+        return RenderingKey[Object.keys(RenderingKey)[this.duration.size] as keyof typeof RenderingKey];
     }
 
     public log() {
-        if (!this.renderEnd || !this.renderStart) throw new Error("Render start not found");
+        if (!this.startTime || !this.endTime) throw new Error("Render start not found");
 
         const time = [] as string[];
 
@@ -153,7 +154,9 @@ class RenderingTimeWatcher {
             time.push(`${key}: ${duration}ms`);
         });
 
+        const totalTime = this.endTime - this.startTime;
+
         const detailedDuration = colors.grey(`(${time.join(", ")})`)
-        console.log(`Render tooks ${this.renderEnd - this.renderStart}ms ${detailedDuration}`);
+        console.log(`Render tooks ${totalTime}ms ${detailedDuration}`);
     }
 }
