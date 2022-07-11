@@ -19,9 +19,15 @@ export default class ImageRenderer {
         this.ipfsCache = new IPFSCache(config.ipfsGateway, config.ipfsCacheFolder);
     }
 
-    public async downloadImages() {
+    public async downloadImages(afterEachDownload?: () => void): Promise<void> {
         const downloadPromises = this.config.allCIDs
-            .map((cid) => this.ipfsCache.downloadCID(cid));
+            .map(async (cid) => {
+                await this.ipfsCache.downloadCID(cid);
+
+                if (afterEachDownload) {
+                    afterEachDownload();
+                }
+            });
 
         await Promise.all(downloadPromises);
     }

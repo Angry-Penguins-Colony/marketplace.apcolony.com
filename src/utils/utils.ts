@@ -1,21 +1,25 @@
 import fs from 'fs';
-import client from 'https';
+import axios from "axios";
 
-export function downloadImage(url: string, filepath: string) {
-    return new Promise((resolve, reject) => {
-        client.get(url, (res) => {
-            if (res.statusCode === 200) {
-                res.pipe(fs.createWriteStream(filepath))
-                    .on('error', reject)
-                    .once('close', () => resolve(filepath));
-            } else {
-                // Consume response data to free up memory
-                res.resume();
-                reject(new Error(`Downloading ${url} failed With a Status Code: ${res.statusCode}`));
+/**
+ * Download image and write to filepath. Returns also the buffer
+ */
+export async function downloadImage(url: string, filepath: string): Promise<Buffer> {
 
-            }
+    const response = await axios.get(url,
+        {
+            responseType: 'arraybuffer',
+            timeout: 10000
         });
-    });
+
+    if (response.status == 200) {
+        const buffer = Buffer.from(response.data, "base64");
+        fs.writeFileSync(filepath, buffer);
+        return buffer;
+    }
+    else {
+        throw new Error(`Downloading ${url} failed With a Status Code: ${response.status}`);
+    }
 }
 
 // function to encode file data to base64 encoded string
