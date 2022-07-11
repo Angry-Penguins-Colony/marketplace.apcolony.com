@@ -1,5 +1,4 @@
 import fs from 'fs';
-import { Request } from 'express';
 import client from 'https';
 
 export function downloadImage(url: string, filepath: string) {
@@ -41,18 +40,6 @@ export function charsum(s: string): number {
         sum += (s.charCodeAt(i) * (i + 1));
     }
     return sum
-}
-
-
-export function generateFilename(req: Request): string {
-
-    const skin = req.query.skin;
-    const eyes = req.query.eyes;
-
-    if (skin == null) throw new Error('skin is required');
-    if (eyes == null) throw new Error('eyes is required');
-
-    return skin + "-" + eyes;
 }
 
 // source: https://stackoverflow.com/questions/40716894/angular2-or-typescript-left-padding-a-string-with-zeros
