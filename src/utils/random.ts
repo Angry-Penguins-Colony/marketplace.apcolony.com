@@ -43,10 +43,8 @@ export function getRandomSlots(itemsCID: ItemsCID): string[] {
 }
 
 export function getRandomItem(slot: string, itemsCID: ItemsCID): string {
-    const items = itemsCID[slot];
+    const items = Object.keys(itemsCID[slot]);
+    const randomIndex = Math.floor(Math.random() * items.length);
 
-    const keys = Object.keys(items);
-    const randomIndex = Math.floor(Math.random() * keys.length);
-
-    return keys[randomIndex];
+    return items[randomIndex];
 }

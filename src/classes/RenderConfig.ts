@@ -1,11 +1,11 @@
 import ImageMIMEType from '../enums/ImageMIMEType';
 import { UnknownSlot, UnknownItem, MissingSlot } from '../errors/configErrors';
 import IPlugin from '../interfaces/IPlugin';
-import IConfigOptions from '../interfaces/IConfigOptions';
+import IRenderConfigOptions from '../interfaces/IRenderConfigOptions';
 import RenderAttributes from './RenderAttributes';
 import { sortImages } from '../utils/utils';
 
-export default class Config {
+export default class RenderConfig {
 
     readonly ipfsGateway: string;
     readonly renderMIMEType: ImageMIMEType;
@@ -33,7 +33,7 @@ export default class Config {
         return cids;
     }
 
-    constructor(config: IConfigOptions, plugins: IPlugin[] = []) {
+    constructor(config: IRenderConfigOptions, plugins: IPlugin[] = []) {
 
         if (!config) throw new Error("config is undefined");
 

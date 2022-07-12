@@ -1,7 +1,7 @@
-import Config from "../classes/config";
+import RenderConfig from "../classes/RenderConfig";
 import IPFSCache from "../classes/ipfscache";
 
 export default interface IServices {
-    config: Config;
+    config: RenderConfig;
     ipfsCache: IPFSCache;
 }

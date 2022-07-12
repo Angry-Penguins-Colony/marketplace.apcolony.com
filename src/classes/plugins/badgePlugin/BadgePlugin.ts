@@ -1,4 +1,4 @@
-import IConfigOptions from "../../../interfaces/IConfigOptions";
+import IRenderConfigOptions from "../../../interfaces/IRenderConfigOptions";
 import RenderAttributes from "../../RenderAttributes";
 import { MissingSlot } from "../../../errors/configErrors";
 import { pad } from "../../../utils/utils";
@@ -39,7 +39,7 @@ export default class BadgePlugin implements IPlugin {
         return cid;
     }
 
-    checkConfig(config: IConfigOptions): boolean {
+    checkConfig(config: IRenderConfigOptions): boolean {
         if (config.itemsCID[this.badgeSlotName] != undefined) {
             throw new CannotUseBadgeAsSlotName(this.badgeSlotName);
         }

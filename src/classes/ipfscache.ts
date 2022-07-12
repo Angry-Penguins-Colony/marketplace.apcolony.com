@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { downloadImage, isCID, sleep } from '../utils/utils';
-import Config from './config';
+import RenderConfig from './RenderConfig';
 import RenderAttributes from './RenderAttributes';
 import colors from "colors";
 import sharp from 'sharp';
@@ -16,11 +16,11 @@ export default class IPFSCache {
         this._ipfsGateway = ipfsGateway;
     }
 
-    public async downloadAllItemsCIDs(config: Config): Promise<void[]> {
+    public async downloadAllItemsCIDs(config: RenderConfig): Promise<void[]> {
         return this.downloadCIDs(config.allCIDs);
     }
 
-    public async downloadItems(renderAttributes: RenderAttributes, config: Config) {
+    public async downloadItems(renderAttributes: RenderAttributes, config: RenderConfig) {
 
         const allCIDs = renderAttributes.getItemsBySlot()
             .map(([slot, item]) => config.getCid(slot, item));

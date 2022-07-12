@@ -1,10 +1,10 @@
 import { MissingSlot, UnknownItem, UnknownSlot } from "../errors/configErrors";
-import Config from "./config";
+import RenderConfig from "./RenderConfig";
 
 describe("allCIDs", () => {
     it("should return all cids", () => {
 
-        const config = new Config({
+        const config = new RenderConfig({
             itemsCID: {
                 "hat": {
                     "nest": "Qmb6GRsRAxMfUHo9es7p8D9PNQSpejmfM2pRPExxAYkKF8",
@@ -24,7 +24,7 @@ describe("allCIDs", () => {
     });
 
     it("should return empty cid", () => {
-        const config = new Config({
+        const config = new RenderConfig({
             itemsCID: {}
         });
 
@@ -34,7 +34,7 @@ describe("allCIDs", () => {
 
 describe("misc ctor", () => {
     it("fallback layerOrder", () => {
-        const t = new Config({
+        const t = new RenderConfig({
             itemsCID: {
                 "hat": {
                     "nest": "Qmb6GRsRAxMfUHo9es7p8D9PNQSpejmfM2pRPExxAYkKF8",
@@ -55,7 +55,7 @@ describe("misc ctor", () => {
 
 describe("handle bad values in constructor", () => {
     it("throw error if layersOrder miss a slot", () => {
-        const t = () => new Config({
+        const t = () => new RenderConfig({
             itemsCID: {
                 "hat": {
                     "nest": "Qmb6GRsRAxMfUHo9es7p8D9PNQSpejmfM2pRPExxAYkKF8",
@@ -72,7 +72,7 @@ describe("handle bad values in constructor", () => {
     })
 
     it("throw error if layersOrders includes an unexisting slot", () => {
-        const t = () => new Config({
+        const t = () => new RenderConfig({
             itemsCID: {
                 "hat": {
                     "nest": "Qmb6GRsRAxMfUHo9es7p8D9PNQSpejmfM2pRPExxAYkKF8",
@@ -89,7 +89,7 @@ describe("handle bad values in constructor", () => {
     });
 
     it("throw error if defaultLayer contains an unexisting slot", () => {
-        const t = () => new Config({
+        const t = () => new RenderConfig({
             itemsCID: {
                 "hat": {
                     "nest": "Qmb6GRsRAxMfUHo9es7p8D9PNQSpejmfM2pRPExxAYkKF8",
@@ -109,7 +109,7 @@ describe("handle bad values in constructor", () => {
     })
 
     it("throw error if defaultLayer contains an unexisting items", () => {
-        const t = () => new Config({
+        const t = () => new RenderConfig({
             itemsCID: {
                 "hat": {
                     "nest": "Qmb6GRsRAxMfUHo9es7p8D9PNQSpejmfM2pRPExxAYkKF8",
@@ -128,7 +128,7 @@ describe("handle bad values in constructor", () => {
     });
 
     it("throw error if defaultLayer contains an item from another slot", () => {
-        const t = () => new Config({
+        const t = () => new RenderConfig({
             itemsCID: {
                 "hat": {
                     "nest": "Qmb6GRsRAxMfUHo9es7p8D9PNQSpejmfM2pRPExxAYkKF8",
@@ -147,7 +147,7 @@ describe("handle bad values in constructor", () => {
     });
 
     it("can set badge slot if there is no plugin", () => {
-        const t = () => new Config({
+        const t = () => new RenderConfig({
             itemsCID: {
                 "hat": {
                     "nest": "Qmb6GRsRAxMfUHo9es7p8D9PNQSpejmfM2pRPExxAYkKF8",

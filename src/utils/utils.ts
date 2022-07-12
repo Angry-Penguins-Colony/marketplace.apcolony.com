@@ -60,8 +60,8 @@ export function sortImages(itemsBySlot: [string, string][], layerOrder: string[]
             const a_index = layerOrder.indexOf(a[0]);
             const b_index = layerOrder.indexOf(b[0]);
 
-            if (a_index == -1) throw new Error("Unknown slot " + a[0]);
-            if (b_index == -1) throw new Error("Unknown slot " + b[0]);
+            if (a_index == -1) throw new Error(`Cannot sort images. Missing slot ${a[0]} in layerOrder`);
+            if (b_index == -1) throw new Error(`Cannot sort images. Missing slot ${b[0]} in layerOrder`);
 
             if (a_index < b_index) return -1;
             if (a_index > b_index) return 1;

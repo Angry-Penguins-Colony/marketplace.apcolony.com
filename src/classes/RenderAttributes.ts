@@ -105,12 +105,15 @@ export default class RenderAttributes {
         const entries = attributes.split(";");
 
         for (const entry of entries) {
-            const [key, value] = entry.split(":");
+            let [key, value] = entry.split(":");
 
             if (!key) throw new Error(ERR_EMPTY_SLOT_KEY);
             if (!value) throw new Error(ERR_EMPTY_SLOT_VALUE);
 
-            itemsBySlot.set(key, value);
+            key = key.toLowerCase().trim();
+            value = value.toLowerCase().replace(" ", "-").trim();
+
+            itemsBySlot.set(key.toLowerCase(), value);
         }
 
         return new RenderAttributes(itemsBySlot, layersOrder, defaultLayers);

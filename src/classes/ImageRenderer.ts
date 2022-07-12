@@ -3,17 +3,17 @@ import mergeImages from 'merge-images';
 import { Canvas, Image } from 'canvas';
 import IPlugin from "../interfaces/IPlugin";
 import colors from "colors";
-import Config from "./config";
+import RenderConfig from "./RenderConfig";
 import IPFSCache from "./ipfscache";
 import Bottleneck from "bottleneck";
 
 export default class ImageRenderer {
     protected readonly _mimeType: string;
-    protected readonly _config: Config;
+    protected readonly _config: RenderConfig;
     protected readonly _ipfsCache: IPFSCache;
 
     constructor(
-        config: Config
+        config: RenderConfig
     ) {
         this._config = config;
         this._mimeType = config.renderMIMEType;

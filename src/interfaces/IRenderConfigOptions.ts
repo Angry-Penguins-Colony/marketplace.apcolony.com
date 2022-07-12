@@ -1,6 +1,6 @@
 import ImageMIMEType from "../enums/ImageMIMEType";
 
-export default interface IConfigOptions {
+export default interface IRenderConfigOptions {
     itemsCID: { [key: string]: { [key: string]: string } };
 
     /**

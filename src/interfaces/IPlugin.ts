@@ -1,4 +1,4 @@
-import IConfigOptions from "./IConfigOptions";
+import IRenderConfigOptions from "./IRenderConfigOptions";
 import RenderAttributes from "../classes/RenderAttributes";
 import IServices from "./IServices";
 
@@ -12,7 +12,7 @@ export default interface IPlugin {
     /**
      * Throw error if a badly configured.
      */
-    checkConfig?(config: IConfigOptions): void;
+    checkConfig?(config: IRenderConfigOptions): void;
 
     /**
      * Override the CID for an item.

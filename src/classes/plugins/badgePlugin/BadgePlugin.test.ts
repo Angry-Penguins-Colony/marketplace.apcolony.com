@@ -1,12 +1,12 @@
 import { MissingSlot } from "../../../errors/configErrors";
-import Config from "../../config";
+import RenderConfig from "../../RenderConfig";
 import BadgePlugin from "./BadgePlugin";
 import { CannotSetBadgeInDefaultLayers, CannotUseBadgeAsSlotName } from "./errors";
 
 describe("handle bad values in constructor", () => {
     it("throw error if useBadge is enabled and a slot named 'badge' is specified", () => {
 
-        const t = () => new Config(
+        const t = () => new RenderConfig(
             {
                 itemsCID: {
                     "badge": {
@@ -24,7 +24,7 @@ describe("handle bad values in constructor", () => {
     })
 
     it("throw error if layersOrder miss badge slot", () => {
-        const t = () => new Config(
+        const t = () => new RenderConfig(
             {
                 itemsCID: {
                     "hat": {
@@ -47,7 +47,7 @@ describe("handle bad values in constructor", () => {
 
     it("throw error if useBadge is enabled and a slot named 'badge' is specified", () => {
 
-        const t = () => new Config(
+        const t = () => new RenderConfig(
             {
                 itemsCID: {
                     "badge": {
@@ -65,7 +65,7 @@ describe("handle bad values in constructor", () => {
     })
 
     it("throw error if defaultLayer contains a badge", () => {
-        const t = () => new Config(
+        const t = () => new RenderConfig(
             {
                 itemsCID: {
                     "hat": {

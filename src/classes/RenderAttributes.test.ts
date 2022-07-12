@@ -18,17 +18,17 @@ describe("fromAttributes", () => {
     });
 
     it("parse one element", () => {
-        expect(RenderAttributes.fromAttributes("Hat:Cap", []))
+        expect(RenderAttributes.fromAttributes("Hat:Black Cap", []))
             .toStrictEqual(new RenderAttributes([
-                ["Hat", "Cap"]
+                ["hat", "black-cap"]
             ], []));
     });
 
     it("parse two element", () => {
         expect(RenderAttributes.fromAttributes("Hat:Cap;Clothes:T-Shirt", []))
             .toStrictEqual(new RenderAttributes([
-                ["Hat", "Cap"],
-                ["Clothes", "T-Shirt"]
+                ["hat", "cap"],
+                ["clothes", "t-shirt"]
             ], []));
     });
 
