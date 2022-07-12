@@ -61,7 +61,7 @@ export default class ImageRenderer {
     }
 
 
-    public async render(renderAttributes: RenderAttributes, plugins: IPlugin[]): Promise<Buffer> {
+    public async render(renderAttributes: RenderAttributes, plugins: IPlugin[], options?: { verbose: boolean }): Promise<Buffer> {
 
         const watch = new RenderingTimeWatcher();
         watch.start();
@@ -102,7 +102,10 @@ export default class ImageRenderer {
         }
 
         watch.end();
-        watch.log();
+
+        if (options?.verbose == true) {
+            watch.log();
+        }
 
         return imageBuffer;
     }
