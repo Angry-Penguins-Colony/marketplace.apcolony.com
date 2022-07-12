@@ -2,13 +2,15 @@
  * Send renderImage with a random attributes.
  */
 
-import RenderAttributes_old from "../src/structs/RenderAttributes";
+import { getRandomAttributes } from "@apc/renderer/dist/utils/random";
+import { userConfig } from "../src/config/render.config";
 import { sendRenderImage } from "./functions/sendRenderImage";
 
 main();
 
 async function main() {
-    const { hash } = await sendRenderImage(RenderAttributes_old.getRandom());
+    const { hash } = await sendRenderImage(getRandomAttributes(userConfig.itemsCID, []));
 
     console.log(`Transaction hash: ${hash}`);
 }
+
