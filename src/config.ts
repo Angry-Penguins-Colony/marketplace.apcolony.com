@@ -4,7 +4,7 @@ import { IConfig } from "./interfaces/IConfig";
 const config: IConfig = {
     msBetweenUpdate: 500,
     gatewayUrl: "https://devnet-gateway.elrond.com",
-    customisationContract: new Address("erd1qqqqqqqqqqqqqpgq89n8l76qp0uf4q75wamrfx8jk6dxcpe9sdvsdzt08j"),
+    customisationContract: new Address("erd1qqqqqqqqqqqqqpgqvrc6q6nwcxvw7nrzsqmldxa34dgr6a9dsdvsdpj7gq"),
 };
 
 Object.freeze(config);

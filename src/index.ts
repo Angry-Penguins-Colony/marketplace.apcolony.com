@@ -39,6 +39,7 @@ async function main() {
 
             if (cids.length > 0) {
                 await writeGateway.setCid(cids, customisationSC);
+                await sleep(15000);
 
                 for (const cid of cids) {
                     console.log(`${"[ADD]".green} ${cid.cid}`);

@@ -87,16 +87,11 @@ export default class WriteGateway {
                 new StringValue(cid)
             ]);
 
-        let payload = TransactionPayload.contractCall()
-            .setFunction(func)
-            .setArgs(args)
-            .build();
-
         const tx = customisationContract.call({
             func: func,
             args: args,
             value: "",
-            gasLimit: (cid.length * 80_000_000) + payload.length() * 1500,
+            gasLimit: cid.length * 30_000_000,
             gasPrice: this.networkConfig.MinGasPrice,
             chainID: this.networkConfig.ChainID,
         });
