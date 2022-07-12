@@ -1,13 +1,15 @@
 import { sleep } from "ts-apc-utils";
 import ReadGateway from "./classes/ReadGateway";
-import IRender from "./interfaces/IRender";
-import Renderer from "./classes/Renderer";
 import config from "./config";
 import { CIDKvp } from "./structs/CIDKvp";
 import 'dotenv/config'
 import WriteGateway from "./classes/WriteGateway";
 import { envVariables } from "./utils";
 import { SmartContract } from "@elrondnetwork/erdjs/out";
+import { userConfig } from "./config/render.config";
+import Config from "@apc/renderer/dist/classes/config";
+import { userPlugins } from "./config/render.plugins.config";
+import MyImageRenderer from "./classes/MyImageRenderer";
 
 main();
 
@@ -16,6 +18,9 @@ async function main() {
     const readGateway = new ReadGateway(config.gatewayUrl, config.customisationContract, config.readGatewayOptions);
     const writeGateway = new WriteGateway(config.gatewayUrl, envVariables.senderAddress, envVariables.signer);
     const customisationSC = new SmartContract({ address: config.customisationContract });
+    const renderer = new MyImageRenderer(new Config(userConfig, userPlugins));
+
+    await renderer.downloadImages({ verbose: true });
 
     while (true) {
 
@@ -24,19 +29,22 @@ async function main() {
         console.log(`Processing ${queue.length} elements from the rendering queue...`)
 
         if (queue.length > 0) {
-            const render: IRender = new Renderer();
+            const cidPromises = queue
+                .map((item) => renderer.buildCidKvp(item));
 
-            const promise_cid = queue
-                .map(async (item): Promise<CIDKvp> => ({
-                    cid: await render.getCID(item),
-                    attributes: item
-                }));
+            const cid = (await Promise.all(cidPromises))
+                .filter((item) => item !== undefined) as CIDKvp[];
 
-            const cid = await Promise.all(promise_cid) as CIDKvp[];
+            if (cid.length > 0) {
+                await writeGateway.setCid(cid, customisationSC);
+            }
 
-            await writeGateway.setCid(cid, customisationSC);
+            // TODO: pin on ipfs
         }
 
         await sleep(config.msBetweenUpdate)
+
+        console.log(""); // jump a line
     }
 }
+

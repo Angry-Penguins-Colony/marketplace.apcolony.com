@@ -101,7 +101,11 @@ export default class WriteGateway {
             chainID: this.networkConfig.ChainID,
         });
 
-        return this.sendTransaction(tx);
+        const result = await this.sendTransaction(tx);
+
+        console.log(`Sent ${cid.length} CIDs to customisation contract. Transaction hash: ${result.hash}`);
+
+        return result;
     }
 
     public async sendTransaction(tx: Transaction): Promise<TransactionResult> {

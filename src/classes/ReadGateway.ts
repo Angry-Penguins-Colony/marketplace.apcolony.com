@@ -1,11 +1,11 @@
 import { functionNames, officialGatewayMaxRPS } from "../const";
-import RenderAttributes from "../structs/RenderAttributes";
 import Bottleneck from "bottleneck";
 import { requestsPerMinutesToMinTime } from "../utils";
 import { IAddress, ISmartContract, SmartContract } from "@elrondnetwork/erdjs/out";
 import fetch from "node-fetch";
 import { IGatewayOptions } from "../interfaces/IGatewayOptions";
 import { ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
+import RenderAttributes from "@apc/renderer/dist/classes/RenderAttributes";
 
 
 export default class ReadGateway {
@@ -48,7 +48,7 @@ export default class ReadGateway {
 
         const renderAttributes = output.returnData
             .map(data => Buffer.from(data, "base64").toString())
-            .map(attributes => RenderAttributes.fromAttributes(attributes));
+            .map(attributes => RenderAttributes.fromAttributes(attributes, []));
 
         return renderAttributes
     }

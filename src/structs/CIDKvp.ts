@@ -1,6 +1,6 @@
-import RenderAttributes from "./RenderAttributes";
+import RenderAttributes_old from "./RenderAttributes";
 
 export interface CIDKvp {
     cid: string;
-    attributes: RenderAttributes;
+    attributes: RenderAttributes_old;
 }
