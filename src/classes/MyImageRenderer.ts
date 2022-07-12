@@ -1,7 +1,7 @@
 import { ImageRenderer } from "@apc/renderer";
 import RenderConfig from "@apc/renderer/dist/classes/RenderConfig";
 import RenderAttributes from "@apc/renderer/dist/classes/RenderAttributes";
-import { CIDKvp } from "../structs/CIDKvp";
+import { IRenderOutput } from "../interfaces/IRenderOutput";
 const Hash = require('ipfs-only-hash')
 
 export default class MyImageRenderer extends ImageRenderer {
@@ -9,7 +9,7 @@ export default class MyImageRenderer extends ImageRenderer {
         super(config);
     }
 
-    async buildCidKvp(item: RenderAttributes): Promise<CIDKvp | undefined> {
+    async renderAdvanced(item: RenderAttributes): Promise<IRenderOutput | undefined> {
 
         try {
 
@@ -18,7 +18,8 @@ export default class MyImageRenderer extends ImageRenderer {
 
             return {
                 cid: cid,
-                attributes: item
+                attributes: item,
+                imageBuffer: imageBuffer
             };
         }
         catch (e: any) {

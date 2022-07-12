@@ -15,6 +15,8 @@ export function getRandomIn<T>(array: T[]): T {
 export const envVariables = {
     signer: UserSigner.fromPem(getFromEnv("SENDER_PEM")),
     senderAddress: Address.fromString(getFromEnv("SENDER_BECH32")),
+    pinataApiKey: getFromEnv("PINATA_API_KEY"),
+    pinataApiSecret: getFromEnv("PINATA_API_SECRET"),
 }
 
 

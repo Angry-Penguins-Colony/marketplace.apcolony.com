@@ -104,3 +104,4 @@ dist
 .tern-port
 
 ipfs_cache
+pin_folder
