@@ -12,7 +12,7 @@ import { renderConfigPlugins } from "./config/render.plugins.config";
 import MyImageRenderer from "./classes/MyImageRenderer";
 import { PinataPin } from './classes/PinataPin';
 import colors from "colors";
-import { IRenderOutput } from './interfaces/IRenderOutput';
+import { IItemToProcess } from './interfaces/IItemToProcess';
 
 main();
 
@@ -26,7 +26,10 @@ async function main() {
     const pinata = new PinataPin(envVariables.pinataApiKey, envVariables.pinataApiSecret, "pin_folder");
 
     await pinata.testAuthentication();
+    await writeGateway.sync();
     await renderer.downloadImages({ verbose: true });
+
+    const alreadyProcessedCID: string[] = [];
 
     while (true) {
 
@@ -35,23 +38,26 @@ async function main() {
         console.log(`\nProcessing ${queue.length} elements from the rendering queue...`)
 
         if (queue.length > 0) {
-            const cidsPromises = queue
+            const itemsPromises = queue
                 .map((item) => renderer.renderAdvanced(item));
 
-            const cids = (await Promise.all(cidsPromises))
-                .filter((item) => item !== undefined) as IRenderOutput[];
+            const items = (await Promise.all(itemsPromises))
+                .filter((item) => item !== undefined && alreadyProcessedCID.includes(item.cid) == false) as IItemToProcess[];
 
-            if (cids.length > 0) {
+            const skippedElements = itemsPromises.length - items.length;
+            if (skippedElements > 0) {
+                console.log(`Skipped ${skippedElements} items because they were already processed.`.grey);
+            }
+
+            if (items.length > 0) {
 
                 await Promise.all([
-                    pinata.multiplePin(cids),
-                    writeGateway.setCid(cids, customisationSC),
+                    pinata.multiplePin(items),
+                    writeGateway.setCid(items, customisationSC),
                 ])
 
-                await sleep(15000);
-
-                for (const cid of cids) {
-                    console.log(`${"[ADD]".green} ${cid.cid}`);
+                for (const item of items) {
+                    alreadyProcessedCID.push(item.cid);
                 }
             }
         }

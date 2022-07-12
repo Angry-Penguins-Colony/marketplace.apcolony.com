@@ -1,7 +1,7 @@
 import { ImageRenderer } from "@apc/renderer";
 import RenderConfig from "@apc/renderer/dist/classes/RenderConfig";
 import RenderAttributes from "@apc/renderer/dist/classes/RenderAttributes";
-import { IRenderOutput } from "../interfaces/IRenderOutput";
+import { IItemToProcess } from "../interfaces/IItemToProcess";
 const Hash = require('ipfs-only-hash')
 
 export default class MyImageRenderer extends ImageRenderer {
@@ -9,7 +9,7 @@ export default class MyImageRenderer extends ImageRenderer {
         super(config);
     }
 
-    async renderAdvanced(item: RenderAttributes): Promise<IRenderOutput | undefined> {
+    async renderAdvanced(item: RenderAttributes): Promise<IItemToProcess | undefined> {
 
         try {
 

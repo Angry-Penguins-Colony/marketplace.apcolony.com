@@ -98,7 +98,7 @@ export default class WriteGateway {
 
         const result = await this.sendTransaction(tx);
 
-        console.log(`Sent ${cid.length} CIDs to customisation contract. Transaction hash: ${result.hash}`);
+        console.log(`Sent ${cid.length} CIDs to customisation contract. Transaction hash: ${result.hash.grey}`);
 
         return result;
     }

@@ -51,6 +51,8 @@ export class PinataPin {
 
         const path = await this.writeInPinFolder(cid, buffer);
 
+        console.log(`Pinned ${cid.grey}`);
+
         return this._pinLimiter.schedule(this._pinataClient.pinFromFS, path);
     }
 
