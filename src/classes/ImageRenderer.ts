@@ -19,17 +19,32 @@ export default class ImageRenderer {
         this._ipfsCache = new IPFSCache(config.ipfsGateway, config.ipfsCacheFolder);
     }
 
-    public async downloadImages(afterEachDownload?: () => void): Promise<void> {
+    public async downloadImages(options?: { verbose: boolean }): Promise<void> {
+
+        const verbose = options?.verbose ?? false;
+
+        log("Downloading images.");
+
+        const totalImages = this._config.allCIDs.length;
+        let imagesDownloaded = 0;
+
         const downloadPromises = this._config.allCIDs
             .map(async (cid) => {
                 await this._ipfsCache.downloadCID(cid);
 
-                if (afterEachDownload) {
-                    afterEachDownload();
-                }
+                imagesDownloaded++;
+                log(`${imagesDownloaded}/${totalImages} images downloaded.`);
             });
 
         await Promise.all(downloadPromises);
+
+        log("All images downloadeded.");
+
+        function log(msg: string) {
+            if (verbose) {
+                console.log(msg);
+            }
+        }
     }
 
 
