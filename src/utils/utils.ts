@@ -9,7 +9,7 @@ export async function downloadImage(url: string, filepath: string): Promise<Buff
     const response = await axios.get(url,
         {
             responseType: 'arraybuffer',
-            timeout: 10000
+            timeout: 30000
         });
 
     if (response.status == 200) {
