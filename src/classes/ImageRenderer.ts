@@ -27,7 +27,7 @@ export default class ImageRenderer {
             minTime: 0 // no minTime
         });
 
-        log("Downloading images.");
+        log("⌛ Downloading images.", false);
 
         const totalImages = this._config.allCIDs.length;
         let imagesDownloaded = 0;
@@ -37,11 +37,17 @@ export default class ImageRenderer {
 
         await Promise.all(downloadPromises);
 
-        log("All images downloaded.");
+        log("\n✔ All images downloaded.", false);
 
-        function log(msg: string) {
+        function log(msg: string, isProgress: boolean) {
             if (options?.verbose == true) {
-                console.log(msg);
+                if (isProgress && process.stdout) {
+                    process.stdout.cursorTo(0);
+                    process.stdout.write(msg);
+                }
+                else {
+                    console.log(msg);
+                }
             }
         }
 
@@ -49,7 +55,8 @@ export default class ImageRenderer {
             await ipfsCache.downloadCID(cid);
 
             imagesDownloaded++;
-            log(`${imagesDownloaded}/${totalImages} images downloaded.`);
+
+            log(`${imagesDownloaded}/${totalImages} images downloaded.`, true);
         }
     }
 
