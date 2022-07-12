@@ -40,7 +40,7 @@ export default class ImageRenderer {
         log("\n✔ All images downloaded.", false);
 
         function log(msg: string, isProgress: boolean) {
-            if (options?.verbose == true) {
+            if (options && options?.verbose == true) {
                 if (isProgress && process.stdout) {
                     process.stdout.cursorTo(0);
                     process.stdout.write(msg);
@@ -103,7 +103,7 @@ export default class ImageRenderer {
 
         watch.end();
 
-        if (options?.verbose == true) {
+        if (options && options?.verbose == true) {
             watch.log();
         }
 
