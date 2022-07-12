@@ -5,6 +5,7 @@ import IPlugin from "../interfaces/IPlugin";
 import colors from "colors";
 import Config from "./config";
 import IPFSCache from "./ipfscache";
+import Bottleneck from "bottleneck";
 
 export default class ImageRenderer {
     protected readonly _mimeType: string;
@@ -21,7 +22,10 @@ export default class ImageRenderer {
 
     public async downloadImages(options?: { verbose: boolean }): Promise<void> {
 
-        const verbose = options?.verbose ?? false;
+        const limiter = new Bottleneck({
+            maxConcurrent: 5,
+            minTime: 0 // no minTime
+        });
 
         log("Downloading images.");
 
@@ -29,21 +33,23 @@ export default class ImageRenderer {
         let imagesDownloaded = 0;
 
         const downloadPromises = this._config.allCIDs
-            .map(async (cid) => {
-                await this._ipfsCache.downloadCID(cid);
-
-                imagesDownloaded++;
-                log(`${imagesDownloaded}/${totalImages} images downloaded.`);
-            });
+            .map((cid) => limiter.schedule(downloadCID, cid, this._ipfsCache));
 
         await Promise.all(downloadPromises);
 
-        log("All images downloadeded.");
+        log("All images downloaded.");
 
         function log(msg: string) {
-            if (verbose) {
+            if (options?.verbose == true) {
                 console.log(msg);
             }
+        }
+
+        async function downloadCID(cid: string, ipfsCache: IPFSCache) {
+            await ipfsCache.downloadCID(cid);
+
+            imagesDownloaded++;
+            log(`${imagesDownloaded}/${totalImages} images downloaded.`);
         }
     }
 
