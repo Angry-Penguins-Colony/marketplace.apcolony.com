@@ -1,13 +1,11 @@
 import { ImageRenderer } from "@apc/renderer";
-import Config from "@apc/renderer/dist/classes/config";
+import RenderConfig from "@apc/renderer/dist/classes/RenderConfig";
 import RenderAttributes from "@apc/renderer/dist/classes/RenderAttributes";
-import IPlugin from "@apc/renderer/dist/interfaces/IPlugin";
-const Hash = require('ipfs-only-hash')
 import { CIDKvp } from "../structs/CIDKvp";
-import colors from "colors";
+const Hash = require('ipfs-only-hash')
 
 export default class MyImageRenderer extends ImageRenderer {
-    constructor(config: Config) {
+    constructor(config: RenderConfig) {
         super(config);
     }
 
@@ -25,7 +23,7 @@ export default class MyImageRenderer extends ImageRenderer {
         }
         catch (e: any) {
 
-            console.error(`${"[Error]".red} ${e.toString().red} => Skipping item ${item.toAttributes().grey} `);
+            console.error(`${"[Error]".red} ${e.toString().red} => Skipping item ${[...item.itemsBySlot.entries()].toString().grey} `);
 
             return undefined;
         }

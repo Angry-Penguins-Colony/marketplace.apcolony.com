@@ -1,7 +1,7 @@
 import ImageMIMEType from "@apc/renderer/dist/enums/ImageMIMEType";
-import IConfigOptions from "@apc/renderer/dist/interfaces/IConfigOptions";
+import IRenderConfigOptions from "@apc/renderer/dist/interfaces/IRenderConfigOptions";
 
-export const userConfig: IConfigOptions = {
+export const userRenderConfig: IRenderConfigOptions = {
     ipfsGateway: "https://apc.mypinata.cloud/ipfs/",
     renderMIMEType: ImageMIMEType.JPEG,
     maxPerRequest: 80, // 180 is good for RAM limited to 512Mb

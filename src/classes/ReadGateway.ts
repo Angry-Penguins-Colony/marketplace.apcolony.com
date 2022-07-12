@@ -31,7 +31,12 @@ export default class ReadGateway {
     }
 
 
-    public async getToBuildQueue(): Promise<RenderAttributes[]> {
+    public async getToBuildQueue(
+        layersOrder: string[],
+        defaultLayers?: {
+            [key: string]: string;
+        }
+    ): Promise<RenderAttributes[]> {
 
         // TODO: use _requestLimiter
         const output = await this._gateway.queryContract({
@@ -48,7 +53,7 @@ export default class ReadGateway {
 
         const renderAttributes = output.returnData
             .map(data => Buffer.from(data, "base64").toString())
-            .map(attributes => RenderAttributes.fromAttributes(attributes, []));
+            .map(attributes => RenderAttributes.fromAttributes(attributes, layersOrder, defaultLayers));
 
         return renderAttributes
     }
