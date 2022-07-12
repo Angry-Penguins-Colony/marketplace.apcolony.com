@@ -1,5 +1,8 @@
-import { capitalize } from "../utils/utils";
+import { capitalize, getOccurences } from "../utils/utils";
 
+export const ERR_BAD_FORMAT = "Bad format. Cannot parse render attributes";
+export const ERR_EMPTY_SLOT_KEY = "Bad format. Slot key is empty";
+export const ERR_EMPTY_SLOT_VALUE = "Bad format. Slot value is empty";
 
 /**
  * The items to render.
@@ -85,6 +88,34 @@ export default class RenderAttributes {
             }
         }
     }
+
+    public static fromAttributes(
+        attributes: string,
+        layersOrder: string[],
+        defaultLayers?: { [key: string]: string; }
+    ): RenderAttributes {
+
+
+        if (!attributes) return new RenderAttributes([], layersOrder, defaultLayers);
+
+        if (getOccurences(attributes, ":") != (getOccurences(attributes, ";") + 1)) throw new Error(ERR_BAD_FORMAT);
+
+        const itemsBySlot = new Map<string, string>();
+
+        const entries = attributes.split(";");
+
+        for (const entry of entries) {
+            const [key, value] = entry.split(":");
+
+            if (!key) throw new Error(ERR_EMPTY_SLOT_KEY);
+            if (!value) throw new Error(ERR_EMPTY_SLOT_VALUE);
+
+            itemsBySlot.set(key, value);
+        }
+
+        return new RenderAttributes(itemsBySlot, layersOrder, defaultLayers);
+    }
+
 
     public toAttributes() {
 

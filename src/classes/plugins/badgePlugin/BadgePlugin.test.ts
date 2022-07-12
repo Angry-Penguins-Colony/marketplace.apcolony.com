@@ -1,5 +1,5 @@
-import Config from "../../classes/config";
-import { MissingSlot } from "../../errors/configErrors";
+import { MissingSlot } from "../../../errors/configErrors";
+import Config from "../../config";
 import BadgePlugin from "./BadgePlugin";
 import { CannotSetBadgeInDefaultLayers, CannotUseBadgeAsSlotName } from "./errors";
 

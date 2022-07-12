@@ -7,22 +7,22 @@ import Config from "./config";
 import IPFSCache from "./ipfscache";
 
 export default class ImageRenderer {
-    private readonly mimeType: string;
-    private readonly config: Config;
-    private readonly ipfsCache: IPFSCache;
+    protected readonly _mimeType: string;
+    protected readonly _config: Config;
+    protected readonly _ipfsCache: IPFSCache;
 
     constructor(
         config: Config
     ) {
-        this.config = config;
-        this.mimeType = config.renderMIMEType;
-        this.ipfsCache = new IPFSCache(config.ipfsGateway, config.ipfsCacheFolder);
+        this._config = config;
+        this._mimeType = config.renderMIMEType;
+        this._ipfsCache = new IPFSCache(config.ipfsGateway, config.ipfsCacheFolder);
     }
 
     public async downloadImages(afterEachDownload?: () => void): Promise<void> {
-        const downloadPromises = this.config.allCIDs
+        const downloadPromises = this._config.allCIDs
             .map(async (cid) => {
-                await this.ipfsCache.downloadCID(cid);
+                await this._ipfsCache.downloadCID(cid);
 
                 if (afterEachDownload) {
                     afterEachDownload();
@@ -41,15 +41,15 @@ export default class ImageRenderer {
         for (const plugin of plugins) {
             if (plugin.beforeRender) {
                 renderAttributes = await plugin.beforeRender(renderAttributes, {
-                    config: this.config,
-                    ipfsCache: this.ipfsCache
+                    config: this._config,
+                    ipfsCache: this._ipfsCache
                 });
             }
         }
         watch.next();
 
-        let imageBuffer = await this.merge(this.config.toPaths(renderAttributes), {
-            format: this.mimeType
+        let imageBuffer = await this.merge(this._config.toPaths(renderAttributes), {
+            format: this._mimeType
         });
         watch.next();
 
