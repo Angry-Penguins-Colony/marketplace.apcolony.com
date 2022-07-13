@@ -3,11 +3,6 @@ import ImageMIMEType from "../enums/ImageMIMEType";
 export default interface IRenderConfigOptions {
     itemsCID: { [key: string]: { [key: string]: string } };
 
-    /**
-     * Merge maximum request per seconds. Useful to reduce memory usage.
-     */
-    maxPerRequest?: number;
-    maxConcurrentPerRequest?: number;
     layersOrder?: string[];
     ipfsGateway?: string;
 

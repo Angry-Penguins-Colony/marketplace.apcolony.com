@@ -10,8 +10,6 @@ export default class RenderConfig {
     readonly ipfsGateway: string;
     readonly renderMIMEType: ImageMIMEType;
     readonly itemsCID: { [key: string]: { [key: string]: string; }; };
-    readonly maxRequestsPerSecond: number;
-    readonly maxConcurrentPerRequest: number;
     readonly ipfsCacheFolder: string;
 
     readonly layersOrder: string[];
@@ -43,8 +41,6 @@ export default class RenderConfig {
         this.layersOrder = config.layersOrder ?? Object.keys(config.itemsCID);
         this.itemsCID = config.itemsCID;
         this.defaultLayers = config.defaultLayers ?? undefined;
-        this.maxRequestsPerSecond = config.maxPerRequest ?? 1_000_000_000;
-        this.maxConcurrentPerRequest = config.maxConcurrentPerRequest ?? 1_000_000_000;
         this.ipfsCacheFolder = config.ipfsCacheFolder ?? "ipfs_cache";
         this.plugins = plugins;
 

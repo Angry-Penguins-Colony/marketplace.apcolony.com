@@ -24,8 +24,6 @@ export const userPlugins: IPlugin[] = [
 export const userConfig: IRenderConfigOptions = {
     ipfsGateway: "https://apc.mypinata.cloud/ipfs/",
     renderMIMEType: ImageMIMEType.JPEG,
-    maxPerRequest: 80, // 180 is good for RAM limited to 512Mb
-    maxConcurrentPerRequest: 2,
     itemsCID: {
         "background": {
             "background-1": "QmasaaTYGqaLhuhqMTxr2FzbgTY2cr9azafhQiJHrQ6usy",
