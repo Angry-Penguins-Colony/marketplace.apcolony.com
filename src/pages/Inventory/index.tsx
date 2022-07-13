@@ -1,19 +1,11 @@
 import * as React from 'react';
-import BackIcon from 'components/Icons/BackIcon';
-import DiscordIcon from 'components/Icons/DiscordIcon';
 import EditIcon from 'components/Icons/EditIcon';
-import KebabIcon from 'components/Icons/KebabIcon';
 import ShareIcon from 'components/Icons/ShareIcon';
-import TwitterIcon from 'components/Icons/TwitterIcon';
+import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import style from './inventory.module.scss';
 import ItemsInventory from './ItemsInventory';
 import NavigationType from './NavigationType';
 import NavInventory from './NavInventory';
-
-// TODO
-// - bind number of element at left
-// - bind number of element in filter popup
-// - do search bar in filter ? thinks not
 
 const typeWithFilter = ['penguins'];
 
@@ -493,11 +485,7 @@ const Inventory = () => {
 
     return (
         <>
-            <div id={style['mobile-header']}>
-                <BackIcon className={style.icon} />
-                <h1>My Inventory</h1>
-                <KebabIcon className={style.icon} />
-            </div>
+            <MobileHeader title="My Inventory" className={style['mobile-header']} />
             <div id={style['body-content']}>
                 <header>
                     <h2>Pseudonyme</h2>

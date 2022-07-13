@@ -31,10 +31,7 @@ const Navbar = () => {
     },
     {
       name: 'Lab',
-      action: () => {
-        console.log('lab');
-        // TODO: open lab
-      },
+      route: '/customize',
       icon: <LabIcon />,
       className: style.labIcon,
     },
@@ -81,6 +78,7 @@ const Navbar = () => {
           <div className={style.left}>
             <img src="/img/logo/logo.png" alt="Logo Angry Penguins" />
             <nav>
+              {/* TODO: bind nav link */}
               <div className={style.item}>Home</div>
               <div className={style.item}>Shop</div>
               <div className={style.item}>My Inventory</div>

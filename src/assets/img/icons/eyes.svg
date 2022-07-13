@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 33.155 9.459">
+    <defs>
+        <clipPath id="clip-path">
+            <rect id="Rectangle_730" data-name="Rectangle 730" width="14.265" height="9.459" fill="none"/>
+        </clipPath>
+        <clipPath id="clip-path-2">
+            <rect id="Rectangle_730-2" data-name="Rectangle 730" width="11.92" height="9.459" fill="none"/>
+        </clipPath>
+    </defs>
+    <g id="Groupe_1288" data-name="Groupe 1288" transform="translate(0 0)">
+        <g id="Groupe_1287" data-name="Groupe 1287" transform="translate(0 0)" clip-path="url(#clip-path)">
+            <path id="Tracé_387" data-name="Tracé 387" d="M12.376,3.75,6.05.34A2.83,2.83,0,0,0,4.163.053L2.285.422A2.826,2.826,0,0,0,0,3.2v.509A4.649,4.649,0,0,0,4.025,8.313L12.4,9.447a1.138,1.138,0,0,0,.178.013A1.327,1.327,0,0,0,13.7,8.841,3.593,3.593,0,0,0,12.376,3.75M7.132,7.2a2.258,2.258,0,1,1,.794-4.37.235.235,0,0,1,.047.413A1.128,1.128,0,0,0,9.016,5.224a.234.234,0,0,1,.3.279A2.257,2.257,0,0,1,7.132,7.2" transform="translate(0 0)" fill="#4379e0"/>
+        </g>
+    </g>
+    <g id="Groupe_1389" data-name="Groupe 1389" transform="translate(21.235)">
+        <g id="Groupe_1287-2" data-name="Groupe 1287" transform="translate(0 0)" clip-path="url(#clip-path-2)">
+            <path id="Tracé_387-2" data-name="Tracé 387" d="M1.579,3.75,6.864.34A2.028,2.028,0,0,1,8.442.053l1.569.369A2.745,2.745,0,0,1,11.92,3.2v.509A4.455,4.455,0,0,1,8.557,8.313l-7,1.134a.8.8,0,0,1-.149.013,1.08,1.08,0,0,1-.94-.619A3.992,3.992,0,0,1,1.579,3.75M5.961,7.2A2.145,2.145,0,0,0,7.833,4.675,2.116,2.116,0,0,0,6.191,2.7,1.591,1.591,0,0,0,5.3,2.83a.258.258,0,0,0-.039.413,1.207,1.207,0,0,1,.405.926A1.047,1.047,0,0,1,4.72,5.3a.8.8,0,0,1-.334-.073c-.144-.066-.292.1-.254.279A1.984,1.984,0,0,0,5.961,7.2" transform="translate(0 0)" fill="#4379e0"/>
+        </g>
+    </g>
+</svg>

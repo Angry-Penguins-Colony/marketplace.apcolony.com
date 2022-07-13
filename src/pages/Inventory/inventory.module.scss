@@ -5,28 +5,9 @@ body {
     overflow: hidden;
 }
 
-
-#mobile-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 60px 30px 80px 30px;
+.mobile-header {
     background-image: url('./../../assets/img/bgHeaderMobile.png');
     background-size: cover;
-
-    .icon {
-        height: 25px;
-        fill: white;
-    }
-
-    h1 {
-        color: white;
-        font-family: 'CHEDROS', sans-serif;
-        font-weight: bold;
-        position: relative;
-        top: -0.1em;
-        font-size: 2rem;
-    }
 }
 
 #body-content {
@@ -174,9 +155,6 @@ body {
         background-image: url('./../../assets/img/T1-Bleu.png');
     }
 
-    #mobile-header {
-        display: none;
-    }
 
     #body-content {
         display: grid;

@@ -1,0 +1,40 @@
+#mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 60px 30px 80px 30px;
+
+    .icon {
+        height: 25px;
+        fill: white;
+    }
+
+    .titles {
+        text-align: center;
+
+        h1 {
+            color: white;
+            font-family: 'CHEDROS', sans-serif;
+            font-weight: bold;
+            position: relative;
+            top: -0.1em;
+            font-size: 2rem;
+        }
+
+        h2 {
+            color: white;
+            font-family: 'Config Rounded', sans-serif;
+            font-weight: medium;
+            position: relative;
+            top: -0.2em;
+            font-size: 1.4rem;
+        }
+    }
+}
+
+// desktop
+@media (min-width:800px) {
+    #mobile-header {
+        display: none;
+    }
+}

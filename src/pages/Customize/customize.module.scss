@@ -1,0 +1,91 @@
+@import './../../assets/sass/var.scss';
+
+body {
+    background-image: url("./../../assets/img/main-background.png");
+    background-size: cover;
+    background-position: -73vh center;
+}
+
+.customize {
+    .content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 25px;
+
+        .items {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+
+            .item {
+                border-radius: 999px;
+                background-color: white;
+                width: 43px;
+                height: 43px;
+                position: relative;
+
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: 70%;
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    $diff: 7px;
+                    top: -$diff;
+                    left: -$diff;
+                    right: -$diff;
+                    bottom: -$diff;
+                    background-color: transparent;
+                    border-radius: 999px;
+                    border: 3px solid $primary;
+                }
+
+                &.hat {
+                    background-image: url('./../../assets/img/icons/hat.svg');
+                }
+
+                &.eyes {
+                    background-image: url('./../../assets/img/icons/eyes.svg');
+                }
+
+                &.clothes {
+                    background-image: url('./../../assets/img/icons/clothes.svg');
+                }
+
+                &.beak {
+                    background-image: url('./../../assets/img/icons/beak.svg');
+                }
+
+                &.skin {
+                    background-image: url('./../../assets/img/icons/skin.svg');
+                    background-size: 90%;
+                    background-position: center bottom;
+                }
+
+                &.weapon {
+                    background-image: url('./../../assets/img/icons/weapon.svg');
+                    transform: rotate(20deg);
+                    background-size: 60%;
+                }
+
+                &.background {
+                    background-image: url('./../../assets/img/icons/background.svg');
+                }
+            }
+        }
+
+        .render {}
+    }
+
+    .reset {
+        display: none;
+    }
+
+    .controls {
+        display: none;
+    }
+}

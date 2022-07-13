@@ -1,5 +1,6 @@
 import { dAppName } from 'config';
 import withPageTitle from './components/PageTitle';
+import Customize from './pages/Customize';
 import Home from './pages/Home';
 import Inventory from './pages/Inventory';
 import Transaction from './pages/Transaction';
@@ -7,10 +8,9 @@ import Transaction from './pages/Transaction';
 export const routeNames = {
   home: '/',
   transaction: '/transaction',
-  // inventory: '/inventory(/:type)',
-  // inventory: '/inventory/:type?',
-  // inventory: '/inventory/:type?/',
   inventory: '/inventory',
+  customize: '/customize',
+  customizeOne: '/customize/:id',
   unlock: '/unlock',
   ledger: '/ledger',
   walletconnect: '/walletconnect'
@@ -31,6 +31,16 @@ const routes: Array<any> = [
     path: routeNames.inventory,
     title: 'Inventory',
     component: Inventory
+  },
+  {
+    path: routeNames.customize,
+    title: 'Customize',
+    component: Customize
+  },
+  {
+    path: routeNames.customizeOne,
+    title: 'Customize',
+    component: Customize
   },
 ];
 
