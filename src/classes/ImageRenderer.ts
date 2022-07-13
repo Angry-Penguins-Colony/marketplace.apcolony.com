@@ -12,6 +12,10 @@ export default class ImageRenderer {
     protected readonly _config: RenderConfig;
     protected readonly _ipfsCache: IPFSCache;
 
+    public get config(): RenderConfig {
+        return this._config;
+    }
+
     constructor(
         config: RenderConfig
     ) {
