@@ -1,15 +1,28 @@
 import RenderAttributes from "@apc/renderer/dist/classes/RenderAttributes";
-import { SmartContract, StringValue, TransactionPayload } from "@elrondnetwork/erdjs/out";
+import { UserSigner } from "@elrondnetwork/erdjs-walletcore/out";
+import { Address, SmartContract, StringValue, TransactionPayload } from "@elrondnetwork/erdjs/out";
 import WriteGateway from "../../src/classes/WriteGateway";
 import config from "../../src/config";
 import { envVariables } from "../../src/utils";
+import "dotenv/config";
+import Bottleneck from "bottleneck";
 
 export async function sendRenderImage(attributes: RenderAttributes) {
 
     const smartContract = new SmartContract({ address: config.customisationContract });
-    const gatewayOnNetwork = new WriteGateway(config.gatewayUrl, envVariables.senderAddress, envVariables.signer);
 
-    await gatewayOnNetwork.sync();
+    const sender = {
+        address: process.env.SENDER_TEST_BECH32,
+        pem: process.env.SENDER_TEST_PEM
+    };
+
+    if (!sender.address) throw new Error("Missing env SENDER_TEST_ADDRESS");
+    if (!sender.pem) throw new Error("Missing env SENDER_TEST_PEM");
+
+    console.log(`Sending render image request to ${sender.address}...`);
+    const writeGateway = new WriteGateway(config.gatewayUrl, new Address(sender.address), UserSigner.fromPem(sender.pem), new Bottleneck());
+
+    await writeGateway.sync();
 
     const tx = smartContract.call({
         func: { name: "renderImage" },
@@ -18,10 +31,10 @@ export async function sendRenderImage(attributes: RenderAttributes) {
         ],
         value: 1_000_000_000_000_000, // 0.001 EGLD
         gasLimit: 50_000_000,
-        gasPrice: gatewayOnNetwork.networkConfig.MinGasPrice,
-        chainID: gatewayOnNetwork.networkConfig.ChainID,
+        gasPrice: writeGateway.networkConfig.MinGasPrice,
+        chainID: writeGateway.networkConfig.ChainID,
     });
 
 
-    return gatewayOnNetwork.sendTransaction(tx);
+    return writeGateway.sendTransaction(tx);
 }

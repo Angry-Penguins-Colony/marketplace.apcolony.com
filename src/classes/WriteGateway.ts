@@ -7,6 +7,7 @@ import { TransactionResult } from "../interfaces/TransactionResult";
 import { CIDKvp } from "../structs/CIDKvp";
 import BigNumber from "bignumber.js";
 import colors from "colors";
+import Bottleneck from "bottleneck";
 
 enum SyncState {
     Not,
@@ -24,6 +25,7 @@ export default class WriteGateway {
     private readonly _senderAddress: IAddress;
     private readonly _networkProvider: INetworkProvider
     private readonly _signer: ISigner;
+    private readonly _requestLimiter: Bottleneck;
 
     private get nonce(): number {
         if (!this._opt_nonce) {
@@ -45,12 +47,13 @@ export default class WriteGateway {
         return this._senderAddress;
     }
 
-    constructor(gatewayUrl: string, senderAddress: IAddress, signer: ISigner) {
+    constructor(gatewayUrl: string, senderAddress: IAddress, signer: ISigner, requestLimiter: Bottleneck) {
         this._networkProvider = new ProxyNetworkProvider(gatewayUrl, {
             timeout: 60000
         });
         this._senderAddress = senderAddress;
         this._signer = signer;
+        this._requestLimiter = requestLimiter;
     }
 
     public async sync() {
@@ -58,17 +61,17 @@ export default class WriteGateway {
             case SyncState.Not:
                 this._opt_syncState = SyncState.Syncing;
                 {
-                    this._opt_networkConfig = await this._networkProvider.getNetworkConfig();
+                    this._opt_networkConfig = await this._requestLimiter.schedule(this._networkProvider.getNetworkConfig.bind(this._networkProvider));
 
-                    let senderOnNetwork = await this._networkProvider.getAccount(this._senderAddress);
+                    let senderOnNetwork = await this._requestLimiter.schedule(this._networkProvider.getAccount.bind(this._networkProvider), this._senderAddress);
                     this._opt_nonce = senderOnNetwork.nonce;
                 }
                 this._opt_syncState = SyncState.Synced;
-
-                console.log("Gateway synced");
+                break;
 
             case SyncState.Syncing:
                 // wait for sync to finish
+                // @ts-ignore
                 while (this._opt_syncState != SyncState.Synced) {
                     await sleep(150);
                 }
@@ -128,7 +131,7 @@ export default class WriteGateway {
 
         await this._signer.sign(tx);
 
-        const hash = await this._networkProvider.sendTransaction(tx);
+        const hash = await this._requestLimiter.schedule(this._networkProvider.sendTransaction.bind(this._networkProvider), tx);
 
         return { hash, nonce };
     }

@@ -1,5 +1,4 @@
 import { IAddress } from "@elrondnetwork/erdjs/out";
-import { IGatewayOptions } from "./IGatewayOptions";
 import BigNumber from "bignumber.js";
 
 export interface IConfig {
@@ -7,5 +6,4 @@ export interface IConfig {
     gatewayUrl: string;
     customisationContract: IAddress;
     claimThreshold: BigNumber;
-    readGatewayOptions?: IGatewayOptions;
 }

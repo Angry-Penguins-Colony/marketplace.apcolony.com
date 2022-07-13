@@ -4,7 +4,7 @@ import ReadGateway from "./classes/ReadGateway";
 import config from "./config";
 import { CIDKvp } from "./structs/CIDKvp";
 import WriteGateway from "./classes/WriteGateway";
-import { envVariables } from "./utils";
+import { envVariables, requestsPerMinutesToMinTime } from "./utils";
 import { ISmartContract, SmartContract } from "@elrondnetwork/erdjs/out";
 import { userRenderConfig } from "./config/render.config";
 import RenderConfig from "@apc/renderer/dist/classes/RenderConfig";
@@ -14,13 +14,19 @@ import { PinataPin } from './classes/PinataPin';
 import colors from "colors";
 import { IItemToProcess } from './interfaces/IItemToProcess';
 import BigNumber from "bignumber.js";
+import { officialGatewayMaxRPS } from './const';
+import Bottleneck from 'bottleneck';
 
 main();
 
 async function main() {
 
-    const readGateway = new ReadGateway(config.gatewayUrl, config.customisationContract, config.readGatewayOptions);
-    const writeGateway = new WriteGateway(config.gatewayUrl, envVariables.senderAddress, envVariables.signer);
+    const gatewayLimiter = new Bottleneck({
+        minTime: requestsPerMinutesToMinTime(officialGatewayMaxRPS)
+    });
+
+    const readGateway = new ReadGateway(config.gatewayUrl, config.customisationContract, gatewayLimiter);
+    const writeGateway = new WriteGateway(config.gatewayUrl, envVariables.senderAddress, envVariables.signer, gatewayLimiter);
     const customisationSC = new SmartContract({ address: config.customisationContract });
     const renderConfig = new RenderConfig(userRenderConfig, renderConfigPlugins);
     const renderer = new MyImageRenderer(renderConfig);

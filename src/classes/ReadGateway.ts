@@ -1,8 +1,6 @@
-import { functionNames, officialGatewayMaxRPS } from "../const";
+import { functionNames } from "../const";
 import Bottleneck from "bottleneck";
-import { requestsPerMinutesToMinTime } from "../utils";
 import { IAddress, ISmartContract, SmartContract } from "@elrondnetwork/erdjs/out";
-import { IGatewayOptions } from "../interfaces/IGatewayOptions";
 import { ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import RenderAttributes from "@apc/renderer/dist/classes/RenderAttributes";
 import BigNumber from "bignumber.js";
@@ -18,16 +16,11 @@ export default class ReadGateway {
     constructor(
         gatewayUrl: string,
         customisationContractAddress: IAddress,
-        options?: IGatewayOptions
+        requestLimiter: Bottleneck
     ) {
         this._gateway = new ProxyNetworkProvider(gatewayUrl);
-
         this._customisationContract = new SmartContract({ address: customisationContractAddress });
-
-        this._requestLimiter = new Bottleneck({
-            maxConcurrent: options?.maxConcurrent ?? 1,
-            minTime: requestsPerMinutesToMinTime(options?.maxRPS ?? officialGatewayMaxRPS)
-        });
+        this._requestLimiter = requestLimiter;
     }
 
 
@@ -38,8 +31,7 @@ export default class ReadGateway {
         }
     ): Promise<RenderAttributes[]> {
 
-        // TODO: use _requestLimiter
-        const output = await this._gateway.queryContract({
+        const output = await this._requestLimiter.schedule(this._gateway.queryContract.bind(this._gateway), {
             address: this._customisationContract.getAddress(),
             func: {
                 toString(): string {
@@ -59,8 +51,7 @@ export default class ReadGateway {
     }
 
     public async getBalance(address: IAddress): Promise<BigNumber> {
-        // TODO: use _requestLimiter
-        let account = await this._gateway.getAccount(address);
+        let account = await this._requestLimiter.schedule(this._gateway.getAccount.bind(this._gateway), address);
         return account.balance;
     }
 }
