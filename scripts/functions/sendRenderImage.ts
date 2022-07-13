@@ -16,7 +16,7 @@ export async function sendRenderImage(attributes: RenderAttributes) {
         args: [
             new StringValue(attributes.toAttributes())
         ],
-        value: "",
+        value: 1_000_000_000_000_000, // 0.001 EGLD
         gasLimit: 50_000_000,
         gasPrice: gatewayOnNetwork.networkConfig.MinGasPrice,
         chainID: gatewayOnNetwork.networkConfig.ChainID,

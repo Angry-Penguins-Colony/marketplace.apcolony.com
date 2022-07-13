@@ -5,7 +5,8 @@ import { IAddress, ISmartContract, StringValue, Transaction, TransactionPayload 
 import { sleep } from "ts-apc-utils";
 import { TransactionResult } from "../interfaces/TransactionResult";
 import { CIDKvp } from "../structs/CIDKvp";
-
+import BigNumber from "bignumber.js";
+import colors from "colors";
 
 enum SyncState {
     Not,
@@ -75,10 +76,38 @@ export default class WriteGateway {
         }
     }
 
+    public async claimIfNeeded(contract: ISmartContract): Promise<TransactionResult | undefined> {
+        const balance = await this.getSenderBalance();
+
+        console.log(balance);
+
+        if (balance.gt(0)) {
+            return this.claimBalance(contract);
+        } else {
+            return undefined;
+        }
+    }
+
+    public async getSenderBalance(): Promise<BigNumber> {
+        let senderOnNetwork = await this._networkProvider.getAccount(this._senderAddress);
+        return senderOnNetwork.balance;
+    }
+
+    public async claimBalance(contract: ISmartContract): Promise<TransactionResult> {
+        const tx = contract.call({
+            func: { name: "claim" },
+            args: [],
+            value: "",
+            gasLimit: 10_000_000,
+            gasPrice: this.networkConfig.MinGasPrice,
+            chainID: this.networkConfig.ChainID,
+        });
+
+        return this.sendTransaction(tx);
+    }
+
     public async setCid(cid: CIDKvp[], customisationContract: ISmartContract): Promise<TransactionResult> {
         if (cid.length == 0) throw new Error("No CID to send");
-
-        await this.sync();
 
         const func = { name: "setCidOf" };
         const args = cid
