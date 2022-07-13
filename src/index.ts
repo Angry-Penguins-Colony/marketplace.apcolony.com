@@ -2,20 +2,18 @@ import 'dotenv/config'
 import { sleep } from "ts-apc-utils";
 import ReadGateway from "./classes/ReadGateway";
 import config from "./config";
-import { CIDKvp } from "./structs/CIDKvp";
 import WriteGateway from "./classes/WriteGateway";
 import { envVariables, requestsPerMinutesToMinTime } from "./utils";
-import { ISmartContract, SmartContract } from "@elrondnetwork/erdjs/out";
-import { userRenderConfig } from "./config/render.config";
-import RenderConfig from "@apc/renderer/dist/classes/RenderConfig";
-import { renderConfigPlugins } from "./config/render.plugins.config";
-import MyImageRenderer from "./classes/MyImageRenderer";
+import { SmartContract } from "@elrondnetwork/erdjs/out";
 import { PinataPin } from './classes/PinataPin';
 import colors from "colors";
 import { IItemToProcess } from './interfaces/IItemToProcess';
 import BigNumber from "bignumber.js";
 import { officialGatewayMaxRPS } from './const';
 import Bottleneck from 'bottleneck';
+import imageRenderer from '@apc/renderer';
+import RenderAttributes from '@apc/renderer/dist/classes/RenderAttributes';
+const Hash = require('ipfs-only-hash')
 
 main();
 
@@ -28,13 +26,12 @@ async function main() {
     const readGateway = new ReadGateway(config.gatewayUrl, config.customisationContract, gatewayLimiter);
     const writeGateway = new WriteGateway(config.gatewayUrl, envVariables.senderAddress, envVariables.signer, gatewayLimiter);
     const customisationSC = new SmartContract({ address: config.customisationContract });
-    const renderConfig = new RenderConfig(userRenderConfig, renderConfigPlugins);
-    const renderer = new MyImageRenderer(renderConfig);
+    const renderConfig = imageRenderer.config;
     const pinata = new PinataPin(envVariables.pinataApiKey, envVariables.pinataApiSecret, "pin_folder");
 
     await pinata.testAuthentication();
     await writeGateway.sync();
-    await renderer.downloadImages({ verbose: true });
+    await imageRenderer.downloadImages({ verbose: true });
 
     const alreadyProcessedCID: string[] = [];
 
@@ -46,7 +43,7 @@ async function main() {
 
         if (queue.length > 0) {
             const itemsPromises = queue
-                .map((item) => renderer.renderAdvanced(item));
+                .map((item) => renderAdvanced(item));
 
             const items = (await Promise.all(itemsPromises))
                 .filter((item) => item !== undefined && alreadyProcessedCID.includes(item.cid) == false) as IItemToProcess[];
@@ -72,6 +69,25 @@ async function main() {
         }
 
         await sleep(config.msBetweenUpdate)
+    }
+}
+
+async function renderAdvanced(item: RenderAttributes): Promise<IItemToProcess | undefined> {
+
+    try {
+
+        const imageBuffer = await imageRenderer.render(item, imageRenderer.config.plugins);
+        const cid: string = await Hash.of(imageBuffer);
+
+        return {
+            cid: cid,
+            attributes: item,
+            imageBuffer: imageBuffer
+        };
+    }
+    catch (e: any) {
+        console.error(`${"[Error]".red} ${e.toString().red} => Skipping item ${[...item.itemsBySlot.entries()].toString().grey} `);
+        return undefined;
     }
 }
 
