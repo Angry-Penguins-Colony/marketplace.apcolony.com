@@ -2,10 +2,10 @@ import { functionNames, officialGatewayMaxRPS } from "../const";
 import Bottleneck from "bottleneck";
 import { requestsPerMinutesToMinTime } from "../utils";
 import { IAddress, ISmartContract, SmartContract } from "@elrondnetwork/erdjs/out";
-import fetch from "node-fetch";
 import { IGatewayOptions } from "../interfaces/IGatewayOptions";
 import { ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import RenderAttributes from "@apc/renderer/dist/classes/RenderAttributes";
+import BigNumber from "bignumber.js";
 
 
 export default class ReadGateway {
@@ -56,5 +56,11 @@ export default class ReadGateway {
             .map(attributes => RenderAttributes.fromAttributes(attributes, layersOrder, defaultLayers));
 
         return renderAttributes
+    }
+
+    public async getBalance(address: IAddress): Promise<BigNumber> {
+        // TODO: use _requestLimiter
+        let account = await this._gateway.getAccount(address);
+        return account.balance;
     }
 }

@@ -41,6 +41,10 @@ export default class WriteGateway {
         return this._opt_networkConfig;
     }
 
+    public get senderAddress(): IAddress {
+        return this._senderAddress;
+    }
+
     constructor(gatewayUrl: string, senderAddress: IAddress, signer: ISigner) {
         this._networkProvider = new ProxyNetworkProvider(gatewayUrl, {
             timeout: 60000
@@ -74,23 +78,6 @@ export default class WriteGateway {
                 // we don't need to do anything
                 break;
         }
-    }
-
-    public async claimIfNeeded(contract: ISmartContract): Promise<TransactionResult | undefined> {
-        const balance = await this.getSenderBalance();
-
-        console.log(balance);
-
-        if (balance.gt(0)) {
-            return this.claimBalance(contract);
-        } else {
-            return undefined;
-        }
-    }
-
-    public async getSenderBalance(): Promise<BigNumber> {
-        let senderOnNetwork = await this._networkProvider.getAccount(this._senderAddress);
-        return senderOnNetwork.balance;
     }
 
     public async claimBalance(contract: ISmartContract): Promise<TransactionResult> {

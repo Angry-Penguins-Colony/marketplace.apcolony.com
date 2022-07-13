@@ -5,7 +5,7 @@ import config from "./config";
 import { CIDKvp } from "./structs/CIDKvp";
 import WriteGateway from "./classes/WriteGateway";
 import { envVariables } from "./utils";
-import { SmartContract } from "@elrondnetwork/erdjs/out";
+import { ISmartContract, SmartContract } from "@elrondnetwork/erdjs/out";
 import { userRenderConfig } from "./config/render.config";
 import RenderConfig from "@apc/renderer/dist/classes/RenderConfig";
 import { renderConfigPlugins } from "./config/render.plugins.config";
@@ -13,6 +13,7 @@ import MyImageRenderer from "./classes/MyImageRenderer";
 import { PinataPin } from './classes/PinataPin';
 import colors from "colors";
 import { IItemToProcess } from './interfaces/IItemToProcess';
+import BigNumber from "bignumber.js";
 
 main();
 
@@ -51,6 +52,8 @@ async function main() {
 
             if (items.length > 0) {
 
+                await claimIfNeeded(readGateway, writeGateway, customisationSC, config.claimThreshold);
+
                 await Promise.all([
                     pinata.multiplePin(items),
                     writeGateway.setCid(items, customisationSC),
@@ -66,3 +69,24 @@ async function main() {
     }
 }
 
+async function claimIfNeeded(readGateway: ReadGateway, writeGateway: WriteGateway, customisationSC: SmartContract, claimThreshold: BigNumber) {
+
+    if (claimThreshold.isNaN()) throw new Error("claimThreshold is not a number");
+
+    const senderBalance = await readGateway.getBalance(writeGateway.senderAddress);
+
+    if (senderBalance.isLessThanOrEqualTo(claimThreshold)) {
+        const contractBalance = await readGateway.getBalance(customisationSC.getAddress());
+
+        if (contractBalance.isGreaterThan(0)) {
+            const { hash, nonce } = await writeGateway.claimBalance(customisationSC);
+
+            const newSenderBalance = await readGateway.getBalance(writeGateway.senderAddress);
+            const totalClaimed = newSenderBalance.minus(senderBalance);
+            console.log(`Claimed ${totalClaimed} balance. Hash: ${hash} Nonce: ${nonce}`.green);
+        }
+        else {
+            console.warn("⚠️ The sender balance is below the threshold but the contract has no balance.".yellow);
+        }
+    }
+}
