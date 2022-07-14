@@ -4,23 +4,6 @@ import ImageMIMEType from "./enums/ImageMIMEType";
 import IPlugin from "./interfaces/IPlugin";
 import IRenderConfigOptions from "./interfaces/IRenderConfigOptions";
 
-export const userPlugins: IPlugin[] = [
-    new BadgePlugin(
-        {
-            badgesFolderCID: "QmQyu1jfTbqnQ5MCdZ7iYUWx6h2KP4a922WZnboBuveqAa",
-            badgePrefix: "badges-",
-            badgeSuffix: "-render.png",
-            deleteBadgeIfSlotsEquipped: [
-                "skin"
-            ]
-        }
-    ),
-    new Resize2DImage(
-        1024,
-        1024
-    ),
-]
-
 export const userConfig: IRenderConfigOptions = {
     ipfsGateway: "https://apc.mypinata.cloud/ipfs/",
     renderMIMEType: ImageMIMEType.JPEG,
@@ -231,3 +214,20 @@ export const userConfig: IRenderConfigOptions = {
     },
 
 };
+
+export const userPlugins: IPlugin[] = [
+    new BadgePlugin(
+        {
+            badgesFolderCID: "QmQyu1jfTbqnQ5MCdZ7iYUWx6h2KP4a922WZnboBuveqAa",
+            badgePrefix: "badges-",
+            badgeSuffix: "-render.png",
+            deleteBadgeIfSlotsEquipped: [
+                "skin"
+            ]
+        }
+    ),
+    new Resize2DImage(
+        1024,
+        1024
+    ),
+]
