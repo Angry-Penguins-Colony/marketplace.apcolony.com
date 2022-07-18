@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
+import tmpImgBackground from './../../assets/img/penguin_background.png';
 import style from './customize.module.scss';
+import PenguinRender from './Render';
 
 // bind with real function
 function getMyPenguinData(id: string | undefined) {
@@ -30,7 +32,9 @@ const Customize = () => {
                         <div className={style.item + ' ' + style.eyes}></div>
                         <div className={style.item + ' ' + style.clothes}></div>
                     </div>
-                    <div className={style.render}></div>
+                    <PenguinRender items={{
+                        background: tmpImgBackground,
+                    }} />
                     <div className={style.items}>
                         <div className={style.item + ' ' + style.beak}></div>
                         <div className={style.item + ' ' + style.skin}></div>

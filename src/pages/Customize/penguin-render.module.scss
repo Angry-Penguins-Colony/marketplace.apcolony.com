@@ -1,0 +1,22 @@
+.render {
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    background-color: white;
+
+    &.hasBackground {
+        background-color: transparent;
+    }
+
+    &::after {
+        content: "";
+        display: block;
+        padding-bottom: 100%;
+    }
+
+    img {
+        width: 100%;
+        position: absolute;
+    }
+}

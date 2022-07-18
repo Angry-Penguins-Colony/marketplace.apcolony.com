@@ -12,6 +12,7 @@ body {
         align-items: center;
         justify-content: space-between;
         padding: 0 25px;
+        gap: 20px;
 
         .items {
             display: flex;
@@ -77,8 +78,6 @@ body {
                 }
             }
         }
-
-        .render {}
     }
 
     .reset {
