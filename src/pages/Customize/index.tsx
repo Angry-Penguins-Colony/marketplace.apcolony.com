@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
+import Button from 'components/Button/Button';
+import RefreshIcon from 'components/Icons/RefreshIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import tmpImgBackground from './../../assets/img/penguin_background.png';
 import style from './customize.module.scss';
@@ -43,9 +45,7 @@ const Customize = () => {
                     </div>
                 </div>
                 <div className={style.reset}>
-                    <button>
-                        <span>Reset Items</span>
-                    </button>
+                    <Button icon={<RefreshIcon />}>Reset Items</Button>
                 </div>
                 <div className={style.controls}>
                     <button>Cancel All</button>

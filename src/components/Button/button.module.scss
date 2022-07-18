@@ -1,0 +1,31 @@
+@import './../../assets/sass/var.scss';
+
+.button {
+    border: 1px solid $primary;
+    background-color: white;
+    color: $primary;
+    padding: 8px 12px;
+    border-radius: 999px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    .text {
+        font-family: 'CHEDROS', sans-serif;
+        font-size: 1.2rem;
+        font-weight: bold;
+        line-height: 0.6;
+        position: relative;
+        top: 0.15rem;
+    }
+
+    .icon {
+        svg {
+            height: 1.2rem;
+            fill: $primary;
+            stroke: $primary;
+        }
+    }
+}
