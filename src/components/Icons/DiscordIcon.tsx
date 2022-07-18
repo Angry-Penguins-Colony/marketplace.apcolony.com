@@ -1,6 +1,6 @@
 import React from 'react';
 
-const BackIcon = ({
+const DiscordIcon = ({
     className = '',
     fill
 }: {
@@ -14,4 +14,4 @@ const BackIcon = ({
     );
 };
 
-export default BackIcon;
+export default DiscordIcon;

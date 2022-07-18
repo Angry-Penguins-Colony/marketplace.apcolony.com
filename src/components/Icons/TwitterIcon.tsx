@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DiscordIcon = ({
+const TwitterIcon = ({
     className = '',
     fill
 }: {
@@ -15,4 +15,4 @@ const DiscordIcon = ({
     );
 };
 
-export default DiscordIcon;
+export default TwitterIcon;
