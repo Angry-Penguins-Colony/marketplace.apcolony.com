@@ -5,6 +5,7 @@ import RefreshIcon from 'components/Icons/RefreshIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import tmpImgBackground from './../../assets/img/penguin_background.png';
 import style from './customize.module.scss';
+import GoToAnotherPenguin from './GoToAnotherPenguin';
 import PenguinRender from './Render';
 
 // TODO bind with real function
@@ -94,6 +95,28 @@ const Customize = () => {
                     <Button type='cancel'>Cancel All</Button>
                     <Button type='primary'>Confirm Customization</Button>
                 </div>
+                <GoToAnotherPenguin className={style['another-penguins']}
+                    currentPenguin={
+                        {
+                            id: penguinData.id,
+                            thumbnail: 'https://media.elrond.com/nfts/asset/QmQTM6cz6j3qjTib5Wt71Npywddqz1fQuxYXD54e9WcaEf'
+                        }
+                    }
+                    leftPenguin={
+                        {
+                            id: '1234',
+                            thumbnail: 'https://media.elrond.com/nfts/asset/QmQTM6cz6j3qjTib5Wt71Npywddqz1fQuxYXD54e9WcaEf'
+                        }
+                    }
+
+                    rightPenguin={
+                        {
+                            id: '6845',
+                            thumbnail: 'https://media.elrond.com/nfts/asset/QmQTM6cz6j3qjTib5Wt71Npywddqz1fQuxYXD54e9WcaEf'
+                        }
+                    }
+
+                />
             </section>
         </>
     );

@@ -1,9 +1,9 @@
 @import './../../assets/sass/var.scss';
 
 // body can't scrollable directly
-body {
-    overflow: hidden;
-}
+// body {
+//     overflow: hidden; // TODO: make overflow for specific page
+// }
 
 .mobile-header {
     background-image: url('./../../assets/img/bgHeaderMobile.png');

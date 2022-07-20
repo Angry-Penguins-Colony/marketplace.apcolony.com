@@ -3,10 +3,13 @@
 body {
     background-image: url("./../../assets/img/main-background.png");
     background-size: cover;
-    background-position: -73vh center;
+    background-position: calc(50vh + 50vw) center;
+    background-attachment: fixed;
 }
 
 .customize {
+    padding-bottom: 120px;
+
     .content {
         display: flex;
         align-items: center;
@@ -81,6 +84,7 @@ body {
     }
 
     .reset {
+        margin-top: 25px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -92,5 +96,9 @@ body {
         align-items: center;
         justify-content: center;
         gap: 20px;
+    }
+
+    .another-penguins {
+        margin-top: 50px;
     }
 }
