@@ -5,13 +5,15 @@ const Button = ({
     children,
     className,
     icon,
+    type = 'normal',
 }: {
     children: React.ReactNode,
     className?: string,
     icon?: React.ReactNode,
+    type?: 'normal' | 'primary' | 'cancel',
 }) => {
     return (
-        <button className={style.button + ' ' + className}>
+        <button className={style.button + ' ' + style[type] + ' ' + className}>
             <span className={style.text}>
                 {children}
             </span>

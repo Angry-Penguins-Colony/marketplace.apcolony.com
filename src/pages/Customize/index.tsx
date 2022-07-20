@@ -48,8 +48,8 @@ const Customize = () => {
                     <Button icon={<RefreshIcon />}>Reset Items</Button>
                 </div>
                 <div className={style.controls}>
-                    <button>Cancel All</button>
-                    <button>Confirm Customization</button>
+                    <Button type='cancel'>Cancel All</Button>
+                    <Button type='primary'>Confirm Customization</Button>
                 </div>
             </section>
         </>
