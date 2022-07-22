@@ -12,7 +12,6 @@
     &.open {}
 
     &.close {
-        // top: 100%;
         display: none;
     }
 
@@ -65,7 +64,7 @@
             }
 
             .search-bar {
-                background-color: #E9EEF2;
+                background-color: $background;
                 border-radius: 999px;
                 padding: 10px 20px;
                 display: flex;
