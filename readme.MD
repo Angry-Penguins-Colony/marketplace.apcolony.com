@@ -2,7 +2,11 @@
 
 # ⚙ Package Renderer
 
-This is a package installed in both servers that render images. This is the one that has the configuration of the rendering.
+## Description
+
+This package download images from IPS and generate Equippable render.
+
+This is a package installed in both `server-push-render` and `server-renderer`s. This is the one that has the configuration of the rendering.
 
 ## How to configure it?
 
