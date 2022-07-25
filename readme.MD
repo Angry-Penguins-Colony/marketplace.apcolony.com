@@ -8,7 +8,7 @@ This package download images from IPS and generate Equippable render.
 
 This is a package installed in both `server-push-render` and `server-renderer`s. This is the one that has the configuration of the rendering.
 
-## How to configure it?
+## Configuration
 
 The configuration file is in `src/config.ts`.
 Here's a default :
@@ -94,7 +94,7 @@ export const userPlugins: IPlugin[] = [
 ];
 ```
 
-## How to extend rendering with plugins?
+## Create my own plugin
 
 1. Create a class that extends `IPlugin`.
 
