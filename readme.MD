@@ -1,4 +1,4 @@
-[![Node.js CI](https://github.com/Angry-Penguins-Colony/server-penguins-renderer/actions/workflows/node.js.yml/badge.svg)](https://github.com/Angry-Penguins-Colony/server-penguins-renderer/actions/workflows/node.js.yml)
+[![Node.js CI](https://github.com/Angry-Penguins-Colony/package-renderer/actions/workflows/node.js.yml/badge.svg)](https://github.com/Angry-Penguins-Colony/package-renderer/actions/workflows/node.js.yml)
 
 # ⚙ Package Renderer
 
