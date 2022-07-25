@@ -2,13 +2,7 @@
 
 ## ⚙ Package Renderer
 
-It is an npm package installed in both servers that render images. This is the one that has the configuration of the rendering.
-
-### How does it work?
-
-At the start, it downloads all of your items' images from IPFS.
-
-When the package receives a render order, it merges the items' images into an equippable with the package [merge-images](https://www.npmjs.com/package/merge-images), and then returns a buffer containing the image.
+This is a package installed in both servers that render images. This is the one that has the configuration of the rendering.
 
 ### How to configure it?
 
