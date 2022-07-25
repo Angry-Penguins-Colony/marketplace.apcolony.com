@@ -1,5 +1,8 @@
 # ⬆️ Server Push Render
 
+
+## Description
+
 Periodically, get the queue of images to render from the customization SC. 
 For each them:
 
@@ -13,7 +16,12 @@ Angry Penguins Colony uses [Heroku](https://www.heroku.com/) to host the server.
 
 ## How to setup it up ?
 
-### Configure `src/config.ts`
+- Install a forked and configured package of [package-renderer](https://github.com/Angry-Penguins-Colony/package-renderer) like so: 
+```
+npm i git+ssh://git@github.com:{YourGitName}/{RepoName}.git
+```
+
+- Configure `src/config.ts`
 
 ```typescript
 const config: IConfig = {
@@ -36,7 +44,7 @@ const config: IConfig = {
 > The server spend EGLD on gas fees for each `setCidOf` transactions. And so, the wallet could be empty.
 > Hopefully, when the balance is lesser than the claim thresold, the server will get the smart contract's balance.
 
-### Create a `.env` file
+- Create a `.env` file
 
 ```rust
 // .pem content of the contract owner; used to send setCidOf and claim transaction
