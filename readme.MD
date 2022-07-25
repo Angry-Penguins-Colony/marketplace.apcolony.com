@@ -10,11 +10,8 @@ For each them:
 2. pin it on the IPFS on Pinata Cloud
 3. send it CID to the customization SC.
 
-## How to host it ?
 
-Angry Penguins Colony uses [Heroku](https://www.heroku.com/) to host the server.
-
-## How to setup it up ?
+## Configuration
 
 - Install a forked and configured package of [package-renderer](https://github.com/Angry-Penguins-Colony/package-renderer) like so: 
 ```
@@ -64,3 +61,5 @@ MY PRIVATE KEY
 SENDER_TEST_BECH32="erd107rsf7engp63phyrt33v6vtqgqrs0rckd3r53fpch9qlg97g60cqmz5t29"
 ```
 
+- Host it
+>  Angry Penguins Colony uses [Heroku](https://www.heroku.com/) to host the server.
