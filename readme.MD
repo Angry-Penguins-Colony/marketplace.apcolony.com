@@ -1,10 +1,10 @@
 [![Node.js CI](https://github.com/Angry-Penguins-Colony/server-penguins-renderer/actions/workflows/node.js.yml/badge.svg)](https://github.com/Angry-Penguins-Colony/server-penguins-renderer/actions/workflows/node.js.yml)
 
-## ⚙ Package Renderer
+# ⚙ Package Renderer
 
 This is a package installed in both servers that render images. This is the one that has the configuration of the rendering.
 
-### How to configure it?
+## How to configure it?
 
 The configuration file is in `src/config.ts`.
 Here's a default :
@@ -90,7 +90,7 @@ export const userPlugins: IPlugin[] = [
 ];
 ```
 
-### How to extend rendering with plugins?
+## How to extend rendering with plugins?
 
 1. Create a class that extends `IPlugin`.
 
