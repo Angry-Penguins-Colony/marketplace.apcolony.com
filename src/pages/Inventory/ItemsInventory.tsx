@@ -20,13 +20,15 @@ const ItemsInventory = ({
 }: IProps) => {
     const title = 'My ' + type.charAt(0).toUpperCase() + type.slice(1);
 
+    console.log('hasFilter:', hasFilter);
+
     return (
         <div className={style['all-items'] + ' ' + className + ' ' + style[type] + (hasFilter ? ' ' + style['has-filter'] : '')}>
             <h2>{title}</h2>
             <div className={style.content}>
                 {
                     items.map((item: any, index: number) => {
-                        const isMatched = (filters && matchFilter(filters, item)) || !filters;
+                        const isMatched = !filters || !hasFilter || (filters && matchFilter(filters, item));
 
                         if (isMatched) {
                             return (

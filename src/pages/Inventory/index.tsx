@@ -29,43 +29,43 @@ const Inventory = () => {
 
     const eggsItems: OldItem[] = [
         {
-            thumbnailCID: '/img/eggs/Blue_egg.png',
+            thumbnailCID: 'QmQBxbEhD4N3tZMtrcj7hKucnvHjrm5CdCt2uDwpL9nimi',
             name: 'Egg #1'
         },
         {
-            thumbnailCID: '/img/eggs/Blue_egg.png',
+            thumbnailCID: 'QmQBxbEhD4N3tZMtrcj7hKucnvHjrm5CdCt2uDwpL9nimi',
             name: 'Egg #2'
         },
         {
-            thumbnailCID: '/img/eggs/Gold_egg.png',
+            thumbnailCID: 'QmaMKvLh57qWkAy8gYkApvk6xjHFWLKZXfCsDXwAFUiiXE',
             name: 'Egg #3'
         },
         {
-            thumbnailCID: '/img/eggs/Blue_egg.png',
+            thumbnailCID: 'QmQBxbEhD4N3tZMtrcj7hKucnvHjrm5CdCt2uDwpL9nimi',
             name: 'Egg #4'
         }
     ];
     const itemsItems: OldItem[] = [
         {
-            thumbnailCID: '/img/items/CGS_Bec Piece EGLD_TK02.png',
+            thumbnailCID: 'QmPnUJ8n1iWHDicoEcXpzwQtrGEuzEPGARqx7dLNwRHDbK',
             name: 'Beack #1',
             score: 3453,
             purchaseDate: new Date('2019-01-10'),
         },
         {
-            thumbnailCID: '/img/items/CGS_Bec Piece EGLD_TK02.png',
+            thumbnailCID: 'QmPnUJ8n1iWHDicoEcXpzwQtrGEuzEPGARqx7dLNwRHDbK',
             name: 'Beack #2',
             score: 7,
             purchaseDate: new Date('2020-01-10'),
         },
         {
-            thumbnailCID: '/img/items/CGS_Bec Piece EGLD_TK02.png',
+            thumbnailCID: 'QmPnUJ8n1iWHDicoEcXpzwQtrGEuzEPGARqx7dLNwRHDbK',
             name: 'Beack #3',
             score: 277,
             purchaseDate: new Date('2018-01-10'),
         },
         {
-            thumbnailCID: '/img/items/CGS_Bec Piece EGLD_TK02.png',
+            thumbnailCID: 'QmPnUJ8n1iWHDicoEcXpzwQtrGEuzEPGARqx7dLNwRHDbK',
             name: 'Beack #4',
             score: 9999,
             purchaseDate: new Date('2010-01-10'),

@@ -2,4 +2,4 @@ export const contractAddress =
   'erd1qqqqqqqqqqqqqpgquvt728n40ssd8n2qns9jrlqpwq2jc4rj4cysfuj3ad';
 
 export const dAppName = 'Marketplace';
-export const ifpsGateway = 'https://media.elrond.com/nfts/asset/';
+export const ifpsGateway = 'https://ipfs.io/ipfs/';
