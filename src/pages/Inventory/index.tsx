@@ -10,10 +10,7 @@ import NavInventory from './NavInventory';
 
 const typeWithFilter = ['penguins'];
 
-/**
- * Replace this asap with a an IITem and a hook from the SDK and 
- */
-interface OldItem {
+interface IInventoryItem {
     thumbnailCID: string;
     name: string;
     score?: number;
@@ -27,7 +24,7 @@ const Inventory = () => {
     // get items
     const penguinsItems = useGetOwnedPenguins();
 
-    const eggsItems: OldItem[] = [
+    const eggsItems: IInventoryItem[] = [
         {
             thumbnailCID: 'QmQBxbEhD4N3tZMtrcj7hKucnvHjrm5CdCt2uDwpL9nimi',
             name: 'Egg #1'
@@ -45,7 +42,7 @@ const Inventory = () => {
             name: 'Egg #4'
         }
     ];
-    const itemsItems: OldItem[] = [
+    const itemsItems: IInventoryItem[] = [
         {
             thumbnailCID: 'QmPnUJ8n1iWHDicoEcXpzwQtrGEuzEPGARqx7dLNwRHDbK',
             name: 'Beack #1',
@@ -73,7 +70,7 @@ const Inventory = () => {
     ];
     // TODO: find a way to sort items when is getting from the api
 
-    const [items, setItems] = React.useState<OldItem[]>(penguinsItems);
+    const [items, setItems] = React.useState<IInventoryItem[]>(penguinsItems);
     const [itemsType, setItemsType] = React.useState('penguins');
 
     function itemsTypeChange(type: string) {
