@@ -2,6 +2,7 @@ import * as React from 'react';
 import EditIcon from 'components/Icons/EditIcon';
 import ShareIcon from 'components/Icons/ShareIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
+import useGetOwnedPenguins from 'sdk/hooks/useGetOwnedPenguins';
 import style from './inventory.module.scss';
 import ItemsInventory from './ItemsInventory';
 import NavigationType from './NavigationType';
@@ -9,211 +10,70 @@ import NavInventory from './NavInventory';
 
 const typeWithFilter = ['penguins'];
 
+/**
+ * Replace this asap with a an IITem and a hook from the SDK and 
+ */
+interface OldItem {
+    thumbnailCID: string;
+    name: string;
+    score?: number;
+    purchaseDate?: Date;
+}
+
 const Inventory = () => {
 
     const walletAddress = 'erd10000000000000000000000000000000000000000000000000000000000';
 
     // get items
-    const penguinsItems: {
-        image: string,
-        name: string,
-        score?: number,
-        added?: string,
-        attributes?: {
-            traitType: string,
-            value: string
-        }[]
-    }[] = [
-            {
-                image: 'https://media.elrond.com/nfts/asset/QmW8g9GXXZR1JhDW7XNMybyRrWqWiUHa1N26DEYSoFwxMc',
-                name: 'Penguin #4987',
-                score: 5464,
-                added: '2019-01-01',
-                attributes: [
-                    {
-                        traitType: 'background',
-                        value: 'Blue Gradient'
-                    },
-                    {
-                        traitType: 'beak',
-                        value: 'Straw'
-                    },
-                    {
-                        traitType: 'clothes',
-                        value: 'Coat With Brown Fur'
-                    },
-                    {
-                        traitType: 'hat',
-                        value: 'Blue Bitcoin Cap'
-                    },
-                    {
-                        traitType: 'skin',
-                        value: 'Claw Marks'
-                    },
-                    {
-                        traitType: 'weapon',
-                        value: 'Snowboard'
-                    }
-                ]
-            },
-            {
-                image: 'https://media.elrond.com/nfts/asset/QmSLvDdsZ9GPC9VcvdGdfSbRVvxoMwfMdXPgmWeafzbMgy',
-                name: 'Penguin #1155',
-                score: 177,
-                added: '2020-01-01',
-                attributes: [
-                    {
-                        traitType: 'background',
-                        value: 'Dark Blue'
-                    },
-                    {
-                        traitType: 'eyes',
-                        value: 'Black'
-                    },
-                    {
-                        traitType: 'skin',
-                        value: 'Black'
-                    },
-                    {
-                        traitType: 'weapon',
-                        value: 'Fishing Rifle'
-                    }
-                ]
-            },
-            {
-                image: 'https://media.elrond.com/nfts/asset/QmXMKmMguQFhXqx7qdCLnDhB9AFhyFYpMmBPMyHBqc2w8p',
-                name: 'Penguin #4782',
-                score: 9814,
-                added: '2058-01-01',
-                attributes: [
-                    {
-                        traitType: 'background',
-                        value: 'Red',
-                    },
-                    {
-                        traitType: 'beak',
-                        value: 'Pipe',
-                    },
-                    {
-                        traitType: 'clothes',
-                        value: 'Red Lifejacket',
-                    },
-                    {
-                        traitType: 'eyes',
-                        value: 'Red',
-                    },
-                    {
-                        traitType: 'skin',
-                        value: 'Light Frozen',
-                    },
-                    {
-                        traitType: 'weapon',
-                        value: 'Axe',
-                    }
-                ]
-            },
-            {
-                image: '/img/Fargerik_bg-overlay.png',
-                name: 'Penguin #4',
-                score: 789,
-                added: '2002-01-01',
-            },
-            {
-                image: '/img/Fargerik_bg-overlay.png',
-                name: 'Penguin #5',
-                score: 9416,
-                added: '2019-01-01',
-            },
-            {
-                image: '/img/Fargerik_bg-overlay.png',
-                name: 'Penguin #6',
-                score: 16,
-                added: '2019-05-01',
-            },
-            {
-                image: '/img/Fargerik_bg-overlay.png',
-                name: 'Penguin #7',
-                score: 49,
-                added: '2019-12-01',
-            },
-            {
-                image: '/img/Fargerik_bg-overlay.png',
-                name: 'Penguin #8',
-                score: 837,
-                added: '2019-07-01',
-            },
-            {
-                image: '/img/Fargerik_bg-overlay.png',
-                name: 'Penguin #9',
-                score: 378,
-                added: '2019-08-01',
-            },
-            {
-                image: '/img/Fargerik_bg-overlay.png',
-                name: 'Penguin #10',
-                score: 3453,
-                added: '2019-01-10',
-            },
-            {
-                image: '/img/Fargerik_bg-overlay.png',
-                name: 'Penguin #11',
-                score: 387,
-                added: '2019-01-15',
-            },
-            {
-                image: '/img/Fargerik_bg-overlay.png',
-                name: 'Penguin #12',
-                score: 83,
-                added: '2019-01-21',
-            }
-        ];
-    const eggsItems = [
+    const penguinsItems = useGetOwnedPenguins();
+
+    const eggsItems: OldItem[] = [
         {
-            image: '/img/eggs/Blue_egg.png',
+            thumbnailCID: '/img/eggs/Blue_egg.png',
             name: 'Egg #1'
         },
         {
-            image: '/img/eggs/Blue_egg.png',
+            thumbnailCID: '/img/eggs/Blue_egg.png',
             name: 'Egg #2'
         },
         {
-            image: '/img/eggs/Gold_egg.png',
+            thumbnailCID: '/img/eggs/Gold_egg.png',
             name: 'Egg #3'
         },
         {
-            image: '/img/eggs/Blue_egg.png',
+            thumbnailCID: '/img/eggs/Blue_egg.png',
             name: 'Egg #4'
         }
     ];
-    const itemsItems = [
+    const itemsItems: OldItem[] = [
         {
-            image: '/img/items/CGS_Bec Piece EGLD_TK02.png',
+            thumbnailCID: '/img/items/CGS_Bec Piece EGLD_TK02.png',
             name: 'Beack #1',
             score: 3453,
-            added: '2019-01-10',
+            purchaseDate: new Date('2019-01-10'),
         },
         {
-            image: '/img/items/CGS_Bec Piece EGLD_TK02.png',
+            thumbnailCID: '/img/items/CGS_Bec Piece EGLD_TK02.png',
             name: 'Beack #2',
             score: 7,
-            added: '2020-01-10',
+            purchaseDate: new Date('2020-01-10'),
         },
         {
-            image: '/img/items/CGS_Bec Piece EGLD_TK02.png',
+            thumbnailCID: '/img/items/CGS_Bec Piece EGLD_TK02.png',
             name: 'Beack #3',
             score: 277,
-            added: '2018-01-10',
+            purchaseDate: new Date('2018-01-10'),
         },
         {
-            image: '/img/items/CGS_Bec Piece EGLD_TK02.png',
+            thumbnailCID: '/img/items/CGS_Bec Piece EGLD_TK02.png',
             name: 'Beack #4',
             score: 9999,
-            added: '2010-01-10',
+            purchaseDate: new Date('2010-01-10'),
         }
     ];
     // TODO: find a way to sort items when is getting from the api
 
-    const [items, setItems] = React.useState(penguinsItems);
+    const [items, setItems] = React.useState<OldItem[]>(penguinsItems);
     const [itemsType, setItemsType] = React.useState('penguins');
 
     function itemsTypeChange(type: string) {
@@ -250,7 +110,7 @@ const Inventory = () => {
         switch (type) {
             case 'recently-added':
                 setItems([...items.sort((a, b) => {
-                    return new Date(b.added || '1970-01-01').getTime() - new Date(a.added || '1970-01-01').getTime();
+                    return new Date(b.purchaseDate || '1970-01-01').getTime() - new Date(a.purchaseDate || '1970-01-01').getTime();
                 }
                 )]);
                 break;
@@ -268,7 +128,7 @@ const Inventory = () => {
                 break;
             default:
                 setItems([...items.sort((a, b) => {
-                    return new Date(b.added || '1970-01-01').getTime() - new Date(a.added || '1970-01-01').getTime();
+                    return new Date(b.purchaseDate || '1970-01-01').getTime() - new Date(a.purchaseDate || '1970-01-01').getTime();
                 }
                 )]);
                 break;

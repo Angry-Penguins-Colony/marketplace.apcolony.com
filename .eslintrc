@@ -89,10 +89,6 @@
       "error",
       "single"
     ],
-    "semi": [
-      "error",
-      "always"
-    ],
     "object-curly-newline": "off",
     "arrow-body-style": "off",
     "react/jsx-props-no-spreading": "off",

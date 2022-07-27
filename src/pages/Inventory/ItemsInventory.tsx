@@ -1,6 +1,15 @@
 import * as React from 'react';
-import Filters from './Filters';
+import { ifpsGateway } from 'config';
+import Filters, { matchFilter } from './Filters';
 import style from './item-inventory.module.scss';
+
+interface IProps {
+    className?: string,
+    items: any[],
+    type: string,
+    hasFilter: boolean,
+    filters?: Filters
+}
 
 const ItemsInventory = ({
     className = '',
@@ -8,13 +17,7 @@ const ItemsInventory = ({
     type,
     hasFilter,
     filters
-}: {
-    className?: string,
-    items: any[],
-    type: string,
-    hasFilter: boolean,
-    filters?: Filters
-}) => {
+}: IProps) => {
     const title = 'My ' + type.charAt(0).toUpperCase() + type.slice(1);
 
     return (
@@ -23,69 +26,12 @@ const ItemsInventory = ({
             <div className={style.content}>
                 {
                     items.map((item: any, index: number) => {
-                        /* return just if has element in filters */
-
-                        let isMatched = true;
-                        if (filters) {
-                            filters.selected.forEach((selectedElmt: {
-                                name: string;
-                                value: string;
-                                number: number;
-                            }) => {
-                                if (item.attributes) {
-                                    const currentAttribute = item.attributes.find((attribute: {
-                                        traitType: string;
-                                        value: string;
-                                    }) => {
-                                        return attribute.traitType === selectedElmt.value;
-                                    });
-                                    if (currentAttribute) {
-                                        const currentFilter = filters.items.find((filter: {
-                                            title: string;
-                                            value: string;
-                                            icon: string;
-                                            attributes: {
-                                                name: string;
-                                                number: number;
-                                                value: string;
-                                                isSelected: boolean;
-                                                isTmpSelected: boolean;
-                                            }[]
-                                        }) => {
-                                            return filter.value === currentAttribute.traitType;
-                                        });
-
-                                        if (currentFilter) {
-                                            const isCurrentAttributeSelected = currentFilter.attributes.find((attr: {
-                                                name: string;
-                                                number: number;
-                                                value: string;
-                                                isSelected: boolean;
-                                                isTmpSelected: boolean;
-                                            }) => {
-
-                                                return attr.name === currentAttribute.value && attr.isSelected === true;
-                                            });
-
-                                            if (!isCurrentAttributeSelected) {
-                                                isMatched = false;
-                                            }
-                                        } else {
-                                            isMatched = false;
-                                        }
-                                    } else {
-                                        isMatched = false;
-                                    }
-                                } else {
-                                    isMatched = false;
-                                }
-                            });
-                        }
+                        const isMatched = (filters && matchFilter(filters, item)) || !filters;
 
                         if (isMatched) {
                             return (
                                 <div className={style.item} key={index}>
-                                    <img src={item.image} />
+                                    <img src={ifpsGateway + item.thumbnailCID} />
                                     <div className={style.name}>{item.name}</div>
                                 </div>
                             );
