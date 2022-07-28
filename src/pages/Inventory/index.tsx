@@ -2,7 +2,7 @@ import * as React from 'react';
 import EditIcon from 'components/Icons/EditIcon';
 import ShareIcon from 'components/Icons/ShareIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import useGetOwnedPenguins from 'sdk/hooks/useGetOwnedPenguins';
+import { useGetOwnedEggs, useGetOwnedPenguins } from 'sdk/hooks/useGetOwned';
 import style from './inventory.module.scss';
 import ItemsInventory from './ItemsInventory';
 import NavigationType from './NavigationType';
@@ -28,26 +28,9 @@ const Inventory = () => {
 
     // get items
     const penguinsItems = useGetOwnedPenguins({
-        onPenguinsLoaded: setItems
+        onLoaded: setItems
     });
-    const eggsItems: IInventoryItem[] = [
-        {
-            thumbnailCID: 'QmQBxbEhD4N3tZMtrcj7hKucnvHjrm5CdCt2uDwpL9nimi',
-            name: 'Egg #1'
-        },
-        {
-            thumbnailCID: 'QmQBxbEhD4N3tZMtrcj7hKucnvHjrm5CdCt2uDwpL9nimi',
-            name: 'Egg #2'
-        },
-        {
-            thumbnailCID: 'QmaMKvLh57qWkAy8gYkApvk6xjHFWLKZXfCsDXwAFUiiXE',
-            name: 'Egg #3'
-        },
-        {
-            thumbnailCID: 'QmQBxbEhD4N3tZMtrcj7hKucnvHjrm5CdCt2uDwpL9nimi',
-            name: 'Egg #4'
-        }
-    ];
+    const eggsItems = useGetOwnedEggs();
     const itemsItems: IInventoryItem[] = [
         {
             thumbnailCID: 'QmPnUJ8n1iWHDicoEcXpzwQtrGEuzEPGARqx7dLNwRHDbK',
@@ -387,7 +370,7 @@ const Inventory = () => {
                             <p className={style.name}>Penguins</p>
                         </div>
                         <div className={style.item}>
-                            <p className={style.number}>{eggsItems.length}</p>
+                            <p className={style.number}>{eggsItems?.length ?? '-'}</p>
                             <p className={style.name}>Eggs</p>
                         </div>
                         <div className={style.item}>
@@ -402,7 +385,7 @@ const Inventory = () => {
                     <div className={style.title}>
                         <h3>My {itemsType.charAt(0).toUpperCase() + itemsType.slice(1)}</h3>
                         {/* TODO: Bind this value */}
-                        <span className={style['number-items']}>18</span>
+                        <span className={style['number-items']}>{items?.length ?? '-'}</span>
                         <p className={style.info}>(Select {addArticle(itemsType.slice(0, -1))} to customize it)</p>
                     </div>
                     <NavInventory type={itemsType} typeWithFilter={typeWithFilter} sortByFunction={sortBy}

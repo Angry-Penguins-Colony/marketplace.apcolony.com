@@ -1,17 +1,26 @@
 import React from 'react';
-import { IAddress, IPenguin } from '@apcolony/marketplace-api/out';
+import { IAddress, IPenguin, IEgg } from '@apcolony/marketplace-api/out';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core';
 import axios from 'axios';
 import { marketplaceApi } from 'config';
 
-interface IOptions {
-    onPenguinsLoaded?: (penguins: IPenguin[]) => void;
+
+
+export function useGetOwnedPenguins(options?: IOptions<IPenguin>): IPenguin[] | undefined {
+    return useGetOwned<IPenguin>('penguins', options);
+}
+
+export function useGetOwnedEggs(options?: IOptions<IEgg>): IEgg[] | undefined {
+    return useGetOwned<IEgg>('eggs', options);
+}
+
+interface IOptions<T> {
+    onLoaded?: (penguins: T[]) => void;
     overrideAddress?: IAddress;
 }
 
-export default function useGetOwnedPenguins(options?: IOptions): IPenguin[] | undefined {
-
-    const [penguins, setPenguins] = React.useState<IPenguin[] | undefined>(undefined);
+function useGetOwned<T>(urlSuffix: string, options?: IOptions<T>): T[] | undefined {
+    const [owned, setOwned] = React.useState<T[] | undefined>(undefined);
     let { address: userAddress } = useGetAccountInfo();
 
     if (!userAddress) {
@@ -27,19 +36,19 @@ export default function useGetOwnedPenguins(options?: IOptions): IPenguin[] | un
 
     React.useEffect(() => {
         async function get() {
-            const url = marketplaceApi + (options?.overrideAddress ?? userAddress) + '/penguins';
+            const url = marketplaceApi + (options?.overrideAddress ?? userAddress) + '/' + urlSuffix;
             const res = await axios.get(url)
 
             const loadedPenguins = res.data.data;
-            setPenguins(loadedPenguins);
+            setOwned(loadedPenguins);
 
-            if (options?.onPenguinsLoaded != null) {
-                options?.onPenguinsLoaded(loadedPenguins);
+            if (options?.onLoaded != null) {
+                options?.onLoaded(loadedPenguins);
             }
         }
 
         get();
     }, []);
 
-    return penguins;
+    return owned;
 }
