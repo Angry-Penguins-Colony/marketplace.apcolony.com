@@ -1,4 +1,4 @@
-import IPenguin from 'sdk/IPenguin';
+import IPenguin from '@apc/sdk-marketplace-api/dist/types/IPenguin';
 import { placeholdersPenguins } from 'sdk/placeholders/placeholders';
 
 

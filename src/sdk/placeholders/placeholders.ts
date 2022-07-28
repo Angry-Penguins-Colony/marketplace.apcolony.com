@@ -1,5 +1,5 @@
+import Slotname from '@apc/sdk-marketplace-api/dist/types/Slotname';
 import { Nonce } from '@elrondnetwork/erdjs/out';
-import Slotname from 'sdk/Slotname';
 
 export const placeholdersItems = {
     background: {
