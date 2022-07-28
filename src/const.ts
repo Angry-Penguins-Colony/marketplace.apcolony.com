@@ -72,7 +72,7 @@ export const placeholdersItems = {
             slot: new Slotname('eyes'),
             name: 'Black',
             description: "Some Angry Penguins are darker than others. The whole Colony knows that the members who have these eyes are often selling their shitcoins in the dark market of the capital. Some of them made a fortune with them but most of their clients are now bankrupt.",
-            thumbnailCID: 'https://apc.mypinata.cloud/ipfs/QmaF7ApbEo4qRTWXKjKEeTdZQ3gHqyaUf6axs3msP6gNLf',
+            thumbnailCID: 'QmaF7ApbEo4qRTWXKjKEeTdZQ3gHqyaUf6axs3msP6gNLf',
         } as IItem,
         'EGLD': {
             identifier: 'EYES-a1a1a1',
@@ -90,7 +90,7 @@ export const placeholdersItems = {
             slot: new Slotname('hat'),
             name: 'Blue Bitcoin Cap',
             description: "Bitcoin will do to banks what email did to the postal industry.",
-            thumbnailCID: 'https://apc.mypinata.cloud/ipfs/QmdCnaXnhDKKfyp2mPG8HRPhogWeTYX8kNSN1AggtEXBtR',
+            thumbnailCID: 'QmdCnaXnhDKKfyp2mPG8HRPhogWeTYX8kNSN1AggtEXBtR',
         } as IItem,
     },
     skin: {
