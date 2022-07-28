@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { placeholdersEggs } from '../../const';
-import { sendSuccessfulArray } from "../../utils";
+import { sendSuccessfulJSON } from "../../utils";
 
 export default async function getEggs(req: Request, res: Response) {
 
@@ -14,5 +14,5 @@ export default async function getEggs(req: Request, res: Response) {
         placeholdersEggs.diamond,
     ];
 
-    sendSuccessfulArray(res, data);
+    sendSuccessfulJSON(res, data);
 }
