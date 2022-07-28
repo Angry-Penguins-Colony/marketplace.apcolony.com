@@ -1,6 +1,6 @@
 import { Slotname, Nonce, IPenguin, IItem, IEgg } from '@apcolony/marketplace-api/out';
 
-const penguinIdentifier = 'APC-928458';
+export const penguinsCollection = 'APC-928458';
 
 export const placeholdersItems = {
     background: {
@@ -149,7 +149,7 @@ export const placeholdersItems = {
 
 export const placeholdersPenguins = {
     '4987': {
-        identifier: penguinIdentifier,
+        identifier: penguinsCollection,
         name: 'Penguin #4987',
         nonce: new Nonce(4987),
         score: 5464,
@@ -165,7 +165,7 @@ export const placeholdersPenguins = {
         },
     } as IPenguin,
     '1155': {
-        identifier: penguinIdentifier,
+        identifier: penguinsCollection,
         name: 'Penguin #1155',
         nonce: new Nonce(1155),
         score: 177,
@@ -179,7 +179,7 @@ export const placeholdersPenguins = {
         }
     } as IPenguin,
     '4782': {
-        identifier: penguinIdentifier,
+        identifier: penguinsCollection,
         name: 'Penguin #4782',
         nonce: new Nonce(4782),
         score: 9814,

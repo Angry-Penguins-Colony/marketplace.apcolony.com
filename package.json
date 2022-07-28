@@ -31,6 +31,7 @@
   "dependencies": {
     "@apcolony/marketplace-api": "^1.0.2",
     "@elrondnetwork/erdjs": "^10.2.7",
+    "@elrondnetwork/erdjs-network-providers": "^0.1.7",
     "@elrondnetwork/erdjs-walletcore": "^1.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
