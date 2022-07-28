@@ -20,8 +20,6 @@ const ItemsInventory = ({
 }: IProps) => {
     const title = 'My ' + type.charAt(0).toUpperCase() + type.slice(1);
 
-    console.log('hasFilter:', hasFilter);
-
     return (
         <div className={style['all-items'] + ' ' + className + ' ' + style[type] + (hasFilter ? ' ' + style['has-filter'] : '')}>
             <h2>{title}</h2>

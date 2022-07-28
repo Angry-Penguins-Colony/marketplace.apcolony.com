@@ -3,3 +3,4 @@ export const contractAddress =
 
 export const dAppName = 'Marketplace';
 export const ifpsGateway = 'https://ipfs.io/ipfs/';
+export const marketplaceApi = 'https://apc-marketplace-api.herokuapp.com/';

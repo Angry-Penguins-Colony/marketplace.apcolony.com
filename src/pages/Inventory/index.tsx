@@ -21,9 +21,13 @@ const Inventory = () => {
 
     const walletAddress = 'erd10000000000000000000000000000000000000000000000000000000000';
 
-    // get items
-    const penguinsItems = useGetOwnedPenguins();
+    // TODO: find a way to sort items when is getting from the api
 
+    const [items, setItems] = React.useState<IInventoryItem[] | undefined>(undefined);
+    const [itemsType, setItemsType] = React.useState('penguins');
+    // get items
+
+    const penguinsItems = useGetOwnedPenguins((loadedPenguins) => setItems(loadedPenguins));
     const eggsItems: IInventoryItem[] = [
         {
             thumbnailCID: 'QmQBxbEhD4N3tZMtrcj7hKucnvHjrm5CdCt2uDwpL9nimi',
@@ -68,10 +72,6 @@ const Inventory = () => {
             purchaseDate: new Date('2010-01-10'),
         }
     ];
-    // TODO: find a way to sort items when is getting from the api
-
-    const [items, setItems] = React.useState<IInventoryItem[]>(penguinsItems);
-    const [itemsType, setItemsType] = React.useState('penguins');
 
     function itemsTypeChange(type: string) {
         switch (type) {
@@ -104,6 +104,9 @@ const Inventory = () => {
     }
 
     function sortBy(type: string) {
+
+        if (!items) return;
+
         switch (type) {
             case 'recently-added':
                 setItems([...items.sort((a, b) => {
@@ -378,7 +381,7 @@ const Inventory = () => {
                 <section id={style.filter}>
                     <div className={style['number-items']}>
                         <div className={style.item}>
-                            <p className={style.number}>{penguinsItems.length}</p>
+                            <p className={style.number}>{penguinsItems?.length ?? '-'}</p>
                             <p className={style.name}>Penguins</p>
                         </div>
                         <div className={style.item}>
@@ -403,7 +406,10 @@ const Inventory = () => {
                     <NavInventory type={itemsType} typeWithFilter={typeWithFilter} sortByFunction={sortBy}
                         filterData={filterData} changeFilters={changeFilters} />
                 </section>
-                <ItemsInventory items={items} className={style['items-inventory']} type={itemsType} hasFilter={typeWithFilter.includes(itemsType)} filters={filterData} />
+
+                {items &&
+                    <ItemsInventory items={items} className={style['items-inventory']} type={itemsType} hasFilter={typeWithFilter.includes(itemsType)} filters={filterData} />
+                }
             </div>
         </>
     );
