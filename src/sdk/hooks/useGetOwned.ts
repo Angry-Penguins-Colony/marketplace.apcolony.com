@@ -33,7 +33,6 @@ function useGetOwned<T>(urlSuffix: string, options?: IOptions<T>): T[] | undefin
         }
         else {
             const fakeAddress = 'erd1c0hhz2xcnsdk6630um7k8jrg2k8zvvpwf39e83xsg8mq68rsettqzdhhjq';
-            console.warn('To get owned penguins, the user must be logged in. For dev purpose, we faked a connected user with the address ' + fakeAddress);
             userAddress = fakeAddress;
         }
     }

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import ReactImageAppear from 'components/ReactImageAppear/ReactImageAppear';
 import { ifpsGateway } from 'config';
 import Filters, { matchFilter } from './Filters';
 import style from './item-inventory.module.scss';
@@ -30,8 +31,8 @@ const ItemsInventory = ({
 
                         if (isMatched) {
                             return (
-                                <div className={style.item} key={index}>
-                                    <img src={ifpsGateway + item.thumbnailCID} />
+                                <div className={[style.item, 'w-100 h-100'].join(' ')} key={index}>
+                                    <ReactImageAppear className="w-100 h-100" src={ifpsGateway + item.thumbnailCID} />
                                     <div className={style.name}>{item.name}</div>
                                 </div>
                             );

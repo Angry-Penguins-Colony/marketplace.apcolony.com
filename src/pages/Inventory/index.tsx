@@ -358,7 +358,6 @@ const Inventory = () => {
                     </div>
                     <div className={style.title}>
                         <h3>My {itemsType.charAt(0).toUpperCase() + itemsType.slice(1)}</h3>
-                        {/* TODO: Bind this value */}
                         <span className={style['number-items']}>{items?.length ?? '-'}</span>
                         <p className={style.info}>(Select {addArticle(itemsType.slice(0, -1))} to customize it)</p>
                     </div>
