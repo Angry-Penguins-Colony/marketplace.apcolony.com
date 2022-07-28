@@ -1,4 +1,4 @@
-import { Slotname, Nonce, IPenguin, IItem } from '@apc/sdk-marketplace-api/out';
+import { Slotname, Nonce, IPenguin, IItem } from '@apcolony/marketplace-api/out';
 
 const penguinIdentifier = 'APC-928458';
 
