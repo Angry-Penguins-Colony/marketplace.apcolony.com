@@ -9,7 +9,8 @@
     "start:dev:watch": "nodemon src/index.ts",
     "build": "tsc --build",
     "update:sdk": "npm i @apcolony/marketplace-api",
-    "try:local": "curl http://localhost:3576/erd1/penguins"
+    "try:penguins": "curl http://localhost:3576/erd1/penguins",
+    "try:eggs": "curl http://localhost:3576/erd1/eggs"
   },
   "repository": {
     "type": "git",

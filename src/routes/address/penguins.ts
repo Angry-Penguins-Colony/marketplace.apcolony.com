@@ -1,6 +1,6 @@
 import { placeholdersPenguins } from "../../const";
 import { query, Request, Response } from 'express';
-import { sendSuccessful } from "../../utils";
+import { sendSuccessfulJSON } from "../../utils";
 
 export default async function getPenguins(req: Request, res: Response) {
 
@@ -10,5 +10,5 @@ export default async function getPenguins(req: Request, res: Response) {
         placeholdersPenguins[1155],
     ];
 
-    sendSuccessful(res, data);
+    sendSuccessfulJSON(res, data);
 }

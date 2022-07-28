@@ -1,4 +1,4 @@
-import { Slotname, Nonce, IPenguin, IItem } from '@apcolony/marketplace-api/out';
+import { Slotname, Nonce, IPenguin, IItem, IEgg } from '@apcolony/marketplace-api/out';
 
 const penguinIdentifier = 'APC-928458';
 
@@ -179,3 +179,21 @@ export const placeholdersPenguins = {
         }
     } as IPenguin
 };
+
+export const placeholdersEggs = {
+    "silver": {
+        tier: "silver",
+        name: "Silver Egg",
+        thumbnailCID: "Qmf1wozzDedttcoiK1pVLK661TWVex7L5sTqvJWMsZmcH7"
+    } as IEgg,
+    "gold": {
+        tier: "gold",
+        name: "Gold Egg",
+        thumbnailCID: "QmazDkqCzntKtrQvH5sUY5urMCV24dyERk1USqoB341KUa"
+    } as IEgg,
+    "diamond": {
+        tier: "diamond",
+        name: "Diamond Egg",
+        thumbnailCID: "QmZuTbytMW4Mr3v448buqHhqCgHdducBepnBVXQbPJuZqe"
+    } as IEgg
+}
