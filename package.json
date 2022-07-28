@@ -2,9 +2,9 @@
   "name": "server-api-marketplace",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.ts",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "node --optimize_for_size --max_old_space_size=320 dist/src/index.js",
+    "start": "node --optimize_for_size --max_old_space_size=320 dist/index.js",
     "start:dev": "ts-node src/index.ts",
     "start:dev:watch": "nodemon src/index.ts",
     "build": "tsc --build",
