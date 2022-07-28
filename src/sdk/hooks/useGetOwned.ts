@@ -1,5 +1,5 @@
 import React from 'react';
-import { IAddress, IPenguin, IEgg } from '@apcolony/marketplace-api/out';
+import { IAddress, IPenguin, IEgg, IItem } from '@apcolony/marketplace-api/out';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core';
 import axios from 'axios';
 import { marketplaceApi } from 'config';
@@ -12,6 +12,10 @@ export function useGetOwnedPenguins(options?: IOptions<IPenguin>): IPenguin[] | 
 
 export function useGetOwnedEggs(options?: IOptions<IEgg>): IEgg[] | undefined {
     return useGetOwned<IEgg>('eggs', options);
+}
+
+export function useGetOwnedItems(options?: IOptions<IItem>): IItem[] | undefined {
+    return useGetOwned<IItem>('items', options);
 }
 
 interface IOptions<T> {

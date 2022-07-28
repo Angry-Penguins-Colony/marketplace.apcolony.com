@@ -2,7 +2,7 @@ import * as React from 'react';
 import EditIcon from 'components/Icons/EditIcon';
 import ShareIcon from 'components/Icons/ShareIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import { useGetOwnedEggs, useGetOwnedPenguins } from 'sdk/hooks/useGetOwned';
+import { useGetOwnedEggs, useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/useGetOwned';
 import style from './inventory.module.scss';
 import ItemsInventory from './ItemsInventory';
 import NavigationType from './NavigationType';
@@ -26,37 +26,11 @@ const Inventory = () => {
     const [items, setItems] = React.useState<IInventoryItem[] | undefined>(undefined);
     const [itemsType, setItemsType] = React.useState('penguins');
 
-    // get items
     const penguinsItems = useGetOwnedPenguins({
         onLoaded: setItems
     });
     const eggsItems = useGetOwnedEggs();
-    const itemsItems: IInventoryItem[] = [
-        {
-            thumbnailCID: 'QmPnUJ8n1iWHDicoEcXpzwQtrGEuzEPGARqx7dLNwRHDbK',
-            name: 'Beack #1',
-            score: 3453,
-            purchaseDate: new Date('2019-01-10'),
-        },
-        {
-            thumbnailCID: 'QmPnUJ8n1iWHDicoEcXpzwQtrGEuzEPGARqx7dLNwRHDbK',
-            name: 'Beack #2',
-            score: 7,
-            purchaseDate: new Date('2020-01-10'),
-        },
-        {
-            thumbnailCID: 'QmPnUJ8n1iWHDicoEcXpzwQtrGEuzEPGARqx7dLNwRHDbK',
-            name: 'Beack #3',
-            score: 277,
-            purchaseDate: new Date('2018-01-10'),
-        },
-        {
-            thumbnailCID: 'QmPnUJ8n1iWHDicoEcXpzwQtrGEuzEPGARqx7dLNwRHDbK',
-            name: 'Beack #4',
-            score: 9999,
-            purchaseDate: new Date('2010-01-10'),
-        }
-    ];
+    const itemsItems = useGetOwnedItems();
 
     function itemsTypeChange(type: string) {
         switch (type) {
@@ -374,7 +348,7 @@ const Inventory = () => {
                             <p className={style.name}>Eggs</p>
                         </div>
                         <div className={style.item}>
-                            <p className={style.number}>{itemsItems.length}</p>
+                            <p className={style.number}>{itemsItems?.length ?? '-'}</p>
                             <p className={style.name}>Items</p>
                         </div>
                         <div className={style.item}>
