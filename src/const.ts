@@ -1,4 +1,4 @@
-import { Slotname, Nonce } from '@apc/sdk-marketplace-api/out';
+import { Slotname, Nonce, IPenguin, IItem } from '@apc/sdk-marketplace-api/out';
 
 const penguinIdentifier = 'APC-928458';
 
@@ -10,21 +10,21 @@ export const placeholdersItems = {
             slot: new Slotname('background'),
             name: 'Blue Gradient',
             thumbnailCID: '',
-        },
+        } as IItem,
         'Dark Blue': {
             identifier: 'BG-a1a1a1',
             nonce: new Nonce(2),
             slot: new Slotname('background'),
             name: 'Dark Blue',
             thumbnailCID: '',
-        },
+        } as IItem,
         'Red': {
             identifier: 'BG-a1a1a1',
             nonce: new Nonce(3),
             slot: new Slotname('background'),
             name: 'Red',
             thumbnailCID: '',
-        }
+        } as IItem
     },
     beak: {
         'Straw': {
@@ -33,14 +33,14 @@ export const placeholdersItems = {
             slot: new Slotname('beak'),
             name: 'Straw',
             thumbnailCID: '',
-        },
+        } as IItem,
         'Pipe': {
             identifier: 'BEAK-a1a1a1',
             nonce: new Nonce(2),
             slot: new Slotname('beak'),
             name: 'Pipe',
             thumbnailCID: '',
-        }
+        } as IItem
     },
     clothes: {
         'Coat With Brown Fur': {
@@ -49,14 +49,14 @@ export const placeholdersItems = {
             slot: new Slotname('clothes'),
             name: 'Coat With Brown Fur',
             thumbnailCID: '',
-        },
+        } as IItem,
         'Red Lifejacket': {
             identifier: 'CLOTHES-a1a1a1',
             nonce: new Nonce(2),
             slot: new Slotname('clothes'),
             name: 'Red Lifejacket',
             thumbnailCID: '',
-        },
+        } as IItem,
     },
     eyes: {
         'Black': {
@@ -65,14 +65,14 @@ export const placeholdersItems = {
             slot: new Slotname('eyes'),
             name: 'Black',
             thumbnailCID: '',
-        },
+        } as IItem,
         'Red': {
             identifier: 'EYES-a1a1a1',
             nonce: new Nonce(2),
             slot: new Slotname('eyes'),
             name: 'Red',
             thumbnailCID: '',
-        }
+        } as IItem
     },
     hat: {
         'Blue Bitcoin Cap': {
@@ -81,7 +81,7 @@ export const placeholdersItems = {
             slot: new Slotname('hat'),
             name: 'Blue Bitcoin Cap',
             thumbnailCID: '',
-        },
+        } as IItem,
     },
     skin: {
         'Claw Marks': {
@@ -90,21 +90,21 @@ export const placeholdersItems = {
             slot: new Slotname('skin'),
             name: 'Claw Marks',
             thumbnailCID: '',
-        },
+        } as IItem,
         'Black': {
             identifier: 'SKIN-a1a1a1',
             nonce: new Nonce(2),
             slot: new Slotname('skin'),
             name: 'Black',
             thumbnailCID: '',
-        },
+        } as IItem,
         'Light Frozen': {
             identifier: 'SKIN-a1a1a1',
             nonce: new Nonce(3),
             slot: new Slotname('skin'),
             name: 'Light Frozen',
             thumbnailCID: '',
-        }
+        } as IItem
     },
     weapon: {
         'Snowboard': {
@@ -113,21 +113,21 @@ export const placeholdersItems = {
             slot: new Slotname('weapon'),
             name: 'Snowboard',
             thumbnailCID: '',
-        },
+        } as IItem,
         'Fishing Rifle': {
             identifier: 'WEAPON-a1a1a1',
             nonce: new Nonce(2),
             slot: new Slotname('weapon'),
             name: 'Fishing Rifle',
             thumbnailCID: '',
-        },
+        } as IItem,
         'Axe': {
             identifier: 'WEAPON-a1a1a1',
             nonce: new Nonce(3),
             slot: new Slotname('weapon'),
             name: 'Axe',
             thumbnailCID: '',
-        }
+        } as IItem
     }
 }
 
@@ -146,8 +146,8 @@ export const placeholdersPenguins = {
             'hat': placeholdersItems.hat['Blue Bitcoin Cap'],
             'skin': placeholdersItems.skin['Claw Marks'],
             'weapon': placeholdersItems.weapon['Snowboard'],
-        }
-    },
+        },
+    } as IPenguin,
     '1155': {
         identifier: penguinIdentifier,
         name: 'Penguin #1155',
@@ -161,7 +161,7 @@ export const placeholdersPenguins = {
             'skin': placeholdersItems.skin['Black'],
             'weapon': placeholdersItems.weapon['Fishing Rifle'],
         }
-    },
+    } as IPenguin,
     '4782': {
         identifier: penguinIdentifier,
         name: 'Penguin #4782',
@@ -177,6 +177,5 @@ export const placeholdersPenguins = {
             'skin': placeholdersItems.skin['Light Frozen'],
             'weapon': placeholdersItems.weapon['Axe'],
         }
-    }
+    } as IPenguin
 };
-
