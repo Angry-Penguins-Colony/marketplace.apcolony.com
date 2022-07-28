@@ -1,5 +1,4 @@
-import IItem from 'sdk/IItem';
-import Slotname from 'sdk/Slotname';
+import { IItem, Slotname } from '@apcolony/marketplace-api/out';
 
 export default interface Filters {
     items: {

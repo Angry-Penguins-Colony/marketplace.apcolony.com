@@ -1,4 +1,4 @@
-import Slotname from '@apc/sdk-marketplace-api/dist/types/Slotname';
+import { Slotname } from '@apcolony/marketplace-api/out';
 import { Nonce } from '@elrondnetwork/erdjs/out';
 
 export const placeholdersItems = {
