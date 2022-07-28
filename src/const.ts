@@ -9,21 +9,24 @@ export const placeholdersItems = {
             nonce: new Nonce(1),
             slot: new Slotname('background'),
             name: 'Blue Gradient',
-            thumbnailCID: '',
+            description: "Classic blue gradient background.",
+            thumbnailCID: 'QmVi2YhcCUn5F9TSRg57ebvo2BFGnRBqBtdrLz42L58bcZ',
         } as IItem,
         'Dark Blue': {
             identifier: 'BG-a1a1a1',
             nonce: new Nonce(2),
             slot: new Slotname('background'),
             name: 'Dark Blue',
-            thumbnailCID: '',
+            description: "Classic dark blue background.",
+            thumbnailCID: 'QmZyZ6LmiN5hm6HNDZbwBkCDibMZBoAmw5c84y2he5tSTU',
         } as IItem,
         'Red': {
             identifier: 'BG-a1a1a1',
             nonce: new Nonce(3),
             slot: new Slotname('background'),
             name: 'Red',
-            thumbnailCID: '',
+            description: "Classic red background.",
+            thumbnailCID: 'QmeK9oC4fxW4m2ogg64Qf5WxeppnyTScZMncqtyeD9U6eK',
         } as IItem
     },
     beak: {
@@ -32,14 +35,16 @@ export const placeholdersItems = {
             nonce: new Nonce(1),
             slot: new Slotname('beak'),
             name: 'Straw',
-            thumbnailCID: '',
+            description: "Among all the threats the Angry Penguins have to face.",
+            thumbnailCID: 'QmNbeVsynnxm3cg1AKtZqxqAUSPyYrRtQimvoPfa3RPzBH',
         } as IItem,
         'Pipe': {
             identifier: 'BEAK-a1a1a1',
             nonce: new Nonce(2),
             slot: new Slotname('beak'),
             name: 'Pipe',
-            thumbnailCID: '',
+            description: "The Angry Penguins love to put on a good old classy and old-fashioned look.",
+            thumbnailCID: 'QmT2CqAWc9Q5JwGqDSXjzzv1emdpfuKbBD9ZqzW69CFKf9',
         } as IItem
     },
     clothes: {
@@ -48,14 +53,16 @@ export const placeholdersItems = {
             nonce: new Nonce(1),
             slot: new Slotname('clothes'),
             name: 'Coat With Brown Fur',
-            thumbnailCID: '',
+            description: "Temperatures can drop very low on the ice pack. The fur of the penguins is not always sufficient.",
+            thumbnailCID: 'QmeoRwUajh5JaX2WLk9UjXDCxajTiBAzrnT7qhVuAQCGw4',
         } as IItem,
         'Red Lifejacket': {
             identifier: 'CLOTHES-a1a1a1',
             nonce: new Nonce(2),
             slot: new Slotname('clothes'),
             name: 'Red Lifejacket',
-            thumbnailCID: '',
+            description: "When the ocean is rough.",
+            thumbnailCID: 'QmZ3x1RTybnBUQMUMufnwaDgNtQp4EA5cwL2ysXJ4FvNcR',
         } as IItem,
     },
     eyes: {
@@ -64,14 +71,16 @@ export const placeholdersItems = {
             nonce: new Nonce(1),
             slot: new Slotname('eyes'),
             name: 'Black',
-            thumbnailCID: '',
+            description: "Some Angry Penguins are darker than others. The whole Colony knows that the members who have these eyes are often selling their shitcoins in the dark market of the capital. Some of them made a fortune with them but most of their clients are now bankrupt.",
+            thumbnailCID: 'https://apc.mypinata.cloud/ipfs/QmaF7ApbEo4qRTWXKjKEeTdZQ3gHqyaUf6axs3msP6gNLf',
         } as IItem,
-        'Red': {
+        'EGLD': {
             identifier: 'EYES-a1a1a1',
             nonce: new Nonce(2),
             slot: new Slotname('eyes'),
-            name: 'Red',
-            thumbnailCID: '',
+            name: 'EGLD',
+            description: "We all know that the Angry Penguins live through and for the Elrond Blockchain.",
+            thumbnailCID: 'QmNZvRuaA1rSopnNk2D8wsi7aqcRMLuAatnVXQE2ggFP8s',
         } as IItem
     },
     hat: {
@@ -80,7 +89,8 @@ export const placeholdersItems = {
             nonce: new Nonce(1),
             slot: new Slotname('hat'),
             name: 'Blue Bitcoin Cap',
-            thumbnailCID: '',
+            description: "Bitcoin will do to banks what email did to the postal industry.",
+            thumbnailCID: 'https://apc.mypinata.cloud/ipfs/QmdCnaXnhDKKfyp2mPG8HRPhogWeTYX8kNSN1AggtEXBtR',
         } as IItem,
     },
     skin: {
@@ -89,21 +99,24 @@ export const placeholdersItems = {
             nonce: new Nonce(1),
             slot: new Slotname('skin'),
             name: 'Claw Marks',
-            thumbnailCID: '',
+            description: "Because of all the threats they encounter.",
+            thumbnailCID: 'QmV9sXrNH8FaVhivT4qioSjgy3fFBFNRFhpJazoCXkfyHp',
         } as IItem,
         'Black': {
             identifier: 'SKIN-a1a1a1',
             nonce: new Nonce(2),
             slot: new Slotname('skin'),
             name: 'Black',
-            thumbnailCID: '',
+            description: "Living in the dark.",
+            thumbnailCID: 'QmdsqCHfY2xgDnR8nMtXrpqWdB5avWUuD24HVRjRZKcf9A',
         } as IItem,
         'Light Frozen': {
             identifier: 'SKIN-a1a1a1',
             nonce: new Nonce(3),
             slot: new Slotname('skin'),
             name: 'Light Frozen',
-            thumbnailCID: '',
+            description: "Angry Penguins are full of surprises. Some of the best members of the colony take the look of the surrounding ice as a camouflage.",
+            thumbnailCID: 'QmNw9y925o6k1YoEeUyRhSmpkQVE1DP2TndFB1H48J2TrY',
         } as IItem
     },
     weapon: {
@@ -112,21 +125,24 @@ export const placeholdersItems = {
             nonce: new Nonce(1),
             slot: new Slotname('weapon'),
             name: 'Snowboard',
-            thumbnailCID: '',
+            description: "Who said Angry Penguins cannot have some fun? To celebrate the success of the last migration.",
+            thumbnailCID: 'QmV4SxCUH9wHuDDmcUE5AEVZDLsTyGBdw58xqB6uingCoB',
         } as IItem,
         'Fishing Rifle': {
             identifier: 'WEAPON-a1a1a1',
             nonce: new Nonce(2),
             slot: new Slotname('weapon'),
             name: 'Fishing Rifle',
-            thumbnailCID: '',
+            description: "Even though Angry Penguins are extremely fast underwater.",
+            thumbnailCID: 'QmenrrNSAkxnPy6mXqTGBnV9fxL6NrqAB2ysAYkuKgY4iM',
         } as IItem,
         'Axe': {
             identifier: 'WEAPON-a1a1a1',
             nonce: new Nonce(3),
             slot: new Slotname('weapon'),
             name: 'Axe',
-            thumbnailCID: '',
+            description: "Nothing beats a good old axe. It is easy to use for younger Angry Penguins and not too sophisticated for older ones.",
+            thumbnailCID: 'QmRv5UYxDHLgQANRkmFHX1MJgEB6y2mS1uDmiwTCZ1tZDx',
         } as IItem
     }
 }
@@ -173,7 +189,7 @@ export const placeholdersPenguins = {
             'background': placeholdersItems.background['Red'],
             'beak': placeholdersItems.beak['Pipe'],
             'clothes': placeholdersItems.clothes['Red Lifejacket'],
-            'eyes': placeholdersItems.eyes['Red'],
+            'eyes': placeholdersItems.eyes['EGLD'],
             'skin': placeholdersItems.skin['Light Frozen'],
             'weapon': placeholdersItems.weapon['Axe'],
         }

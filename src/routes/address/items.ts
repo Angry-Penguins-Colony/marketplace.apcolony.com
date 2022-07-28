@@ -10,7 +10,7 @@ export default async function getItems(req: Request, res: Response) {
         placeholdersItems.hat['Blue Bitcoin Cap'],
         placeholdersItems.clothes['Coat With Brown Fur'],
         placeholdersItems.eyes.Black,
-        placeholdersItems.eyes.Red,
+        placeholdersItems.eyes.EGLD,
     ];
 
     sendSuccessfulJSON(res, data);
