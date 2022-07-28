@@ -25,9 +25,11 @@ const Inventory = () => {
 
     const [items, setItems] = React.useState<IInventoryItem[] | undefined>(undefined);
     const [itemsType, setItemsType] = React.useState('penguins');
-    // get items
 
-    const penguinsItems = useGetOwnedPenguins((loadedPenguins) => setItems(loadedPenguins));
+    // get items
+    const penguinsItems = useGetOwnedPenguins({
+        onPenguinsLoaded: setItems
+    });
     const eggsItems: IInventoryItem[] = [
         {
             thumbnailCID: 'QmQBxbEhD4N3tZMtrcj7hKucnvHjrm5CdCt2uDwpL9nimi',
