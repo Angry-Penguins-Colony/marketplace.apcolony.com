@@ -2,7 +2,7 @@ import express from 'express';
 import 'dotenv/config'
 import helmet from 'helmet';
 import cors from "cors";
-import getPenguins from './routes/address/penguin';
+import getPenguins from './routes/address/penguins';
 
 const port = process.env.PORT || 3576;
 
