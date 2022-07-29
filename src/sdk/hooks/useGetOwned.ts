@@ -4,8 +4,6 @@ import { useGetAccountInfo } from '@elrondnetwork/dapp-core';
 import axios from 'axios';
 import { marketplaceApi } from 'config';
 
-
-
 export function useGetOwnedPenguins(options?: IOptions<IPenguin>): IPenguin[] | undefined {
     return useGetOwned<IPenguin>('penguins', options);
 }
@@ -32,15 +30,14 @@ function useGetOwned<T>(urlSuffix: string, options?: IOptions<T>): T[] | undefin
             throw new Error('To get owned penguins, the user must be logged in.');
         }
         else {
-            const fakeAddress = 'erd1c0hhz2xcnsdk6630um7k8jrg2k8zvvpwf39e83xsg8mq68rsettqzdhhjq';
+            const fakeAddress = 'erd1fmsn8v577rjhah8rfx867e3l069jw84pgud5h0wjc67348p4fmwsjj5nqj';
             userAddress = fakeAddress;
         }
     }
 
     React.useEffect(() => {
         async function get() {
-            const url = marketplaceApi + (options?.overrideAddress ?? userAddress) + '/' + urlSuffix;
-            const res = await axios.get(url)
+            const res = await doGetGeneric((options?.overrideAddress ?? userAddress) + '/' + urlSuffix);
 
             const loadedPenguins = res.data.data;
             setOwned(loadedPenguins);
@@ -54,4 +51,14 @@ function useGetOwned<T>(urlSuffix: string, options?: IOptions<T>): T[] | undefin
     }, []);
 
     return owned;
+}
+
+function doGetGeneric(urlSuffix: string) {
+    const url = marketplaceApi
+        + (process.env.REACT_APP_USE_PLACEHOLDERS_CALL === '1' ? 'placeholder/' : '')
+        + urlSuffix;
+
+    console.log(url);
+
+    return axios.get(url);
 }
