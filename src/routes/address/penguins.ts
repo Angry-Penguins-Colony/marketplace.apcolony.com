@@ -1,15 +1,16 @@
-import { penguinsCollection, placeholdersPenguins } from "../../const";
+import { penguinsCollection } from "../../const";
 import { Request, Response } from 'express';
 import { getPenguinFromNft, sendSuccessfulJSON } from "../../utils";
-import { ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import { Address } from "@elrondnetwork/erdjs/out";
+import { ProxyNetwork } from "../../classes/ProxyNetwork";
 
 export default async function getPenguins(req: Request, res: Response, gatewayUrl: string) {
 
     const address = new Address(req.params.bech32);
 
-    const gatewayProvider = new ProxyNetworkProvider(gatewayUrl);
-    const accountsNfts = await gatewayProvider.getNonFungibleTokensOfAccount(address, { from: 0, size: 10000 });
+    const gatewayProvider = new ProxyNetwork(gatewayUrl);
+
+    const accountsNfts = await gatewayProvider.getNftsOfAccount(address);
 
     const penguinsNfts = accountsNfts
         .filter(nft => nft.collection === penguinsCollection)

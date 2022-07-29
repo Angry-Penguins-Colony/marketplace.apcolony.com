@@ -7,7 +7,7 @@ import getEggs from './routes/address/eggs';
 import getItems from './routes/address/items';
 import { mainnetGateway } from './env';
 
-const port = process.env.PORT || 3577;
+const port = process.env.PORT || 5001;
 
 const app = express();
 

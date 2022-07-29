@@ -1,6 +1,7 @@
 import { IPenguin, Nonce } from '@apcolony/marketplace-api';
 import { NonFungibleTokenOfAccountOnNetwork } from '@elrondnetwork/erdjs-network-providers/out';
 import { Response } from 'express';
+import { networkInterfaces } from 'os';
 
 export function sendSuccessfulJSON(response: Response, data: any) {
     response
@@ -14,7 +15,11 @@ export function sendSuccessfulJSON(response: Response, data: any) {
 
 export function getPenguinFromNft(nft: NonFungibleTokenOfAccountOnNetwork): IPenguin {
 
-    console.log(nft.assets);
+    console.log(nft.assets[0]);
+
+    if (nft.assets[0] == undefined) {
+        throw new Error(`No CID linked to the nft ${nft.identifier}`);
+    }
 
     return {
         identifier: nft.identifier,
@@ -22,7 +27,17 @@ export function getPenguinFromNft(nft: NonFungibleTokenOfAccountOnNetwork): IPen
         nonce: new Nonce(nft.nonce),
         score: -1,
         purchaseDate: new Date(), // TODO:
-        thumbnailCID: "", // TODO:
+        thumbnailCID: extractCIDFromIPFS(nft.assets[0]), // TODO:
         equippedItems: {}, // TODO:
     }
+}
+
+export function extractCIDFromIPFS(url: string): string {
+
+    if (url.endsWith("/")) {
+        url = url.substring(0, url.length - 1);
+    }
+
+    const lastSlashIndex = url.lastIndexOf("/");
+    return url.substring(lastSlashIndex + 1);
 }
