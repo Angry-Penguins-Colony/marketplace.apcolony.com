@@ -29,6 +29,14 @@
             font-size: 2rem;
             font-weight: bold;
             letter-spacing: 0.05rem;
+
+            &.desktop {
+                display: none;
+            }
+        }
+
+        .rounded-list {
+            display: none;
         }
 
         .items {
@@ -55,6 +63,7 @@
                     min-width: calc(50% - 5px);
                     position: relative;
                     overflow: hidden;
+                    cursor: pointer;
 
                     &::before {
                         content: '';
@@ -136,6 +145,84 @@
             justify-content: center;
             align-items: center;
             gap: 15px;
+        }
+    }
+}
+
+// desktop
+@media (min-width:800px) {
+    #popup-from-bottom {
+        grid-area: popup;
+
+        position: relative;
+        top: auto;
+        bottom: auto;
+        left: auto;
+        right: auto;
+        background-color: transparent;
+
+        &.is-close {
+            display: block;
+        }
+
+        > .content {
+            background-color: transparent;
+
+            h3 {
+                display: none;
+
+                &.desktop {
+                    display: block;
+                    color: $primary;
+                }
+            }
+
+            .rounded-list {
+                display: flex;
+                margin-left: 35px;
+                margin-right: 35px;
+            }
+
+            .items {
+                margin-top: 40px;
+                padding-top: 15px;
+
+                .content {
+                    gap: 18px;
+
+                    .item {
+                        min-width: calc(30% - 7px);
+                        overflow: visible;
+
+                        &.is-selected {
+                            .count {
+                                top: -11px;
+                                right: -11px;
+                            }
+                        }
+
+                        &.is-hidden {
+                            display: none;
+                        }
+
+                        .thumbnail,
+                        .model,
+                        .name,
+                        .back-name {
+                            border-radius: 10px;
+                        }
+
+                        .count {
+                            top: -8px;
+                            right: -8px;
+                        }
+                    }
+                }
+            }
+
+            .controls {
+                display: none;
+            }
         }
     }
 }

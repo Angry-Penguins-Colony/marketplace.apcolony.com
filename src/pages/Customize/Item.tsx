@@ -3,5 +3,6 @@ export interface Item {
     thumbnail: string;
     name: string;
     count: number;
+    type: string;
     isSelected?: boolean;
 }

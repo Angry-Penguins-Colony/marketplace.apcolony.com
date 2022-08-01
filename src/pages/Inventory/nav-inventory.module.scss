@@ -104,10 +104,10 @@
         }
 
         .filter {
-            border: #284A8B solid 1px;
+            border: $primary-dark solid 1px;
 
             .name {
-                color: #284A8B;
+                color: $primary-dark;
             }
 
             .number {

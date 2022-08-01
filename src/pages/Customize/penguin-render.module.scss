@@ -20,3 +20,23 @@
         position: absolute;
     }
 }
+
+// desktop
+@media (min-width:800px) {
+    .render {
+        max-width: calc(100vh - 109px - 55px - 2.2rem - 2.2rem - 25px - 25px - 1.6rem - 1.2rem - 0.8rem - 50px);
+        overflow: initial;
+
+        img {
+            border-radius: 10px;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            inset: -12px;
+            border: white 4px solid;
+            border-radius: 15px;
+        }
+    }
+}

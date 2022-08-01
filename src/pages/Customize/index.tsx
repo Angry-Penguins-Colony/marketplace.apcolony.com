@@ -75,12 +75,92 @@ const Customize = () => {
     /* Choose items popup */
 
     const [itemsPopupIsOpen, setItemsPopupIsOpen] = React.useState<boolean>(false);
-    const [itemsPopupTitle, setItemsPopupTitle] = React.useState<string>('?');
-    const [itemsPopupType, setItemsPopupType] = React.useState<string>('?');
+    const [itemsPopupTitle, setItemsPopupTitle] = React.useState<string>('All My Items');
+    const [itemsPopupType, setItemsPopupType] = React.useState<string>('all');
     const [itemsInPopup, setItemsInPopup] = React.useState<Item[]>([]);
 
+    React.useEffect(() => {
+        setTimeout(() => {
+            // get items from server
+            setItemsInPopup([
+                {
+                    id: '1',
+                    thumbnail: 'https://apc.mypinata.cloud/ipfs/QmbTeQdUcunaqTKRAyDqk8RXYEyVLCDPHJr8m7XqFTEYyj',
+                    name: 'Hat 1',
+                    type: 'hat',
+                    count: 15,
+                },
+                {
+                    id: '2',
+                    thumbnail: 'https://apc.mypinata.cloud/ipfs/QmQZXuCiqoPvxwpGvog7vSNmm6YPyMoKhjdRSN25yW1NFB',
+                    name: 'Hat 2',
+                    type: 'hat',
+                    count: 15,
+                },
+                {
+                    id: '3',
+                    thumbnail: 'https://apc.mypinata.cloud/ipfs/QmR8jehRV2UNdxXFVzB2yK1oUh8gKxxjMHoMM5WBGuAiri',
+                    name: 'Hat 3',
+                    type: 'hat',
+                    count: 15,
+                },
+                {
+                    id: '4',
+                    thumbnail: 'https://apc.mypinata.cloud/ipfs/QmVmAtB1cWBJvP61cF96W4JsfCBuWkjK7Kvjc6Tz14YQ5G',
+                    name: 'Hat 4',
+                    type: 'hat',
+                    count: 15,
+                    isSelected: true,
+                },
+                {
+                    id: '5',
+                    thumbnail: 'https://apc.mypinata.cloud/ipfs/QmUJBtKH93AKrz27TtEnisPcD3sJLNU3S7bqxbwD7X1o6L',
+                    name: 'Hat 5',
+                    type: 'hat',
+                    count: 15,
+                },
+                {
+                    id: '6',
+                    thumbnail: 'https://apc.mypinata.cloud/ipfs/QmS1PptqaenV5P3cMcAcQBu9rbCXGNmY2iYdf2jnu6ZoFu',
+                    name: 'Hat 7',
+                    type: 'hat',
+                    count: 15,
+                },
+                {
+                    id: '7',
+                    thumbnail: 'https://apc.mypinata.cloud/ipfs/QmNaKPRfWt5oPkozP92HqaxZYZYuaVom2SgKbJcGG1E7zS',
+                    name: 'Hat 7',
+                    type: 'hat',
+                    count: 15,
+                },
+                {
+                    id: '8',
+                    thumbnail: 'https://apc.mypinata.cloud/ipfs/QmY7WAa7GTJBHb8APMsYdZZ2FNWLsz8z84D1ndNntA8k3Y',
+                    name: 'Hat 8',
+                    type: 'hat',
+                    count: 15,
+                },
+                {
+                    id: '9',
+                    thumbnail: 'https://apc.mypinata.cloud/ipfs/QmQyZZmAfRqadoKypZng4TxNvqc8S4nZScFqg5bbTxb47D',
+                    name: 'Skin 9',
+                    type: 'skin',
+                    count: 5,
+                },
+                {
+                    id: '10',
+                    thumbnail: 'https://apc.mypinata.cloud/ipfs/QmWc1Tx12hwF3J6dnNE8zuLig5EtWxMeM2ucT1za4VKcL1',
+                    name: 'Skin 10',
+                    type: 'skin',
+                    count: 15,
+                }
+            ]);
+        }, 600);
+    }, []);
+
+
     // change selected item in popup
-    function toggleSelectedInPopup(itemIndex: number) {
+    function toggleSelectedInPopup(itemIndex: number, type: string) {
         // search item with id and change isSelected
         const newItems = [...itemsInPopup];
         const newIsSelected = !newItems[itemIndex].isSelected;
@@ -94,6 +174,11 @@ const Customize = () => {
         newItems[itemIndex].isSelected = !newItems[itemIndex].isSelected;
 
         setItemsInPopup(newItems);
+
+        // change inlive if it's desktop version
+        if (window.innerWidth > 800) {
+            validateItemChangement(type);
+        }
     }
 
     function openItemsPopup(type: string, title: string) {
@@ -104,24 +189,28 @@ const Customize = () => {
                 id: '1',
                 thumbnail: 'https://apc.mypinata.cloud/ipfs/QmbTeQdUcunaqTKRAyDqk8RXYEyVLCDPHJr8m7XqFTEYyj',
                 name: 'Hat 1',
+                type: 'hat',
                 count: 15,
             },
             {
                 id: '2',
                 thumbnail: 'https://apc.mypinata.cloud/ipfs/QmQZXuCiqoPvxwpGvog7vSNmm6YPyMoKhjdRSN25yW1NFB',
                 name: 'Hat 2',
+                type: 'hat',
                 count: 15,
             },
             {
                 id: '3',
                 thumbnail: 'https://apc.mypinata.cloud/ipfs/QmR8jehRV2UNdxXFVzB2yK1oUh8gKxxjMHoMM5WBGuAiri',
                 name: 'Hat 3',
+                type: 'hat',
                 count: 15,
             },
             {
                 id: '4',
                 thumbnail: 'https://apc.mypinata.cloud/ipfs/QmVmAtB1cWBJvP61cF96W4JsfCBuWkjK7Kvjc6Tz14YQ5G',
                 name: 'Hat 4',
+                type: 'hat',
                 count: 15,
                 isSelected: true,
             },
@@ -129,24 +218,42 @@ const Customize = () => {
                 id: '5',
                 thumbnail: 'https://apc.mypinata.cloud/ipfs/QmUJBtKH93AKrz27TtEnisPcD3sJLNU3S7bqxbwD7X1o6L',
                 name: 'Hat 5',
+                type: 'hat',
                 count: 15,
             },
             {
                 id: '6',
                 thumbnail: 'https://apc.mypinata.cloud/ipfs/QmS1PptqaenV5P3cMcAcQBu9rbCXGNmY2iYdf2jnu6ZoFu',
                 name: 'Hat 7',
+                type: 'hat',
                 count: 15,
             },
             {
                 id: '7',
                 thumbnail: 'https://apc.mypinata.cloud/ipfs/QmNaKPRfWt5oPkozP92HqaxZYZYuaVom2SgKbJcGG1E7zS',
                 name: 'Hat 7',
+                type: 'hat',
                 count: 15,
             },
             {
                 id: '8',
                 thumbnail: 'https://apc.mypinata.cloud/ipfs/QmY7WAa7GTJBHb8APMsYdZZ2FNWLsz8z84D1ndNntA8k3Y',
                 name: 'Hat 8',
+                type: 'hat',
+                count: 15,
+            },
+            {
+                id: '9',
+                thumbnail: 'https://apc.mypinata.cloud/ipfs/QmQyZZmAfRqadoKypZng4TxNvqc8S4nZScFqg5bbTxb47D',
+                name: 'Skin 9',
+                type: 'skin',
+                count: 5,
+            },
+            {
+                id: '10',
+                thumbnail: 'https://apc.mypinata.cloud/ipfs/QmWc1Tx12hwF3J6dnNE8zuLig5EtWxMeM2ucT1za4VKcL1',
+                name: 'Skin 10',
+                type: 'skin',
                 count: 15,
             }
         ]);
@@ -155,9 +262,33 @@ const Customize = () => {
         setItemsPopupIsOpen(true);
     }
 
+    function validateItemChangement(type: string) {
+        const selectedItem = itemsInPopup.find((item) => item.isSelected);
+        if (selectedItem) {
+            addItem(type, selectedItem.thumbnail);
+        } else {
+            addItem(type, undefined);
+        }
+        setItemsPopupIsOpen(false);
+    }
+
     return (
-        <>
-            <MobileHeader title="Customize" subTitle={'Penguin #' + penguinData.id} />
+        <div id={style['body-content']}>
+            <MobileHeader title="Customize" subTitle={'Penguin #' + penguinData.id} className={style['mobile-header']} />
+            <PopupFromBottom
+                title={itemsPopupTitle}
+                type={itemsPopupType}
+                isOpen={itemsPopupIsOpen}
+                items={itemsInPopup}
+                toggleSelected={toggleSelectedInPopup}
+                cancel={() => { setItemsPopupIsOpen(false); }}
+                select={(type) => {
+                    validateItemChangement(type);
+                }}
+                changeType={(type) => {
+                    openItemsPopup(type, 'Select ' + type);
+                }}
+            />
             <section className={style.customize}>
                 <div className={style.content}>
                     <div className={style.items}>
@@ -180,47 +311,30 @@ const Customize = () => {
                     <Button type='cancel' onClick={cancelAll}>Cancel All</Button>
                     <Button type='primary' onClick={saveCustomization}>Confirm Customization</Button>
                 </div>
-                <GoToAnotherPenguin className={style['another-penguins']}
-                    currentPenguin={
-                        {
-                            id: penguinData.id,
-                            thumbnail: 'https://media.elrond.com/nfts/asset/QmQTM6cz6j3qjTib5Wt71Npywddqz1fQuxYXD54e9WcaEf'
-                        }
-                    }
-                    leftPenguin={
-                        {
-                            id: '1234',
-                            thumbnail: 'https://media.elrond.com/nfts/asset/QmQTM6cz6j3qjTib5Wt71Npywddqz1fQuxYXD54e9WcaEf'
-                        }
-                    }
-
-                    rightPenguin={
-                        {
-                            id: '6845',
-                            thumbnail: 'https://media.elrond.com/nfts/asset/QmQTM6cz6j3qjTib5Wt71Npywddqz1fQuxYXD54e9WcaEf'
-                        }
-                    }
-
-                />
             </section>
-            <PopupFromBottom
-                title={itemsPopupTitle}
-                type={itemsPopupType}
-                isOpen={itemsPopupIsOpen}
-                items={itemsInPopup}
-                toggleSelected={toggleSelectedInPopup}
-                cancel={() => { setItemsPopupIsOpen(false); }}
-                select={(type) => {
-                    const selectedItem = itemsInPopup.find((item) => item.isSelected);
-                    if (selectedItem) {
-                        addItem(type, selectedItem.thumbnail);
-                    } else {
-                        addItem(type, undefined);
+            <GoToAnotherPenguin className={style['another-penguins']}
+                currentPenguin={
+                    {
+                        id: penguinData.id,
+                        thumbnail: 'https://media.elrond.com/nfts/asset/QmQTM6cz6j3qjTib5Wt71Npywddqz1fQuxYXD54e9WcaEf'
                     }
-                    setItemsPopupIsOpen(false);
-                }}
+                }
+                leftPenguin={
+                    {
+                        id: '1234',
+                        thumbnail: 'https://media.elrond.com/nfts/asset/QmQTM6cz6j3qjTib5Wt71Npywddqz1fQuxYXD54e9WcaEf'
+                    }
+                }
+
+                rightPenguin={
+                    {
+                        id: '6845',
+                        thumbnail: 'https://media.elrond.com/nfts/asset/QmQTM6cz6j3qjTib5Wt71Npywddqz1fQuxYXD54e9WcaEf'
+                    }
+                }
+                subTitle={'Penguin #' + penguinData.id}
             />
-        </>
+        </div>
     );
 };
 

@@ -8,7 +8,7 @@ body {
 }
 
 .customize {
-    padding-bottom: 120px;
+    margin-bottom: 50px;
 
     .content {
         display: flex;
@@ -34,6 +34,7 @@ body {
                 background-position: center;
                 background-repeat: no-repeat;
                 background-size: 70%;
+                cursor: pointer;
 
                 &::before {
                     content: "";
@@ -97,8 +98,39 @@ body {
         justify-content: center;
         gap: 20px;
     }
+}
 
-    .another-penguins {
-        margin-top: 50px;
+// desktop
+@media (min-width:800px) {
+    body {
+        background-position: center;
+    }
+
+    #body-content {
+        display: grid;
+        grid-template-areas: 'popup head'
+            'popup customize';
+        grid-template-columns: 4fr 6fr;
+        grid-gap: 40px;
+        padding: 0 40px;
+
+        max-height: calc(100vh - 109px);
+    }
+
+    .customize {
+        grid-area: customize;
+        margin-bottom: 0;
+
+        .content {
+            justify-content: center;
+            gap: 50px;
+
+            .items {
+                .item {
+                    width: 60px;
+                    height: 60px;
+                }
+            }
+        }
     }
 }

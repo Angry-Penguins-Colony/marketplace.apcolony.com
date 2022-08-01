@@ -8,6 +8,7 @@ const GoToAnotherPenguin = (
         leftPenguin,
         currentPenguin,
         rightPenguin,
+        subTitle,
         className
     }: {
         leftPenguin?: {
@@ -22,6 +23,7 @@ const GoToAnotherPenguin = (
             id: string;
             thumbnail: string;
         } | undefined,
+        subTitle: string,
         className?: string
     }
 ) => {
@@ -55,6 +57,10 @@ const GoToAnotherPenguin = (
                         </div>
                     )
                 }
+                <div className={style['desktop-info']}>
+                    <h2>Customize</h2>
+                    <p className={style.info}>{subTitle}</p>
+                </div>
                 <div className={style.penguins}>
                     {
                         leftPenguin && (

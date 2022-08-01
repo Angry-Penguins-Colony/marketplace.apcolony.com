@@ -16,12 +16,7 @@ const Navbar = () => {
       icon: <HomeIcon />,
     },
     {
-      name: 'Inventory',
-      route: '/inventory',
-      icon: <ProfileIcon />,
-    },
-    {
-      name: 'Marketplace',
+      name: 'Shop',
       action: () => {
         console.log('Marketplace');
         // TODO: open Marketplace
@@ -30,7 +25,12 @@ const Navbar = () => {
       className: style.marketIcon,
     },
     {
-      name: 'Lab',
+      name: 'My Inventory',
+      route: '/inventory',
+      icon: <ProfileIcon />,
+    },
+    {
+      name: 'Customize',
       route: '/customize',
       icon: <LabIcon />,
       className: style.labIcon,
@@ -79,10 +79,13 @@ const Navbar = () => {
             <img src="/img/logo/logo.png" alt="Logo Angry Penguins" />
             <nav>
               {/* TODO: bind nav link */}
-              <div className={style.item}>Home</div>
-              <div className={style.item}>Shop</div>
-              <div className={style.item}>My Inventory</div>
-              <div className={style.item}>Customize</div>
+              {
+                navItems.map((item, index) => {
+                  if (item.name != 'Menu') {
+                    return (<a href={item.route} key={index} className={style.item}>{item.name}</a>);
+                  }
+                })
+              }
             </nav>
           </div>
           <div className={style.right}>

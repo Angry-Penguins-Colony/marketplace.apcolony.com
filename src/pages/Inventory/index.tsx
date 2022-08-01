@@ -188,25 +188,25 @@ const Inventory = () => {
     const itemsItems = [
         {
             image: '/img/items/CGS_Bec Piece EGLD_TK02.png',
-            name: 'Beack #1',
+            name: 'Beak #1',
             score: 3453,
             added: '2019-01-10',
         },
         {
             image: '/img/items/CGS_Bec Piece EGLD_TK02.png',
-            name: 'Beack #2',
+            name: 'Beak #2',
             score: 7,
             added: '2020-01-10',
         },
         {
             image: '/img/items/CGS_Bec Piece EGLD_TK02.png',
-            name: 'Beack #3',
+            name: 'Beak #3',
             score: 277,
             added: '2018-01-10',
         },
         {
             image: '/img/items/CGS_Bec Piece EGLD_TK02.png',
-            name: 'Beack #4',
+            name: 'Beak #4',
             score: 9999,
             added: '2010-01-10',
         }
@@ -352,7 +352,7 @@ const Inventory = () => {
             {
                 title: 'Beak',
                 value: 'beak',
-                icon: '/img/icon/beack_icon.png',
+                icon: '/img/icon/beak_icon.png',
                 attributes: [
                     {
                         name: 'Straw',
