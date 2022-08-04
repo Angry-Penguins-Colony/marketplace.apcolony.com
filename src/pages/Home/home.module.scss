@@ -79,4 +79,24 @@
             padding-left: 25px;
         }
     }
+
+    > .explore-all {
+        > .content {
+            display: grid;
+            grid-gap: 10px;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        > .control {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            margin-bottom: 50px;
+
+            .button {
+                min-width: 60%;
+            }
+        }
+    }
 }
