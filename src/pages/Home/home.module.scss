@@ -99,4 +99,35 @@
             }
         }
     }
+
+    > .customize-your-penguins {
+        background-image: url("./../../assets/img/main-background.png");
+        background-size: cover;
+        background-position: calc(50vh + 50vw) center;
+        background-attachment: fixed;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        h2 {
+            color: white;
+            text-align: center;
+            font-size: 2.8rem;
+        }
+
+        .subtitle {
+            color: white;
+            text-align: center;
+            font-family: 'Config Rounded', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .button {
+            min-width: 60%;
+            margin-top: 3rem;
+        }
+    }
 }

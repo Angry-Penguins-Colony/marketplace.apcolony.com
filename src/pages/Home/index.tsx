@@ -75,13 +75,6 @@ const Home = () => {
           name: 'Captain\s cap',
           price: 1.2,
           count: 15
-        },
-        {
-          id: '9',
-          thumbnail: 'https://apc.mypinata.cloud/ipfs/QmckAEkwJuLv2FEvoXjpvpjtBaMxDxv2YT3CTTSYhwp2WS',
-          name: 'beak spe',
-          price: 3.5,
-          count: 1
         }
       ]);
     }, 1000);
@@ -127,6 +120,7 @@ const Home = () => {
                 name={item.name}
                 price={item.price}
                 count={item.count}
+              // add click to open info of item
               />
             ))
           }
@@ -134,6 +128,13 @@ const Home = () => {
         <div className={style.control}>
           <Button type='normal' className={style.button}>View all</Button>
         </div>
+      </section>
+
+      <section className={style['customize-your-penguins']}>
+        <h2>Customize your<br />penguins !!!</h2>
+        <p className={style.subtitle}>Make them unique with<br /> over a 100+ items</p>
+        {/* TODO add image */}
+        <Button type='normal' onClick={() => { window.location.href = '/customize'; }} className={style.button}>Customize</Button>
       </section>
     </div>
   );
