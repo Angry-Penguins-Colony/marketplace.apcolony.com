@@ -1,0 +1,81 @@
+@import './../../assets/sass/var.scss';
+
+#home {
+    padding-bottom: 120px;
+
+    background-color: $background;
+
+    .top-page {
+        min-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 25px 10px;
+        gap: 120px;
+
+        background-image: url("./../../assets/img/main-background.png");
+        background-size: cover;
+        background-position: calc(50vh + 50vw) center;
+        background-attachment: fixed;
+
+        img {
+            height: 55px;
+        }
+
+        .info {
+            h1 {
+                font-family: 'CHEDROS', sans-serif;
+                font-weight: bold;
+                font-size: 3.5rem;
+                color: white;
+                text-align: center;
+                line-height: 1;
+            }
+
+            p {
+                font-family: 'Config Rounded', sans-serif;
+                font-size: 1.2rem;
+                text-align: center;
+                color: white;
+            }
+        }
+
+        .button {}
+    }
+
+    > section {
+        background-color: $background;
+        overflow: hidden;
+        padding: 25px;
+
+        > h2 {
+            font-family: 'CHEDROS', sans-serif;
+            font-weight: bold;
+            font-size: 1.8rem;
+            color: $dark;
+            margin-bottom: 0.5rem;
+        }
+
+        .content {}
+    }
+
+    > .categories {
+        padding-right: 0;
+        padding-left: 0;
+
+        > h2 {
+            padding-right: 25px;
+            padding-left: 25px;
+        }
+
+        .content {
+            display: flex;
+            gap: 15px;
+            flex-wrap: nowrap;
+            overflow: auto;
+            padding-right: 25px;
+            padding-left: 25px;
+        }
+    }
+}

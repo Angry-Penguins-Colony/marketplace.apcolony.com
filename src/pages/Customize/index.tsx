@@ -88,6 +88,7 @@ const Customize = () => {
                     thumbnail: 'https://apc.mypinata.cloud/ipfs/QmbTeQdUcunaqTKRAyDqk8RXYEyVLCDPHJr8m7XqFTEYyj',
                     name: 'Hat 1',
                     type: 'hat',
+                    // TODO: bind count of item to user inventory
                     count: 15,
                 },
                 {
