@@ -15,6 +15,7 @@ interface ItemOrPenguin {
 
 const Home = () => {
   const [exploreItems, setExploreItems] = React.useState<ItemOrPenguin[]>([]);
+  const [highlightedItem, setHighlightedItem] = React.useState<ItemOrPenguin | undefined>(undefined);
 
   React.useEffect(() => {
     // simulate API call
@@ -77,6 +78,14 @@ const Home = () => {
           count: 15
         }
       ]);
+
+      setHighlightedItem({
+        id: '1',
+        thumbnail: 'https://apc.mypinata.cloud/ipfs/QmXD8TYrFydZZmt7SjKdccDZixLTHpVVrx3jbDs3afCUBu',
+        name: 'Kimono With Red Belt',
+        price: 2,
+        count: 1
+      });
     }, 1000);
   }
     , []);
@@ -129,13 +138,29 @@ const Home = () => {
           <Button type='normal' className={style.button}>View all</Button>
         </div>
       </section>
-
       <section className={style['customize-your-penguins']}>
         <h2>Customize your<br />penguins !!!</h2>
         <p className={style.subtitle}>Make them unique with<br /> over a 100+ items</p>
         {/* TODO add image */}
         <Button type='normal' onClick={() => { window.location.href = '/customize'; }} className={style.button}>Customize</Button>
       </section>
+      <section className={style['give-unique-style']}>
+        <h2>Give your Angry Penguins gang a unique style</h2>
+        <Button type='normal' className={style.button}>Buy new items</Button>
+      </section>
+      {
+        highlightedItem && (
+          // TODO: add link to item
+          <section className={style['highlighted-item']}>
+            <div className={style.info}>
+              <h2>Highlighted item</h2>
+              <p className={style.name}>{highlightedItem.name}</p>
+              <p className={style.price}>{highlightedItem.price} EGLD</p>
+            </div>
+            <img src={highlightedItem.thumbnail} alt={highlightedItem.name} />
+          </section>
+        )
+      }
     </div>
   );
 };
