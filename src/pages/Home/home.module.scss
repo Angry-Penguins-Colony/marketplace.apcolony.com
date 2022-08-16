@@ -143,62 +143,73 @@
         }
     }
 
-    > .give-unique-style {
-        background-image: url("./../../assets/img/penguins_gang_background.png");
-        background-size: cover;
-        background-position: center;
-        min-height: 120vw;
+    .global-unique-style {
+        > .give-unique-style {
+            background-image: url("./../../assets/img/penguins_gang_background.png");
+            background-size: cover;
+            background-position: center;
+            min-height: 120vw;
 
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-
-        h2 {
-            color: white;
-            text-align: center;
-            font-size: 2.6rem;
-        }
-
-        .button {
-            min-width: 60%;
-            margin-top: 3rem;
-        }
-    }
-
-    > .highlighted-item {
-        background-color: white;
-        padding-bottom: 0;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-
-        .info {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: stretch;
-            position: absolute;
-            top: 25px;
-            left: 25px;
-            right: 25px;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 25px var(--padding-section);
 
             h2 {
-                font-family: 'Config Rounded', sans-serif;
-                font-size: 1.2rem;
-                font-weight: 300;
-            }
-
-            .name,
-            .price {
-                font-family: 'Config Rounded', sans-serif;
-                font-size: 1.5rem;
-            }
-
-            .price {
-                align-self: flex-end;
+                font-family: 'CHEDROS', sans-serif;
                 font-weight: bold;
-                color: $primary;
+                margin-bottom: 0.5rem;
+                color: white;
+                text-align: center;
+                font-size: 2.6rem;
+
+                span {
+                    display: none;
+                }
+            }
+
+            .button {
+                min-width: 60%;
+                margin-top: 3rem;
+            }
+        }
+
+        > .highlighted-item {
+            background-color: white;
+            padding-bottom: 0;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+
+            .info {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: stretch;
+                position: absolute;
+                top: 25px;
+                left: 25px;
+                right: 25px;
+
+                h2 {
+                    font-family: 'Config Rounded', sans-serif;
+                    font-size: 1.2rem;
+                    font-weight: 300;
+                }
+
+                .name,
+                .price {
+                    font-family: 'Config Rounded', sans-serif;
+                    font-size: 1.5rem;
+                }
+
+                .price {
+                    align-self: flex-end;
+                    font-weight: bold;
+                    color: $primary;
+                }
             }
         }
     }
@@ -276,6 +287,52 @@
             > .control {
                 padding-right: var(--padding-section);
                 padding-left: var(--padding-section);
+            }
+        }
+
+        .global-unique-style {
+            display: flex;
+            justify-content: center;
+            padding: 60px;
+            background-color: $background;
+
+            > .give-unique-style {
+                border-top-left-radius: 8px;
+                border-bottom-left-radius: 8px;
+                width: 40%;
+                min-height: auto;
+                height: 75vh;
+                overflow: hidden;
+                padding: 25px;
+
+                h2 {
+                    span {
+                        display: inline;
+                    }
+                }
+            }
+
+            > .highlighted-item {
+                border-bottom-right-radius: 8px;
+                border-top-right-radius: 8px;
+                width: 40%;
+                height: 75vh;
+                overflow: hidden;
+                position: relative;
+
+                img {
+                    position: absolute;
+                    bottom: 0;
+                    width: 100%;
+                }
+
+                .info {
+                    gap: 1rem;
+
+                    .name {
+                        font-size: 2rem;
+                    }
+                }
             }
         }
     }

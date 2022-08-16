@@ -149,23 +149,25 @@ const Home = () => {
         {/* TODO add image */}
         <Button type='normal' onClick={() => { window.location.href = '/customize'; }} className={style.button}>Customize</Button>
       </section>
-      <section className={style['give-unique-style']}>
-        <h2>Give your Angry Penguins gang a unique style</h2>
-        <Button type='normal' className={style.button}>Buy new items</Button>
-      </section>
-      {
-        highlightedItem && (
-          // TODO: add link to item
-          <section className={style['highlighted-item']}>
-            <div className={style.info}>
-              <h2>Highlighted item</h2>
-              <p className={style.name}>{highlightedItem.name}</p>
-              <p className={style.price}>{highlightedItem.price} EGLD</p>
-            </div>
-            <img src={highlightedItem.thumbnail} alt={highlightedItem.name} />
-          </section>
-        )
-      }
+      <div className={style['global-unique-style']}>
+        <section className={style['give-unique-style']}>
+          <h2>Give your Angry Penguins<span><br /></span> gang a unique style</h2>
+          <Button type='normal' className={style.button}>Buy new items</Button>
+        </section>
+        {
+          highlightedItem && (
+            // TODO: add link to item
+            <section className={style['highlighted-item']}>
+              <div className={style.info}>
+                <h2>Highlighted item</h2>
+                <p className={style.name}>{highlightedItem.name}</p>
+                <p className={style.price}>{highlightedItem.price} EGLD</p>
+              </div>
+              <img src={highlightedItem.thumbnail} alt={highlightedItem.name} />
+            </section>
+          )
+        }
+      </div>
       <section className={style['sell-items']}>
         {/* TODO: add style with specifics assets */}
         <h2>Sell items you earned<br />and buy new ones</h2>
