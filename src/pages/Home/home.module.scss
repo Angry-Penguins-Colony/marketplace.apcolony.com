@@ -221,28 +221,38 @@
         background-attachment: fixed;
 
         text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        gap: 15px;
+        display: grid;
+        justify-items: center;
+        grid-gap: 15px;
+        grid-template-areas: "title""subtitle""image""sell-button""buy-button";
 
         h2 {
             color: white;
             text-align: center;
             font-size: 2.6rem;
+            grid-area: title;
         }
 
         .subtitle {
             color: white;
+            grid-area: subtitle;
         }
 
         img {
             max-width: 100%;
+            grid-area: image;
         }
 
         .button {
             min-width: 60%;
+
+            &.sell {
+                grid-area: sell-button;
+            }
+
+            &.buy {
+                grid-area: buy-button;
+            }
         }
     }
 }
@@ -332,6 +342,45 @@
                     .name {
                         font-size: 2rem;
                     }
+                }
+            }
+        }
+
+        > .sell-items {
+            grid-template-areas:
+                ". image title title"
+                ". image subtitle subtitle"
+                ". image sell-button buy-button";
+            grid-gap: 0;
+            grid-template-columns: 1fr 1fr 2fr 2fr;
+            padding: 60px var(--padding-section);
+
+            h2 {
+                font-size: 5rem;
+                line-height: 1;
+            }
+
+            .subtitle {
+                position: relative;
+                top: -1rem;
+            }
+
+            img {
+                max-width: 300px;
+                justify-self: center;
+            }
+
+            .button {
+                min-width: auto;
+
+                &.sell {
+                    justify-self: end;
+                    margin-right: 4px;
+                }
+
+                &.buy {
+                    justify-self: start;
+                    margin-left: 4px;
                 }
             }
         }
