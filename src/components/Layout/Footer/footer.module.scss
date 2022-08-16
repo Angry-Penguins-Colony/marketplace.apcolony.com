@@ -120,7 +120,6 @@ footer#main-footer {
             margin-bottom: 20px;
             border-bottom: 1px solid #080d2680;
             display: grid;
-            // grid-template-columns: 2fr 2fr 3fr;
             grid-template-columns: 1fr;
             grid-template-rows: auto;
             grid-template-areas: none;
@@ -266,5 +265,55 @@ footer#main-footer {
 @media (min-width:800px) {
     footer#main-footer {
         display: block;
+
+        .newsletter {
+            h2 {
+                display: block;
+            }
+
+            form {
+                display: block;
+            }
+
+            .social {
+                display: flex;
+            }
+        }
+
+        .footer {
+            padding: 0 60px;
+
+            .main {
+                grid-template-columns: 2fr 2fr 3fr;
+                grid-template-areas: auto;
+
+                .nav {
+                    display: block;
+                }
+
+                .join-us {
+                    h2 {
+                        display: block;
+                    }
+
+                    form {
+                        display: block;
+                    }
+
+                    .info {
+                        display: block;
+                    }
+
+                    .social {
+                        justify-content: flex-start;
+                    }
+                }
+            }
+
+            .privacy {
+                flex-direction: row;
+                align-items: unset;
+            }
+        }
     }
 }
