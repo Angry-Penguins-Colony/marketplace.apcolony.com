@@ -467,3 +467,31 @@ h6 {
     }
   }
 }
+
+/* scroll bar
+-------------------------------------------------- */
+.custom-scrollbar {
+
+  /* width */
+  &::-webkit-scrollbar {
+    border-radius: 99999px;
+    height: 10px;
+    width: 10px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    border-radius: 99999px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: $primary;
+    border-radius: 99999px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: $primary-dark;
+  }
+}

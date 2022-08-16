@@ -108,6 +108,11 @@ const Home = () => {
           <CategoryItem title="Beak" img="/img/icon/hat_big.png" link="TODO: add link" />
           <CategoryItem title="Skin" img="/img/icon/hat_big.png" link="TODO: add link" />
           <CategoryItem title="Weapon" img="/img/icon/hat_big.png" link="TODO: add link" />
+          <CategoryItem title="Weapon" img="/img/icon/hat_big.png" link="TODO: add link" />
+          <CategoryItem title="Weapon" img="/img/icon/hat_big.png" link="TODO: add link" />
+          <CategoryItem title="Weapon" img="/img/icon/hat_big.png" link="TODO: add link" />
+          <CategoryItem title="Weapon" img="/img/icon/hat_big.png" link="TODO: add link" />
+          <CategoryItem title="Weapon" img="/img/icon/hat_big.png" link="TODO: add link" />
         </div>
       </section>
       <section className={style['chose-category']}>
