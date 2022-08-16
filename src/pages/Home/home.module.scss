@@ -2,8 +2,6 @@
 @import './../../assets/sass/theme.scss';
 
 #home {
-    padding-bottom: 120px;
-
     background-color: $background;
 
     .top-page {
@@ -195,6 +193,38 @@
                 font-weight: bold;
                 color: $primary;
             }
+        }
+    }
+
+    > .sell-items {
+        background-image: url("./../../assets/img/main-background.png");
+        background-size: cover;
+        background-position: calc(50vh + 50vw) center;
+        background-attachment: fixed;
+
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+
+        h2 {
+            color: white;
+            text-align: center;
+            font-size: 2.6rem;
+        }
+
+        .subtitle {
+            color: white;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .button {
+            min-width: 60%;
         }
     }
 }
