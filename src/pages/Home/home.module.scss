@@ -43,10 +43,12 @@
         .button {}
     }
 
+    --padding-section: 25px;
+
     > section {
         background-color: $background;
         overflow: hidden;
-        padding: 25px;
+        padding: 25px var(--padding-section);
 
         > h2 {
             font-family: 'CHEDROS', sans-serif;
@@ -65,8 +67,8 @@
         padding-left: 0;
 
         > h2 {
-            padding-right: 25px;
-            padding-left: 25px;
+            padding-right: var(--padding-section);
+            padding-left: var(--padding-section);
         }
 
         .content {
@@ -74,13 +76,13 @@
             gap: 15px;
             flex-wrap: nowrap;
             overflow: auto;
-            padding-right: 25px;
-            padding-left: 25px;
+            padding-right: var(--padding-section);
+            padding-left: var(--padding-section);
             padding-bottom: 15px;
             @extend .custom-scrollbar;
 
             &::-webkit-scrollbar-track {
-                margin: 25px;
+                margin: var(--padding-section);
             }
         }
     }
@@ -240,6 +242,13 @@
 
         .top-page {
             background: none;
+        }
+
+        --padding-section: 80px;
+
+        > .chose-category .content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
         }
     }
 }

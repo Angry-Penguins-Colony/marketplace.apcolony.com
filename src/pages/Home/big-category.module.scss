@@ -41,3 +41,22 @@
         right: 25px;
     }
 }
+
+// desktop
+@media (min-width :800px) {
+    .big-category {
+
+        min-width: auto;
+        width: auto;
+
+        img {
+            min-height: auto;
+            height: auto;
+        }
+
+        &::after {
+
+            padding-bottom: 140%;
+        }
+    }
+}
