@@ -1,7 +1,8 @@
 @import './../../../assets/sass/var.scss';
 
 footer#main-footer {
-    display: none;
+    // display: none;
+    background: white;
 
     form#newsletter-form {
         position: relative;
@@ -72,6 +73,8 @@ footer#main-footer {
         padding: 60px 20px 120px 20px;
 
         h2 {
+            display: none;
+
             font-family: 'CHEDROS', sans-serif;
             font-size: 1.5rem;
             font-weight: bold;
@@ -80,7 +83,13 @@ footer#main-footer {
             text-transform: uppercase;
         }
 
+        form {
+            display: none;
+        }
+
         .social {
+            display: none;
+
             margin-top: 10px;
         }
     }
@@ -90,7 +99,7 @@ footer#main-footer {
         border-radius: 60px 60px 0 0;
         position: relative;
         top: -60px;
-        padding: 0 60px;
+        padding: 0 40px 60px 40px;
 
         &::after {
             content: "";
@@ -111,9 +120,11 @@ footer#main-footer {
             margin-bottom: 20px;
             border-bottom: 1px solid #080d2680;
             display: grid;
-            grid-template-columns: 2fr 2fr 3fr;
+            // grid-template-columns: 2fr 2fr 3fr;
+            grid-template-columns: 1fr;
             grid-template-rows: auto;
-            grid-template-areas: auto;
+            grid-template-areas: none;
+            justify-items: center;
             grid-gap: 30px;
 
             h2 {
@@ -134,6 +145,7 @@ footer#main-footer {
             }
 
             .nav {
+                display: none;
 
                 .content {
                     display: flex;
@@ -157,15 +169,28 @@ footer#main-footer {
             }
 
             .join-us {
+
+                h2 {
+                    display: none;
+                }
+
                 form {
+                    display: none;
+
                     margin-bottom: 1rem;
                 }
 
                 .info {
+                    display: none;
+
                     font-family: 'Config Rounded', sans-serif;
                     font-style: italic;
                     color: #24242480;
                     margin-bottom: 1rem;
+                }
+
+                .social {
+                    justify-content: center;
                 }
             }
         }
@@ -174,6 +199,9 @@ footer#main-footer {
             display: flex;
             justify-content: space-between;
             padding: 0 10px;
+            flex-direction: column-reverse;
+            align-items: center;
+            gap: 15px;
 
             .webdesign-by {
                 display: flex;
@@ -210,7 +238,7 @@ footer#main-footer {
 }
 
 // desktop
-@media (max-width:1000px) {
+@media (min-width:800px) and (max-width:1000px) {
     footer#main-footer {
         .footer {
             .main {
