@@ -146,7 +146,7 @@ const Home = () => {
       <section className={style['customize-your-penguins']}>
         <h2>Customize your<br />penguins !!!</h2>
         <p className={style.subtitle}>Make them unique with<br /> over a 100+ items</p>
-        {/* TODO add image */}
+        <img src="/img/customization.png" alt="customization" />
         <Button type='normal' onClick={() => { window.location.href = '/customize'; }} className={style.button}>Customize</Button>
       </section>
       <div className={style['global-unique-style']}>

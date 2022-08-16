@@ -137,6 +137,10 @@
             margin-bottom: 1rem;
         }
 
+        img {
+            max-width: 100%;
+        }
+
         .button {
             min-width: 60%;
             margin-top: 3rem;
@@ -297,6 +301,41 @@
             > .control {
                 padding-right: var(--padding-section);
                 padding-left: var(--padding-section);
+            }
+        }
+
+        > .customize-your-penguins {
+            display: grid;
+            grid-template-areas:
+                "title image"
+                "subtitle image"
+                "button image";
+            grid-gap: 0;
+            grid-template-columns: 1fr 1fr;
+            justify-items: center;
+            padding: 60px var(--padding-section);
+
+            h2 {
+                font-size: 5rem;
+                line-height: 1;
+                grid-area: title;
+            }
+
+            .subtitle {
+                position: relative;
+                top: -1rem;
+                grid-area: subtitle;
+            }
+
+            img {
+                max-width: 300px;
+                justify-self: center;
+                grid-area: image;
+            }
+
+            .button {
+                min-width: auto;
+                grid-area: button;
             }
         }
 
