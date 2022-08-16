@@ -114,10 +114,34 @@
                     font-family: 'CHEDROS', sans-serif;
                     font-size: 1.3rem;
                     font-weight: bold;
+                    color: $dark;
                 }
             }
         }
 
+        .center {
+            width: 40%;
+
+            .search {
+                background: #E9EEF2;
+                border-radius: 999px;
+                padding: 10px 18px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+
+                .icon {
+                    height: 1rem;
+                }
+
+                input {
+                    border: none;
+                    background-color: transparent;
+                    font-family: 'Config Rounded', sans-serif;
+                    font-weight: 300;
+                }
+            }
+        }
 
         .right {
             display: flex;

@@ -1,10 +1,12 @@
 import React from 'react';
+import Button from 'components/Button/Button';
 import DiscordIcon from 'components/Icons/DiscordIcon';
 import HomeIcon from 'components/Icons/HomeIcon';
 import LabIcon from 'components/Icons/LabIcon';
 import MarketIcon from 'components/Icons/MarketIcon';
 import MenuIcon from 'components/Icons/MenuIcon';
 import ProfileIcon from 'components/Icons/ProfileIcon';
+import SearchIcon from 'components/Icons/SearchIcon';
 import TwitterIcon from 'components/Icons/TwitterIcon';
 import style from './navbar.module.scss';
 
@@ -88,6 +90,13 @@ const Navbar = () => {
               }
             </nav>
           </div>
+          <div className={style.center}>
+            <div className={style.search}>
+              <SearchIcon className={style.icon} />
+              <input type="text" placeholder="Search..." />
+              {/* TODO: connect search bar */}
+            </div>
+          </div>
           <div className={style.right}>
             <div className={style.social}>
               <div className={style.twitter + ' ' + style.icon}>
@@ -97,9 +106,9 @@ const Navbar = () => {
                 <DiscordIcon />
               </div>
             </div>
-            <div className={style.profile}>
-              <img src="/img/pingouin emperor.png" alt="Your profile image" />
-            </div>
+            {/* TODO: bind button */}
+            {/* TODO: change button if wallet is connected */}
+            <Button type='primary'>Connect Wallet</Button>
           </div>
         </header>
       </div>
