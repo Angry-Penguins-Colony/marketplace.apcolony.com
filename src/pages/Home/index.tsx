@@ -7,6 +7,7 @@ import { ItemOrPenguininExplorer } from './ItemOrPenguininExplorer';
 
 interface ItemOrPenguin {
   id: string;
+  type: 'item' | 'penguin';
   thumbnail: string;
   name: string;
   price: number;
@@ -23,6 +24,7 @@ const Home = () => {
       setExploreItems([
         {
           id: '1',
+          type: 'penguin',
           thumbnail: 'https://media.elrond.com/nfts/asset/QmcWbrFLTHN6DTTHdcwJPoVikk5htHBdB3eEB5EJ4eN8nU',
           name: 'Penguin #0155',
           price: 5,
@@ -30,6 +32,7 @@ const Home = () => {
         },
         {
           id: '2',
+          type: 'item',
           thumbnail: 'https://apc.mypinata.cloud/ipfs/QmXWgGiuJrQmny1DPuwqqGyhewK2nDz1V5MUvVyJsBy2Vd',
           name: 'Captain\s cap',
           price: 1.2,
@@ -37,6 +40,7 @@ const Home = () => {
         },
         {
           id: '3',
+          type: 'item',
           thumbnail: 'https://apc.mypinata.cloud/ipfs/QmckAEkwJuLv2FEvoXjpvpjtBaMxDxv2YT3CTTSYhwp2WS',
           name: 'beak spe',
           price: 3.5,
@@ -44,6 +48,7 @@ const Home = () => {
         },
         {
           id: '4',
+          type: 'penguin',
           thumbnail: 'https://media.elrond.com/nfts/asset/QmcWbrFLTHN6DTTHdcwJPoVikk5htHBdB3eEB5EJ4eN8nU',
           name: 'Penguin #0155',
           price: 5,
@@ -51,6 +56,7 @@ const Home = () => {
         },
         {
           id: '5',
+          type: 'item',
           thumbnail: 'https://apc.mypinata.cloud/ipfs/QmXWgGiuJrQmny1DPuwqqGyhewK2nDz1V5MUvVyJsBy2Vd',
           name: 'Captain\s cap',
           price: 1.2,
@@ -58,6 +64,7 @@ const Home = () => {
         },
         {
           id: '6',
+          type: 'item',
           thumbnail: 'https://apc.mypinata.cloud/ipfs/QmckAEkwJuLv2FEvoXjpvpjtBaMxDxv2YT3CTTSYhwp2WS',
           name: 'beak spe',
           price: 3.5,
@@ -65,6 +72,7 @@ const Home = () => {
         },
         {
           id: '7',
+          type: 'penguin',
           thumbnail: 'https://media.elrond.com/nfts/asset/QmcWbrFLTHN6DTTHdcwJPoVikk5htHBdB3eEB5EJ4eN8nU',
           name: 'Penguin #0155',
           price: 5,
@@ -72,6 +80,7 @@ const Home = () => {
         },
         {
           id: '8',
+          type: 'item',
           thumbnail: 'https://apc.mypinata.cloud/ipfs/QmXWgGiuJrQmny1DPuwqqGyhewK2nDz1V5MUvVyJsBy2Vd',
           name: 'Captain\s cap',
           price: 1.2,
@@ -81,6 +90,7 @@ const Home = () => {
 
       setHighlightedItem({
         id: '1',
+        type: 'item',
         thumbnail: 'https://apc.mypinata.cloud/ipfs/QmXD8TYrFydZZmt7SjKdccDZixLTHpVVrx3jbDs3afCUBu',
         name: 'Kimono With Red Belt',
         price: 2,
@@ -134,7 +144,9 @@ const Home = () => {
                 name={item.name}
                 price={item.price}
                 count={item.count}
-              // add click to open info of item
+                onClick={() => {
+                  window.location.href = `/marketplace/${item.type}/${item.id}`;
+                }}
               />
             ))
           }
@@ -157,7 +169,7 @@ const Home = () => {
         {
           highlightedItem && (
             // TODO: add link to item
-            <section className={style['highlighted-item']}>
+            <section className={style['highlighted-item']} onClick={() => { window.location.href = `/marketplace/${highlightedItem.type}/${highlightedItem.id}`; }}>
               <div className={style.info}>
                 <h2>Highlighted item</h2>
                 <p className={style.name}>{highlightedItem.name}</p>

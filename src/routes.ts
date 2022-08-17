@@ -1,4 +1,5 @@
 import { dAppName } from 'config';
+import ItemInMarketplace from 'pages/Marketplace/ItemInMarketplace/ItemInMarketplace';
 import withPageTitle from './components/PageTitle';
 import Customize from './pages/Customize';
 import Home from './pages/Home';
@@ -11,6 +12,8 @@ export const routeNames = {
   inventory: '/inventory',
   customize: '/customize',
   customizeOne: '/customize/:id',
+  marketplace: '/marketplace',
+  marketplaceItem: '/marketplace/:type/:id',
   unlock: '/unlock',
   ledger: '/ledger',
   walletconnect: '/walletconnect'
@@ -41,6 +44,16 @@ const routes: Array<any> = [
     path: routeNames.customizeOne,
     title: 'Customize',
     component: Customize
+  },
+  // {
+  //   path: routeNames.marketplace,
+  //   title: 'Marketplace',
+  //   component: Marketplace
+  // },
+  {
+    path: routeNames.marketplaceItem,
+    title: 'Marketplace',
+    component: ItemInMarketplace
   },
 ];
 

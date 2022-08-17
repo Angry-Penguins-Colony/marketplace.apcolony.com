@@ -7,15 +7,19 @@ export const ItemOrPenguininExplorer = (
         name,
         price,
         count = 1,
+        onClick = () => {
+            // do nothing
+        },
     }: {
         thumbnail: string;
         name: string;
         price: number;
         count?: number;
+        onClick?: () => void;
     }
 ) => {
     return (
-        <div className={style['item-or-penguin']}>
+        <div className={style['item-or-penguin']} onClick={onClick}>
             {
                 (count > 1) && (
                     <div className={style.count}>

@@ -1,13 +1,13 @@
+@import './../../../assets/sass/var.scss';
+
 #mobile-header {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
-    padding: 60px 30px 80px 30px;
-    color: white;
+    align-items: flex-start;
+    padding: 60px 30px 30px 30px;
 
-    .icon {
+    .icon > svg {
         height: 25px;
-        fill: white;
     }
 
     .titles {
@@ -27,6 +27,25 @@
             position: relative;
             top: -0.2em;
             font-size: 1.4rem;
+        }
+    }
+
+    &.transparent {
+        padding-bottom: 80px;
+        color: white;
+
+        .icon > svg {
+            fill: white;
+        }
+    }
+
+    &.light {
+        padding-bottom: 30px;
+        background-color: $background;
+        color: $dark;
+
+        .icon > svg {
+            fill: $dark;
         }
     }
 }
