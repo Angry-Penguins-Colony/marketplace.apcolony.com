@@ -1,6 +1,7 @@
 @import './../../../assets/sass/var.scss';
 
 #item-in-marketplace {
+    padding-bottom: 180px; // to dev TODO remove
     background-color: $background;
 
     > * {
@@ -79,5 +80,9 @@
         display: flex;
         justify-content: center;
         margin-top: 30px;
+    }
+
+    > .item-and-activity {
+        margin-top: 40px;
     }
 }
