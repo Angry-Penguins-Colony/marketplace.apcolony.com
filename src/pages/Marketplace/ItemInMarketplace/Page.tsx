@@ -4,6 +4,7 @@ import BuyingPopup from './BuyingPopup';
 import { Item as ItemComponent } from './Item';
 import style from './item-in-marketplace.module.scss';
 import ItemsAndActivities from './ItemsAndActivities';
+import SuccessPopup from './SuccessPopup';
 
 const Page = (
     {
@@ -19,7 +20,15 @@ const Page = (
     }
 ) => {
     // buying popup
-    const [buyingpopupIsVisible, setBuyingPopupIsVisible] = React.useState(false);
+    const [buyingPopupIsVisible, setBuyingPopupIsVisible] = React.useState(false);
+
+    const [successPopupIsVisible, setSuccessPopupIsVisible] = React.useState(false);
+
+    function buyElmt() {
+        // TODO: add method for buying element like item or penguin
+        setBuyingPopupIsVisible(false);
+        setSuccessPopupIsVisible(true);
+    }
 
     return (
         <>
@@ -51,7 +60,7 @@ const Page = (
                 <ItemsAndActivities getActivities={getActivities} items={data.items ? data.items : []} activities={activities} />
             </section>
 
-            <BuyingPopup visible={buyingpopupIsVisible} className={style['buying-popup'] + ' ' + style[type ?? 'penguin']} closePopup={() => setBuyingPopupIsVisible(false)}>
+            <BuyingPopup visible={buyingPopupIsVisible} className={style['buying-popup'] + ' ' + style[type ?? 'penguin']} closePopup={() => setBuyingPopupIsVisible(false)}>
                 {
                     type === 'item' ? (
                         <>
@@ -108,9 +117,10 @@ const Page = (
                 <section>
                     <h3>Total</h3>
                     <div className={style.price}>{data.price} EGLD</div>
-                    <Button className={style.button}>Buy</Button>
+                    <Button className={style.button} onClick={buyElmt}>Buy</Button>
                 </section>
             </BuyingPopup>
+            <SuccessPopup isVisible={successPopupIsVisible} />
         </>
     );
 };
