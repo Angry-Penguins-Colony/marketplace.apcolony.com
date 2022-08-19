@@ -1,15 +1,16 @@
 import * as React from 'react';
 import RightArrowIcon from 'components/Icons/RightArrowIcon';
+import { Item } from './Item';
 import style from './items-and-activities.module.scss';
 
 const ItemsAndActivities = ({
     getActivities,
-    items,
+    items = [],
     activities,
     className = ''
 }: {
     getActivities: () => void;
-    items: any[];
+    items?: any[];
     activities: any[];
     className?: string
 }) => {
@@ -19,7 +20,9 @@ const ItemsAndActivities = ({
         Activity = 'activity'
     }
 
-    const [activeTab, setActiveTab] = React.useState<Tab>(Tab.Items);
+    const [activeTab, setActiveTab] = React.useState<Tab>(
+        (items.length > 0 ? Tab.Items : Tab.Activity)
+    );
 
     function changeTab(tab: Tab) {
         setActiveTab(tab);
@@ -28,11 +31,19 @@ const ItemsAndActivities = ({
         }
     }
 
+    if (activeTab === Tab.Activity) {
+        getActivities();
+    }
+
     return (
         <div className={style['item-and-activity'] + ' ' + className}>
             <nav>
                 {/* TODO: bind click to change content */}
-                <div className={style.elmt + (activeTab === Tab.Items ? ' ' + style.active : '')} onClick={() => changeTab(Tab.Items)}>Items</div>
+                {
+                    items.length > 0 && (
+                        <div className={style.elmt + (activeTab === Tab.Items ? ' ' + style.active : '')} onClick={() => changeTab(Tab.Items)}>Items</div>
+                    )
+                }
                 <div className={style.elmt + (activeTab === Tab.Activity ? ' ' + style.active : '')} onClick={() => changeTab(Tab.Activity)}>Activity</div>
             </nav>
             <div className={style.content}>
@@ -62,31 +73,6 @@ const ItemsAndActivities = ({
 };
 
 export default ItemsAndActivities;
-
-const Item = ({
-    item
-}: {
-    item: {
-        id: string,
-        type: string,
-        name: string,
-        thumbnail: string,
-        rarity: number
-    }
-}) => {
-    return (
-        <div className={style.item}>
-            <div className={style.infos}>
-                <p className={style.name}>{item.name}</p>
-                <p className={style.id}>#{item.id}</p>
-                <p className={style.rarity}>Rarity: {item.rarity}%</p>
-            </div>
-            <div className={style.thumbnail}>
-                <img src={item.thumbnail} alt={item.name} />
-            </div>
-        </div>
-    );
-}
 
 const Activity = ({
     activity
