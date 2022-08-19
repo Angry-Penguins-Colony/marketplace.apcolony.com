@@ -49,3 +49,14 @@
         }
     }
 }
+
+// desktop
+@media (min-width:800px) {
+    .popup {
+        align-items: center;
+
+        .content {
+            min-width: 350px;
+        }
+    }
+}

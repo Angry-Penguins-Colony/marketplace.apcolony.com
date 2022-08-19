@@ -1,7 +1,7 @@
 @import './../../../assets/sass/var.scss';
 
 #item-in-marketplace {
-    padding-bottom: 180px; // to dev TODO remove
+    padding-bottom: 30px;
     background-color: $background;
 
     > * {
@@ -80,6 +80,12 @@
         display: flex;
         justify-content: center;
         margin-top: 30px;
+
+        h2,
+        .price,
+        .desktop {
+            display: none;
+        }
     }
 
     > .item-and-activity {
@@ -108,7 +114,13 @@
             &:last-of-type {
                 align-items: center;
 
-                h3 {
+                h2,
+                .items-attached,
+                > .infos {
+                    display: none;
+                }
+
+                > h3 {
                     font-family: 'CHEDROS', sans-serif;
                     font-weight: bold;
                     font-size: 1.4rem;
@@ -216,26 +228,205 @@
                             }
                         }
                     }
+                }
+            }
+        }
+
+        .items-attached {
+            margin-top: 30px;
+
+            h3 {
+                font-family: 'Config Rounded', sans-serif;
+                font-size: 1.2rem;
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+
+            .content {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, auto));
+                grid-gap: 10px;
+            }
+        }
+    }
+}
+
+// desktop
+@media (min-width:800px) {
+    body {
+        background-image: none !important;
+    }
+
+    #item-in-marketplace {
+        padding-top: 120px;
+        max-width: 1400px;
+        margin: auto;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "img infos"
+            "img activity"
+            "img buy"
+            "img .";
+        grid-gap: 10px;
+        align-items: start;
+
+
+        > .thumbnail {
+            grid-area: img;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                max-height: 80vh;
+                width: auto;
+            }
+        }
+
+        > .infos {
+            grid-area: infos;
+            margin-top: 0;
+        }
+
+        > .buy {
+            margin-top: 40px;
+            grid-area: buy;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            justify-self: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-width: 60%;
+
+            h2,
+            .price,
+            .desktop {
+                display: block;
+            }
+
+            .mobile {
+                display: none;
+            }
+
+            h2 {
+                font-family: 'CHEDROS', sans-serif;
+                font-size: 1.8rem;
+                font-weight: bold;
+            }
+
+            .price {
+                font-family: 'Config Rounded', sans-serif;
+                font-size: 1.8rem;
+                font-weight: bold;
+                color: $primary;
+            }
+
+            .button {
+                margin-top: 20px;
+                min-width: 70%;
+            }
+        }
+
+        > .item-and-activity {
+            grid-area: activity;
+            margin-top: 0;
+        }
+
+
+        .buying-popup {
+            section {
+                &:first-of-type {
+                    align-items: center;
+                    justify-content: center;
+
+                    h2 {
+                        display: none;
+                    }
+
+                    .infos {
+                        img {
+                            max-height: 60vh;
+                            max-width: none;
+                        }
+
+                        .infos {
+                            display: none !important;
+                        }
+                    }
 
                     .items-attached {
+                        display: none;
+                    }
+                }
+
+                &:last-of-type {
+                    overflow: auto;
+                    flex: 0.6;
+
+                    h2 {
+                        display: block;
+                    }
+
+                    > .infos {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 10px;
+
+                        .line {
+                            background-color: white;
+                            border-radius: 6px;
+                            width: 150px;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            gap: 7px;
+                            padding: 10px 20px;
+
+                            .label {
+                                font-family: 'Config Rounded', sans-serif;
+                                font-size: 1.1rem;
+                                font-weight: 400;
+                                color: #080D2680;
+                            }
+
+                            .value {
+                                font-family: 'Config Rounded', sans-serif;
+                                font-size: 1.1rem;
+                                font-weight: bold;
+
+                                &.owner {
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    max-width: 100%;
+                                }
+                            }
+                        }
+                    }
+
+                    .items-attached {
+                        display: block;
+                        width: 100%;
+                    }
+
+                    > h3 {
                         margin-top: 30px;
+                        color: $primary;
+                    }
 
-                        h3 {
-                            font-family: 'Config Rounded', sans-serif;
-                            font-size: 1.2rem;
-                            font-weight: bold;
-                            text-align: center;
-                            margin-bottom: 1rem;
-                        }
-
-                        .content {
-                            display: grid;
-                            grid-template-columns: repeat(auto-fit, minmax(220px, auto));
-                            grid-gap: 10px;
-                        }
+                    .button {
+                        min-height: 2rem;
                     }
                 }
             }
+
         }
     }
 }

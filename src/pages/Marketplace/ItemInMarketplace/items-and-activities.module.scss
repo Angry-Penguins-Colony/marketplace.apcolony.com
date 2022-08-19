@@ -11,6 +11,7 @@
             font-weight: bold;
             font-size: 1.4rem;
             color: #080D2680;
+            cursor: pointer;
 
             &.active {
                 color: #080D26;
@@ -38,12 +39,10 @@
         .activity {
             background-color: white;
             border-radius: 8px;
-        }
-
-        .activity {
             position: relative;
             padding: 1rem;
             padding-right: 2rem;
+            cursor: pointer;
 
             .main-info {
                 font-family: 'Config Rounded', sans-serif;

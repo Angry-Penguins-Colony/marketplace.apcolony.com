@@ -88,3 +88,41 @@
         }
     }
 }
+
+// desktop
+@media (min-width:800px) {
+    .popup {
+        > .content {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            justify-content: center;
+
+            section {
+                &::before {
+                    width: 0;
+                    height: calc(100% + 20px);
+                    right: -1px;
+                    top: 0;
+                    bottom: 0;
+                    left: auto;
+
+                    border-bottom: none;
+                    border-right: dashed 2px #080D26;
+                }
+
+                &::after {
+                    width: 0;
+                    height: calc(100% + 20px);
+                    left: -1px;
+                    top: 0;
+                    bottom: 0;
+                    right: auto;
+
+                    border-bottom: none;
+                    border-right: dashed 2px #080D26;
+                }
+            }
+        }
+    }
+}
