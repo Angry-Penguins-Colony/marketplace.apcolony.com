@@ -1,0 +1,34 @@
+.square-item {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    max-width: 250px;
+    cursor: pointer;
+
+    img {
+        max-width: 100%;
+    }
+
+    .infos {
+        padding: 10px;
+
+        .name {
+            font-family: 'CHEDROS', sans-serif;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .price {
+            font-family: 'Config Rounded', sans-serif;
+            color: #080D2680;
+
+            .label {}
+
+            .value {
+                font-weight: bold;
+                font-size: 0.9rem;
+            }
+        }
+    }
+}
