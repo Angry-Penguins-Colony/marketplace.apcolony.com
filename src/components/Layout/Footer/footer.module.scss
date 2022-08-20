@@ -69,7 +69,6 @@ footer#main-footer {
         justify-content: center;
         gap: 2rem;
 
-        // background: url('./../../../assets/img/newsletter-bg.png') no-repeat center top;
         padding: 60px 20px 120px 20px;
 
         background-color: $background;
@@ -269,6 +268,8 @@ footer#main-footer {
         display: block;
 
         .newsletter {
+            background: url('./../../../assets/img/newsletter-bg.png') no-repeat center top;
+
             h2 {
                 display: block;
             }

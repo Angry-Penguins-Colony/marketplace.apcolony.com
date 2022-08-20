@@ -38,3 +38,59 @@
         gap: 10px;
     }
 }
+
+// desktop
+@media (min-width:800px) {
+    .type-in-marketplace {
+        padding-top: 120px;
+        max-width: 1400px;
+        margin: auto;
+        margin-bottom: 40px;
+
+        > .items {
+            > .mobile {
+                display: none;
+            }
+
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            > .desktop {
+                flex-basis: auto;
+                background-color: white;
+                border-radius: 10px;
+                position: relative;
+                width: 250px;
+                padding-top: 250px;
+                cursor: pointer;
+
+                img {
+                    width: 250px;
+                    height: 250px;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                }
+
+                .infos {
+                    padding: 15px;
+
+                    .name {
+                        font-family: 'CHEDROS', sans-serif;
+                        font-weight: bold;
+                        font-size: 1.4rem;
+                    }
+
+                    .rarity {
+                        margin-top: 0.6rem;
+                        font-family: 'CHEDROS', sans-serif;
+                        font-weight: bold;
+                        color: $primary;
+                    }
+                }
+            }
+        }
+    }
+}

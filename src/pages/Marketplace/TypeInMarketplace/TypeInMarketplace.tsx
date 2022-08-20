@@ -4,6 +4,7 @@ import SearchIcon from 'components/Icons/SearchIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import UnderlineNavElmt from 'components/UnderlineNavElmt/UnderlineNavElmt';
 import { Item } from '../ItemInMarketplace/Item';
+import defaultPenguinImg from './../../../assets/img/penguin_default.png';
 import MarketData from './MarketData';
 import style from './type-in-marketplace.module.scss';
 
@@ -54,6 +55,7 @@ const TypeInMarketplace = () => {
                     type: 'hat',
                     name: 'Red Bitcoin Cap',
                     thumbnail: 'https://apc.mypinata.cloud/ipfs/QmPedYjytKYzCvU1rte4YE6ya3Hrt6PEuffg6bsNBt1Dr2',
+                    render: 'https://apc.mypinata.cloud/ipfs/QmP1ToS4iwZrsZkAsBMYcC7QR5Kewx8kojGFvH8jCkx2J6',
                     rarity: 1,
                 },
                 {
@@ -61,6 +63,7 @@ const TypeInMarketplace = () => {
                     type: 'hat',
                     name: 'Golden Captain',
                     thumbnail: 'https://apc.mypinata.cloud/ipfs/QmTzCufPq9Aem3t14YLppf1Cqqu272ghaycQBdHrjG7Qog',
+                    render: 'https://apc.mypinata.cloud/ipfs/QmckLyN7pHBDCUGrwQ9zCqYKNdFT7K41YvoXmCawS1hgyD',
                     rarity: 1,
                 },
                 {
@@ -68,6 +71,7 @@ const TypeInMarketplace = () => {
                     type: 'hat',
                     name: 'Barrel Hat',
                     thumbnail: 'https://apc.mypinata.cloud/ipfs/QmRBndnipYJrKp8R3TSaQDE2UjxMwh8S7AA9t6w63mtBFN',
+                    render: 'https://apc.mypinata.cloud/ipfs/QmSz6HeM9BxegB9PyTci7a3gzDwULMmhkWfzmh1Z1cJged',
                     rarity: 1,
                 },
             ]);
@@ -88,15 +92,29 @@ const TypeInMarketplace = () => {
             <div className={style.items}>
                 {
                     variants.map(variant => (
-                        <Item item={variant} key={variant.id} displayId={false} onClick={
-                            () => {
-                                window.location.href = `/marketplace/item/i/${type}/${variant.id}`;
-                            }
-                        } />
+                        <>
+                            <Item item={variant} key={variant.id} displayId={false} className={style.mobile} onClick={
+                                () => {
+                                    window.location.href = `/marketplace/item/i/${variant.type}/${variant.id}`;
+                                }
+                            } />
+                            <div className={style.desktop} onClick={
+                                () => {
+                                    window.location.href = `/marketplace/item/i/${variant.type}/${variant.id}`;
+                                }
+                            }>
+                                <img src={defaultPenguinImg} alt="default background of any penguin" className={style.background} />
+                                <img src={variant.render} alt="" className={style.item} />
+                                <div className={style.infos}>
+                                    <div className={style.name}>{variant.name}</div>
+                                    <div className={style.rarity}>Rarity: {variant.rarity}%</div>
+                                </div>
+                            </div>
+                        </>
                     ))
                 }
             </div>
-        </div>
+        </div >
     );
 };
 
