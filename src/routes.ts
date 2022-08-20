@@ -1,5 +1,6 @@
 import { dAppName } from 'config';
 import ItemInMarketplace from 'pages/Marketplace/ItemInMarketplace/ItemInMarketplace';
+import TypeInMarketplace from 'pages/Marketplace/TypeInMarketplace/TypeInMarketplace';
 import withPageTitle from './components/PageTitle';
 import Customize from './pages/Customize';
 import Home from './pages/Home';
@@ -13,6 +14,7 @@ export const routeNames = {
   customize: '/customize',
   customizeOne: '/customize/:id',
   marketplace: '/marketplace',
+  marketplaceByType: '/marketplace/:type/i/:id',
   marketplaceItem: '/marketplace/:type/:id',
   unlock: '/unlock',
   ledger: '/ledger',
@@ -54,6 +56,11 @@ const routes: Array<any> = [
     path: routeNames.marketplaceItem,
     title: 'Marketplace',
     component: ItemInMarketplace
+  },
+  {
+    path: routeNames.marketplaceByType,
+    title: 'Marketplace',
+    component: TypeInMarketplace
   },
 ];
 

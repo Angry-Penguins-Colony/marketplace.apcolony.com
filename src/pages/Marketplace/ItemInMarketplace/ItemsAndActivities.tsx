@@ -1,5 +1,6 @@
 import * as React from 'react';
 import RightArrowIcon from 'components/Icons/RightArrowIcon';
+import UnderlineNavElmt from 'components/UnderlineNavElmt/UnderlineNavElmt';
 import { Item } from './Item';
 import style from './items-and-activities.module.scss';
 
@@ -38,13 +39,12 @@ const ItemsAndActivities = ({
     return (
         <div className={style['item-and-activity'] + ' ' + className}>
             <nav>
-                {/* TODO: bind click to change content */}
                 {
                     items.length > 0 && (
-                        <div className={style.elmt + (activeTab === Tab.Items ? ' ' + style.active : '')} onClick={() => changeTab(Tab.Items)}>Items</div>
+                        <UnderlineNavElmt name={'Items'} isActive={activeTab === Tab.Items} onClick={() => changeTab(Tab.Items)} />
                     )
                 }
-                <div className={style.elmt + (activeTab === Tab.Activity ? ' ' + style.active : '')} onClick={() => changeTab(Tab.Activity)}>Activity</div>
+                <UnderlineNavElmt name={'Activity'} isActive={activeTab === Tab.Activity} onClick={() => changeTab(Tab.Activity)} />
             </nav>
             <div className={style.content}>
                 {(() => {

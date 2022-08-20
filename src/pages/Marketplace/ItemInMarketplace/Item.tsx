@@ -2,7 +2,11 @@ import * as React from 'react';
 import style from './item.module.scss';
 
 export const Item = ({
-    item
+    item,
+    displayId = true,
+    onClick = () => {
+        // do nothing
+    }
 }: {
     item: {
         id: string;
@@ -11,12 +15,17 @@ export const Item = ({
         thumbnail: string;
         rarity: number;
     };
+    displayId?: boolean;
+    onClick?: () => void;
 }) => {
     return (
-        <div className={style.item}>
+        <div className={style.item} onClick={onClick}>
             <div className={style.infos}>
                 <p className={style.name}>{item.name}</p>
-                <p className={style.id}>#{item.id}</p>
+                {
+                    displayId &&
+                    <p className={style.id}>#{item.id}</p>
+                }
                 <p className={style.rarity}>Rarity: {item.rarity}%</p>
             </div>
             <div className={style.thumbnail}>
