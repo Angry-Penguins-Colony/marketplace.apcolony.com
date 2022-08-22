@@ -1,0 +1,40 @@
+@import './../../assets/sass/var.scss';
+
+.unlock {
+    .popup {
+        h1 {
+            font-family: 'CHEDROS', sans-serif;
+            font-size: 1.4rem;
+            font-weight: bold;
+            align-self: flex-start;
+        }
+
+        .desc {
+            font-family: 'Config Rounded', sans-serif;
+            align-self: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .action {
+            background-color: $primary;
+            border-radius: 999px;
+            width: 100%;
+            padding: 7px 35px;
+
+            display: flex;
+            gap: 15px;
+
+            .icon {
+                img {
+                    height: 22px;
+                }
+            }
+
+            p {
+                font-family: 'Config Rounded', sans-serif;
+                font-size: 1.6rem;
+                color: white;
+            }
+        }
+    }
+}

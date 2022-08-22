@@ -1,6 +1,12 @@
 import React from 'react';
 import { DappUI, useGetLoginInfo } from '@elrondnetwork/dapp-core';
+import Popup from 'components/Popup/Popup';
 import { routeNames } from 'routes';
+import ElrondLogo from './../../assets/img/icons/Elrond_logo.png';
+import LedgerLogo from './../../assets/img/icons/Ledger_logo.png';
+import MaiarLogo from './../../assets/img/icons/Maiar_logo.png';
+import walletImg from './../../assets/img/wallet.png';
+import style from './unlock.module.scss';
 
 export const UnlockRoute: () => JSX.Element = () => {
   const {
@@ -18,33 +24,42 @@ export const UnlockRoute: () => JSX.Element = () => {
   }, [isLoggedIn]);
 
   return (
-    <div className='home d-flex flex-fill align-items-center'>
-      <div className='m-auto' data-testid='unlockPage'>
-        <div className='card my-4 text-center'>
-          <div className='card-body py-4 px-2 px-sm-2 mx-lg-4'>
-            <h4 className='mb-4'>Login</h4>
-            <p className='mb-4'>pick a login method</p>
-
-            <ExtensionLoginButton
-              callbackRoute={routeNames.home}
-              loginButtonText={'Extension'}
-            />
-            <WebWalletLoginButton
-              callbackRoute={routeNames.home}
-              loginButtonText={'Web wallet'}
-            />
-            <LedgerLoginButton
-              loginButtonText={'Ledger'}
-              callbackRoute={routeNames.home}
-              className={'test-class_name'}
-            />
-            <WalletConnectLoginButton
-              callbackRoute={routeNames.home}
-              loginButtonText={'Maiar'}
-            />
+    <div className={style.unlock}>
+      <Popup isVisible={true} haveCloseButton={true} className={style.popup}
+        topIcon={
+          <img src={walletImg} />
+        }
+        closePopup={() => {
+          window.location.href = routeNames.home;
+        }}>
+        <h1>Connect Wallet</h1>
+        <p className={style.desc}>Choose one of the available wallet providers or create a new wallet</p>
+        {/* TODO: bind buttons */}
+        <div className={style.action}>
+          <div className={style.icon}>
+            <img src={MaiarLogo} />
           </div>
+          <p>Maiar</p>
         </div>
-      </div>
+        <div className={style.action}>
+          <div className={style.icon}>
+            <img src={ElrondLogo} />
+          </div>
+          <p>Web wallet</p>
+        </div>
+        <div className={style.action}>
+          <div className={style.icon}>
+            <img src={LedgerLogo} />
+          </div>
+          <p>Ledger</p>
+        </div>
+        <div className={style.action}>
+          <div className={style.icon}>
+            <img src={ElrondLogo} />
+          </div>
+          <p>Extension</p>
+        </div>
+      </Popup>
     </div>
   );
 };

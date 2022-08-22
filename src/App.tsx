@@ -7,6 +7,7 @@ import PageNotFound from 'pages/PageNotFound';
 import { routeNames } from 'routes';
 import routes from 'routes';
 import '@elrondnetwork/dapp-core/build/index.css';
+import { UnlockRoute as UnlockPageBis } from './pages/UnlockPage';
 
 const environment = 'devnet';
 
@@ -34,7 +35,9 @@ const App = () => {
           <Routes>
             <Route
               path={routeNames.unlock}
-              element={<UnlockPage loginRoute={routeNames.home} />}
+              element={<UnlockPageBis /*loginRoute={routeNames.home}*/ />}
+            // TODO: here is basic "connect wallet" page
+            // element={<UnlockPage loginRoute={routeNames.home} />}
             />
             {routes.map((route: any, index: number) => (
               <Route

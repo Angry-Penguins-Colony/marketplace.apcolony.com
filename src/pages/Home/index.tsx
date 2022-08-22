@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Button from 'components/Button/Button';
+import { routeNames } from 'routes';
 import { BigCategory } from './BigCategory';
 import { CategoryItem } from './CategoryItem';
 import style from './home.module.scss';
@@ -109,7 +110,9 @@ const Home = () => {
           <p>Customize, share, sell,<br />
             buy items you ever wanted !</p>
         </div>
-        <Button className={style.button} type='primary'>Connect your wallet</Button>
+        <Button className={style.button} type='primary' onClick={() => {
+          window.location.href = routeNames.unlock;
+        }}>Connect your wallet</Button>
       </section>
       <section className={style.categories}>
         <h2>Categories</h2>

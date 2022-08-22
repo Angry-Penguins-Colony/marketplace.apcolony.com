@@ -8,6 +8,7 @@ import MenuIcon from 'components/Icons/MenuIcon';
 import ProfileIcon from 'components/Icons/ProfileIcon';
 import SearchIcon from 'components/Icons/SearchIcon';
 import TwitterIcon from 'components/Icons/TwitterIcon';
+import { routeNames } from 'routes';
 import style from './navbar.module.scss';
 
 const Navbar = () => {
@@ -106,9 +107,10 @@ const Navbar = () => {
                 <DiscordIcon />
               </div>
             </div>
-            {/* TODO: bind button */}
             {/* TODO: change button if wallet is connected */}
-            <Button type='primary'>Connect Wallet</Button>
+            <Button type='primary' onClick={() => {
+              window.location.href = routeNames.unlock;
+            }}>Connect Wallet</Button>
           </div>
         </header>
       </div>
