@@ -38,3 +38,26 @@
         }
     }
 }
+
+.error-popup,
+.success-popup {
+
+    h2,
+    p {
+        font-family: 'CHEDROS', sans-serif;
+        font-size: 1.4rem;
+        font-weight: bold;
+    }
+}
+
+.error-popup {
+    h2 {
+        color: $red;
+    }
+}
+
+.success-popup {
+    h2 {
+        color: $green;
+    }
+}
