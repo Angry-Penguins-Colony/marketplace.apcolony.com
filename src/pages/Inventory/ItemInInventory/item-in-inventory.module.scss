@@ -37,6 +37,10 @@
                 fill: $primary;
             }
         }
+
+        .rank {
+            display: none;
+        }
     }
 
     .actions {
@@ -61,5 +65,75 @@
         border-top: 1px solid #080d2680;
         margin-left: 30px;
         margin-right: 30px;
+    }
+}
+
+// desktop
+@media (min-width: 800px) {
+    body {
+        background-image: none !important;
+    }
+
+    #item-in-inventory {
+        min-height: 100vh;
+        padding-top: 120px;
+        max-width: 1400px;
+        margin: auto;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "thumbnail infos"
+            "thumbnail activity"
+            "thumbnail actions";
+        grid-gap: 10px;
+        align-items: start;
+
+        .thumbnail {
+            grid-area: thumbnail;
+
+            img {
+                max-height: 80vh;
+                width: auto;
+            }
+        }
+
+        .infos {
+            grid-area: infos;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            .name {
+                color: $dark;
+            }
+
+            .share {
+                justify-self: end;
+            }
+
+            .rank {
+                display: block;
+                font-family: 'Config Rounded', sans-serif;
+                font-size: 1.2rem;
+                color: #080D2680;
+
+                .primary {
+                    color: $primary;
+                    font-weight: bold;
+                }
+            }
+        }
+
+        .actions {
+            grid-area: actions;
+        }
+
+        .activity {
+            grid-area: activity;
+        }
+
+        hr {
+            display: none;
+        }
     }
 }

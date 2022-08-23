@@ -22,8 +22,9 @@ const ItemInInventory = () => {
     React.useEffect(() => {
         // TODO: get from real api
         setTimeout(() => {
-            getData(/*{
+            getData({
                 name: 'Penguin #0150',
+                rank: 1,
                 thumbnail: 'https://media.elrond.com/nfts/asset/QmPgz8q5oEXWaoPpaPEEefg7gmPGvrsTmrQ2fsB5ry7L8D',
                 items: [
                     {
@@ -76,14 +77,15 @@ const ItemInInventory = () => {
                         rarity: 0.9
                     }
                 ]
-            }*/
+            }/*
                 {
                     id: '0001',
                     type: 'background',
                     name: 'Oceanis Trench',
                     thumbnail: 'https://apc.mypinata.cloud/ipfs/QmTzCufPq9Aem3t14YLppf1Cqqu272ghaycQBdHrjG7Qog',
+                    rank: 1,
                     rarity: 2.6
-                });
+                }*/);
         }, 666);
     }, []);
 
@@ -160,7 +162,7 @@ const ItemInInventory = () => {
                 <img src={data.thumbnail} alt={data.name} />
             </div>
             <div className={style.infos}>
-                <h3 className={style.name}>{data.name}</h3>
+                <p className={style.name}>{data.name}</p>
                 <div className={style.share} onClick={() => {
                     window.navigator.share({
                         title: data.name,
@@ -170,6 +172,7 @@ const ItemInInventory = () => {
                 }}>
                     <ShareIcon />
                 </div>
+                <div className={style.rank}>Rank <span className={style.primary}>#{data.rank}</span></div>
             </div>
             <div className={style.actions + (isInMarket ? ' ' + style['in-market'] : '')}>
                 {
@@ -187,8 +190,8 @@ const ItemInInventory = () => {
                 }
             </div>
             <hr />
-            <ItemsAndActivities getActivities={getActivities} items={data.items ? data.items : []} activities={activities} />
-        </div >
+            <ItemsAndActivities getActivities={getActivities} items={data.items ? data.items : []} activities={activities} className={style.activity} />
+        </div>
     );
 }
 
