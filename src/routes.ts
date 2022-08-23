@@ -1,4 +1,5 @@
 import { dAppName } from 'config';
+import ItemInInventory from 'pages/Inventory/ItemInInventory/ItemInInventory';
 import ItemInMarketplace from 'pages/Marketplace/ItemInMarketplace/ItemInMarketplace';
 import ItemInTypeInMarketplace from 'pages/Marketplace/ItemInTypeInMarketplace/ItemInTypeInMarketplace';
 import TypeInMarketplace from 'pages/Marketplace/TypeInMarketplace/TypeInMarketplace';
@@ -12,6 +13,7 @@ export const routeNames = {
   home: '/',
   transaction: '/transaction',
   inventory: '/inventory',
+  inventoryItem: '/inventory/:type/:id',
   customize: '/customize',
   customizeOne: '/customize/:id',
   marketplaceByType: '/marketplace/:type/i/:typeId',
@@ -37,6 +39,11 @@ const routes: Array<any> = [
     path: routeNames.inventory,
     title: 'Inventory',
     component: Inventory
+  },
+  {
+    path: routeNames.inventoryItem,
+    title: 'Inventory',
+    component: ItemInInventory
   },
   {
     path: routeNames.customize,

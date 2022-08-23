@@ -49,7 +49,6 @@ const ItemsAndActivities = ({
             <div className={style.content}>
                 {(() => {
                     if (activeTab === Tab.Items) {
-                        // activeTab === Tab.Items ? 
                         return (
                             items.map(item => (
                                 <Item key={item.id} item={item} />

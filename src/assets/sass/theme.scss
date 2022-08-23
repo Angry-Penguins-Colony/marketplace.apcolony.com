@@ -282,6 +282,18 @@ html {
 body {
   background-color: $background;
   line-height: 1;
+
+  &.no-scroll {
+    overflow: hidden;
+  }
+
+  &.no-footer {
+    #root {
+      footer {
+        display: none;
+      }
+    }
+  }
 }
 
 p,

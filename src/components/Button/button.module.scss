@@ -31,6 +31,12 @@
         color: white;
     }
 
+    &.cancel-outline {
+        border: 1px solid $red;
+        background-color: white;
+        color: $red;
+    }
+
     .text {
         font-family: 'CHEDROS', sans-serif;
         font-size: 1.2rem;

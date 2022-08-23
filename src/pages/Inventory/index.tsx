@@ -18,6 +18,12 @@ interface IInventoryItem {
 }
 
 const Inventory = () => {
+    React.useEffect(() => {
+        // add class to body element for no footer
+        document.body.classList.add('no-footer');
+        document.body.classList.add('no-scroll');
+    }, []);
+
 
     const walletAddress = 'erd10000000000000000000000000000000000000000000000000000000000';
 

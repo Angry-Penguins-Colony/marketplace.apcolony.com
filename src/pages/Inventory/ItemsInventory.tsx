@@ -31,7 +31,9 @@ const ItemsInventory = ({
 
                         if (isMatched) {
                             return (
-                                <div className={[style.item, 'w-100 h-100'].join(' ')} key={index}>
+                                <div className={[style.item, 'w-100 h-100'].join(' ')} key={index} onClick={() => {
+                                    window.location.href = '/inventory/' + type + '/' + item.thumbnailCID;
+                                }}>
                                     <ReactImageAppear className="w-100 h-100" src={ifpsGateway + item.thumbnailCID} />
                                     <div className={style.name}>{item.name}</div>
                                 </div>
