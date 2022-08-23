@@ -3,9 +3,12 @@ import { useParams } from 'react-router-dom';
 import Button from 'components/Button/Button';
 import ShareIcon from 'components/Icons/ShareIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
+import BuyingPopup from 'pages/Marketplace/ItemInMarketplace/BuyingPopup';
 import ItemsAndActivities from 'pages/Marketplace/ItemInMarketplace/ItemsAndActivities';
 import defaultPenguinImg from './../../../assets/img/penguin_default.png';
+import { Item as ItemComponent } from './../../Marketplace/ItemInMarketplace/Item';
 import style from './item-in-inventory.module.scss';
+import SetPrice from './SetPrice';
 
 const ItemInInventory = () => {
     const { type, id } = useParams();
@@ -149,11 +152,25 @@ const ItemInInventory = () => {
     React.useEffect(() => {
         // TODO: simulate api call
         setTimeout(() => {
-            setIsInMarket(true);
-            setPriceInMarket(0.5);
+            setIsInMarket(false);
         }, 500);
     }, []);
 
+    // sell popup
+    const [isSellPopupOpen, setIsSellPopupOpen] = React.useState(false);
+
+    // get  price
+    const [floorPrice, setFloorPrice] = React.useState(0);
+    const [price, setPrice] = React.useState('0');
+
+    React.useEffect(() => {
+        // TODO: simulate api call
+        setTimeout(() => {
+            const tmpFloorPrice = 5;
+            setFloorPrice(tmpFloorPrice);
+            setPrice(tmpFloorPrice.toString());
+        }, 500);
+    }, []);
 
     return (
         <div id={style['item-in-inventory']}>
@@ -183,14 +200,77 @@ const ItemInInventory = () => {
                         </>
                     ) : (
                         <>
-                            <Button type='normal'>Sell {typeInText}</Button>
-                            <Button type='primary'>Customize</Button>
+                            <Button type='normal' onClick={() => { setIsSellPopupOpen(true) }}>Sell {typeInText}</Button>
+                            {
+                                type === 'penguin' &&
+                                <Button type='primary' onClick={() => {
+                                    window.location.href = '/customize/' + id;
+                                }}>Customize</Button>
+                            }
                         </>
                     )
                 }
             </div>
             <hr />
             <ItemsAndActivities getActivities={getActivities} items={data.items ? data.items : []} activities={activities} className={style.activity} />
+            <BuyingPopup closePopup={() => { setIsSellPopupOpen(false) }} visible={isSellPopupOpen} className={style['buying-popup'] + ' ' + style[type ?? 'penguin']}>
+                {
+                    type === 'item' ? (
+                        <>
+                            <section>
+                                <h2>Sell item</h2>
+                                <img src={data.thumbnail} alt={data.name} />
+                                <div className={style.infos}>
+                                    <div className={style.line}>
+                                        <div className={style.label}>Item Id</div>
+                                        <div className={style.value}>{data.name}</div>
+                                    </div>
+                                    <div className={style.line}>
+                                        <div className={style.label}>Price</div>
+                                        <div className={style.value}>{data.price} EGLD</div>
+                                    </div>
+                                </div>
+                                <SetPrice floorPrice={floorPrice} price={price} setPrice={setPrice} className={style['set-price']} />
+                            </section>
+                        </>
+                    ) : (
+                        <>
+                            <section>
+                                <h2>Checkout</h2>
+                                <div className={style.infos}>
+                                    <img src={data.thumbnail} alt={data.name} />
+                                    <div className={style.infos}>
+                                        <div className={style.line}>
+                                            <div className={style.label}>Penguin ID</div>
+                                            <div className={style.value}>{data.name}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={style['items-attached']}>
+                                    <h3>Items attached to the penguin</h3>
+                                    <div className={style.content}>
+                                        {data.items.map((aItem: any) => {
+                                            return (
+                                                <ItemComponent key={aItem.id} item={aItem} />
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            </section>
+                        </>
+                    )
+                }
+                <section>
+                    {
+                        type === 'penguin' &&
+                        <SetPrice floorPrice={floorPrice} price={price} setPrice={setPrice} className={style['set-price']} />
+                    }
+                    <Button className={style.button} onClick={() => {
+                        // TODO: buy item
+                        setIsSellPopupOpen(false);
+                    }}>Place on the market</Button>
+                </section>
+            </BuyingPopup>
         </div>
     );
 }
