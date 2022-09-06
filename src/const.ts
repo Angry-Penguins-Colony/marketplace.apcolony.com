@@ -2,17 +2,25 @@ import { Slotname, Nonce, IPenguin, IItem, IEgg } from '@apcolony/marketplace-ap
 import { getNetworkType } from './env';
 
 export function getNetworkInfos() {
+
+    if (process.env.GATEWAY) {
+        // throw error if last character of gateway is a slash
+        if (process.env.GATEWAY[process.env.GATEWAY.length - 1] === '/') {
+            throw new Error(`Gateway should not end with a slash.`);
+        }
+    }
+
     switch (getNetworkType()) {
         case "MAINNET":
             return {
                 penguinsCollection: 'APC-928458',
-                gateway: process.env.MAINNET_GATEWAY ?? "https://gateway.elrond.com/"
+                gateway: process.env.GATEWAY ?? "https://gateway.elrond.com"
             };
 
         case "DEVNET":
             return {
                 penguinsCollection: 'APC-928458',
-                gateway: process.env.DEVNET_GATEWAY ?? "https://devnet-gateway.elrond.com/"
+                gateway: process.env.GATEWAY ?? "https://devnet-gateway.elrond.com"
             };
     }
 }

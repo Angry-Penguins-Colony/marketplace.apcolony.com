@@ -25,4 +25,8 @@ app.get('/:bech32/items', getItems);
 app.get('/placeholder/:bech32/eggs', (req, res) => getPlaceholdersEggs(res));
 app.get('/placeholder/:bech32/items', (req, res) => getPlaceholdersItems(res));
 
-app.listen(port, () => console.log(`Server listening on port ${port} on network ${getNetworkType()}!`));
+app.listen(port, () => {
+    console.log(`Server listening on port ${port}.`);
+    console.log(`   network: ${getNetworkType()}`)
+    console.log(`   gateway: ${gateway}`)
+});
