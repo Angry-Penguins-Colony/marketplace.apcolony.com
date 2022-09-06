@@ -1,7 +1,14 @@
 import "dotenv/config"
 
-export const mainnetGateway: string = process.env.MAINNET_GATEWAY ?? "";
+export function getNetworkType() {
+    switch (process.env.NETWORK_TYPE) {
+        case "MAINNET":
+            return "MAINNET";
 
-if (!mainnetGateway) {
-    throw new Error("MAINNET_GATEWAY is not set");
+        case "DEVNET":
+            return "DEVNET";
+
+        default:
+            throw new Error("Invalid network type in .env");
+    }
 }

@@ -1,6 +1,24 @@
 import { Slotname, Nonce, IPenguin, IItem, IEgg } from '@apcolony/marketplace-api/out';
+import { getNetworkType } from './env';
 
-export const penguinsCollection = 'APC-928458';
+export function getNetworkInfos() {
+    switch (getNetworkType()) {
+        case "MAINNET":
+            return {
+                penguinsCollection: 'APC-928458',
+                gateway: process.env.MAINNET_GATEWAY ?? "https://gateway.elrond.com/"
+            };
+
+        case "DEVNET":
+            return {
+                penguinsCollection: 'APC-928458',
+                gateway: process.env.DEVNET_GATEWAY ?? "https://devnet-gateway.elrond.com/"
+            };
+    }
+}
+
+export const penguinsCollection = getNetworkInfos().penguinsCollection;
+export const gateway = getNetworkInfos().gateway;
 
 export const placeholdersItems = {
     background: {
