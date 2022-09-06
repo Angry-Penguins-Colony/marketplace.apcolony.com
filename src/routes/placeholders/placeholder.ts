@@ -2,6 +2,14 @@ import { Response } from 'express';
 import { placeholdersEggs, placeholdersItems, placeholdersPenguins } from '../../const';
 import { sendSuccessfulJSON } from '../../utils';
 
+export function getPlaceholdersPenguins(res: Response) {
+    sendSuccessfulJSON(res, [
+        placeholdersPenguins[1155],
+        placeholdersPenguins[4782],
+        placeholdersPenguins[4987]
+    ])
+}
+
 export function getPlaceholdersEggs(res: Response) {
 
     const data = [
