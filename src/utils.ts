@@ -1,4 +1,4 @@
-import { IItem, IPenguin, ISlotname, Nonce } from '@apcolony/marketplace-api';
+import { IItem, IPenguin } from '@apcolony/marketplace-api';
 import { NonFungibleTokenOfAccountOnNetwork } from '@elrondnetwork/erdjs-network-providers/out';
 import { Response } from 'express';
 import { itemsCollection } from './const';
@@ -22,7 +22,7 @@ export function getPenguinFromNft(nft: NonFungibleTokenOfAccountOnNetwork): IPen
     return {
         identifier: nft.identifier,
         name: nft.name,
-        nonce: new Nonce(nft.nonce),
+        nonce: nft.nonce,
         score: -1,
         purchaseDate: new Date(), // TODO:
         thumbnailCID: extractCIDFromIPFS(nft.assets[0]),
@@ -34,7 +34,7 @@ export function getItemFromNft(nft: NonFungibleTokenOfAccountOnNetwork): IItem {
 
     return {
         identifier: nft.identifier,
-        nonce: new Nonce(nft.nonce),
+        nonce: nft.nonce,
         slot: getSlotFromIdentifier(nft.identifier),
         name: nft.name,
         description: "", // TODO:
@@ -43,7 +43,7 @@ export function getItemFromNft(nft: NonFungibleTokenOfAccountOnNetwork): IItem {
     }
 }
 
-export function getSlotFromIdentifier(identifier: string): ISlotname {
+export function getSlotFromIdentifier(identifier: string): string {
 
     const collection = removeNonceFromIdentifier(identifier);
     const foundSlot = Object.keys(itemsCollection)
@@ -97,7 +97,7 @@ export function getItemFromName(name: string): IItem {
 
     return {
         identifier: "", //TODO:
-        nonce: new Nonce(0), //TODO:
+        nonce: 0, //TODO:
         slot: "", // TODO:
         name: name,
         description: "", //TODO:
