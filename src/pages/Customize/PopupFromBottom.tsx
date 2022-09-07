@@ -1,9 +1,7 @@
 import * as React from 'react';
 import Button from 'components/Button/Button';
-import IPFSImage from 'components/IPFSImage/IPFSImage';
 import RoundedList from 'components/RoundedList/RoundedList';
 import { ipfsGateway } from 'config';
-import { ItemOrPenguininExplorer } from 'pages/Home/ItemOrPenguininExplorer';
 import defaultPenguinImg from './../../assets/img/penguin_default.png';
 import { Item as ItemObject } from './Item';
 import style from './popup-from-bottom.module.scss';
@@ -47,68 +45,19 @@ const PopupFromBottom = (
                     items={[
                         {
                             name: 'All Items',
-                            number: -1,
+                            number: items.length,
                             current: type === 'all',
                             onClick: function () {
                                 changeType('all');
                             }
                         },
-                        {
-                            name: 'Hats',
-                            number: -1,
-                            current: type === 'hat',
-                            onClick: function () {
-                                changeType('hat');
-                            }
-                        },
-                        {
-                            name: 'Eyes',
-                            number: -1,
-                            current: type === 'eyes',
-                            onClick: function () {
-                                changeType('eyes');
-                            }
-                        },
-                        {
-                            name: 'Clothes',
-                            number: -1,
-                            current: type === 'clothes',
-                            onClick: function () {
-                                changeType('clothes');
-                            }
-                        },
-                        {
-                            name: 'Beak',
-                            number: -1,
-                            current: type === 'beak',
-                            onClick: function () {
-                                changeType('beak');
-                            }
-                        },
-                        {
-                            name: 'Skin',
-                            number: -1,
-                            current: type === 'skin',
-                            onClick: function () {
-                                changeType('skin');
-                            }
-                        },
-                        {
-                            name: 'Weapon',
-                            number: -1,
-                            current: type === 'weapon',
-                            onClick: function () {
-                                changeType('weapon');
-                            }
-                        },
-                        {
-                            name: 'Background',
-                            number: -1,
-                            current: type === 'background',
-                            onClick: function () {
-                                changeType('background');
-                            }
-                        }
+                        getRoundedSlotChild('Background', 'background'),
+                        getRoundedSlotChild('Beak', 'beak'),
+                        getRoundedSlotChild('Eyes', 'eyes'),
+                        getRoundedSlotChild('Clothes', 'clothes'),
+                        getRoundedSlotChild('Hat', 'hat'),
+                        getRoundedSlotChild('Skin', 'skin'),
+                        getRoundedSlotChild('Weapon', 'weapon'),
                     ]}
 
                     className={style['rounded-list']}
@@ -138,6 +87,17 @@ const PopupFromBottom = (
             </div>
         </div>
     );
+
+    function getRoundedSlotChild(name: string, slotType: string) {
+        return {
+            name: name,
+            number: getAmountOfItems(items, slotType),
+            current: slotType === slotType,
+            onClick: function () {
+                changeType(slotType);
+            }
+        };
+    }
 };
 
 export default PopupFromBottom;
@@ -173,3 +133,8 @@ const Item = (
         </div>
     );
 };
+
+
+function getAmountOfItems(items: ItemObject[], slot: string): number {
+    return items.reduce((acc, item) => (item.slot === slot ? acc + 1 : acc), 0);
+}
