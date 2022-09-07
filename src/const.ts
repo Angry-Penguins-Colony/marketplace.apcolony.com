@@ -13,7 +13,7 @@ function getNetworkInfos() {
     switch (getNetworkType()) {
         case "MAINNET":
             return {
-                penguinsCollection: 'APC-928458',
+                penguinsIdentifier: 'APC-928458',
                 gateway: process.env.GATEWAY ?? "https://gateway.elrond.com",
                 items: {
                     "background": "",
@@ -28,22 +28,22 @@ function getNetworkInfos() {
 
         case "DEVNET":
             return {
-                penguinsCollection: 'PENGUINS-5a126e',
                 gateway: process.env.GATEWAY ?? "https://devnet-gateway.elrond.com",
+                "penguinsIdentifier": "PENGUINS-ca9fff",
                 "items": {
-                    "background": "BACKGROUND-1c37a5",
-                    "beak": "BEAK-9813d2",
-                    "clothes": "CLOTHES-4ada52",
-                    "eyes": "EYES-242e0b",
-                    "hat": "HAT-6cc5c4",
-                    "skin": "SKIN-acccd9",
-                    "weapon": "WEAPON-68d44b"
+                    "background": "BACKGROUND-abdb85",
+                    "beak": "BEAK-0c89ae",
+                    "clothes": "CLOTHES-93a11f",
+                    "eyes": "EYES-55c291",
+                    "hat": "HAT-facdcf",
+                    "skin": "SKIN-5e22f5",
+                    "weapon": "WEAPON-3b8ebb"
                 }
             };
     }
 }
 
-export const penguinsCollection = getNetworkInfos().penguinsCollection;
+export const penguinsCollection = getNetworkInfos().penguinsIdentifier;
 export const itemsCollection = getNetworkInfos().items;
 export const gateway = getNetworkInfos().gateway;
 
