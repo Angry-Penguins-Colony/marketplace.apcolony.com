@@ -28,7 +28,7 @@ function getNetworkInfos() {
 
         case "DEVNET":
             return {
-                penguinsCollection: 'APC-928458',
+                penguinsCollection: 'PENGUINS-5a126e',
                 gateway: process.env.GATEWAY ?? "https://devnet-gateway.elrond.com",
                 "items": {
                     "background": "BACKGROUND-1c37a5",
