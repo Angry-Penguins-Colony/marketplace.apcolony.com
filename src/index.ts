@@ -8,26 +8,32 @@ import getItems from './routes/address/items';
 import { getPlaceholdersEggs, getPlaceholdersItems, getPlaceholdersPenguins } from './routes/placeholders/placeholder';
 import { gateway } from './const';
 import { getNetworkType } from './env';
+import throng from 'throng';
 
+const workers = parseInt(process.env.WEB_CONCURRENCY || "1");
 const port = process.env.PORT || 5001;
 
-const app = express();
+throng(workers, start);
 
-app.use(helmet({
-    crossOriginEmbedderPolicy: false,
-}));
-app.use(cors());
+function start(id: number) {
+    const app = express();
 
-app.get('/:bech32/penguins', (req, res) => getPenguins(req, res, gateway));
-app.get('/:bech32/eggs', getEggs);
-app.get('/:bech32/items', (req, res) => getItems(req, res, gateway));
+    app.use(helmet({
+        crossOriginEmbedderPolicy: false,
+    }));
+    app.use(cors());
 
-app.get('/placeholder/:bech32/penguins', (req, res) => getPlaceholdersPenguins(res));
-app.get('/placeholder/:bech32/eggs', (req, res) => getPlaceholdersEggs(res));
-app.get('/placeholder/:bech32/items', (req, res) => getPlaceholdersItems(res));
+    app.get('/:bech32/penguins', (req, res) => getPenguins(req, res, gateway));
+    app.get('/:bech32/eggs', getEggs);
+    app.get('/:bech32/items', (req, res) => getItems(req, res, gateway));
 
-app.listen(port, () => {
-    console.log(`Server listening on port ${port}.`);
-    console.log(`   network: ${getNetworkType()}`)
-    console.log(`   gateway: ${gateway}`)
-});
+    app.get('/placeholder/:bech32/penguins', (req, res) => getPlaceholdersPenguins(res));
+    app.get('/placeholder/:bech32/eggs', (req, res) => getPlaceholdersEggs(res));
+    app.get('/placeholder/:bech32/items', (req, res) => getPlaceholdersItems(res));
+
+    app.listen(port, () => {
+        console.log(`Thread #${id} listening on port ${port}.`);
+        console.log(`   network: ${getNetworkType()}`)
+        console.log(`   gateway: ${gateway}`)
+    });
+}
