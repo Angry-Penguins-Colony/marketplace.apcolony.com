@@ -1,41 +1,37 @@
 import * as React from 'react';
+import { IPenguin } from '@apcolony/marketplace-api';
 import LeftArrowIcon from 'components/Icons/LeftArrowIcon';
 import RightArrowIcon from 'components/Icons/RightArrowIcon';
+import { ipfsGateway } from 'config';
 import style from './go-to-another-penguin.module.scss';
 
 const GoToAnotherPenguin = (
     {
-        leftPenguin,
-        currentPenguin,
-        rightPenguin,
+        selectedPenguinNonce,
+        penguins,
         subTitle,
         className
     }: {
-        leftPenguin?: {
-            id: string;
-            thumbnail: string;
-        } | undefined,
-        currentPenguin: {
-            id: string;
-            thumbnail: string;
-        },
-        rightPenguin?: {
-            id: string;
-            thumbnail: string;
-        } | undefined,
+        selectedPenguinNonce: number,
+        penguins: IPenguin[],
         subTitle: string,
         className?: string
     }
 ) => {
+
+    const leftPenguin = getPreviousPenguin();
+    const rightPenguin = getNextPenguin();
+    const currentPenguin = penguins[getCurrentPenguinIndex()];
+
     function goToLeftPenguin() {
         if (leftPenguin) {
-            window.location.href = '/customize/' + leftPenguin.id;
+            window.location.href = '/customize/' + leftPenguin.nonce;
         }
     }
 
     function goToRightPenguin() {
         if (rightPenguin) {
-            window.location.href = '/customize/' + rightPenguin.id;
+            window.location.href = '/customize/' + rightPenguin.nonce;
         }
     }
 
@@ -65,7 +61,7 @@ const GoToAnotherPenguin = (
                     {
                         leftPenguin && (
                             <div className={style.penguin} onClick={goToLeftPenguin}>
-                                <img src={leftPenguin.thumbnail} alt={'Penguin #' + leftPenguin.id} />
+                                <img src={ipfsGateway + leftPenguin.thumbnailCID} alt={'Penguin #' + leftPenguin.nonce} />
                             </div>
                         ) || (
                             <div className={style.penguin + ' ' + style.empty}></div>
@@ -74,14 +70,14 @@ const GoToAnotherPenguin = (
                     {
                         currentPenguin && (
                             <div className={style.penguin + ' ' + style.current}>
-                                <img src={currentPenguin.thumbnail} alt={'Penguin #' + currentPenguin.id} />
+                                <img src={ipfsGateway + currentPenguin.thumbnailCID} alt={'Penguin #' + currentPenguin.nonce} />
                             </div>
                         )
                     }
                     {
                         rightPenguin && (
                             <div className={style.penguin} onClick={goToRightPenguin}>
-                                <img src={rightPenguin.thumbnail} alt={'Penguin #' + rightPenguin.id} />
+                                <img src={ipfsGateway + rightPenguin.thumbnailCID} alt={'Penguin #' + rightPenguin.nonce} />
                             </div>
                         ) || (
                             <div className={style.penguin + ' ' + style.empty}></div>
@@ -101,6 +97,41 @@ const GoToAnotherPenguin = (
         </div>
     );
 
+    function getCurrentPenguinIndex() {
+        if (!penguins) throw new Error('penguins is undefined');
+
+        return penguins.findIndex((penguin) => penguin.nonce === selectedPenguinNonce);
+    }
+
+    function getPreviousPenguin() {
+        if (!penguins) throw new Error('penguins is undefined');
+
+        const currentPenguinIndex = getCurrentPenguinIndex();
+
+        if (penguins.length <= 1) {
+            return undefined;
+        }
+        else if (currentPenguinIndex === 0) {
+            return penguins[penguins.length - 1];
+        } else {
+            return penguins[currentPenguinIndex - 1];
+        }
+    }
+
+    function getNextPenguin() {
+        if (!penguins) throw new Error('penguins is undefined');
+
+        const currentPenguinIndex = getCurrentPenguinIndex();
+
+        if (penguins.length <= 1) {
+            return undefined;
+        }
+        else if (currentPenguinIndex === penguins.length - 1) {
+            return penguins[0];
+        } else {
+            return penguins[currentPenguinIndex + 1];
+        }
+    }
 };
 
 export default GoToAnotherPenguin;
