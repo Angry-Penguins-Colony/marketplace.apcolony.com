@@ -35,9 +35,9 @@ const App = () => {
           <Routes>
             <Route
               path={routeNames.unlock}
-              element={<UnlockPageBis /*loginRoute={routeNames.home}*/ />}
-            // TODO: here is basic "connect wallet" page
-            // element={<UnlockPage loginRoute={routeNames.home} />}
+              // element={<UnlockPageBis /*loginRoute={routeNames.home}*/ />}
+              // TODO: here is basic "connect wallet" page
+              element={<UnlockPage loginRoute={routeNames.home} />}
             />
             {routes.map((route: any, index: number) => (
               <Route

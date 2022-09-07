@@ -1,4 +1,4 @@
-import { IItem, Slotname } from '@apcolony/marketplace-api/out';
+import { IItem } from '@apcolony/marketplace-api/out';
 
 export default interface Filters {
     items: {
@@ -27,11 +27,11 @@ export function matchFilter(filters: Filters, item: FilterableItem): boolean {
     for (const selectedElement of filters.selected) {
 
         // is the attribute in a filter?
-        const currentAttribute = getItem(item.equippedItems, new Slotname(selectedElement.value));
+        const currentAttribute = getItem(item.equippedItems, selectedElement.value);
         if (!currentAttribute) return false;
 
         // is the attribute the same value?
-        const currentFilter = filters.items.find((filter) => filter.value === currentAttribute.slot.valueOf());
+        const currentFilter = filters.items.find((filter) => filter.value === currentAttribute.slot);
         if (!currentFilter) return false;
 
         const isCurrentAttributeSelected = currentFilter.attributes.find((attr) => {
@@ -50,7 +50,7 @@ interface FilterableItem {
     equippedItems: { [key: string]: IItem; },
 }
 
-function getItem(equippedItems: { [key: string]: IItem; }, slot: Slotname) {
+function getItem(equippedItems: { [key: string]: IItem; }, slot: string) {
     return Object.values(equippedItems)
-        .find(i => i.slot.valueOf() == slot.valueOf());
+        .find(i => i.slot == slot);
 }

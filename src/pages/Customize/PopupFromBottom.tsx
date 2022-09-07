@@ -1,6 +1,9 @@
 import * as React from 'react';
 import Button from 'components/Button/Button';
+import IPFSImage from 'components/IPFSImage/IPFSImage';
 import RoundedList from 'components/RoundedList/RoundedList';
+import { ipfsGateway } from 'config';
+import { ItemOrPenguininExplorer } from 'pages/Home/ItemOrPenguininExplorer';
 import defaultPenguinImg from './../../assets/img/penguin_default.png';
 import { Item as ItemObject } from './Item';
 import style from './popup-from-bottom.module.scss';
@@ -44,7 +47,7 @@ const PopupFromBottom = (
                     items={[
                         {
                             name: 'All Items',
-                            number: 50,
+                            number: -1,
                             current: type === 'all',
                             onClick: function () {
                                 changeType('all');
@@ -52,7 +55,7 @@ const PopupFromBottom = (
                         },
                         {
                             name: 'Hats',
-                            number: 3,
+                            number: -1,
                             current: type === 'hat',
                             onClick: function () {
                                 changeType('hat');
@@ -60,15 +63,15 @@ const PopupFromBottom = (
                         },
                         {
                             name: 'Eyes',
-                            number: 6,
-                            current: type === 'eye',
+                            number: -1,
+                            current: type === 'eyes',
                             onClick: function () {
-                                changeType('eye');
+                                changeType('eyes');
                             }
                         },
                         {
                             name: 'Clothes',
-                            number: 8,
+                            number: -1,
                             current: type === 'clothes',
                             onClick: function () {
                                 changeType('clothes');
@@ -76,7 +79,7 @@ const PopupFromBottom = (
                         },
                         {
                             name: 'Beak',
-                            number: 8,
+                            number: -1,
                             current: type === 'beak',
                             onClick: function () {
                                 changeType('beak');
@@ -84,7 +87,7 @@ const PopupFromBottom = (
                         },
                         {
                             name: 'Skin',
-                            number: 2,
+                            number: -1,
                             current: type === 'skin',
                             onClick: function () {
                                 changeType('skin');
@@ -92,7 +95,7 @@ const PopupFromBottom = (
                         },
                         {
                             name: 'Weapon',
-                            number: 2,
+                            number: -1,
                             current: type === 'weapon',
                             onClick: function () {
                                 changeType('weapon');
@@ -100,7 +103,7 @@ const PopupFromBottom = (
                         },
                         {
                             name: 'Background',
-                            number: 2,
+                            number: -1,
                             current: type === 'background',
                             onClick: function () {
                                 changeType('background');
@@ -114,14 +117,14 @@ const PopupFromBottom = (
                     <div className={style.content}>
                         {items.map((item, index) => (
                             <Item
-                                count={item.count}
+                                count={item.amount}
                                 name={item.name}
-                                thumbnail={item.thumbnail}
-                                key={item.id}
+                                renderImageSrc={ipfsGateway + item.renderCID}
+                                key={item.identifier}
                                 isSelected={item.isSelected}
-                                isVisible={type == 'all' || item.type == type}
+                                isVisible={type == 'all' || item.slot == type}
                                 toggleSelected={() => {
-                                    toggleSelected(index, item.type);
+                                    toggleSelected(index, item.slot);
                                 }}
                             />
                         ))}
@@ -143,7 +146,7 @@ const Item = (
     {
         count,
         name,
-        thumbnail,
+        renderImageSrc,
         isSelected = false,
         isVisible,
         toggleSelected = function () {
@@ -153,7 +156,7 @@ const Item = (
     }: {
         count: number;
         name: string;
-        thumbnail: string;
+        renderImageSrc: string;
         isSelected?: boolean;
         isVisible: boolean;
         toggleSelected?: () => void;
@@ -162,7 +165,8 @@ const Item = (
     return (
         <div className={style.item + (isSelected ? ' ' + style['is-selected'] : '') + (isVisible ? '' : ' ' + style['is-hidden'])} onClick={toggleSelected}>
             <img className={style.model} src={defaultPenguinImg} alt="Model" />
-            <img className={style.thumbnail} src={thumbnail} alt={name} />
+            <img src={renderImageSrc} className={style.thumbnail} alt={name} />
+
             <div className={style.count}>{count}</div>
             <div className={style['back-name']}></div>
             <div className={style.name}>{name}</div>

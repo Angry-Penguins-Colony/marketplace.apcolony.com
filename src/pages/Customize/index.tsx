@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import Button from 'components/Button/Button';
 import RefreshIcon from 'components/Icons/RefreshIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
+import { ipfsGateway } from 'config';
+import { useGetOwnedItems } from 'sdk/hooks/useGetOwned';
 import tmpImgBackground from './../../assets/img/penguin_background.png';
 import style from './customize.module.scss';
 import GoToAnotherPenguin from './GoToAnotherPenguin';
@@ -79,85 +81,17 @@ const Customize = () => {
     const [itemsPopupType, setItemsPopupType] = React.useState<string>('all');
     const [itemsInPopup, setItemsInPopup] = React.useState<Item[]>([]);
 
+    const ownedItems = useGetOwnedItems();
+
     React.useEffect(() => {
-        setTimeout(() => {
-            // get items from server
-            setItemsInPopup([
-                {
-                    id: '1',
-                    thumbnail: 'https://apc.mypinata.cloud/ipfs/QmbTeQdUcunaqTKRAyDqk8RXYEyVLCDPHJr8m7XqFTEYyj',
-                    name: 'Hat 1',
-                    type: 'hat',
-                    // TODO: bind count of item to user inventory
-                    count: 15,
-                },
-                {
-                    id: '2',
-                    thumbnail: 'https://apc.mypinata.cloud/ipfs/QmQZXuCiqoPvxwpGvog7vSNmm6YPyMoKhjdRSN25yW1NFB',
-                    name: 'Hat 2',
-                    type: 'hat',
-                    count: 15,
-                },
-                {
-                    id: '3',
-                    thumbnail: 'https://apc.mypinata.cloud/ipfs/QmR8jehRV2UNdxXFVzB2yK1oUh8gKxxjMHoMM5WBGuAiri',
-                    name: 'Hat 3',
-                    type: 'hat',
-                    count: 15,
-                },
-                {
-                    id: '4',
-                    thumbnail: 'https://apc.mypinata.cloud/ipfs/QmVmAtB1cWBJvP61cF96W4JsfCBuWkjK7Kvjc6Tz14YQ5G',
-                    name: 'Hat 4',
-                    type: 'hat',
-                    count: 15,
-                    isSelected: true,
-                },
-                {
-                    id: '5',
-                    thumbnail: 'https://apc.mypinata.cloud/ipfs/QmUJBtKH93AKrz27TtEnisPcD3sJLNU3S7bqxbwD7X1o6L',
-                    name: 'Hat 5',
-                    type: 'hat',
-                    count: 15,
-                },
-                {
-                    id: '6',
-                    thumbnail: 'https://apc.mypinata.cloud/ipfs/QmS1PptqaenV5P3cMcAcQBu9rbCXGNmY2iYdf2jnu6ZoFu',
-                    name: 'Hat 7',
-                    type: 'hat',
-                    count: 15,
-                },
-                {
-                    id: '7',
-                    thumbnail: 'https://apc.mypinata.cloud/ipfs/QmNaKPRfWt5oPkozP92HqaxZYZYuaVom2SgKbJcGG1E7zS',
-                    name: 'Hat 7',
-                    type: 'hat',
-                    count: 15,
-                },
-                {
-                    id: '8',
-                    thumbnail: 'https://apc.mypinata.cloud/ipfs/QmY7WAa7GTJBHb8APMsYdZZ2FNWLsz8z84D1ndNntA8k3Y',
-                    name: 'Hat 8',
-                    type: 'hat',
-                    count: 15,
-                },
-                {
-                    id: '9',
-                    thumbnail: 'https://apc.mypinata.cloud/ipfs/QmQyZZmAfRqadoKypZng4TxNvqc8S4nZScFqg5bbTxb47D',
-                    name: 'Skin 9',
-                    type: 'skin',
-                    count: 5,
-                },
-                {
-                    id: '10',
-                    thumbnail: 'https://apc.mypinata.cloud/ipfs/QmWc1Tx12hwF3J6dnNE8zuLig5EtWxMeM2ucT1za4VKcL1',
-                    name: 'Skin 10',
-                    type: 'skin',
-                    count: 15,
-                }
-            ]);
-        }, 600);
-    }, []);
+        if (ownedItems) {
+            setItemsInPopup(ownedItems);
+        }
+    }, [ownedItems]);
+
+    // React.useEffect(() => {
+    //     setTimeout(() => setItemsInPopup(getPlaceholdersItems()), 600);
+    // }, []);
 
 
     // change selected item in popup
@@ -184,81 +118,7 @@ const Customize = () => {
 
     function openItemsPopup(type: string, title: string) {
         setItemsPopupType(type);
-        // TODO: get data from api
-        setItemsInPopup([
-            {
-                id: '1',
-                thumbnail: 'https://apc.mypinata.cloud/ipfs/QmbTeQdUcunaqTKRAyDqk8RXYEyVLCDPHJr8m7XqFTEYyj',
-                name: 'Hat 1',
-                type: 'hat',
-                count: 15,
-            },
-            {
-                id: '2',
-                thumbnail: 'https://apc.mypinata.cloud/ipfs/QmQZXuCiqoPvxwpGvog7vSNmm6YPyMoKhjdRSN25yW1NFB',
-                name: 'Hat 2',
-                type: 'hat',
-                count: 15,
-            },
-            {
-                id: '3',
-                thumbnail: 'https://apc.mypinata.cloud/ipfs/QmR8jehRV2UNdxXFVzB2yK1oUh8gKxxjMHoMM5WBGuAiri',
-                name: 'Hat 3',
-                type: 'hat',
-                count: 15,
-            },
-            {
-                id: '4',
-                thumbnail: 'https://apc.mypinata.cloud/ipfs/QmVmAtB1cWBJvP61cF96W4JsfCBuWkjK7Kvjc6Tz14YQ5G',
-                name: 'Hat 4',
-                type: 'hat',
-                count: 15,
-                isSelected: true,
-            },
-            {
-                id: '5',
-                thumbnail: 'https://apc.mypinata.cloud/ipfs/QmUJBtKH93AKrz27TtEnisPcD3sJLNU3S7bqxbwD7X1o6L',
-                name: 'Hat 5',
-                type: 'hat',
-                count: 15,
-            },
-            {
-                id: '6',
-                thumbnail: 'https://apc.mypinata.cloud/ipfs/QmS1PptqaenV5P3cMcAcQBu9rbCXGNmY2iYdf2jnu6ZoFu',
-                name: 'Hat 7',
-                type: 'hat',
-                count: 15,
-            },
-            {
-                id: '7',
-                thumbnail: 'https://apc.mypinata.cloud/ipfs/QmNaKPRfWt5oPkozP92HqaxZYZYuaVom2SgKbJcGG1E7zS',
-                name: 'Hat 7',
-                type: 'hat',
-                count: 15,
-            },
-            {
-                id: '8',
-                thumbnail: 'https://apc.mypinata.cloud/ipfs/QmY7WAa7GTJBHb8APMsYdZZ2FNWLsz8z84D1ndNntA8k3Y',
-                name: 'Hat 8',
-                type: 'hat',
-                count: 15,
-            },
-            {
-                id: '9',
-                thumbnail: 'https://apc.mypinata.cloud/ipfs/QmQyZZmAfRqadoKypZng4TxNvqc8S4nZScFqg5bbTxb47D',
-                name: 'Skin 9',
-                type: 'skin',
-                count: 5,
-            },
-            {
-                id: '10',
-                thumbnail: 'https://apc.mypinata.cloud/ipfs/QmWc1Tx12hwF3J6dnNE8zuLig5EtWxMeM2ucT1za4VKcL1',
-                name: 'Skin 10',
-                type: 'skin',
-                count: 15,
-            }
-        ]);
-        // end TODO: get data from api
+        // setItemsInPopup(ownedItems);
         setItemsPopupTitle(title);
         setItemsPopupIsOpen(true);
     }
@@ -266,7 +126,7 @@ const Customize = () => {
     function validateItemChangement(type: string) {
         const selectedItem = itemsInPopup.find((item) => item.isSelected);
         if (selectedItem) {
-            addItem(type, selectedItem.thumbnail);
+            addItem(type, ipfsGateway + selectedItem.renderCID);
         } else {
             addItem(type, undefined);
         }

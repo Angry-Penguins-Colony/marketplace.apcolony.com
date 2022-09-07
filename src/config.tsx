@@ -13,3 +13,5 @@ export const ifpsGateway = 'https://ipfs.io/ipfs/';
 const devnetApi = 'https://apc-marketplace-api-devnet.herokuapp.com/';
 const mainnetApi = 'https://apc-marketplace-api.herokuapp.com/';
 export const marketplaceApi = useDevnet ? devnetApi : mainnetApi;
+
+export const ipfsGateway = 'https://ipfs.io/ipfs/';

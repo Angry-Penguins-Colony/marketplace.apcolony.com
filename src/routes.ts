@@ -48,7 +48,8 @@ const routes: Array<any> = [
   {
     path: routeNames.customize,
     title: 'Customize',
-    component: Customize
+    component: Customize,
+    authenticatedRoute: true
   },
   {
     path: routeNames.customizeOne,

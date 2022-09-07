@@ -1,8 +1,10 @@
 export interface Item {
-    id: string;
-    thumbnail: string;
+    identifier: string;
+    slot: string;
     name: string;
-    count: number;
-    type: string;
+    thumbnailCID: string;
+    renderCID: string;
+    amount: number;
+
     isSelected?: boolean;
 }
