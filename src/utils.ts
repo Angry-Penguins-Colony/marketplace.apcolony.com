@@ -39,6 +39,7 @@ export function getItemFromNft(nft: NonFungibleTokenOfAccountOnNetwork): IItem {
         name: nft.name,
         description: "", // TODO:
         thumbnailCID: extractCIDFromIPFS(nft.assets[0]),
+        renderCID: extractCIDFromIPFS(nft.assets[1]),
         amount: nft.supply.toNumber(), // TODO:
     }
 }
@@ -102,6 +103,7 @@ export function getItemFromName(name: string): IItem {
         name: name,
         description: "", //TODO:
         thumbnailCID: "", //TODO:
+        renderCID: "",
         amount: -1, // TODO:
     }
 }
