@@ -1,7 +1,7 @@
 import { Slotname, Nonce, IPenguin, IItem, IEgg } from '@apcolony/marketplace-api/out';
 import { getNetworkType } from './env';
 
-export function getNetworkInfos() {
+function getNetworkInfos() {
 
     if (process.env.GATEWAY) {
         // throw error if last character of gateway is a slash
@@ -14,18 +14,37 @@ export function getNetworkInfos() {
         case "MAINNET":
             return {
                 penguinsCollection: 'APC-928458',
-                gateway: process.env.GATEWAY ?? "https://gateway.elrond.com"
+                gateway: process.env.GATEWAY ?? "https://gateway.elrond.com",
+                items: {
+                    "background": "",
+                    "beak": "",
+                    "clothes": "",
+                    "eyes": "",
+                    "hat": "",
+                    "skin": "",
+                    "weapon": ""
+                }
             };
 
         case "DEVNET":
             return {
                 penguinsCollection: 'APC-928458',
-                gateway: process.env.GATEWAY ?? "https://devnet-gateway.elrond.com"
+                gateway: process.env.GATEWAY ?? "https://devnet-gateway.elrond.com",
+                items: {
+                    "background": "BACKGROUND-374eb6",
+                    "beak": "BEAK-e8473e",
+                    "clothes": "CLOTHES-b1ae79",
+                    "eyes": "EYES-9ee1d6",
+                    "hat": "HAT-d8dec2",
+                    "skin": "SKIN-93c306",
+                    "weapon": "WEAPON-134d64"
+                }
             };
     }
 }
 
 export const penguinsCollection = getNetworkInfos().penguinsCollection;
+export const itemsCollection = getNetworkInfos().items;
 export const gateway = getNetworkInfos().gateway;
 
 export const placeholdersItems = {

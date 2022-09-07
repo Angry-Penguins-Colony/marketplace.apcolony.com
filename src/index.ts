@@ -20,7 +20,7 @@ app.use(cors());
 
 app.get('/:bech32/penguins', (req, res) => getPenguins(req, res, gateway));
 app.get('/:bech32/eggs', getEggs);
-app.get('/:bech32/items', getItems);
+app.get('/:bech32/items', (req, res) => getItems(req, res, gateway));
 
 app.get('/placeholder/:bech32/penguins', (req, res) => getPlaceholdersPenguins(res));
 app.get('/placeholder/:bech32/eggs', (req, res) => getPlaceholdersEggs(res));

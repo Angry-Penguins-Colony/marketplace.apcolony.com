@@ -12,7 +12,8 @@
     "build": "tsc --build",
     "update:sdk": "npm i @apcolony/marketplace-api",
     "try:penguins": "curl http://localhost:5001/erd1fmsn8v577rjhah8rfx867e3l069jw84pgud5h0wjc67348p4fmwsjj5nqj/penguins",
-    "try:eggs": "curl http://localhost:3576/erd1fmsn8v577rjhah8rfx867e3l069jw84pgud5h0wjc67348p4fmwsjj5nqj/eggs"
+    "try:eggs": "curl http://localhost:3576/erd1fmsn8v577rjhah8rfx867e3l069jw84pgud5h0wjc67348p4fmwsjj5nqj/eggs",
+    "try:items:devnet": "curl http://localhost:5001/erd1s8pewfrtfd5r3ql94e4g5ulfacnm87acm9aq89q03r2k05hxlx4sj275zp/items"
   },
   "repository": {
     "type": "git",

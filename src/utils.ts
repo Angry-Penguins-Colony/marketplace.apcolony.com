@@ -1,6 +1,7 @@
-import { IItem, IPenguin, Nonce } from '@apcolony/marketplace-api';
+import { IItem, IPenguin, ISlotname, Nonce } from '@apcolony/marketplace-api';
 import { NonFungibleTokenOfAccountOnNetwork } from '@elrondnetwork/erdjs-network-providers/out';
 import { Response } from 'express';
+import { itemsCollection } from './const';
 
 export function sendSuccessfulJSON(response: Response, data: any) {
     response
@@ -26,6 +27,42 @@ export function getPenguinFromNft(nft: NonFungibleTokenOfAccountOnNetwork): IPen
         purchaseDate: new Date(), // TODO:
         thumbnailCID: extractCIDFromIPFS(nft.assets[0]),
         equippedItems: getEquippedItemsFromAttributes(nft.attributes),
+    }
+}
+
+export function getItemFromNft(nft: NonFungibleTokenOfAccountOnNetwork): IItem {
+
+    return {
+        identifier: nft.identifier,
+        nonce: new Nonce(nft.nonce),
+        slot: getSlotFromIdentifier(nft.identifier),
+        name: nft.name,
+        description: "", // TODO:
+        thumbnailCID: extractCIDFromIPFS(nft.assets[0]),
+    }
+}
+
+export function getSlotFromIdentifier(identifier: string): ISlotname {
+
+    const collection = removeNonceFromIdentifier(identifier);
+    const foundSlot = Object.keys(itemsCollection)
+        .find(key => (itemsCollection as any)[key] === collection);
+
+    if (!foundSlot) throw new Error(`No slot found for ${identifier}`);
+
+    return foundSlot;
+}
+
+export function removeNonceFromIdentifier(identifier: string): string {
+    const splited = identifier.split('-');
+
+    if (splited.length == 3) {
+        return splited[0] + '-' + splited[1];
+    }
+    else if (splited.length == 2) {
+        return identifier;
+    } else {
+        throw new Error(`Invalid identifier ${identifier}`);
     }
 }
 
