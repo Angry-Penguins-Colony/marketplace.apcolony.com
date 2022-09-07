@@ -30,14 +30,14 @@ function getNetworkInfos() {
             return {
                 penguinsCollection: 'APC-928458',
                 gateway: process.env.GATEWAY ?? "https://devnet-gateway.elrond.com",
-                items: {
-                    "background": "BACKGROUND-374eb6",
-                    "beak": "BEAK-e8473e",
-                    "clothes": "CLOTHES-b1ae79",
-                    "eyes": "EYES-9ee1d6",
-                    "hat": "HAT-d8dec2",
-                    "skin": "SKIN-93c306",
-                    "weapon": "WEAPON-134d64"
+                "items": {
+                    "background": "BACKGROUND-1c37a5",
+                    "beak": "BEAK-9813d2",
+                    "clothes": "CLOTHES-4ada52",
+                    "eyes": "EYES-242e0b",
+                    "hat": "HAT-6cc5c4",
+                    "skin": "SKIN-acccd9",
+                    "weapon": "WEAPON-68d44b"
                 }
             };
     }
