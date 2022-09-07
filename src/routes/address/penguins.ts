@@ -14,7 +14,8 @@ export default async function getPenguins(req: Request, res: Response, gatewayUr
 
     const penguinsNfts = accountsNfts
         .filter(nft => nft.collection === penguinsCollection)
-        .map(getPenguinFromNft);
+        .map(getPenguinFromNft)
+        .sort((a, b) => a.nonce - b.nonce);
 
     console.log("Found", penguinsNfts.length, "nfts.");
     penguinsNfts.forEach(({ identifier }) => console.log(identifier))
