@@ -1,4 +1,5 @@
 import React from 'react';
+import { logout, useGetAccountInfo } from '@elrondnetwork/dapp-core';
 import Button from 'components/Button/Button';
 import DiscordIcon from 'components/Icons/DiscordIcon';
 import HomeIcon from 'components/Icons/HomeIcon';
@@ -12,6 +13,7 @@ import { routeNames } from 'routes';
 import style from './navbar.module.scss';
 
 const Navbar = () => {
+
   const navItems = [
     {
       name: 'Home',
@@ -47,6 +49,13 @@ const Navbar = () => {
       icon: <MenuIcon />,
     },
   ];
+
+  const { address } = useGetAccountInfo();
+  const isConnected = !!address;
+
+  const handleLogout = () => {
+    logout(`${window.location.origin}/unlock`);
+  };
 
   return (
     <>
@@ -107,13 +116,19 @@ const Navbar = () => {
                 <DiscordIcon />
               </div>
             </div>
-            {/* TODO: change button if wallet is connected */}
-            <Button type='primary' onClick={() => {
-              window.location.href = routeNames.unlock;
-            }}>Connect Wallet</Button>
+            {isConnected ?
+              <Button type='primary' onClick={handleLogout}>
+                Disconnect {'...' + address?.slice(-4)}
+              </Button> :
+              <Button type='primary' onClick={() => {
+                window.location.href = routeNames.unlock;
+              }}>
+                Connect Wallet
+              </Button>
+            }
           </div>
         </header>
-      </div>
+      </div >
     </>
   );
 };
