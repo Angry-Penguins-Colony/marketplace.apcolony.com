@@ -5,7 +5,7 @@ export function parseAttributes(attributes: string) {
             const [slot, itemName] = attribute.split(":");
 
             return {
-                slot,
+                slot: slot.toLowerCase(),
                 itemName
             };
         });
