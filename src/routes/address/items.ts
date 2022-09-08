@@ -1,6 +1,6 @@
 import { Address } from '@elrondnetwork/erdjs/out';
 import { Request, Response } from 'express';
-import { ProxyNetwork } from '../../classes/ProxyNetwork';
+import { ProxyNetworkProviderExtended } from '../../classes/ProxyNetworkProviderExtended';
 import { itemsCollection } from '../../const';
 import { getItemFromNft } from '../../utils/conversion';
 import { sendSuccessfulJSON } from '../../utils/response';
@@ -8,7 +8,7 @@ import { sendSuccessfulJSON } from '../../utils/response';
 export default async function getItems(req: Request, res: Response, gatewayUrl: string) {
 
     const address = new Address(req.params.bech32);
-    const gatewayProvider = new ProxyNetwork(gatewayUrl);
+    const gatewayProvider = new ProxyNetworkProviderExtended(gatewayUrl);
 
     const accountsNfts = await gatewayProvider.getNftsOfAccount(address);
 

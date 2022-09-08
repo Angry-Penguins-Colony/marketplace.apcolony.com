@@ -1,4 +1,5 @@
 import { IPenguin, IItem, IEgg } from '@apcolony/marketplace-api/out';
+import { Address } from '@elrondnetwork/erdjs/out';
 import { devnetToolDeploy } from './deployToolResult';
 import { getNetworkType } from './env';
 
@@ -25,7 +26,8 @@ function getNetworkInfos() {
                     "skin": "",
                     "weapon": ""
                 },
-                items: []
+                items: [],
+                customisationContract: new Address(""),
             };
 
         case "DEVNET":
@@ -34,6 +36,7 @@ function getNetworkInfos() {
                 penguinsIdentifier: devnetToolDeploy.penguinsIdentifier,
                 itemsIdentifier: devnetToolDeploy.itemsIdentifier,
                 items: devnetToolDeploy.items,
+                customisationContract: Address.fromBech32("erd1qqqqqqqqqqqqqpgqrtq52wjr856ze07u2pc70a40mvwn583tlx4syg609g")
             };
     }
 }
@@ -42,6 +45,7 @@ export const penguinsCollection = getNetworkInfos().penguinsIdentifier;
 export const itemsCollection = getNetworkInfos().itemsIdentifier;
 export const items = getNetworkInfos().items;
 export const gateway = getNetworkInfos().gateway;
+export const customisationContract = getNetworkInfos().customisationContract;
 
 export const placeholdersItems = {
     background: {

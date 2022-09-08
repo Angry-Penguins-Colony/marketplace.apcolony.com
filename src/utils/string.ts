@@ -4,8 +4,6 @@ export function parseAttributes(attributes: string) {
         .map(attribute => {
             const [slot, itemName] = attribute.split(":");
 
-            console.log(itemName);
-
             return {
                 slot,
                 itemName
@@ -31,6 +29,20 @@ export function removeNonceFromIdentifier(identifier: string): string {
     }
     else if (splited.length == 2) {
         return identifier;
+    } else {
+        throw new Error(`Invalid identifier ${identifier}`);
+    }
+}
+
+
+export function splitCollectionAndNonce(identifier: string) {
+    const splited = identifier.split('-');
+
+    if (splited.length == 3) {
+        return {
+            collection: splited[0] + '-' + splited[1],
+            nonce: parseInt(splited[2])
+        };
     } else {
         throw new Error(`Invalid identifier ${identifier}`);
     }

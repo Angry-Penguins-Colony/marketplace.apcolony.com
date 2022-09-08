@@ -1,22 +1,21 @@
 import { IItem, IPenguin } from "@apcolony/marketplace-api";
 import { NonFungibleTokenOfAccountOnNetwork } from "@elrondnetwork/erdjs-network-providers/out";
-import { items } from "../const";
-import { extractCIDFromIPFS, parseAttributes } from "../utils/string";
-import { ProxyNetwork } from "./ProxyNetwork";
+import { customisationContract, items } from "../const";
+import { extractCIDFromIPFS, parseAttributes, splitCollectionAndNonce } from "../utils/string";
+import { ProxyNetworkProviderExtended } from "./ProxyNetworkProviderExtended";
 
-// REFACTOR: I don't really like that name. It look like we are converting networks.
 /**
  * Convert objects that needs network calls to be converted.
  */
 export default class ConverterWithNetwork {
 
-    private readonly _proxyNetwork: ProxyNetwork;
+    private readonly _proxyNetwork: ProxyNetworkProviderExtended;
 
-    constructor(proxyNetwork: ProxyNetwork) {
+    constructor(proxyNetwork: ProxyNetworkProviderExtended) {
         this._proxyNetwork = proxyNetwork;
     }
 
-    getPenguinFromNft(nft: NonFungibleTokenOfAccountOnNetwork): IPenguin {
+    async getPenguinFromNft(nft: NonFungibleTokenOfAccountOnNetwork): Promise<IPenguin> {
 
         if (nft.assets[0] == undefined) {
             throw new Error(`No CID linked to the nft ${nft.identifier}`);
@@ -29,11 +28,11 @@ export default class ConverterWithNetwork {
             score: -1,
             purchaseDate: new Date(), // TODO:
             thumbnailCID: extractCIDFromIPFS(nft.assets[0]),
-            equippedItems: this.getEquippedItemsFromAttributes(nft.attributes.toString()),
+            equippedItems: await this.getEquippedItemsFromAttributes(nft.attributes.toString()),
         }
     }
 
-    private getEquippedItemsFromAttributes(rawAttributes: string): { [key: string]: IItem } {
+    private async getEquippedItemsFromAttributes(rawAttributes: string): Promise<{ [key: string]: IItem }> {
 
         const attributes = parseAttributes(rawAttributes);
         const equippedItems = {} as { [key: string]: IItem };
@@ -41,29 +40,29 @@ export default class ConverterWithNetwork {
         for (const { slot, itemName } of attributes) {
             if (itemName == "unequipped") continue;
 
-            equippedItems[slot] = this.getItemFromName(itemName, slot);
+            equippedItems[slot] = await this.getItemFromName(itemName, slot);
         }
 
         return equippedItems;
     }
 
-    getItemFromName(name: string, slot: string): IItem {
+    async getItemFromName(name: string, slot: string): Promise<IItem> {
 
-        const item = items.find(item => item.name == name && item.slot == slot);
+        const item = items.find(item => item.name == name && item.slot.toLowerCase() == slot.toLowerCase());
 
         if (!item) throw new Error(`No item found for ${name} and ${slot}`);
 
-        const identifier = item.identifier;
+        const { collection: ticker, nonce } = splitCollectionAndNonce(item.identifier);
 
-        // TODO: get info from blockchain w/ identifier
+        const nft = await this._proxyNetwork.getNonFungibleTokenOfAccount(customisationContract, ticker, nonce);
 
         return {
-            identifier: identifier,
+            identifier: item.identifier,
             name: name,
             slot: slot,
-            nonce: 0, //TODO:
-            thumbnailCID: "", //TODO:
-            renderCID: "",
+            nonce: nonce,
+            thumbnailCID: nft.assets[0],
+            renderCID: nft.assets[1],
             description: "", //TODO:
             amount: -1, // TODO: amount is linked to a wallet, but here's we don't have wallet; make this property optionally undefined for SDK
         }

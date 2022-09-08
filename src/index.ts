@@ -9,8 +9,9 @@ import { getPlaceholdersEggs, getPlaceholdersItems, getPlaceholdersPenguins } fr
 import { gateway } from './const';
 import { getNetworkType } from './env';
 import throng from 'throng';
-import { ProxyNetwork } from './classes/ProxyNetwork';
+import { ProxyNetworkProviderExtended } from './classes/ProxyNetworkProviderExtended';
 import ConverterWithNetwork from './classes/ConverterWithNetwork';
+import { ProxyNetworkProvider } from '@elrondnetwork/erdjs-network-providers/out';
 
 const workers = parseInt(process.env.WEB_CONCURRENCY || "1");
 const port = process.env.PORT || 5001;
@@ -25,7 +26,7 @@ function start(id: number) {
     }));
     app.use(cors());
 
-    const proxyNetwork = new ProxyNetwork(gateway);
+    const proxyNetwork = new ProxyNetworkProviderExtended(gateway);
     const networkConverter = new ConverterWithNetwork(proxyNetwork);
 
     app.get('/:bech32/penguins', (req, res) => getPenguins(req, res, proxyNetwork, networkConverter));
@@ -41,4 +42,6 @@ function start(id: number) {
         console.log(`   network: ${getNetworkType()}`)
         console.log(`   gateway: ${gateway}`)
     });
+
+    ProxyNetworkProvider
 }
