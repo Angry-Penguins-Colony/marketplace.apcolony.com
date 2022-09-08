@@ -5,7 +5,6 @@ import RefreshIcon from 'components/Icons/RefreshIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { ipfsGateway } from 'config';
 import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/useGetOwned';
-import tmpImgBackground from './../../assets/img/penguin_background.png';
 import style from './customize.module.scss';
 import GoToAnotherPenguin from './GoToAnotherPenguin';
 import { Item } from './Item';
@@ -26,18 +25,48 @@ interface PenguinItems {
 
 const Customize = () => {
     const { id } = useParams();
-    const penguinData = getMyPenguinData(id);
+    const selectedPenguinNonce = parseInt(id ?? '');
     const ownedPenguins = useGetOwnedPenguins();
+    const selectedPenguinData = ownedPenguins?.find((penguin) => penguin.nonce === selectedPenguinNonce);
 
     const [penguinItems, setPenguinItems] = React.useState<PenguinItems>({});
 
     React.useEffect(() => {
-        setTimeout(() => { // simulate server call TODO: add api call
-            setPenguinItems({
-                background: tmpImgBackground,
-            });
-        }, 900);
-    }, []);
+
+        if (!selectedPenguinData) return;
+
+        const newPenguinsItems: PenguinItems = {};
+
+        // TODO: too much repetitive code, refactor
+        newPenguinsItems.background = getImgSrc('background');
+        newPenguinsItems.hat = getImgSrc('hat');
+        newPenguinsItems.eyes = getImgSrc('eyes');
+        newPenguinsItems.clothes = getImgSrc('clothes');
+        newPenguinsItems.beak = getImgSrc('beak');
+        newPenguinsItems.skin = getImgSrc('skin');
+        newPenguinsItems.weapon = getImgSrc('weapon');
+
+        console.log('equippedItems', selectedPenguinData.equippedItems);
+        console.log('newPenguinsItems', newPenguinsItems);
+
+        setPenguinItems(newPenguinsItems);
+
+        function getImgSrc(slot: string) {
+            if (!selectedPenguinData) return;
+
+
+            const item = selectedPenguinData.equippedItems[slot];
+
+            if (item) {
+                if (!item.renderCID) throw new Error('The API should send a renderCID, but the item has none.');
+
+                return ipfsGateway + item.renderCID;
+            }
+            else {
+                return undefined;
+            }
+        }
+    }, [selectedPenguinData]);
 
 
     /* Choose items popup */
@@ -48,7 +77,6 @@ const Customize = () => {
     const [itemsInPopup, setItemsInPopup] = React.useState<Item[]>([]);
 
     const ownedItems = useGetOwnedItems();
-    const selectedPenguinNonce = parseInt(penguinData.id);
 
 
     if (!isSelectedNonceOwned() && ownedPenguins && ownedPenguins.length > 0) {
@@ -63,7 +91,7 @@ const Customize = () => {
 
     return (
         <div id={style['body-content']}>
-            <MobileHeader title="Customize" subTitle={'Penguin #' + penguinData.id} className={style['mobile-header']} />
+            <MobileHeader title="Customize" subTitle={'Penguin #' + selectedPenguinNonce} className={style['mobile-header']} />
             <PopupFromBottom
                 title={itemsPopupTitle}
                 type={itemsPopupType}
@@ -105,7 +133,7 @@ const Customize = () => {
                 <GoToAnotherPenguin className={style['another-penguins']}
                     selectedPenguinNonce={selectedPenguinNonce}
                     penguins={ownedPenguins}
-                    subTitle={'Penguin #' + penguinData.id}
+                    subTitle={'Penguin #' + selectedPenguinNonce}
                 />
             }
         </div>
@@ -183,15 +211,3 @@ const Customize = () => {
 };
 
 export default Customize;
-
-function getMyPenguinData(id: string | undefined) {
-    if (id === undefined) {
-        // TODO: found first penguin of user api call
-        id = '????';
-    }
-
-    return {
-        id,
-        // add more data
-    };
-}

@@ -34,6 +34,13 @@ const PenguinRender = (
             }
 
             <img src={items.eyes ?? defaultImages.eyes} alt="eyes" className='eyes' />
+
+            {
+                items.weapon && (
+                    <img src={items.weapon} alt="weapon" className='weapon' />
+                )
+            }
+
             {
                 items.clothes && (
                     <img src={items.clothes} alt="clothes" className='clothes' />
@@ -41,12 +48,6 @@ const PenguinRender = (
             }
 
             <img src={items.beak ?? defaultImages.beak} alt="beak" className='beak' />
-
-            {
-                items.weapon && (
-                    <img src={items.hat} alt="weapon" className='weapon' />
-                )
-            }
         </div>);
 
 };
