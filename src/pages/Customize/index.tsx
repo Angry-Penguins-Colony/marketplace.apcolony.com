@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { IItem } from '@apcolony/marketplace-api';
 import { useParams } from 'react-router-dom';
 import Button from 'components/Button/Button';
 import RefreshIcon from 'components/Icons/RefreshIcon';
@@ -14,13 +15,13 @@ import PenguinRender from './Render';
 
 
 interface PenguinItems {
-    background?: string;
-    hat?: string;
-    eyes?: string;
-    clothes?: string;
-    beak?: string;
-    skin?: string;
-    weapon?: string;
+    background?: IItem;
+    hat?: IItem;
+    eyes?: IItem;
+    clothes?: IItem;
+    beak?: IItem;
+    skin?: IItem;
+    weapon?: IItem;
 }
 
 const Customize = () => {
@@ -38,34 +39,20 @@ const Customize = () => {
         const newPenguinsItems: PenguinItems = {};
 
         // TODO: too much repetitive code, refactor
-        newPenguinsItems.background = getImgSrc('background');
-        newPenguinsItems.hat = getImgSrc('hat');
-        newPenguinsItems.eyes = getImgSrc('eyes');
-        newPenguinsItems.clothes = getImgSrc('clothes');
-        newPenguinsItems.beak = getImgSrc('beak');
-        newPenguinsItems.skin = getImgSrc('skin');
-        newPenguinsItems.weapon = getImgSrc('weapon');
+        newPenguinsItems.background = selectedPenguinData.equippedItems['background'];
+        newPenguinsItems.hat = selectedPenguinData.equippedItems['hat'];
+        newPenguinsItems.eyes = selectedPenguinData.equippedItems['eyes'];
+        newPenguinsItems.clothes = selectedPenguinData.equippedItems['clothes'];
+        newPenguinsItems.beak = selectedPenguinData.equippedItems['beak'];
+        newPenguinsItems.skin = selectedPenguinData.equippedItems['skin'];
+        newPenguinsItems.weapon = selectedPenguinData.equippedItems['weapon'];
+
+        setPenguinItems(newPenguinsItems);
 
         console.log('equippedItems', selectedPenguinData.equippedItems);
         console.log('newPenguinsItems', newPenguinsItems);
 
         setPenguinItems(newPenguinsItems);
-
-        function getImgSrc(slot: string) {
-            if (!selectedPenguinData) return;
-
-
-            const item = selectedPenguinData.equippedItems[slot];
-
-            if (item) {
-                if (!item.renderCID) throw new Error('The API should send a renderCID, but the item has none.');
-
-                return ipfsGateway + item.renderCID;
-            }
-            else {
-                return undefined;
-            }
-        }
     }, [selectedPenguinData]);
 
 
@@ -109,16 +96,26 @@ const Customize = () => {
             <section className={style.customize}>
                 <div className={style.content}>
                     <div className={style.items}>
-                        <div className={style.item + ' ' + style.hat} onClick={() => { openItemsPopup('hat', 'Hats'); }}></div>
-                        <div className={style.item + ' ' + style.eyes} onClick={() => { openItemsPopup('eyes', 'Eyes'); }}></div>
-                        <div className={style.item + ' ' + style.clothes} onClick={() => { openItemsPopup('clothes', 'Clothes'); }}></div>
+                        {createItemButton('hat', 'Hats')}
+                        {createItemButton('eyes', 'Eyes')}
+                        {createItemButton('clothes', 'Clothes')}
                     </div>
-                    <PenguinRender items={penguinItems} />
+                    {/* TODO: REFACTOR: too much repetitive */}
+                    <PenguinRender items={{
+                        background: penguinItems.background ? ipfsGateway + penguinItems.background.renderCID : undefined,
+                        hat: penguinItems.hat ? ipfsGateway + penguinItems.hat.renderCID : undefined,
+                        eyes: penguinItems.eyes ? ipfsGateway + penguinItems.eyes.renderCID : undefined,
+                        clothes: penguinItems.clothes ? ipfsGateway + penguinItems.clothes.renderCID : undefined,
+                        beak: penguinItems.beak ? ipfsGateway + penguinItems.beak.renderCID : undefined,
+                        skin: penguinItems.skin ? ipfsGateway + penguinItems.skin.renderCID : undefined,
+                        weapon: penguinItems.weapon ? ipfsGateway + penguinItems.weapon.renderCID : undefined,
+
+                    }} />
                     <div className={style.items}>
-                        <div className={style.item + ' ' + style.beak} onClick={() => { openItemsPopup('beak', 'Beak'); }}></div>
-                        <div className={style.item + ' ' + style.skin} onClick={() => { openItemsPopup('skin', 'Skin'); }}></div>
-                        <div className={style.item + ' ' + style.weapon} onClick={() => { openItemsPopup('weapon', 'Weapon'); }}></div>
-                        <div className={style.item + ' ' + style.background} onClick={() => { openItemsPopup('background', 'Background'); }}></div>
+                        {createItemButton('beak', 'Beak')}
+                        {createItemButton('skin', 'Skin')}
+                        {createItemButton('weapon', 'Weapon')}
+                        {createItemButton('background', 'Background')}
                     </div>
                 </div>
                 <div className={style.reset}>
@@ -128,7 +125,7 @@ const Customize = () => {
                     <Button type='cancel' onClick={cancelAll}>Cancel All</Button>
                     <Button type='primary' onClick={saveCustomization}>Confirm Customization</Button>
                 </div>
-            </section>
+            </section >
             {ownedPenguins &&
                 <GoToAnotherPenguin className={style['another-penguins']}
                     selectedPenguinNonce={selectedPenguinNonce}
@@ -136,7 +133,7 @@ const Customize = () => {
                     subTitle={'Penguin #' + selectedPenguinNonce}
                 />
             }
-        </div>
+        </div >
     );
 
     function isSelectedNonceOwned() {
@@ -206,6 +203,24 @@ const Customize = () => {
             [itemType]: itemSrc
         };
         setPenguinItems(newItems);
+    }
+
+    function createItemButton(type: keyof PenguinItems, title: string) {
+
+        const item = penguinItems[type];
+
+        const className = [
+            style.item,
+            item != undefined ? style.filled : style[type]
+        ].join(' ');
+
+        return <div
+            className={className}
+            onClick={() => { openItemsPopup(type, title); }}>
+            {
+                item && <img src={ipfsGateway + item.thumbnailCID} />
+            }
+        </div >
     }
 
 };
