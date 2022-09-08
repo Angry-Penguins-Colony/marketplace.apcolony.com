@@ -13,6 +13,8 @@ export function parseAttributes(attributes: string) {
 
 export function extractCIDFromIPFS(url: string): string {
 
+    if (!url) throw new Error("No url provided");
+
     if (url.endsWith("/")) {
         url = url.substring(0, url.length - 1);
     }

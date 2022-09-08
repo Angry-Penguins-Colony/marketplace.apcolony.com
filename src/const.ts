@@ -36,7 +36,7 @@ function getNetworkInfos() {
                 penguinsIdentifier: devnetToolDeploy.penguinsIdentifier,
                 itemsIdentifier: devnetToolDeploy.itemsIdentifier,
                 items: devnetToolDeploy.items,
-                customisationContract: Address.fromBech32("erd1qqqqqqqqqqqqqpgqrtq52wjr856ze07u2pc70a40mvwn583tlx4syg609g")
+                customisationContract: Address.fromBech32(devnetToolDeploy.customizationContractAddress.bech32),
             };
     }
 }

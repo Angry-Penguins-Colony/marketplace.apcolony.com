@@ -54,15 +54,17 @@ export default class ConverterWithNetwork {
 
         const { collection: ticker, nonce } = splitCollectionAndNonce(item.identifier);
 
-        const nft = await this._proxyNetwork.getNonFungibleTokenOfAccount(customisationContract, ticker, nonce);
+        const nft = await this._proxyNetwork.fixed_getNonFungibleTokenOfAccount(customisationContract, ticker, nonce);
+
+        console.log(`NFT assets for ${item.identifier}: ${nft.assets.length}`);
 
         return {
             identifier: item.identifier,
             name: name,
             slot: slot,
             nonce: nonce,
-            thumbnailCID: nft.assets[0],
-            renderCID: nft.assets[1],
+            thumbnailCID: extractCIDFromIPFS(nft.assets[0]),
+            renderCID: extractCIDFromIPFS(nft.assets[1]),
             description: "", //TODO:
             amount: -1, // TODO: amount is linked to a wallet, but here's we don't have wallet; make this property optionally undefined for SDK
         }

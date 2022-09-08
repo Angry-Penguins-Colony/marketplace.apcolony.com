@@ -15,6 +15,22 @@ export class ProxyNetworkProviderExtended extends ProxyNetworkProvider {
         this._gatewayUrl = url;
     }
 
+    /**
+     * Fixed method of getNonFungibleTokenOfAccount; This one fill properly the "assets" property.
+     */
+    public async fixed_getNonFungibleTokenOfAccount(address: IAddress, collection: string, nonce: number) {
+
+
+        const url = `address/${address.bech32()}/nft/${collection}/nonce/${nonce.valueOf()}`;
+        const response = await this.doGetGeneric(url);
+
+        const tokenData = NonFungibleTokenOfAccountOnNetwork.fromProxyHttpResponseByNonce(response.tokenData);
+        tokenData.assets = (Array.from(response.tokenData.uris ?? []) as string[])
+            .map(b64 => Buffer.from(b64, "base64").toString());
+
+        return tokenData;
+    }
+
     public async getNftsOfAccount(address: IAddress): Promise<NonFungibleTokenOfAccountOnNetwork[]> {
 
         const response = await this.doGetGeneric(`address/${address.bech32()}/esdt`);
