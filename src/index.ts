@@ -9,6 +9,8 @@ import { getPlaceholdersEggs, getPlaceholdersItems, getPlaceholdersPenguins } fr
 import { gateway } from './const';
 import { getNetworkType } from './env';
 import throng from 'throng';
+import { ProxyNetwork } from './classes/ProxyNetwork';
+import ConverterWithNetwork from './classes/ConverterWithNetwork';
 
 const workers = parseInt(process.env.WEB_CONCURRENCY || "1");
 const port = process.env.PORT || 5001;
@@ -23,7 +25,10 @@ function start(id: number) {
     }));
     app.use(cors());
 
-    app.get('/:bech32/penguins', (req, res) => getPenguins(req, res, gateway));
+    const proxyNetwork = new ProxyNetwork(gateway);
+    const networkConverter = new ConverterWithNetwork(proxyNetwork);
+
+    app.get('/:bech32/penguins', (req, res) => getPenguins(req, res, proxyNetwork, networkConverter));
     app.get('/:bech32/eggs', getEggs);
     app.get('/:bech32/items', (req, res) => getItems(req, res, gateway));
 

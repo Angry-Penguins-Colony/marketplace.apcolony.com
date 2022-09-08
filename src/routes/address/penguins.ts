@@ -2,20 +2,18 @@ import { penguinsCollection } from "../../const";
 import { Request, Response } from 'express';
 import { Address } from "@elrondnetwork/erdjs/out";
 import { ProxyNetwork } from "../../classes/ProxyNetwork";
-import { getPenguinFromNft } from "../../utils/conversion";
 import { sendSuccessfulJSON } from "../../utils/response";
+import ConverterWithNetwork from "../../classes/ConverterWithNetwork";
 
-export default async function getPenguins(req: Request, res: Response, gatewayUrl: string) {
+export default async function getPenguins(req: Request, res: Response, proxyNetwork: ProxyNetwork, networkConvert: ConverterWithNetwork) {
 
     const address = new Address(req.params.bech32);
 
-    const gatewayProvider = new ProxyNetwork(gatewayUrl);
-
-    const accountsNfts = await gatewayProvider.getNftsOfAccount(address);
+    const accountsNfts = await proxyNetwork.getNftsOfAccount(address);
 
     const penguinsNfts = accountsNfts
         .filter(nft => nft.collection === penguinsCollection)
-        .map(getPenguinFromNft)
+        .map(networkConvert.getPenguinFromNft)
         .sort((a, b) => a.nonce - b.nonce);
 
     console.log("Found", penguinsNfts.length, "nfts.");
