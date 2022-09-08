@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { placeholdersEggs, placeholdersItems, placeholdersPenguins } from '../../const';
-import { sendSuccessfulJSON } from '../../utils';
+import { sendSuccessfulJSON } from '../../utils/response';
 
 export function getPlaceholdersPenguins(res: Response) {
     sendSuccessfulJSON(res, [

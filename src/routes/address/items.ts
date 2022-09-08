@@ -2,7 +2,8 @@ import { Address } from '@elrondnetwork/erdjs/out';
 import { Request, Response } from 'express';
 import { ProxyNetwork } from '../../classes/ProxyNetwork';
 import { itemsCollection } from '../../const';
-import { getItemFromNft, sendSuccessfulJSON } from '../../utils';
+import { getItemFromNft } from '../../utils/conversion';
+import { sendSuccessfulJSON } from '../../utils/response';
 
 export default async function getItems(req: Request, res: Response, gatewayUrl: string) {
 

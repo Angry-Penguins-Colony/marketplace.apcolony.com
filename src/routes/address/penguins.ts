@@ -1,8 +1,9 @@
 import { penguinsCollection } from "../../const";
 import { Request, Response } from 'express';
-import { getPenguinFromNft, sendSuccessfulJSON } from "../../utils";
 import { Address } from "@elrondnetwork/erdjs/out";
 import { ProxyNetwork } from "../../classes/ProxyNetwork";
+import { getPenguinFromNft } from "../../utils/conversion";
+import { sendSuccessfulJSON } from "../../utils/response";
 
 export default async function getPenguins(req: Request, res: Response, gatewayUrl: string) {
 

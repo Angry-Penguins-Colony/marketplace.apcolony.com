@@ -1,4 +1,4 @@
-import { extractCIDFromIPFS } from "./utils";
+import { extractCIDFromIPFS } from "./string";
 
 it("extractCIDFromIPFS", () => {
     expect(extractCIDFromIPFS("https://ipfs.io/ipfs/cid/")).toBe("cid");
