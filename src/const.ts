@@ -1,4 +1,5 @@
 import { IPenguin, IItem, IEgg } from '@apcolony/marketplace-api/out';
+import { devnetToolDeploy } from './deployToolResult';
 import { getNetworkType } from './env';
 
 function getNetworkInfos() {
@@ -15,7 +16,7 @@ function getNetworkInfos() {
             return {
                 penguinsIdentifier: 'APC-928458',
                 gateway: process.env.GATEWAY ?? "https://gateway.elrond.com",
-                items: {
+                itemsIdentifier: {
                     "background": "",
                     "beak": "",
                     "clothes": "",
@@ -23,28 +24,23 @@ function getNetworkInfos() {
                     "hat": "",
                     "skin": "",
                     "weapon": ""
-                }
+                },
+                items: []
             };
 
         case "DEVNET":
             return {
                 gateway: process.env.GATEWAY ?? "https://devnet-gateway.elrond.com",
-                "penguinsIdentifier": "PENGUINS-05bc6c",
-                "items": {
-                    "background": "BACKGROUND-6a2791",
-                    "beak": "BEAK-929ec3",
-                    "clothes": "CLOTHES-2813cb",
-                    "eyes": "EYES-23c984",
-                    "hat": "HAT-dc26b0",
-                    "skin": "SKIN-8d5135",
-                    "weapon": "WEAPON-9f4bc3"
-                }
+                penguinsIdentifier: devnetToolDeploy.penguinsIdentifier,
+                itemsIdentifier: devnetToolDeploy.itemsIdentifier,
+                items: devnetToolDeploy.items,
             };
     }
 }
 
 export const penguinsCollection = getNetworkInfos().penguinsIdentifier;
-export const itemsCollection = getNetworkInfos().items;
+export const itemsCollection = getNetworkInfos().itemsIdentifier;
+export const items = getNetworkInfos().items;
 export const gateway = getNetworkInfos().gateway;
 
 export const placeholdersItems = {

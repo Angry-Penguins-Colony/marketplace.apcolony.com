@@ -1,7 +1,7 @@
 import { IItem, IPenguin } from '@apcolony/marketplace-api';
 import { NonFungibleTokenOfAccountOnNetwork } from '@elrondnetwork/erdjs-network-providers/out';
 import { Response } from 'express';
-import { itemsCollection } from './const';
+import { items, itemsCollection } from './const';
 
 export function sendSuccessfulJSON(response: Response, data: any) {
     response
@@ -70,41 +70,52 @@ export function removeNonceFromIdentifier(identifier: string): string {
 
 export function getEquippedItemsFromAttributes(bufferAttributes: Buffer): { [key: string]: IItem } {
 
-    const attributesKvp = bufferAttributes.toString()
+    const attributes = parseAttributes(bufferAttributes.toString());
+    const equippedItems = {} as { [key: string]: IItem };
+
+    for (const { slot, itemName } of attributes) {
+        if (itemName == "unequipped") continue;
+
+        equippedItems[slot] = getItemFromName(itemName, slot);
+    }
+
+    return equippedItems;
+}
+
+function parseAttributes(attributes: string) {
+    return attributes
         .split(";")
         .map(attribute => {
             const [slot, itemName] = attribute.split(":");
+
+            console.log(itemName);
+
             return {
                 slot,
                 itemName
-            }
+            };
         });
-
-    let attributes = {} as { [key: string]: IItem };
-
-    for (const kvp of attributesKvp) {
-        attributes[kvp.slot] = getItemFromName(kvp.itemName);
-    }
-
-    return {};
-    // return attributes;
 }
 
-// TODO: 
-export function getItemFromName(name: string): IItem {
+export function getItemFromName(name: string, slot: string): IItem {
 
-    // 1. Slot+Name to identifier
-    // 2. get info from blockchain w/ identifier
+    const item = items.find(item => item.name == name && item.slot == slot);
+
+    if (!item) throw new Error(`No item found for ${name} and ${slot}`);
+
+    const identifier = item.identifier;
+
+    // TODO: get info from blockchain w/ identifier
 
     return {
-        identifier: "", //TODO:
-        nonce: 0, //TODO:
-        slot: "", // TODO:
+        identifier: identifier,
         name: name,
-        description: "", //TODO:
+        slot: slot,
+        nonce: 0, //TODO:
         thumbnailCID: "", //TODO:
         renderCID: "",
-        amount: -1, // TODO:
+        description: "", //TODO:
+        amount: -1, // TODO: amount is linked to a wallet, but here's we don't have wallet; make this property optionally undefined for SDK
     }
 }
 
