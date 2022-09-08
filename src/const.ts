@@ -29,15 +29,15 @@ function getNetworkInfos() {
         case "DEVNET":
             return {
                 gateway: process.env.GATEWAY ?? "https://devnet-gateway.elrond.com",
-                "penguinsIdentifier": "PENGUINS-ca9fff",
+                "penguinsIdentifier": "PENGUINS-05bc6c",
                 "items": {
-                    "background": "BACKGROUND-abdb85",
-                    "beak": "BEAK-0c89ae",
-                    "clothes": "CLOTHES-93a11f",
-                    "eyes": "EYES-55c291",
-                    "hat": "HAT-facdcf",
-                    "skin": "SKIN-5e22f5",
-                    "weapon": "WEAPON-3b8ebb"
+                    "background": "BACKGROUND-6a2791",
+                    "beak": "BEAK-929ec3",
+                    "clothes": "CLOTHES-2813cb",
+                    "eyes": "EYES-23c984",
+                    "hat": "HAT-dc26b0",
+                    "skin": "SKIN-8d5135",
+                    "weapon": "WEAPON-9f4bc3"
                 }
             };
     }
