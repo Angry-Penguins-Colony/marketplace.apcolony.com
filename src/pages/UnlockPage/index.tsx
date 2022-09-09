@@ -1,5 +1,5 @@
 import React from 'react';
-import { DappUI, useGetLoginInfo } from '@elrondnetwork/dapp-core';
+import { useGetLoginInfo } from '@elrondnetwork/dapp-core/hooks';
 import Popup from 'components/Popup/Popup';
 import { routeNames } from 'routes';
 import ElrondLogo from './../../assets/img/icons/Elrond_logo.png';
@@ -9,12 +9,6 @@ import walletImg from './../../assets/img/wallet.png';
 import style from './unlock.module.scss';
 
 export const UnlockRoute: () => JSX.Element = () => {
-  const {
-    ExtensionLoginButton,
-    WebWalletLoginButton,
-    LedgerLoginButton,
-    WalletConnectLoginButton
-  } = DappUI;
   const { isLoggedIn } = useGetLoginInfo();
 
   React.useEffect(() => {

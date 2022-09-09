@@ -1,6 +1,6 @@
 import React from 'react';
 import { IAddress, IPenguin, IEgg, IItem } from '@apcolony/marketplace-api/out';
-import { useGetAccountInfo } from '@elrondnetwork/dapp-core';
+import useGetAccountInfo from '@elrondnetwork/dapp-core/hooks/account/useGetAccountInfo';
 import axios from 'axios';
 import { marketplaceApi } from 'config';
 

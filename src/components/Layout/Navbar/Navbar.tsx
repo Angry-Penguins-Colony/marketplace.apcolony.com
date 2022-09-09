@@ -1,5 +1,6 @@
 import React from 'react';
-import { logout, useGetAccountInfo } from '@elrondnetwork/dapp-core';
+import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import { logout } from '@elrondnetwork/dapp-core/utils';
 import Button from 'components/Button/Button';
 import DiscordIcon from 'components/Icons/DiscordIcon';
 import HomeIcon from 'components/Icons/HomeIcon';
