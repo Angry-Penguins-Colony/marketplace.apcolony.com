@@ -12,8 +12,8 @@ const PopupFromBottom = (
         type,
         items,
         isOpen = false,
-        selectedItems,
-        toggleSelected = function () {
+        selectedItemsIdentifier: selectedItems,
+        onItemClick = function () {
             // do nothing
         },
         cancel = function () {
@@ -29,9 +29,9 @@ const PopupFromBottom = (
         title: string;
         type: string;
         items: IItem[],
-        selectedItems: Record<string, IItem | undefined>,
+        selectedItemsIdentifier: Record<string, string | undefined>,
         isOpen?: boolean;
-        toggleSelected?: (item: IItem) => void;
+        onItemClick?: (item: IItem) => void;
         cancel?: () => void;
         select?: (type: string) => void;
         changeType?: (type: string) => void;
@@ -69,13 +69,9 @@ const PopupFromBottom = (
                     <div className={style.content}>
                         {items.map((item) => {
 
-                            // if (item.name == 'Yellow') {
-                            //     console.log('item', item.identifier);
-                            //     console.log('selected', selectedItems[item.slot]?.identifier);
-                            //     console.log('\n');
-                            // }
+                            if (!item.identifier) throw new Error(`Item has no identifier. ${item}`);
 
-                            const isSelected = selectedItems[item.slot]?.identifier == item.identifier;
+                            const isSelected = selectedItems[item.slot] == item.identifier;
 
                             return (
                                 <SelectableItem
@@ -85,8 +81,8 @@ const PopupFromBottom = (
                                     key={item.identifier}
                                     isSelected={isSelected}
                                     isVisible={type == 'all' || item.slot == type}
-                                    toggleSelected={() => {
-                                        toggleSelected(item);
+                                    onClick={() => {
+                                        onItemClick(item);
                                     }}
                                 />
                             )
@@ -123,7 +119,7 @@ const SelectableItem = (
         renderImageSrc,
         isSelected = false,
         isVisible,
-        toggleSelected = function () {
+        onClick = function () {
             // do nothing
         }
 
@@ -133,11 +129,11 @@ const SelectableItem = (
         renderImageSrc: string;
         isSelected?: boolean;
         isVisible: boolean;
-        toggleSelected?: () => void;
+        onClick?: () => void;
     }
 ) => {
     return (
-        <div className={style.item + (isSelected ? ' ' + style['is-selected'] : '') + (isVisible ? '' : ' ' + style['is-hidden'])} onClick={toggleSelected}>
+        <div className={style.item + (isSelected ? ' ' + style['is-selected'] : '') + (isVisible ? '' : ' ' + style['is-hidden'])} onClick={onClick}>
             <img className={style.model} src={defaultPenguinImg} alt="Model" />
             <img src={renderImageSrc} className={style.thumbnail} alt={name} />
 

@@ -11,7 +11,7 @@ import GoToAnotherPenguin from './GoToAnotherPenguin';
 import PopupFromBottom from './PopupFromBottom';
 import PenguinRender from './Render';
 
-type PenguinItems = Record<string, IItem | undefined>;
+type PenguinItemsIdentifier = Record<string, string | undefined>;
 
 const Customize = () => {
     const { id } = useParams();
@@ -19,14 +19,20 @@ const Customize = () => {
     const ownedPenguins = useGetOwnedPenguins();
     const selectedPenguinData = ownedPenguins?.find((penguin) => penguin.nonce === selectedPenguinNonce);
 
-    const [penguinItems, setPenguinItems] = React.useState<PenguinItems>({});
+    const [equippedItemsIdentifier, setEquippedItemsIdentifier] = React.useState<PenguinItemsIdentifier>({});
 
     React.useEffect(() => {
 
         if (!selectedPenguinData) return;
 
-        setPenguinItems(selectedPenguinData.equippedItems);
-        setSelectedItemsInPopup(selectedPenguinData.equippedItems);
+        const equippedItemsIdentifierFromFetchedData = Object.values(selectedPenguinData.equippedItems)
+            .reduce((acc, item) => {
+                acc[item.slot] = item.identifier;
+                return acc;
+            }, {} as PenguinItemsIdentifier);
+
+        setEquippedItemsIdentifier(equippedItemsIdentifierFromFetchedData);
+        setSelectedItemsInPopup(equippedItemsIdentifierFromFetchedData);
     }, [selectedPenguinData]);
 
 
@@ -35,7 +41,7 @@ const Customize = () => {
     const [itemsPopupTitle, setItemsPopupTitle] = React.useState<string>('All My Items');
     const [itemsPopupType, setItemsPopupType] = React.useState<string>('all');
     const [itemsInPopup, setItemsInPopup] = React.useState<IItem[]>([]);
-    const [selectedItemsInPopup, setSelectedItemsInPopup] = React.useState<PenguinItems>({});
+    const [selectedItemsInPopup, setSelectedItemsInPopup] = React.useState<PenguinItemsIdentifier>({});
 
     const ownedItems = useGetOwnedItems();
 
@@ -44,17 +50,32 @@ const Customize = () => {
     }
 
     React.useEffect(() => {
+        // change inlive if it's desktop version
+        if (window.innerWidth > 800) {
+            for (const slot in selectedItemsInPopup) {
+                console.log('validate from useEffect');
+                validateItemChangement(slot);
+            }
+        }
+    }, [selectedItemsInPopup]);
+
+    React.useEffect(() => {
         if (ownedItems) {
             setItemsInPopup(ownedItems);
         }
     }, [ownedItems]);
 
-    function getImageSrcToRender(slot: keyof PenguinItems) {
-        const item = penguinItems[slot];
+    React.useEffect(() => {
+        console.log('update');
+        console.log('\n');
+    });
+
+    function getImageSrcToRender(slot: keyof PenguinItemsIdentifier) {
+        const item = getEquippedItemInSlot(slot);
 
         if (item != undefined) {
 
-            if (!item.renderCID) throw new Error(`Item for slot ${slot} has no renderCID. ${item}`);
+            if (!item.renderCID) throw new Error(`Item ${item.name} in slot ${slot} has no renderCID.`);
 
             return ipfsGateway + item.renderCID;
         }
@@ -62,6 +83,8 @@ const Customize = () => {
             return undefined;
         }
     }
+
+    console.log('equipped bg', getEquippedItemInSlot('background'));
 
     return (
         <div id={style['body-content']}>
@@ -71,8 +94,8 @@ const Customize = () => {
                 type={itemsPopupType}
                 isOpen={itemsPopupIsOpen}
                 items={itemsInPopup}
-                selectedItems={selectedItemsInPopup}
-                toggleSelected={toggleSelection}
+                selectedItemsIdentifier={selectedItemsInPopup}
+                onItemClick={onItemClick}
                 cancel={() => { setItemsPopupIsOpen(false); }}
                 select={validateItemChangement}
                 changeType={(type) => {
@@ -126,10 +149,25 @@ const Customize = () => {
         return ownedPenguins && ownedPenguins.find(p => p.nonce == selectedPenguinNonce);
     }
 
-    function toggleSelection(item: IItem) {
-        console.log(`Toggling item ${item.name} (${item.slot})`);
+    function getItem(identifier: string) {
+        return ownedItems?.find(item => item.identifier === identifier);
+    }
 
-        const isSelected = selectedItemsInPopup[item.slot] === item;
+    function onItemClick(item: IItem) {
+
+        toggleItemSelection(item);
+
+        setItemsPopupIsOpen(false);
+
+        // PROBLEM: on vient toggle la selection de l'item
+        // mais le state ne s'update pas; donc validateItemChangement fait une vérification sur l'ancienne state
+
+    }
+
+    function toggleItemSelection(item: IItem) {
+        const isSelected = selectedItemsInPopup[item.slot] === item.identifier;
+
+        console.log(selectedItemsInPopup['background']);
 
         if (isSelected) {
             unselect(item);
@@ -138,13 +176,12 @@ const Customize = () => {
             select(item);
         }
 
-        // change inlive if it's desktop version
-        if (window.innerWidth > 800) {
-            validateItemChangement(item.slot);
-        }
+        console.log(`Toggled item ${item.name} From selected=${isSelected} to ${selectedItemsInPopup[item.slot] === item.identifier}`);
     }
 
     function unselect(item: IItem) {
+        console.log(`Unselected ${item.identifier} in ${item.slot}`)
+
         setSelectedItemsInPopup({
             ...selectedItemsInPopup,
             [item.slot]: undefined
@@ -152,10 +189,17 @@ const Customize = () => {
     }
 
     function select(item: IItem) {
+        console.log(`Selected ${item.identifier}`)
+
+        const before = selectedItemsInPopup;
         setSelectedItemsInPopup({
             ...selectedItemsInPopup,
-            [item.slot]: item
+            [item.slot]: item.identifier
         });
+        const after = selectedItemsInPopup;
+
+        console.log('before selection', before);
+        console.log('after  selection', after);
     }
 
     function openItemsPopup(type: string, title: string) {
@@ -167,25 +211,37 @@ const Customize = () => {
         setItemsPopupIsOpen(true);
     }
 
-    function getSelectItem(slot: string) {
-        return selectedItemsInPopup[slot];
+    function getSelectedItemInSlot(slot: string) {
+        const identifier = selectedItemsInPopup[slot];
+
+        if (!identifier) return undefined;
+
+        return getItem(identifier);
+    }
+
+    function getEquippedItemInSlot(slot: string) {
+        const identifier = equippedItemsIdentifier[slot];
+
+        return identifier ? getItem(identifier) : undefined;
     }
 
     function validateItemChangement(slot: string) {
 
-        const selectedItem = getSelectItem(slot);
+        const selectedItem = getSelectedItemInSlot(slot);
+
+        if (slot == 'background') {
+            console.log('valide.selectedItem=', selectedItem);
+        }
 
         if (selectedItem != undefined) {
             equipItem(slot, selectedItem);
         } else {
             unequipItem(slot);
         }
-
-        setItemsPopupIsOpen(false);
     }
 
     function resetItems() {
-        setPenguinItems({});
+        setEquippedItemsIdentifier({});
     }
 
     function cancelAll() {
@@ -202,27 +258,32 @@ const Customize = () => {
     }
 
     function equipItem(slot: string, item: IItem) {
-        const newItems = {
-            ...penguinItems,
-            [slot]: item
-        };
 
-        setPenguinItems(newItems);
+        if (equippedItemsIdentifier[slot] == item.identifier) return;
 
-        console.log(`Equipping item ${item.name} (${item.slot})`);
+        setEquippedItemsIdentifier({
+            ...equippedItemsIdentifier,
+            [slot]: item.identifier
+        });
+
+        console.log(`Equipping item ${item.name} (${item.slot} | ${item.identifier})`);
     }
 
     function unequipItem(slot: string) {
-        const newItems = { ...penguinItems };
-        newItems[slot] = undefined;
-        setPenguinItems(newItems);
+        if (equippedItemsIdentifier[slot] == undefined) return;
+
+        setEquippedItemsIdentifier({
+            ...equippedItemsIdentifier,
+            [slot]: undefined
+        });
 
         console.log(`Unequipping item from slot ${slot}`);
     }
 
-    function createItemButton(type: keyof PenguinItems, title: string) {
+    function createItemButton(type: keyof PenguinItemsIdentifier, title: string) {
 
-        const item = penguinItems[type];
+        const itemIdentifier = equippedItemsIdentifier[type];
+        const item = itemIdentifier ? getItem(itemIdentifier) : undefined;
 
         const className = [
             style.item,
