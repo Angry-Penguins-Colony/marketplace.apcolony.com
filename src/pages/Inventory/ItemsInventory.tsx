@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ReactImageAppear from 'components/ReactImageAppear/ReactImageAppear';
-import { ifpsGateway } from 'config';
+import { ipfsGateway } from 'config';
 import Filters, { matchFilter } from './Filters';
 import style from './item-inventory.module.scss';
 
@@ -34,7 +34,7 @@ const ItemsInventory = ({
                                 <div className={[style.item, 'w-100 h-100'].join(' ')} key={index} onClick={() => {
                                     window.location.href = '/inventory/' + type + '/' + item.thumbnailCID;
                                 }}>
-                                    <ReactImageAppear className="w-100 h-100" src={ifpsGateway + item.thumbnailCID} />
+                                    <ReactImageAppear className="w-100 h-100" src={ipfsGateway + item.thumbnailCID} />
                                     <div className={style.name}>{item.name}</div>
                                 </div>
                             );

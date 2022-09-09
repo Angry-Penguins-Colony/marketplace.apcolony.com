@@ -1,7 +1,7 @@
 import { Address, AddressValue, ArgSerializer, BytesValue, TransactionPayload, TypedValue, U64Value } from '@elrondnetwork/erdjs/out';
 import { BigNumber } from 'bignumber.js';
 
-interface Token {
+export interface ItemToken {
     collection: string;
     nonce: number;
 }
@@ -9,9 +9,9 @@ interface Token {
 export default class CustomizePayloadBuilder {
 
     public customizationContractAddress?: Address;
-    public penguinIdentifier = '';
+    public penguinCollection = '';
     public penguinNonce = -1;
-    public itemsToEquip: Token[] = [];
+    public itemsToEquip: ItemToken[] = [];
     public slotsToUnequip: string[] = [];
 
     setCustomizationContractAddress(address: Address): CustomizePayloadBuilder {
@@ -19,8 +19,8 @@ export default class CustomizePayloadBuilder {
         return this;
     }
 
-    setPenguinIdentifier(identifier: string): CustomizePayloadBuilder {
-        this.penguinIdentifier = identifier;
+    setPenguinCollection(collection: string): CustomizePayloadBuilder {
+        this.penguinCollection = collection;
         return this;
     }
 
@@ -29,7 +29,7 @@ export default class CustomizePayloadBuilder {
         return this;
     }
 
-    setItemsToEquip(items: Token[]): CustomizePayloadBuilder {
+    setItemsToEquip(items: ItemToken[]): CustomizePayloadBuilder {
         this.itemsToEquip = items;
         return this;
     }
@@ -41,7 +41,7 @@ export default class CustomizePayloadBuilder {
 
     build(): TransactionPayload {
         if (!this.customizationContractAddress) throw new Error(ERR_CUSTOMIZATION_SC_ADDRESS_UNSET);
-        if (!this.penguinIdentifier) throw new Error(ERR_PENGUIN_IDENTIFIER_UNSET);
+        if (!this.penguinCollection) throw new Error(ERR_PENGUIN_COLLECTION_UNDEFINED);
         if (this.penguinNonce <= 0) throw new Error(ERR_PENGUIN_NONCE_MUST_BE_POSITIVE);
         if (this.itemsToEquip.length == 0 && this.slotsToUnequip.length == 0) throw new Error(ERR_NO_ITEMS_SET);
 
@@ -61,7 +61,7 @@ export default class CustomizePayloadBuilder {
         const args: TypedValue[] = [
             new AddressValue(this.customizationContractAddress), // receiver
             tokensAmountToSend,
-            BytesValue.fromUTF8(this.penguinIdentifier),
+            BytesValue.fromUTF8(this.penguinCollection),
             new U64Value(new BigNumber(this.penguinNonce)),
             new U64Value(new BigNumber(1)),
             ...itemsToEquipValue,
@@ -77,6 +77,6 @@ export default class CustomizePayloadBuilder {
 }
 
 export const ERR_PENGUIN_NONCE_MUST_BE_POSITIVE = 'Penguin nonce must be positive';
-export const ERR_PENGUIN_IDENTIFIER_UNSET = 'Penguin identifier is not set';
+export const ERR_PENGUIN_COLLECTION_UNDEFINED = 'Penguin collection is not set';
 export const ERR_CUSTOMIZATION_SC_ADDRESS_UNSET = 'Customization contract address is not set';
 export const ERR_NO_ITEMS_SET = 'No items to equip or unequip'

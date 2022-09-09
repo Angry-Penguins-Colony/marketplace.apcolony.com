@@ -1,5 +1,5 @@
 import { Address } from '@elrondnetwork/erdjs/out';
-import CustomizePayloadBuilder, { ERR_PENGUIN_NONCE_MUST_BE_POSITIVE, ERR_PENGUIN_IDENTIFIER_UNSET, ERR_CUSTOMIZATION_SC_ADDRESS_UNSET, ERR_NO_ITEMS_SET } from './CustomizePayloadBuilder';
+import CustomizePayloadBuilder, { ERR_PENGUIN_NONCE_MUST_BE_POSITIVE, ERR_PENGUIN_COLLECTION_UNDEFINED, ERR_CUSTOMIZATION_SC_ADDRESS_UNSET, ERR_NO_ITEMS_SET } from './CustomizePayloadBuilder';
 
 // documentation about customize tx: https://github.com/Angry-Penguins-Colony/sc-customize-nft
 
@@ -8,7 +8,7 @@ const customizationContractAddress = Address.fromBech32('erd1qqqqqqqqqqqqqpgqrc4
 describe('build() works with', () => {
     it('equipping one item', () => {
         const payload = new CustomizePayloadBuilder()
-            .setPenguinIdentifier('APC-a1a1a1')
+            .setPenguinCollection('APC-a1a1a1')
             .setPenguinNonce(10)
             .setCustomizationContractAddress(customizationContractAddress)
             .setItemsToEquip([{ collection: 'WEAPON-b2b2b2', nonce: 16 }])
@@ -31,7 +31,7 @@ describe('build() works with', () => {
 
     it('desequipping one item', () => {
         const payload = new CustomizePayloadBuilder()
-            .setPenguinIdentifier('APC-a1a1a1')
+            .setPenguinCollection('APC-a1a1a1')
             .setPenguinNonce(1)
             .setCustomizationContractAddress(customizationContractAddress)
             .setSlotsToUnequip(['hat'])
@@ -52,7 +52,7 @@ describe('build() works with', () => {
 
     it('equipping an item and desequipping another item', () => {
         const payload = new CustomizePayloadBuilder()
-            .setPenguinIdentifier('APC-a1a1a1')
+            .setPenguinCollection('APC-a1a1a1')
             .setPenguinNonce(10)
             .setCustomizationContractAddress(customizationContractAddress)
             .setItemsToEquip([{ collection: 'WEAPON-b2b2b2', nonce: 10 }])
@@ -81,7 +81,7 @@ describe('build() throw error', () => {
         it('is negative', () => {
             const builder = new CustomizePayloadBuilder()
                 .setCustomizationContractAddress(Address.fromBech32('erd1c0hhz2xcnsdk6630um7k8jrg2k8zvvpwf39e83xsg8mq68rsettqzdhhjq'))
-                .setPenguinIdentifier('APC-a1a1a1')
+                .setPenguinCollection('APC-a1a1a1')
                 .setPenguinNonce(-1);
 
             expect(() => builder.build())
@@ -91,7 +91,7 @@ describe('build() throw error', () => {
         it('is equals to zero', () => {
             const builder = new CustomizePayloadBuilder()
                 .setCustomizationContractAddress(Address.fromBech32('erd1c0hhz2xcnsdk6630um7k8jrg2k8zvvpwf39e83xsg8mq68rsettqzdhhjq'))
-                .setPenguinIdentifier('APC-a1a1a1')
+                .setPenguinCollection('APC-a1a1a1')
                 .setPenguinNonce(0);
 
             expect(() => builder.build())
@@ -101,7 +101,7 @@ describe('build() throw error', () => {
         it('is unset', () => {
             const builder = new CustomizePayloadBuilder()
                 .setCustomizationContractAddress(Address.fromBech32('erd1c0hhz2xcnsdk6630um7k8jrg2k8zvvpwf39e83xsg8mq68rsettqzdhhjq'))
-                .setPenguinIdentifier('APC-a1a1a1')
+                .setPenguinCollection('APC-a1a1a1')
                 .setPenguinNonce(0);
 
             expect(() => builder.build())
@@ -116,14 +116,14 @@ describe('build() throw error', () => {
                 .setPenguinNonce(1);
 
             expect(() => builder.build())
-                .toThrowError(ERR_PENGUIN_IDENTIFIER_UNSET);
+                .toThrowError(ERR_PENGUIN_COLLECTION_UNDEFINED);
         });
     });
 
     describe('when customizationContractAddress', () => {
         it('is unset', () => {
             const builder = new CustomizePayloadBuilder()
-                .setPenguinIdentifier('APC-a1a1a1')
+                .setPenguinCollection('APC-a1a1a1')
                 .setPenguinNonce(1);
 
             expect(() => builder.build())
@@ -136,7 +136,7 @@ describe('build() throw error', () => {
         it('are unset', () => {
             const builder = new CustomizePayloadBuilder()
                 .setCustomizationContractAddress(Address.fromBech32('erd1c0hhz2xcnsdk6630um7k8jrg2k8zvvpwf39e83xsg8mq68rsettqzdhhjq'))
-                .setPenguinIdentifier('APC-a1a1a1')
+                .setPenguinCollection('APC-a1a1a1')
                 .setPenguinNonce(1);
 
             expect(() => builder.build())
@@ -146,7 +146,7 @@ describe('build() throw error', () => {
         it('are empty', () => {
             const builder = new CustomizePayloadBuilder()
                 .setCustomizationContractAddress(Address.fromBech32('erd1c0hhz2xcnsdk6630um7k8jrg2k8zvvpwf39e83xsg8mq68rsettqzdhhjq'))
-                .setPenguinIdentifier('APC-a1a1a1')
+                .setPenguinCollection('APC-a1a1a1')
                 .setPenguinNonce(1)
                 .setItemsToEquip([]);
 

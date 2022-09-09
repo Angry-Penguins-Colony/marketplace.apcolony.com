@@ -4,8 +4,9 @@ import { useParams } from 'react-router-dom';
 import Button from 'components/Button/Button';
 import RefreshIcon from 'components/Icons/RefreshIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import { ipfsGateway } from 'config';
+import { customisationContractAddress, ipfsGateway, penguinCollection } from 'config';
 import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/useGetOwned';
+import CustomizePayloadBuilder, { ItemToken } from 'sdk/transactionsPayload/CustomizePayloadBuilder';
 import style from './customize.module.scss';
 import GoToAnotherPenguin from './GoToAnotherPenguin';
 import PopupFromBottom from './PopupFromBottom';
@@ -53,7 +54,6 @@ const Customize = () => {
         // change inlive if it's desktop version
         if (window.innerWidth > 800) {
             for (const slot in selectedItemsInPopup) {
-                console.log('validate from useEffect');
                 validateItemChangement(slot);
             }
         }
@@ -64,11 +64,6 @@ const Customize = () => {
             setItemsInPopup(ownedItems);
         }
     }, [ownedItems]);
-
-    React.useEffect(() => {
-        console.log('update');
-        console.log('\n');
-    });
 
     function getImageSrcToRender(slot: keyof PenguinItemsIdentifier) {
         const item = getEquippedItemInSlot(slot);
@@ -83,8 +78,6 @@ const Customize = () => {
             return undefined;
         }
     }
-
-    console.log('equipped bg', getEquippedItemInSlot('background'));
 
     return (
         <div id={style['body-content']}>
@@ -167,8 +160,6 @@ const Customize = () => {
     function toggleItemSelection(item: IItem) {
         const isSelected = selectedItemsInPopup[item.slot] === item.identifier;
 
-        console.log(selectedItemsInPopup['background']);
-
         if (isSelected) {
             unselect(item);
         }
@@ -176,12 +167,9 @@ const Customize = () => {
             select(item);
         }
 
-        console.log(`Toggled item ${item.name} From selected=${isSelected} to ${selectedItemsInPopup[item.slot] === item.identifier}`);
     }
 
     function unselect(item: IItem) {
-        console.log(`Unselected ${item.identifier} in ${item.slot}`)
-
         setSelectedItemsInPopup({
             ...selectedItemsInPopup,
             [item.slot]: undefined
@@ -189,17 +177,10 @@ const Customize = () => {
     }
 
     function select(item: IItem) {
-        console.log(`Selected ${item.identifier}`)
-
-        const before = selectedItemsInPopup;
         setSelectedItemsInPopup({
             ...selectedItemsInPopup,
             [item.slot]: item.identifier
         });
-        const after = selectedItemsInPopup;
-
-        console.log('before selection', before);
-        console.log('after  selection', after);
     }
 
     function openItemsPopup(type: string, title: string) {
@@ -229,10 +210,6 @@ const Customize = () => {
 
         const selectedItem = getSelectedItemInSlot(slot);
 
-        if (slot == 'background') {
-            console.log('valide.selectedItem=', selectedItem);
-        }
-
         if (selectedItem != undefined) {
             equipItem(slot, selectedItem);
         } else {
@@ -252,9 +229,49 @@ const Customize = () => {
     }
 
     function saveCustomization() {
-        // TODO: save customization
-        console.log('save customization');
-        // TODO: api call etc
+
+        const itemsToEquip: ItemToken[] = [];
+        const slotsToUnequip: string[] = [];
+
+        for (const slot in equippedItemsIdentifier) {
+            const itemIdentifier = equippedItemsIdentifier[slot];
+            const blockchainCurrentlyEquippedItem = selectedPenguinData?.equippedItems[slot].identifier;
+
+            if (itemIdentifier != blockchainCurrentlyEquippedItem) {
+                if (itemIdentifier == undefined) {
+                    slotsToUnequip.push(slot);
+                }
+                else {
+                    const itemData = getItem(itemIdentifier);
+
+                    if (!itemData) throw new Error(`Item ${itemIdentifier} not found in owned items.`);
+
+                    itemsToEquip.push({
+                        collection: itemData?.identifier,
+                        nonce: itemData?.nonce
+                    });
+                }
+            }
+        }
+        console.log(`Found ${itemsToEquip.length} items to equip and ${slotsToUnequip.length} slots to unequip.`);
+
+        if (itemsToEquip.length > 0 || slotsToUnequip.length > 0) {
+
+            const payload = new CustomizePayloadBuilder()
+                .setCustomizationContractAddress(customisationContractAddress)
+                .setPenguinCollection(penguinCollection)
+                .setPenguinNonce(selectedPenguinNonce)
+                .setItemsToEquip(itemsToEquip)
+                .setSlotsToUnequip(slotsToUnequip)
+                .build();
+
+            // TODO: send tx
+
+
+            // TODO: save customization
+            console.log('save customization');
+            // TODO: api call etc
+        }
     }
 
     function equipItem(slot: string, item: IItem) {
@@ -265,8 +282,6 @@ const Customize = () => {
             ...equippedItemsIdentifier,
             [slot]: item.identifier
         });
-
-        console.log(`Equipping item ${item.name} (${item.slot} | ${item.identifier})`);
     }
 
     function unequipItem(slot: string) {
@@ -276,8 +291,6 @@ const Customize = () => {
             ...equippedItemsIdentifier,
             [slot]: undefined
         });
-
-        console.log(`Unequipping item from slot ${slot}`);
     }
 
     function createItemButton(type: keyof PenguinItemsIdentifier, title: string) {

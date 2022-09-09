@@ -1,19 +1,13 @@
+import { Address } from '@elrondnetwork/erdjs/out';
+
 const useDevnet = process.env.REACT_APP_DEVNET == '1';
 
 if (useDevnet) {
   console.log('Using devnet');
 }
 
-export const contractAddress =
-  'erd1qqqqqqqqqqqqqpgquvt728n40ssd8n2qns9jrlqpwq2jc4rj4cysfuj3ad';
 
 export const dAppName = 'Marketplace';
-export const ifpsGateway = 'https://ipfs.io/ipfs/';
-
-const devnetApi = 'https://apc-marketplace-api-devnet.herokuapp.com/';
-const mainnetApi = 'https://apc-marketplace-api.herokuapp.com/';
-export const marketplaceApi = useDevnet ? devnetApi : mainnetApi;
-
 export const ipfsGateway = 'https://ipfs.io/ipfs/';
 
 export const defaultImages = {
@@ -22,3 +16,21 @@ export const defaultImages = {
   'eyes': ipfsGateway + 'QmaapjJRWBzUvgGfJLdkFtjdBRZCvyPkv7oSM9xxbehDJq',
   'skin': ipfsGateway + 'QmdBbSbwW9Ho7Yk2sKLnV8bbvrwLzJfhLUejQpH7CvGkik',
 };
+
+function getNetworkInfos() {
+  if (useDevnet) {
+    return {
+      api: 'https://apc-marketplace-api-devnet.herokuapp.com/',
+      customisationContractAddress: Address.fromBech32('erd1qqqqqqqqqqqqqpgqfjaamjjx9988rh24t7kr08krctjzm4w5lx4sn0g5rw'),
+      penguinCollection: 'APC-a1a1a1',
+    }
+  }
+  else {
+    const mainnetApi = 'https://apc-marketplace-api.herokuapp.com/';
+    throw new Error('Not implemented');
+  }
+}
+
+export const marketplaceApi = getNetworkInfos().api;
+export const customisationContractAddress = getNetworkInfos().customisationContractAddress;
+export const penguinCollection = getNetworkInfos().penguinCollection;
