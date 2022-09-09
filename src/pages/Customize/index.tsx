@@ -8,21 +8,10 @@ import { ipfsGateway } from 'config';
 import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/useGetOwned';
 import style from './customize.module.scss';
 import GoToAnotherPenguin from './GoToAnotherPenguin';
-import { Item } from './Item';
 import PopupFromBottom from './PopupFromBottom';
 import PenguinRender from './Render';
 
-
-
-interface PenguinItems {
-    background?: IItem;
-    hat?: IItem;
-    eyes?: IItem;
-    clothes?: IItem;
-    beak?: IItem;
-    skin?: IItem;
-    weapon?: IItem;
-}
+type PenguinItems = Record<string, IItem | undefined>;
 
 const Customize = () => {
     const { id } = useParams();
@@ -36,35 +25,19 @@ const Customize = () => {
 
         if (!selectedPenguinData) return;
 
-        const newPenguinsItems: PenguinItems = {};
-
-        // TODO: too much repetitive code, refactor
-        newPenguinsItems.background = selectedPenguinData.equippedItems['background'];
-        newPenguinsItems.hat = selectedPenguinData.equippedItems['hat'];
-        newPenguinsItems.eyes = selectedPenguinData.equippedItems['eyes'];
-        newPenguinsItems.clothes = selectedPenguinData.equippedItems['clothes'];
-        newPenguinsItems.beak = selectedPenguinData.equippedItems['beak'];
-        newPenguinsItems.skin = selectedPenguinData.equippedItems['skin'];
-        newPenguinsItems.weapon = selectedPenguinData.equippedItems['weapon'];
-
-        setPenguinItems(newPenguinsItems);
-
-        console.log('equippedItems', selectedPenguinData.equippedItems);
-        console.log('newPenguinsItems', newPenguinsItems);
-
-        setPenguinItems(newPenguinsItems);
+        setPenguinItems(selectedPenguinData.equippedItems);
+        setSelectedItemsInPopup(selectedPenguinData.equippedItems);
     }, [selectedPenguinData]);
 
 
     /* Choose items popup */
-
     const [itemsPopupIsOpen, setItemsPopupIsOpen] = React.useState<boolean>(false);
     const [itemsPopupTitle, setItemsPopupTitle] = React.useState<string>('All My Items');
     const [itemsPopupType, setItemsPopupType] = React.useState<string>('all');
-    const [itemsInPopup, setItemsInPopup] = React.useState<Item[]>([]);
+    const [itemsInPopup, setItemsInPopup] = React.useState<IItem[]>([]);
+    const [selectedItemsInPopup, setSelectedItemsInPopup] = React.useState<PenguinItems>({});
 
     const ownedItems = useGetOwnedItems();
-
 
     if (!isSelectedNonceOwned() && ownedPenguins && ownedPenguins.length > 0) {
         window.location.href = `/customize/${ownedPenguins[0].nonce}`;
@@ -76,6 +49,20 @@ const Customize = () => {
         }
     }, [ownedItems]);
 
+    function getImageSrcToRender(slot: keyof PenguinItems) {
+        const item = penguinItems[slot];
+
+        if (item != undefined) {
+
+            if (!item.renderCID) throw new Error(`Item for slot ${slot} has no renderCID. ${item}`);
+
+            return ipfsGateway + item.renderCID;
+        }
+        else {
+            return undefined;
+        }
+    }
+
     return (
         <div id={style['body-content']}>
             <MobileHeader title="Customize" subTitle={'Penguin #' + selectedPenguinNonce} className={style['mobile-header']} />
@@ -84,11 +71,10 @@ const Customize = () => {
                 type={itemsPopupType}
                 isOpen={itemsPopupIsOpen}
                 items={itemsInPopup}
-                toggleSelected={toggleSelectedInPopup}
+                selectedItems={selectedItemsInPopup}
+                toggleSelected={toggleSelection}
                 cancel={() => { setItemsPopupIsOpen(false); }}
-                select={(type) => {
-                    validateItemChangement(type);
-                }}
+                select={validateItemChangement}
                 changeType={(type) => {
                     openItemsPopup(type, 'Select ' + type);
                 }}
@@ -102,13 +88,13 @@ const Customize = () => {
                     </div>
                     {/* TODO: REFACTOR: too much repetitive */}
                     <PenguinRender items={{
-                        background: penguinItems.background ? ipfsGateway + penguinItems.background.renderCID : undefined,
-                        hat: penguinItems.hat ? ipfsGateway + penguinItems.hat.renderCID : undefined,
-                        eyes: penguinItems.eyes ? ipfsGateway + penguinItems.eyes.renderCID : undefined,
-                        clothes: penguinItems.clothes ? ipfsGateway + penguinItems.clothes.renderCID : undefined,
-                        beak: penguinItems.beak ? ipfsGateway + penguinItems.beak.renderCID : undefined,
-                        skin: penguinItems.skin ? ipfsGateway + penguinItems.skin.renderCID : undefined,
-                        weapon: penguinItems.weapon ? ipfsGateway + penguinItems.weapon.renderCID : undefined,
+                        background: getImageSrcToRender('background'),
+                        hat: getImageSrcToRender('hat'),
+                        eyes: getImageSrcToRender('eyes'),
+                        clothes: getImageSrcToRender('clothes'),
+                        beak: getImageSrcToRender('beak'),
+                        skin: getImageSrcToRender('skin'),
+                        weapon: getImageSrcToRender('weapon'),
 
                     }} />
                     <div className={style.items}>
@@ -140,42 +126,61 @@ const Customize = () => {
         return ownedPenguins && ownedPenguins.find(p => p.nonce == selectedPenguinNonce);
     }
 
-    // change selected item in popup
-    function toggleSelectedInPopup(itemIndex: number, type: string) {
-        // search item with id and change isSelected
-        const newItems = [...itemsInPopup];
-        const newIsSelected = !newItems[itemIndex].isSelected;
-        if (newIsSelected) {
-            // unselect all other items
-            newItems.forEach((item) => {
-                item.isSelected = false;
-            });
+    function toggleSelection(item: IItem) {
+        console.log(`Toggling item ${item.name} (${item.slot})`);
+
+        const isSelected = selectedItemsInPopup[item.slot] === item;
+
+        if (isSelected) {
+            unselect(item);
         }
-
-        newItems[itemIndex].isSelected = !newItems[itemIndex].isSelected;
-
-        setItemsInPopup(newItems);
+        else {
+            select(item);
+        }
 
         // change inlive if it's desktop version
         if (window.innerWidth > 800) {
-            validateItemChangement(type);
+            validateItemChangement(item.slot);
         }
+    }
+
+    function unselect(item: IItem) {
+        setSelectedItemsInPopup({
+            ...selectedItemsInPopup,
+            [item.slot]: undefined
+        });
+    }
+
+    function select(item: IItem) {
+        setSelectedItemsInPopup({
+            ...selectedItemsInPopup,
+            [item.slot]: item
+        });
     }
 
     function openItemsPopup(type: string, title: string) {
         setItemsPopupType(type);
-        // setItemsInPopup(ownedItems);
+        if (ownedItems) {
+            setItemsInPopup(ownedItems);
+        }
         setItemsPopupTitle(title);
         setItemsPopupIsOpen(true);
     }
 
-    function validateItemChangement(type: string) {
-        const selectedItem = itemsInPopup.find((item) => item.isSelected);
-        if (selectedItem) {
-            addItem(type, ipfsGateway + selectedItem.renderCID);
+    function getSelectItem(slot: string) {
+        return selectedItemsInPopup[slot];
+    }
+
+    function validateItemChangement(slot: string) {
+
+        const selectedItem = getSelectItem(slot);
+
+        if (selectedItem != undefined) {
+            equipItem(slot, selectedItem);
         } else {
-            addItem(type, undefined);
+            unequipItem(slot);
         }
+
         setItemsPopupIsOpen(false);
     }
 
@@ -196,13 +201,23 @@ const Customize = () => {
         // TODO: api call etc
     }
 
-    function addItem(itemType: string, itemSrc: string | undefined) {
-        // add item
+    function equipItem(slot: string, item: IItem) {
         const newItems = {
             ...penguinItems,
-            [itemType]: itemSrc
+            [slot]: item
         };
+
         setPenguinItems(newItems);
+
+        console.log(`Equipping item ${item.name} (${item.slot})`);
+    }
+
+    function unequipItem(slot: string) {
+        const newItems = { ...penguinItems };
+        newItems[slot] = undefined;
+        setPenguinItems(newItems);
+
+        console.log(`Unequipping item from slot ${slot}`);
     }
 
     function createItemButton(type: keyof PenguinItems, title: string) {

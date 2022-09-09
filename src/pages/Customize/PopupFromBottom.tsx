@@ -1,9 +1,9 @@
 import * as React from 'react';
+import { IItem } from '@apcolony/marketplace-api';
 import Button from 'components/Button/Button';
 import RoundedList from 'components/RoundedList/RoundedList';
 import { ipfsGateway } from 'config';
 import defaultPenguinImg from './../../assets/img/penguin_default.png';
-import { Item as ItemObject } from './Item';
 import style from './popup-from-bottom.module.scss';
 
 const PopupFromBottom = (
@@ -12,29 +12,32 @@ const PopupFromBottom = (
         type,
         items,
         isOpen = false,
-        toggleSelected = function (index: number, type: string) {
+        selectedItems,
+        toggleSelected = function () {
             // do nothing
         },
         cancel = function () {
             // do nothing
         },
-        select = function (type: string) {
+        select = function () {
             // do nothing
         },
-        changeType = function (type: string) {
+        changeType = function () {
             // do nothing
         }
     }: {
         title: string;
         type: string;
-        items: ItemObject[];
+        items: IItem[],
+        selectedItems: Record<string, IItem | undefined>,
         isOpen?: boolean;
-        toggleSelected?: (index: number, type: string) => void;
+        toggleSelected?: (item: IItem) => void;
         cancel?: () => void;
         select?: (type: string) => void;
         changeType?: (type: string) => void;
     }
 ) => {
+
     return (
         <div id={style['popup-from-bottom']} className={(isOpen ? style['is-open'] : style['is-close'])}>
             <div className={style.content}>
@@ -64,19 +67,30 @@ const PopupFromBottom = (
                 />
                 <div className={style.items}>
                     <div className={style.content}>
-                        {items.map((item, index) => (
-                            <Item
-                                count={item.amount}
-                                name={item.name}
-                                renderImageSrc={ipfsGateway + item.renderCID}
-                                key={item.identifier}
-                                isSelected={item.isSelected}
-                                isVisible={type == 'all' || item.slot == type}
-                                toggleSelected={() => {
-                                    toggleSelected(index, item.slot);
-                                }}
-                            />
-                        ))}
+                        {items.map((item) => {
+
+                            // if (item.name == 'Yellow') {
+                            //     console.log('item', item.identifier);
+                            //     console.log('selected', selectedItems[item.slot]?.identifier);
+                            //     console.log('\n');
+                            // }
+
+                            const isSelected = selectedItems[item.slot]?.identifier == item.identifier;
+
+                            return (
+                                <SelectableItem
+                                    count={item.amount}
+                                    name={item.name}
+                                    renderImageSrc={ipfsGateway + item.renderCID}
+                                    key={item.identifier}
+                                    isSelected={isSelected}
+                                    isVisible={type == 'all' || item.slot == type}
+                                    toggleSelected={() => {
+                                        toggleSelected(item);
+                                    }}
+                                />
+                            )
+                        })}
                     </div>
                 </div>
                 <div className={style.controls}>
@@ -102,7 +116,7 @@ const PopupFromBottom = (
 
 export default PopupFromBottom;
 
-const Item = (
+const SelectableItem = (
     {
         count,
         name,
@@ -135,6 +149,6 @@ const Item = (
 };
 
 
-function getAmountOfItems(items: ItemObject[], slot: string): number {
+function getAmountOfItems(items: IItem[], slot: string): number {
     return items.reduce((acc, item) => (item.slot === slot ? acc + 1 : acc), 0);
 }
