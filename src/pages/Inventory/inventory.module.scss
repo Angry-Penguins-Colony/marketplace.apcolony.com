@@ -176,6 +176,33 @@
         background: transparent;
         height: auto;
 
+
+        padding-top: 158px;
+        top: unset;
+        /* background-image: url('./../../assets/img/Bg_invetory_mobile_APC.png'); */
+        // background-size: 100%;
+        // background-repeat: no-repeat;
+        min-height: 100vh;
+        grid-template-rows: auto auto auto 1fr;
+        grid-template-areas:
+            "header edit-background"
+            "filter-items nav-type"
+            "filter-items inventory"
+            ". inventory";
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 226px;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-image: url('./../../assets/img/Bg_invetory_mobile_APC.png');
+            background-size: 100%;
+            background-repeat: no-repeat;
+            z-index: -1;
+        }
+
         > header {
             grid-area: header;
             background-color: white;
