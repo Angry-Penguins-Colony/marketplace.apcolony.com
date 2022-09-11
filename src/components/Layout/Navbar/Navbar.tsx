@@ -89,7 +89,9 @@ const Navbar = () => {
       <div id={style['desktop-header']}>
         <header>
           <div className={style.left}>
-            <img src="/img/logo/logo.png" alt="Logo Angry Penguins" />
+            <img src="/img/logo/logo.png" alt="Logo Angry Penguins" onClick={function () {
+              window.location.href = '/';
+            }} />
             <nav>
               {/* TODO: bind nav link */}
               {
