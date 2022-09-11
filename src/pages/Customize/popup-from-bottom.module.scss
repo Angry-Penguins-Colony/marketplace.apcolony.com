@@ -1,4 +1,5 @@
 @import './../../assets/sass/var.scss';
+@import './../../assets/sass/theme.scss';
 
 #popup-from-bottom {
     position: fixed;
@@ -48,6 +49,8 @@
             left: 0;
             right: 0;
             overflow-y: auto;
+
+            @extend .custom-scrollbar;
 
             .content {
                 display: flex;
