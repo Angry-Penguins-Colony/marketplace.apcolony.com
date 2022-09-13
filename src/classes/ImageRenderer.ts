@@ -45,7 +45,7 @@ export default class ImageRenderer {
 
         function log(msg: string, isProgress: boolean) {
             if (options && options?.verbose == true) {
-                if (isProgress && process.stdout && process.stdout.cursorTo && process.stdout.write) {
+                if (isProgress && process.stdout && typeof process.stdout.cursorTo === 'function' && typeof process.stdout.write === 'function') {
                     process.stdout.cursorTo(0);
                     process.stdout.write(msg);
                 }
