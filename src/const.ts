@@ -1,6 +1,6 @@
 import { IPenguin, IItem, IEgg } from '@apcolony/marketplace-api/out';
 import { Address } from '@elrondnetwork/erdjs/out';
-import { devnetToolDeploy } from './deployToolResult';
+import { devnetToolDeploy } from './devnet.tool-result';
 import { getNetworkType } from './env';
 
 function getNetworkInfos() {
