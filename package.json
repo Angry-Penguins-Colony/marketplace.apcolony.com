@@ -12,6 +12,7 @@
     "get:queue": "ts-node scripts/getToBuildQueue.ts",
     "update:renderer": "npm i git+ssh://git@github.com:Angry-Penguins-Colony/package-renderer.git",
     "update:renderer:local": "npm i ../../packages/package-renderer",
+    "log:remote": "heroku logs -a apc-devnet-push-render --tail",
     "test": "jest",
     "test:watch": "jest --watch"
   },
