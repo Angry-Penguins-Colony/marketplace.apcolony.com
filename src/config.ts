@@ -3,9 +3,11 @@ import { IConfig } from "./interfaces/IConfig";
 import BigNumber from "bignumber.js";
 import { devnetToolDeploy } from "./devnet.tool-result";
 
+if (!process.env.ELROND_GATEWAY) throw new Error("ELROND_GATEWAY is not set");
+
 const config: IConfig = {
     msBetweenUpdate: 500,
-    gatewayUrl: "https://devnet-gateway.elrond.com",
+    gatewayUrl: process.env.ELROND_GATEWAY,
     customisationContract: Address.fromBech32(devnetToolDeploy.customizationContractAddress.bech32),
     claimThreshold: new BigNumber("1e18"), // 1 EGLD
 };
