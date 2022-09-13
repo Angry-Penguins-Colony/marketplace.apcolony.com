@@ -1,4 +1,5 @@
 import { Address } from '@elrondnetwork/erdjs/out';
+import { devnetToolDeploy } from 'devnet.tool-result';
 
 const useDevnet = process.env.REACT_APP_DEVNET == '1';
 
@@ -21,12 +22,11 @@ function getNetworkInfos() {
   if (useDevnet) {
     return {
       api: 'https://apc-marketplace-api-devnet.herokuapp.com/',
-      customisationContractAddress: Address.fromBech32('erd1qqqqqqqqqqqqqpgqfjaamjjx9988rh24t7kr08krctjzm4w5lx4sn0g5rw'),
-      penguinCollection: 'APC-a1a1a1',
+      customisationContractAddress: Address.fromBech32(devnetToolDeploy.customizationContractAddress.bech32),
+      penguinCollection: devnetToolDeploy.penguinsIdentifier,
     }
   }
   else {
-    const mainnetApi = 'https://apc-marketplace-api.herokuapp.com/';
     throw new Error('Not implemented');
   }
 }

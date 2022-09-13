@@ -1,12 +1,18 @@
 import * as React from 'react';
 import { IItem } from '@apcolony/marketplace-api';
+import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import { sendTransactions } from '@elrondnetwork/dapp-core/services';
+import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
+import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
+import { Address, Transaction } from '@elrondnetwork/erdjs';
 import { useParams } from 'react-router-dom';
 import Button from 'components/Button/Button';
 import RefreshIcon from 'components/Icons/RefreshIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { customisationContractAddress, ipfsGateway, penguinCollection } from 'config';
 import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/useGetOwned';
-import CustomizePayloadBuilder, { ItemToken } from 'sdk/transactionsPayload/CustomizePayloadBuilder';
+import calculateCustomizeGasFees from 'sdk/transactionsBuilders/customize/calculateCustomizeGasFees';
+import CustomizePayloadBuilder, { ItemToken } from 'sdk/transactionsBuilders/customize/CustomizePayloadBuilder';
 import style from './customize.module.scss';
 import GoToAnotherPenguin from './GoToAnotherPenguin';
 import PopupFromBottom from './PopupFromBottom';
@@ -19,6 +25,8 @@ const Customize = () => {
     const selectedPenguinNonce = parseInt(id ?? '');
     const ownedPenguins = useGetOwnedPenguins();
     const selectedPenguinData = ownedPenguins?.find((penguin) => penguin.nonce === selectedPenguinNonce);
+    const { address: connectedAddress } = useGetAccountInfo();
+    const [, setTransactionSessionId] = React.useState<string | null>(null);
 
     const [equippedItemsIdentifier, setEquippedItemsIdentifier] = React.useState<PenguinItemsIdentifier>({});
 
@@ -228,14 +236,14 @@ const Customize = () => {
         }
     }
 
-    function saveCustomization() {
+    async function saveCustomization() {
 
         const itemsToEquip: ItemToken[] = [];
         const slotsToUnequip: string[] = [];
 
         for (const slot in equippedItemsIdentifier) {
             const itemIdentifier = equippedItemsIdentifier[slot];
-            const blockchainCurrentlyEquippedItem = selectedPenguinData?.equippedItems[slot].identifier;
+            const blockchainCurrentlyEquippedItem = selectedPenguinData?.equippedItems[slot]?.identifier;
 
             if (itemIdentifier != blockchainCurrentlyEquippedItem) {
                 if (itemIdentifier == undefined) {
@@ -257,6 +265,29 @@ const Customize = () => {
 
         if (itemsToEquip.length > 0 || slotsToUnequip.length > 0) {
 
+            const transaction = buildCustomizeTransaction();
+            await sendCustomizeTransaction(transaction);
+        }
+
+        async function sendCustomizeTransaction(transaction: Transaction | SimpleTransactionType) {
+            await refreshAccount();
+
+            const { sessionId } = await sendTransactions({
+                transactions: transaction,
+                transactionDisplayInfo: {
+                    processingMessage: 'Processing customization transaction',
+                    errorMessage: 'An error has occured during customization',
+                    successMessage: 'Customization transaction successful'
+                },
+                redirectAfterSign: false
+            });
+
+            if (sessionId != null) {
+                setTransactionSessionId(sessionId);
+            }
+        }
+
+        function buildCustomizeTransaction() {
             const payload = new CustomizePayloadBuilder()
                 .setCustomizationContractAddress(customisationContractAddress)
                 .setPenguinCollection(penguinCollection)
@@ -265,12 +296,13 @@ const Customize = () => {
                 .setSlotsToUnequip(slotsToUnequip)
                 .build();
 
-            // TODO: send tx
-
-
-            // TODO: save customization
-            console.log('save customization');
-            // TODO: api call etc
+            const transaction: SimpleTransactionType = {
+                value: '0',
+                data: payload.toString(),
+                receiver: connectedAddress,
+                gasLimit: calculateCustomizeGasFees()
+            };
+            return transaction;
         }
     }
 
