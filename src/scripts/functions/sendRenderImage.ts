@@ -1,9 +1,9 @@
 import RenderAttributes from "@apc/renderer/dist/classes/RenderAttributes";
 import { UserSigner } from "@elrondnetwork/erdjs-walletcore/out";
 import { Address, SmartContract, StringValue, TransactionPayload } from "@elrondnetwork/erdjs/out";
-import WriteGateway from "../../src/classes/WriteGateway";
-import config from "../../src/config";
-import { envVariables } from "../../src/utils";
+import WriteGateway from "../../classes/WriteGateway";
+import config from "../../config";
+import { envVariables } from "../../utils";
 import "dotenv/config";
 import Bottleneck from "bottleneck";
 
