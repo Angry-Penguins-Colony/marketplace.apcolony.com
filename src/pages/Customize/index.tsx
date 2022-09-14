@@ -21,6 +21,7 @@ import PenguinRender from './Render';
 
 type PenguinItemsIdentifier = Record<string, string | undefined>;
 
+// TODO: this component is too big, split it
 const Customize = () => {
 
 
