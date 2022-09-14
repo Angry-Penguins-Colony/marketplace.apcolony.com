@@ -29,9 +29,6 @@ export default async function getAttributes(req: Request, res: Response, network
         res.status(501).send("Not implemented yet");
     }
 
-    // TODO: getCidOf from SC
-    // => render
-
     // TODO: if doesn't work, get pending tx of SC w/ setCidOf in it
     // => rendering
 
