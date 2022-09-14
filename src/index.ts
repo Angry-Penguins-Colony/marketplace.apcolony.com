@@ -19,8 +19,15 @@ main();
 
 async function main() {
 
+    const minTime = requestsPerMinutesToMinTime(officialGatewayMaxRPS);
+
+    console.log("Starting server-push-render");
+    console.log("\t- Customisation contract: ", config.customisationContract.bech32());
+    console.log(`\t- Waiting ${minTime}ms between checks`);
+    console.log("\n");
+
     const gatewayLimiter = new Bottleneck({
-        minTime: requestsPerMinutesToMinTime(officialGatewayMaxRPS)
+        minTime: minTime
     });
 
     const readGateway = new ReadGateway(config.gatewayUrl, config.customisationContract, gatewayLimiter);
@@ -68,7 +75,7 @@ async function main() {
             }
         }
 
-        await sleep(config.msBetweenUpdate)
+        await sleep(requestsPerMinutesToMinTime(officialGatewayMaxRPS) + 10)
     }
 }
 
