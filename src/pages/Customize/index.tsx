@@ -11,14 +11,16 @@ import RefreshIcon from 'components/Icons/RefreshIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { customisationContractAddress, ipfsGateway, penguinCollection } from 'config';
 import useCustomization from 'sdk/hooks/useCustomization';
+import useItemsSelection from 'sdk/hooks/useItemsSelection';
 import calculateCustomizeGasFees from 'sdk/transactionsBuilders/customize/calculateCustomizeGasFees';
 import CustomizePayloadBuilder, { ItemToken } from 'sdk/transactionsBuilders/customize/CustomizePayloadBuilder';
+import { PenguinItemsIdentifier } from 'sdk/types/PenguinItemsIdentifier';
 import style from './customize.module.scss';
 import GoToAnotherPenguin from './GoToAnotherPenguin';
 import PopupFromBottom from './PopupFromBottom';
 import PenguinRender from './Render';
 
-type PenguinItemsIdentifier = Record<string, string | undefined>;
+
 
 // TODO: this component is too big, split it
 const Customize = () => {
@@ -40,6 +42,12 @@ const Customize = () => {
         selectedPenguin
     } = useCustomization(selectedPenguinNonce);
 
+    const {
+        toggle,
+        setSelectedItemsInPopup,
+        selectedItemsInPopup
+    } = useItemsSelection();
+
     React.useEffect(() => {
         setSelectedItemsInPopup(equippedItemsIdentifier);
     }, [equippedItemsIdentifier])
@@ -49,7 +57,7 @@ const Customize = () => {
     const [itemsPopupTitle, setItemsPopupTitle] = React.useState<string>('All My Items');
     const [itemsPopupType, setItemsPopupType] = React.useState<string>('all');
     const [itemsInPopup, setItemsInPopup] = React.useState<IItem[]>([]);
-    const [selectedItemsInPopup, setSelectedItemsInPopup] = React.useState<PenguinItemsIdentifier>({});
+
 
     if (!isSelectedNonceOwned() && ownedPenguins && ownedPenguins.length > 0) {
         window.location.href = `/customize/${ownedPenguins[0].nonce}`;
@@ -148,36 +156,11 @@ const Customize = () => {
     }
 
     function onItemClick(item: IItem) {
-        toggleItemSelection(item);
+        toggle(item);
 
         setItemsPopupIsOpen(false);
     }
 
-    function toggleItemSelection(item: IItem) {
-        const isSelected = selectedItemsInPopup[item.slot] === item.identifier;
-
-        if (isSelected) {
-            unselect(item);
-        }
-        else {
-            select(item);
-        }
-
-    }
-
-    function unselect(item: IItem) {
-        setSelectedItemsInPopup({
-            ...selectedItemsInPopup,
-            [item.slot]: undefined
-        });
-    }
-
-    function select(item: IItem) {
-        setSelectedItemsInPopup({
-            ...selectedItemsInPopup,
-            [item.slot]: item.identifier
-        });
-    }
 
     function openItemsPopup(type: string, title: string) {
         setItemsPopupType(type);

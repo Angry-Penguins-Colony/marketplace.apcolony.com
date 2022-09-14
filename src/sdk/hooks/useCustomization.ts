@@ -1,9 +1,8 @@
 import React from 'react';
 import { Attributes, IItem } from '@apcolony/marketplace-api';
+import { PenguinItemsIdentifier } from 'sdk/types/PenguinItemsIdentifier';
 import useGetAttributesStatus from './useGetAttributesStatus';
 import { useGetOwnedItems, useGetOwnedPenguins } from './useGetOwned';
-
-type PenguinItemsIdentifier = Record<string, string | undefined>;
 
 function useCustomization(selectedPenguinNonce: number) {
 

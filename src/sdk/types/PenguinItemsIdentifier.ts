@@ -1,0 +1,1 @@
+export type PenguinItemsIdentifier = Record<string, string | undefined>;
