@@ -26,11 +26,11 @@ const Customize = () => {
         resetItems,
         equipItem,
         unequipItem,
+        getCustomizeTransaction,
         equippedItemsIdentifier,
         attributesStatus,
         ownedItems,
         ownedPenguins,
-        getCustomizeTransaction
     } = useCustomization(selectedPenguinNonce);
 
     const {

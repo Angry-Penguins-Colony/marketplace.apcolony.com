@@ -57,12 +57,12 @@ function useCustomization(selectedPenguinNonce: number) {
         resetItems,
         equipItem,
         unequipItem,
+        getCustomizeTransaction,
         equippedItemsIdentifier,
         attributesStatus,
         ownedItems,
         ownedPenguins,
         selectedPenguin,
-        getCustomizeTransaction
     }
 
     function resetItems() {
