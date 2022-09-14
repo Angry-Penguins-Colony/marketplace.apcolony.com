@@ -147,17 +147,10 @@ const Customize = () => {
         return ownedPenguins && ownedPenguins.find(p => p.nonce == selectedPenguinNonce);
     }
 
-
-
     function onItemClick(item: IItem) {
-
         toggleItemSelection(item);
 
         setItemsPopupIsOpen(false);
-
-        // PROBLEM: on vient toggle la selection de l'item
-        // mais le state ne s'update pas; donc validateItemChangement fait une vérification sur l'ancienne state
-
     }
 
     function toggleItemSelection(item: IItem) {
@@ -237,7 +230,7 @@ const Customize = () => {
                 return;
 
             case 'rendered':
-                saveCustomization();
+                sendCustomizationTx();
                 return;
 
             case 'rendering':
@@ -249,54 +242,42 @@ const Customize = () => {
         throw new Error('Not implemented');
     }
 
-    async function saveCustomization() {
-        const itemsToEquip: ItemToken[] = [];
-        const slotsToUnequip: string[] = [];
+    async function sendCustomizationTx() {
+        const { itemsToEquip, slotsToUnequip } = convertStateToArguments();
 
-        for (const slot in equippedItemsIdentifier) {
-            const itemIdentifier = equippedItemsIdentifier[slot];
-            const blockchainCurrentlyEquippedItem = selectedPenguin?.equippedItems[slot]?.identifier;
-
-            if (itemIdentifier != blockchainCurrentlyEquippedItem) {
-                if (itemIdentifier == undefined) {
-                    slotsToUnequip.push(slot);
-                }
-                else {
-                    const itemData = getItem(itemIdentifier);
-
-                    if (!itemData) throw new Error(`Item ${itemIdentifier} not found in owned items.`);
-
-                    itemsToEquip.push({
-                        collection: itemData?.identifier,
-                        nonce: itemData?.nonce
-                    });
-                }
-            }
-        }
         console.log(`Found ${itemsToEquip.length} items to equip and ${slotsToUnequip.length} slots to unequip.`);
 
         if (itemsToEquip.length > 0 || slotsToUnequip.length > 0) {
-
             const transaction = buildCustomizeTransaction();
             await sendCustomizeTransaction(transaction);
         }
 
-        async function sendCustomizeTransaction(transaction: Transaction | SimpleTransactionType) {
-            await refreshAccount();
+        function convertStateToArguments() {
+            const itemsToEquip: ItemToken[] = [];
+            const slotsToUnequip: string[] = [];
 
-            const { sessionId } = await sendTransactions({
-                transactions: transaction,
-                transactionDisplayInfo: {
-                    processingMessage: 'Processing customization transaction',
-                    errorMessage: 'An error has occured during customization',
-                    successMessage: 'Customization transaction successful'
-                },
-                redirectAfterSign: false
-            });
+            for (const slot in equippedItemsIdentifier) {
+                const itemIdentifier = equippedItemsIdentifier[slot];
+                const blockchainCurrentlyEquippedItem = selectedPenguin?.equippedItems[slot]?.identifier;
 
-            if (sessionId != null) {
-                setTransactionSessionId(sessionId);
+                if (itemIdentifier != blockchainCurrentlyEquippedItem) {
+                    if (itemIdentifier == undefined) {
+                        slotsToUnequip.push(slot);
+                    }
+                    else {
+                        const itemData = getItem(itemIdentifier);
+
+                        if (!itemData)
+                            throw new Error(`Item ${itemIdentifier} not found in owned items.`);
+
+                        itemsToEquip.push({
+                            collection: itemData?.identifier,
+                            nonce: itemData?.nonce
+                        });
+                    }
+                }
             }
+            return { itemsToEquip, slotsToUnequip };
         }
 
         function buildCustomizeTransaction() {
@@ -315,6 +296,24 @@ const Customize = () => {
                 gasLimit: calculateCustomizeGasFees()
             };
             return transaction;
+        }
+
+        async function sendCustomizeTransaction(transaction: Transaction | SimpleTransactionType) {
+            await refreshAccount();
+
+            const { sessionId } = await sendTransactions({
+                transactions: transaction,
+                transactionDisplayInfo: {
+                    processingMessage: 'Processing customization transaction',
+                    errorMessage: 'An error has occured during customization',
+                    successMessage: 'Customization transaction successful'
+                },
+                redirectAfterSign: false
+            });
+
+            if (sessionId != null) {
+                setTransactionSessionId(sessionId);
+            }
         }
     }
 
