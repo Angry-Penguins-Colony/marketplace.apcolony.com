@@ -60,8 +60,6 @@ function useCustomization(selectedPenguinNonce: number) {
         getCustomizeTransaction,
         equippedItemsIdentifier,
         attributesStatus,
-        ownedItems,
-        ownedPenguins,
         selectedPenguin,
     }
 

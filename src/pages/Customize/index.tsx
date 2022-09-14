@@ -8,6 +8,7 @@ import RefreshIcon from 'components/Icons/RefreshIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { ipfsGateway } from 'config';
 import useCustomization from 'sdk/hooks/useCustomization';
+import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/useGetOwned';
 import useItemsSelection from 'sdk/hooks/useItemsSelection';
 import { PenguinItemsIdentifier } from 'sdk/types/PenguinItemsIdentifier';
 import style from './customize.module.scss';
@@ -20,6 +21,8 @@ const Customize = () => {
     const { id } = useParams();
     const selectedPenguinNonce = parseInt(id ?? '');
 
+    const ownedItems = useGetOwnedItems();
+    const ownedPenguins = useGetOwnedPenguins();
     const [, setTransactionSessionId] = React.useState<string | null>(null);
 
     const {
@@ -29,8 +32,6 @@ const Customize = () => {
         getCustomizeTransaction,
         equippedItemsIdentifier,
         attributesStatus,
-        ownedItems,
-        ownedPenguins,
     } = useCustomization(selectedPenguinNonce);
 
     const {
