@@ -10,7 +10,7 @@ export default class RenderConfig {
     readonly ipfsGateway: string;
     readonly renderMIMEType: ImageMIMEType;
     readonly itemsCID: { [key: string]: { [key: string]: string; }; };
-    readonly ipfsCacheFolder: string;
+    readonly ipfsCachePath: string;
 
     readonly layersOrder: string[];
     readonly defaultLayers?: { [key: string]: string; };
@@ -41,7 +41,7 @@ export default class RenderConfig {
         this.layersOrder = config.layersOrder ?? Object.keys(config.itemsCID);
         this.itemsCID = config.itemsCID;
         this.defaultLayers = config.defaultLayers ?? undefined;
-        this.ipfsCacheFolder = config.ipfsCacheFolder ?? "ipfs_cache";
+        this.ipfsCachePath = process.env.RENDERER_IPFS_CACHE_PATH ?? "./ipfs_cache";
         this.plugins = plugins;
 
         for (const plugin of this.plugins) {
@@ -110,7 +110,7 @@ export default class RenderConfig {
     }
 
     private toPath(slot: string, filename: string) {
-        return `./${this.ipfsCacheFolder}/${this.getCid(slot, filename)}.png`;
+        return `${this.ipfsCachePath}/${this.getCid(slot, filename)}.png`;
     }
 }
 

@@ -6,7 +6,6 @@ export default interface IRenderConfigOptions {
     layersOrder?: string[];
     ipfsGateway?: string;
 
-    ipfsCacheFolder?: string;
     renderMIMEType?: ImageMIMEType;
     defaultLayers?: { [key: string]: string };
 }

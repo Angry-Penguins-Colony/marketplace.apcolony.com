@@ -21,7 +21,7 @@ export default class ImageRenderer {
     ) {
         this._config = config;
         this._mimeType = config.renderMIMEType;
-        this._ipfsCache = new IPFSCache(config.ipfsGateway, config.ipfsCacheFolder);
+        this._ipfsCache = new IPFSCache(config.ipfsGateway, config.ipfsCachePath);
     }
 
     public async downloadImages(options?: { verbose: boolean }): Promise<void> {
