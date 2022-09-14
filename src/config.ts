@@ -2,6 +2,7 @@ import { Address } from "@elrondnetwork/erdjs/out";
 import { IConfig } from "./interfaces/IConfig";
 import BigNumber from "bignumber.js";
 import { devnetToolDeploy } from "./devnet.tool-result";
+import "dotenv/config";
 
 if (!process.env.ELROND_GATEWAY) throw new Error("ELROND_GATEWAY is not set");
 
