@@ -159,7 +159,7 @@ const Customize = () => {
                 </div>
                 <div className={style.controls}>
                     <Button type='cancel' onClick={cancelAll}>Cancel All</Button>
-                    <Button type='primary' onClick={saveCustomization}>Confirm Customization</Button>
+                    <Button type='primary' onClick={onConfirmCustomClick}>Confirm Customization</Button>
                 </div>
             </section >
             {ownedPenguins &&
@@ -260,6 +260,25 @@ const Customize = () => {
         if (confirm('Are you sure you want to cancel all changes?')) {
             window.location.href = '/inventory';
         }
+    }
+
+    async function onConfirmCustomClick() {
+
+        if (!attributesStatus) return;
+
+        switch (attributesStatus?.renderStatus) {
+            case 'none':
+                sendRenderImageTx();
+                return;
+
+            case 'rendered':
+            case 'rendering':
+                throw new Error('Not implemented');
+        }
+    }
+
+    async function sendRenderImageTx() {
+        throw new Error('Not implemented');
     }
 
     async function saveCustomization() {
