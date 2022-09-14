@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Attributes from "@apcolony/marketplace-api/out/classes"
+import { Attributes } from "@apcolony/marketplace-api/out/classes"
 import { APCProxyNetworkProvider } from '../../classes/APCProxyNetworkProvider';
 import { sendSuccessfulJSON } from '../../utils/response';
 import { IAttributesStatus } from '@apcolony/marketplace-api';
