@@ -31,7 +31,7 @@ function start(id: number) {
     app.get('/:bech32/penguins', (req, res) => getPenguins(req, res, proxyNetwork));
     app.get('/:bech32/eggs', getEggs);
     app.get('/:bech32/items', (req, res) => getItems(req, res, gateway));
-    app.get('/attributes', getAttributes)
+    app.get('/attributes', (req, res) => getAttributes(req, res, proxyNetwork));
 
     app.get('/placeholder/:bech32/penguins', (req, res) => getPlaceholdersPenguins(res));
     app.get('/placeholder/:bech32/eggs', (req, res) => getPlaceholdersEggs(res));

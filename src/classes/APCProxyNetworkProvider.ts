@@ -1,5 +1,7 @@
-import { IAddress, IItem, IPenguin } from "@apcolony/marketplace-api";
+import { IAddress, IAttributesStatus, IItem, IPenguin } from "@apcolony/marketplace-api";
+import Attributes from "@apcolony/marketplace-api/out/classes";
 import { NonFungibleTokenOfAccountOnNetwork, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
+import { ArgSerializer, BytesValue } from "@elrondnetwork/erdjs/out";
 import { items, customisationContract } from "../const";
 import { extractCIDFromIPFS, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 
@@ -48,6 +50,21 @@ export class APCProxyNetworkProvider extends ProxyNetworkProvider {
             });
 
         return tokens;
+    }
+
+    public async getCidOf(attributes: Attributes): Promise<string | undefined> {
+
+        const res = await this.queryContract({
+            address: customisationContract,
+            func: "getCidOf",
+            getEncodedArguments() {
+                return new ArgSerializer().valuesToStrings([
+                    BytesValue.fromUTF8(attributes.toEndpointArgument())
+                ]);
+            },
+        });
+
+        return Buffer.from(res.returnData[0], "base64").toString();
     }
 
 

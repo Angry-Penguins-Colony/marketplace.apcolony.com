@@ -1,7 +1,10 @@
 import { Request, Response } from 'express';
 import Attributes from "@apcolony/marketplace-api/out/classes"
+import { APCProxyNetworkProvider } from '../../classes/APCProxyNetworkProvider';
+import { sendSuccessfulJSON } from '../../utils/response';
+import { IAttributesStatus } from '@apcolony/marketplace-api';
 
-export default async function getAttributes(req: Request, res: Response) {
+export default async function getAttributes(req: Request, res: Response, networkProvider: APCProxyNetworkProvider) {
 
     const attributes = new Attributes();
 
@@ -13,7 +16,18 @@ export default async function getAttributes(req: Request, res: Response) {
         }
     }
 
-    console.log(attributes);
+    const cid = await networkProvider.getCidOf(attributes);
+
+    if (cid) {
+        const output: IAttributesStatus = {
+            renderStatus: "rendered",
+            cid: cid
+        };
+        sendSuccessfulJSON(res, output)
+    }
+    else {
+        res.status(501).send("Not implemented yet");
+    }
 
     // TODO: getCidOf from SC
     // => render
@@ -27,5 +41,5 @@ export default async function getAttributes(req: Request, res: Response) {
     // TODO: else
     // => none
 
-    res.status(501).send("Not implemented yet");
+
 }
