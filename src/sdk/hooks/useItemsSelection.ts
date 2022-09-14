@@ -29,7 +29,6 @@ function useItemsSelection() {
         else {
             select(item);
         }
-
     }
 
     return {

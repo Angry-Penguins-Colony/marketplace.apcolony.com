@@ -1,34 +1,25 @@
 import * as React from 'react';
 import { IItem } from '@apcolony/marketplace-api';
-import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
-import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
-import { Transaction } from '@elrondnetwork/erdjs';
 import { useParams } from 'react-router-dom';
 import Button from 'components/Button/Button';
 import RefreshIcon from 'components/Icons/RefreshIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import { customisationContractAddress, ipfsGateway, penguinCollection } from 'config';
+import { ipfsGateway } from 'config';
 import useCustomization from 'sdk/hooks/useCustomization';
 import useItemsSelection from 'sdk/hooks/useItemsSelection';
-import calculateCustomizeGasFees from 'sdk/transactionsBuilders/customize/calculateCustomizeGasFees';
-import CustomizePayloadBuilder, { ItemToken } from 'sdk/transactionsBuilders/customize/CustomizePayloadBuilder';
 import { PenguinItemsIdentifier } from 'sdk/types/PenguinItemsIdentifier';
 import style from './customize.module.scss';
 import GoToAnotherPenguin from './GoToAnotherPenguin';
 import PopupFromBottom from './PopupFromBottom';
 import PenguinRender from './Render';
 
-
-
-// TODO: this component is too big, split it
 const Customize = () => {
 
     const { id } = useParams();
     const selectedPenguinNonce = parseInt(id ?? '');
 
-    const { address: connectedAddress } = useGetAccountInfo();
     const [, setTransactionSessionId] = React.useState<string | null>(null);
 
     const {
@@ -39,7 +30,7 @@ const Customize = () => {
         attributesStatus,
         ownedItems,
         ownedPenguins,
-        selectedPenguin
+        getCustomizeTransaction
     } = useCustomization(selectedPenguinNonce);
 
     const {
@@ -58,11 +49,6 @@ const Customize = () => {
     const [itemsPopupType, setItemsPopupType] = React.useState<string>('all');
     const [itemsInPopup, setItemsInPopup] = React.useState<IItem[]>([]);
 
-
-    if (!isSelectedNonceOwned() && ownedPenguins && ownedPenguins.length > 0) {
-        window.location.href = `/customize/${ownedPenguins[0].nonce}`;
-    }
-
     React.useEffect(() => {
         // change inlive if it's desktop version
         if (window.innerWidth > 800) {
@@ -78,18 +64,8 @@ const Customize = () => {
         }
     }, [ownedItems]);
 
-    function getImageSrcToRender(slot: keyof PenguinItemsIdentifier) {
-        const item = getEquippedItemInSlot(slot);
-
-        if (item != undefined) {
-
-            if (!item.renderCID) throw new Error(`Item ${item.name} in slot ${slot} has no renderCID.`);
-
-            return ipfsGateway + item.renderCID;
-        }
-        else {
-            return undefined;
-        }
+    if (!isSelectedNonceOwned() && ownedPenguins && ownedPenguins.length > 0) {
+        window.location.href = `/customize/${ownedPenguins[0].nonce}`;
     }
 
     return (
@@ -161,7 +137,6 @@ const Customize = () => {
         setItemsPopupIsOpen(false);
     }
 
-
     function openItemsPopup(type: string, title: string) {
         setItemsPopupType(type);
         if (ownedItems) {
@@ -172,17 +147,11 @@ const Customize = () => {
     }
 
     function getSelectedItemInSlot(slot: string) {
-        const identifier = selectedItemsInPopup[slot];
-
-        if (!identifier) return undefined;
-
-        return getItem(identifier);
+        return getItem(selectedItemsInPopup[slot]);
     }
 
     function getEquippedItemInSlot(slot: string) {
-        const identifier = equippedItemsIdentifier[slot];
-
-        return identifier ? getItem(identifier) : undefined;
+        return getItem(equippedItemsIdentifier[slot]);
     }
 
     function validateItemChangement(slot: string) {
@@ -226,81 +195,27 @@ const Customize = () => {
     }
 
     async function sendCustomizationTx() {
-        const { itemsToEquip, slotsToUnequip } = convertStateToArguments();
+        const transaction = getCustomizeTransaction();
+        await refreshAccount();
 
-        console.log(`Found ${itemsToEquip.length} items to equip and ${slotsToUnequip.length} slots to unequip.`);
+        const { sessionId } = await sendTransactions({
+            transactions: transaction,
+            transactionDisplayInfo: {
+                processingMessage: 'Processing customization transaction',
+                errorMessage: 'An error has occured during customization',
+                successMessage: 'Customization transaction successful'
+            },
+            redirectAfterSign: false
+        });
 
-        if (itemsToEquip.length > 0 || slotsToUnequip.length > 0) {
-            const transaction = buildCustomizeTransaction();
-            await sendCustomizeTransaction(transaction);
-        }
-
-        function convertStateToArguments() {
-            const itemsToEquip: ItemToken[] = [];
-            const slotsToUnequip: string[] = [];
-
-            for (const slot in equippedItemsIdentifier) {
-                const itemIdentifier = equippedItemsIdentifier[slot];
-                const blockchainCurrentlyEquippedItem = selectedPenguin?.equippedItems[slot]?.identifier;
-
-                if (itemIdentifier != blockchainCurrentlyEquippedItem) {
-                    if (itemIdentifier == undefined) {
-                        slotsToUnequip.push(slot);
-                    }
-                    else {
-                        const itemData = getItem(itemIdentifier);
-
-                        if (!itemData)
-                            throw new Error(`Item ${itemIdentifier} not found in owned items.`);
-
-                        itemsToEquip.push({
-                            collection: itemData?.identifier,
-                            nonce: itemData?.nonce
-                        });
-                    }
-                }
-            }
-            return { itemsToEquip, slotsToUnequip };
-        }
-
-        function buildCustomizeTransaction() {
-            const payload = new CustomizePayloadBuilder()
-                .setCustomizationContractAddress(customisationContractAddress)
-                .setPenguinCollection(penguinCollection)
-                .setPenguinNonce(selectedPenguinNonce)
-                .setItemsToEquip(itemsToEquip)
-                .setSlotsToUnequip(slotsToUnequip)
-                .build();
-
-            const transaction: SimpleTransactionType = {
-                value: '0',
-                data: payload.toString(),
-                receiver: connectedAddress,
-                gasLimit: calculateCustomizeGasFees()
-            };
-            return transaction;
-        }
-
-        async function sendCustomizeTransaction(transaction: Transaction | SimpleTransactionType) {
-            await refreshAccount();
-
-            const { sessionId } = await sendTransactions({
-                transactions: transaction,
-                transactionDisplayInfo: {
-                    processingMessage: 'Processing customization transaction',
-                    errorMessage: 'An error has occured during customization',
-                    successMessage: 'Customization transaction successful'
-                },
-                redirectAfterSign: false
-            });
-
-            if (sessionId != null) {
-                setTransactionSessionId(sessionId);
-            }
+        if (sessionId != null) {
+            setTransactionSessionId(sessionId);
         }
     }
 
-    function getItem(identifier: string) {
+    function getItem(identifier: string | undefined) {
+        if (!identifier) return undefined;
+
         return ownedItems?.find(item => item.identifier === identifier);
     }
 
@@ -323,6 +238,19 @@ const Customize = () => {
         </div >
     }
 
+    function getImageSrcToRender(slot: keyof PenguinItemsIdentifier) {
+        const item = getEquippedItemInSlot(slot);
+
+        if (item != undefined) {
+
+            if (!item.renderCID) throw new Error(`Item ${item.name} in slot ${slot} has no renderCID.`);
+
+            return ipfsGateway + item.renderCID;
+        }
+        else {
+            return undefined;
+        }
+    }
 };
 
 export default Customize;
