@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IItem } from '@apcolony/marketplace-api';
+import { Attributes, IItem, RenderStatus } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
@@ -10,6 +10,7 @@ import Button from 'components/Button/Button';
 import RefreshIcon from 'components/Icons/RefreshIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { customisationContractAddress, ipfsGateway, penguinCollection } from 'config';
+import useGetAttributesStatus from 'sdk/hooks/useGetAttributesStatus';
 import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/useGetOwned';
 import calculateCustomizeGasFees from 'sdk/transactionsBuilders/customize/calculateCustomizeGasFees';
 import CustomizePayloadBuilder, { ItemToken } from 'sdk/transactionsBuilders/customize/CustomizePayloadBuilder';
@@ -21,12 +22,19 @@ import PenguinRender from './Render';
 type PenguinItemsIdentifier = Record<string, string | undefined>;
 
 const Customize = () => {
+
+
     const { id } = useParams();
+
     const selectedPenguinNonce = parseInt(id ?? '');
     const ownedPenguins = useGetOwnedPenguins();
     const selectedPenguinData = ownedPenguins?.find((penguin) => penguin.nonce === selectedPenguinNonce);
     const { address: connectedAddress } = useGetAccountInfo();
     const [, setTransactionSessionId] = React.useState<string | null>(null);
+    const [attributes, setAttributes] = React.useState<Attributes | undefined>(undefined);
+    const attributesStatus = useGetAttributesStatus(attributes);
+
+    console.log('attributesStatus', attributesStatus);
 
     const [equippedItemsIdentifier, setEquippedItemsIdentifier] = React.useState<PenguinItemsIdentifier>({});
 
@@ -42,7 +50,25 @@ const Customize = () => {
 
         setEquippedItemsIdentifier(equippedItemsIdentifierFromFetchedData);
         setSelectedItemsInPopup(equippedItemsIdentifierFromFetchedData);
+
     }, [selectedPenguinData]);
+
+    React.useEffect(() => {
+
+        const _attributes = new Attributes();
+
+        for (const slot in equippedItemsIdentifier) {
+            const identifier = equippedItemsIdentifier[slot];
+            if (identifier) {
+                const item = getItem(identifier);
+                if (item) {
+                    _attributes.set(slot, item.name);
+                }
+            }
+        }
+
+        setAttributes(_attributes);
+    }, [equippedItemsIdentifier]);
 
 
     /* Choose items popup */
