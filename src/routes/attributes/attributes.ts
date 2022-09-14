@@ -6,6 +6,39 @@ import { IAttributesStatus } from '@apcolony/marketplace-api';
 
 export default async function getAttributes(req: Request, res: Response, networkProvider: APCProxyNetworkProvider) {
 
+    const attributes = parseAttributes(req);
+
+    const cid = await networkProvider.getCidOf(attributes);
+
+    if (cid) {
+        sendResponse(res, {
+            renderStatus: "rendered",
+            cid
+        })
+    }
+    else {
+        const imagesToRender = await networkProvider.getAttributesToRender();
+        console.log(imagesToRender);
+
+        if (imagesToRender.find(a => a.equals(attributes)) != undefined) {
+            sendResponse(res, {
+                renderStatus: "rendering",
+            })
+        }
+        else {
+            sendResponse(res, {
+                renderStatus: "none",
+            })
+        }
+    }
+
+}
+
+function sendResponse(res: Response, data: IAttributesStatus) {
+    sendSuccessfulJSON(res, data);
+}
+
+function parseAttributes(req: Request): Attributes {
     const attributes = new Attributes();
 
     for (const slot in req.query) {
@@ -15,28 +48,5 @@ export default async function getAttributes(req: Request, res: Response, network
             attributes.set(slot, item);
         }
     }
-
-    const cid = await networkProvider.getCidOf(attributes);
-
-    if (cid) {
-        const output: IAttributesStatus = {
-            renderStatus: "rendered",
-            cid: cid
-        };
-        sendSuccessfulJSON(res, output)
-    }
-    else {
-        res.status(501).send("Not implemented yet");
-    }
-
-    // TODO: if doesn't work, get pending tx of SC w/ setCidOf in it
-    // => rendering
-
-    // TODO: if nothing, get pending tx list of SC
-    // => rendering
-
-    // TODO: else
-    // => none
-
-
+    return attributes;
 }

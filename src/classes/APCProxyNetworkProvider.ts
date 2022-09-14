@@ -67,6 +67,19 @@ export class APCProxyNetworkProvider extends ProxyNetworkProvider {
         return Buffer.from(res.returnData[0], "base64").toString();
     }
 
+    public async getAttributesToRender(): Promise<Attributes[]> {
+        const res = await this.queryContract({
+            address: customisationContract,
+            func: "getImagesToRender",
+            getEncodedArguments() {
+                return []
+            }
+        });
+
+        return res.returnData
+            .map((b64: string) => Attributes.fromEndpointArgument(Buffer.from(b64, "base64").toString()));
+    }
+
 
     async getPenguinFromNft(nft: NonFungibleTokenOfAccountOnNetwork): Promise<IPenguin> {
 
