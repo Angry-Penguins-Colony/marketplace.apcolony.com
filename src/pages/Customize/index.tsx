@@ -1,17 +1,16 @@
 import * as React from 'react';
-import { Attributes, IItem, RenderStatus } from '@apcolony/marketplace-api';
+import { IItem } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
-import { Address, Transaction } from '@elrondnetwork/erdjs';
+import { Transaction } from '@elrondnetwork/erdjs';
 import { useParams } from 'react-router-dom';
 import Button from 'components/Button/Button';
 import RefreshIcon from 'components/Icons/RefreshIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { customisationContractAddress, ipfsGateway, penguinCollection } from 'config';
-import useGetAttributesStatus from 'sdk/hooks/useGetAttributesStatus';
-import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/useGetOwned';
+import useCustomization from 'sdk/hooks/useCustomization';
 import calculateCustomizeGasFees from 'sdk/transactionsBuilders/customize/calculateCustomizeGasFees';
 import CustomizePayloadBuilder, { ItemToken } from 'sdk/transactionsBuilders/customize/CustomizePayloadBuilder';
 import style from './customize.module.scss';
@@ -24,53 +23,26 @@ type PenguinItemsIdentifier = Record<string, string | undefined>;
 // TODO: this component is too big, split it
 const Customize = () => {
 
-
     const { id } = useParams();
-
     const selectedPenguinNonce = parseInt(id ?? '');
-    const ownedPenguins = useGetOwnedPenguins();
-    const selectedPenguinData = ownedPenguins?.find((penguin) => penguin.nonce === selectedPenguinNonce);
+
     const { address: connectedAddress } = useGetAccountInfo();
     const [, setTransactionSessionId] = React.useState<string | null>(null);
-    const [attributes, setAttributes] = React.useState<Attributes | undefined>(undefined);
-    const attributesStatus = useGetAttributesStatus(attributes);
 
-    console.log('attributesStatus', attributesStatus);
-
-    const [equippedItemsIdentifier, setEquippedItemsIdentifier] = React.useState<PenguinItemsIdentifier>({});
-
-    React.useEffect(() => {
-
-        if (!selectedPenguinData) return;
-
-        const equippedItemsIdentifierFromFetchedData = Object.values(selectedPenguinData.equippedItems)
-            .reduce((acc, item) => {
-                acc[item.slot] = item.identifier;
-                return acc;
-            }, {} as PenguinItemsIdentifier);
-
-        setEquippedItemsIdentifier(equippedItemsIdentifierFromFetchedData);
-        setSelectedItemsInPopup(equippedItemsIdentifierFromFetchedData);
-
-    }, [selectedPenguinData]);
+    const {
+        resetItems,
+        equipItem,
+        unequipItem,
+        equippedItemsIdentifier,
+        attributesStatus,
+        ownedItems,
+        ownedPenguins,
+        selectedPenguin
+    } = useCustomization(selectedPenguinNonce);
 
     React.useEffect(() => {
-
-        const _attributes = new Attributes();
-
-        for (const slot in equippedItemsIdentifier) {
-            const identifier = equippedItemsIdentifier[slot];
-            if (identifier) {
-                const item = getItem(identifier);
-                if (item) {
-                    _attributes.set(slot, item.name);
-                }
-            }
-        }
-
-        setAttributes(_attributes);
-    }, [equippedItemsIdentifier]);
-
+        setSelectedItemsInPopup(equippedItemsIdentifier);
+    }, [equippedItemsIdentifier])
 
     /* Choose items popup */
     const [itemsPopupIsOpen, setItemsPopupIsOpen] = React.useState<boolean>(false);
@@ -78,8 +50,6 @@ const Customize = () => {
     const [itemsPopupType, setItemsPopupType] = React.useState<string>('all');
     const [itemsInPopup, setItemsInPopup] = React.useState<IItem[]>([]);
     const [selectedItemsInPopup, setSelectedItemsInPopup] = React.useState<PenguinItemsIdentifier>({});
-
-    const ownedItems = useGetOwnedItems();
 
     if (!isSelectedNonceOwned() && ownedPenguins && ownedPenguins.length > 0) {
         window.location.href = `/customize/${ownedPenguins[0].nonce}`;
@@ -177,9 +147,7 @@ const Customize = () => {
         return ownedPenguins && ownedPenguins.find(p => p.nonce == selectedPenguinNonce);
     }
 
-    function getItem(identifier: string) {
-        return ownedItems?.find(item => item.identifier === identifier);
-    }
+
 
     function onItemClick(item: IItem) {
 
@@ -252,10 +220,6 @@ const Customize = () => {
         }
     }
 
-    function resetItems() {
-        setEquippedItemsIdentifier({});
-    }
-
     function cancelAll() {
         // go to inventory with confirmation
         if (confirm('Are you sure you want to cancel all changes?')) {
@@ -273,6 +237,9 @@ const Customize = () => {
                 return;
 
             case 'rendered':
+                saveCustomization();
+                return;
+
             case 'rendering':
                 throw new Error('Not implemented');
         }
@@ -283,13 +250,12 @@ const Customize = () => {
     }
 
     async function saveCustomization() {
-
         const itemsToEquip: ItemToken[] = [];
         const slotsToUnequip: string[] = [];
 
         for (const slot in equippedItemsIdentifier) {
             const itemIdentifier = equippedItemsIdentifier[slot];
-            const blockchainCurrentlyEquippedItem = selectedPenguinData?.equippedItems[slot]?.identifier;
+            const blockchainCurrentlyEquippedItem = selectedPenguin?.equippedItems[slot]?.identifier;
 
             if (itemIdentifier != blockchainCurrentlyEquippedItem) {
                 if (itemIdentifier == undefined) {
@@ -352,23 +318,8 @@ const Customize = () => {
         }
     }
 
-    function equipItem(slot: string, item: IItem) {
-
-        if (equippedItemsIdentifier[slot] == item.identifier) return;
-
-        setEquippedItemsIdentifier({
-            ...equippedItemsIdentifier,
-            [slot]: item.identifier
-        });
-    }
-
-    function unequipItem(slot: string) {
-        if (equippedItemsIdentifier[slot] == undefined) return;
-
-        setEquippedItemsIdentifier({
-            ...equippedItemsIdentifier,
-            [slot]: undefined
-        });
+    function getItem(identifier: string) {
+        return ownedItems?.find(item => item.identifier === identifier);
     }
 
     function createItemButton(type: keyof PenguinItemsIdentifier, title: string) {
