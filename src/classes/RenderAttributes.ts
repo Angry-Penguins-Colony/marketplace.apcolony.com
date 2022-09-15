@@ -124,7 +124,7 @@ export default class RenderAttributes {
 
         return Array.from(this._itemsBySlot.entries())
             .filter(([slot]) => !this.doEquipDefaultItem(slot))
-            .map(entry => capitalize(entry[0]) + ":" + capitalize(entry[1].replace("-", " ")))
+            .map(([slot, item]) => capitalize(slot) + ":" + capitalize(item.replace("-", " ")))
             .join(";");
     }
 

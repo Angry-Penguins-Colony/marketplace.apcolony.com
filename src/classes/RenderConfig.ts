@@ -4,6 +4,7 @@ import IPlugin from '../interfaces/IPlugin';
 import IRenderConfigOptions from '../interfaces/IRenderConfigOptions';
 import RenderAttributes from './RenderAttributes';
 import { sortImages } from '../utils/utils';
+import { devnetToolDeploy } from '../devnet.tool-result';
 
 export default class RenderConfig {
 
@@ -101,16 +102,33 @@ export default class RenderConfig {
 
         const paths: [string, string][] = [];
 
-        renderAttributes.getItemsBySlot().forEach(([slot, item]) => {
-            paths.push([slot, this.toPath(slot, item)]);
+        renderAttributes.getItemsBySlot().forEach(([slot, itemName]) => {
+
+            // We setup itemsCID with unique ID as key instead of names
+            //      (e.g. "1" instead of "eyes-beak-pixel")
+            // But so, we need a link between names and ID. 
+
+            // TODO: REFACTOR: We are tight coupled to our own output "devnetToolDeploy" here. 
+            //  If we (I hope) open our code, that's really bad for others people who would use our code.
+            // 
+            // The best way should be that the blockchain owns the link between names and ID, 
+            // but the way the attributes are, we can't for the moment.
+            // 
+            // What could be done is to push a .json containing metadata (with server-push-render), 
+            // and set the NFT attributes with a struct containing everything we need (instead of the string that is parsed inside the TopEncode method)
+            const databaseId = devnetToolDeploy.items.find(item => item.name == itemName)?.id;
+
+            if (!databaseId) throw new Error(`Missing id for ${itemName}`);
+
+            paths.push([slot, this.toPath(slot, databaseId)]);
         });
 
         return sortImages(paths, renderAttributes.layersOrder)
             .map(kvp => kvp[1]);
     }
 
-    private toPath(slot: string, filename: string) {
-        return `${this.ipfsCachePath}/${this.getCid(slot, filename)}.png`;
+    private toPath(slot: string, itemName: string) {
+        return `${this.ipfsCachePath}/${this.getCid(slot, itemName)}.png`;
     }
 }
 
