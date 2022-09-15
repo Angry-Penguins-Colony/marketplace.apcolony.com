@@ -33,6 +33,7 @@ const Customize = () => {
         equipItem,
         unequipItem,
         getCustomizeTransaction,
+        getRenderTransaction,
         equippedItemsIdentifier,
         attributesStatus,
     } = useCustomization(selectedPenguinNonce);
@@ -189,7 +190,24 @@ const Customize = () => {
     }
 
     async function sendRenderImageTx() {
-        throw new Error('Not implemented');
+
+        const transaction = getRenderTransaction();
+
+        await refreshAccount();
+
+        const { sessionId } = await sendTransactions({
+            transactions: transaction,
+            transactionDisplayInfo: {
+                processingMessage: 'Processing render transaction',
+                errorMessage: 'An error has occured during render',
+                successMessage: 'Render transaction successful'
+            },
+            redirectAfterSign: false
+        });
+
+        if (sessionId != null) {
+            setTransactionSessionId(sessionId);
+        }
     }
 
     async function sendCustomizationTx() {

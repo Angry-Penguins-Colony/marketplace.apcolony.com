@@ -2,9 +2,12 @@ import React from 'react';
 import { Attributes, IItem } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
+import BigNumber from 'bignumber.js';
 import { customisationContractAddress, penguinCollection } from 'config';
 import calculateCustomizeGasFees from 'sdk/transactionsBuilders/customize/calculateCustomizeGasFees';
 import CustomizePayloadBuilder, { ItemToken } from 'sdk/transactionsBuilders/customize/CustomizePayloadBuilder';
+import calculeRenderGasFees from 'sdk/transactionsBuilders/render/calculateRenderGasFees';
+import { RenderPayloadBuilder } from 'sdk/transactionsBuilders/render/RenderPayloadBuilder';
 import { PenguinItemsIdentifier } from 'sdk/types/PenguinItemsIdentifier';
 import useGetAttributesStatus from './useGetAttributesStatus';
 import { useGetOwnedItems, useGetOwnedPenguins } from './useGetOwned';
@@ -12,32 +15,16 @@ import { useGetOwnedItems, useGetOwnedPenguins } from './useGetOwned';
 function useCustomization(selectedPenguinNonce: number) {
 
     const [equippedItemsIdentifier, setEquippedItemsIdentifier] = React.useState<PenguinItemsIdentifier>({});
-    const [attributes, setAttributes] = React.useState<Attributes | undefined>(undefined);
 
     const { address: connectedAddress } = useGetAccountInfo();
 
     const ownedItems = useGetOwnedItems();
     const ownedPenguins = useGetOwnedPenguins();
-    const attributesStatus = useGetAttributesStatus(attributes);
+
+    const equippedItems = React.useMemo(() => parseAttributes(equippedItemsIdentifier), [equippedItemsIdentifier]);
+    const attributesStatus = useGetAttributesStatus(equippedItems);
 
     const selectedPenguin = ownedPenguins?.find((penguin) => penguin.nonce === selectedPenguinNonce);
-
-    React.useEffect(() => {
-
-        const _attributes = new Attributes();
-
-        for (const slot in equippedItemsIdentifier) {
-            const identifier = equippedItemsIdentifier[slot];
-            if (identifier) {
-                const item = getItem(identifier);
-                if (item) {
-                    _attributes.set(slot, item.name);
-                }
-            }
-        }
-
-        setAttributes(_attributes);
-    }, [equippedItemsIdentifier]);
 
     React.useEffect(() => {
 
@@ -58,9 +45,28 @@ function useCustomization(selectedPenguinNonce: number) {
         equipItem,
         unequipItem,
         getCustomizeTransaction,
+        getRenderTransaction,
         equippedItemsIdentifier,
         attributesStatus,
         selectedPenguin,
+    }
+
+    function parseAttributes(itemsIdentifiers: PenguinItemsIdentifier) {
+
+        if (ownedItems === undefined) return;
+
+        const _attributes = new Attributes();
+
+        for (const slot in itemsIdentifiers) {
+            const identifier = itemsIdentifiers[slot];
+            if (identifier) {
+                const item = getItem(identifier);
+                if (item) {
+                    _attributes.set(slot, item.name);
+                }
+            }
+        }
+        return _attributes;
     }
 
     function resetItems() {
@@ -90,6 +96,25 @@ function useCustomization(selectedPenguinNonce: number) {
         return ownedItems?.find(item => item.identifier === identifier);
     }
 
+
+    function getRenderTransaction(): SimpleTransactionType {
+
+        if (!equippedItems) throw new Error('Attributes are required');
+
+        const payload = new RenderPayloadBuilder()
+            .setAttributes(equippedItems)
+            .build();
+
+        const transaction: SimpleTransactionType = {
+            value: new BigNumber('0.001e18').toString(), // 0.001 EGLD
+            data: payload.toString(),
+            receiver: customisationContractAddress.bech32(),
+            gasLimit: calculeRenderGasFees(payload)
+        };
+
+        return transaction;
+    }
+
     function getCustomizeTransaction(): SimpleTransactionType {
         const itemsToEquip: ItemToken[] = [];
         const slotsToUnequip: string[] = [];
@@ -115,7 +140,6 @@ function useCustomization(selectedPenguinNonce: number) {
                 }
             }
         }
-
 
         const payload = new CustomizePayloadBuilder()
             .setCustomizationContractAddress(customisationContractAddress)
