@@ -46,7 +46,7 @@ const Customize = () => {
     } = useItemsSelection();
 
 
-    const editingEnabled = (attributesStatus && attributesStatus.renderStatus == 'none') || !attributesStatus;
+    const editingEnabled = attributesStatus?.renderStatus != 'rendering';
 
     React.useEffect(() => {
         setSelectedItemsInPopup(equippedItemsIdentifier);
@@ -131,7 +131,13 @@ const Customize = () => {
                         </div>
                         <div className={style.controls}>
                             <Button type='cancel' onClick={cancelAll}>Cancel All</Button>
-                            <Button type='primary' onClick={onConfirmCustomClick}>Confirm Customization</Button>
+                            <Button type='primary' onClick={onConfirmCustomClick}>
+                                {
+                                    attributesStatus?.renderStatus == 'none' ?
+                                        'Render Image on blockchain' :
+                                        'Confirm Customization'
+                                }
+                            </Button>
                         </div>
                     </>
                 }
