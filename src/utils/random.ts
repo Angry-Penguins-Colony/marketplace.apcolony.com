@@ -1,5 +1,3 @@
-import RenderAttributes from "../classes/RenderAttributes";
-
 type ItemsCID = {
     [key: string]: {
         [key: string]: string;
@@ -8,19 +6,20 @@ type ItemsCID = {
 
 export function getRandomAttributes(
     itemsCID: ItemsCID,
-    layersOrder: string[],
-    defaultLayers?: { [key: string]: string }
-): RenderAttributes {
-
+    notIncludedIds?: string[]
+): Map<string, string> {
     const itemsBySlot = new Map<string, string>();
     const slots = getRandomSlots(itemsCID);
 
     for (const slot of slots) {
-        const item = getRandomItem(slot, itemsCID);
-        itemsBySlot.set(slot, item);
+        const item = getRandomItem(slot, itemsCID, notIncludedIds);
+
+        if (item) {
+            itemsBySlot.set(slot, item);
+        }
     }
 
-    return new RenderAttributes(itemsBySlot, layersOrder, defaultLayers);
+    return itemsBySlot;
 }
 
 export function getRandomSlots(itemsCID: ItemsCID): string[] {
@@ -42,8 +41,12 @@ export function getRandomSlots(itemsCID: ItemsCID): string[] {
     return randomSlots;
 }
 
-export function getRandomItem(slot: string, itemsCID: ItemsCID): string {
-    const items = Object.keys(itemsCID[slot]);
+export function getRandomItem(slot: string, itemsCID: ItemsCID, notIncludedIds?: string[]) {
+    const items = Object.keys(itemsCID[slot])
+        .filter((item) => !notIncludedIds || !notIncludedIds.includes(item));
+
+    if (items.length == 0) return undefined;
+
     const randomIndex = Math.floor(Math.random() * items.length);
 
     return items[randomIndex];

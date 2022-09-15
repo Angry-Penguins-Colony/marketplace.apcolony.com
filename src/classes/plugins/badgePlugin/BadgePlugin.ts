@@ -79,7 +79,7 @@ export default class BadgePlugin implements IPlugin {
 
         if (deleteBadge == undefined) return renderAttributes;
 
-        const itemsBySlots = renderAttributes.itemsBySlot;
+        const itemsBySlots = renderAttributes.idsBySlot;
 
         // iter itemsBySlot
         for (const [slot] of itemsBySlots) {

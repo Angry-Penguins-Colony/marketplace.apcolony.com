@@ -1,3 +1,4 @@
+import { devnetToolDeploy } from "../devnet.tool-result";
 import { capitalize, getOccurences } from "../utils/utils";
 
 export const ERR_BAD_FORMAT = "Bad format. Cannot parse render attributes";
@@ -12,13 +13,13 @@ export default class RenderAttributes {
     private readonly _layersOrder: string[];
     private readonly _defaultLayers: { [key: string]: string; } | undefined;
 
-    private readonly _itemsBySlot: Map<string, string>;
+    private readonly _idsBySlot: Map<string, string>;
 
     /**
-     * Return a copy of itemsBySlot. Modify it will not modify the defaultLayers of the RenderAttributes.
+     * Return a copy of idsBySlot. Modify it will not modify the defaultLayers of the RenderAttributes.
      */
-    public get itemsBySlot(): Map<string, string> {
-        return new Map<string, string>(this._itemsBySlot);
+    public get idsBySlot(): Map<string, string> {
+        return new Map<string, string>(this._idsBySlot);
     }
 
     /**
@@ -36,7 +37,7 @@ export default class RenderAttributes {
     }
 
     constructor(
-        itemsBySlot: Iterable<readonly [string, string]>,
+        idsBySlot: Iterable<readonly [string, string]>,
         layersOrder: string[],
         defaultLayers?: { [key: string]: string; }
     ) {
@@ -44,17 +45,20 @@ export default class RenderAttributes {
         this._layersOrder = layersOrder;
         this._defaultLayers = defaultLayers;
 
-        this._itemsBySlot = new Map<string, string>(itemsBySlot);
-        this.addDefaultValues(this._itemsBySlot);
+        this._idsBySlot = new Map<string, string>(idsBySlot);
+        this.addDefaultValues(this._idsBySlot);
 
+        for (const [slot, id] of this._idsBySlot) {
+            if (id == undefined) throw new Error("Item set is undefined at slot: " + slot);
+        }
     }
 
-    public getItemsBySlot(): [string, string][] {
-        return Array.from(this._itemsBySlot.entries());
+    public getIdsBySlot(): [string, string][] {
+        return Array.from(this._idsBySlot.entries());
     }
 
     public getItem(slot: string): string {
-        const item = this._itemsBySlot.get(slot);
+        const item = this._idsBySlot.get(slot);
 
         if (!item) throw new Error("Missing item for slot: " + slot);
 
@@ -62,7 +66,7 @@ export default class RenderAttributes {
     }
 
     public hasSlot(slot: string): boolean {
-        return this._itemsBySlot.has(slot);
+        return this._idsBySlot.has(slot);
     }
 
     public doEquipDefaultItem(slot: string): boolean {
@@ -70,21 +74,21 @@ export default class RenderAttributes {
         if (!this._defaultLayers) return false;
 
         const defaultItem = this._defaultLayers[slot];
-        const currentItem = this._itemsBySlot.get(slot);
+        const currentItem = this._idsBySlot.get(slot);
 
         return defaultItem == currentItem;
     }
 
-    private addDefaultValues(itemsBySlot: Map<string, string>) {
+    private addDefaultValues(idsBySlot: Map<string, string>) {
 
         for (const slot in this._defaultLayers) {
 
-            if (itemsBySlot.has(slot)) continue;
+            if (idsBySlot.has(slot)) continue;
 
             const defaultImage = this._defaultLayers[slot];
 
             if (defaultImage != undefined) {
-                itemsBySlot.set(slot, defaultImage);
+                idsBySlot.set(slot, defaultImage);
             }
         }
     }
@@ -100,7 +104,7 @@ export default class RenderAttributes {
 
         if (getOccurences(attributes, ":") != (getOccurences(attributes, ";") + 1)) throw new Error(ERR_BAD_FORMAT);
 
-        const itemsBySlot = new Map<string, string>();
+        const idBySlot = new Map<string, string>();
 
         const entries = attributes.split(";");
 
@@ -111,25 +115,47 @@ export default class RenderAttributes {
             if (!itemName) throw new Error(ERR_EMPTY_SLOT_VALUE);
 
             slot = slot.toLowerCase().trim();
-            itemName = itemName.trim();
+            itemName = itemName.trim()
 
-            itemsBySlot.set(slot.toLowerCase(), itemName);
+            // We setup itemsCID with unique ID as key instead of names
+            //      (e.g. "1" instead of "eyes-beak-pixel")
+            // But so, we need a link between names and ID. 
+
+            // TODO: REFACTOR: We are tight coupled to our own output "devnetToolDeploy" here. 
+            //  If we (I hope) open our code, that's really bad for others people who would use our code.
+            // 
+            // The best way should be that the blockchain owns the link between names and ID, 
+            // but the way the attributes are, we can't for the moment.
+            // 
+            // What could be done is to push a .json containing metadata (with server-push-render), 
+            // and set the NFT attributes with a struct containing everything we need (instead of the string that is parsed inside the TopEncode method)
+
+            const databaseId = devnetToolDeploy.items.find(i => i.name == itemName)?.id;
+            if (!databaseId) throw new Error(`Missing id for ${itemName}`);
+
+            idBySlot.set(slot.toLowerCase(), databaseId);
         }
 
-        return new RenderAttributes(itemsBySlot, layersOrder, defaultLayers);
+        return new RenderAttributes(idBySlot, layersOrder, defaultLayers);
     }
 
 
     public toAttributes() {
 
-        return Array.from(this._itemsBySlot.entries())
+        return Array.from(this._idsBySlot.entries())
             .filter(([slot]) => !this.doEquipDefaultItem(slot))
-            .map(([slot, itemName]) => capitalize(slot) + ":" + capitalize(itemName))
+            .map(([slot, id]) => {
+
+                const itemName = devnetToolDeploy.items.find(i => i.id == id)?.name;
+                if (!itemName) throw new Error(`Missing name for id : "${id}"`);
+
+                return capitalize(slot) + ":" + itemName
+            })
             .join(";");
     }
 
     public toFilename() {
-        return Array.from(this._itemsBySlot.entries())
+        return Array.from(this._idsBySlot.entries())
             .map(entry => entry[0] + "_" + entry[1])
             .join("+");
     }
