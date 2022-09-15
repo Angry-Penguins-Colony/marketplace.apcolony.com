@@ -121,13 +121,17 @@ const Customize = () => {
                         {createItemButton('background', 'Background')}
                     </div>
                 </div>
-                <div className={style.reset}>
-                    <Button icon={<RefreshIcon />} onClick={resetItems}>Reset Items</Button>
-                </div>
-                <div className={style.controls}>
-                    <Button type='cancel' onClick={cancelAll}>Cancel All</Button>
-                    <Button type='primary' onClick={onConfirmCustomClick}>Confirm Customization</Button>
-                </div>
+                {editingEnabled &&
+                    <>
+                        <div className={style.reset}>
+                            <Button icon={<RefreshIcon />} onClick={resetItems}>Reset Items</Button>
+                        </div>
+                        <div className={style.controls}>
+                            <Button type='cancel' onClick={cancelAll}>Cancel All</Button>
+                            <Button type='primary' onClick={onConfirmCustomClick}>Confirm Customization</Button>
+                        </div>
+                    </>
+                }
             </section >
             {ownedPenguins &&
                 <GoToAnotherPenguin className={style['another-penguins']}
