@@ -45,7 +45,8 @@ const Customize = () => {
         selectedItemsInPopup
     } = useItemsSelection();
 
-    const editingEnabled = attributesStatus?.renderStatus == 'none';
+
+    const editingEnabled = (attributesStatus && attributesStatus.renderStatus == 'none') || !attributesStatus;
 
     React.useEffect(() => {
         setSelectedItemsInPopup(equippedItemsIdentifier);
@@ -112,7 +113,9 @@ const Customize = () => {
                         weapon: getImageSrcToRender('weapon'),
 
                     }}>
-                        <OverlayRenderInProgress />
+                        {attributesStatus?.renderStatus == 'rendering' &&
+                            <OverlayRenderInProgress />
+                        }
                     </PenguinRender>
                     <div className={style.items}>
                         {createItemButton('beak', 'Beak')}
@@ -121,7 +124,7 @@ const Customize = () => {
                         {createItemButton('background', 'Background')}
                     </div>
                 </div>
-                {editingEnabled &&
+                {attributesStatus?.renderStatus != 'rendering' &&
                     <>
                         <div className={style.reset}>
                             <Button icon={<RefreshIcon />} onClick={resetItems}>Reset Items</Button>
