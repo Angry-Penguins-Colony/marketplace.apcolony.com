@@ -117,6 +117,8 @@ export default class RenderAttributes {
             slot = slot.toLowerCase().trim();
             itemName = itemName.trim()
 
+            if (itemName == "unequipped") continue;
+
             // We setup itemsCID with unique ID as key instead of names
             //      (e.g. "1" instead of "eyes-beak-pixel")
             // But so, we need a link between names and ID. 
