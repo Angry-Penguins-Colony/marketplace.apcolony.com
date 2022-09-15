@@ -1,12 +1,17 @@
 import { IItem } from '@apcolony/marketplace-api';
 import { NonFungibleTokenOfAccountOnNetwork } from '@elrondnetwork/erdjs-network-providers/out';
-import { itemsCollection } from '../const';
+import { items, itemsCollection } from '../const';
 import { extractCIDFromIPFS, removeNonceFromIdentifier } from './string';
 
 
 export function getItemFromNft(nft: NonFungibleTokenOfAccountOnNetwork): IItem {
 
+    const databaseId = items.find(item => item.identifier === nft.identifier)?.id;
+
+    if (!databaseId) throw new Error(`Missing databaseId for ${nft.identifier}`);
+
     return {
+        databaseId: databaseId,
         identifier: nft.identifier,
         nonce: nft.nonce,
         slot: getSlotFromIdentifier(nft.identifier),

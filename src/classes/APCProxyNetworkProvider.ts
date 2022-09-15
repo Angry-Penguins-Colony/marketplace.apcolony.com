@@ -1,5 +1,5 @@
-import { IAddress, IAttributesStatus, IItem, IPenguin } from "@apcolony/marketplace-api";
-import Attributes from "@apcolony/marketplace-api/out/classes";
+import { IAddress, IItem, IPenguin } from "@apcolony/marketplace-api";
+import { Attributes } from "@apcolony/marketplace-api/out/classes";
 import { NonFungibleTokenOfAccountOnNetwork, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import { ArgSerializer, BytesValue } from "@elrondnetwork/erdjs/out";
 import { items, customisationContract } from "../const";
@@ -124,7 +124,12 @@ export class APCProxyNetworkProvider extends ProxyNetworkProvider {
 
         console.log(`NFT assets for ${item.identifier}: ${nft.assets.length}`);
 
+        const databaseId = items.find(item => item.identifier === nft.identifier)?.id;
+
+        if (!databaseId) throw new Error(`No databaseId found for ${nft.identifier}`);
+
         return {
+            databaseId: databaseId,
             identifier: item.identifier,
             name: name,
             slot: slot,
