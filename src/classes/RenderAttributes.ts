@@ -105,15 +105,15 @@ export default class RenderAttributes {
         const entries = attributes.split(";");
 
         for (const entry of entries) {
-            let [key, value] = entry.split(":");
+            let [slot, itemName] = entry.split(":");
 
-            if (!key) throw new Error(ERR_EMPTY_SLOT_KEY);
-            if (!value) throw new Error(ERR_EMPTY_SLOT_VALUE);
+            if (!slot) throw new Error(ERR_EMPTY_SLOT_KEY);
+            if (!itemName) throw new Error(ERR_EMPTY_SLOT_VALUE);
 
-            key = key.toLowerCase().trim();
-            value = value.toLowerCase().replace(" ", "-").trim();
+            slot = slot.toLowerCase().trim();
+            itemName = itemName.trim();
 
-            itemsBySlot.set(key.toLowerCase(), value);
+            itemsBySlot.set(slot.toLowerCase(), itemName);
         }
 
         return new RenderAttributes(itemsBySlot, layersOrder, defaultLayers);
@@ -124,7 +124,7 @@ export default class RenderAttributes {
 
         return Array.from(this._itemsBySlot.entries())
             .filter(([slot]) => !this.doEquipDefaultItem(slot))
-            .map(([slot, item]) => capitalize(slot) + ":" + capitalize(item.replace("-", " ")))
+            .map(([slot, itemName]) => capitalize(slot) + ":" + capitalize(itemName))
             .join(";");
     }
 
