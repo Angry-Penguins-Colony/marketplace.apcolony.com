@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { IItem } from '@apcolony/marketplace-api';
+import { ReactComponent as CogIcon } from 'assets/img/icons/cog.svg';
 import Button from 'components/Button/Button';
 import RoundedList from 'components/RoundedList/RoundedList';
 import { ipfsGateway } from 'config';
@@ -13,6 +14,7 @@ const PopupFromBottom = (
         items,
         isOpen = false,
         selectedItemsIdentifier: selectedItems,
+        disableSelection = false,
         onItemClick = function () {
             // do nothing
         },
@@ -35,15 +37,18 @@ const PopupFromBottom = (
         cancel?: () => void;
         select?: (type: string) => void;
         changeType?: (type: string) => void;
+        disableSelection?: boolean;
     }
 ) => {
 
     return (
         <div id={style['popup-from-bottom']} className={(isOpen ? style['is-open'] : style['is-close'])}>
+
             <div className={style.content}>
+
                 <h3>{title}</h3>
                 <h3 className={style.desktop}>All My Items</h3>
-                {/* TODO: bind this values */}
+
                 <RoundedList
                     items={[
                         {
@@ -66,6 +71,7 @@ const PopupFromBottom = (
                     className={style['rounded-list']}
                 />
                 <div className={style.items}>
+
                     <div className={style.content}>
                         {items.map((item) => {
 
@@ -80,6 +86,7 @@ const PopupFromBottom = (
                                     renderImageSrc={ipfsGateway + item.renderCID}
                                     key={item.identifier}
                                     isSelected={isSelected}
+                                    isDisabled={disableSelection}
                                     isVisible={type == 'all' || item.slot == type}
                                     onClick={() => {
                                         onItemClick(item);
@@ -119,6 +126,7 @@ const SelectableItem = (
         renderImageSrc,
         isSelected = false,
         isVisible,
+        isDisabled = false,
         onClick = function () {
             // do nothing
         }
@@ -129,11 +137,19 @@ const SelectableItem = (
         renderImageSrc: string;
         isSelected?: boolean;
         isVisible: boolean;
+        isDisabled?: boolean;
         onClick?: () => void;
     }
 ) => {
+    const className = [
+        style.item,
+        isSelected ? style['is-selected'] : '',
+        isVisible ? '' : style['is-hidden'],
+        isDisabled ? style['is-disabled'] : '',
+    ].join(' ')
+
     return (
-        <div className={style.item + (isSelected ? ' ' + style['is-selected'] : '') + (isVisible ? '' : ' ' + style['is-hidden'])} onClick={onClick}>
+        <div className={className} onClick={onClick}>
             <img className={style.model} src={defaultPenguinImg} alt="Model" />
             <img src={renderImageSrc} className={style.thumbnail} alt={name} />
 

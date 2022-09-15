@@ -4,7 +4,8 @@ import style from './penguin-render.module.scss';
 
 const PenguinRender = (
     {
-        items
+        items,
+        children
     }: {
         items: {
             background?: string,
@@ -14,7 +15,8 @@ const PenguinRender = (
             beak?: string,
             skin?: string,
             weapon?: string
-        }
+        },
+        children?: React.ReactNode
     }
 ) => {
 
@@ -48,6 +50,8 @@ const PenguinRender = (
             }
 
             <img src={items.beak ?? defaultImages.beak} alt="beak" className='beak' />
+
+            {children}
         </div>);
 
 };

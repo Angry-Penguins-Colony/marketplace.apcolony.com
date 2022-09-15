@@ -14,6 +14,7 @@ import { PenguinItemsIdentifier } from 'sdk/types/PenguinItemsIdentifier';
 import style from './customize.module.scss';
 import GoToAnotherPenguin from './GoToAnotherPenguin';
 import ModalAboutRender from './Modals/ModalAboutRender';
+import OverlayRenderInProgress from './Overlays/OverlayRenderInProgress';
 import PopupFromBottom from './PopupFromBottom';
 import PenguinRender from './Render';
 
@@ -43,6 +44,8 @@ const Customize = () => {
         setSelectedItemsInPopup,
         selectedItemsInPopup
     } = useItemsSelection();
+
+    const editingEnabled = attributesStatus?.renderStatus == 'none';
 
     React.useEffect(() => {
         setSelectedItemsInPopup(equippedItemsIdentifier);
@@ -82,6 +85,7 @@ const Customize = () => {
                 type={itemsPopupType}
                 isOpen={itemsPopupIsOpen}
                 items={itemsInPopup}
+                disableSelection={!editingEnabled}
                 selectedItemsIdentifier={selectedItemsInPopup}
                 onItemClick={onItemClick}
                 cancel={() => { setItemsPopupIsOpen(false); }}
@@ -107,7 +111,9 @@ const Customize = () => {
                         skin: getImageSrcToRender('skin'),
                         weapon: getImageSrcToRender('weapon'),
 
-                    }} />
+                    }}>
+                        <OverlayRenderInProgress />
+                    </PenguinRender>
                     <div className={style.items}>
                         {createItemButton('beak', 'Beak')}
                         {createItemButton('skin', 'Skin')}
@@ -134,6 +140,7 @@ const Customize = () => {
     );
 
     function onItemClick(item: IItem) {
+        if (!editingEnabled) return;
         toggle(item);
 
         setItemsPopupIsOpen(false);
@@ -172,6 +179,8 @@ const Customize = () => {
     }
 
     function validateItemChangement(slot: string) {
+
+        if (!editingEnabled) return;
 
         const selectedItem = getSelectedItemInSlot(slot);
 
