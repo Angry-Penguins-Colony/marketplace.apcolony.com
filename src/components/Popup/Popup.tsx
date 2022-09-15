@@ -16,7 +16,7 @@ const Popup = (
         isVisible?: boolean,
         closePopup?: () => void,
         haveCloseButton?: boolean,
-        children: React.ReactNode,
+        children?: React.ReactNode,
         topIcon?: React.ReactNode,
         className?: string,
     }

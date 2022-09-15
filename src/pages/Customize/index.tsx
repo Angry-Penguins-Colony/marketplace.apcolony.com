@@ -13,6 +13,7 @@ import useItemsSelection from 'sdk/hooks/useItemsSelection';
 import { PenguinItemsIdentifier } from 'sdk/types/PenguinItemsIdentifier';
 import style from './customize.module.scss';
 import GoToAnotherPenguin from './GoToAnotherPenguin';
+import ModalAboutRender from './Modals/ModalAboutRender';
 import PopupFromBottom from './PopupFromBottom';
 import PenguinRender from './Render';
 
@@ -24,6 +25,8 @@ const Customize = () => {
     const ownedItems = useGetOwnedItems();
     const ownedPenguins = useGetOwnedPenguins();
     const [, setTransactionSessionId] = React.useState<string | null>(null);
+
+    const [showModalAboutRender, setShowModalAboutRender] = React.useState<boolean>(false);
 
     const {
         resetItems,
@@ -71,6 +74,7 @@ const Customize = () => {
 
     return (
         <div id={style['body-content']}>
+            <ModalAboutRender isVisible={showModalAboutRender} onSignRenderClick={onSignRenderClick} />
             <MobileHeader title="Customize" subTitle={'Penguin #' + selectedPenguinNonce} className={style['mobile-header']} />
             <PopupFromBottom
                 title={itemsPopupTitle}
@@ -128,14 +132,33 @@ const Customize = () => {
         </div >
     );
 
-    function isSelectedNonceOwned() {
-        return ownedPenguins && ownedPenguins.find(p => p.nonce == selectedPenguinNonce);
-    }
-
     function onItemClick(item: IItem) {
         toggle(item);
 
         setItemsPopupIsOpen(false);
+    }
+
+    function onSignRenderClick() {
+        setShowModalAboutRender(false);
+        sendRenderImageTx();
+    }
+
+    async function onConfirmCustomClick() {
+
+        if (!attributesStatus) return;
+
+        switch (attributesStatus?.renderStatus) {
+            case 'none':
+                setShowModalAboutRender(true);
+                return;
+
+            case 'rendered':
+                sendCustomizationTx();
+                return;
+
+            case 'rendering':
+                throw new Error('Not implemented');
+        }
     }
 
     function openItemsPopup(type: string, title: string) {
@@ -145,14 +168,6 @@ const Customize = () => {
         }
         setItemsPopupTitle(title);
         setItemsPopupIsOpen(true);
-    }
-
-    function getSelectedItemInSlot(slot: string) {
-        return getItem(selectedItemsInPopup[slot]);
-    }
-
-    function getEquippedItemInSlot(slot: string) {
-        return getItem(equippedItemsIdentifier[slot]);
     }
 
     function validateItemChangement(slot: string) {
@@ -170,24 +185,6 @@ const Customize = () => {
         // go to inventory with confirmation
         if (confirm('Are you sure you want to cancel all changes?')) {
             window.location.href = '/inventory';
-        }
-    }
-
-    async function onConfirmCustomClick() {
-
-        if (!attributesStatus) return;
-
-        switch (attributesStatus?.renderStatus) {
-            case 'none':
-                sendRenderImageTx();
-                return;
-
-            case 'rendered':
-                sendCustomizationTx();
-                return;
-
-            case 'rendering':
-                throw new Error('Not implemented');
         }
     }
 
@@ -218,6 +215,18 @@ const Customize = () => {
         if (!identifier) return undefined;
 
         return ownedItems?.find(item => item.identifier === identifier);
+    }
+
+    function isSelectedNonceOwned() {
+        return ownedPenguins && ownedPenguins.find(p => p.nonce == selectedPenguinNonce);
+    }
+
+    function getSelectedItemInSlot(slot: string) {
+        return getItem(selectedItemsInPopup[slot]);
+    }
+
+    function getEquippedItemInSlot(slot: string) {
+        return getItem(equippedItemsIdentifier[slot]);
     }
 
     function createItemButton(type: keyof PenguinItemsIdentifier, title: string) {
