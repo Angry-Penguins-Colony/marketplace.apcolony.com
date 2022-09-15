@@ -36,7 +36,7 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "@apc/renderer": "github:Angry-Penguins-Colony/package-renderer",
+    "@apc/renderer": "file:../../packages/package-renderer",
     "@elrondnetwork/erdjs": "^10.2.7",
     "@elrondnetwork/erdjs-network-providers": "^0.1.6",
     "@elrondnetwork/erdjs-walletcore": "^1.0.0",

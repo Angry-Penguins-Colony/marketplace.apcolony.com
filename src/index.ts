@@ -93,7 +93,7 @@ async function renderAdvanced(item: RenderAttributes): Promise<IItemToProcess | 
         };
     }
     catch (e: any) {
-        console.error(`${"[Error]".red} ${e.toString().red} => Skipping item ${[...item.itemsBySlot.entries()].toString().grey} `);
+        console.error(`${"[Error]".red} ${e.toString().red} => Skipping item ${[...item.idsBySlot.entries()].toString().grey} `);
         return undefined;
     }
 }
