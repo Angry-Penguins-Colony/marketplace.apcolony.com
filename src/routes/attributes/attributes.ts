@@ -18,7 +18,8 @@ export default async function getAttributes(req: Request, res: Response, network
     }
     else {
         const imagesToRender = await networkProvider.getAttributesToRender();
-        console.log(imagesToRender);
+        console.log(imagesToRender.map(i => i.toEndpointArgument()));
+        console.log(attributes.toEndpointArgument());
 
         if (imagesToRender.find(a => a.equals(attributes)) != undefined) {
             sendResponse(res, {
