@@ -60,7 +60,7 @@ export default class BadgePlugin implements IPlugin {
 
         if (renderAttributes.hasSlot(this.badgeSlotName) == true) {
 
-            const item = renderAttributes.getItem(this.badgeSlotName);
+            const item = renderAttributes.getId(this.badgeSlotName);
             const cid = this.getBadgeCID(parseInt(item));
 
             await services.ipfsCache.downloadCID(cid);

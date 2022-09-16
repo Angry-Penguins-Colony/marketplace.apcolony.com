@@ -1,9 +1,13 @@
-import { devnetToolDeploy } from "../devnet.tool-result";
 import { capitalize, getOccurences } from "../utils/utils";
 
 export const ERR_BAD_FORMAT = "Bad format. Cannot parse render attributes";
 export const ERR_EMPTY_SLOT_KEY = "Bad format. Slot key is empty";
 export const ERR_EMPTY_SLOT_VALUE = "Bad format. Slot value is empty";
+
+interface IItem {
+    id: string;
+    name: string;
+}
 
 /**
  * The items to render.
@@ -20,6 +24,10 @@ export default class RenderAttributes {
      */
     public get idsBySlot(): Map<string, string> {
         return new Map<string, string>(this._idsBySlot);
+    }
+
+    private get slots(): string[] {
+        return Array.from(this._idsBySlot.keys());
     }
 
     /**
@@ -57,12 +65,12 @@ export default class RenderAttributes {
         return Array.from(this._idsBySlot.entries());
     }
 
-    public getItem(slot: string): string {
-        const item = this._idsBySlot.get(slot);
+    public getId(slot: string): string {
+        const id = this._idsBySlot.get(slot);
 
-        if (!item) throw new Error("Missing item for slot: " + slot);
+        if (!id) throw new Error("Missing item for slot: " + slot);
 
-        return item;
+        return id;
     }
 
     public hasSlot(slot: string): boolean {
@@ -95,6 +103,7 @@ export default class RenderAttributes {
 
     public static fromAttributes(
         attributes: string,
+        itemsDatabase: IItem[],
         layersOrder: string[],
         defaultLayers?: { [key: string]: string; }
     ): RenderAttributes {
@@ -132,7 +141,7 @@ export default class RenderAttributes {
             // What could be done is to push a .json containing metadata (with server-push-render), 
             // and set the NFT attributes with a struct containing everything we need (instead of the string that is parsed inside the TopEncode method)
 
-            const databaseId = devnetToolDeploy.items.find(i => i.name == itemName)?.id;
+            const databaseId = itemsDatabase.find(i => i.name == itemName)?.id;
             if (!databaseId) throw new Error(`Missing id for ${itemName}`);
 
             idBySlot.set(slot.toLowerCase(), databaseId);
@@ -142,17 +151,26 @@ export default class RenderAttributes {
     }
 
 
-    public toAttributes() {
+    public toAttributes(itemsDatabase: IItem[], requiredSlots: string[] = []) {
 
-        return Array.from(this._idsBySlot.entries())
-            .filter(([slot]) => !this.doEquipDefaultItem(slot))
-            .map(([slot, id]) => {
+        const slots = [...new Set(this.slots.concat(requiredSlots))];
+        const attributes = [];
 
-                const itemName = devnetToolDeploy.items.find(i => i.id == id)?.name;
-                if (!itemName) throw new Error(`Missing name for id : "${id}"`);
+        for (const slot of slots) {
+            if (!this.hasSlot(slot) || this.doEquipDefaultItem(slot)) {
+                attributes.push([slot, "unequipped"])
+            }
+            else {
+                const databaseID = this.getId(slot);
+                const itemName = itemsDatabase.find(i => i.id == databaseID)?.name;
+                if (!itemName) throw new Error(`Missing name for id : "${databaseID}"`);
 
-                return capitalize(slot) + ":" + itemName
-            })
+                attributes.push([slot, itemName]);
+            }
+        }
+
+        return attributes
+            .map(([slot, itemName]) => capitalize(slot) + ":" + itemName)
             .join(";");
     }
 
