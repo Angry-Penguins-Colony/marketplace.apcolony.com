@@ -31,6 +31,10 @@ export default class RenderConfig {
         return cids;
     }
 
+    public get slots(): string[] {
+        return Object.keys(this.itemsCID);
+    }
+
     constructor(config: IRenderConfigOptions, plugins: IPlugin[] = []) {
 
         if (!config) throw new Error("config is undefined");
