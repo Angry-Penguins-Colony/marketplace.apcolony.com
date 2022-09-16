@@ -2,9 +2,9 @@
  * Send renderImage with a random attributes.
  */
 
-import RenderAttributes from "@apc/renderer/dist/classes/RenderAttributes";
-import { userConfig } from "@apc/renderer/dist/config";
-import { getRandomAttributes } from "@apc/renderer/dist/utils/random";
+import RenderAttributes from "@apcolony/renderer/dist/classes/RenderAttributes";
+import { userConfig } from "@apcolony/renderer/dist/config";
+import { getRandomAttributes } from "@apcolony/renderer/dist/utils/random";
 import { sendRenderImage } from "./functions/sendRenderImage";
 
 main();

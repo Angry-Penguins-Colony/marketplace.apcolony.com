@@ -1,4 +1,4 @@
-import RenderAttributes from "@apc/renderer/dist/classes/RenderAttributes";
+import RenderAttributes from "@apcolony/renderer/dist/classes/RenderAttributes";
 import { UserSigner } from "@elrondnetwork/erdjs-walletcore/out";
 import { Address, SmartContract, StringValue, TransactionPayload } from "@elrondnetwork/erdjs/out";
 import WriteGateway from "../../classes/WriteGateway";

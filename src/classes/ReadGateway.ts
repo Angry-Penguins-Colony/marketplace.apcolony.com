@@ -2,8 +2,9 @@ import { functionNames } from "../const";
 import Bottleneck from "bottleneck";
 import { IAddress, ISmartContract, SmartContract } from "@elrondnetwork/erdjs/out";
 import { ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
-import RenderAttributes from "@apc/renderer/dist/classes/RenderAttributes";
+import RenderAttributes from "@apcolony/renderer/dist/classes/RenderAttributes";
 import BigNumber from "bignumber.js";
+import { devnetToolDeploy } from "../devnet.tool-result";
 
 
 export default class ReadGateway {
@@ -45,7 +46,7 @@ export default class ReadGateway {
 
         const renderAttributes = output.returnData
             .map(data => Buffer.from(data, "base64").toString())
-            .map(attributes => RenderAttributes.fromAttributes(attributes, layersOrder, defaultLayers));
+            .map(attributes => RenderAttributes.fromAttributes(attributes, devnetToolDeploy.items, layersOrder, defaultLayers));
 
         return renderAttributes
     }

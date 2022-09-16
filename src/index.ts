@@ -11,8 +11,8 @@ import { IItemToProcess } from './interfaces/IItemToProcess';
 import BigNumber from "bignumber.js";
 import { officialGatewayMaxRPS } from './const';
 import Bottleneck from 'bottleneck';
-import imageRenderer from '@apc/renderer';
-import RenderAttributes from '@apc/renderer/dist/classes/RenderAttributes';
+import imageRenderer from '@apcolony/renderer';
+import RenderAttributes from '@apcolony/renderer/dist/classes/RenderAttributes';
 const Hash = require('ipfs-only-hash')
 
 main();
