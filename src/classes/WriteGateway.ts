@@ -8,6 +8,8 @@ import { CIDKvp } from "../structs/CIDKvp";
 import BigNumber from "bignumber.js";
 import colors from "colors";
 import Bottleneck from "bottleneck";
+import { devnetToolDeploy } from "../devnet.tool-result";
+import { renderConfig } from "@apcolony/renderer";
 
 enum SyncState {
     Not,
@@ -102,7 +104,7 @@ export default class WriteGateway {
         const func = { name: "setCidOf" };
         const args = cid
             .flatMap(({ cid, attributes }) => [
-                new StringValue(attributes.toAttributes()),
+                new StringValue(attributes.toAttributes(devnetToolDeploy.items, renderConfig.slots)),
                 new StringValue(cid)
             ]);
 
