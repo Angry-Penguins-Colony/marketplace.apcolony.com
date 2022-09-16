@@ -112,7 +112,7 @@ export default class WriteGateway {
             func: func,
             args: args,
             value: "",
-            gasLimit: cid.length * 30_000_000,
+            gasLimit: (cid.length * 1.3) * 40_000_000,
             gasPrice: this.networkConfig.MinGasPrice,
             chainID: this.networkConfig.ChainID,
         });
