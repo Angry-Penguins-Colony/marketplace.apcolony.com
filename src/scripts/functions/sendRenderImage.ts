@@ -6,6 +6,8 @@ import config from "../../config";
 import { envVariables } from "../../utils";
 import "dotenv/config";
 import Bottleneck from "bottleneck";
+import { devnetToolDeploy } from "../../devnet.tool-result";
+import { renderConfig } from "@apcolony/renderer";
 
 export async function sendRenderImage(attributes: RenderAttributes) {
 
@@ -27,7 +29,7 @@ export async function sendRenderImage(attributes: RenderAttributes) {
     const tx = smartContract.call({
         func: { name: "renderImage" },
         args: [
-            new StringValue(attributes.toAttributes())
+            new StringValue(attributes.toAttributes(devnetToolDeploy.items, renderConfig.slots))
         ],
         value: 1_000_000_000_000_000, // 0.001 EGLD
         gasLimit: 50_000_000,
