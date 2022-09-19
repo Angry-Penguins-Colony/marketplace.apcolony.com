@@ -3,25 +3,25 @@ import { IItem } from '@apcolony/marketplace-api';
 import { PenguinItemsIdentifier } from 'sdk/types/PenguinItemsIdentifier';
 
 function useItemsSelection() {
-    const [selectedItemsInPopup, setSelectedItemsInPopup] = React.useState<PenguinItemsIdentifier>({});
+    const [selectedItems, setSelectedItems] = React.useState<PenguinItemsIdentifier>({});
 
     function unselect(item: IItem) {
-        setSelectedItemsInPopup({
-            ...selectedItemsInPopup,
+        setSelectedItems({
+            ...selectedItems,
             [item.slot]: undefined
         });
     }
 
     function select(item: IItem) {
-        setSelectedItemsInPopup({
-            ...selectedItemsInPopup,
+        setSelectedItems({
+            ...selectedItems,
             [item.slot]: item.identifier
         });
     }
 
 
     function toggle(item: IItem) {
-        const isSelected = selectedItemsInPopup[item.slot] === item.identifier;
+        const isSelected = selectedItems[item.slot] === item.identifier;
 
         if (isSelected) {
             unselect(item);
@@ -35,8 +35,8 @@ function useItemsSelection() {
         unselect,
         select,
         toggle,
-        setSelectedItemsInPopup,
-        selectedItemsInPopup
+        setSelectedItems,
+        selectedItems
     }
 }
 

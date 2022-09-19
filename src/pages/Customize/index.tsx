@@ -37,14 +37,14 @@ const Customize = () => {
         getRenderTransaction,
         equippedItemsIdentifier,
         attributesStatus,
+        hasSomeModifications
     } = useCustomization(selectedPenguinNonce);
 
     const {
         toggle,
-        setSelectedItemsInPopup,
-        selectedItemsInPopup
+        setSelectedItems: setSelectedItemsInPopup,
+        selectedItems: selectedItemsInPopup
     } = useItemsSelection();
-
 
     const editingEnabled = attributesStatus?.renderStatus != 'rendering';
 
@@ -124,14 +124,14 @@ const Customize = () => {
                         {createItemButton('background', 'Background')}
                     </div>
                 </div>
-                {attributesStatus?.renderStatus != 'rendering' &&
+                {(attributesStatus?.renderStatus != 'rendering') &&
                     <>
                         <div className={style.reset}>
-                            <Button icon={<RefreshIcon />} onClick={resetItems}>Reset Items</Button>
+                            <Button icon={<RefreshIcon />} onClick={resetItems}>Unequip Items</Button>
                         </div>
                         <div className={style.controls}>
-                            <Button type='cancel' onClick={cancelAll}>Cancel All</Button>
-                            <Button type='primary' onClick={onConfirmCustomClick}>
+                            {/* <Button type='cancel' onClick={cancelAll}>Cancel All</Button> */}
+                            <Button type='primary' onClick={onConfirmCustomClick} disabled={!hasSomeModifications}>
                                 {
                                     attributesStatus?.renderStatus == 'none' ?
                                         'Render Image on blockchain' :

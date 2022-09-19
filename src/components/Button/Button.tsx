@@ -6,16 +6,18 @@ const Button = ({
     className,
     icon,
     type = 'normal',
+    disabled = false,
     onClick,
 }: {
     children: React.ReactNode,
     className?: string,
     icon?: React.ReactNode,
     type?: 'normal' | 'primary' | 'cancel' | 'cancel-outline',
+    disabled?: boolean,
     onClick?: () => void,
 }) => {
     return (
-        <button className={style.button + ' ' + style[type] + ' ' + className} onClick={onClick}>
+        <button disabled={disabled} className={style.button + ' ' + style[type] + ' ' + className} onClick={onClick}>
             <span className={style.text}>
                 {children}
             </span>

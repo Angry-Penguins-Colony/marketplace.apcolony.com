@@ -8,7 +8,7 @@ import calculateCustomizeGasFees from 'sdk/transactionsBuilders/customize/calcul
 import CustomizePayloadBuilder, { ItemToken } from 'sdk/transactionsBuilders/customize/CustomizePayloadBuilder';
 import calculeRenderGasFees from 'sdk/transactionsBuilders/render/calculateRenderGasFees';
 import { RenderPayloadBuilder } from 'sdk/transactionsBuilders/render/RenderPayloadBuilder';
-import { PenguinItemsIdentifier } from 'sdk/types/PenguinItemsIdentifier';
+import { PenguinItemsIdentifier, Utils as PenguinItemsIdentifierUtils } from 'sdk/types/PenguinItemsIdentifier';
 import useGetAttributesStatus from './useGetAttributesStatus';
 import { useGetOwnedItems, useGetOwnedPenguins } from './useGetOwned';
 
@@ -24,7 +24,7 @@ function useCustomization(selectedPenguinNonce: number) {
     const equippedItems = React.useMemo(() => parseAttributes(equippedItemsIdentifier), [equippedItemsIdentifier]);
     const attributesStatus = useGetAttributesStatus(equippedItems);
 
-    const selectedPenguin = ownedPenguins?.find((penguin) => penguin.nonce === selectedPenguinNonce);
+    const selectedPenguin = ownedPenguins?.find((penguin) => penguin.nonce === selectedPenguinNonce)
 
     React.useEffect(() => {
 
@@ -49,6 +49,14 @@ function useCustomization(selectedPenguinNonce: number) {
         equippedItemsIdentifier,
         attributesStatus,
         selectedPenguin,
+        hasSomeModifications: isModified(),
+    }
+
+    function isModified(): boolean {
+
+        const penguinEquippedItems = PenguinItemsIdentifierUtils.from(selectedPenguin?.equippedItems || {});
+
+        return !PenguinItemsIdentifierUtils.areEqual(penguinEquippedItems, equippedItemsIdentifier);
     }
 
     function parseAttributes(itemsIdentifiers: PenguinItemsIdentifier) {

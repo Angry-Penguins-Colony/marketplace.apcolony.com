@@ -1,4 +1,4 @@
-@import './../../assets/sass/var.scss';
+@import "./../../assets/sass/var.scss";
 
 .button {
     border: 1px solid $primary;
@@ -37,8 +37,12 @@
         color: $red;
     }
 
+    &:disabled {
+        filter: grayscale(1);
+    }
+
     .text {
-        font-family: 'CHEDROS', sans-serif;
+        font-family: "CHEDROS", sans-serif;
         font-size: 1.2rem;
         font-weight: bold;
         line-height: 0.6;
