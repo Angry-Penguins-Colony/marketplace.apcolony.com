@@ -37,7 +37,8 @@ const Customize = () => {
         getRenderTransaction,
         equippedItemsIdentifier,
         attributesStatus,
-        hasSomeModifications
+        hasSomeModifications,
+        isSlotModified
     } = useCustomization(selectedPenguinNonce);
 
     const {
@@ -269,19 +270,20 @@ const Customize = () => {
         return getItem(equippedItemsIdentifier[slot]);
     }
 
-    function createItemButton(type: keyof PenguinItemsIdentifier, title: string) {
+    function createItemButton(slot: keyof PenguinItemsIdentifier, title: string) {
 
-        const itemIdentifier = equippedItemsIdentifier[type];
+        const itemIdentifier = equippedItemsIdentifier[slot];
         const item = itemIdentifier ? getItem(itemIdentifier) : undefined;
 
         const className = [
             style.item,
-            item != undefined ? style.filled : style[type]
+            item != undefined ? style.filled : style[slot],
+            isSlotModified(slot) ? style.modified : ''
         ].join(' ');
 
         return <div
             className={className}
-            onClick={() => { openItemsPopup(type, title); }}>
+            onClick={() => { openItemsPopup(slot, title); }}>
             {
                 item && <img src={ipfsGateway + item.thumbnailCID} />
             }

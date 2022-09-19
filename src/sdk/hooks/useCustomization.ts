@@ -46,10 +46,15 @@ function useCustomization(selectedPenguinNonce: number) {
         unequipItem,
         getCustomizeTransaction,
         getRenderTransaction,
+        isSlotModified,
         equippedItemsIdentifier,
         attributesStatus,
         selectedPenguin,
         hasSomeModifications: isModified(),
+    }
+
+    function isSlotModified(slot: string) {
+        return equippedItemsIdentifier[slot] !== selectedPenguin?.equippedItems[slot]?.identifier;
     }
 
     function isModified(): boolean {
