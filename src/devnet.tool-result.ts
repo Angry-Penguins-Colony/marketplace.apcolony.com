@@ -1,66 +1,66 @@
 export const devnetToolDeploy = {
     "customizationContractAddress": {
-        "bech32": "erd1qqqqqqqqqqqqqpgqxmxetmhy0nce6ftsqv3cr8g4lstgj9r9lx4sq8e3nx",
-        "pubkey": "0000000000000000050036cd95eee47cf19d25700323819d15fc16891465f9ab"
+        "bech32": "erd1qqqqqqqqqqqqqpgqj9fejus0ef8ceagfhaqluqcwyq5m66nyv4xqh3l95l",
+        "pubkey": "00000000000000000500915399720fca4f8cf509bf41fe030e2029bd6a64654c"
     },
-    "penguinsIdentifier": "PENGUINS-e2a5c5",
+    "penguinsIdentifier": "PENGUINS-aea953",
     "itemsIdentifier": {
-        "background": "BACKGROUND-4864d1",
-        "beak": "BEAK-9cd1f2",
-        "clothes": "CLOTHES-459ed7",
-        "eyes": "EYES-6acec8",
-        "hat": "HAT-a267bf",
-        "skin": "SKIN-a909d9",
-        "weapon": "WEAPON-5d54cc"
+        "background": "BACKGROUND-e713d4",
+        "beak": "BEAK-9408f0",
+        "clothes": "CLOTHES-29b992",
+        "eyes": "EYES-fb8cbb",
+        "hat": "HAT-557fdd",
+        "skin": "SKIN-1524e6",
+        "weapon": "WEAPON-9274b8"
     },
     "items": [
         {
             "id": "7",
             "name": "Oceanic Trench",
             "slot": "background",
-            "identifier": "BACKGROUND-4864d1-01"
+            "identifier": "BACKGROUND-e713d4-01"
         },
         {
             "id": "4",
             "name": "Green",
             "slot": "background",
-            "identifier": "BACKGROUND-4864d1-02"
+            "identifier": "BACKGROUND-e713d4-02"
         },
         {
             "id": "19",
             "name": "Yellow",
             "slot": "beak",
-            "identifier": "BEAK-9cd1f2-01"
+            "identifier": "BEAK-9408f0-01"
         },
         {
             "id": "77",
             "name": "Coat With Brown Fur",
             "slot": "clothes",
-            "identifier": "CLOTHES-459ed7-01"
+            "identifier": "CLOTHES-29b992-01"
         },
         {
             "id": "120",
             "name": "Purple Headband",
             "slot": "eyes",
-            "identifier": "EYES-6acec8-01"
+            "identifier": "EYES-fb8cbb-01"
         },
         {
             "id": "118",
             "name": "Green Headband",
             "slot": "eyes",
-            "identifier": "EYES-6acec8-02"
+            "identifier": "EYES-fb8cbb-02"
         },
         {
             "id": "172",
             "name": "Black",
             "slot": "skin",
-            "identifier": "SKIN-a909d9-01"
+            "identifier": "SKIN-1524e6-01"
         },
         {
             "id": "210",
             "name": "Spear",
             "slot": "weapon",
-            "identifier": "WEAPON-5d54cc-01"
+            "identifier": "WEAPON-9274b8-01"
         }
     ]
 }
