@@ -143,17 +143,13 @@ const Customize = () => {
                             {/* <Button type='cancel' onClick={cancelAll}>Cancel All</Button> */}
                             <Button type='primary' onClick={onConfirmCustomClick} disabled={!hasSomeModifications || !attributesStatus}>
 
-                                {
-                                    attributesStatus ? (
-                                        attributesStatus?.renderStatus == 'none' ?
-                                            'Render Image on blockchain' :
-                                            'Confirm Customization') :
-                                        <div className="spinner-border" role="status">
-                                            <span className="sr-only">Loading...</span>
-                                        </div>
-                                }
+                                {getCustomizeButtonContent()}
                             </Button>
+
+
                         </div>
+
+
                     </>
                 }
             </section >
@@ -166,6 +162,33 @@ const Customize = () => {
             }
         </div >
     );
+
+    function getCustomizeButtonContent() {
+
+        console.log(attributesStatus);
+
+        if (attributesStatus) {
+            switch (attributesStatus.renderStatus) {
+                case 'none':
+                    return 'Render Image on blockchain';
+
+                case 'rendering':
+                case 'rendered':
+
+                    if (!hasSomeModifications) {
+                        return 'No changes detected'
+                    }
+                    else {
+                        return 'Customize';
+                    }
+            }
+        }
+        else {
+            return <div className="spinner-border" role="status">
+                <span className="sr-only">Loading...</span>
+            </div>;
+        }
+    }
 
     function onItemClick(item: IItem) {
         if (!editingEnabled) return;
