@@ -17,7 +17,6 @@ function useItemsSelection({
 
     React.useEffect(() => {
         if (dirty) {
-            console.log('dirty is true');
             onSelectionChange();
             setDirty(false);
         }

@@ -58,8 +58,6 @@ const Customize = () => {
         initialSelectedItems: initialAttributes,
         onSelectionChange: () => {
 
-            console.log('wéwé');
-
             // change inlive if it's desktop version
             if (window.innerWidth > 800) {
                 for (const slot in selectedItemsInPopup) {
@@ -80,7 +78,6 @@ const Customize = () => {
 
     // Selected equipped items
     React.useEffect(() => {
-        console.log('equippedItemsIdentifier', equippedItemsIdentifier);
         setSelectedItemsInPopup(equippedItemsIdentifier);
     }, [equippedItemsIdentifier])
 
@@ -89,17 +86,6 @@ const Customize = () => {
             setItemsInPopup(ownedItems);
         }
     }, [ownedItems]);
-
-    // React.useEffect(() => {
-    //     console.log('selectedItemsInPopup', selectedItemsInPopup);
-
-    //     // change inlive if it's desktop version
-    //     if (window.innerWidth > 800) {
-    //         for (const slot in selectedItemsInPopup) {
-    //             equipIfSelectedOrUnequip(slot);
-    //         }
-    //     }
-    // }, [selectedItemsInPopup]);
 
     if (!isSelectedNonceOwned() && ownedPenguins && ownedPenguins.length > 0) {
         window.location.href = `/customize/${ownedPenguins[0].nonce}`;
