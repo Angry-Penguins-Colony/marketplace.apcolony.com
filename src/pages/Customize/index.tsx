@@ -35,10 +35,11 @@ const Customize = () => {
         unequipItem,
         getCustomizeTransaction,
         getRenderTransaction,
+        isSlotModified,
         equippedItemsIdentifier,
         attributesStatus,
         hasSomeModifications,
-        isSlotModified
+        selectedPenguin,
     } = useCustomization(selectedPenguinNonce);
 
     const {
@@ -81,7 +82,7 @@ const Customize = () => {
     return (
         <div id={style['body-content']}>
             <ModalAboutRender isVisible={showModalAboutRender} onSignRenderClick={onSignRenderClick} />
-            <MobileHeader title="Customize" subTitle={'Penguin #' + selectedPenguinNonce} className={style['mobile-header']} />
+            <MobileHeader title="Customize" subTitle={selectedPenguin?.name ?? ''} className={style['mobile-header']} />
             <PopupFromBottom
                 title={itemsPopupTitle}
                 type={itemsPopupType}
@@ -147,7 +148,7 @@ const Customize = () => {
                 <GoToAnotherPenguin className={style['another-penguins']}
                     selectedPenguinNonce={selectedPenguinNonce}
                     penguins={ownedPenguins}
-                    subTitle={'Penguin #' + selectedPenguinNonce}
+                    subTitle={selectedPenguin?.name ?? ''}
                 />
             }
         </div >
