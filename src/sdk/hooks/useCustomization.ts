@@ -47,6 +47,7 @@ function useCustomization(selectedPenguinNonce: number) {
         getCustomizeTransaction,
         getRenderTransaction,
         isSlotModified,
+        setEquippedItemsIdentifier,
         equippedItemsIdentifier,
         attributesStatus,
         selectedPenguin,

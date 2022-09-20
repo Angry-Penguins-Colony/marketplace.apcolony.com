@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import SessionStorage from 'storage/SessionStorage';
+import Storage from 'storage/Storage';
 
 const WIPModal = () => {
 
@@ -33,11 +33,11 @@ const WIPModal = () => {
 
     function close() {
         setShow(false);
-        SessionStorage.openWipModal.value = false;
+        Storage.openWipModal.value = false;
     }
 
     function getShouldOpenModal(): boolean {
-        return process.env.NODE_ENV == 'production' && SessionStorage.openWipModal.value;
+        return process.env.NODE_ENV == 'production' && Storage.openWipModal.value;
     }
 };
 

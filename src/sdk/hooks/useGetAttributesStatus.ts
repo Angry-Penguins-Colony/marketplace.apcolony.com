@@ -2,7 +2,7 @@ import React from 'react';
 import { IAttributesStatus } from '@apcolony/marketplace-api';
 import { Attributes } from '@apcolony/marketplace-api/out/classes';
 import axios from 'axios';
-import { marketplaceApi } from 'config';
+import { apcLogger, marketplaceApi } from 'config';
 
 function useGetAttributesStatus(attributes: Attributes | undefined): IAttributesStatus | undefined {
 
@@ -15,7 +15,7 @@ function useGetAttributesStatus(attributes: Attributes | undefined): IAttributes
             const url = marketplaceApi + 'attributes?' + attributes.toApiParameters();
             const res = await axios.get(url);
 
-            console.log(url);
+            apcLogger.apiCall(url);
 
             setAttributesStatus(res.data.data)
         }

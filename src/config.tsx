@@ -1,5 +1,6 @@
 import { Address } from '@elrondnetwork/erdjs/out';
 import { devnetToolDeploy } from 'devnet.tool-result';
+import APCLogger, { LogType } from 'logger';
 
 const useDevnet = process.env.REACT_APP_DEVNET == '1';
 
@@ -7,6 +8,9 @@ if (useDevnet) {
   console.log('Using devnet');
 }
 
+const logFlags = process.env.REACT_APP_MUTED_LOG?.split(' ') ?? [];
+console.log('Muted logs', logFlags);
+export const apcLogger = new APCLogger(logFlags as LogType[]);
 
 export const dAppName = 'Marketplace';
 export const ipfsGateway = 'https://ipfs.io/ipfs/';

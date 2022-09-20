@@ -2,7 +2,7 @@ import React from 'react';
 import { IAddress, IPenguin, IEgg, IItem } from '@apcolony/marketplace-api/out';
 import useGetAccountInfo from '@elrondnetwork/dapp-core/hooks/account/useGetAccountInfo';
 import axios from 'axios';
-import { marketplaceApi } from 'config';
+import { apcLogger, marketplaceApi } from 'config';
 
 export function useGetOwnedPenguins(options?: IOptions<IPenguin>): IPenguin[] | undefined {
     return useGetOwned<IPenguin>('penguins', options);
@@ -58,7 +58,7 @@ function doGetGeneric(urlSuffix: string) {
         + (process.env.REACT_APP_USE_PLACEHOLDERS_CALL === '1' ? 'placeholder/' : '')
         + urlSuffix;
 
-    console.log(url);
+    apcLogger.apiCall(url);
 
     return axios.get(url);
 }

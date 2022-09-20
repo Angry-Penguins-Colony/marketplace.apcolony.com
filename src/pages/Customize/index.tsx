@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { IItem } from '@apcolony/marketplace-api';
+import { useGetSignedTransactions } from '@elrondnetwork/dapp-core/hooks';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
 import { useParams } from 'react-router-dom';
@@ -11,6 +12,7 @@ import useCustomization from 'sdk/hooks/useCustomization';
 import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/useGetOwned';
 import useItemsSelection from 'sdk/hooks/useItemsSelection';
 import { PenguinItemsIdentifier } from 'sdk/types/PenguinItemsIdentifier';
+import Storage from 'storage/Storage';
 import style from './customize.module.scss';
 import GoToAnotherPenguin from './GoToAnotherPenguin';
 import ModalAboutRender from './Modals/ModalAboutRender';
@@ -29,6 +31,8 @@ const Customize = () => {
 
     const [showModalAboutRender, setShowModalAboutRender] = React.useState<boolean>(false);
 
+    const { signedTransactionsArray } = useGetSignedTransactions();
+
     const {
         resetItems,
         equipItem,
@@ -36,6 +40,7 @@ const Customize = () => {
         getCustomizeTransaction,
         getRenderTransaction,
         isSlotModified,
+        setEquippedItemsIdentifier,
         equippedItemsIdentifier,
         attributesStatus,
         hasSomeModifications,
@@ -51,6 +56,20 @@ const Customize = () => {
     const editingEnabled = attributesStatus?.renderStatus != 'rendering';
 
     React.useEffect(() => {
+        for (const [sessionId] of signedTransactionsArray) {
+
+            console.log('try consume on sessionId', sessionId);
+            const itemsIdentifier = Storage.consumePenguinItemsIdentifiers(sessionId, selectedPenguinNonce);
+
+            if (itemsIdentifier) {
+                console.log('Consumming penguins items from storage', itemsIdentifier);
+                setEquippedItemsIdentifier(itemsIdentifier);
+            }
+        }
+    }, []);
+
+    React.useEffect(() => {
+        console.log('new items equipped: ', equippedItemsIdentifier);
         setSelectedItemsInPopup(equippedItemsIdentifier);
     }, [equippedItemsIdentifier])
 
@@ -206,13 +225,6 @@ const Customize = () => {
         }
     }
 
-    function cancelAll() {
-        // go to inventory with confirmation
-        if (confirm('Are you sure you want to cancel all changes?')) {
-            window.location.href = '/inventory';
-        }
-    }
-
     async function sendRenderImageTx() {
 
         const transaction = getRenderTransaction();
@@ -224,10 +236,12 @@ const Customize = () => {
             transactionDisplayInfo: {
                 processingMessage: 'Processing render transaction',
                 errorMessage: 'An error has occured during render',
-                successMessage: 'Render transaction successful'
+                successMessage: 'Render transaction successful',
             },
             redirectAfterSign: false
         });
+
+        Storage.setPenguinItemsIdentifiers(sessionId, selectedPenguinNonce, equippedItemsIdentifier);
 
         if (sessionId != null) {
             setTransactionSessionId(sessionId);
