@@ -2,13 +2,13 @@ import * as React from 'react';
 import { IItem } from '@apcolony/marketplace-api';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Button from 'components/Button/Button';
 import RefreshIcon from 'components/Icons/RefreshIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { ipfsGateway } from 'config';
 import useCustomization from 'sdk/hooks/useCustomization';
-import useCustomizationParams from 'sdk/hooks/useCustomizationParams';
+import useCustomizationPersistence from 'sdk/hooks/useCustomizationPersistence';
 import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/useGetOwned';
 import useItemsSelection from 'sdk/hooks/useItemsSelection';
 import { PenguinItemsIdentifier } from 'sdk/types/PenguinItemsIdentifier';
@@ -29,14 +29,13 @@ const Customize = () => {
     const [, setTransactionSessionId] = React.useState<string | null>(null);
 
     const [showModalAboutRender, setShowModalAboutRender] = React.useState<boolean>(false);
-    const location = useLocation();
 
     const {
-        parseAttributes,
-        getSearchParamsWithAttributes
-    } = useCustomizationParams();
+        load,
+        save
+    } = useCustomizationPersistence(selectedPenguinNonce);
 
-    const initialAttributes = parseAttributes();
+    const initialAttributes = load();
     const {
         resetItems,
         equipItem,
@@ -49,6 +48,8 @@ const Customize = () => {
         hasSomeModifications,
         selectedPenguin,
     } = useCustomization(selectedPenguinNonce, initialAttributes);
+
+    console.log('attributesStatus', attributesStatus);
 
     const {
         toggle,
@@ -145,11 +146,16 @@ const Customize = () => {
                         </div>
                         <div className={style.controls}>
                             {/* <Button type='cancel' onClick={cancelAll}>Cancel All</Button> */}
-                            <Button type='primary' onClick={onConfirmCustomClick} disabled={!hasSomeModifications}>
+                            <Button type='primary' onClick={onConfirmCustomClick} disabled={!hasSomeModifications || !attributesStatus}>
+
                                 {
-                                    attributesStatus?.renderStatus == 'none' ?
-                                        'Render Image on blockchain' :
-                                        'Confirm Customization'
+                                    attributesStatus ? (
+                                        attributesStatus?.renderStatus == 'none' ?
+                                            'Render Image on blockchain' :
+                                            'Confirm Customization') :
+                                        <div className="spinner-border" role="status">
+                                            <span className="sr-only">Loading...</span>
+                                        </div>
                                 }
                             </Button>
                         </div>
@@ -179,6 +185,9 @@ const Customize = () => {
     }
 
     async function onConfirmCustomClick() {
+
+
+        console.log('onConfirmCustomClick');
 
         if (!attributesStatus) return;
 
@@ -227,6 +236,7 @@ const Customize = () => {
 
         await refreshAccount();
 
+        save(equippedItemsIdentifier);
 
         const { sessionId } = await sendTransactions({
             transactions: transaction,
@@ -236,7 +246,6 @@ const Customize = () => {
                 successMessage: 'Render transaction successful',
             },
             redirectAfterSign: false,
-            callbackRoute: location.pathname + '?' + getSearchParamsWithAttributes(equippedItemsIdentifier).toString()
         });
 
         if (sessionId != null) {

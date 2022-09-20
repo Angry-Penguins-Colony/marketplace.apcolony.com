@@ -10,6 +10,6 @@ export default class APCLogger {
 
         if (this.hideLogs.includes('api')) return;
 
-        console.log(`%c[API] ${url}%s`, 'color: grey');
+        console.log(`%c[API] ${url} `, 'color: grey');
     }
 }

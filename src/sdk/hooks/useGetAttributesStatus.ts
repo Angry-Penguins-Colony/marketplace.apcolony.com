@@ -3,27 +3,32 @@ import { IAttributesStatus } from '@apcolony/marketplace-api';
 import { Attributes } from '@apcolony/marketplace-api/out/classes';
 import axios from 'axios';
 import { apcLogger, marketplaceApi } from 'config';
+import usePrevious from './usePrevious';
 
-function useGetAttributesStatus(attributes: Attributes | undefined): IAttributesStatus | undefined {
+function useGetAttributesStatus(attributes: Attributes | undefined) {
 
     const [attributesStatus, setAttributesStatus] = React.useState<IAttributesStatus | undefined>(undefined);
+    const previousStatus = usePrevious(attributes);
 
     React.useEffect(() => {
-        async function get() {
-            if (!attributes) return;
 
-            const url = marketplaceApi + 'attributes?' + attributes.toApiParameters();
-            const res = await axios.get(url);
+        if (attributes && previousStatus && attributes.equals(previousStatus)) return;
 
-            apcLogger.apiCall(url);
+        forceUpdate();
+    });
 
-            setAttributesStatus(res.data.data)
-        }
+    return { attributesStatus, forceUpdate };
 
-        get();
-    }, [attributes]);
+    async function forceUpdate() {
+        if (attributes == undefined) return;
 
-    return attributesStatus;
+        const url = marketplaceApi + 'attributes?' + attributes.toApiParameters();
+        apcLogger.apiCall(url);
+
+        const res = await axios.get(url);
+
+        setAttributesStatus(res.data.data)
+    }
 }
 
 export default useGetAttributesStatus;

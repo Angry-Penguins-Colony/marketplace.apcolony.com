@@ -21,8 +21,8 @@ function useCustomization(selectedPenguinNonce: number, initialItemsIdentifier?:
     const ownedItems = useGetOwnedItems();
     const ownedPenguins = useGetOwnedPenguins();
 
-    const equippedItems = React.useMemo(() => parseAttributes(equippedItemsIdentifier), [equippedItemsIdentifier]);
-    const attributesStatus = useGetAttributesStatus(equippedItems);
+    const equippedItems = parseAttributes(equippedItemsIdentifier);
+    const { attributesStatus } = useGetAttributesStatus(equippedItems);
 
     const selectedPenguin = ownedPenguins?.find((penguin) => penguin.nonce === selectedPenguinNonce)
 
@@ -135,12 +135,21 @@ function useCustomization(selectedPenguinNonce: number, initialItemsIdentifier?:
     }
 
     function getCustomizeTransaction(): SimpleTransactionType {
+
+        if (!selectedPenguin) throw new Error('Selected penguin is required');
+
         const itemsToEquip: ItemToken[] = [];
         const slotsToUnequip: string[] = [];
 
-        for (const slot in equippedItemsIdentifier) {
+        console.log(selectedPenguin?.equippedItems);
+
+        const slots = new Set([...Object.keys(equippedItemsIdentifier), ...Object.keys(selectedPenguin.equippedItems || {})]);
+
+        for (const slot of Array.from(slots)) {
             const itemIdentifier = equippedItemsIdentifier[slot];
-            const blockchainCurrentlyEquippedItem = selectedPenguin?.equippedItems[slot]?.identifier;
+            const blockchainCurrentlyEquippedItem = selectedPenguin.equippedItems[slot]?.identifier;
+
+            console.log(itemIdentifier, 'vs', blockchainCurrentlyEquippedItem);
 
             if (itemIdentifier != blockchainCurrentlyEquippedItem) {
                 if (itemIdentifier == undefined) {
