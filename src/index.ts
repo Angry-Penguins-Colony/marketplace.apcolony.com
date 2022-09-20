@@ -5,7 +5,6 @@ import cors from "cors";
 import getPenguins from './routes/address/penguins';
 import getEggs from './routes/address/eggs';
 import getItems from './routes/address/items';
-import { getPlaceholdersEggs, getPlaceholdersItems, getPlaceholdersPenguins } from './routes/placeholders/placeholder';
 import { gateway } from './const';
 import { getNetworkType } from './env';
 import throng from 'throng';
@@ -32,10 +31,6 @@ function start(id: number) {
     app.get('/:bech32/eggs', getEggs);
     app.get('/:bech32/items', (req, res) => getItems(req, res, gateway));
     app.get('/attributes', (req, res) => getAttributes(req, res, proxyNetwork));
-
-    app.get('/placeholder/:bech32/penguins', (req, res) => getPlaceholdersPenguins(res));
-    app.get('/placeholder/:bech32/eggs', (req, res) => getPlaceholdersEggs(res));
-    app.get('/placeholder/:bech32/items', (req, res) => getPlaceholdersItems(res));
 
     app.listen(port, () => {
         console.log(`Thread #${id} listening on port ${port}.`);

@@ -49,3 +49,18 @@ export function splitCollectionAndNonce(identifier: string) {
         throw new Error(`Invalid identifier ${identifier}`);
     }
 }
+
+export function getIdFromPenguinName(name: string): number {
+
+    if (!name) throw new Error("No name provided");
+
+    const lastHashIndex = name.lastIndexOf("#");
+
+    if (lastHashIndex == -1) throw new Error(`Invalid name ${name}`);
+
+    const id = parseInt(name.substring(lastHashIndex + 1));
+
+    if (isNaN(id)) throw new Error(`Invalid name ${name}`);
+
+    return id;
+}

@@ -3,7 +3,7 @@ import { Attributes } from "@apcolony/marketplace-api/out/classes";
 import { NonFungibleTokenOfAccountOnNetwork, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import { ArgSerializer, BytesValue } from "@elrondnetwork/erdjs/out";
 import { items, customisationContract } from "../const";
-import { extractCIDFromIPFS, parseAttributes, splitCollectionAndNonce } from "../utils/string";
+import { extractCIDFromIPFS, getIdFromPenguinName, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 
 /**
  * We create this function because a lot of methods of ProxyNetworkProvider are not implemented yet.
@@ -88,6 +88,7 @@ export class APCProxyNetworkProvider extends ProxyNetworkProvider {
         }
 
         return {
+            id: getIdFromPenguinName(nft.name),
             identifier: nft.identifier,
             name: nft.name,
             nonce: nft.nonce,
