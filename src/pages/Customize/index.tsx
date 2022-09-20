@@ -1,18 +1,17 @@
 import * as React from 'react';
 import { IItem } from '@apcolony/marketplace-api';
-import { useGetSignedTransactions } from '@elrondnetwork/dapp-core/hooks';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import Button from 'components/Button/Button';
 import RefreshIcon from 'components/Icons/RefreshIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { ipfsGateway } from 'config';
 import useCustomization from 'sdk/hooks/useCustomization';
+import useCustomizationParams from 'sdk/hooks/useCustomizationParams';
 import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/useGetOwned';
 import useItemsSelection from 'sdk/hooks/useItemsSelection';
 import { PenguinItemsIdentifier } from 'sdk/types/PenguinItemsIdentifier';
-import Storage from 'storage/Storage';
 import style from './customize.module.scss';
 import GoToAnotherPenguin from './GoToAnotherPenguin';
 import ModalAboutRender from './Modals/ModalAboutRender';
@@ -30,9 +29,14 @@ const Customize = () => {
     const [, setTransactionSessionId] = React.useState<string | null>(null);
 
     const [showModalAboutRender, setShowModalAboutRender] = React.useState<boolean>(false);
+    const location = useLocation();
 
-    const { signedTransactionsArray } = useGetSignedTransactions();
+    const {
+        parseAttributes,
+        getSearchParamsWithAttributes
+    } = useCustomizationParams();
 
+    const initialAttributes = parseAttributes();
     const {
         resetItems,
         equipItem,
@@ -40,38 +44,33 @@ const Customize = () => {
         getCustomizeTransaction,
         getRenderTransaction,
         isSlotModified,
-        setEquippedItemsIdentifier,
         equippedItemsIdentifier,
         attributesStatus,
         hasSomeModifications,
         selectedPenguin,
-    } = useCustomization(selectedPenguinNonce);
+    } = useCustomization(selectedPenguinNonce, initialAttributes);
 
     const {
         toggle,
         setSelectedItems: setSelectedItemsInPopup,
         selectedItems: selectedItemsInPopup
-    } = useItemsSelection();
+    } = useItemsSelection({
+        initialSelectedItems: initialAttributes,
+        onSelectionChange: () => {
 
-    const editingEnabled = attributesStatus?.renderStatus != 'rendering';
+            console.log('wéwé');
 
-    React.useEffect(() => {
-        for (const [sessionId] of signedTransactionsArray) {
-
-            console.log('try consume on sessionId', sessionId);
-            const itemsIdentifier = Storage.consumePenguinItemsIdentifiers(sessionId, selectedPenguinNonce);
-
-            if (itemsIdentifier) {
-                console.log('Consumming penguins items from storage', itemsIdentifier);
-                setEquippedItemsIdentifier(itemsIdentifier);
+            // change inlive if it's desktop version
+            if (window.innerWidth > 800) {
+                for (const slot in selectedItemsInPopup) {
+                    console.log(slot);
+                    equipIfSelectedOrUnequip(slot);
+                }
             }
         }
-    }, []);
+    });
 
-    React.useEffect(() => {
-        console.log('new items equipped: ', equippedItemsIdentifier);
-        setSelectedItemsInPopup(equippedItemsIdentifier);
-    }, [equippedItemsIdentifier])
+    const editingEnabled = attributesStatus?.renderStatus != 'rendering';
 
     /* Choose items popup */
     const [itemsPopupIsOpen, setItemsPopupIsOpen] = React.useState<boolean>(false);
@@ -79,20 +78,28 @@ const Customize = () => {
     const [itemsPopupType, setItemsPopupType] = React.useState<string>('all');
     const [itemsInPopup, setItemsInPopup] = React.useState<IItem[]>([]);
 
+    // Selected equipped items
     React.useEffect(() => {
-        // change inlive if it's desktop version
-        if (window.innerWidth > 800) {
-            for (const slot in selectedItemsInPopup) {
-                validateItemChangement(slot);
-            }
-        }
-    }, [selectedItemsInPopup]);
+        console.log('equippedItemsIdentifier', equippedItemsIdentifier);
+        setSelectedItemsInPopup(equippedItemsIdentifier);
+    }, [equippedItemsIdentifier])
 
     React.useEffect(() => {
         if (ownedItems) {
             setItemsInPopup(ownedItems);
         }
     }, [ownedItems]);
+
+    // React.useEffect(() => {
+    //     console.log('selectedItemsInPopup', selectedItemsInPopup);
+
+    //     // change inlive if it's desktop version
+    //     if (window.innerWidth > 800) {
+    //         for (const slot in selectedItemsInPopup) {
+    //             equipIfSelectedOrUnequip(slot);
+    //         }
+    //     }
+    // }, [selectedItemsInPopup]);
 
     if (!isSelectedNonceOwned() && ownedPenguins && ownedPenguins.length > 0) {
         window.location.href = `/customize/${ownedPenguins[0].nonce}`;
@@ -111,7 +118,7 @@ const Customize = () => {
                 selectedItemsIdentifier={selectedItemsInPopup}
                 onItemClick={onItemClick}
                 cancel={() => { setItemsPopupIsOpen(false); }}
-                select={validateItemChangement}
+                select={equipIfSelectedOrUnequip}
                 changeType={(type) => {
                     openItemsPopup(type, 'Select ' + type);
                 }}
@@ -212,11 +219,13 @@ const Customize = () => {
         setItemsPopupIsOpen(true);
     }
 
-    function validateItemChangement(slot: string) {
+    function equipIfSelectedOrUnequip(slot: string) {
 
         if (!editingEnabled) return;
 
         const selectedItem = getSelectedItemInSlot(slot);
+
+        console.log('selected item for slot', slot, 'is', selectedItem?.name ?? undefined);
 
         if (selectedItem != undefined) {
             equipItem(slot, selectedItem);
@@ -229,7 +238,9 @@ const Customize = () => {
 
         const transaction = getRenderTransaction();
 
+
         await refreshAccount();
+
 
         const { sessionId } = await sendTransactions({
             transactions: transaction,
@@ -238,10 +249,9 @@ const Customize = () => {
                 errorMessage: 'An error has occured during render',
                 successMessage: 'Render transaction successful',
             },
-            redirectAfterSign: false
+            redirectAfterSign: false,
+            callbackRoute: location.pathname + '?' + getSearchParamsWithAttributes(equippedItemsIdentifier).toString()
         });
-
-        Storage.setPenguinItemsIdentifiers(sessionId, selectedPenguinNonce, equippedItemsIdentifier);
 
         if (sessionId != null) {
             setTransactionSessionId(sessionId);
@@ -318,6 +328,7 @@ const Customize = () => {
             return undefined;
         }
     }
+
 };
 
 export default Customize;

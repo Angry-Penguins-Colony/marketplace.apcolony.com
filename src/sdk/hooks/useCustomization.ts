@@ -12,9 +12,9 @@ import { PenguinItemsIdentifier, Utils as PenguinItemsIdentifierUtils } from 'sd
 import useGetAttributesStatus from './useGetAttributesStatus';
 import { useGetOwnedItems, useGetOwnedPenguins } from './useGetOwned';
 
-function useCustomization(selectedPenguinNonce: number) {
+function useCustomization(selectedPenguinNonce: number, initialItemsIdentifier?: PenguinItemsIdentifier) {
 
-    const [equippedItemsIdentifier, setEquippedItemsIdentifier] = React.useState<PenguinItemsIdentifier>({});
+    const [equippedItemsIdentifier, setEquippedItemsIdentifier] = React.useState<PenguinItemsIdentifier>(initialItemsIdentifier ?? {});
 
     const { address: connectedAddress } = useGetAccountInfo();
 
@@ -28,6 +28,7 @@ function useCustomization(selectedPenguinNonce: number) {
 
     React.useEffect(() => {
 
+        if (initialItemsIdentifier) return;
         if (!selectedPenguin) return;
 
         const equippedItemsIdentifierFromFetchedData = Object.values(selectedPenguin.equippedItems)
@@ -91,6 +92,8 @@ function useCustomization(selectedPenguinNonce: number) {
 
         if (equippedItemsIdentifier[slot] == item.identifier) return;
 
+        console.log('Equipped', item, 'at', slot);
+
         setEquippedItemsIdentifier({
             ...equippedItemsIdentifier,
             [slot]: item.identifier
@@ -99,6 +102,8 @@ function useCustomization(selectedPenguinNonce: number) {
 
     function unequipItem(slot: string) {
         if (equippedItemsIdentifier[slot] == undefined) return;
+
+        console.log('Unequiped slot', slot);
 
         setEquippedItemsIdentifier({
             ...equippedItemsIdentifier,

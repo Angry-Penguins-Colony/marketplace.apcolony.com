@@ -27,6 +27,20 @@ describe('areEquals', () => {
         expect(Utils.areEqual(a, b)).toBeTruthy();
     });
 
+    it('equals ignore undefined', () => {
+        const a: PenguinItemsIdentifier = {
+            'background': 'BG-1',
+            'hat': 'HAT-1',
+            'skin': undefined,
+        };
+        const b: PenguinItemsIdentifier = {
+            'hat': 'HAT-1',
+            'background': 'BG-1',
+        };
+
+        expect(Utils.areEqual(a, b)).toBeTruthy();
+    })
+
     it('not equals - different keys', () => {
         const a: PenguinItemsIdentifier = {
             'hat': 'HAT-1',
