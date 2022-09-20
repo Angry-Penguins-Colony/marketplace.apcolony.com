@@ -98,7 +98,7 @@ const PopupFromBottom = (
                 </div>
                 <div className={style.controls}>
                     {/* TODO: bind buttons */}
-                    <Button type="cancel" onClick={cancel}>Cancel</Button>
+                    {/* <Button type="cancel" onClick={cancel}>Cancel</Button> */}
                     <Button type="primary" onClick={() => { select(type); }}>Select</Button>
                 </div>
             </div>

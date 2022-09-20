@@ -49,8 +49,6 @@ const Customize = () => {
         selectedPenguin,
     } = useCustomization(selectedPenguinNonce, initialAttributes);
 
-    console.log('attributesStatus', attributesStatus);
-
     const {
         toggle,
         setSelectedItems: setSelectedItemsInPopup,
@@ -59,12 +57,9 @@ const Customize = () => {
         initialSelectedItems: initialAttributes,
         onSelectionChange: () => {
 
-            // change inlive if it's desktop version
-            if (window.innerWidth > 800) {
-                for (const slot in selectedItemsInPopup) {
-                    console.log(slot);
-                    equipIfSelectedOrUnequip(slot);
-                }
+            for (const slot in selectedItemsInPopup) {
+                console.log(slot);
+                equipIfSelectedOrUnequip(slot);
             }
         }
     });
@@ -105,7 +100,7 @@ const Customize = () => {
                 selectedItemsIdentifier={selectedItemsInPopup}
                 onItemClick={onItemClick}
                 cancel={() => { setItemsPopupIsOpen(false); }}
-                select={equipIfSelectedOrUnequip}
+                select={() => { setItemsPopupIsOpen(false); }}
                 changeType={(type) => {
                     openItemsPopup(type, 'Select ' + type);
                 }}
@@ -176,7 +171,9 @@ const Customize = () => {
         if (!editingEnabled) return;
         toggle(item);
 
-        setItemsPopupIsOpen(false);
+        if (window.innerWidth > 800) {
+            setItemsPopupIsOpen(false);
+        }
     }
 
     function onSignRenderClick() {
