@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import { Address } from '@elrondnetwork/erdjs/out';
 import { useAccordionButton } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import ShareIcon from 'components/Icons/ShareIcon';
@@ -24,6 +25,8 @@ const Inventory = () => {
     const { address: walletAddress } = useParams();
     const { address: connectedAddress } = useGetAccountInfo();
 
+    if (!walletAddress) throw new Error('Wallet address is required');
+
     React.useEffect(() => {
         // add class to body element for no footer
         document.body.classList.add('no-footer');
@@ -35,9 +38,12 @@ const Inventory = () => {
     const [itemsType, setItemsType] = React.useState('penguins');
 
     const penguinsItems = useGetOwnedPenguins({
-        onLoaded: setItems
+        onLoaded: setItems,
+        overrideAddress: Address.fromBech32(walletAddress),
     });
-    const itemsItems = useGetOwnedItems();
+    const itemsItems = useGetOwnedItems({
+        overrideAddress: Address.fromBech32(walletAddress)
+    });
 
     function itemsTypeChange(type: string) {
         switch (type) {

@@ -25,27 +25,37 @@ const ItemsInventory = ({
         <div className={style['all-items'] + ' ' + className + ' ' + style[type] + (hasFilter ? ' ' + style['has-filter'] : '')}>
             <h2>{title}</h2>
             <div className={style.content}>
-                {
-                    items.map((item: any, index: number) => {
-                        const isMatched = !filters || !hasFilter || (filters && matchFilter(filters, item));
-
-                        if (isMatched) {
-                            return (
-                                <div className={[style.item].join(' ')} key={index} onClick={() => {
-                                    window.location.href = '/inventory/' + type + '/' + item.thumbnailCID;
-                                }}>
-                                    <ReactImageAppear src={ipfsGateway + item.thumbnailCID} />
-                                    <div className={style.name}>{item.name}</div>
-                                </div>
-                            );
-                        } else {
-                            return null;
-                        }
-                    })
-                }
+                {fillContent()}
             </div>
         </div>
     );
+
+    function fillContent() {
+
+        const matchedItems = items
+            .filter(item => match(item));
+
+        if (matchedItems.length > 0) {
+            return matchedItems
+                .map((item: any, index: number) => {
+                    return (
+                        <div className={[style.item].join(' ')} key={index} onClick={() => {
+                            window.location.href = '/inventory/' + type + '/' + item.thumbnailCID;
+                        }}>
+                            <ReactImageAppear src={ipfsGateway + item.thumbnailCID} />
+                            <div className={style.name}>{item.name}</div>
+                        </div>
+                    );
+                });
+        }
+        else {
+            return <p>You own 0 {type}.</p>
+        }
+    }
+
+    function match(item: any) {
+        return !filters || !hasFilter || (filters && matchFilter(filters, item));
+    }
 };
 
 export default ItemsInventory;
