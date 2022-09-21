@@ -13,7 +13,6 @@ const NavigationType = ({
     return (
         <section id={style['navigation-type']} className={className}>
             <span className={style.item + (itemsType === 'penguins' ? ' ' + style.active : '')} onClick={() => onChangeType && onChangeType('penguins')}>Penguins</span>
-            <span className={style.item + (itemsType === 'eggs' ? ' ' + style.active : '')} onClick={() => onChangeType && onChangeType('eggs')}>Eggs</span>
             <span className={style.item + (itemsType === 'items' ? ' ' + style.active : '')} onClick={() => onChangeType && onChangeType('items')}>Items</span>
         </section>
     );

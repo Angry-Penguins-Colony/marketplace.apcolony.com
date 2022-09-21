@@ -12,7 +12,7 @@ import Transaction from './pages/Transaction';
 export const routeNames = {
   home: '/',
   transaction: '/transaction',
-  inventory: '/inventory',
+  inventory: '/inventory/:address',
   inventoryItem: '/inventory/:type/:id',
   customize: '/customize',
   customizeOne: '/customize/:id',

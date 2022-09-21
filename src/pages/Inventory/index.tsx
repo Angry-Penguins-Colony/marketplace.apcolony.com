@@ -1,14 +1,14 @@
 import * as React from 'react';
-import EditIcon from 'components/Icons/EditIcon';
+import { useParams } from 'react-router-dom';
 import ShareIcon from 'components/Icons/ShareIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import { useGetOwnedEggs, useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/useGetOwned';
+import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/useGetOwned';
 import style from './inventory.module.scss';
 import ItemsInventory from './ItemsInventory';
 import NavigationType from './NavigationType';
 import NavInventory from './NavInventory';
 
-const typeWithFilter = ['penguins'];
+const typeWithFilter: string[] = [];
 
 interface IInventoryItem {
     thumbnailCID: string;
@@ -18,6 +18,9 @@ interface IInventoryItem {
 }
 
 const Inventory = () => {
+
+    const { address: walletAddress } = useParams();
+
     React.useEffect(() => {
         // add class to body element for no footer
         document.body.classList.add('no-footer');
@@ -25,33 +28,22 @@ const Inventory = () => {
     }, []);
 
 
-    const walletAddress = 'erd10000000000000000000000000000000000000000000000000000000000';
-
-    // TODO: find a way to sort items when is getting from the api
-
     const [items, setItems] = React.useState<IInventoryItem[] | undefined>(undefined);
     const [itemsType, setItemsType] = React.useState('penguins');
 
     const penguinsItems = useGetOwnedPenguins({
         onLoaded: setItems
     });
-    const eggsItems = useGetOwnedEggs();
     const itemsItems = useGetOwnedItems();
 
     function itemsTypeChange(type: string) {
         switch (type) {
-            case 'penguins':
-                setItems(penguinsItems);
-                setItemsType('penguins');
-                break;
-            case 'eggs':
-                setItems(eggsItems);
-                setItemsType('eggs');
-                break;
             case 'items':
                 setItems(itemsItems);
                 setItemsType('items');
                 break;
+
+            case 'penguins':
             default:
                 setItems(penguinsItems);
                 setItemsType('penguins');
@@ -330,17 +322,6 @@ const Inventory = () => {
                     </p>
                 </header>
 
-                <div className={style['edit-background']}>
-                    <div className={style.content} onClick={
-                        () => {
-                            // TODO: add edit action
-                        }
-                    }>
-                        <p>edit background</p>
-                        <EditIcon className={style.icon} />
-                    </div>
-                </div>
-
                 <NavigationType className={style['navigation-type']} onChangeType={itemsTypeChange} itemsType={itemsType} />
 
                 <section id={style.filter}>
@@ -350,16 +331,8 @@ const Inventory = () => {
                             <p className={style.name}>Penguins</p>
                         </div>
                         <div className={style.item}>
-                            <p className={style.number}>{eggsItems?.length ?? '-'}</p>
-                            <p className={style.name}>Eggs</p>
-                        </div>
-                        <div className={style.item}>
                             <p className={style.number}>{itemsItems?.length ?? '-'}</p>
                             <p className={style.name}>Items</p>
-                        </div>
-                        <div className={style.item}>
-                            <p className={style.number}>?</p>
-                            <p className={style.name}>Sold</p>
                         </div>
                     </div>
                     <div className={style.title}>

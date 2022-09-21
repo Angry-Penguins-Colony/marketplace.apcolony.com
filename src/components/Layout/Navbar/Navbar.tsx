@@ -15,6 +15,8 @@ import style from './navbar.module.scss';
 
 const Navbar = () => {
 
+  const { address } = useGetAccountInfo();
+
   const navItems = [
     {
       name: 'Home',
@@ -32,7 +34,7 @@ const Navbar = () => {
     },
     {
       name: 'My Inventory',
-      route: '/inventory',
+      route: '/inventory/' + address,
       icon: <ProfileIcon />,
     },
     {
@@ -51,7 +53,6 @@ const Navbar = () => {
     },
   ];
 
-  const { address } = useGetAccountInfo();
   const isConnected = !!address;
 
   const handleLogout = () => {
