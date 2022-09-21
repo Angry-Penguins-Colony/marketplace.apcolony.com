@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import { useAccordionButton } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import ShareIcon from 'components/Icons/ShareIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
@@ -20,6 +22,7 @@ interface IInventoryItem {
 const Inventory = () => {
 
     const { address: walletAddress } = useParams();
+    const { address: connectedAddress } = useGetAccountInfo();
 
     React.useEffect(() => {
         // add class to body element for no footer
@@ -305,7 +308,10 @@ const Inventory = () => {
             <MobileHeader title="My Inventory" className={style['mobile-header']} />
             <div id={style['body-content']}>
                 <header>
-                    <h2>Pseudonyme</h2>
+                    {walletAddress == connectedAddress ?
+                        <h2>Your Inventory</h2> :
+                        <><br /><br /></>
+                    }
                     <p className={style['wallet-address']}>
                         <span>{walletAddress}</span>
                         <div className={style.share} onClick={
