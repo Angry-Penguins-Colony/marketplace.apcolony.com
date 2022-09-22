@@ -12,7 +12,7 @@ import style from './type-in-marketplace.module.scss';
 
 const TypeInMarketplace = () => {
     // get penguin informations from url
-    const { type, typeId } = useParams();
+    const { typeId } = useParams();
 
     // get title by api call
     const [title, setTitle] = React.useState<string>(typeId || '???');

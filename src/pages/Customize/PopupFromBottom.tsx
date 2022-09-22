@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { IItem } from '@apcolony/marketplace-api';
-import { ReactComponent as CogIcon } from 'assets/img/icons/cog.svg';
 import Button from 'components/Button/Button';
 import RoundedList from 'components/RoundedList/RoundedList';
 import { ipfsGateway } from 'config';
@@ -18,9 +17,6 @@ const PopupFromBottom = (
         onItemClick = function () {
             // do nothing
         },
-        cancel = function () {
-            // do nothing
-        },
         select = function () {
             // do nothing
         },
@@ -34,7 +30,6 @@ const PopupFromBottom = (
         selectedItemsIdentifier: Record<string, string | undefined>,
         isOpen?: boolean;
         onItemClick?: (item: IItem) => void;
-        cancel?: () => void;
         select?: (type: string) => void;
         changeType?: (type: string) => void;
         disableSelection?: boolean;

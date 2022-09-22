@@ -147,7 +147,7 @@ const ItemInInventory = () => {
 
     // TODO: get by api is penguin is in market
     const [isInMarket, setIsInMarket] = React.useState(false);
-    const [priceInMarket, setPriceInMarket] = React.useState(0);
+    const [priceInMarket] = React.useState(0);
 
     React.useEffect(() => {
         // TODO: simulate api call

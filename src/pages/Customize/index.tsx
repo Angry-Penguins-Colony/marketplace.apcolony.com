@@ -99,7 +99,6 @@ const Customize = () => {
                 disableSelection={!editingEnabled}
                 selectedItemsIdentifier={selectedItemsInPopup}
                 onItemClick={onItemClick}
-                cancel={() => { setItemsPopupIsOpen(false); }}
                 select={() => { setItemsPopupIsOpen(false); }}
                 changeType={(type) => {
                     openItemsPopup(type, 'Select ' + type);

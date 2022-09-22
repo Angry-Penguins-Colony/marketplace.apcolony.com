@@ -1,12 +1,8 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
-import Button from 'components/Button/Button';
 import SearchIcon from 'components/Icons/SearchIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import BuyingPopup from './BuyingPopup';
-import { Item as ItemComponent } from './Item';
 import style from './item-in-marketplace.module.scss';
-import ItemsAndActivities from './ItemsAndActivities';
 import Page from './Page';
 
 interface Item {

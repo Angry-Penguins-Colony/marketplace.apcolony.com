@@ -4,7 +4,7 @@ import style from './set-price.module.scss';
 const SetPrice = ({
     floorPrice = 0,
     price = '0',
-    setPrice = (price: string) => {
+    setPrice = () => {
         // do nothing
     },
     className = '',

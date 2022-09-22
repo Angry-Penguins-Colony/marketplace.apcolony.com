@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { Address } from '@elrondnetwork/erdjs/out';
-import { useAccordionButton } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import ShareIcon from 'components/Icons/ShareIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';

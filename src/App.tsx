@@ -12,7 +12,6 @@ import PageNotFound from 'pages/PageNotFound';
 import UnlockPageFromTemplate from 'pages/UnlockPageFromTemplate';
 import { routeNames } from 'routes';
 import routes from 'routes';
-import { UnlockRoute as UnlockPageBis } from './pages/UnlockPage';
 
 const environment = 'devnet';
 

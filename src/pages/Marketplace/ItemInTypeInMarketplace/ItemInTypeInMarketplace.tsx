@@ -9,7 +9,7 @@ import SquareItem from './SquareItem';
 
 const ItemInTypeInMarketplace = () => {
     // get penguin informations from url
-    const { type, typeId, itemId } = useParams();
+    const { type, itemId } = useParams();
 
     // get title by api call
     const [title, setTitle] = React.useState<string>(itemId || '???');
