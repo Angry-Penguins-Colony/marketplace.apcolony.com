@@ -1,4 +1,4 @@
-@import './../../assets/sass/var.scss';
+@import "./../../assets/sass/var.scss";
 
 .all-items {
     position: absolute;
@@ -17,8 +17,8 @@
 
     > h2 {
         display: none;
-        color: #080D26;
-        font-family: 'CHEDROS', sans-serif;
+        color: #080d26;
+        font-family: "CHEDROS", sans-serif;
         font-weight: bold;
     }
 
@@ -45,20 +45,24 @@
                 left: 10%;
                 right: 0;
                 color: white;
-                font-family: 'CHEDROS', sans-serif;
+                font-family: "CHEDROS", sans-serif;
                 font-weight: bold;
                 font-size: 1.4rem;
                 z-index: 2;
             }
 
+            &:hover {
+                cursor: pointer;
+            }
+
             &::after {
-                content: '';
+                content: "";
                 position: absolute;
                 left: 0;
                 right: 0;
                 bottom: 0;
                 height: 30%;
-                background: linear-gradient(to top, #080D26ff 0%, #080D2600 100%);
+                background: linear-gradient(to top, #080d26ff 0%, #080d2600 100%);
                 z-index: 1;
             }
         }
@@ -70,7 +74,7 @@
                 background-color: white;
 
                 .name {
-                    color: #080D26;
+                    color: #080d26;
                     bottom: 6%;
                     left: 0;
                     right: 0;
@@ -78,7 +82,7 @@
                 }
 
                 &::after {
-                    background: linear-gradient(to top, #E9EEF2ff 0%, #E9EEF200 100%);
+                    background: linear-gradient(to top, #e9eef2ff 0%, #e9eef200 100%);
                 }
             }
         }
@@ -87,14 +91,14 @@
     &.items {
         > .content {
             .item {
-                background-image: url('./../../assets/img/Grey_penguin.png');
+                background-image: url("./../../assets/img/Grey_penguin.png");
                 background-position: center;
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-color: white;
 
                 .name {
-                    color: #080D26;
+                    color: #080d26;
                     bottom: 6%;
                     left: 0;
                     right: 0;
@@ -102,7 +106,7 @@
                 }
 
                 &::after {
-                    background: linear-gradient(to top, #E9EEF2ff 0%, #E9EEF200 100%);
+                    background: linear-gradient(to top, #e9eef2ff 0%, #e9eef200 100%);
                 }
             }
         }
@@ -110,7 +114,7 @@
 }
 
 // desktop
-@media (min-width:800px) {
+@media (min-width: 800px) {
     .all-items {
         display: flex;
         flex-direction: column;
