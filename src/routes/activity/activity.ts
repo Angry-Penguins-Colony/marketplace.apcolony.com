@@ -6,5 +6,6 @@ export default async function getActivity(req: Request, res: Response, type: "it
 
     const activities: IActivity[] = [];
 
+    // TODO: fill it
     sendSuccessfulJSON(res, activities);
 }
