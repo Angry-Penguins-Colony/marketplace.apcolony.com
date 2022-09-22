@@ -5,10 +5,9 @@ import { itemsCollection } from '../../const';
 import { getItemFromNft } from '../../utils/conversion';
 import { sendSuccessfulJSON } from '../../utils/response';
 
-export default async function getItems(req: Request, res: Response, gatewayUrl: string) {
+export default async function getItems(req: Request, res: Response, gatewayProvider: APCProxyNetworkProvider) {
 
     const address = new Address(req.params.bech32);
-    const gatewayProvider = new APCProxyNetworkProvider(gatewayUrl);
 
     const accountsNfts = await gatewayProvider.getNftsOfAccount(address);
 

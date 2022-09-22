@@ -1,22 +1,25 @@
 import { IAddress, IItem, IPenguin } from "@apcolony/marketplace-api";
 import { Attributes } from "@apcolony/marketplace-api/out/classes";
-import { NonFungibleTokenOfAccountOnNetwork, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
+import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
+import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { ArgSerializer, BytesValue } from "@elrondnetwork/erdjs/out";
+import axios from "axios";
 import { items, customisationContract } from "../const";
 import { extractCIDFromIPFS, getIdFromPenguinName, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 
 /**
  * We create this function because a lot of methods of ProxyNetworkProvider are not implemented yet.
  */
-export class APCProxyNetworkProvider extends ProxyNetworkProvider {
+export class APCProxyNetworkProvider {
 
-    private readonly _gatewayUrl: string;
+    private readonly apiProvider: ApiNetworkProvider;
+    private readonly proxyProvider: ProxyNetworkProvider;
 
-    constructor(url: string) {
-        super(url, {
+    constructor(gatewayUrl: string, apiUrl: string) {
+        this.proxyProvider = new ProxyNetworkProvider(gatewayUrl, {
             timeout: 15_000
         });
-        this._gatewayUrl = url;
+        this.apiProvider = new ApiNetworkProvider(apiUrl)
     }
 
     /**
@@ -26,7 +29,7 @@ export class APCProxyNetworkProvider extends ProxyNetworkProvider {
 
 
         const url = `address/${address.bech32()}/nft/${collection}/nonce/${nonce.valueOf()}`;
-        const response = await this.doGetGeneric(url);
+        const response = await this.proxyProvider.doGetGeneric(url);
 
         const tokenData = NonFungibleTokenOfAccountOnNetwork.fromProxyHttpResponseByNonce(response.tokenData);
         tokenData.assets = (Array.from(response.tokenData.uris ?? []) as string[])
@@ -35,16 +38,25 @@ export class APCProxyNetworkProvider extends ProxyNetworkProvider {
         return tokenData;
     }
 
+    public async getNft(collection: string, nonce: number): Promise<NonFungibleTokenOfAccountOnNetwork> {
+        let nonceAsHex = new Nonce(nonce).hex();
+        let response = await this.apiProvider.doGetGeneric(`nfts/${collection}-${nonceAsHex}`);
+        let token = NonFungibleTokenOfAccountOnNetwork.fromApiHttpResponse(response);
+
+        token.assets = this.urisFromHttpResponse(response.uris);
+
+        return token;
+    }
+
     public async getNftsOfAccount(address: IAddress): Promise<NonFungibleTokenOfAccountOnNetwork[]> {
 
-        const response = await this.doGetGeneric(`address/${address.bech32()}/esdt`);
+        const response = await this.proxyProvider.doGetGeneric(`address/${address.bech32()}/esdt`);
 
         const tokens = Object.values(response.esdts)
             .filter((item: any) => item.nonce >= 0) // we keep only NFTs        
             .map((item: any) => {
                 let token = NonFungibleTokenOfAccountOnNetwork.fromProxyHttpResponse(item);
-                token.assets = (Object.values(item.uris) as string[])
-                    .map((uri: string) => Buffer.from(uri, "base64").toString());
+                token.assets = this.urisFromHttpResponse(item.uris);
 
                 return token;
             });
@@ -52,9 +64,14 @@ export class APCProxyNetworkProvider extends ProxyNetworkProvider {
         return tokens;
     }
 
+    private urisFromHttpResponse(uris: any): string[] {
+        return (Object.values(uris) as string[])
+            .map((uri: string) => Buffer.from(uri, "base64").toString());
+    }
+
     public async getCidOf(attributes: Attributes): Promise<string | undefined> {
 
-        const res = await this.queryContract({
+        const res = await this.proxyProvider.queryContract({
             address: customisationContract,
             func: "getCidOf",
             getEncodedArguments() {
@@ -68,7 +85,7 @@ export class APCProxyNetworkProvider extends ProxyNetworkProvider {
     }
 
     public async getAttributesToRender(): Promise<Attributes[]> {
-        const res = await this.queryContract({
+        const res = await this.proxyProvider.queryContract({
             address: customisationContract,
             func: "getImagesToRender",
             getEncodedArguments() {
@@ -122,8 +139,6 @@ export class APCProxyNetworkProvider extends ProxyNetworkProvider {
         const { collection: ticker, nonce } = splitCollectionAndNonce(item.identifier);
 
         const nft = await this.fixed_getNonFungibleTokenOfAccount(customisationContract, ticker, nonce);
-
-        console.log(`NFT assets for ${item.identifier}: ${nft.assets.length}`);
 
         const id = items.find(item => item.identifier === nft.identifier)?.id;
 
