@@ -6,6 +6,10 @@ import { apcLogger, marketplaceApi } from 'config';
 function useGenericAPICall<T>(url: string) {
     const [data, setData] = React.useState<T | undefined>(undefined);
 
+    if (url.startsWith('\\') || url.startsWith('/')) {
+        url = url.substring(1);
+    }
+
     React.useEffect(() => {
         async function get() {
             const res = await doGetGeneric(url);

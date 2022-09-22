@@ -57,7 +57,7 @@ const ItemsAndActivities = ({
                         );
                     } else if (activeTab === Tab.Activity) {
 
-                        if (activities) {
+                        if (activities != undefined) {
                             if (activities.length == 0) {
                                 return <p>
                                     No activities

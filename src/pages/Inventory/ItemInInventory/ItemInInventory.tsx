@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { IItem } from '@apcolony/marketplace-api';
+import { IItem, IPenguin } from '@apcolony/marketplace-api';
+import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { useParams } from 'react-router-dom';
 import Button from 'components/Button/Button';
 import ShareIcon from 'components/Icons/ShareIcon';
@@ -7,9 +8,9 @@ import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { ipfsGateway } from 'config';
 import BuyingPopup from 'pages/Marketplace/ItemInMarketplace/BuyingPopup';
 import ItemsAndActivities from 'pages/Marketplace/ItemInMarketplace/ItemsAndActivities';
+import useGenericAPICall from 'sdk/hooks/api/useGenericAPICall';
 import useGetActivity from 'sdk/hooks/api/useGetActivity';
 import useGetOffers from 'sdk/hooks/api/useGetOffers';
-import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
 import { Item as ItemComponent } from './../../Marketplace/ItemInMarketplace/Item';
 import style from './item-in-inventory.module.scss';
 import SetPrice from './SetPrice';
@@ -181,43 +182,43 @@ const ItemInInventory = () => {
 function useGetData(type: ItemType, id: string) {
 
     const [item, setItem] = React.useState<Data | undefined>(undefined);
+    const [ownedByConnected, setOwnedByConnected] = React.useState<boolean | undefined>(undefined);
 
-    const ownedPenguins = useGetOwnedPenguins();
-    const ownedItems = useGetOwnedItems();
+    const raw = useGenericAPICall<any>(`${type}/${id}`);
+    const { address: connectedAddress } = useGetAccountInfo();
 
     React.useEffect(() => {
+
+        if (!raw) return;
+
         switch (type) {
             case 'penguins':
-                if (ownedPenguins) {
-                    const penguin = ownedPenguins
-                        .find((p) => p.id == id);
+                const res = raw as IPenguin;
 
-                    if (!penguin) throw new Error('Penguin not found');
+                setItem({
+                    name: res.name,
+                    thumbnail: ipfsGateway + res.thumbnailCID,
+                    items: Object.values(res.equippedItems),
+                    rank: -1,
+                    price: -1
+                });
 
-                    setItem({
-                        name: penguin.name,
-                        thumbnail: ipfsGateway + penguin.thumbnailCID,
-                        items: Object.values(penguin.equippedItems),
-                        rank: -1,
-                        price: -1
-                    });
-
-                    console.log(ipfsGateway + penguin.thumbnailCID)
-                }
+                setOwnedByConnected(res.owner == connectedAddress);
                 break;
 
             case 'items':
+                setOwnedByConnected(false);
                 throw new Error('Not implemented yet');
 
             default:
                 throw new Error('Invalid type');
         }
 
-    }, [ownedItems, ownedPenguins, type, id])
+    }, [raw, type, id])
 
     return {
         item,
-        ownedByConnectedWallet: true
+        ownedByConnectedWallet: ownedByConnected
     };
 }
 
