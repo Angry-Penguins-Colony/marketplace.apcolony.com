@@ -4,7 +4,7 @@ import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkPro
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { ArgSerializer, BytesValue } from "@elrondnetwork/erdjs/out";
 import axios from "axios";
-import { items, customisationContract } from "../const";
+import { items, customisationContract, penguinsCollection } from "../const";
 import { extractCIDFromIPFS, getIdFromPenguinName, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 
 /**
@@ -36,6 +36,32 @@ export class APCProxyNetworkProvider {
             .map(b64 => Buffer.from(b64, "base64").toString());
 
         return tokenData;
+    }
+
+    public async getPenguinFromId(id: string): Promise<IPenguin | undefined> {
+        // get all nfts in collection
+        const nfts = await this.getNfts(penguinsCollection);
+
+        const nft = nfts.find(nft => getIdFromPenguinName(nft.name).toString() == id);
+
+        if (nft == undefined) return undefined;
+
+        return this.getPenguinFromNft(nft);
+    }
+
+    public async getNfts(collection: string): Promise<NonFungibleTokenOfAccountOnNetwork[]> {
+        const res = await this.apiProvider.doGetGeneric(`collections/${collection}/nfts`);
+
+        const nfts = Array.from(res)
+            .map((raw: any) => {
+                const nft = NonFungibleTokenOfAccountOnNetwork.fromApiHttpResponse(raw)
+
+                nft.assets = this.urisFromHttpResponse(raw.uris);
+
+                return nft;
+            });
+
+        return nfts;
     }
 
     public async getNft(collection: string, nonce: number): Promise<NonFungibleTokenOfAccountOnNetwork> {

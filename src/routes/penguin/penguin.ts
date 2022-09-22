@@ -6,19 +6,22 @@ import { sendSuccessfulJSON } from "../../utils/response";
 
 export default async function getPenguin(req: Request, res: Response, proxyNetwork: APCProxyNetworkProvider) {
 
-    const nonce = parseInt(req.params.nonce);
 
-    if (isNaN(nonce)) {
-        res.status(400).send("Invalid nonce");
-        return;
-    }
+    const penguin = await proxyNetwork.getPenguinFromId(req.params.id)
+        .catch((err: any) => {
+            if (err instanceof ErrNetworkProvider) {
+                res.status(400).send(err.message);
+                return undefined;
+            }
+            else {
+                res.status(400).send(err.message);
+            }
+        })
 
-    const nft = await proxyNetwork.getNft(penguinsCollection, nonce)
-        .catch((err: ErrNetworkProvider) => { res.status(501).send(err.message); return undefined; });
-
-    if (nft != undefined) {
-        const penguin = await proxyNetwork.getPenguinFromNft(nft);
-
+    if (penguin != undefined) {
         sendSuccessfulJSON(res, penguin);
+    }
+    else {
+        res.status(404).send(`No penguin with ID ${req.params.id} found`);
     }
 }
