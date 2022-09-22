@@ -217,7 +217,7 @@ function useGetData(type: ItemType, id: string) {
                     price: -1,
                 })
 
-                setOwnedByConnected(false);
+                setOwnedByConnected(item.amount > 0);
                 break;
 
             default:
