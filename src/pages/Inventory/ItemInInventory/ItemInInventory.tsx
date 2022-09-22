@@ -181,7 +181,7 @@ const ItemInInventory = () => {
 
 function useGetData(type: ItemType, id: string) {
 
-    const [item, setItem] = React.useState<Data | undefined>(undefined);
+    const [data, setData] = React.useState<Data | undefined>(undefined);
     const [ownedByConnected, setOwnedByConnected] = React.useState<boolean | undefined>(undefined);
 
     const raw = useGenericAPICall<any>(`${type}/${id}`);
@@ -193,22 +193,32 @@ function useGetData(type: ItemType, id: string) {
 
         switch (type) {
             case 'penguins':
-                const res = raw as IPenguin;
+                const penguin = raw as IPenguin;
 
-                setItem({
-                    name: res.name,
-                    thumbnail: ipfsGateway + res.thumbnailCID,
-                    items: Object.values(res.equippedItems),
+                setData({
+                    name: penguin.name,
+                    thumbnail: ipfsGateway + penguin.thumbnailCID,
+                    items: Object.values(penguin.equippedItems),
                     rank: -1,
                     price: -1
                 });
 
-                setOwnedByConnected(res.owner == connectedAddress);
+                setOwnedByConnected(penguin.owner == connectedAddress);
                 break;
 
             case 'items':
+                const item = raw as IItem;
+
+                setData({
+                    name: item.name,
+                    thumbnail: ipfsGateway + item.thumbnailCID,
+                    items: [],
+                    rank: -1,
+                    price: -1,
+                })
+
                 setOwnedByConnected(false);
-                throw new Error('Not implemented yet');
+                break;
 
             default:
                 throw new Error('Invalid type');
@@ -217,7 +227,7 @@ function useGetData(type: ItemType, id: string) {
     }, [raw, type, id])
 
     return {
-        item,
+        item: data,
         ownedByConnectedWallet: ownedByConnected
     };
 }
