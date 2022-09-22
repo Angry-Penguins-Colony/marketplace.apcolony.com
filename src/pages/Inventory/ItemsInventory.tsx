@@ -37,16 +37,7 @@ const ItemsInventory = ({
 
         if (matchedItems.length > 0) {
             return matchedItems
-                .map((item: any, index: number) => {
-                    return (
-                        <div className={[style.item].join(' ')} key={index} onClick={() => {
-                            window.location.href = '/inventory/' + type + '/' + item.thumbnailCID;
-                        }}>
-                            <ReactImageAppear src={ipfsGateway + item.thumbnailCID} />
-                            <div className={style.name}>{item.name}</div>
-                        </div>
-                    );
-                });
+                .map((item: any, index: number) => <Item key={index} item={item} type={type} />);
         }
         else {
             return <p>You own 0 {type}.</p>
@@ -59,3 +50,22 @@ const ItemsInventory = ({
 };
 
 export default ItemsInventory;
+
+interface IItemProps {
+    item: any,
+    type: string
+}
+
+const Item = ({
+    item,
+    type
+}: IItemProps) => {
+    return (
+        <div className={style.item} onClick={() => {
+            window.location.href = '/inventory/' + type + '/' + item.thumbnailCID;
+        }}>
+            <ReactImageAppear src={ipfsGateway + item.thumbnailCID} />
+            <div className={style.name}>{item.name}</div>
+        </div>
+    );
+}
