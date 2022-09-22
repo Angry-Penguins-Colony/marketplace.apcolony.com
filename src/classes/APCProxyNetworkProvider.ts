@@ -125,12 +125,12 @@ export class APCProxyNetworkProvider extends ProxyNetworkProvider {
 
         console.log(`NFT assets for ${item.identifier}: ${nft.assets.length}`);
 
-        const databaseId = items.find(item => item.identifier === nft.identifier)?.id;
+        const id = items.find(item => item.identifier === nft.identifier)?.id;
 
-        if (!databaseId) throw new Error(`No databaseId found for ${nft.identifier}`);
+        if (!id) throw new Error(`No databaseId found for ${nft.identifier}`);
 
         return {
-            databaseId: databaseId,
+            id: id,
             identifier: item.identifier,
             name: name,
             slot: slot,

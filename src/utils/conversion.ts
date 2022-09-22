@@ -6,12 +6,12 @@ import { extractCIDFromIPFS, removeNonceFromIdentifier } from './string';
 
 export function getItemFromNft(nft: NonFungibleTokenOfAccountOnNetwork): IItem {
 
-    const databaseId = items.find(item => item.identifier === nft.identifier)?.id;
+    const id = items.find(item => item.identifier === nft.identifier)?.id;
 
-    if (!databaseId) throw new Error(`Missing databaseId for ${nft.identifier}`);
+    if (!id) throw new Error(`Missing databaseId for ${nft.identifier}`);
 
     return {
-        databaseId: databaseId,
+        id: id,
         identifier: nft.identifier,
         nonce: nft.nonce,
         slot: getSlotFromIdentifier(nft.identifier),
