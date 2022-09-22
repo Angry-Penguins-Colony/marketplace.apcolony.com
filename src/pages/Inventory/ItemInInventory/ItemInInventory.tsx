@@ -33,7 +33,7 @@ const ItemInInventory = () => {
     if (!type) throw new Error('type is required');
     if (!id) throw new Error('Item id is required');
 
-    const { item } = useGetData(type, id);
+    const { item, ownedByConnectedWallet } = useGetData(type, id);
     const activities = useGetActivity(type, id);
     const offers = useGetOffers(type, id);
     const isInMarket = offers ? offers.length > 0 : undefined;
@@ -67,23 +67,27 @@ const ItemInInventory = () => {
                 <div className={style.rank}>Rank <span className={style.primary}>#{item?.rank ?? '----'}</span></div>
             </div>
             <div className={style.actions + (isInMarket ? ' ' + style['in-market'] : '')}>
-                {
-                    isInMarket ? (
-                        <>
-                            <Button type='cancel-outline'>Retire offer</Button>
-                            <p className={style.price}>Listed for {priceInMarket} EGLD</p>
-                        </>
-                    ) : (
-                        <>
-                            <Button type='normal' onClick={() => { setIsSellPopupOpen(true) }}>Sell {typeInText.singular}</Button>
-                            {
-                                type === 'penguins' &&
-                                <Button type='primary' onClick={() => {
-                                    window.location.href = '/customize/' + id;
-                                }}>Customize</Button>
-                            }
-                        </>
-                    )
+                {ownedByConnectedWallet == true &&
+                    <>
+                        {
+                            isInMarket ? (
+                                <>
+                                    <Button type='cancel-outline'>Retire offer</Button>
+                                    <p className={style.price}>Listed for {priceInMarket} EGLD</p>
+                                </>
+                            ) : (
+                                <>
+                                    <Button type='normal' onClick={() => { setIsSellPopupOpen(true) }}>Sell {typeInText.singular}</Button>
+                                    {
+                                        type === 'penguins' &&
+                                        <Button type='primary' onClick={() => {
+                                            window.location.href = '/customize/' + id;
+                                        }}>Customize</Button>
+                                    }
+                                </>
+                            )
+                        }
+                    </>
                 }
             </div>
             <hr />
@@ -211,7 +215,10 @@ function useGetData(type: ItemType, id: string) {
 
     }, [ownedItems, ownedPenguins, type, id])
 
-    return { item };
+    return {
+        item,
+        ownedByConnectedWallet: true
+    };
 }
 
 
