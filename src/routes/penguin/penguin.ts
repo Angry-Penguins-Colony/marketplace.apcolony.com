@@ -1,6 +1,6 @@
 import { penguinsCollection } from "../../const";
 import { Request, Response } from 'express';
-import { Address } from "@elrondnetwork/erdjs/out";
+import { ErrNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out/errors";
 import { APCProxyNetworkProvider } from "../../classes/APCProxyNetworkProvider";
 import { sendSuccessfulJSON } from "../../utils/response";
 
@@ -13,8 +13,12 @@ export default async function getPenguin(req: Request, res: Response, proxyNetwo
         return;
     }
 
-    const nft = await proxyNetwork.getNft(penguinsCollection, nonce);
-    const penguin = await proxyNetwork.getPenguinFromNft(nft);
+    const nft = await proxyNetwork.getNft(penguinsCollection, nonce)
+        .catch((err: ErrNetworkProvider) => { res.status(501).send(err.message); return undefined; });
 
-    sendSuccessfulJSON(res, penguin);
+    if (nft != undefined) {
+        const penguin = await proxyNetwork.getPenguinFromNft(nft);
+
+        sendSuccessfulJSON(res, penguin);
+    }
 }
