@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { IItem } from '@apcolony/marketplace-api';
+import { ipfsGateway } from 'config';
 import style from './item.module.scss';
 
 export const Item = ({
@@ -9,13 +11,7 @@ export const Item = ({
         // do nothing
     }
 }: {
-    item: {
-        id: string;
-        type: string;
-        name: string;
-        thumbnail: string;
-        rarity: number;
-    };
+    item: IItem,
     className?: string;
     displayId?: boolean;
     onClick?: () => void;
@@ -28,10 +24,10 @@ export const Item = ({
                     displayId &&
                     <p className={style.id}>#{item.id}</p>
                 }
-                <p className={style.rarity}>Rarity: {item.rarity}%</p>
+                {/* <p className={style.rarity}>Rarity: {item.rarity}%</p> */}
             </div>
             <div className={style.thumbnail}>
-                <img src={item.thumbnail} alt={item.name} />
+                <img src={ipfsGateway + item.thumbnailCID} alt={item.name} />
             </div>
         </div>
     );

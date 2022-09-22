@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { IItem } from '@apcolony/marketplace-api';
 import RightArrowIcon from 'components/Icons/RightArrowIcon';
 import UnderlineNavElmt from 'components/UnderlineNavElmt/UnderlineNavElmt';
 import { Activity as IActivity } from 'pages/Inventory/ItemInInventory/Activity';
@@ -10,7 +11,7 @@ const ItemsAndActivities = ({
     activities,
     className = ''
 }: {
-    items?: any[];
+    items?: IItem[];
     activities?: IActivity[];
     className?: string
 }) => {
@@ -27,6 +28,15 @@ const ItemsAndActivities = ({
     function changeTab(tab: Tab) {
         setActiveTab(tab);
     }
+
+    React.useEffect(() => {
+        if (items.length === 0) {
+            setActiveTab(Tab.Activity);
+        }
+        else {
+            setActiveTab(Tab.Items);
+        }
+    }, [items])
 
     return (
         <div className={style['item-and-activity'] + ' ' + className}>

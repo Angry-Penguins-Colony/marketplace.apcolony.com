@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { IItem } from '@apcolony/marketplace-api';
 import { useParams } from 'react-router-dom';
 import Button from 'components/Button/Button';
 import ShareIcon from 'components/Icons/ShareIcon';
@@ -13,19 +14,19 @@ import style from './item-in-inventory.module.scss';
 import SetPrice from './SetPrice';
 
 
-interface Item {
+interface Data {
     name: string,
     thumbnail: string,
-    items: any[],
+    items: IItem[],
     rank: number,
     price: number,
 }
 
 type ItemType = 'penguins' | 'items';
 
-function useGetItem(type: ItemType, id: string) {
+function useGetData(type: ItemType, id: string) {
 
-    const [item, setItem] = React.useState<Item | undefined>(undefined);
+    const [item, setItem] = React.useState<Data | undefined>(undefined);
 
     const ownedPenguins = useGetOwnedPenguins();
     const ownedItems = useGetOwnedItems();
@@ -42,7 +43,7 @@ function useGetItem(type: ItemType, id: string) {
                     setItem({
                         name: penguin.name,
                         thumbnail: ipfsGateway + penguin.thumbnailCID,
-                        items: [], // TODO:
+                        items: Object.values(penguin.equippedItems),
                         rank: -1,
                         price: -1
                     });
@@ -72,7 +73,7 @@ const ItemInInventory = () => {
     if (!id) throw new Error('Item id is required');
 
 
-    const { item } = useGetItem(type, id);
+    const { item } = useGetData(type, id);
     const [activities] = React.useState<Activity[] | undefined>(undefined);
     const [isInMarket] = React.useState(false);
     const [priceInMarket] = React.useState(0);
