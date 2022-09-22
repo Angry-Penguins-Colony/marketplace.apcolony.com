@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { IItem } from '@apcolony/marketplace-api';
+import { IActivity, IItem } from '@apcolony/marketplace-api';
 import RightArrowIcon from 'components/Icons/RightArrowIcon';
 import UnderlineNavElmt from 'components/UnderlineNavElmt/UnderlineNavElmt';
-import { Activity as IActivity } from 'pages/Inventory/ItemInInventory/Activity';
 import { Item } from './Item';
 import style from './items-and-activities.module.scss';
 
@@ -68,7 +67,7 @@ const ItemsAndActivities = ({
                                 return (
                                     <>
                                         {activities.map(activity => (
-                                            <Activity key={activity.id} activity={activity} />
+                                            <Activity key={activity.txHash} activity={activity} />
                                         ))}
                                     </>
                                 );
@@ -97,17 +96,11 @@ export default ItemsAndActivities;
 const Activity = ({
     activity
 }: {
-    activity: {
-        id: string,
-        price: number,
-        from: string,
-        to: string,
-        date: string
-    }
+    activity: IActivity
 }) => {
 
     function goToExplorer() {
-        window.open(`https://explorer.elrond.com/transactions/${activity.id}`, '_blank');
+        window.open(`https://explorer.elrond.com/transactions/${activity.txHash}`, '_blank');
     }
 
     return (

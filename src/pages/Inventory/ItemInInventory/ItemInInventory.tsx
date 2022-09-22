@@ -7,9 +7,10 @@ import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { ipfsGateway } from 'config';
 import BuyingPopup from 'pages/Marketplace/ItemInMarketplace/BuyingPopup';
 import ItemsAndActivities from 'pages/Marketplace/ItemInMarketplace/ItemsAndActivities';
+import useGetActivity from 'sdk/hooks/useGetActivity';
+import useGetOffers from 'sdk/hooks/useGetOffers';
 import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/useGetOwned';
 import { Item as ItemComponent } from './../../Marketplace/ItemInMarketplace/Item';
-import { Activity } from './Activity';
 import style from './item-in-inventory.module.scss';
 import SetPrice from './SetPrice';
 
@@ -24,46 +25,6 @@ interface Data {
 
 type ItemType = 'penguins' | 'items';
 
-function useGetData(type: ItemType, id: string) {
-
-    const [item, setItem] = React.useState<Data | undefined>(undefined);
-
-    const ownedPenguins = useGetOwnedPenguins();
-    const ownedItems = useGetOwnedItems();
-
-    React.useEffect(() => {
-        switch (type) {
-            case 'penguins':
-                if (ownedPenguins) {
-                    const penguin = ownedPenguins
-                        .find((p) => p.id == id);
-
-                    if (!penguin) throw new Error('Penguin not found');
-
-                    setItem({
-                        name: penguin.name,
-                        thumbnail: ipfsGateway + penguin.thumbnailCID,
-                        items: Object.values(penguin.equippedItems),
-                        rank: -1,
-                        price: -1
-                    });
-
-                    console.log(ipfsGateway + penguin.thumbnailCID)
-                }
-                break;
-
-            case 'items':
-                throw new Error('Not implemented yet');
-
-            default:
-                throw new Error('Invalid type');
-        }
-
-    }, [ownedItems, ownedPenguins, type, id])
-
-    return { item };
-}
-
 const ItemInInventory = () => {
     const params = useParams();
     const id = params.id;
@@ -72,10 +33,10 @@ const ItemInInventory = () => {
     if (!type) throw new Error('type is required');
     if (!id) throw new Error('Item id is required');
 
-
     const { item } = useGetData(type, id);
-    const [activities] = React.useState<Activity[] | undefined>(undefined);
-    const [isInMarket] = React.useState(false);
+    const activities = useGetActivity(type, id);
+    const offers = useGetOffers(type, id);
+    const isInMarket = offers ? offers.length > 0 : undefined;
     const [priceInMarket] = React.useState(0);
     const [floorPrice] = React.useState(0);
     const [price, setPrice] = React.useState('0');
@@ -212,5 +173,46 @@ const ItemInInventory = () => {
         }
     }
 }
+
+function useGetData(type: ItemType, id: string) {
+
+    const [item, setItem] = React.useState<Data | undefined>(undefined);
+
+    const ownedPenguins = useGetOwnedPenguins();
+    const ownedItems = useGetOwnedItems();
+
+    React.useEffect(() => {
+        switch (type) {
+            case 'penguins':
+                if (ownedPenguins) {
+                    const penguin = ownedPenguins
+                        .find((p) => p.id == id);
+
+                    if (!penguin) throw new Error('Penguin not found');
+
+                    setItem({
+                        name: penguin.name,
+                        thumbnail: ipfsGateway + penguin.thumbnailCID,
+                        items: Object.values(penguin.equippedItems),
+                        rank: -1,
+                        price: -1
+                    });
+
+                    console.log(ipfsGateway + penguin.thumbnailCID)
+                }
+                break;
+
+            case 'items':
+                throw new Error('Not implemented yet');
+
+            default:
+                throw new Error('Invalid type');
+        }
+
+    }, [ownedItems, ownedPenguins, type, id])
+
+    return { item };
+}
+
 
 export default ItemInInventory;
