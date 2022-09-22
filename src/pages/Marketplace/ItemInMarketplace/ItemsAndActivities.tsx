@@ -1,18 +1,17 @@
 import * as React from 'react';
 import RightArrowIcon from 'components/Icons/RightArrowIcon';
 import UnderlineNavElmt from 'components/UnderlineNavElmt/UnderlineNavElmt';
+import { Activity as IActivity } from 'pages/Inventory/ItemInInventory/Activity';
 import { Item } from './Item';
 import style from './items-and-activities.module.scss';
 
 const ItemsAndActivities = ({
-    getActivities,
     items = [],
     activities,
     className = ''
 }: {
-    getActivities: () => void;
     items?: any[];
-    activities: any[];
+    activities?: IActivity[];
     className?: string
 }) => {
     // change active tab
@@ -27,13 +26,6 @@ const ItemsAndActivities = ({
 
     function changeTab(tab: Tab) {
         setActiveTab(tab);
-        if (tab === Tab.Activity) {
-            getActivities();
-        }
-    }
-
-    if (activeTab === Tab.Activity) {
-        getActivities();
     }
 
     return (
@@ -55,13 +47,32 @@ const ItemsAndActivities = ({
                             ))
                         );
                     } else if (activeTab === Tab.Activity) {
-                        return (
-                            <>
-                                {activities.map(activity => (
-                                    <Activity key={activity.id} activity={activity} />
-                                ))}
-                            </>
-                        );
+
+                        if (activities) {
+                            if (activities.length == 0) {
+                                return <p>
+                                    No activities
+                                </p>
+                            }
+                            else {
+                                return (
+                                    <>
+                                        {activities.map(activity => (
+                                            <Activity key={activity.id} activity={activity} />
+                                        ))}
+                                    </>
+                                );
+                            }
+                        }
+                        else {
+                            return <div className="d-flex w-100 justify-content-center mt-2">
+                                <div className="spinner-border" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div>
+                            </div>;
+                        }
+
+
                     } else {
                         return (<></>);
                     }

@@ -141,55 +141,12 @@ const ItemInMarketplace = () => {
         to: string;
         date: string;
     }
-    const [activities, setActivities] = React.useState<Activity[]>([]);
-
-    function getActivities() {
-        // simulate api call
-        setTimeout(() => {
-            setActivities([
-                {
-                    id: '1ba48da9bdf8224dbbe0fbe85a51d27d3075620278e8e0af666788a3d857cd30',
-                    price: 5,
-                    from: 'erd1pxljk7hukrjzq3cc0y00s5zs9r49q8pcc7wn6n8g752nuxpwdmfsxlm5y3',
-                    to: 'erd1pxljk7hukrjzq3cc0y00s5zs9r49q8pcc7wn6n8g752nuxpwdmfsxlm5y3',
-                    date: '2020-01-01'
-                },
-                {
-                    id: '1ba48da9bdf8224dbbe0fbe85a51d27d3075620278e8e0af666788a3d857cd31',
-                    price: 5,
-                    from: 'erd1pxljk7hukrjzq3cc0y00s5zs9r49q8pcc7wn6n8g752nuxpwdmfsxlm5y3',
-                    to: 'erd1pxljk7hukrjzq3cc0y00s5zs9r49q8pcc7wn6n8g752nuxpwdmfsxlm5y3',
-                    date: '2020-01-01'
-                },
-                {
-                    id: '1ba48da9bdf8224dbbe0fbe85a51d27d3075620278e8e0af666788a3d857cd32',
-                    price: 5,
-                    from: 'erd1pxljk7hukrjzq3cc0y00s5zs9r49q8pcc7wn6n8g752nuxpwdmfsxlm5y3',
-                    to: 'erd1pxljk7hukrjzq3cc0y00s5zs9r49q8pcc7wn6n8g752nuxpwdmfsxlm5y3',
-                    date: '2020-01-01'
-                },
-                {
-                    id: '1ba48da9bdf8224dbbe0fbe85a51d27d3075620278e8e0af666788a3d857cd33',
-                    price: 5,
-                    from: 'erd1pxljk7hukrjzq3cc0y00s5zs9r49q8pcc7wn6n8g752nuxpwdmfsxlm5y3',
-                    to: 'erd1pxljk7hukrjzq3cc0y00s5zs9r49q8pcc7wn6n8g752nuxpwdmfsxlm5y3',
-                    date: '2020-01-01'
-                },
-                {
-                    id: '1ba48da9bdf8224dbbe0fbe85a51d27d3075620278e8e0af666788a3d857cd34',
-                    price: 5,
-                    from: 'erd1pxljk7hukrjzq3cc0y00s5zs9r49q8pcc7wn6n8g752nuxpwdmfsxlm5y3',
-                    to: 'erd1pxljk7hukrjzq3cc0y00s5zs9r49q8pcc7wn6n8g752nuxpwdmfsxlm5y3',
-                    date: '2020-01-01'
-                }
-            ]);
-        }, 750);
-    }
+    const [activities] = React.useState<Activity[]>([]);
 
     return (
         <div id={style['item-in-marketplace']}>
             <MobileHeader title={'Marketplace'} rightIcon={<SearchIcon />} type='light' />
-            <Page data={type == 'item' ? item : penguin} type={type} activities={activities} getActivities={getActivities} />
+            <Page data={type == 'item' ? item : penguin} type={type} activities={activities} />
         </div >
     );
 };

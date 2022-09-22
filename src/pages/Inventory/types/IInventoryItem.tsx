@@ -3,4 +3,5 @@ export interface IInventoryItem {
     name: string;
     score?: number;
     purchaseDate?: Date;
+    id: string;
 }

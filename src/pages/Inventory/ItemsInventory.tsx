@@ -55,7 +55,8 @@ interface IItemProps {
     item: {
         name: string,
         amount: number,
-        thumbnailCID: string
+        thumbnailCID: string,
+        id: string
     },
     type: string
 }
@@ -67,7 +68,7 @@ const Item = ({
 
     return (
         <div className={style.item} onClick={() => {
-            window.location.href = '/inventory/' + type + '/' + item.thumbnailCID;
+            window.location.href = '/inventory/' + type + '/' + item.id;
         }}>
             <ReactImageAppear src={ipfsGateway + item.thumbnailCID} />
             <div className={style.name}>{item.name}</div>

@@ -11,12 +11,10 @@ const Page = (
         data,
         type,
         activities,
-        getActivities
     }: {
         data: any;
         type: string | undefined;
         activities: any;
-        getActivities: () => void;
     }
 ) => {
     // buying popup
@@ -60,7 +58,7 @@ const Page = (
                 <Button onClick={() => { setBuyingPopupIsVisible(true); }} className={style.mobile + ' ' + style.button}>Buy for {data.price} EGLD</Button>
             </section>
             <section className={style['item-and-activity']}>
-                <ItemsAndActivities getActivities={getActivities} items={data.items ? data.items : []} activities={activities} />
+                <ItemsAndActivities items={data.items ? data.items : []} activities={activities} />
             </section>
 
             <BuyingPopup visible={buyingPopupIsVisible} className={style['buying-popup'] + ' ' + style[type ?? 'penguin']} closePopup={() => setBuyingPopupIsVisible(false)}>
