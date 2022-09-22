@@ -23,23 +23,12 @@ interface Item {
 
 type ItemType = 'penguins' | 'items';
 
-const ItemInInventory = () => {
-    const params = useParams();
-    const id = params.id;
-    const type = params.type as ItemType;
+function useGetItem(type: ItemType, id: string) {
 
-    if (!type) throw new Error('type is required');
-    if (!id) throw new Error('Item id is required');
+    const [item, setItem] = React.useState<Item | undefined>(undefined);
 
     const ownedPenguins = useGetOwnedPenguins();
     const ownedItems = useGetOwnedItems();
-
-    const [item, setItem] = React.useState<Item | undefined>(undefined);
-    const [activities] = React.useState<Activity[] | undefined>(undefined);
-    const [isInMarket] = React.useState(false);
-    const [priceInMarket] = React.useState(0);
-    const [floorPrice] = React.useState(0);
-    const [price, setPrice] = React.useState('0');
 
     React.useEffect(() => {
         switch (type) {
@@ -60,10 +49,35 @@ const ItemInInventory = () => {
 
                     console.log(ipfsGateway + penguin.thumbnailCID)
                 }
+                break;
 
+            case 'items':
+                throw new Error('Not implemented yet');
+
+            default:
+                throw new Error('Invalid type');
         }
 
     }, [ownedItems, ownedPenguins, type, id])
+
+    return { item };
+}
+
+const ItemInInventory = () => {
+    const params = useParams();
+    const id = params.id;
+    const type = params.type as ItemType;
+
+    if (!type) throw new Error('type is required');
+    if (!id) throw new Error('Item id is required');
+
+
+    const { item } = useGetItem(type, id);
+    const [activities] = React.useState<Activity[] | undefined>(undefined);
+    const [isInMarket] = React.useState(false);
+    const [priceInMarket] = React.useState(0);
+    const [floorPrice] = React.useState(0);
+    const [price, setPrice] = React.useState('0');
 
     const typeInText = getTypeInText();
 
