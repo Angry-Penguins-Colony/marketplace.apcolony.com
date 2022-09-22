@@ -9,8 +9,8 @@ import CustomizePayloadBuilder, { ItemToken } from 'sdk/transactionsBuilders/cus
 import calculeRenderGasFees from 'sdk/transactionsBuilders/render/calculateRenderGasFees';
 import { RenderPayloadBuilder } from 'sdk/transactionsBuilders/render/RenderPayloadBuilder';
 import { PenguinItemsIdentifier, Utils as PenguinItemsIdentifierUtils } from 'sdk/types/PenguinItemsIdentifier';
-import useGetAttributesStatus from './useGetAttributesStatus';
-import { useGetOwnedItems, useGetOwnedPenguins } from './useGetOwned';
+import useGetAttributesStatus from './api/useGetAttributesStatus';
+import { useGetOwnedItems, useGetOwnedPenguins } from './api/useGetOwned';
 
 function useCustomization(selectedPenguinNonce: number, initialItemsIdentifier?: PenguinItemsIdentifier) {
 

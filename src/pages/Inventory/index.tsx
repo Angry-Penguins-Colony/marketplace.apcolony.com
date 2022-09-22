@@ -4,7 +4,7 @@ import { Address } from '@elrondnetwork/erdjs/out';
 import { useParams } from 'react-router-dom';
 import ShareIcon from 'components/Icons/ShareIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/useGetOwned';
+import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
 import useInventoryFilter from 'sdk/hooks/useInventoryFilter';
 import style from './inventory.module.scss';
 import ItemsInventory from './ItemsInventory';

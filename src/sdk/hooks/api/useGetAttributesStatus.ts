@@ -3,7 +3,7 @@ import { IAttributesStatus } from '@apcolony/marketplace-api';
 import { Attributes } from '@apcolony/marketplace-api/out/classes';
 import axios from 'axios';
 import { apcLogger, marketplaceApi } from 'config';
-import usePrevious from './usePrevious';
+import usePrevious from '../usePrevious';
 
 function useGetAttributesStatus(attributes: Attributes | undefined) {
 
