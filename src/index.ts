@@ -41,8 +41,8 @@ function start(id: number) {
     app.get("/offers/items/:id", (req, res) => getActivity(req, res, "items"));
 
     app.get('/attributes', (req, res) => getAttributes(req, res, proxyNetwork));
-    app.get('/penguin/:nonce', (req, res) => getPenguin(req, res, proxyNetwork));
-    app.get("/item/:id", (req, res) => getItem(req, res, proxyNetwork));
+    app.get('/penguins/:nonce', (req, res) => getPenguin(req, res, proxyNetwork));
+    app.get("/items/:id", (req, res) => getItem(req, res, proxyNetwork));
 
 
     app.listen(port, () => {
