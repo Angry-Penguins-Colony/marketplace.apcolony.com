@@ -51,6 +51,24 @@
                 z-index: 2;
             }
 
+            .count {
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                color: white;
+                background-color: $primary;
+                border-radius: 99px;
+                width: 1.8rem;
+                height: 1.8rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                font-family: "Config Rounded", sans-serif;
+                font-size: 1.1rem;
+                font-weight: normal;
+            }
+
             &:hover {
                 cursor: pointer;
             }

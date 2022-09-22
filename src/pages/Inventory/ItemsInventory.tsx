@@ -52,7 +52,11 @@ const ItemsInventory = ({
 export default ItemsInventory;
 
 interface IItemProps {
-    item: any,
+    item: {
+        name: string,
+        amount: number,
+        thumbnailCID: string
+    },
     type: string
 }
 
@@ -60,12 +64,16 @@ const Item = ({
     item,
     type
 }: IItemProps) => {
+
     return (
         <div className={style.item} onClick={() => {
             window.location.href = '/inventory/' + type + '/' + item.thumbnailCID;
         }}>
             <ReactImageAppear src={ipfsGateway + item.thumbnailCID} />
             <div className={style.name}>{item.name}</div>
+            {type == 'items' &&
+                <div className={style.count}>{item.amount}</div>
+            }
         </div>
     );
 }
