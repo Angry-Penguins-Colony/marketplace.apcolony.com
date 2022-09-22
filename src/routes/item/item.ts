@@ -7,7 +7,8 @@ export default async function getItem(req: Request, res: Response, proxyNetwork:
 
     const id = req.params.id;
 
-    const associatedItem = items.find(i => i.id === id);
+    const associatedItem = items
+        .find(i => i.id == id);
 
     if (associatedItem == undefined) {
         res.status(400).send("Invalid id");

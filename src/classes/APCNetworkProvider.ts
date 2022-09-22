@@ -148,7 +148,7 @@ export class APCNetworkProvider {
         return equippedItems;
     }
 
-    async getItemFromName(name: string, slot: string): Promise<IItem> {
+    async getItemFromName(name: string, slot: string, address?: IAddress): Promise<IItem> {
 
         const item = items.find(item => item.name == name && item.slot.toLowerCase() == slot.toLowerCase());
 
@@ -162,6 +162,7 @@ export class APCNetworkProvider {
 
         if (!id) throw new Error(`No databaseId found for ${nft.identifier}`);
 
+
         return {
             id: id,
             identifier: item.identifier,
@@ -171,7 +172,7 @@ export class APCNetworkProvider {
             thumbnailCID: extractCIDFromIPFS(nft.assets[0]),
             renderCID: extractCIDFromIPFS(nft.assets[1]),
             description: "", //TODO:
-            amount: -1, // TODO: amount is linked to a wallet, but here's we don't have wallet; make this property optionally undefined for SDK
+            amount: nft.supply.toNumber(),
         }
     }
 }
