@@ -88,7 +88,7 @@ export class APCProxyNetworkProvider extends ProxyNetworkProvider {
         }
 
         return {
-            id: getIdFromPenguinName(nft.name),
+            id: getIdFromPenguinName(nft.name).toString(),
             identifier: nft.identifier,
             name: nft.name,
             nonce: nft.nonce,

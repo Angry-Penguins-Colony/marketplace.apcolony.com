@@ -11,6 +11,7 @@ import throng from 'throng';
 import { APCProxyNetworkProvider } from './classes/APCProxyNetworkProvider';
 import { ProxyNetworkProvider } from '@elrondnetwork/erdjs-network-providers/out';
 import getAttributes from './routes/attributes/attributes';
+import getActivity from './routes/activity/activity';
 
 const workers = parseInt(process.env.WEB_CONCURRENCY || "1");
 const port = process.env.PORT || 5001;
@@ -30,6 +31,13 @@ function start(id: number) {
     app.get('/:bech32/penguins', (req, res) => getPenguins(req, res, proxyNetwork));
     app.get('/:bech32/eggs', getEggs);
     app.get('/:bech32/items', (req, res) => getItems(req, res, gateway));
+
+    app.get("/activity/penguins/:id", (req, res) => getActivity(req, res, "penguins"));
+    app.get("/offers/penguins/:id", (req, res) => getActivity(req, res, "penguins"));
+
+    app.get("/activity/items/:id", (req, res) => getActivity(req, res, "items"));
+    app.get("/offers/items/:id", (req, res) => getActivity(req, res, "items"));
+
     app.get('/attributes', (req, res) => getAttributes(req, res, proxyNetwork));
 
     app.listen(port, () => {
