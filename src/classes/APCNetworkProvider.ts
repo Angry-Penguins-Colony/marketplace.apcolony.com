@@ -3,14 +3,14 @@ import { Attributes } from "@apcolony/marketplace-api/out/classes";
 import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { ArgSerializer, BytesValue } from "@elrondnetwork/erdjs/out";
-import axios from "axios";
 import { items, customisationContract, penguinsCollection } from "../const";
 import { extractCIDFromIPFS, getIdFromPenguinName, parseAttributes, splitCollectionAndNonce } from "../utils/string";
+import APCNft from "./APCNft";
 
 /**
  * We create this function because a lot of methods of ProxyNetworkProvider are not implemented yet.
  */
-export class APCProxyNetworkProvider {
+export class APCNetworkProvider {
 
     private readonly apiProvider: ApiNetworkProvider;
     private readonly proxyProvider: ProxyNetworkProvider;
@@ -46,20 +46,19 @@ export class APCProxyNetworkProvider {
 
         if (nft == undefined) return undefined;
 
-        return this.getPenguinFromNft(nft);
+
+
+        return this.getPenguinFromNft(await this.getNft(nft.collection, nft.nonce));
     }
 
-    public async getNfts(collection: string): Promise<NonFungibleTokenOfAccountOnNetwork[]> {
+    /**
+     * The API doesn't return owner
+     */
+    public async getNfts(collection: string): Promise<APCNft[]> {
         const res = await this.apiProvider.doGetGeneric(`collections/${collection}/nfts`);
 
         const nfts = Array.from(res)
-            .map((raw: any) => {
-                const nft = NonFungibleTokenOfAccountOnNetwork.fromApiHttpResponse(raw)
-
-                nft.assets = this.urisFromHttpResponse(raw.uris);
-
-                return nft;
-            });
+            .map((raw: any) => APCNft.fromApiHttpResponse(raw));
 
         return nfts;
     }
@@ -67,32 +66,20 @@ export class APCProxyNetworkProvider {
     public async getNft(collection: string, nonce: number): Promise<NonFungibleTokenOfAccountOnNetwork> {
         let nonceAsHex = new Nonce(nonce).hex();
         let response = await this.apiProvider.doGetGeneric(`nfts/${collection}-${nonceAsHex}`);
-        let token = NonFungibleTokenOfAccountOnNetwork.fromApiHttpResponse(response);
-
-        token.assets = this.urisFromHttpResponse(response.uris);
+        let token = APCNft.fromApiHttpResponse(response);
 
         return token;
     }
 
-    public async getNftsOfAccount(address: IAddress): Promise<NonFungibleTokenOfAccountOnNetwork[]> {
+    public async getNftsOfAccount(address: IAddress): Promise<APCNft[]> {
 
         const response = await this.proxyProvider.doGetGeneric(`address/${address.bech32()}/esdt`);
 
         const tokens = Object.values(response.esdts)
             .filter((item: any) => item.nonce >= 0) // we keep only NFTs        
-            .map((item: any) => {
-                let token = NonFungibleTokenOfAccountOnNetwork.fromProxyHttpResponse(item);
-                token.assets = this.urisFromHttpResponse(item.uris);
-
-                return token;
-            });
+            .map((item: any) => APCNft.fromProxyHttpResponse(item));
 
         return tokens;
-    }
-
-    private urisFromHttpResponse(uris: any): string[] {
-        return (Object.values(uris) as string[])
-            .map((uri: string) => Buffer.from(uri, "base64").toString());
     }
 
     public async getCidOf(attributes: Attributes): Promise<string | undefined> {
@@ -124,11 +111,10 @@ export class APCProxyNetworkProvider {
     }
 
 
-    async getPenguinFromNft(nft: NonFungibleTokenOfAccountOnNetwork): Promise<IPenguin> {
+    async getPenguinFromNft(nft: APCNft): Promise<IPenguin> {
 
-        if (nft.assets[0] == undefined) {
-            throw new Error(`No CID linked to the nft ${nft.identifier}`);
-        }
+        if (nft.assets[0] == undefined) throw new Error(`No CID linked to the nft ${nft.identifier}`);
+        if (!nft.owner) throw new Error("Missing owner on NFT");
 
         return {
             id: getIdFromPenguinName(nft.name).toString(),
@@ -139,6 +125,7 @@ export class APCProxyNetworkProvider {
             purchaseDate: new Date(), // TODO:
             thumbnailCID: extractCIDFromIPFS(nft.assets[0]),
             equippedItems: await this.getEquippedItemsFromAttributes(nft.attributes.toString()),
+            owner: nft.owner
         }
     }
 

@@ -1,10 +1,10 @@
 import { penguinsCollection } from "../../const";
 import { Request, Response } from 'express';
 import { Address } from "@elrondnetwork/erdjs/out";
-import { APCProxyNetworkProvider } from "../../classes/APCProxyNetworkProvider";
+import { APCNetworkProvider } from "../../classes/APCNetworkProvider";
 import { sendSuccessfulJSON } from "../../utils/response";
 
-export default async function getPenguins(req: Request, res: Response, proxyNetwork: APCProxyNetworkProvider) {
+export default async function getPenguins(req: Request, res: Response, proxyNetwork: APCNetworkProvider) {
 
     const address = new Address(req.params.bech32);
 

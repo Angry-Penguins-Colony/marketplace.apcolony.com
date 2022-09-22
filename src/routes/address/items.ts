@@ -1,11 +1,11 @@
 import { Address } from '@elrondnetwork/erdjs/out';
 import { Request, Response } from 'express';
-import { APCProxyNetworkProvider } from '../../classes/APCProxyNetworkProvider';
+import { APCNetworkProvider } from '../../classes/APCNetworkProvider';
 import { itemsCollection } from '../../const';
 import { getItemFromNft } from '../../utils/conversion';
 import { sendSuccessfulJSON } from '../../utils/response';
 
-export default async function getItems(req: Request, res: Response, gatewayProvider: APCProxyNetworkProvider) {
+export default async function getItems(req: Request, res: Response, gatewayProvider: APCNetworkProvider) {
 
     const address = new Address(req.params.bech32);
 

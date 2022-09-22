@@ -1,10 +1,10 @@
 import { penguinsCollection } from "../../const";
 import { Request, Response } from 'express';
 import { ErrNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out/errors";
-import { APCProxyNetworkProvider } from "../../classes/APCProxyNetworkProvider";
+import { APCNetworkProvider } from "../../classes/APCNetworkProvider";
 import { sendSuccessfulJSON } from "../../utils/response";
 
-export default async function getPenguin(req: Request, res: Response, proxyNetwork: APCProxyNetworkProvider) {
+export default async function getPenguin(req: Request, res: Response, proxyNetwork: APCNetworkProvider) {
 
 
     const penguin = await proxyNetwork.getPenguinFromId(req.params.id)

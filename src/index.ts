@@ -8,7 +8,7 @@ import getItems from './routes/address/items';
 import { api, gateway } from './const';
 import { getNetworkType } from './env';
 import throng from 'throng';
-import { APCProxyNetworkProvider } from './classes/APCProxyNetworkProvider';
+import { APCNetworkProvider } from './classes/APCNetworkProvider';
 import { ProxyNetworkProvider } from '@elrondnetwork/erdjs-network-providers/out';
 import getAttributes from './routes/attributes/attributes';
 import getActivity from './routes/activity/activity';
@@ -28,7 +28,7 @@ function start(id: number) {
     }));
     app.use(cors());
 
-    const proxyNetwork = new APCProxyNetworkProvider(gateway, api);
+    const proxyNetwork = new APCNetworkProvider(gateway, api);
 
     app.get('/:bech32/penguins', (req, res) => getPenguins(req, res, proxyNetwork));
     app.get('/:bech32/eggs', getEggs);

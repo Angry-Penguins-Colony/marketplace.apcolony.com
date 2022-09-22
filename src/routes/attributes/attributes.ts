@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import { Attributes } from "@apcolony/marketplace-api/out/classes"
-import { APCProxyNetworkProvider } from '../../classes/APCProxyNetworkProvider';
+import { APCNetworkProvider } from '../../classes/APCNetworkProvider';
 import { sendSuccessfulJSON } from '../../utils/response';
 import { IAttributesStatus } from '@apcolony/marketplace-api';
 
-export default async function getAttributes(req: Request, res: Response, networkProvider: APCProxyNetworkProvider) {
+export default async function getAttributes(req: Request, res: Response, networkProvider: APCNetworkProvider) {
 
     const attributes = parseAttributes(req);
 
