@@ -77,7 +77,12 @@ export class APCNetworkProvider {
 
         const tokens = Object.values(response.esdts)
             .filter((item: any) => item.nonce >= 0) // we keep only NFTs        
-            .map((item: any) => APCNft.fromProxyHttpResponse(item));
+            .map((item: any) => {
+                let nft = APCNft.fromProxyHttpResponse(item)
+                nft.owner = address.bech32();
+
+                return nft;
+            });
 
         return tokens;
     }
