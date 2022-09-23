@@ -6,7 +6,7 @@ import {
 } from '@elrondnetwork/dapp-core/UI';
 import { DappProvider } from '@elrondnetwork/dapp-core/wrappers';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
-import WIPModal from 'components/AboveComponents/Modals/WIPModal/WIPModal';
+import WIPModal from 'components/Foreground/Modals/WIPModal/WIPModal';
 import Layout from 'components/Layout';
 import PageNotFound from 'pages/PageNotFound';
 import UnlockPageFromTemplate from 'pages/UnlockPageFromTemplate';

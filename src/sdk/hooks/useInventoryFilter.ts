@@ -1,5 +1,5 @@
 import React from 'react';
-import { IInventoryItem } from 'pages/Inventory/types/IInventoryItem';
+import { IInventoryItem } from 'sdk/types/IInventoryItem';
 
 function useInventoryFilter(
     items: IInventoryItem[] | undefined,

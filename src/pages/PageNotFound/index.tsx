@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Button from 'components/Button/Button';
+import Button from 'components/Abstract/Button/Button';
 import lostPenguin from './../../assets/img/lost_penguin.svg';
 import style from './error-page.module.scss';
 

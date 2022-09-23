@@ -3,21 +3,21 @@ import { IItem } from '@apcolony/marketplace-api';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
 import { useParams } from 'react-router-dom';
-import ModalAboutRender from 'components/AboveComponents/Modals/ModalAboutRender/ModalAboutRender';
-import OverlayRenderInProgress from 'components/AboveComponents/Overlays/OverlayRenderInProgress';
-import Button from 'components/Button/Button';
+import Button from 'components/Abstract/Button/Button';
+import ModalAboutRender from 'components/Foreground/Modals/ModalAboutRender/ModalAboutRender';
+import OverlayRenderInProgress from 'components/Foreground/Overlays/OverlayRenderInProgress';
 import RefreshIcon from 'components/Icons/RefreshIcon';
+import PopupFromBottom from 'components/Inventory/PopupFromBottom/PopupFromBottom';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
+import GoToAnotherPenguin from 'components/Navigation/GoToAnotherPenguin/GoToAnotherPenguin';
+import PenguinRender from 'components/PenguinRender/PenguinRender';
 import { ipfsGateway } from 'config';
 import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
 import useCustomization from 'sdk/hooks/useCustomization';
 import useCustomizationPersistence from 'sdk/hooks/useCustomizationPersistence';
 import useItemsSelection from 'sdk/hooks/useItemsSelection';
 import { PenguinItemsIdentifier } from 'sdk/types/PenguinItemsIdentifier';
-import GoToAnotherPenguin from './GoToAnotherPenguin/GoToAnotherPenguin';
 import style from './index.module.scss';
-import PenguinRender from './PenguinRender/PenguinRender';
-import PopupFromBottom from './PopupFromBottom/PopupFromBottom';
 
 const Customize = () => {
 

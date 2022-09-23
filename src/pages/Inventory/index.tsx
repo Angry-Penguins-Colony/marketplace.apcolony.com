@@ -3,14 +3,14 @@ import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { Address } from '@elrondnetwork/erdjs/out';
 import { useParams } from 'react-router-dom';
 import ShareIcon from 'components/Icons/ShareIcon';
+import ItemsInventory from 'components/Inventory/ItemsInventory/ItemsInventory';
+import NavigationType from 'components/Inventory/NavigationType/NavigationType';
+import NavInventory from 'components/Inventory/NavInventory/NavInventory';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
 import useInventoryFilter from 'sdk/hooks/useInventoryFilter';
+import { IInventoryItem } from 'sdk/types/IInventoryItem';
 import style from './index.module.scss';
-import ItemsInventory from './ItemsInventory/ItemsInventory';
-import NavigationType from './NavigationType/NavigationType';
-import NavInventory from './NavInventory/NavInventory';
-import { IInventoryItem } from './types/IInventoryItem';
 
 const typeWithFilter: string[] = [];
 

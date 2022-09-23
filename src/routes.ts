@@ -1,8 +1,8 @@
+import ItemInInventory from 'components/Inventory/ItemInInventory/ItemInInventory';
+import Page from 'components/Marketplace/ItemInMarketplace/Page';
+import ItemInTypeInMarketplace from 'components/Marketplace/ItemInTypeInMarketplace/ItemInTypeInMarketplace';
+import TypeInMarketplace from 'components/Marketplace/TypeInMarketplace/TypeInMarketplace';
 import { dAppName } from 'config';
-import ItemInInventory from 'pages/Inventory/ItemInInventory/ItemInInventory';
-import Page from 'pages/Marketplace/ItemInMarketplace/ItemInMarketplace';
-import ItemInTypeInMarketplace from 'pages/Marketplace/ItemInTypeInMarketplace/ItemInTypeInMarketplace';
-import TypeInMarketplace from 'pages/Marketplace/TypeInMarketplace/TypeInMarketplace';
 import withPageTitle from './components/PageTitle';
 import Customize from './pages/Customize';
 import Home from './pages/Home';
