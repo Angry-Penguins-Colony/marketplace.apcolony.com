@@ -2,10 +2,11 @@ import * as React from 'react';
 import Button from 'components/Abstract/Button/Button';
 import BuyingPopup from 'components/Foreground/Popup/BuyingPopup/BuyingPopup';
 import SuccessPopup from 'components/Foreground/Popup/SuccessPopup/SuccessPopup';
-import { Item as ItemComponent } from './Item/Item';
-import style from './ItemInMarketplace.module.scss';
-import ItemsAndActivities from './ItemsAndActivities/ItemsAndActivities';
+import { Item } from 'components/Inventory/Item/Item';
+import ItemsAndActivities from 'components/Inventory/ItemsAndActivities/ItemsAndActivities';
+import style from './index.module.scss';
 
+// TODO: rename this
 const Page = (
     {
         data,
@@ -106,7 +107,7 @@ const Page = (
                                     <div className={style.content}>
                                         {data.items.map((aItem: any) => {
                                             return (
-                                                <ItemComponent key={aItem.id} item={aItem} />
+                                                <Item key={aItem.id} item={aItem} />
                                             );
                                         })}
                                     </div>
@@ -134,7 +135,7 @@ const Page = (
                             <div className={style.content}>
                                 {data.items.map((aItem: any) => {
                                     return (
-                                        <ItemComponent key={aItem.id} item={aItem} />
+                                        <Item key={aItem.id} item={aItem} />
                                     );
                                 })}
                             </div>

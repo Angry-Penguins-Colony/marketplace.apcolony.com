@@ -1,8 +1,8 @@
-import ItemInInventory from 'components/Inventory/ItemInInventory/ItemInInventory';
-import Page from 'components/Marketplace/ItemInMarketplace/Page';
+import Inspect from 'components/Inventory/ItemInInventory/ItemInInventory';
 import ItemInTypeInMarketplace from 'components/Marketplace/ItemInTypeInMarketplace/ItemInTypeInMarketplace';
 import TypeInMarketplace from 'components/Marketplace/TypeInMarketplace/TypeInMarketplace';
 import { dAppName } from 'config';
+import Page from 'pages/Inspect/Page';
 import withPageTitle from './components/PageTitle';
 import Customize from './pages/Customize';
 import Home from './pages/Home';
@@ -13,7 +13,7 @@ export const routeNames = {
   home: '/',
   transaction: '/transaction',
   inventory: '/inventory/:address',
-  inventoryItem: '/inventory/:type/:id',
+  inspect: '/inspect/:type/:id',
   customize: '/customize',
   customizeOne: '/customize/:id',
   marketplaceByType: '/marketplace/:type/i/:typeId',
@@ -41,9 +41,9 @@ const routes: Array<any> = [
     component: Inventory
   },
   {
-    path: routeNames.inventoryItem,
-    title: 'Inventory',
-    component: ItemInInventory
+    path: routeNames.inspect,
+    title: 'Inspect',
+    component: Inspect
   },
   {
     path: routeNames.customize,
@@ -67,6 +67,7 @@ const routes: Array<any> = [
     component: TypeInMarketplace
   },
   {
+    // TODO: replace by routeNames.inspect
     path: routeNames.marketplaceByTypeItem,
     title: 'Marketplace',
     component: ItemInTypeInMarketplace

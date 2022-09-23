@@ -2,8 +2,8 @@ import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import SearchIcon from 'components/Icons/SearchIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
+import Page from 'pages/Inspect/Page';
 import style from './ItemInMarketplace.module.scss';
-import Page from './Page';
 
 interface Item {
     id: string,
@@ -131,7 +131,6 @@ const ItemInMarketplace = () => {
             }, 750);
         }
     }, [id]);
-
 
     // activity tab
     interface Activity {

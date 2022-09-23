@@ -1,4 +1,4 @@
-@import './../../../assets/sass/var.scss';
+@import "./../../assets/sass/var.scss";
 
 #item-in-marketplace {
     padding-bottom: 30px;
@@ -10,7 +10,6 @@
     }
 
     > .thumbnail {
-
         img {
             width: 100%;
             border-radius: 10px;
@@ -26,14 +25,14 @@
             overflow: auto;
 
             .name {
-                font-family: 'CHEDROS', sans-serif;
+                font-family: "CHEDROS", sans-serif;
                 font-size: 1.8rem;
                 font-weight: bold;
             }
 
             .price {
                 margin-top: 0.3rem;
-                font-family: 'Config Rounded', sans-serif;
+                font-family: "Config Rounded", sans-serif;
                 font-size: 1.2rem;
                 font-weight: bold;
                 color: $primary;
@@ -41,15 +40,15 @@
 
             .owner-title {
                 margin-top: 0.5rem;
-                font-family: 'Config Rounded', sans-serif;
+                font-family: "Config Rounded", sans-serif;
                 font-size: 1.1rem;
                 font-weight: 300;
-                color: #080D2680;
+                color: #080d2680;
             }
 
             .owner {
                 margin-top: 0.3rem;
-                font-family: 'Config Rounded', sans-serif;
+                font-family: "Config Rounded", sans-serif;
                 font-weight: bold;
                 width: 100%;
                 overflow: hidden;
@@ -59,19 +58,19 @@
 
         .left {
             .rank {
-                font-family: 'Config Rounded', sans-serif;
+                font-family: "Config Rounded", sans-serif;
                 font-size: 1rem;
                 font-weight: 300;
                 white-space: nowrap;
-                color: #080D2680;
+                color: #080d2680;
             }
 
             .rarity-score {
-                font-family: 'Config Rounded', sans-serif;
+                font-family: "Config Rounded", sans-serif;
                 font-size: 1rem;
                 font-weight: bold;
                 white-space: nowrap;
-                color: #080D2680;
+                color: #080d2680;
             }
         }
     }
@@ -98,7 +97,7 @@
             flex-direction: column;
 
             h2 {
-                font-family: 'CHEDROS', sans-serif;
+                font-family: "CHEDROS", sans-serif;
                 font-size: 2rem;
                 font-weight: bold;
                 text-align: center;
@@ -121,7 +120,7 @@
                 }
 
                 > h3 {
-                    font-family: 'CHEDROS', sans-serif;
+                    font-family: "CHEDROS", sans-serif;
                     font-weight: bold;
                     font-size: 1.4rem;
                     margin-bottom: 5px;
@@ -131,7 +130,7 @@
                     background-color: white;
                     border-radius: 999px;
                     padding: 10px 40px;
-                    font-family: 'Config Rounded', sans-serif;
+                    font-family: "Config Rounded", sans-serif;
                     color: $primary;
                     font-weight: bold;
                     font-size: 1.5rem;
@@ -149,7 +148,6 @@
                 &:first-of-type {
                     align-items: stretch;
 
-
                     .infos {
                         margin-top: 30px;
                         display: flex;
@@ -161,13 +159,13 @@
                             justify-content: space-between;
 
                             .label {
-                                font-family: 'Config Rounded', sans-serif;
+                                font-family: "Config Rounded", sans-serif;
                                 font-size: 1.1rem;
                                 font-weight: 300;
                             }
 
                             .value {
-                                font-family: 'Config Rounded', sans-serif;
+                                font-family: "Config Rounded", sans-serif;
                                 font-size: 1.1rem;
                                 font-weight: 500;
                             }
@@ -207,14 +205,14 @@
                                 gap: 10px;
 
                                 .label {
-                                    font-family: 'Config Rounded', sans-serif;
+                                    font-family: "Config Rounded", sans-serif;
                                     font-size: 1.1rem;
                                     font-weight: 300;
                                     white-space: nowrap;
                                 }
 
                                 .value {
-                                    font-family: 'Config Rounded', sans-serif;
+                                    font-family: "Config Rounded", sans-serif;
                                     font-size: 1.1rem;
                                     font-weight: 500;
                                     white-space: nowrap;
@@ -236,7 +234,7 @@
             margin-top: 30px;
 
             h3 {
-                font-family: 'Config Rounded', sans-serif;
+                font-family: "Config Rounded", sans-serif;
                 font-size: 1.2rem;
                 font-weight: bold;
                 text-align: center;
@@ -253,7 +251,7 @@
 }
 
 // desktop
-@media (min-width:800px) {
+@media (min-width: 800px) {
     body {
         background-image: none !important;
     }
@@ -273,7 +271,6 @@
             "img .";
         grid-gap: 10px;
         align-items: start;
-
 
         > .thumbnail {
             grid-area: img;
@@ -317,13 +314,13 @@
             }
 
             h2 {
-                font-family: 'CHEDROS', sans-serif;
+                font-family: "CHEDROS", sans-serif;
                 font-size: 1.8rem;
                 font-weight: bold;
             }
 
             .price {
-                font-family: 'Config Rounded', sans-serif;
+                font-family: "Config Rounded", sans-serif;
                 font-size: 1.8rem;
                 font-weight: bold;
                 color: $primary;
@@ -339,7 +336,6 @@
             grid-area: activity;
             margin-top: 0;
         }
-
 
         .buying-popup {
             section {
@@ -393,14 +389,14 @@
                             padding: 10px 20px;
 
                             .label {
-                                font-family: 'Config Rounded', sans-serif;
+                                font-family: "Config Rounded", sans-serif;
                                 font-size: 1.1rem;
                                 font-weight: 400;
-                                color: #080D2680;
+                                color: #080d2680;
                             }
 
                             .value {
-                                font-family: 'Config Rounded', sans-serif;
+                                font-family: "Config Rounded", sans-serif;
                                 font-size: 1.1rem;
                                 font-weight: bold;
 
@@ -428,7 +424,6 @@
                     }
                 }
             }
-
         }
     }
 }

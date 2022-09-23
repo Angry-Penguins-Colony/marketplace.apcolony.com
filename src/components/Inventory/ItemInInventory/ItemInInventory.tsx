@@ -6,15 +6,14 @@ import Button from 'components/Abstract/Button/Button';
 import BuyingPopup from 'components/Foreground/Popup/BuyingPopup/BuyingPopup';
 import ShareIcon from 'components/Icons/ShareIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import { Item } from 'components/Marketplace/ItemInMarketplace/Item/Item';
-import ItemsAndActivities from 'components/Marketplace/ItemInMarketplace/ItemsAndActivities/ItemsAndActivities';
 import { ipfsGateway } from 'config';
 import useGenericAPICall from 'sdk/hooks/api/useGenericAPICall';
 import useGetActivity from 'sdk/hooks/api/useGetActivity';
 import useGetOffers from 'sdk/hooks/api/useGetOffers';
+import { Item } from '../Item/Item';
+import ItemsAndActivities from '../ItemsAndActivities/ItemsAndActivities';
+import SetPrice from '../SetPrice/SetPrice';
 import style from './ItemInInventory.module.scss';
-import SetPrice from './SetPrice/SetPrice';
-
 
 interface Data {
     name: string,
@@ -26,7 +25,7 @@ interface Data {
 
 type ItemType = 'penguins' | 'items';
 
-const ItemInInventory = () => {
+const Inspect = () => {
     const params = useParams();
     const id = params.id;
     const type = params.type as ItemType;
@@ -233,4 +232,4 @@ function useGetData(type: ItemType, id: string) {
 }
 
 
-export default ItemInInventory;
+export default Inspect;
