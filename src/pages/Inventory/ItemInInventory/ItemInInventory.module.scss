@@ -1,4 +1,4 @@
-@import './../../../assets/sass/var.scss';
+@import "./../../../assets/sass/var.scss";
 
 #item-in-inventory {
     background-color: $background;
@@ -23,7 +23,7 @@
         justify-content: space-between;
 
         .name {
-            font-family: 'CHEDROS', sans-serif;
+            font-family: "CHEDROS", sans-serif;
             font-weight: bold;
             font-size: 1.8rem;
             color: $primary;
@@ -55,8 +55,8 @@
             gap: 5px;
 
             p {
-                font-family: 'Config Rounded', sans-serif;
-                color: #080D2680;
+                font-family: "Config Rounded", sans-serif;
+                color: #080d2680;
             }
         }
     }
@@ -73,7 +73,7 @@
             flex-direction: column;
 
             h2 {
-                font-family: 'CHEDROS', sans-serif;
+                font-family: "CHEDROS", sans-serif;
                 font-size: 2rem;
                 font-weight: bold;
                 text-align: center;
@@ -96,7 +96,7 @@
                 }
 
                 > h3 {
-                    font-family: 'CHEDROS', sans-serif;
+                    font-family: "CHEDROS", sans-serif;
                     font-weight: bold;
                     font-size: 1.4rem;
                     margin-bottom: 5px;
@@ -106,7 +106,7 @@
                     background-color: white;
                     border-radius: 999px;
                     padding: 10px 40px;
-                    font-family: 'Config Rounded', sans-serif;
+                    font-family: "Config Rounded", sans-serif;
                     color: $primary;
                     font-weight: bold;
                     font-size: 1.5rem;
@@ -138,13 +138,13 @@
                             justify-content: space-between;
 
                             .label {
-                                font-family: 'Config Rounded', sans-serif;
+                                font-family: "Config Rounded", sans-serif;
                                 font-size: 1.1rem;
                                 font-weight: 300;
                             }
 
                             .value {
-                                font-family: 'Config Rounded', sans-serif;
+                                font-family: "Config Rounded", sans-serif;
                                 font-size: 1.1rem;
                                 font-weight: 500;
                             }
@@ -184,14 +184,14 @@
                                 gap: 10px;
 
                                 .label {
-                                    font-family: 'Config Rounded', sans-serif;
+                                    font-family: "Config Rounded", sans-serif;
                                     font-size: 1.1rem;
                                     font-weight: 300;
                                     white-space: nowrap;
                                 }
 
                                 .value {
-                                    font-family: 'Config Rounded', sans-serif;
+                                    font-family: "Config Rounded", sans-serif;
                                     font-size: 1.1rem;
                                     font-weight: 500;
                                     white-space: nowrap;
@@ -219,7 +219,7 @@
             margin-top: 30px;
 
             h3 {
-                font-family: 'Config Rounded', sans-serif;
+                font-family: "Config Rounded", sans-serif;
                 font-size: 1.2rem;
                 font-weight: bold;
                 text-align: center;
@@ -280,9 +280,9 @@
 
             .rank {
                 display: block;
-                font-family: 'Config Rounded', sans-serif;
+                font-family: "Config Rounded", sans-serif;
                 font-size: 1.2rem;
-                color: #080D2680;
+                color: #080d2680;
 
                 .primary {
                     color: $primary;

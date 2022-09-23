@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Button from 'components/Button/Button';
-import BuyingPopup from './BuyingPopup';
-import { Item as ItemComponent } from './Item';
+import BuyingPopup from './BuyingPopup/BuyingPopup';
+import { Item as ItemComponent } from './Item/Item';
 import style from './ItemInMarketplace.module.scss';
-import ItemsAndActivities from './ItemsAndActivities';
-import SuccessPopup from './SuccessPopup';
+import ItemsAndActivities from './ItemsAndActivities/ItemsAndActivities';
+import SuccessPopup from './SuccessPopup/SuccessPopup';
 
 const Page = (
     {

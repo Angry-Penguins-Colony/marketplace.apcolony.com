@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ToggleIcon from 'components/Icons/ToggleIcon';
-import { Attribute } from './Attribute';
+import { Attribute } from './Attribute/Attribute';
 import style from './ItemList.module.scss';
 
 export const ItemList = ({

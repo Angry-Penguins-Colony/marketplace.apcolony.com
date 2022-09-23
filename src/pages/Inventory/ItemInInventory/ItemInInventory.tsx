@@ -6,14 +6,14 @@ import Button from 'components/Button/Button';
 import ShareIcon from 'components/Icons/ShareIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { ipfsGateway } from 'config';
-import BuyingPopup from 'pages/Marketplace/ItemInMarketplace/BuyingPopup';
-import ItemsAndActivities from 'pages/Marketplace/ItemInMarketplace/ItemsAndActivities';
+import BuyingPopup from 'pages/Marketplace/ItemInMarketplace/BuyingPopup/BuyingPopup';
+import { Item as ItemComponent } from 'pages/Marketplace/ItemInMarketplace/Item/Item';
+import ItemsAndActivities from 'pages/Marketplace/ItemInMarketplace/ItemsAndActivities/ItemsAndActivities';
 import useGenericAPICall from 'sdk/hooks/api/useGenericAPICall';
 import useGetActivity from 'sdk/hooks/api/useGetActivity';
 import useGetOffers from 'sdk/hooks/api/useGetOffers';
-import { Item as ItemComponent } from './../../Marketplace/ItemInMarketplace/Item';
 import style from './ItemInInventory.module.scss';
-import SetPrice from './SetPrice';
+import SetPrice from './SetPrice/SetPrice';
 
 
 interface Data {

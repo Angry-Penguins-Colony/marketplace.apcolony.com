@@ -1,4 +1,4 @@
-@import './../../assets/sass/var.scss';
+@import "./../../../assets/sass/var.scss";
 
 .category-item {
     display: flex;
@@ -18,7 +18,7 @@
         h3 {
             margin-left: 5px;
             color: $primary;
-            font-family: 'CHEDROS', sans-serif;
+            font-family: "CHEDROS", sans-serif;
             font-weight: bold;
             font-size: 2rem;
             margin-bottom: 5px;

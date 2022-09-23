@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IActivity, IItem } from '@apcolony/marketplace-api';
 import RightArrowIcon from 'components/Icons/RightArrowIcon';
 import UnderlineNavElmt from 'components/UnderlineNavElmt/UnderlineNavElmt';
-import { Item } from './Item';
+import { Item } from '../Item/Item';
 import style from './ItemsAndActivities.module.scss';
 
 const ItemsAndActivities = ({

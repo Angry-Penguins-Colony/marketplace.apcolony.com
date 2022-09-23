@@ -1,4 +1,4 @@
-@import './../../../assets/sass/var.scss';
+@import "./../../../../assets/sass/var.scss";
 
 .popup {
     display: none;
@@ -8,7 +8,7 @@
     top: 0;
     right: 0;
     bottom: 0;
-    background-color: #080D26B4;
+    background-color: #080d26b4;
 
     justify-content: center;
     flex-direction: column;
@@ -19,7 +19,6 @@
     &.visible {
         display: flex;
     }
-
 
     > .content {
         position: relative;
@@ -53,9 +52,9 @@
             overflow: hidden;
 
             &::before {
-                content: '';
+                content: "";
                 display: block;
-                border-bottom: dashed 2px #080D26;
+                border-bottom: dashed 2px #080d26;
                 width: calc(100% + 20px);
                 position: absolute;
                 bottom: -1px;
@@ -70,9 +69,9 @@
             }
 
             &::after {
-                content: '';
+                content: "";
                 display: block;
-                border-bottom: dashed 2px #080D26;
+                border-bottom: dashed 2px #080d26;
                 width: calc(100% + 20px);
                 position: absolute;
                 top: -1px;
@@ -90,7 +89,7 @@
 }
 
 // desktop
-@media (min-width:800px) {
+@media (min-width: 800px) {
     .popup {
         > .content {
             display: flex;
@@ -108,7 +107,7 @@
                     left: auto;
 
                     border-bottom: none;
-                    border-right: dashed 2px #080D26;
+                    border-right: dashed 2px #080d26;
                 }
 
                 &::after {
@@ -120,7 +119,7 @@
                     right: auto;
 
                     border-bottom: none;
-                    border-right: dashed 2px #080D26;
+                    border-right: dashed 2px #080d26;
                 }
             }
         }

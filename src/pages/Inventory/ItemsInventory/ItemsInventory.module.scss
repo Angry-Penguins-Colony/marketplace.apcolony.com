@@ -1,4 +1,4 @@
-@import "./../../assets/sass/var.scss";
+@import "./../../../assets/sass/var.scss";
 
 .all-items {
     position: absolute;
@@ -109,7 +109,7 @@
     &.items {
         > .content {
             .item {
-                background-image: url("./../../assets/img/Grey_penguin.png");
+                background-image: url("./../../../assets/img/Grey_penguin.png");
                 background-position: center;
                 background-size: cover;
                 background-repeat: no-repeat;

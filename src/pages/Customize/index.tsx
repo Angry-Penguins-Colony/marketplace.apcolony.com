@@ -12,12 +12,12 @@ import useCustomization from 'sdk/hooks/useCustomization';
 import useCustomizationPersistence from 'sdk/hooks/useCustomizationPersistence';
 import useItemsSelection from 'sdk/hooks/useItemsSelection';
 import { PenguinItemsIdentifier } from 'sdk/types/PenguinItemsIdentifier';
-import GoToAnotherPenguin from './GoToAnotherPenguin';
+import GoToAnotherPenguin from './GoToAnotherPenguin/GoToAnotherPenguin';
 import style from './index.module.scss';
 import ModalAboutRender from './Modals/ModalAboutRender';
 import OverlayRenderInProgress from './Overlays/OverlayRenderInProgress';
-import PopupFromBottom from './PopupFromBottom';
-import PenguinRender from './Render';
+import PenguinRender from './PenguinRender/PenguinRender';
+import PopupFromBottom from './PopupFromBottom/PopupFromBottom';
 
 const Customize = () => {
 

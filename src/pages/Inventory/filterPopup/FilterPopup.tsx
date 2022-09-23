@@ -1,9 +1,9 @@
 import * as React from 'react';
 import CrossIcon from 'components/Icons/CrossIcon';
 import SearchIcon from 'components/Icons/SearchIcon';
-import Filters from '../Filters';
+import Filters from '../types/Filters';
 import style from './FilterPopup.module.scss';
-import { ItemList } from './ItemList';
+import { ItemList } from './ItemList/ItemList';
 
 const FilterPopup = ({
     className = '',

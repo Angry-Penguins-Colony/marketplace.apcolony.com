@@ -2,8 +2,8 @@ import * as React from 'react';
 import CrossIcon from 'components/Icons/CrossIcon';
 import SettingIcon from 'components/Icons/SettingIcon';
 import SortIcon from 'components/Icons/SortIcon';
-import FilterPopup from './filterPopup/FilterPopup';
-import Filters from './Filters';
+import FilterPopup from '../FilterPopup/FilterPopup';
+import Filters from '../types/Filters';
 import style from './NavInventory.module.scss';
 
 const NavInventory = ({

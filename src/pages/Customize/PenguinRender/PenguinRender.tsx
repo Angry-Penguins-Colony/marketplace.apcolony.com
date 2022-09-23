@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { defaultImages } from 'config';
-import style from './Render.module.scss';
+import style from './PenguinRender.module.scss';
 
 const PenguinRender = (
     {

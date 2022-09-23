@@ -1,4 +1,4 @@
-@import './../../../assets/sass/var.scss';
+@import "./../../../../assets/sass/var.scss";
 
 .set-price {
     display: flex;
@@ -8,7 +8,7 @@
     gap: 10px;
 
     h3 {
-        font-family: 'CHEDROS', sans-serif;
+        font-family: "CHEDROS", sans-serif;
         font-size: 1.6rem;
         font-weight: bold;
         color: $primary;
@@ -24,7 +24,7 @@
         flex-shrink: 1;
 
         .control {
-            font-family: 'Config Rounded', sans-serif;
+            font-family: "Config Rounded", sans-serif;
             font-size: 3.2rem;
             background-color: white;
             border-radius: 999px;
@@ -44,7 +44,7 @@
         }
 
         .input {
-            font-family: 'Config Rounded', sans-serif;
+            font-family: "Config Rounded", sans-serif;
             font-size: 1.4rem;
             font-weight: bold;
             background-color: white;
@@ -57,7 +57,7 @@
             justify-content: flex-end;
 
             input {
-                font-family: 'Config Rounded', sans-serif;
+                font-family: "Config Rounded", sans-serif;
                 font-size: 1.4rem;
                 font-weight: bold;
                 color: $primary;
@@ -73,7 +73,7 @@
     }
 
     .floor-price {
-        font-family: 'Config Rounded', sans-serif;
-        color: #080D26b0;
+        font-family: "Config Rounded", sans-serif;
+        color: #080d26b0;
     }
 }

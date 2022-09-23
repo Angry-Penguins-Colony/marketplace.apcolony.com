@@ -3,7 +3,7 @@ import { IItem } from '@apcolony/marketplace-api';
 import Button from 'components/Button/Button';
 import RoundedList from 'components/RoundedList/RoundedList';
 import { ipfsGateway } from 'config';
-import defaultPenguinImg from './../../assets/img/penguin_default.png';
+import defaultPenguinImg from './../../../assets/img/penguin_default.png';
 import style from './PopupFromBottom.module.scss';
 
 const PopupFromBottom = (

@@ -1,4 +1,4 @@
-@import './../../../assets/sass/var.scss';
+@import "./../../../../assets/sass/var.scss";
 
 .item {
     background-color: white;
@@ -13,20 +13,20 @@
         color: $primary;
 
         .name {
-            font-family: 'CHEDROS', sans-serif;
+            font-family: "CHEDROS", sans-serif;
             font-size: 1.3rem;
             font-weight: bold;
             white-space: nowrap;
         }
 
         .id {
-            font-family: 'Config Rounded', sans-serif;
+            font-family: "Config Rounded", sans-serif;
             font-weight: bold;
         }
 
         .rarity {
             margin-top: 0.6rem;
-            font-family: 'CHEDROS', sans-serif;
+            font-family: "CHEDROS", sans-serif;
             font-weight: bold;
         }
     }

@@ -1,4 +1,4 @@
-@import './../../../assets/sass/var.scss';
+@import "./../../../../assets/sass/var.scss";
 
 .item-and-activity {
     nav {
@@ -7,17 +7,17 @@
         gap: 15px;
 
         .elmt {
-            font-family: 'CHEDROS', sans-serif;
+            font-family: "CHEDROS", sans-serif;
             font-weight: bold;
             font-size: 1.4rem;
-            color: #080D2680;
+            color: #080d2680;
             cursor: pointer;
 
             &.active {
-                color: #080D26;
+                color: #080d26;
 
                 &::after {
-                    content: '';
+                    content: "";
                     display: block;
                     width: 110%;
                     position: relative;
@@ -45,7 +45,7 @@
             cursor: pointer;
 
             .main-info {
-                font-family: 'Config Rounded', sans-serif;
+                font-family: "Config Rounded", sans-serif;
                 font-size: 1.4rem;
                 font-weight: 500;
                 color: $primary;
@@ -59,14 +59,14 @@
             }
 
             .since {
-                font-family: 'Config Rounded', sans-serif;
+                font-family: "Config Rounded", sans-serif;
                 font-size: 1.4rem;
-                color: #080D2680;
+                color: #080d2680;
             }
 
             .see-it {
                 margin-top: 1rem;
-                font-family: 'Config Rounded', sans-serif;
+                font-family: "Config Rounded", sans-serif;
                 font-size: 1.2rem;
             }
 

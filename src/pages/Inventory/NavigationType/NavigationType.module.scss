@@ -1,4 +1,4 @@
-@import './../../assets/sass/var.scss';
+@import "./../../../assets/sass/var.scss";
 
 #navigation-type {
     display: flex;
@@ -7,7 +7,7 @@
 
     .item {
         font-size: 1.2rem;
-        font-family: 'Config Rounded', sans-serif;
+        font-family: "Config Rounded", sans-serif;
         font-weight: 600;
         padding: 6px 20px;
         cursor: pointer;

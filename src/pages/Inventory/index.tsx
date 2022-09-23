@@ -6,10 +6,10 @@ import ShareIcon from 'components/Icons/ShareIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
 import useInventoryFilter from 'sdk/hooks/useInventoryFilter';
-import style from './Inventory.module.scss';
-import ItemsInventory from './ItemsInventory';
-import NavigationType from './NavigationType';
-import NavInventory from './NavInventory';
+import style from './index.module.scss';
+import ItemsInventory from './ItemsInventory/ItemsInventory';
+import NavigationType from './NavigationType/NavigationType';
+import NavInventory from './NavInventory/NavInventory';
 import { IInventoryItem } from './types/IInventoryItem';
 
 const typeWithFilter: string[] = [];

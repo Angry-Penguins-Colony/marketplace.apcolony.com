@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import SearchIcon from 'components/Icons/SearchIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import UnderlineNavElmt from 'components/UnderlineNavElmt/UnderlineNavElmt';
-import { Item } from '../ItemInMarketplace/Item';
+import { Item } from '../ItemInMarketplace/Item/Item';
 import defaultPenguinImg from './../../../assets/img/penguin_default.png';
 import MarketData from './MarketData/MarketData';
 import style from './TypeInMarketplace.module.scss';

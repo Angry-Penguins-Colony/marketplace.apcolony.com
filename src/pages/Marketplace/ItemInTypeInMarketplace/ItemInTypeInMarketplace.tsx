@@ -5,7 +5,7 @@ import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import UnderlineNavElmt from 'components/UnderlineNavElmt/UnderlineNavElmt';
 import MarketData from '../TypeInMarketplace/MarketData/MarketData';
 import style from './ItemInTypeInMarketplace.module.scss';
-import SquareItem from './SquareItem';
+import SquareItem from './SquareItem/SquareItem';
 
 const ItemInTypeInMarketplace = () => {
     // get penguin informations from url
