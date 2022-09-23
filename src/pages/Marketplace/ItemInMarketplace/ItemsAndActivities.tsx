@@ -3,7 +3,7 @@ import { IActivity, IItem } from '@apcolony/marketplace-api';
 import RightArrowIcon from 'components/Icons/RightArrowIcon';
 import UnderlineNavElmt from 'components/UnderlineNavElmt/UnderlineNavElmt';
 import { Item } from './Item';
-import style from './items-and-activities.module.scss';
+import style from './ItemsAndActivities.module.scss';
 
 const ItemsAndActivities = ({
     items = [],

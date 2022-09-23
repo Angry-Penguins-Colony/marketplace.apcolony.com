@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Button from 'components/Button/Button';
-import style from './success-popup.module.scss';
+import style from './SuccessPopup.module.scss';
 
 const SuccessPopup = (
     {

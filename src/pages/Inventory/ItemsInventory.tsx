@@ -2,7 +2,7 @@ import * as React from 'react';
 import ReactImageAppear from 'components/ReactImageAppear/ReactImageAppear';
 import { ipfsGateway } from 'config';
 import Filters, { matchFilter } from './Filters';
-import style from './item-inventory.module.scss';
+import style from './ItemsInventory.module.scss';
 
 interface IProps {
     className?: string,

@@ -4,7 +4,7 @@ import Button from 'components/Button/Button';
 import RoundedList from 'components/RoundedList/RoundedList';
 import { ipfsGateway } from 'config';
 import defaultPenguinImg from './../../assets/img/penguin_default.png';
-import style from './popup-from-bottom.module.scss';
+import style from './PopupFromBottom.module.scss';
 
 const PopupFromBottom = (
     {

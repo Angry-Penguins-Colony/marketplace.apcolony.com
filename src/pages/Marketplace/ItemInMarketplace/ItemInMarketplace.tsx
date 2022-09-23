@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import SearchIcon from 'components/Icons/SearchIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import style from './item-in-marketplace.module.scss';
+import style from './ItemInMarketplace.module.scss';
 import Page from './Page';
 
 interface Item {

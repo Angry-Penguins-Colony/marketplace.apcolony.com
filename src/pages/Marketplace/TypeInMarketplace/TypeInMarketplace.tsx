@@ -5,8 +5,8 @@ import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import UnderlineNavElmt from 'components/UnderlineNavElmt/UnderlineNavElmt';
 import { Item } from '../ItemInMarketplace/Item';
 import defaultPenguinImg from './../../../assets/img/penguin_default.png';
-import MarketData from './MarketData';
-import style from './type-in-marketplace.module.scss';
+import MarketData from './MarketData/MarketData';
+import style from './TypeInMarketplace.module.scss';
 
 // TODO: for penguin
 

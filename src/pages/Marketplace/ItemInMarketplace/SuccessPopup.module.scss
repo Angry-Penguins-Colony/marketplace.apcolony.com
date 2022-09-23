@@ -1,0 +1,62 @@
+@import './../../../assets/sass/var.scss';
+
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 50;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #080D26B4;
+
+    justify-content: center;
+    flex-direction: column;
+    align-items: stretch;
+
+    &.visible {
+        display: flex;
+    }
+
+    .content {
+        background-color: white;
+        border-radius: 20px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+
+        padding: 20px;
+        padding-top: 60px;
+        position: relative;
+
+        h2 {
+            font-family: 'CHEDROS', sans-serif;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-align: center;
+
+            .green {
+                color: $green;
+            }
+        }
+
+        .top-icon {
+            width: 80px;
+            position: absolute;
+            top: -40px;
+        }
+    }
+}
+
+// desktop
+@media (min-width:800px) {
+    .popup {
+        align-items: center;
+
+        .content {
+            min-width: 350px;
+        }
+    }
+}

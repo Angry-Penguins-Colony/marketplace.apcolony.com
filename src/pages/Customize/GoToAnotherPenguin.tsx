@@ -3,7 +3,7 @@ import { IPenguin } from '@apcolony/marketplace-api';
 import LeftArrowIcon from 'components/Icons/LeftArrowIcon';
 import RightArrowIcon from 'components/Icons/RightArrowIcon';
 import { ipfsGateway } from 'config';
-import style from './go-to-another-penguin.module.scss';
+import style from './GoToAnotherPenguin.module.scss';
 
 const GoToAnotherPenguin = (
     {

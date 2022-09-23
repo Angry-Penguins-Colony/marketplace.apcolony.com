@@ -2,7 +2,7 @@ import * as React from 'react';
 import CrossIcon from 'components/Icons/CrossIcon';
 import SearchIcon from 'components/Icons/SearchIcon';
 import Filters from '../Filters';
-import style from './filter-popup.module.scss';
+import style from './FilterPopup.module.scss';
 import { ItemList } from './ItemList';
 
 const FilterPopup = ({

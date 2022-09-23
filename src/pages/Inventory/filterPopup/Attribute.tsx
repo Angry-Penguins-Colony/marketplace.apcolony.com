@@ -1,6 +1,6 @@
 import * as React from 'react';
 import CheckIcon from 'components/Icons/CheckIcon';
-import style from './attribute.module.scss';
+import style from './Attribute.module.scss';
 
 export const Attribute = ({
     className = '',

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './square-item.module.scss';
+import style from './SquareItem.module.scss';
 
 const SquareItem = ({
     thumbnail,

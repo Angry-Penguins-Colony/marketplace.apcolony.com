@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './item-or-penguin-in-explorer.module.scss';
+import style from './ItemOrPenguininExplorer.module.scss';
 
 export const ItemOrPenguininExplorer = (
     {

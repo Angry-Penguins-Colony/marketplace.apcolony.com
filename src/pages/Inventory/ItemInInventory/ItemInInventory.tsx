@@ -12,7 +12,7 @@ import useGenericAPICall from 'sdk/hooks/api/useGenericAPICall';
 import useGetActivity from 'sdk/hooks/api/useGetActivity';
 import useGetOffers from 'sdk/hooks/api/useGetOffers';
 import { Item as ItemComponent } from './../../Marketplace/ItemInMarketplace/Item';
-import style from './item-in-inventory.module.scss';
+import style from './ItemInInventory.module.scss';
 import SetPrice from './SetPrice';
 
 

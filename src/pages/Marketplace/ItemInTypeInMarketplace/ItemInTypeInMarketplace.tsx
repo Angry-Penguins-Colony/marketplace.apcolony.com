@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import SearchIcon from 'components/Icons/SearchIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import UnderlineNavElmt from 'components/UnderlineNavElmt/UnderlineNavElmt';
-import MarketData from '../TypeInMarketplace/MarketData';
-import style from './item-in-type-in-marketplace.module.scss';
+import MarketData from '../TypeInMarketplace/MarketData/MarketData';
+import style from './ItemInTypeInMarketplace.module.scss';
 import SquareItem from './SquareItem';
 
 const ItemInTypeInMarketplace = () => {

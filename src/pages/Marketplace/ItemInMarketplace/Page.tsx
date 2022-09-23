@@ -2,7 +2,7 @@ import * as React from 'react';
 import Button from 'components/Button/Button';
 import BuyingPopup from './BuyingPopup';
 import { Item as ItemComponent } from './Item';
-import style from './item-in-marketplace.module.scss';
+import style from './ItemInMarketplace.module.scss';
 import ItemsAndActivities from './ItemsAndActivities';
 import SuccessPopup from './SuccessPopup';
 

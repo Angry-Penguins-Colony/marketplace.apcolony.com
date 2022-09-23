@@ -1,6 +1,6 @@
 import * as React from 'react';
 import CrossIcon from 'components/Icons/CrossIcon';
-import style from './buying-popup.module.scss';
+import style from './BuyingPopup.module.scss';
 
 const BuyingPopup = (
     {

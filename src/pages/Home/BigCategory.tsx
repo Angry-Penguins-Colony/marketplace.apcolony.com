@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Button from 'components/Button/Button';
-import style from './big-category.module.scss';
+import style from './BigCategory.module.scss';
 
 export const BigCategory = ({
     title,

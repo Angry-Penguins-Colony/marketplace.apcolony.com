@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IItem } from '@apcolony/marketplace-api';
 import { ipfsGateway } from 'config';
-import style from './item.module.scss';
+import style from './Item.module.scss';
 
 export const Item = ({
     item,

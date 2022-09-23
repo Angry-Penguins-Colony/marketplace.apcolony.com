@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './set-price.module.scss';
+import style from './SetPrice.module.scss';
 
 const SetPrice = ({
     floorPrice = 0,

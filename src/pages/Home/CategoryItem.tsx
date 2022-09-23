@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Button from 'components/Button/Button';
-import style from './category-item.module.scss';
+import style from './CategoryItem.module.scss';
 
 export const CategoryItem = ({
     title, img, link }: {

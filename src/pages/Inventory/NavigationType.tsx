@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './navigation-type.module.scss';
+import style from './NavigationType.module.scss';
 
 const NavigationType = ({
     className = '',

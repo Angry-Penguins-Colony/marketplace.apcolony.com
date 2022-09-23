@@ -1,5 +1,5 @@
 import * as React from 'react';
-import style from './market-data.module.scss';
+import style from './MarketData.module.scss';
 
 const MarketData = ({
     floorPrice,
