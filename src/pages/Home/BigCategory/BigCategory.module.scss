@@ -8,7 +8,7 @@
     &::after {
         content: "";
         display: block;
-        padding-bottom: 368 / 260 * 55vw;
+        padding-bottom: calc(368 / 260 * 55vw);
     }
 
     img {
@@ -28,7 +28,7 @@
         left: 25px;
         right: 25px;
         text-align: center;
-        font-family: 'CHEDROS', sans-serif;
+        font-family: "CHEDROS", sans-serif;
         font-weight: bold;
         font-size: 2.5rem;
         color: white;
@@ -43,9 +43,8 @@
 }
 
 // desktop
-@media (min-width :800px) {
+@media (min-width: 800px) {
     .big-category {
-
         min-width: auto;
         width: auto;
 
@@ -55,7 +54,6 @@
         }
 
         &::after {
-
             padding-bottom: 140%;
         }
     }

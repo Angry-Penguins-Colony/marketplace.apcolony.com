@@ -1,5 +1,5 @@
 import React from 'react';
-import Popup from 'components/Popup/Popup';
+import Popup from 'components/AboveComponents/Popup/Generic/Popup';
 import style from './unlock.module.scss';
 
 export const SuccessLogin = () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ReactComponent as TopIcon } from 'assets/img/icons/rounded-question-mark.svg'
+import Popup from 'components/AboveComponents/Popup/Generic/Popup';
 import Button from 'components/Button/Button';
-import Popup from 'components/Popup/Popup';
 
 const ModalAboutRender = (props: {
     onSignRenderClick: () => void;

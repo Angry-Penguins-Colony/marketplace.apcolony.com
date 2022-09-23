@@ -3,6 +3,8 @@ import { IItem } from '@apcolony/marketplace-api';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
 import { useParams } from 'react-router-dom';
+import ModalAboutRender from 'components/AboveComponents/Modals/ModalAboutRender/ModalAboutRender';
+import OverlayRenderInProgress from 'components/AboveComponents/Overlays/OverlayRenderInProgress';
 import Button from 'components/Button/Button';
 import RefreshIcon from 'components/Icons/RefreshIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
@@ -14,8 +16,6 @@ import useItemsSelection from 'sdk/hooks/useItemsSelection';
 import { PenguinItemsIdentifier } from 'sdk/types/PenguinItemsIdentifier';
 import GoToAnotherPenguin from './GoToAnotherPenguin/GoToAnotherPenguin';
 import style from './index.module.scss';
-import ModalAboutRender from './Modals/ModalAboutRender';
-import OverlayRenderInProgress from './Overlays/OverlayRenderInProgress';
 import PenguinRender from './PenguinRender/PenguinRender';
 import PopupFromBottom from './PopupFromBottom/PopupFromBottom';
 

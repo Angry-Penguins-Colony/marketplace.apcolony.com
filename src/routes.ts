@@ -1,6 +1,6 @@
 import { dAppName } from 'config';
 import ItemInInventory from 'pages/Inventory/ItemInInventory/ItemInInventory';
-import ItemInMarketplace from 'pages/Marketplace/ItemInMarketplace/ItemInMarketplace';
+import Page from 'pages/Marketplace/ItemInMarketplace/ItemInMarketplace';
 import ItemInTypeInMarketplace from 'pages/Marketplace/ItemInTypeInMarketplace/ItemInTypeInMarketplace';
 import TypeInMarketplace from 'pages/Marketplace/TypeInMarketplace/TypeInMarketplace';
 import withPageTitle from './components/PageTitle';
@@ -59,7 +59,7 @@ const routes: Array<any> = [
   {
     path: routeNames.marketplaceItem,
     title: 'Marketplace',
-    component: ItemInMarketplace
+    component: Page
   },
   {
     path: routeNames.marketplaceByType,
