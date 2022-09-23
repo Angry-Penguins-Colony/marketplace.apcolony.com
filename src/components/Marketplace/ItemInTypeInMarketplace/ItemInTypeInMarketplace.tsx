@@ -8,6 +8,7 @@ import style from './ItemInTypeInMarketplace.module.scss';
 import SquareItem from './SquareItem/SquareItem';
 
 const ItemInTypeInMarketplace = () => {
+
     // get penguin informations from url
     const { type, itemId } = useParams();
 
@@ -80,6 +81,8 @@ const ItemInTypeInMarketplace = () => {
             ]);
         }, 1000);
     }, []);
+
+    throw new Error('Please, use Inspect instead.');
 
 
     return (

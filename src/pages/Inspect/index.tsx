@@ -26,7 +26,7 @@ interface Penguin {
     items: Item[]
 }
 
-const ItemInMarketplace = () => {
+const Inspect = () => {
     // get penguin informations from url
     const { type, id } = useParams();
 
@@ -150,4 +150,4 @@ const ItemInMarketplace = () => {
     );
 };
 
-export default ItemInMarketplace;
+export default Inspect;
