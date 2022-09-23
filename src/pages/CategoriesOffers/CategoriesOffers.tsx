@@ -4,13 +4,13 @@ import UnderlineNavElmt from 'components/Abstract/UnderlineNavElmt/UnderlineNavE
 import SearchIcon from 'components/Icons/SearchIcon';
 import { Item } from 'components/Inventory/Item/Item';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import defaultPenguinImg from './../../../assets/img/penguin_default.png';
+import defaultPenguinImg from './../../assets/img/penguin_default.png';
+import style from './CategoriesOffers.module.scss';
 import MarketData from './MarketData/MarketData';
-import style from './TypeInMarketplace.module.scss';
 
 // TODO: for penguin
 
-const TypeInMarketplace = () => {
+const CategoriesOffers = () => {
     // get penguin informations from url
     const { typeId } = useParams();
 
@@ -118,4 +118,4 @@ const TypeInMarketplace = () => {
     );
 };
 
-export default TypeInMarketplace;
+export default CategoriesOffers;

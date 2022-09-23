@@ -1,4 +1,4 @@
-@import './../../../assets/sass/var.scss';
+@import "./../../assets/sass/var.scss";
 
 .type-in-marketplace {
     background-color: $background;
@@ -9,7 +9,7 @@
     }
 
     > h1 {
-        font-family: 'CHEDROS', sans-serif;
+        font-family: "CHEDROS", sans-serif;
         font-weight: bold;
         position: relative;
         top: -2rem;
@@ -19,7 +19,7 @@
     }
 
     > .description {
-        font-family: 'Config Rounded', sans-serif;
+        font-family: "Config Rounded", sans-serif;
         text-align: center;
         margin-top: 1rem;
         padding-left: 40px;
@@ -40,12 +40,11 @@
         > .desktop {
             display: none;
         }
-
     }
 }
 
 // desktop
-@media (min-width:800px) {
+@media (min-width: 800px) {
     .type-in-marketplace {
         padding-top: 120px;
         max-width: 1400px;
@@ -84,14 +83,14 @@
                     padding: 15px;
 
                     .name {
-                        font-family: 'CHEDROS', sans-serif;
+                        font-family: "CHEDROS", sans-serif;
                         font-weight: bold;
                         font-size: 1.4rem;
                     }
 
                     .rarity {
                         margin-top: 0.6rem;
-                        font-family: 'CHEDROS', sans-serif;
+                        font-family: "CHEDROS", sans-serif;
                         font-weight: bold;
                         color: $primary;
                     }

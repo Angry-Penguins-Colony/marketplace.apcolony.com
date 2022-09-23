@@ -1,8 +1,6 @@
 import Inspect from 'components/Inventory/ItemInInventory/ItemInInventory';
-import ItemInTypeInMarketplace from 'components/Marketplace/ItemInTypeInMarketplace/ItemInTypeInMarketplace';
-import TypeInMarketplace from 'components/Marketplace/TypeInMarketplace/TypeInMarketplace';
 import { dAppName } from 'config';
-import Page from 'pages/Inspect/Page';
+import CategoriesOffers from 'pages/CategoriesOffers/CategoriesOffers';
 import withPageTitle from './components/PageTitle';
 import Customize from './pages/Customize';
 import Home from './pages/Home';
@@ -16,9 +14,7 @@ export const routeNames = {
   inspect: '/inspect/:type/:id',
   customize: '/customize',
   customizeOne: '/customize/:id',
-  marketplaceByType: '/marketplace/:type/i/:typeId',
-  marketplaceByTypeItem: '/marketplace/:type/i/:typeId/:itemId',
-  marketplaceItem: '/marketplace/:type/:id',
+  categoriesOffers: '/offers/:type/',
   unlock: '/unlock',
   ledger: '/ledger',
   walletconnect: '/walletconnect'
@@ -57,20 +53,9 @@ const routes: Array<any> = [
     component: Customize
   },
   {
-    path: routeNames.marketplaceItem,
-    title: 'Marketplace',
-    component: Page
-  },
-  {
-    path: routeNames.marketplaceByType,
-    title: 'Marketplace',
-    component: TypeInMarketplace
-  },
-  {
-    // TODO: replace by routeNames.inspect
-    path: routeNames.marketplaceByTypeItem,
-    title: 'Marketplace',
-    component: ItemInTypeInMarketplace
+    path: routeNames.categoriesOffers,
+    title: 'Offers',
+    component: CategoriesOffers
   },
 ];
 
