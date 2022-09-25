@@ -1,10 +1,10 @@
 import * as React from 'react';
-import Button from 'components/Button/Button';
+import Button from 'components/Abstract/Button/Button';
+import { BigCategory } from 'components/Navigation/BigCategory/BigCategory';
+import { CategoryItem } from 'components/Navigation/CategoryItem/CategoryItem';
+import { ItemOrPenguininExplorer } from 'components/Navigation/ItemOrPenguininExplorer/ItemOrPenguininExplorer';
 import { routeNames } from 'routes';
-import { BigCategory } from './BigCategory';
-import { CategoryItem } from './CategoryItem';
-import style from './home.module.scss';
-import { ItemOrPenguininExplorer } from './ItemOrPenguininExplorer';
+import style from './index.module.scss';
 
 interface ItemOrPenguin {
   id: string;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { logout } from '@elrondnetwork/dapp-core/utils';
-import Button from 'components/Button/Button';
+import Button from 'components/Abstract/Button/Button';
 import DiscordIcon from 'components/Icons/DiscordIcon';
 import HomeIcon from 'components/Icons/HomeIcon';
 import LabIcon from 'components/Icons/LabIcon';
@@ -14,6 +14,8 @@ import { routeNames } from 'routes';
 import style from './navbar.module.scss';
 
 const Navbar = () => {
+
+  const { address } = useGetAccountInfo();
 
   const navItems = [
     {
@@ -32,7 +34,7 @@ const Navbar = () => {
     },
     {
       name: 'My Inventory',
-      route: '/inventory',
+      route: '/inventory/' + address,
       icon: <ProfileIcon />,
     },
     {
@@ -51,7 +53,6 @@ const Navbar = () => {
     },
   ];
 
-  const { address } = useGetAccountInfo();
   const isConnected = !!address;
 
   const handleLogout = () => {

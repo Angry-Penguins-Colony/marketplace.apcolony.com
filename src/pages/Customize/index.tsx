@@ -1,63 +1,81 @@
 import * as React from 'react';
 import { IItem } from '@apcolony/marketplace-api';
+import { sendTransactions } from '@elrondnetwork/dapp-core/services';
+import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
 import { useParams } from 'react-router-dom';
-import Button from 'components/Button/Button';
+import Button from 'components/Abstract/Button/Button';
+import ModalAboutRender from 'components/Foreground/Modals/ModalAboutRender/ModalAboutRender';
+import OverlayRenderInProgress from 'components/Foreground/Overlays/OverlayRenderInProgress';
 import RefreshIcon from 'components/Icons/RefreshIcon';
+import PopupFromBottom from 'components/Inventory/PopupFromBottom/PopupFromBottom';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import { customisationContractAddress, ipfsGateway, penguinCollection } from 'config';
-import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/useGetOwned';
-import CustomizePayloadBuilder, { ItemToken } from 'sdk/transactionsPayload/CustomizePayloadBuilder';
-import style from './customize.module.scss';
-import GoToAnotherPenguin from './GoToAnotherPenguin';
-import PopupFromBottom from './PopupFromBottom';
-import PenguinRender from './Render';
-
-type PenguinItemsIdentifier = Record<string, string | undefined>;
+import GoToAnotherPenguin from 'components/Navigation/GoToAnotherPenguin/GoToAnotherPenguin';
+import PenguinRender from 'components/PenguinRender/PenguinRender';
+import { ipfsGateway } from 'config';
+import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
+import useCustomization from 'sdk/hooks/useCustomization';
+import useCustomizationPersistence from 'sdk/hooks/useCustomizationPersistence';
+import useItemsSelection from 'sdk/hooks/useItemsSelection';
+import { PenguinItemsIdentifier } from 'sdk/types/PenguinItemsIdentifier';
+import style from './index.module.scss';
 
 const Customize = () => {
+
     const { id } = useParams();
     const selectedPenguinNonce = parseInt(id ?? '');
+
+    const ownedItems = useGetOwnedItems();
     const ownedPenguins = useGetOwnedPenguins();
-    const selectedPenguinData = ownedPenguins?.find((penguin) => penguin.nonce === selectedPenguinNonce);
+    const [, setTransactionSessionId] = React.useState<string | null>(null);
 
-    const [equippedItemsIdentifier, setEquippedItemsIdentifier] = React.useState<PenguinItemsIdentifier>({});
+    const [showModalAboutRender, setShowModalAboutRender] = React.useState<boolean>(false);
 
-    React.useEffect(() => {
+    const {
+        load,
+        save
+    } = useCustomizationPersistence(selectedPenguinNonce);
 
-        if (!selectedPenguinData) return;
+    const initialAttributes = load();
+    const {
+        resetItems,
+        equipItem,
+        unequipItem,
+        getCustomizeTransaction,
+        getRenderTransaction,
+        isSlotModified,
+        equippedItemsIdentifier,
+        attributesStatus,
+        hasSomeModifications,
+        selectedPenguin,
+    } = useCustomization(selectedPenguinNonce, initialAttributes);
 
-        const equippedItemsIdentifierFromFetchedData = Object.values(selectedPenguinData.equippedItems)
-            .reduce((acc, item) => {
-                acc[item.slot] = item.identifier;
-                return acc;
-            }, {} as PenguinItemsIdentifier);
+    const {
+        toggle,
+        setSelectedItems: setSelectedItemsInPopup,
+        selectedItems: selectedItemsInPopup
+    } = useItemsSelection({
+        initialSelectedItems: initialAttributes,
+        onSelectionChange: () => {
 
-        setEquippedItemsIdentifier(equippedItemsIdentifierFromFetchedData);
-        setSelectedItemsInPopup(equippedItemsIdentifierFromFetchedData);
-    }, [selectedPenguinData]);
+            for (const slot in selectedItemsInPopup) {
+                console.log(slot);
+                equipIfSelectedOrUnequip(slot);
+            }
+        }
+    });
 
+    const editingEnabled = attributesStatus?.renderStatus != 'rendering';
 
     /* Choose items popup */
     const [itemsPopupIsOpen, setItemsPopupIsOpen] = React.useState<boolean>(false);
     const [itemsPopupTitle, setItemsPopupTitle] = React.useState<string>('All My Items');
     const [itemsPopupType, setItemsPopupType] = React.useState<string>('all');
     const [itemsInPopup, setItemsInPopup] = React.useState<IItem[]>([]);
-    const [selectedItemsInPopup, setSelectedItemsInPopup] = React.useState<PenguinItemsIdentifier>({});
 
-    const ownedItems = useGetOwnedItems();
-
-    if (!isSelectedNonceOwned() && ownedPenguins && ownedPenguins.length > 0) {
-        window.location.href = `/customize/${ownedPenguins[0].nonce}`;
-    }
-
+    // Selected equipped items
     React.useEffect(() => {
-        // change inlive if it's desktop version
-        if (window.innerWidth > 800) {
-            for (const slot in selectedItemsInPopup) {
-                validateItemChangement(slot);
-            }
-        }
-    }, [selectedItemsInPopup]);
+        setSelectedItemsInPopup(equippedItemsIdentifier);
+    }, [equippedItemsIdentifier])
 
     React.useEffect(() => {
         if (ownedItems) {
@@ -65,32 +83,23 @@ const Customize = () => {
         }
     }, [ownedItems]);
 
-    function getImageSrcToRender(slot: keyof PenguinItemsIdentifier) {
-        const item = getEquippedItemInSlot(slot);
-
-        if (item != undefined) {
-
-            if (!item.renderCID) throw new Error(`Item ${item.name} in slot ${slot} has no renderCID.`);
-
-            return ipfsGateway + item.renderCID;
-        }
-        else {
-            return undefined;
-        }
+    if (!isSelectedNonceOwned() && ownedPenguins && ownedPenguins.length > 0) {
+        window.location.href = `/customize/${ownedPenguins[0].nonce}`;
     }
 
     return (
         <div id={style['body-content']}>
-            <MobileHeader title="Customize" subTitle={'Penguin #' + selectedPenguinNonce} className={style['mobile-header']} />
+            <ModalAboutRender isVisible={showModalAboutRender} onSignRenderClick={onSignRenderClick} />
+            <MobileHeader title="Customize" subTitle={selectedPenguin?.name ?? ''} className={style['mobile-header']} />
             <PopupFromBottom
                 title={itemsPopupTitle}
                 type={itemsPopupType}
                 isOpen={itemsPopupIsOpen}
                 items={itemsInPopup}
+                disableSelection={!editingEnabled}
                 selectedItemsIdentifier={selectedItemsInPopup}
                 onItemClick={onItemClick}
-                cancel={() => { setItemsPopupIsOpen(false); }}
-                select={validateItemChangement}
+                select={() => { setItemsPopupIsOpen(false); }}
                 changeType={(type) => {
                     openItemsPopup(type, 'Select ' + type);
                 }}
@@ -112,7 +121,11 @@ const Customize = () => {
                         skin: getImageSrcToRender('skin'),
                         weapon: getImageSrcToRender('weapon'),
 
-                    }} />
+                    }}>
+                        {attributesStatus?.renderStatus == 'rendering' &&
+                            <OverlayRenderInProgress />
+                        }
+                    </PenguinRender>
                     <div className={style.items}>
                         {createItemButton('beak', 'Beak')}
                         {createItemButton('skin', 'Skin')}
@@ -120,67 +133,95 @@ const Customize = () => {
                         {createItemButton('background', 'Background')}
                     </div>
                 </div>
-                <div className={style.reset}>
-                    <Button icon={<RefreshIcon />} onClick={resetItems}>Reset Items</Button>
-                </div>
-                <div className={style.controls}>
-                    <Button type='cancel' onClick={cancelAll}>Cancel All</Button>
-                    <Button type='primary' onClick={saveCustomization}>Confirm Customization</Button>
-                </div>
+                {(attributesStatus?.renderStatus != 'rendering') &&
+                    <>
+                        <div className={style.reset}>
+                            <Button icon={<RefreshIcon />} onClick={resetItems}>Unequip Items</Button>
+                        </div>
+                        <div className={style.controls}>
+                            {/* <Button type='cancel' onClick={cancelAll}>Cancel All</Button> */}
+                            <Button type='primary' onClick={onConfirmCustomClick} disabled={!hasSomeModifications || !attributesStatus}>
+
+                                {getCustomizeButtonContent()}
+                            </Button>
+
+
+                        </div>
+
+
+                    </>
+                }
             </section >
             {ownedPenguins &&
                 <GoToAnotherPenguin className={style['another-penguins']}
                     selectedPenguinNonce={selectedPenguinNonce}
                     penguins={ownedPenguins}
-                    subTitle={'Penguin #' + selectedPenguinNonce}
+                    subTitle={selectedPenguin?.name ?? ''}
                 />
             }
         </div >
     );
 
-    function isSelectedNonceOwned() {
-        return ownedPenguins && ownedPenguins.find(p => p.nonce == selectedPenguinNonce);
-    }
+    function getCustomizeButtonContent() {
 
-    function getItem(identifier: string) {
-        return ownedItems?.find(item => item.identifier === identifier);
+        console.log(attributesStatus);
+
+        if (attributesStatus) {
+            switch (attributesStatus.renderStatus) {
+                case 'none':
+                    return 'Render Image on blockchain';
+
+                case 'rendering':
+                case 'rendered':
+
+                    if (!hasSomeModifications) {
+                        return 'No changes detected'
+                    }
+                    else {
+                        return 'Customize';
+                    }
+            }
+        }
+        else {
+            return <div className="spinner-border" role="status">
+                <span className="sr-only">Loading...</span>
+            </div>;
+        }
     }
 
     function onItemClick(item: IItem) {
+        if (!editingEnabled) return;
+        toggle(item);
 
-        toggleItemSelection(item);
-
-        setItemsPopupIsOpen(false);
-
-        // PROBLEM: on vient toggle la selection de l'item
-        // mais le state ne s'update pas; donc validateItemChangement fait une vérification sur l'ancienne state
-
-    }
-
-    function toggleItemSelection(item: IItem) {
-        const isSelected = selectedItemsInPopup[item.slot] === item.identifier;
-
-        if (isSelected) {
-            unselect(item);
+        if (window.innerWidth > 800) {
+            setItemsPopupIsOpen(false);
         }
-        else {
-            select(item);
+    }
+
+    function onSignRenderClick() {
+        setShowModalAboutRender(false);
+        sendRenderImageTx();
+    }
+
+    async function onConfirmCustomClick() {
+
+
+        console.log('onConfirmCustomClick');
+
+        if (!attributesStatus) return;
+
+        switch (attributesStatus?.renderStatus) {
+            case 'none':
+                setShowModalAboutRender(true);
+                return;
+
+            case 'rendered':
+                sendCustomizationTx();
+                return;
+
+            case 'rendering':
+                throw new Error('Not implemented');
         }
-
-    }
-
-    function unselect(item: IItem) {
-        setSelectedItemsInPopup({
-            ...selectedItemsInPopup,
-            [item.slot]: undefined
-        });
-    }
-
-    function select(item: IItem) {
-        setSelectedItemsInPopup({
-            ...selectedItemsInPopup,
-            [item.slot]: item.identifier
-        });
     }
 
     function openItemsPopup(type: string, title: string) {
@@ -192,23 +233,13 @@ const Customize = () => {
         setItemsPopupIsOpen(true);
     }
 
-    function getSelectedItemInSlot(slot: string) {
-        const identifier = selectedItemsInPopup[slot];
+    function equipIfSelectedOrUnequip(slot: string) {
 
-        if (!identifier) return undefined;
-
-        return getItem(identifier);
-    }
-
-    function getEquippedItemInSlot(slot: string) {
-        const identifier = equippedItemsIdentifier[slot];
-
-        return identifier ? getItem(identifier) : undefined;
-    }
-
-    function validateItemChangement(slot: string) {
+        if (!editingEnabled) return;
 
         const selectedItem = getSelectedItemInSlot(slot);
+
+        console.log('selected item for slot', slot, 'is', selectedItem?.name ?? undefined);
 
         if (selectedItem != undefined) {
             equipItem(slot, selectedItem);
@@ -217,99 +248,99 @@ const Customize = () => {
         }
     }
 
-    function resetItems() {
-        setEquippedItemsIdentifier({});
-    }
+    async function sendRenderImageTx() {
 
-    function cancelAll() {
-        // go to inventory with confirmation
-        if (confirm('Are you sure you want to cancel all changes?')) {
-            window.location.href = '/inventory';
-        }
-    }
-
-    function saveCustomization() {
-
-        const itemsToEquip: ItemToken[] = [];
-        const slotsToUnequip: string[] = [];
-
-        for (const slot in equippedItemsIdentifier) {
-            const itemIdentifier = equippedItemsIdentifier[slot];
-            const blockchainCurrentlyEquippedItem = selectedPenguinData?.equippedItems[slot].identifier;
-
-            if (itemIdentifier != blockchainCurrentlyEquippedItem) {
-                if (itemIdentifier == undefined) {
-                    slotsToUnequip.push(slot);
-                }
-                else {
-                    const itemData = getItem(itemIdentifier);
-
-                    if (!itemData) throw new Error(`Item ${itemIdentifier} not found in owned items.`);
-
-                    itemsToEquip.push({
-                        collection: itemData?.identifier,
-                        nonce: itemData?.nonce
-                    });
-                }
-            }
-        }
-        console.log(`Found ${itemsToEquip.length} items to equip and ${slotsToUnequip.length} slots to unequip.`);
-
-        if (itemsToEquip.length > 0 || slotsToUnequip.length > 0) {
-
-            const payload = new CustomizePayloadBuilder()
-                .setCustomizationContractAddress(customisationContractAddress)
-                .setPenguinCollection(penguinCollection)
-                .setPenguinNonce(selectedPenguinNonce)
-                .setItemsToEquip(itemsToEquip)
-                .setSlotsToUnequip(slotsToUnequip)
-                .build();
-
-            // TODO: send tx
+        const transaction = getRenderTransaction();
 
 
-            // TODO: save customization
-            console.log('save customization');
-            // TODO: api call etc
-        }
-    }
+        await refreshAccount();
 
-    function equipItem(slot: string, item: IItem) {
+        save(equippedItemsIdentifier);
 
-        if (equippedItemsIdentifier[slot] == item.identifier) return;
-
-        setEquippedItemsIdentifier({
-            ...equippedItemsIdentifier,
-            [slot]: item.identifier
+        const { sessionId } = await sendTransactions({
+            transactions: transaction,
+            transactionDisplayInfo: {
+                processingMessage: 'Processing render transaction',
+                errorMessage: 'An error has occured during render',
+                successMessage: 'Render transaction successful',
+            },
+            redirectAfterSign: false,
         });
+
+        if (sessionId != null) {
+            setTransactionSessionId(sessionId);
+        }
     }
 
-    function unequipItem(slot: string) {
-        if (equippedItemsIdentifier[slot] == undefined) return;
+    async function sendCustomizationTx() {
+        const transaction = getCustomizeTransaction();
+        await refreshAccount();
 
-        setEquippedItemsIdentifier({
-            ...equippedItemsIdentifier,
-            [slot]: undefined
+        const { sessionId } = await sendTransactions({
+            transactions: transaction,
+            transactionDisplayInfo: {
+                processingMessage: 'Processing customization transaction',
+                errorMessage: 'An error has occured during customization',
+                successMessage: 'Customization transaction successful'
+            },
+            redirectAfterSign: false
         });
+
+        if (sessionId != null) {
+            setTransactionSessionId(sessionId);
+        }
     }
 
-    function createItemButton(type: keyof PenguinItemsIdentifier, title: string) {
+    function getItem(identifier: string | undefined) {
+        if (!identifier) return undefined;
 
-        const itemIdentifier = equippedItemsIdentifier[type];
+        return ownedItems?.find(item => item.identifier === identifier);
+    }
+
+    function isSelectedNonceOwned() {
+        return ownedPenguins && ownedPenguins.find(p => p.nonce == selectedPenguinNonce);
+    }
+
+    function getSelectedItemInSlot(slot: string) {
+        return getItem(selectedItemsInPopup[slot]);
+    }
+
+    function getEquippedItemInSlot(slot: string) {
+        return getItem(equippedItemsIdentifier[slot]);
+    }
+
+    function createItemButton(slot: keyof PenguinItemsIdentifier, title: string) {
+
+        const itemIdentifier = equippedItemsIdentifier[slot];
         const item = itemIdentifier ? getItem(itemIdentifier) : undefined;
 
         const className = [
             style.item,
-            item != undefined ? style.filled : style[type]
+            item != undefined ? style.filled : style[slot],
+            isSlotModified(slot) ? style.modified : ''
         ].join(' ');
 
         return <div
             className={className}
-            onClick={() => { openItemsPopup(type, title); }}>
+            onClick={() => { openItemsPopup(slot, title); }}>
             {
                 item && <img src={ipfsGateway + item.thumbnailCID} />
             }
         </div >
+    }
+
+    function getImageSrcToRender(slot: keyof PenguinItemsIdentifier) {
+        const item = getEquippedItemInSlot(slot);
+
+        if (item != undefined) {
+
+            if (!item.renderCID) throw new Error(`Item ${item.name} in slot ${slot} has no renderCID.`);
+
+            return ipfsGateway + item.renderCID;
+        }
+        else {
+            return undefined;
+        }
     }
 
 };

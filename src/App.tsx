@@ -6,13 +6,12 @@ import {
 } from '@elrondnetwork/dapp-core/UI';
 import { DappProvider } from '@elrondnetwork/dapp-core/wrappers';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
+import WIPModal from 'components/Foreground/Modals/WIPModal/WIPModal';
 import Layout from 'components/Layout';
-import WIPModal from 'components/Modals/WIPModal/WIPModal';
 import PageNotFound from 'pages/PageNotFound';
 import UnlockPageFromTemplate from 'pages/UnlockPageFromTemplate';
 import { routeNames } from 'routes';
 import routes from 'routes';
-import { UnlockRoute as UnlockPageBis } from './pages/UnlockPage';
 
 const environment = 'devnet';
 

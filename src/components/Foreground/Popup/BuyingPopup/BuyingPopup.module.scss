@@ -1,0 +1,127 @@
+@import "./../../../../assets/sass/var.scss";
+
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 50;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #080d26b4;
+
+    justify-content: center;
+    flex-direction: column;
+    align-items: stretch;
+
+    padding: 0 !important;
+
+    &.visible {
+        display: flex;
+    }
+
+    > .content {
+        position: relative;
+        overflow: auto;
+        padding: 15px;
+
+        .close {
+            background-color: $primary;
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            z-index: 1;
+            height: 38px;
+            width: 38px;
+            border-radius: 999px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .icon {
+                fill: white;
+                height: 14px;
+            }
+        }
+
+        section {
+            background-color: $background;
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+
+            &::before {
+                content: "";
+                display: block;
+                border-bottom: dashed 2px #080d26;
+                width: calc(100% + 20px);
+                position: absolute;
+                bottom: -1px;
+                left: 0;
+                right: 0;
+            }
+
+            &:last-of-type {
+                &::before {
+                    content: none;
+                }
+            }
+
+            &::after {
+                content: "";
+                display: block;
+                border-bottom: dashed 2px #080d26;
+                width: calc(100% + 20px);
+                position: absolute;
+                top: -1px;
+                left: 0;
+                right: 0;
+            }
+
+            &:first-of-type {
+                &::after {
+                    content: none;
+                }
+            }
+        }
+    }
+}
+
+// desktop
+@media (min-width: 800px) {
+    .popup {
+        > .content {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            justify-content: center;
+
+            section {
+                &::before {
+                    width: 0;
+                    height: calc(100% + 20px);
+                    right: -1px;
+                    top: 0;
+                    bottom: 0;
+                    left: auto;
+
+                    border-bottom: none;
+                    border-right: dashed 2px #080d26;
+                }
+
+                &::after {
+                    width: 0;
+                    height: calc(100% + 20px);
+                    left: -1px;
+                    top: 0;
+                    bottom: 0;
+                    right: auto;
+
+                    border-bottom: none;
+                    border-right: dashed 2px #080d26;
+                }
+            }
+        }
+    }
+}

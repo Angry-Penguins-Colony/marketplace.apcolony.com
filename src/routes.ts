@@ -1,8 +1,6 @@
+import Inspect from 'components/Inventory/ItemInInventory/ItemInInventory';
 import { dAppName } from 'config';
-import ItemInInventory from 'pages/Inventory/ItemInInventory/ItemInInventory';
-import ItemInMarketplace from 'pages/Marketplace/ItemInMarketplace/ItemInMarketplace';
-import ItemInTypeInMarketplace from 'pages/Marketplace/ItemInTypeInMarketplace/ItemInTypeInMarketplace';
-import TypeInMarketplace from 'pages/Marketplace/TypeInMarketplace/TypeInMarketplace';
+import CategoriesOffers from 'pages/CategoriesOffers/CategoriesOffers';
 import withPageTitle from './components/PageTitle';
 import Customize from './pages/Customize';
 import Home from './pages/Home';
@@ -12,13 +10,11 @@ import Transaction from './pages/Transaction';
 export const routeNames = {
   home: '/',
   transaction: '/transaction',
-  inventory: '/inventory',
-  inventoryItem: '/inventory/:type/:id',
+  inventory: '/inventory/:address',
+  inspect: '/inspect/:type/:id',
   customize: '/customize',
   customizeOne: '/customize/:id',
-  marketplaceByType: '/marketplace/:type/i/:typeId',
-  marketplaceByTypeItem: '/marketplace/:type/i/:typeId/:itemId',
-  marketplaceItem: '/marketplace/:type/:id',
+  categoriesOffers: '/offers/:type/',
   unlock: '/unlock',
   ledger: '/ledger',
   walletconnect: '/walletconnect'
@@ -41,9 +37,9 @@ const routes: Array<any> = [
     component: Inventory
   },
   {
-    path: routeNames.inventoryItem,
-    title: 'Inventory',
-    component: ItemInInventory
+    path: routeNames.inspect,
+    title: 'Inspect',
+    component: Inspect
   },
   {
     path: routeNames.customize,
@@ -57,19 +53,9 @@ const routes: Array<any> = [
     component: Customize
   },
   {
-    path: routeNames.marketplaceItem,
-    title: 'Marketplace',
-    component: ItemInMarketplace
-  },
-  {
-    path: routeNames.marketplaceByType,
-    title: 'Marketplace',
-    component: TypeInMarketplace
-  },
-  {
-    path: routeNames.marketplaceByTypeItem,
-    title: 'Marketplace',
-    component: ItemInTypeInMarketplace
+    path: routeNames.categoriesOffers,
+    title: 'Offers',
+    component: CategoriesOffers
   },
 ];
 

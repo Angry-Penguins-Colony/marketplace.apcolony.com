@@ -1,0 +1,208 @@
+@import "./../../../assets/sass/var.scss";
+
+.nav {
+    position: relative;
+
+    h2 {
+        display: none;
+    }
+
+    .filter-popup {
+        background-color: $primary;
+        border-radius: 5px;
+        padding: 10px;
+        position: absolute;
+        left: 0;
+        top: 35px;
+        z-index: 3;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        cursor: pointer;
+
+        .title {
+            font-family: "Config Rounded", sans-serif;
+            font-weight: 600;
+            color: rgba(233, 238, 242, 0.5);
+        }
+
+        .sort-type {
+            font-family: "Config Rounded Text", sans-serif;
+            color: white;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding-right: 20px;
+            position: relative;
+
+            &.active:after {
+                content: "✓";
+                position: absolute;
+                right: 0;
+            }
+        }
+    }
+
+    .content {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        position: relative;
+
+        overflow-y: hidden;
+        padding-right: 30px;
+
+        .sort {
+            background-color: $primary;
+            border-radius: 999px;
+            height: 2rem;
+            width: 2rem;
+            min-width: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 5px;
+            cursor: pointer;
+
+            .icon-sort {
+                fill: white;
+                width: 0.8rem;
+                height: auto;
+            }
+        }
+
+        .filter {
+            border-radius: 999px;
+            padding: 5px 15px;
+
+            display: flex;
+            gap: 5px;
+            align-items: center;
+
+            font-family: "Config Rounded";
+            font-weight: 600;
+        }
+
+        .filter.select-filter {
+            background-color: $primary;
+            border-color: $primary;
+            margin: 0 5px;
+            cursor: pointer;
+
+            svg {
+                stroke: white;
+                width: 1.2rem;
+                margin-right: 5px;
+            }
+
+            .name,
+            .number {
+                color: white;
+            }
+        }
+
+        .filter {
+            border: $primary-dark solid 1px;
+
+            .name {
+                color: $primary-dark;
+            }
+
+            .number {
+                color: #284b8b88;
+            }
+        }
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        top: 0;
+        width: 80px;
+        background: linear-gradient(to left, #e0e9f6 0%, #e0e9f600 100%);
+        pointer-events: none;
+    }
+
+    .reset-filter {
+        background-color: #5078df;
+        border-radius: 999px;
+        height: 2rem;
+        width: 2rem;
+        min-width: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        position: absolute;
+        top: 0;
+        right: -0.5rem;
+        z-index: 1;
+
+        cursor: pointer;
+
+        .icon {
+            fill: white;
+            width: 0.8rem;
+            height: auto;
+        }
+
+        &.desktop {
+            display: none;
+        }
+    }
+}
+
+// desktop
+@media (min-width: 800px) {
+    .nav {
+        h2 {
+            display: block;
+            font-family: "Config Rounded", sans-serif;
+            font-weight: bold;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .filter-popup {
+            top: 65px;
+        }
+
+        > .content {
+            flex-wrap: wrap;
+            gap: 8px 5px;
+            overflow-y: unset;
+
+            .attribute-info {
+                &::after {
+                    content: none;
+                }
+
+                .scrolling {
+                    flex-wrap: wrap;
+                }
+            }
+        }
+
+        .reset-filter {
+            position: relative;
+            right: 0;
+            margin-left: 5px;
+
+            &.mobile {
+                display: none;
+            }
+
+            &.desktop {
+                display: flex;
+            }
+        }
+
+        &::after {
+            content: none;
+        }
+    }
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useGetLoginInfo } from '@elrondnetwork/dapp-core/hooks';
-import Popup from 'components/Popup/Popup';
+import Popup from 'components/Foreground/Popup/Generic/Popup';
 import { routeNames } from 'routes';
 import ElrondLogo from './../../assets/img/icons/Elrond_logo.png';
 import LedgerLogo from './../../assets/img/icons/Ledger_logo.png';
