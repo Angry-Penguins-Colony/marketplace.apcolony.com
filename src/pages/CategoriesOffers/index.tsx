@@ -13,10 +13,10 @@ import style from './index.module.scss';
 
 const CategoriesOffers = () => {
     // get penguin informations from url
-    const { typeId } = useParams();
+    const { type } = useParams();
 
     // get title by api call
-    const [title, setTitle] = React.useState<string>(typeId || '???');
+    const [title, setTitle] = React.useState<string>(type || '???');
     React.useEffect(() => {
         // TODO: simulate api call
         setTimeout(() => {
@@ -85,10 +85,10 @@ const CategoriesOffers = () => {
             <MobileHeader title={'Marketplace'} rightIcon={<SearchIcon />} type='light' />
             <div className={style['background-header']} style={
                 {
-                    backgroundImage: 'url(/img/background/items_header_' + typeId + '.png)'
+                    backgroundImage: 'url(/img/background/items_header_' + type + '.png)'
                 }
             }></div>
-            <div className={style.icon}><img src={'/img/icon/' + typeId + '_unicolor_icon.svg'} alt={typeId} /></div>
+            <div className={style.icon}><img src={'/img/icon/' + type + '_unicolor_icon.svg'} alt={type} /></div>
             <h1>{title}</h1>
             <MarketData floorPrice={marketplace.floorPrice} totalVolume={marketplace.totalVolume} averagePrice={marketplace.averagePrice} totalListed={marketplace.totalListed} />
             <p className={style.description}>{marketplace.description}</p>
