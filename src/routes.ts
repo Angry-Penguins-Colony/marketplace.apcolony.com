@@ -1,6 +1,6 @@
-import Inspect from 'components/Inventory/ItemInInventory/ItemInInventory';
 import { dAppName } from 'config';
 import CategoriesOffers from 'pages/CategoriesOffers/CategoriesOffers';
+import Inspect from 'pages/Inspect';
 import withPageTitle from './components/PageTitle';
 import Customize from './pages/Customize';
 import Home from './pages/Home';

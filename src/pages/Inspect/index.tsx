@@ -1,153 +1,236 @@
 import * as React from 'react';
+import { IItem, IPenguin } from '@apcolony/marketplace-api';
+import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { useParams } from 'react-router-dom';
-import SearchIcon from 'components/Icons/SearchIcon';
+import Button from 'components/Abstract/Button/Button';
+import BuyingPopup from 'components/Foreground/Popup/BuyingPopup/BuyingPopup';
+import ShareIcon from 'components/Icons/ShareIcon';
+import { Item } from 'components/Inventory/Item/Item';
+import ItemsAndActivities from 'components/Inventory/ItemsAndActivities/ItemsAndActivities';
+import SetPrice from 'components/Inventory/SetPrice/SetPrice';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import Page from 'pages/Inspect/Page';
-import style from './ItemInMarketplace.module.scss';
+import { ipfsGateway } from 'config';
+import { buildRouteLinks } from 'routes';
+import useGenericAPICall from 'sdk/hooks/api/useGenericAPICall';
+import useGetActivity from 'sdk/hooks/api/useGetActivity';
+import useGetOffers from 'sdk/hooks/api/useGetOffers';
+import style from './index.module.scss';
 
-interface Item {
-    id: string,
-    type: string,
+interface Data {
     name: string,
     thumbnail: string,
-    rarity: number
-    owner?: string;
-    price?: number;
+    items: IItem[],
+    rank: number,
+    price: number,
 }
 
-interface Penguin {
-    id: string;
-    thumbnail: string;
-    name: string;
-    price: number;
-    owner: string;
-    rank: number;
-    rarityScore: number;
-    items: Item[]
-}
+type ItemType = 'penguins' | 'items';
 
 const Inspect = () => {
-    // get penguin informations from url
-    const { type, id } = useParams();
+    const params = useParams();
+    const id = params.id;
+    const type = params.type as ItemType;
 
-    const [penguin, setPenguin] = React.useState<Penguin>({
-        id: id || '????',
-        thumbnail: '/assets/img/penguin_default.png',
-        name: 'Penguin #????',
-        price: 0,
-        owner: '????????????????',
-        rank: 0,
-        rarityScore: 0,
-        items: []
-    });
-    const [item, setItem] = React.useState<Item>({
-        id: id || '????',
-        type: '????',
-        thumbnail: '/assets/img/penguin_default.png', // TODO: add default img for item
-        name: 'item #????',
-        price: 0,
-        owner: '????????????????',
-        rarity: 0
-    });
+    if (!type) throw new Error('type is required');
+    if (!id) throw new Error('Item id is required');
 
+    const { item, ownedByConnectedWallet } = useGetData(type, id);
+    const activities = useGetActivity(type, id);
+    const offers = useGetOffers(type, id);
+    const isInMarket = offers ? offers.length > 0 : undefined;
+    const [priceInMarket] = React.useState(0);
+    const [floorPrice] = React.useState(0);
+    const [price, setPrice] = React.useState('0');
 
-    React.useEffect(() => {
-        // get penguin informations from url
-        // TODO: simulate api call
-        if (type === 'item') {
-            setTimeout(() => {
-                setItem({
-                    id: '0001',
-                    type: 'background',
-                    name: 'Oceanis Trench',
-                    thumbnail: 'https://apc.mypinata.cloud/ipfs/QmTzCufPq9Aem3t14YLppf1Cqqu272ghaycQBdHrjG7Qog',
-                    rarity: 2.6,
-                    price: 8,
-                    owner: 'erd1pxljk7hukrjzq3cc0y00s5zs9r49q8pcc7wn6n8g752nuxpwdmfsxlm5y3'
-                });
-            }, 750);
-        } else {
-            setTimeout(() => {
-                setPenguin({
-                    id: id || '????',
-                    thumbnail: 'https://media.elrond.com/nfts/asset/QmUCfP5ArCzgiYWMgw1JfinSTzEfHpCeQc4qSfrZGwtLDq',
-                    name: 'Penguin #5390',
-                    price: 5,
-                    owner: 'erd1pxljk7hukrjzq3cc0y00s5zs9r49q8pcc7wn6n8g752nuxpwdmfsxlm5y3',
-                    rank: 101,
-                    rarityScore: 5455,
-                    items: [
-                        {
-                            id: '0001',
-                            type: 'background',
-                            name: 'Oceanis Trench',
-                            thumbnail: 'https://apc.mypinata.cloud/ipfs/QmTzCufPq9Aem3t14YLppf1Cqqu272ghaycQBdHrjG7Qog',
-                            rarity: 2.6
-                        },
-                        {
-                            id: '0002',
-                            type: 'beack',
-                            name: 'Hook',
-                            thumbnail: 'https://apc.mypinata.cloud/ipfs/QmTzCufPq9Aem3t14YLppf1Cqqu272ghaycQBdHrjG7Qog',
-                            rarity: 25.8
-                        },
-                        {
-                            id: '0003',
-                            type: 'clothes',
-                            name: 'Lifeguard T-shirt',
-                            thumbnail: 'https://apc.mypinata.cloud/ipfs/QmTzCufPq9Aem3t14YLppf1Cqqu272ghaycQBdHrjG7Qog',
-                            rarity: 2
-                        },
-                        {
-                            id: '0004',
-                            type: 'eyes',
-                            name: 'Wounded',
-                            thumbnail: 'https://apc.mypinata.cloud/ipfs/QmTzCufPq9Aem3t14YLppf1Cqqu272ghaycQBdHrjG7Qog',
-                            rarity: 8.5
-                        },
-                        {
-                            id: '0005',
-                            type: 'hat',
-                            name: 'EGLD Headscarf',
-                            thumbnail: 'https://apc.mypinata.cloud/ipfs/QmTzCufPq9Aem3t14YLppf1Cqqu272ghaycQBdHrjG7Qog',
-                            rarity: 2.3
-                        },
-                        {
-                            id: '0006',
-                            type: 'skin',
-                            name: 'unequipped',
-                            thumbnail: 'https://apc.mypinata.cloud/ipfs/QmTzCufPq9Aem3t14YLppf1Cqqu272ghaycQBdHrjG7Qog',
-                            rarity: 37
-                        },
-                        {
-                            id: '0007',
-                            type: 'weapon',
-                            name: 'Flamethrower',
-                            thumbnail: 'https://apc.mypinata.cloud/ipfs/QmTzCufPq9Aem3t14YLppf1Cqqu272ghaycQBdHrjG7Qog',
-                            rarity: 0.9
-                        }
-                    ]
-                });
-            }, 750);
-        }
-    }, [id]);
+    const typeInText = getTypeInText();
 
-    // activity tab
-    interface Activity {
-        id: string;
-        price: number;
-        from: string;
-        to: string;
-        date: string;
-    }
-    const [activities] = React.useState<Activity[]>([]);
+    // sell popup
+    const [isSellPopupOpen, setIsSellPopupOpen] = React.useState(false);
 
     return (
-        <div id={style['item-in-marketplace']}>
-            <MobileHeader title={'Marketplace'} rightIcon={<SearchIcon />} type='light' />
-            <Page data={type == 'item' ? item : penguin} type={type} activities={activities} />
-        </div >
+        <div id={style['item-in-inventory']}>
+            <MobileHeader title={typeInText.plural} type='light' />
+            <div className={style.thumbnail}>
+                <img src={item?.thumbnail ?? ''} alt={item?.name ?? 'loading item'} />
+            </div>
+            <div className={style.infos}>
+                <p className={style.name}>{item?.name ?? '---'}</p>
+                <div className={style.share} onClick={() => {
+                    if (!item) return;
+                    window.navigator.share({
+                        title: item.name,
+                        text: 'Check out this item Angry Penguin Marketplace',
+                        url: window.location.href,
+                    })
+                }}>
+                    <ShareIcon />
+                </div>
+                <div className={style.rank}>Rank <span className={style.primary}>#{item?.rank ?? '----'}</span></div>
+            </div>
+            <div className={style.actions + (isInMarket ? ' ' + style['in-market'] : '')}>
+                {ownedByConnectedWallet == true &&
+                    <>
+                        {
+                            isInMarket ? (
+                                <>
+                                    <Button type='cancel-outline'>Retire offer</Button>
+                                    <p className={style.price}>Listed for {priceInMarket} EGLD</p>
+                                </>
+                            ) : (
+                                <>
+                                    <Button type='normal' onClick={() => { setIsSellPopupOpen(true) }}>Sell {typeInText.singular}</Button>
+                                    {
+                                        type === 'penguins' &&
+                                        <Button type='primary' onClick={() => {
+                                            window.location.href = buildRouteLinks.customize(id);
+                                        }}>Customize</Button>
+                                    }
+                                </>
+                            )
+                        }
+                    </>
+                }
+            </div>
+            <hr />
+            <ItemsAndActivities items={item?.items ?? []} activities={activities} className={style.activity} />
+            <BuyingPopup closePopup={() => { setIsSellPopupOpen(false) }} visible={isSellPopupOpen} className={style['buying-popup'] + ' ' + style[type ?? 'penguin']}>
+                {
+                    item &&
+                    <>
+                        {
+                            type === 'items' ? (
+                                <>
+                                    <section>
+                                        <h2>Sell item</h2>
+                                        <img src={item.thumbnail} alt={item.name} />
+                                        <div className={style.infos}>
+                                            <div className={style.line}>
+                                                <div className={style.label}>Item Id</div>
+                                                <div className={style.value}>{item.name}</div>
+                                            </div>
+                                            <div className={style.line}>
+                                                <div className={style.label}>Price</div>
+                                                <div className={style.value}>{item.price} EGLD</div>
+                                            </div>
+                                        </div>
+                                        <SetPrice floorPrice={floorPrice} price={price} setPrice={setPrice} className={style['set-price']} />
+                                    </section>
+                                </>
+                            ) : (
+                                <>
+                                    <section>
+                                        <h2>Checkout</h2>
+                                        <div className={style.infos}>
+                                            <img src={item.thumbnail} alt={item.name} />
+                                            <div className={style.infos}>
+                                                <div className={style.line}>
+                                                    <div className={style.label}>Penguin ID</div>
+                                                    <div className={style.value}>{item.name}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className={style['items-attached']}>
+                                            <h3>Items attached to the penguin</h3>
+                                            <div className={style.content}>
+                                                {item.items.map((aItem: any) => {
+                                                    return (
+                                                        <Item key={aItem.id} item={aItem} />
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    </section>
+                                </>
+                            )
+                        }
+                    </>
+                }
+                <section>
+                    {
+                        type === 'penguins' &&
+                        <SetPrice floorPrice={floorPrice} price={price} setPrice={setPrice} className={style['set-price']} />
+                    }
+                    <Button className={style.button} onClick={() => {
+                        // TODO: buy item
+                        setIsSellPopupOpen(false);
+                    }}>Place on the market</Button>
+                </section>
+            </BuyingPopup>
+        </div>
     );
-};
+
+    function getTypeInText() {
+        switch (type) {
+            case 'penguins':
+                return {
+                    singular: 'Penguin',
+                    plural: 'Penguins'
+                };
+
+            case 'items':
+                return {
+                    singular: 'Item',
+                    plural: 'Items'
+                };
+
+            default:
+                throw new Error('Unknown type');
+        }
+    }
+}
+
+function useGetData(type: ItemType, id: string) {
+
+    const [data, setData] = React.useState<Data | undefined>(undefined);
+    const [ownedByConnected, setOwnedByConnected] = React.useState<boolean | undefined>(undefined);
+
+    const raw = useGenericAPICall<any>(`${type}/${id}`);
+    const { address: connectedAddress } = useGetAccountInfo();
+
+    React.useEffect(() => {
+
+        if (!raw) return;
+
+        switch (type) {
+            case 'penguins':
+                const penguin = raw as IPenguin;
+
+                setData({
+                    name: penguin.name,
+                    thumbnail: ipfsGateway + penguin.thumbnailCID,
+                    items: Object.values(penguin.equippedItems),
+                    rank: -1,
+                    price: -1
+                });
+
+                setOwnedByConnected(penguin.owner == connectedAddress);
+                break;
+
+            case 'items':
+                const item = raw as IItem;
+
+                setData({
+                    name: item.name,
+                    thumbnail: ipfsGateway + item.thumbnailCID,
+                    items: [],
+                    rank: -1,
+                    price: -1,
+                })
+
+                setOwnedByConnected(item.amount > 0);
+                break;
+
+            default:
+                throw new Error('Invalid type');
+        }
+
+    }, [raw, type, id])
+
+    return {
+        item: data,
+        ownedByConnectedWallet: ownedByConnected
+    };
+}
+
 
 export default Inspect;
