@@ -5,9 +5,9 @@ import SearchIcon from 'components/Icons/SearchIcon';
 import { Item } from 'components/Inventory/Item/Item';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { buildRouteLinks } from 'routes';
+import MarketData from '../../components/Inventory/MarketData';
 import defaultPenguinImg from './../../assets/img/penguin_default.png';
 import style from './index.module.scss';
-import MarketData from './MarketData/MarketData';
 
 // TODO: for penguin
 
