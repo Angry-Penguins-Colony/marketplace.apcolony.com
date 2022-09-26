@@ -130,9 +130,9 @@ const Home = () => {
       <section className={style['chose-category']}>
         <h2>Chose a category</h2>
         <div className={style.content}>
-          <BigCategory title="Penguins" backgroundImg="/img/penguin_category.png" link="TODO: add link" />
-          <BigCategory title="Eggs" backgroundImg="/img/eggs_category.png" link="TODO: add link" />
-          <BigCategory title="Items" backgroundImg="/img/items_category.png" link="TODO: add link" />
+          <BigCategory title="Penguins" backgroundImg="/img/penguin_category.png" link={buildRouteLinks.categoriesOffers('penguins')} />
+          <BigCategory title="Eggs" backgroundImg="/img/eggs_category.png" link={buildRouteLinks.categoriesOffers('eggs')} />
+          <BigCategory title="Items" backgroundImg="/img/items_category.png" link={buildRouteLinks.categoriesOffers('items')} />
         </div>
       </section>
       <section className={style['explore-all']}>
