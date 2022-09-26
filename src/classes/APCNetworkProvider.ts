@@ -1,9 +1,10 @@
-import { IAddress, IItem, IPenguin } from "@apcolony/marketplace-api";
+import { IAddress, IItem, IOffer, IPenguin } from "@apcolony/marketplace-api";
 import { Attributes } from "@apcolony/marketplace-api/out/classes";
 import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
-import { ArgSerializer, BytesValue } from "@elrondnetwork/erdjs/out";
-import { items, customisationContract, penguinsCollection } from "../const";
+import { AbiRegistry, ArgSerializer, BytesValue, ContractFunction, Field, NumericalValue, ResultsParser, SmartContract, SmartContractAbi, Struct } from "@elrondnetwork/erdjs/out";
+import { promises } from "fs";
+import { items, customisationContract, penguinsCollection, gateway, marketplaceContract } from "../const";
 import { extractCIDFromIPFS, getIdFromPenguinName, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
 
@@ -115,6 +116,53 @@ export class APCNetworkProvider {
             .map((b64: string) => Attributes.fromEndpointArgument(Buffer.from(b64, "base64").toString()));
     }
 
+    public async getOffers(collection: string): Promise<IOffer[]> {
+
+        const contract = await this.getMarketplaceSmartContract();
+
+        const contractViewName = "getAuctionsOfCollection";
+        const query = contract.createQuery({
+            func: new ContractFunction(contractViewName),
+            args: [BytesValue.fromUTF8(collection)],
+        });
+
+        const queryResponse = await this.proxyProvider.queryContract(query);
+        const endpointDefinition = contract.getEndpoint(contractViewName);
+        const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition);
+
+        const reponseOffers = (firstValue as any).backingCollection.items;
+
+        console.log("reponseOffers.length", reponseOffers.length)
+
+        const offers = reponseOffers
+            .map((o: any) => this.offerFromABI(o));
+
+        return offers;
+    }
+
+    private offerFromABI(response: any): IOffer {
+
+        const auctioned_tokens = response.fieldsByName.get("auctioned_tokens");
+        console.log(auctioned_tokens);
+
+        return {
+            id: -1,
+            price: response.fieldsByName.get("min_bid").value,
+            collection: auctioned_tokens.value.fieldsByName.get("token_identifier").value.value,
+            nonce: auctioned_tokens.value.fieldsByName.get("token_nonce").value.value
+        }
+    }
+
+
+    private async getMarketplaceSmartContract() {
+        let jsonContent: string = await promises.readFile("src/abi/esdt-nft-marketplace.abi.json", { encoding: "utf8" });
+        let json = JSON.parse(jsonContent);
+        let abiRegistry = AbiRegistry.create(json);
+        let abi = new SmartContractAbi(abiRegistry, ["EsdtNftMarketplace"]);
+
+        let contract = new SmartContract({ address: marketplaceContract, abi: abi });
+        return contract;
+    }
 
     async getPenguinFromNft(nft: APCNft): Promise<IPenguin> {
 
