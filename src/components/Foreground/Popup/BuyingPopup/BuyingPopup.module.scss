@@ -86,6 +86,171 @@
             }
         }
     }
+
+    section {
+        display: flex;
+        flex-direction: column;
+
+        h2 {
+            font-family: "CHEDROS", sans-serif;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        img {
+            border-radius: 10px;
+            max-width: 200px;
+            align-self: center;
+        }
+
+        &:last-of-type {
+            align-items: center;
+
+            h2,
+            .items-attached,
+            > .infos {
+                display: none;
+            }
+
+            > h3 {
+                font-family: "CHEDROS", sans-serif;
+                font-weight: bold;
+                font-size: 1.4rem;
+                margin-bottom: 5px;
+            }
+
+            .price {
+                background-color: white;
+                border-radius: 999px;
+                padding: 10px 40px;
+                font-family: "Config Rounded", sans-serif;
+                color: $primary;
+                font-weight: bold;
+                font-size: 1.5rem;
+            }
+
+            .button {
+                min-width: 100px;
+            }
+        }
+    }
+
+    &.item {
+        section {
+            &:first-of-type {
+                align-items: stretch;
+
+                .set-price {
+                    margin-top: 30px;
+                }
+
+                .infos {
+                    margin-top: 30px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+
+                    .line {
+                        display: flex;
+                        justify-content: space-between;
+
+                        .label {
+                            font-family: "Config Rounded", sans-serif;
+                            font-size: 1.1rem;
+                            font-weight: 300;
+                        }
+
+                        .value {
+                            font-family: "Config Rounded", sans-serif;
+                            font-size: 1.1rem;
+                            font-weight: 500;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.penguin {
+        section {
+            &:first-of-type {
+                h2 {
+                    margin-bottom: 20px;
+                }
+
+                .infos {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 10px;
+                    justify-content: space-between;
+
+                    img {
+                        flex: 1;
+                        overflow: auto;
+                    }
+
+                    .infos {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-start;
+                        gap: 10px;
+
+                        .line {
+                            display: flex;
+                            justify-content: space-between;
+                            gap: 10px;
+
+                            .label {
+                                font-family: "Config Rounded", sans-serif;
+                                font-size: 1.1rem;
+                                font-weight: 300;
+                                white-space: nowrap;
+                            }
+
+                            .value {
+                                font-family: "Config Rounded", sans-serif;
+                                font-size: 1.1rem;
+                                font-weight: 500;
+                                white-space: nowrap;
+
+                                &.owner {
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    max-width: 50px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            &:last-of-type {
+                .set-price {
+                    margin-bottom: 30px;
+                }
+            }
+        }
+    }
+
+    .items-attached {
+        margin-top: 30px;
+
+        h3 {
+            font-family: "Config Rounded", sans-serif;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, auto));
+            grid-gap: 10px;
+        }
+    }
 }
 
 // desktop
