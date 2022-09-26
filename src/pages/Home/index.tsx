@@ -3,7 +3,7 @@ import Button from 'components/Abstract/Button/Button';
 import { BigCategory } from 'components/Navigation/BigCategory/BigCategory';
 import { CategoryItem } from 'components/Navigation/CategoryItem/CategoryItem';
 import { ItemOrPenguininExplorer } from 'components/Navigation/ItemOrPenguininExplorer/ItemOrPenguininExplorer';
-import { routeNames } from 'routes';
+import { buildRouteLinks, routeNames } from 'routes';
 import style from './index.module.scss';
 
 interface ItemOrPenguin {
@@ -117,13 +117,13 @@ const Home = () => {
       <section className={style.categories}>
         <h2>Categories</h2>
         <div className={style.content}>
-          <CategoryItem title="Hat" img="/img/icon/hat_big.png" link="/marketplace/item/i/hat" />
-          <CategoryItem title="Beak" img="/img/icon/hat_big.png" link="/marketplace/item/i/beak" />
-          <CategoryItem title="Skin" img="/img/icon/hat_big.png" link="/marketplace/item/i/skin" />
-          <CategoryItem title="Weapon" img="/img/icon/hat_big.png" link="/marketplace/item/i/weapon" />
-          <CategoryItem title="Background" img="/img/icon/hat_big.png" link="/marketplace/item/i/background" />
-          <CategoryItem title="Eyes" img="/img/icon/hat_big.png" link="/marketplace/item/i/eyes" />
-          <CategoryItem title="Clothes" img="/img/icon/hat_big.png" link="/marketplace/item/i/clothes" />
+          <CategoryItem title="Hat" img="/img/icon/hat_big.png" link={buildRouteLinks.categoriesOffers('hat')} />
+          <CategoryItem title="Beak" img="/img/icon/hat_big.png" link={buildRouteLinks.categoriesOffers('beak')} />
+          <CategoryItem title="Skin" img="/img/icon/hat_big.png" link={buildRouteLinks.categoriesOffers('skin')} />
+          <CategoryItem title="Weapon" img="/img/icon/hat_big.png" link={buildRouteLinks.categoriesOffers('weapon')} />
+          <CategoryItem title="Background" img="/img/icon/hat_big.png" link={buildRouteLinks.categoriesOffers('background')} />
+          <CategoryItem title="Eyes" img="/img/icon/hat_big.png" link={buildRouteLinks.categoriesOffers('eyes')} />
+          <CategoryItem title="Clothes" img="/img/icon/hat_big.png" link={buildRouteLinks.categoriesOffers('clothes')} />
         </div>
       </section>
       <section className={style['chose-category']}>
