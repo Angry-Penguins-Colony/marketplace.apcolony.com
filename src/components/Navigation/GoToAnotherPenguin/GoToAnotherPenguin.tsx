@@ -3,6 +3,7 @@ import { IPenguin } from '@apcolony/marketplace-api';
 import LeftArrowIcon from 'components/Icons/LeftArrowIcon';
 import RightArrowIcon from 'components/Icons/RightArrowIcon';
 import { ipfsGateway } from 'config';
+import { buildRouteLinks } from 'routes';
 import style from './GoToAnotherPenguin.module.scss';
 
 const GoToAnotherPenguin = (
@@ -25,13 +26,13 @@ const GoToAnotherPenguin = (
 
     function goToLeftPenguin() {
         if (leftPenguin) {
-            window.location.href = '/customize/' + leftPenguin.nonce;
+            window.location.href = buildRouteLinks.customize(leftPenguin.nonce.toString());
         }
     }
 
     function goToRightPenguin() {
         if (rightPenguin) {
-            window.location.href = '/customize/' + rightPenguin.nonce;
+            window.location.href = buildRouteLinks.customize(rightPenguin.nonce.toString());
         }
     }
 

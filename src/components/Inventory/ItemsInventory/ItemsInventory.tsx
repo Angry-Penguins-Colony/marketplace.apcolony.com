@@ -1,6 +1,7 @@
 import * as React from 'react';
 import ReactImageAppear from 'components/Images/ReactImageAppear/ReactImageAppear';
 import { ipfsGateway } from 'config';
+import { buildRouteLinks } from 'routes';
 import Filters, { matchFilter } from '../../../sdk/types/Filters';
 import style from './ItemsInventory.module.scss';
 
@@ -68,7 +69,7 @@ const Item = ({
 
     return (
         <div className={style.item} onClick={() => {
-            window.location.href = '/inventory/' + type + '/' + item.id;
+            window.location.href = buildRouteLinks.inspect(type, item.id);
         }}>
             <ReactImageAppear src={ipfsGateway + item.thumbnailCID} />
             <div className={style.name}>{item.name}</div>

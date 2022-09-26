@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Button from 'components/Abstract/Button/Button';
+import { routeNames } from 'routes';
 import style from './SuccessPopup.module.scss';
 
 const SuccessPopup = (
@@ -28,13 +29,13 @@ const SuccessPopup = (
                 <Button type='primary'
                     onClick={() => {
                         // go to marketplace
-                        window.location.href = '/marketplace';
+                        window.location.href = routeNames.home;
                     }}>Continue shopping</Button>
                 <Button type='primary'
                     onClick={() => {
                         // go to item in inventory
                         // TODO: add link to direct item
-                        window.location.href = '/inventory';
+                        window.location.href = routeNames.inventory;
                     }}>View on the inventory</Button>
             </div>
         </div >

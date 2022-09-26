@@ -7,6 +7,7 @@ import BuyingPopup from 'components/Foreground/Popup/BuyingPopup/BuyingPopup';
 import ShareIcon from 'components/Icons/ShareIcon';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { ipfsGateway } from 'config';
+import { buildRouteLinks } from 'routes';
 import useGenericAPICall from 'sdk/hooks/api/useGenericAPICall';
 import useGetActivity from 'sdk/hooks/api/useGetActivity';
 import useGetOffers from 'sdk/hooks/api/useGetOffers';
@@ -81,7 +82,7 @@ const Inspect = () => {
                                     {
                                         type === 'penguins' &&
                                         <Button type='primary' onClick={() => {
-                                            window.location.href = '/customize/' + id;
+                                            window.location.href = buildRouteLinks.customize(id);
                                         }}>Customize</Button>
                                     }
                                 </>

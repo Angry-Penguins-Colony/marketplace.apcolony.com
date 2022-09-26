@@ -20,6 +20,13 @@ export const routeNames = {
   walletconnect: '/walletconnect'
 };
 
+export const buildRouteLinks = {
+  customize: (id: string) => routeNames.customize.replace(':id', id),
+  inspect: (type: string, id: string) => routeNames.inspect.replace(':type', type).replace(':id', id),
+  inventory: (address: string) => routeNames.inventory.replace(':address', address),
+  categoriesOffers: (type: string) => routeNames.categoriesOffers.replace(':type', type)
+}
+
 const routes: Array<any> = [
   {
     path: routeNames.home,

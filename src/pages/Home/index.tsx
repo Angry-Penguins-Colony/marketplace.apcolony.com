@@ -160,7 +160,7 @@ const Home = () => {
         <h2>Customize your<br />penguins !!!</h2>
         <p className={style.subtitle}>Make them unique with<br /> over a 100+ items</p>
         <img src="/img/customization.png" alt="customization" />
-        <Button type='normal' onClick={() => { window.location.href = '/customize'; }} className={style.button}>Customize</Button>
+        <Button type='normal' onClick={() => { window.location.href = routeNames.customize; }} className={style.button}>Customize</Button>
       </section>
       <div className={style['global-unique-style']}>
         <section className={style['give-unique-style']}>

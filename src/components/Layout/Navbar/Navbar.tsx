@@ -10,7 +10,7 @@ import MenuIcon from 'components/Icons/MenuIcon';
 import ProfileIcon from 'components/Icons/ProfileIcon';
 import SearchIcon from 'components/Icons/SearchIcon';
 import TwitterIcon from 'components/Icons/TwitterIcon';
-import { routeNames } from 'routes';
+import { buildRouteLinks, routeNames } from 'routes';
 import style from './navbar.module.scss';
 
 const Navbar = () => {
@@ -20,7 +20,7 @@ const Navbar = () => {
   const navItems = [
     {
       name: 'Home',
-      route: '/',
+      route: routeNames.home,
       icon: <HomeIcon />,
     },
     {
@@ -34,12 +34,12 @@ const Navbar = () => {
     },
     {
       name: 'My Inventory',
-      route: '/inventory/' + address,
+      route: buildRouteLinks.inventory(address),
       icon: <ProfileIcon />,
     },
     {
       name: 'Customize',
-      route: '/customize',
+      route: routeNames.customize,
       icon: <LabIcon />,
       className: style.labIcon,
     },
@@ -91,7 +91,7 @@ const Navbar = () => {
         <header>
           <div className={style.left}>
             <img src="/img/logo/logo.png" alt="Logo Angry Penguins" onClick={function () {
-              window.location.href = '/';
+              window.location.href = routeNames.home;
             }} />
             <nav>
               {/* TODO: bind nav link */}
