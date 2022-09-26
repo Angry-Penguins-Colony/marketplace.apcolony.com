@@ -88,7 +88,7 @@ const CategoriesOffers = () => {
                     backgroundImage: 'url(/img/background/items_header_' + typeId + '.png)'
                 }
             }></div>
-            <div className={style.icon}><img src={'/img/icon/' + typeId + '_unicolor_icon.svg'} alt={type} /></div>
+            <div className={style.icon}><img src={'/img/icon/' + typeId + '_unicolor_icon.svg'} alt={typeId} /></div>
             <h1>{title}</h1>
             <MarketData floorPrice={marketplace.floorPrice} totalVolume={marketplace.totalVolume} averagePrice={marketplace.averagePrice} totalListed={marketplace.totalListed} />
             <p className={style.description}>{marketplace.description}</p>
