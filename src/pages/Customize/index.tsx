@@ -12,6 +12,7 @@ import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import GoToAnotherPenguin from 'components/Navigation/GoToAnotherPenguin/GoToAnotherPenguin';
 import PenguinRender from 'components/PenguinRender/PenguinRender';
 import { ipfsGateway } from 'config';
+import { buildRouteLinks } from 'routes';
 import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
 import useCustomization from 'sdk/hooks/useCustomization';
 import useCustomizationPersistence from 'sdk/hooks/useCustomizationPersistence';
@@ -84,7 +85,7 @@ const Customize = () => {
     }, [ownedItems]);
 
     if (!isSelectedNonceOwned() && ownedPenguins && ownedPenguins.length > 0) {
-        window.location.href = `/customize/${ownedPenguins[0].nonce}`;
+        window.location.href = buildRouteLinks.customize(ownedPenguins[0].nonce);
     }
 
     return (

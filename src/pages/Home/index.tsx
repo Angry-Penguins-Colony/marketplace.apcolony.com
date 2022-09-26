@@ -146,7 +146,7 @@ const Home = () => {
                 price={item.price}
                 count={item.count}
                 onClick={() => {
-                  window.location.href = `/marketplace/${item.type}/${item.id}`;
+                  window.location.href = buildRouteLinks.inspect(item.type, item.id);
                 }}
               />
             ))
@@ -170,7 +170,7 @@ const Home = () => {
         {
           highlightedItem && (
             // TODO: add link to item
-            <section className={style['highlighted-item']} onClick={() => { window.location.href = `/marketplace/${highlightedItem.type}/${highlightedItem.id}`; }}>
+            <section className={style['highlighted-item']} onClick={() => { window.location.href = buildRouteLinks.inspect(highlightedItem.type, highlightedItem.id) }}>
               <div className={style.info}>
                 <h2>Highlighted item</h2>
                 <p className={style.name}>{highlightedItem.name}</p>

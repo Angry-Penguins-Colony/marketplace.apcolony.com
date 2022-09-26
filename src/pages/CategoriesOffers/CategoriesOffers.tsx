@@ -4,6 +4,7 @@ import UnderlineNavElmt from 'components/Abstract/UnderlineNavElmt/UnderlineNavE
 import SearchIcon from 'components/Icons/SearchIcon';
 import { Item } from 'components/Inventory/Item/Item';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
+import { buildRouteLinks } from 'routes';
 import defaultPenguinImg from './../../assets/img/penguin_default.png';
 import style from './CategoriesOffers.module.scss';
 import MarketData from './MarketData/MarketData';
@@ -95,12 +96,12 @@ const CategoriesOffers = () => {
                         <>
                             <Item item={variant} key={variant.id} displayId={false} className={style.mobile} onClick={
                                 () => {
-                                    window.location.href = `/marketplace/item/i/${variant.type}/${variant.id}`;
+                                    window.location.href = buildRouteLinks.inspect(variant.type, variant.id);
                                 }
                             } />
                             <div className={style.desktop} onClick={
                                 () => {
-                                    window.location.href = `/marketplace/item/i/${variant.type}/${variant.id}`;
+                                    window.location.href = buildRouteLinks.inspect(variant.type, variant.id);
                                 }
                             }>
                                 <img src={defaultPenguinImg} alt="default background of any penguin" className={style.background} />

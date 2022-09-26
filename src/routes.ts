@@ -21,7 +21,7 @@ export const routeNames = {
 };
 
 export const buildRouteLinks = {
-  customize: (id: string) => routeNames.customize.replace(':id', id),
+  customize: (id: string | number) => routeNames.customize.replace(':id', id.toString()),
   inspect: (type: string, id: string) => routeNames.inspect.replace(':type', type).replace(':id', id),
   inventory: (address: string) => routeNames.inventory.replace(':address', address),
   categoriesOffers: (type: string) => routeNames.categoriesOffers.replace(':type', type)
