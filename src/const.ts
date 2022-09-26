@@ -39,6 +39,7 @@ function getNetworkInfos() {
                 itemsIdentifier: devnetToolDeploy.itemsIdentifier,
                 items: devnetToolDeploy.items,
                 customisationContract: Address.fromBech32(devnetToolDeploy.customizationContractAddress.bech32),
+                marketplaceContract: Address.fromBech32("erd1qqqqqqqqqqqqqpgqkekfhuh5lncw4jxj54qccahgzv5vhmu5v4xqwf93aa"),
             };
     }
 }
@@ -49,3 +50,4 @@ export const items = getNetworkInfos().items;
 export const gateway = getNetworkInfos().gateway;
 export const api = getNetworkInfos().api;
 export const customisationContract = getNetworkInfos().customisationContract;
+export const marketplaceContract = getNetworkInfos().marketplaceContract;
