@@ -6,7 +6,7 @@ export class SellPayloadBuilder {
     private tokenCollection = '';
     private tokenNonce = -1;
     private marketplaceSc?: IAddress;
-    private price: BigNumber;
+    private price?: BigNumber;
 
     public setToken(collection: string, nonce: number): SellPayloadBuilder {
         this.tokenCollection = collection;
@@ -27,6 +27,7 @@ export class SellPayloadBuilder {
     build(): TransactionPayload {
 
         if (!this.marketplaceSc) throw new Error('marketplaceSc is required');
+        if (!this.price) throw new Error('price is required');
 
         const args = [
             BytesValue.fromUTF8(this.tokenCollection),
