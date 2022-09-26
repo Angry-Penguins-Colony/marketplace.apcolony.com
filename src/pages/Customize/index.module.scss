@@ -132,10 +132,10 @@ body {
         grid-gap: 40px;
         padding: 0 40px;
 
-        max-height: calc(100vh - 109px);
-        height: 100vh;
+        min-height: calc(100vh - 109px);
 
         padding-top: 120px;
+        padding-bottom: 60px;
     }
 
     .customize {
