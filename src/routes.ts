@@ -1,5 +1,5 @@
 import { dAppName } from 'config';
-import CategoriesOffers from 'pages/CategoriesOffers/CategoriesOffers';
+import CategoriesOffers from 'pages/CategoriesOffers';
 import Inspect from 'pages/Inspect';
 import withPageTitle from './components/PageTitle';
 import Customize from './pages/Customize';
