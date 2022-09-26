@@ -92,6 +92,7 @@
         background-color: white;
         border-radius: 9999px;
         padding: 15px 45px;
+        gap: 25px;
 
         .left {
             display: flex;
@@ -116,6 +117,7 @@
                     font-size: 1.3rem;
                     font-weight: bold;
                     color: $dark;
+                    white-space: nowrap;
                 }
             }
         }
@@ -140,6 +142,7 @@
                     background-color: transparent;
                     font-family: 'Config Rounded', sans-serif;
                     font-weight: 300;
+                    width: 100%;
                 }
             }
         }
@@ -180,6 +183,54 @@
                     width: 45px;
                     object-fit: cover;
                 }
+            }
+
+            .button {
+                white-space: nowrap;
+            }
+        }
+    }
+}
+
+// intermediaire
+@media (max-width:1130px) {
+    #desktop-header {
+        header {
+            padding-left: 25px;
+            padding-right: 25px;
+            gap: 15px;
+
+            .left {
+                gap: 20px;
+
+                nav {
+                    gap: 15px;
+                }
+            }
+
+            .right {
+                gap: 10px;
+
+                .social {
+                    gap: 5px;
+                }
+            }
+        }
+    }
+}
+
+// intermediaire
+@media (max-width:1000px) {
+    #desktop-header {
+        header {
+            .left {
+                > img {
+                    height: 30px;
+                }
+            }
+
+            .center {
+                display: none;
             }
         }
     }

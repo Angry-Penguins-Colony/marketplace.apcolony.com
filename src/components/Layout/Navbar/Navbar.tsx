@@ -121,10 +121,10 @@ const Navbar = () => {
               </div>
             </div>
             {isConnected ?
-              <Button type='primary' onClick={handleLogout}>
+              <Button type='primary' className={style.button} onClick={handleLogout}>
                 Disconnect {'...' + address?.slice(-4)}
               </Button> :
-              <Button type='primary' onClick={() => {
+              <Button type='primary' className={style.button} onClick={() => {
                 window.location.href = routeNames.unlock;
               }}>
                 Connect Wallet
