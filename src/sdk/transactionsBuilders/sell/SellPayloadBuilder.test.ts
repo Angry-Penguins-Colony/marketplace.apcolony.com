@@ -26,7 +26,7 @@ test('test', () => {
         + '@' + '01' // nonce
         + '@' + '01' // quantity
         + '@' + smartContract.hex // receiver
-        + '@' + '616374696f6e546f6b656e' // actionToken
+        + '@' + '61756374696f6e546f6b656e' // auctionToken
         + '@' + '0de0b6b3a7640000' // (min_bid) 1 EGLD
         + '@' + '0de0b6b3a7640000' // (max_bid) 1 EGLD
         + '@' + 'b2d05e00' // (deadline) 3_000_000_000

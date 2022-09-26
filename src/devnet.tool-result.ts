@@ -18,49 +18,65 @@ export const devnetToolDeploy = {
             'id': '7',
             'name': 'Oceanic Trench',
             'slot': 'background',
-            'identifier': 'BACKGROUND-e713d4-01'
+            'identifier': 'BACKGROUND-e713d4-01',
+            'collection': 'BACKGROUND-e713d4',
+            'nonce': 1,
         },
         {
             'id': '4',
             'name': 'Green',
             'slot': 'background',
-            'identifier': 'BACKGROUND-e713d4-02'
+            'identifier': 'BACKGROUND-e713d4-02',
+            'collection': 'BACKGROUND-e713d4',
+            'nonce': 2,
         },
         {
             'id': '19',
             'name': 'Yellow',
             'slot': 'beak',
-            'identifier': 'BEAK-9408f0-01'
+            'identifier': 'BEAK-9408f0-01',
+            'collection': 'BEAK-9408f0',
+            'nonce': 1,
         },
         {
             'id': '77',
             'name': 'Coat With Brown Fur',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-29b992-01'
+            'identifier': 'CLOTHES-29b992-01',
+            'collection': 'CLOTHES-29b992',
+            'nonce': 1,
         },
         {
             'id': '120',
             'name': 'Purple Headband',
             'slot': 'eyes',
-            'identifier': 'EYES-fb8cbb-01'
+            'identifier': 'EYES-fb8cbb-01',
+            'collection': 'EYES-fb8cbb',
+            'nonce': 1,
         },
         {
             'id': '118',
             'name': 'Green Headband',
             'slot': 'eyes',
-            'identifier': 'EYES-fb8cbb-02'
+            'identifier': 'EYES-fb8cbb-02',
+            'collection': 'EYES-fb8cbb',
+            'nonce': 2,
         },
         {
             'id': '172',
             'name': 'Black',
             'slot': 'skin',
-            'identifier': 'SKIN-1524e6-01'
+            'identifier': 'SKIN-1524e6-01',
+            'collection': 'SKIN-1524e6',
+            'nonce': 1,
         },
         {
             'id': '210',
             'name': 'Spear',
             'slot': 'weapon',
-            'identifier': 'WEAPON-9274b8-01'
+            'identifier': 'WEAPON-9274b8-01',
+            'collection': 'WEAPON-9274b8',
+            'nonce': 1,
         }
     ]
 }

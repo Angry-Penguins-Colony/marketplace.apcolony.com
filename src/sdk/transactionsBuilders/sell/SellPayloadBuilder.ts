@@ -28,13 +28,14 @@ export class SellPayloadBuilder {
 
         if (!this.marketplaceSc) throw new Error('marketplaceSc is required');
         if (!this.price) throw new Error('price is required');
+        if (isNaN(this.tokenNonce)) throw new Error('tokenNonce as NaN is not supported');
 
         const args = [
             BytesValue.fromUTF8(this.tokenCollection),
             new U64Value(this.tokenNonce),
             new U64Value(1), // quantity
             new AddressValue(this.marketplaceSc),
-            BytesValue.fromUTF8('actionToken'),
+            BytesValue.fromUTF8('auctionToken'),
             new BigIntValue(this.price),
             new BigIntValue(this.price),
             new U64Value(3_000_000_000), // deadline

@@ -28,6 +28,8 @@ function getNetworkInfos() {
       api: 'https://apc-marketplace-api-devnet.herokuapp.com/',
       customisationContractAddress: Address.fromBech32(devnetToolDeploy.customizationContractAddress.bech32),
       penguinCollection: devnetToolDeploy.penguinsIdentifier,
+      marketplaceContractAddress: Address.fromBech32('erd1qqqqqqqqqqqqqpgqkekfhuh5lncw4jxj54qccahgzv5vhmu5v4xqwf93aa'),
+      items: devnetToolDeploy.items
     }
   }
   else {
@@ -38,3 +40,5 @@ function getNetworkInfos() {
 export const marketplaceApi = getNetworkInfos().api;
 export const customisationContractAddress = getNetworkInfos().customisationContractAddress;
 export const penguinCollection = getNetworkInfos().penguinCollection;
+export const marketplaceContractAddress = getNetworkInfos().marketplaceContractAddress;
+export const items = getNetworkInfos().items;

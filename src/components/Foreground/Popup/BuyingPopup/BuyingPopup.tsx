@@ -1,4 +1,5 @@
 import * as React from 'react';
+import BigNumber from 'bignumber.js';
 import Button from 'components/Abstract/Button/Button';
 import CrossIcon from 'components/Icons/CrossIcon';
 import { Item } from 'components/Inventory/Item/Item';
@@ -17,7 +18,7 @@ const BuyingPopup = (
     }: {
         visible?: boolean;
         onClose: () => void;
-        onSell: () => void;
+        onSell: (price: BigNumber) => void;
         item: GenericItem;
         type: CategoriesType;
     }
@@ -90,7 +91,7 @@ const BuyingPopup = (
                     type === 'penguins' &&
                     <SetPrice floorPrice={floorPrice} price={price} setPrice={setPrice} className={style['set-price']} />
                 }
-                <Button className={style.button} onClick={onSell}>Place on the market</Button>
+                <Button className={style.button} onClick={() => onSell(new BigNumber(price))}>Place on the market</Button>
             </section>
         </div>
     </div>

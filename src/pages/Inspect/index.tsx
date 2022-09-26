@@ -1,13 +1,21 @@
 import * as React from 'react';
+import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import { sendTransactions } from '@elrondnetwork/dapp-core/services';
+import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
+import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
+import BigNumber from 'bignumber.js';
 import { useParams } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
 import BuyingPopup from 'components/Foreground/Popup/BuyingPopup/BuyingPopup';
 import ShareIcon from 'components/Icons/ShareIcon';
 import ItemsAndActivities from 'components/Inventory/ItemsAndActivities/ItemsAndActivities';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
+import { items, marketplaceContractAddress, penguinCollection } from 'config';
 import { buildRouteLinks } from 'routes';
 import useGetActivity from 'sdk/hooks/api/useGetActivity';
 import useGetOffers from 'sdk/hooks/api/useGetOffers';
+import useGetPenguin from 'sdk/hooks/api/useGetPenguin';
+import { SellPayloadBuilder } from 'sdk/transactionsBuilders/sell/SellPayloadBuilder';
 import CategoriesType from 'sdk/types/CategoriesType';
 import { useGetGenericItem } from '../../sdk/hooks/api/useGetGenericItem';
 import style from './index.module.scss';
@@ -20,9 +28,11 @@ const Inspect = () => {
     if (!type) throw new Error('type is required');
     if (!id) throw new Error('Item id is required');
 
+    const { address: connectedAddress } = useGetAccountInfo();
     const { item, ownedByConnectedWallet } = useGetGenericItem(type, id);
     const activities = useGetActivity(type, id);
     const offers = useGetOffers(type, id);
+    const penguin = useGetPenguin(id);
     const isInMarket = offers ? offers.length > 0 : undefined;
     const [priceInMarket] = React.useState(0);
 
@@ -81,7 +91,7 @@ const Inspect = () => {
             {item &&
                 <BuyingPopup
                     onClose={() => { setIsSellPopupOpen(false) }}
-                    onSell={() => { /*something*/ }}
+                    onSell={sell}
                     item={item}
                     type={type}
                     visible={isSellPopupOpen}
@@ -89,6 +99,62 @@ const Inspect = () => {
             }
         </div>
     );
+
+    async function sell(price: BigNumber) {
+
+        const { collection, nonce } = await getToken();
+        const payload = new SellPayloadBuilder()
+            .setPrice(price)
+            .setMarketplaceSc(marketplaceContractAddress)
+            .setToken(collection, nonce)
+            .build();
+
+        const transaction: SimpleTransactionType = {
+            value: '0',
+            data: payload.toString(),
+            receiver: connectedAddress,
+            gasLimit: 50_000_000,
+        };
+
+        await refreshAccount();
+
+        await sendTransactions({
+            transactions: transaction,
+            transactionDisplayInfo: {
+                processingMessage: 'Processing customization transaction',
+                errorMessage: 'An error has occured during customization',
+                successMessage: 'Customization transaction successful'
+            },
+            redirectAfterSign: false
+        });
+
+
+        async function getToken() {
+            switch (type) {
+                case 'penguins':
+
+                    if (!penguin) throw new Error('id is required');
+
+                    return {
+                        collection: penguinCollection,
+                        nonce: penguin.nonce // id is the nonce
+                    };
+
+                case 'items':
+                    const foundItem = items.find(i => i.id == id);
+
+                    if (!foundItem) throw new Error('Item not found');
+
+                    return {
+                        collection: foundItem.collection,
+                        nonce: foundItem.nonce
+                    };
+
+                default:
+                    throw new Error('Unknown type');
+            }
+        }
+    }
 
     function getTypeInText() {
         switch (type) {
