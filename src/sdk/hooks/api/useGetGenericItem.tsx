@@ -11,7 +11,8 @@ export function useGetGenericItem(type: CategoriesType, id: string) {
     const [data, setData] = React.useState<GenericItem | undefined>(undefined);
     const [ownedByConnected, setOwnedByConnected] = React.useState<boolean | undefined>(undefined);
 
-    const raw = useGenericAPICall<any>(`${type}/${id}`);
+    const singularType = type == 'penguins' ? 'penguin' : 'item';
+    const raw = useGenericAPICall<any>(`${type}/${singularType}/${id}`);
     const { address: connectedAddress } = useGetAccountInfo();
 
     React.useEffect(() => {

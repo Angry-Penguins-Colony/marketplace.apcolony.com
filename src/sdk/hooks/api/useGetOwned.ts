@@ -21,7 +21,7 @@ interface IOptions<T> {
     overrideAddress?: IAddress;
 }
 
-function useGetOwned<T>(urlSuffix: string, options?: IOptions<T>): T[] | undefined {
+function useGetOwned<T>(type: string, options?: IOptions<T>): T[] | undefined {
     const [owned, setOwned] = React.useState<T[] | undefined>(undefined);
     let { address: userAddress } = useGetAccountInfo();
 
@@ -37,7 +37,7 @@ function useGetOwned<T>(urlSuffix: string, options?: IOptions<T>): T[] | undefin
 
     React.useEffect(() => {
         async function get() {
-            const res = await doGetGeneric((options?.overrideAddress ?? userAddress) + '/' + urlSuffix);
+            const res = await doGetGeneric(type + '/owned/' + (options?.overrideAddress ?? userAddress));
 
             const loadedPenguins = res.data.data;
             setOwned(loadedPenguins);
