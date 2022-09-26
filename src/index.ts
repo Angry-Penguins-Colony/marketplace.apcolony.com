@@ -36,7 +36,7 @@ function start(id: number) {
     app.get("/penguins/offers", (req, res) => getOffers(req, res, "penguins"));
     app.get('/penguins/owned/:bech32', (req, res) => getPenguins(req, res, proxyNetwork));
 
-    app.get("/items/penguin/:id", (req, res) => getItem(req, res, proxyNetwork));
+    app.get("/items/item/:id", (req, res) => getItem(req, res, proxyNetwork));
     app.get("/items/activity/:id", (req, res) => getActivity(req, res, "items"));
     app.get("/items/offers/:category", (req, res) => getOffers(req, res, "items"));
     app.get('/items/owned/:bech32', (req, res) => getItems(req, res, proxyNetwork));
