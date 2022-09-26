@@ -94,16 +94,8 @@ const CategoriesOffers = () => {
                 {
                     variants.map(variant => (
                         <>
-                            <Item item={variant} key={variant.id} displayId={false} className={style.mobile} onClick={
-                                () => {
-                                    window.location.href = buildRouteLinks.inspect(variant.type, variant.id);
-                                }
-                            } />
-                            <div className={style.desktop} onClick={
-                                () => {
-                                    window.location.href = buildRouteLinks.inspect(variant.type, variant.id);
-                                }
-                            }>
+                            <Item item={variant} key={variant.id} displayId={false} className={style.mobile} onClick={() => navigateToInspect(variant.type, variant.id)} />
+                            <div className={style.desktop} onClick={() => navigateToInspect(variant.type, variant.id)}>
                                 <img src={defaultPenguinImg} alt="default background of any penguin" className={style.background} />
                                 <img src={variant.render} alt="" className={style.item} />
                                 <div className={style.infos}>
@@ -117,6 +109,13 @@ const CategoriesOffers = () => {
             </div>
         </div >
     );
+
+    function navigateToInspect(type: string, id: string) {
+
+        const categoriesType = type == 'penguins' ? 'penguins' : 'items';
+
+        window.location.href = buildRouteLinks.inspect(categoriesType, id);
+    }
 };
 
 export default CategoriesOffers;

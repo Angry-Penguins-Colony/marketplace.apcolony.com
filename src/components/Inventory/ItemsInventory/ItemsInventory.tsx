@@ -2,13 +2,14 @@ import * as React from 'react';
 import ReactImageAppear from 'components/Images/ReactImageAppear/ReactImageAppear';
 import { ipfsGateway } from 'config';
 import { buildRouteLinks } from 'routes';
+import CategoriesType from 'sdk/types/CategoriesType';
 import Filters, { matchFilter } from '../../../sdk/types/Filters';
 import style from './ItemsInventory.module.scss';
 
 interface IProps {
     className?: string,
     items: any[],
-    type: string,
+    type: CategoriesType,
     hasFilter: boolean,
     filters?: Filters
 }
@@ -59,7 +60,7 @@ interface IItemProps {
         thumbnailCID: string,
         id: string
     },
-    type: string
+    type: CategoriesType
 }
 
 const Item = ({

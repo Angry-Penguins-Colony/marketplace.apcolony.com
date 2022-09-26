@@ -4,11 +4,12 @@ import { BigCategory } from 'components/Navigation/BigCategory/BigCategory';
 import { CategoryItem } from 'components/Navigation/CategoryItem/CategoryItem';
 import { ItemOrPenguininExplorer } from 'components/Navigation/ItemOrPenguininExplorer/ItemOrPenguininExplorer';
 import { buildRouteLinks, routeNames } from 'routes';
+import CategoriesType from 'sdk/types/CategoriesType';
 import style from './index.module.scss';
 
 interface ItemOrPenguin {
   id: string;
-  type: 'item' | 'penguin';
+  type: CategoriesType;
   thumbnail: string;
   name: string;
   price: number;
@@ -25,7 +26,7 @@ const Home = () => {
       setExploreItems([
         {
           id: '1',
-          type: 'penguin',
+          type: 'penguins',
           thumbnail: 'https://media.elrond.com/nfts/asset/QmcWbrFLTHN6DTTHdcwJPoVikk5htHBdB3eEB5EJ4eN8nU',
           name: 'Penguin #0155',
           price: 5,
@@ -33,7 +34,7 @@ const Home = () => {
         },
         {
           id: '2',
-          type: 'item',
+          type: 'items',
           thumbnail: 'https://apc.mypinata.cloud/ipfs/QmXWgGiuJrQmny1DPuwqqGyhewK2nDz1V5MUvVyJsBy2Vd',
           name: 'Captain\s cap',
           price: 1.2,
@@ -41,7 +42,7 @@ const Home = () => {
         },
         {
           id: '3',
-          type: 'item',
+          type: 'items',
           thumbnail: 'https://apc.mypinata.cloud/ipfs/QmckAEkwJuLv2FEvoXjpvpjtBaMxDxv2YT3CTTSYhwp2WS',
           name: 'beak spe',
           price: 3.5,
@@ -49,7 +50,7 @@ const Home = () => {
         },
         {
           id: '4',
-          type: 'penguin',
+          type: 'penguins',
           thumbnail: 'https://media.elrond.com/nfts/asset/QmcWbrFLTHN6DTTHdcwJPoVikk5htHBdB3eEB5EJ4eN8nU',
           name: 'Penguin #0155',
           price: 5,
@@ -57,7 +58,7 @@ const Home = () => {
         },
         {
           id: '5',
-          type: 'item',
+          type: 'items',
           thumbnail: 'https://apc.mypinata.cloud/ipfs/QmXWgGiuJrQmny1DPuwqqGyhewK2nDz1V5MUvVyJsBy2Vd',
           name: 'Captain\s cap',
           price: 1.2,
@@ -65,7 +66,7 @@ const Home = () => {
         },
         {
           id: '6',
-          type: 'item',
+          type: 'items',
           thumbnail: 'https://apc.mypinata.cloud/ipfs/QmckAEkwJuLv2FEvoXjpvpjtBaMxDxv2YT3CTTSYhwp2WS',
           name: 'beak spe',
           price: 3.5,
@@ -73,7 +74,7 @@ const Home = () => {
         },
         {
           id: '7',
-          type: 'penguin',
+          type: 'penguins',
           thumbnail: 'https://media.elrond.com/nfts/asset/QmcWbrFLTHN6DTTHdcwJPoVikk5htHBdB3eEB5EJ4eN8nU',
           name: 'Penguin #0155',
           price: 5,
@@ -81,7 +82,7 @@ const Home = () => {
         },
         {
           id: '8',
-          type: 'item',
+          type: 'items',
           thumbnail: 'https://apc.mypinata.cloud/ipfs/QmXWgGiuJrQmny1DPuwqqGyhewK2nDz1V5MUvVyJsBy2Vd',
           name: 'Captain\s cap',
           price: 1.2,
@@ -91,7 +92,7 @@ const Home = () => {
 
       setHighlightedItem({
         id: '1',
-        type: 'item',
+        type: 'items',
         thumbnail: 'https://apc.mypinata.cloud/ipfs/QmXD8TYrFydZZmt7SjKdccDZixLTHpVVrx3jbDs3afCUBu',
         name: 'Kimono With Red Belt',
         price: 2,

@@ -1,6 +1,7 @@
 import { dAppName } from 'config';
 import CategoriesOffers from 'pages/CategoriesOffers';
 import Inspect from 'pages/Inspect';
+import CategoriesType from 'sdk/types/CategoriesType';
 import withPageTitle from './components/PageTitle';
 import Customize from './pages/Customize';
 import Home from './pages/Home';
@@ -22,7 +23,7 @@ export const routeNames = {
 
 export const buildRouteLinks = {
   customize: (id: string | number) => routeNames.customize.replace(':id', id.toString()),
-  inspect: (type: string, id: string) => routeNames.inspect.replace(':type', type).replace(':id', id),
+  inspect: (type: CategoriesType, id: string) => routeNames.inspect.replace(':type', type).replace(':id', id),
   inventory: (address: string) => routeNames.inventory.replace(':address', address),
   categoriesOffers: (type: string) => routeNames.categoriesOffers.replace(':type', type)
 }

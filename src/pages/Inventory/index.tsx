@@ -9,6 +9,7 @@ import NavInventory from 'components/Inventory/NavInventory/NavInventory';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
 import useInventoryFilter from 'sdk/hooks/useInventoryFilter';
+import CategoriesType from 'sdk/types/CategoriesType';
 import { IInventoryItem } from 'sdk/types/IInventoryItem';
 import style from './index.module.scss';
 
@@ -29,7 +30,7 @@ const Inventory = () => {
 
 
     const [items, setItems] = React.useState<IInventoryItem[] | undefined>(undefined);
-    const [itemsType, setItemsType] = React.useState('penguins');
+    const [itemsType, setItemsType] = React.useState<CategoriesType>('penguins');
 
     const penguinsItems = useGetOwnedPenguins({
         onLoaded: setItems,
