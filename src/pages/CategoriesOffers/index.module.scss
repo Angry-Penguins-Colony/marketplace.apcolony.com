@@ -2,10 +2,19 @@
 
 .type-in-marketplace {
     background-color: $background;
+    padding-bottom: 60px;
 
     > * {
         padding-left: 30px;
         padding-right: 30px;
+    }
+
+    > .background-header {
+        display: none;
+    }
+
+    > .icon {
+        display: none;
     }
 
     > h1 {
@@ -30,6 +39,7 @@
         display: flex;
         justify-content: center;
         margin-top: 40px;
+        margin-bottom: 30px;
     }
 
     > .items {
@@ -50,6 +60,40 @@
         max-width: 1400px;
         margin: auto;
         margin-bottom: 40px;
+
+        > .background-header {
+            display: block;
+            height: 350px;
+            width: 100%;
+            background-position: center;
+            background-size: cover;
+            position: absolute;
+            top: 0px;
+        }
+
+        > .icon {
+            position: relative;
+            background-color: white;
+            border-radius: 6px;
+            margin: 140px auto 3rem auto;
+            width: fit-content;
+            aspect-ratio: 1 / 1;
+            padding: 15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        > h1 {
+            font-family: 'CHEDROS', sans-serif;
+            font-weight: bold;
+            position: relative;
+            top: -2rem;
+            font-size: 3rem;
+            color: $primary-dark;
+            text-align: center;
+        }
 
         > .items {
             > .mobile {
