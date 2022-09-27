@@ -15,12 +15,9 @@ import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import SpinningLoad from 'components/SpinningLoad';
 import { items, marketplaceContractAddress, penguinCollection } from 'config';
 import { buildRouteLinks } from 'routes';
-import useGetActivity from 'sdk/hooks/api/useGetActivity';
-import useGetOffers from 'sdk/hooks/api/useGetOffers';
-import useGetPenguin from 'sdk/hooks/api/useGetPenguin';
+import useInspect from 'sdk/hooks/useInspect';
 import { SellPayloadBuilder } from 'sdk/transactionsBuilders/sell/SellPayloadBuilder';
 import CategoriesType from 'sdk/types/CategoriesType';
-import { useGetGenericItem } from '../../sdk/hooks/api/useGetGenericItem';
 import style from './index.module.scss';
 
 const Inspect = () => {
@@ -32,27 +29,11 @@ const Inspect = () => {
     if (!id) throw new Error('Item id is required');
 
     const { address: connectedAddress } = useGetAccountInfo();
-    const item = useGetGenericItem(category, id);
-
-    const activities = useGetActivity(category, id);
-    const penguin = useGetPenguin(id); // TODO: FIX 404 error in /items path
     const isConnected = connectedAddress != '';
-    const offers = useGetOffers(category, id);
-    const ownedOffers = offers && offers.filter((offer) => offer.seller === connectedAddress);
-    const isListedByConnected = ownedOffers && ownedOffers.length > 0;
-    const ownedByConnectedWallet = (() => {
-        if (isListedByConnected) return true;
-
-        if (category === 'penguins') return penguin?.owner === connectedAddress;
-        if (category === 'items' && item?.amount) return item?.amount > 0;
-        return false;
-    })()
-    // TODO: move the new BigNumber into useGetOffers
-    const priceInMarket = ownedOffers && ownedOffers.length > 0 ? new BigNumber((ownedOffers[0].price as any).value).toNumber() : 0;
+    const { item, isListedByConnected, ownedByConnectedWallet, priceListedByUser, activities, itemAsPenguin, ownedOffers } = useInspect(category, id);
+    const [isSellPopupOpen, setIsSellPopupOpen] = React.useState(false);
 
     const typeInText = getTypeInText();
-
-    const [isSellPopupOpen, setIsSellPopupOpen] = React.useState(false);
 
     return (
         <div id={style['item-in-inventory']}>
@@ -84,7 +65,7 @@ const Inspect = () => {
                                 (
                                     <>
                                         <Button type='cancel-outline'>Retire offer</Button>
-                                        <p className={style.price}>Listed for {priceInMarket ?? '--'} EGLD</p>
+                                        <p className={style.price}>Listed for {priceListedByUser ?? '--'} EGLD</p>
                                     </>
                                 ) :
                                 (
@@ -133,7 +114,7 @@ const Inspect = () => {
                     <p className={style['owned-property-text']}>
                         {
                             (() => {
-                                if (penguin && penguin.owner == marketplaceContractAddress.bech32()) {
+                                if (itemAsPenguin && itemAsPenguin.owner == marketplaceContractAddress.bech32()) {
                                     return <>For sale</>;
                                 }
                                 else {
@@ -141,8 +122,8 @@ const Inspect = () => {
                                         Owned by
                                         {' ' /*force space between "owned by" and addresse*/}
                                         {
-                                            penguin ?
-                                                <AddressWrapper address={Address.fromBech32(penguin.owner)} />
+                                            itemAsPenguin ?
+                                                <AddressWrapper address={Address.fromBech32(itemAsPenguin.owner)} />
                                                 :
                                                 <SpinningLoad />
                                         }
@@ -198,11 +179,11 @@ const Inspect = () => {
             switch (category) {
                 case 'penguins':
 
-                    if (!penguin) throw new Error('id is required');
+                    if (!itemAsPenguin) throw new Error('id is required');
 
                     return {
                         collection: penguinCollection,
-                        nonce: penguin.nonce // id is the nonce
+                        nonce: itemAsPenguin.nonce // id is the nonce
                     };
 
                 case 'items':
