@@ -1,3 +1,4 @@
+import { Address } from '@elrondnetwork/erdjs/out';
 import { Request, Response } from 'express';
 import { APCNetworkProvider } from "../../classes/APCNetworkProvider";
 import { items } from '../../const';
@@ -16,9 +17,13 @@ export default async function getItem(req: Request, res: Response, proxyNetwork:
         return;
     }
 
-    const item = await proxyNetwork.getItem(getItemFromName(associatedItem.name, associatedItem.slot));
-
-    // item.amount = ;
+    let item;
+    if (req.query.owner) {
+        item = await proxyNetwork.getItem(associatedItem, Address.fromBech32(req.query.owner as string));
+    }
+    else {
+        item = await proxyNetwork.getItem(associatedItem);
+    }
 
     sendSuccessfulJSON(res, item);
 }

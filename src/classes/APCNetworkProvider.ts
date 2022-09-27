@@ -2,7 +2,7 @@ import { IAddress, IItem, IOffer, IPenguin } from "@apcolony/marketplace-api";
 import { Attributes } from "@apcolony/marketplace-api/out/classes";
 import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
-import { AbiRegistry, ArgSerializer, BytesValue, ContractFunction, Field, NumericalValue, ResultsParser, SmartContract, SmartContractAbi, Struct } from "@elrondnetwork/erdjs/out";
+import { AbiRegistry, Address, ArgSerializer, BytesValue, ContractFunction, Field, NumericalValue, ResultsParser, SmartContract, SmartContractAbi, Struct } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
 import { customisationContract, penguinsCollection, gateway, marketplaceContract } from "../const";
 import { getItemFromName } from "../utils/dbHelper";
@@ -194,11 +194,19 @@ export class APCNetworkProvider {
         return equippedItems;
     }
 
-    public async getItem(item: { identifier: string, name: string, slot: string, id: string }): Promise<IItem> {
+    // TODO: there is two calls in this function, we should optimize it
+    public async getItem(item: { identifier: string, name: string, slot: string, id: string }, owner?: Address): Promise<IItem> {
 
         const { collection: ticker, nonce } = splitCollectionAndNonce(item.identifier);
 
         const nft = await this.fixed_getNonFungibleTokenOfAccount(customisationContract, ticker, nonce);
+
+        let amount;
+
+        if (owner) {
+            const nftOnOwner = await this.fixed_getNonFungibleTokenOfAccount(owner, ticker, nonce);
+            amount = nftOnOwner.supply.toNumber();
+        }
 
         return {
             id: item.id,
@@ -209,7 +217,8 @@ export class APCNetworkProvider {
             thumbnailCID: extractCIDFromIPFS(nft.assets[0]),
             renderCID: extractCIDFromIPFS(nft.assets[1]),
             description: "", //TODO:
-            amount: nft.supply.toNumber(),
+            amount: amount
         }
+
     }
 }
