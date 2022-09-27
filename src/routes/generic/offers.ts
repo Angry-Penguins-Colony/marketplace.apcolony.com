@@ -1,30 +1,38 @@
-import { ProxyNetworkProvider } from '@elrondnetwork/erdjs-network-providers/out';
-import { AbiRegistry, SmartContractAbi, SmartContract, ContractFunction, U64Value, ResultsParser, BytesValue, List } from '@elrondnetwork/erdjs/out';
-import { promises } from 'fs';
 import { Request, Response } from 'express';
-import { gateway, marketplaceContract, penguinsCollection } from '../../const';
+import { penguinsCollection, itemsCollection } from '../../const';
 import { APCNetworkProvider } from '../../classes/APCNetworkProvider';
 import { sendSuccessfulJSON } from '../../utils/response';
 
 export default async function getOffers(req: Request, res: Response, type: "items" | "penguins", networkProvider: APCNetworkProvider) {
 
+    const collectionId = getCollectionId();
 
-    const offers = await networkProvider.getOffers(getCollectionId());
+    if (collectionId) {
+        const offers = await networkProvider.getOffers(collectionId);
 
-    const response = offers
-        .map(o => {
-            return {
-                ...o,
-                ["price"]: o.price.toString(),
-            }
-        })
+        const response = offers
+            .map(o => {
+                return {
+                    ...o,
+                    ["price"]: o.price.toString(),
+                }
+            })
 
-    sendSuccessfulJSON(res, response);
+        sendSuccessfulJSON(res, response);
+    }
 
     function getCollectionId() {
         switch (type) {
             case "items":
-                throw new Error("Not implemented");
+                const cat = req.params.category;
+
+                if (Object.keys(itemsCollection).includes(cat)) {
+                    return itemsCollection[cat as keyof typeof itemsCollection];
+                }
+                else {
+                    res.status(400).send("Invalid category");
+                    return null;
+                }
 
             case "penguins":
                 return penguinsCollection;

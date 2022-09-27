@@ -17,7 +17,8 @@
     "try:items:devnet": "curl http://localhost:5001/erd1s8pewfrtfd5r3ql94e4g5ulfacnm87acm9aq89q03r2k05hxlx4sj275zp/items",
     "try:penguin": "curl http://localhost:5001/penguins/4",
     "try:item": "curl http://localhost:5001/items/7",
-    "try:offers": " curl http://localhost:5001/penguins/offers",
+    "try:offers:p": " curl http://localhost:5001/penguins/offers",
+    "try:offers:i": " curl http://localhost:5001/items/offers/hat",
     "log:remote": "heroku logs -a apc-marketplace-api-devnet --tail"
   },
   "repository": {
