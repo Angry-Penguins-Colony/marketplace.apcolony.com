@@ -5,7 +5,7 @@ import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { AbiRegistry, Address, ArgSerializer, BytesValue, ContractFunction, Field, NumericalValue, ResultsParser, SmartContract, SmartContractAbi, Struct } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
 import { customisationContract, penguinsCollection, gateway, marketplaceContract } from "../const";
-import { getItemFromName } from "../utils/dbHelper";
+import { getItemFromName, getTokenFromItemID } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
 
@@ -119,6 +119,15 @@ export class APCNetworkProvider {
 
     public async getOffers(collection: string): Promise<IOffer[]> {
 
+        const reponseOffers = await this.queryGetAuctionsOfCollection(collection);
+
+        const offers = reponseOffers
+            .map((o: any) => this.offerFromABI(o));
+
+        return offers;
+    }
+
+    private async queryGetAuctionsOfCollection(collection: string) {
         const contract = await this.getMarketplaceSmartContract();
 
         const contractViewName = "getAuctionsOfCollection";
@@ -132,11 +141,7 @@ export class APCNetworkProvider {
         const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition);
 
         const reponseOffers = (firstValue as any).backingCollection.items;
-
-        const offers = reponseOffers
-            .map((o: any) => this.offerFromABI(o));
-
-        return offers;
+        return reponseOffers;
     }
 
     private offerFromABI(response: any): IOffer {
@@ -220,5 +225,25 @@ export class APCNetworkProvider {
             amount: amount
         }
 
+    }
+
+    public async getToken(type: "penguins" | "items", id: string) {
+        switch (type) {
+            case "penguins":
+                const penguin = await this.getPenguinFromId(id)
+
+                if (!penguin) throw new Error(`Penguin with id ${id} not found`);
+
+                return {
+                    collection: penguinsCollection,
+                    nonce: penguin.nonce
+                };
+
+            case "items":
+                return getTokenFromItemID(id);
+
+            default:
+                throw new Error("Invalid type");
+        }
     }
 }

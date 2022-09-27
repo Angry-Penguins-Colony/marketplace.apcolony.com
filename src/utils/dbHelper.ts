@@ -3,6 +3,14 @@ import { items } from "../const";
 import item from "../routes/items/item";
 import { splitCollectionAndNonce } from "./string";
 
+export function getTokenFromItemID(id: string): { collection: string, nonce: number } {
+    const item = items.find(i => i.id == id);
+
+    if (!item) throw new Error("Item not found");
+
+    return splitCollectionAndNonce(item.identifier);
+}
+
 export function getItemFromToken(collection: string, nonce: number) {
     const item = items.find(item => {
 
