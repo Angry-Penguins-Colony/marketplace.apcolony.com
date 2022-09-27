@@ -13,10 +13,9 @@ import ShareIcon from 'components/Icons/ShareIcon';
 import ItemsAndActivities from 'components/Inventory/ItemsAndActivities/ItemsAndActivities';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import SpinningLoad from 'components/SpinningLoad';
-import { items, marketplaceContractAddress, penguinCollection } from 'config';
+import { marketplaceContractAddress } from 'config';
 import { buildRouteLinks } from 'routes';
 import useInspect from 'sdk/hooks/useInspect';
-import { SellPayloadBuilder } from 'sdk/transactionsBuilders/sell/SellPayloadBuilder';
 import CategoriesType from 'sdk/types/CategoriesType';
 import style from './index.module.scss';
 
@@ -28,11 +27,21 @@ const Inspect = () => {
     if (!category) throw new Error('type is required');
     if (!id) throw new Error('Item id is required');
 
+    const {
+        item,
+        isListedByConnected,
+        ownedByConnectedWallet,
+        priceListedByUser,
+        activities,
+        itemAsPenguin,
+        ownedOffers,
+        getSellTransaction
+    } = useInspect(category, id);
     const { address: connectedAddress } = useGetAccountInfo();
-    const isConnected = connectedAddress != '';
-    const { item, isListedByConnected, ownedByConnectedWallet, priceListedByUser, activities, itemAsPenguin, ownedOffers } = useInspect(category, id);
+
     const [isSellPopupOpen, setIsSellPopupOpen] = React.useState(false);
 
+    const isConnected = connectedAddress != '';
     const typeInText = getTypeInText();
 
     return (
@@ -148,20 +157,7 @@ const Inspect = () => {
 
     async function sell(price: BigNumber) {
 
-        const { collection, nonce } = await getToken();
-        const payload = new SellPayloadBuilder()
-            .setPrice(price)
-            .setMarketplaceSc(marketplaceContractAddress)
-            .setToken(collection, nonce)
-            .build();
-
-        const transaction: SimpleTransactionType = {
-            value: '0',
-            data: payload.toString(),
-            receiver: connectedAddress,
-            gasLimit: 50_000_000,
-        };
-
+        const transaction: SimpleTransactionType = getSellTransaction(price);
         await refreshAccount();
 
         await sendTransactions({
@@ -173,33 +169,6 @@ const Inspect = () => {
             },
             redirectAfterSign: false
         });
-
-
-        async function getToken() {
-            switch (category) {
-                case 'penguins':
-
-                    if (!itemAsPenguin) throw new Error('id is required');
-
-                    return {
-                        collection: penguinCollection,
-                        nonce: itemAsPenguin.nonce // id is the nonce
-                    };
-
-                case 'items':
-                    const foundItem = items.find(i => i.id == id);
-
-                    if (!foundItem) throw new Error('Item not found');
-
-                    return {
-                        collection: foundItem.collection,
-                        nonce: foundItem.nonce
-                    };
-
-                default:
-                    throw new Error('Unknown type');
-            }
-        }
     }
 
     function getTypeInText() {
