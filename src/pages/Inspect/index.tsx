@@ -16,6 +16,7 @@ import SpinningLoad from 'components/SpinningLoad';
 import { items, marketplaceContractAddress, penguinCollection } from 'config';
 import { buildRouteLinks } from 'routes';
 import useGetActivity from 'sdk/hooks/api/useGetActivity';
+import useGetOffersOfCategory from 'sdk/hooks/api/useGetOffersOfCategory';
 import useGetPenguin from 'sdk/hooks/api/useGetPenguin';
 import { SellPayloadBuilder } from 'sdk/transactionsBuilders/sell/SellPayloadBuilder';
 import CategoriesType from 'sdk/types/CategoriesType';
@@ -37,6 +38,9 @@ const Inspect = () => {
     const penguin = useGetPenguin(id); // TODO: FIX 404 error in /items path
     const isInMarket = false; // TODO: fill it
     const [priceInMarket] = React.useState(0);
+
+    const rawOffers = useGetOffersOfCategory(type);
+    console.log('rawOffers', rawOffers);
 
     const typeInText = getTypeInText();
 

@@ -7,7 +7,7 @@ import { Item } from 'components/Inventory/Item/Item';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { ipfsGateway } from 'config';
 import { buildRouteLinks } from 'routes';
-import useGetOffers from 'sdk/hooks/api/useGetOffers';
+import useGetOffersOfCategory from 'sdk/hooks/api/useGetOffersOfCategory';
 import MarketData from '../../components/Inventory/MarketData';
 import defaultPenguinImg from './../../assets/img/penguin_default.png';
 import style from './index.module.scss';
@@ -19,7 +19,7 @@ const CategoriesOffers = () => {
     if (!category) throw new Error('Missing category');
 
     const title = category;
-    const offersReponses = useGetOffers(category);
+    const offersReponses = useGetOffersOfCategory(category);
 
     // get marketplace data by api call
     const [marketplace] = React.useState({

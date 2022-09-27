@@ -6,7 +6,8 @@ interface Output {
     associatedItems: IItem[];
 }
 
-function useGetOffers(category: 'penguins' | string) {
+function useGetOffersOfCategory(category: 'penguins' | string) {
+
     return useGenericAPICall<Output>(`/${getType()}/offers/${getCat()}`);
 
     function getType() {
@@ -18,4 +19,4 @@ function useGetOffers(category: 'penguins' | string) {
     }
 }
 
-export default useGetOffers;
+export default useGetOffersOfCategory;
