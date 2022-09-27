@@ -19,11 +19,7 @@ const CategoriesOffers = () => {
     if (!category) throw new Error('Missing category');
 
     const title = category;
-
     const offersReponses = useGetOffers(category);
-
-
-    console.log(offersReponses);
 
     // get marketplace data by api call
     const [marketplace] = React.useState({

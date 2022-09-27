@@ -7,10 +7,14 @@ interface Output {
 }
 
 function useGetOffers(category: 'penguins' | string) {
-    return useGenericAPICall<Output>(`/${getType()}/offers/${category}`);
+    return useGenericAPICall<Output>(`/${getType()}/offers/${getCat()}`);
 
     function getType() {
         return category === 'penguins' ? 'penguins' : 'items';
+    }
+
+    function getCat() {
+        return category === 'penguins' ? '' : category;
     }
 }
 
