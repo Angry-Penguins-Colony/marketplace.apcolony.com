@@ -12,8 +12,9 @@ import { ProxyNetworkProvider } from '@elrondnetwork/erdjs-network-providers/out
 import getAttributes from './routes/attributes/attributes';
 import getPenguin from './routes/penguins/penguin';
 import getItem from './routes/items/item';
-import getOffers from './routes/generic/offers';
+import getItemsOffers from './routes/items/offers';
 import getActivity from './routes/generic/activity';
+import getPenguinsOffers from './routes/penguins/offers';
 
 const workers = parseInt(process.env.WEB_CONCURRENCY || "1");
 const port = process.env.PORT || 5001;
@@ -33,12 +34,12 @@ function start(id: number) {
 
     app.get('/penguins/penguin/:id', (req, res) => getPenguin(req, res, networkProvider));
     app.get("/penguins/activity/:id", (req, res) => getActivity(req, res, "penguins"));
-    app.get("/penguins/offers", (req, res) => getOffers(req, res, "penguins", networkProvider));
+    app.get("/penguins/offers", (req, res) => getPenguinsOffers(req, res, networkProvider));
     app.get('/penguins/owned/:bech32', (req, res) => getPenguins(req, res, networkProvider));
 
     app.get("/items/item/:id", (req, res) => getItem(req, res, networkProvider));
     app.get("/items/activity/:id", (req, res) => getActivity(req, res, "items"));
-    app.get("/items/offers/:category", (req, res) => getOffers(req, res, "items", networkProvider));
+    app.get("/items/offers/:category", (req, res) => getItemsOffers(req, res, networkProvider));
     app.get('/items/owned/:bech32', (req, res) => getItems(req, res, networkProvider));
 
     app.get('/attributes', (req, res) => getAttributes(req, res, networkProvider));
