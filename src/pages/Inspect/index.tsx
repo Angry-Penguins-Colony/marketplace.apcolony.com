@@ -115,15 +115,29 @@ const Inspect = () => {
 
         switch (type) {
             case 'penguins':
+
                 return <div className={style['owned-property']}>
                     <p className={style['owned-property-text']}>
-                        Owned by
-                        {' ' /*force space between "owned by" and addresse*/}
-                        {penguin ?
-                            <AddressWrapper address={Address.fromBech32(penguin.owner)} />
-                            :
-                            <SpinningLoad />
+                        {
+                            (() => {
+                                if (penguin && penguin.owner == marketplaceContractAddress.bech32()) {
+                                    return <>For sale</>;
+                                }
+                                else {
+                                    return <>
+                                        Owned by
+                                        {' ' /*force space between "owned by" and addresse*/}
+                                        {
+                                            penguin ?
+                                                <AddressWrapper address={Address.fromBech32(penguin.owner)} />
+                                                :
+                                                <SpinningLoad />
+                                        }
+                                    </>
+                                }
+                            })()
                         }
+
                     </p>
                 </div>;
 
