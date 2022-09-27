@@ -29,8 +29,9 @@ const Inspect = () => {
 
     const { address: connectedAddress } = useGetAccountInfo();
     const { item, ownedByConnectedWallet } = useGetGenericItem(type, id);
+
     const activities = useGetActivity(type, id);
-    const penguin = useGetPenguin(id);
+    const penguin = useGetPenguin(id); // TODO: FIX 404 error in /items path
     const isInMarket = false; // TODO: fill it
     const [priceInMarket] = React.useState(0);
 
@@ -57,7 +58,9 @@ const Inspect = () => {
                 }}>
                     <ShareIcon />
                 </div>
-                <div className={style.rank}>Rank <span className={style.primary}>#{item?.rank ?? '----'}</span></div>
+                <div className={style.rank}>
+                    {getOwnedProperty()}
+                </div>
             </div>
             <div className={style.actions + (isInMarket ? ' ' + style['in-market'] : '')}>
                 {ownedByConnectedWallet == true &&
@@ -70,7 +73,12 @@ const Inspect = () => {
                                 </>
                             ) : (
                                 <>
-                                    <Button type='normal' onClick={() => { setIsSellPopupOpen(true) }}>Sell {typeInText.singular}</Button>
+                                    {
+                                        item && item.amount > 0 &&
+                                        <Button type='normal' onClick={() => { setIsSellPopupOpen(true) }}>
+                                            Sell {typeInText.singular}
+                                        </Button>
+                                    }
                                     {
                                         type === 'penguins' &&
                                         <Button type='primary' onClick={() => {
@@ -97,6 +105,36 @@ const Inspect = () => {
             }
         </div>
     );
+
+    function getOwnedProperty() {
+
+        if (!item) return;
+
+        switch (type) {
+            case 'penguins':
+                if (item.amount == 0) {
+                    return (
+                        <div className={style['owned-property']}>
+                            <p className={style['owned-property-text']}>Not owned</p>
+                        </div>
+                    );
+                }
+                else {
+                    return (
+                        <div className={style['owned-property']}>
+                            <p className={style['owned-property-text']}>Owned</p>
+                        </div>
+                    );
+                }
+            case 'items':
+                return <>
+                    <span className={style.primary}>{item?.amount ?? '--'}</span> owned
+                </>
+
+            default:
+                throw new Error('Unknown type');
+        }
+    }
 
     async function sell(price: BigNumber) {
 
