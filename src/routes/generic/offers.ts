@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { penguinsCollection, itemsCollection } from '../../const';
 import { APCNetworkProvider } from '../../classes/APCNetworkProvider';
 import { sendSuccessfulJSON } from '../../utils/response';
+import { getItemFromToken } from '../../utils/dbHelper';
 
 export default async function getOffers(req: Request, res: Response, type: "items" | "penguins", networkProvider: APCNetworkProvider) {
 
@@ -19,7 +20,7 @@ export default async function getOffers(req: Request, res: Response, type: "item
                     }
                 }),
             associatedItems: await Promise.all(offers
-                .map(o => networkProvider.getItemFromToken(o.collection, o.nonce)))
+                .map(o => networkProvider.getItem(getItemFromToken(o.collection, o.nonce))))
         }
 
         sendSuccessfulJSON(res, response);

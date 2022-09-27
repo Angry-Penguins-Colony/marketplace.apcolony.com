@@ -5,6 +5,7 @@ import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { AbiRegistry, ArgSerializer, BytesValue, ContractFunction, Field, NumericalValue, ResultsParser, SmartContract, SmartContractAbi, Struct } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
 import { items, customisationContract, penguinsCollection, gateway, marketplaceContract } from "../const";
+import { getItemFromName } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
 
@@ -187,36 +188,13 @@ export class APCNetworkProvider {
         for (const { slot, itemName } of attributes) {
             if (itemName == "unequipped") continue;
 
-            equippedItems[slot] = await this.getItemFromName(itemName, slot);
+            equippedItems[slot] = await this.getItem(getItemFromName(itemName, slot));
         }
 
         return equippedItems;
     }
 
-
-    async getItemFromToken(collection: string, nonce: number): Promise<IItem> {
-        const item = items.find(item => {
-
-            const { collection: itemCollection, nonce: itemNonce } = splitCollectionAndNonce(item.identifier);
-
-            return itemCollection == collection && itemNonce == nonce;
-        });
-
-        if (!item) throw new Error(`No item found for ${collection} and ${nonce}`);
-
-        return this.getItemFromItemDb(item);
-    }
-
-    async getItemFromName(name: string, slot: string, address?: IAddress): Promise<IItem> {
-
-        const item = items.find(item => item.name == name && item.slot.toLowerCase() == slot.toLowerCase());
-
-        if (!item) throw new Error(`No item found for ${name} and ${slot}`);
-
-        return this.getItemFromItemDb(item);
-    }
-
-    private async getItemFromItemDb(item: { identifier: string, name: string, slot: string }): Promise<IItem> {
+    public async getItem(item: { identifier: string, name: string, slot: string }): Promise<IItem> {
 
         const { collection: ticker, nonce } = splitCollectionAndNonce(item.identifier);
 
