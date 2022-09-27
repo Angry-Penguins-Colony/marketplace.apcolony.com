@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IItem } from '@apcolony/marketplace-api';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import UnderlineNavElmt from 'components/Abstract/UnderlineNavElmt/UnderlineNavElmt';
 import SearchIcon from 'components/Icons/SearchIcon';
 import { Item } from 'components/Inventory/Item/Item';
@@ -8,6 +8,7 @@ import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { ipfsGateway } from 'config';
 import { buildRouteLinks } from 'routes';
 import useGetOffers from 'sdk/hooks/api/useGetOffers';
+import CategoriesType from 'sdk/types/CategoriesType';
 import MarketData from '../../components/Inventory/MarketData';
 import defaultPenguinImg from './../../assets/img/penguin_default.png';
 import style from './index.module.scss';
@@ -38,6 +39,9 @@ const CategoriesOffers = () => {
     const [offers, setOffers] = React.useState<IItem[] | undefined>(undefined);
 
     React.useEffect(() => {
+
+        console.log(offersReponses);
+
         if (offersReponses) {
             setOffers(offersReponses.associatedItems);
         }
@@ -77,14 +81,17 @@ const CategoriesOffers = () => {
             else {
                 return offers.map(variant => (
                     <>
-                        <Item item={variant} key={variant.id} displayId={false} className={style.mobile} onClick={() => navigateToInspect(category, variant.id)} />
-                        <div className={style.desktop} onClick={() => navigateToInspect(category, variant.id)}>
-                            <img src={defaultPenguinImg} alt="default background of any penguin" className={style.background} />
-                            <img src={ipfsGateway + variant.thumbnailCID} alt="" className={style.item} />
-                            <div className={style.infos}>
-                                <div className={style.name}>{variant.name}</div>
+                        <Link className={style.itemRoot} to={buildRouteLinks.inspect(category as CategoriesType, variant.id)} key={variant.id} >
+                            <Item item={variant} displayId={false} className={style.mobile} />
+
+                            <div className={style.desktop}>
+                                <img src={defaultPenguinImg} alt="default background of any penguin" className={style.background} />
+                                <img src={ipfsGateway + variant.thumbnailCID} alt="" className={style.item} />
+                                <div className={style.infos}>
+                                    <div className={style.name}>{variant.name}</div>
+                                </div>
                             </div>
-                        </div>
+                        </Link>
                     </>
                 ))
             }
@@ -96,13 +103,6 @@ const CategoriesOffers = () => {
                 </div>
             </div>;
         }
-    }
-
-    function navigateToInspect(type: string, id: string) {
-
-        const categoriesType = type == 'penguins' ? 'penguins' : 'items';
-
-        window.location.href = buildRouteLinks.inspect(categoriesType, id);
     }
 };
 

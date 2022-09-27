@@ -43,12 +43,14 @@
     }
 
     > .items {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+        .itemRoot {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
 
-        > .desktop {
-            display: none;
+            > .desktop {
+                display: none;
+            }
         }
     }
 }
@@ -86,7 +88,7 @@
         }
 
         > h1 {
-            font-family: 'CHEDROS', sans-serif;
+            font-family: "CHEDROS", sans-serif;
             font-weight: bold;
             position: relative;
             top: -2rem;
@@ -96,47 +98,51 @@
         }
 
         > .items {
-            > .mobile {
-                display: none;
-            }
-
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-
-            > .desktop {
-                display: block;
-                flex-basis: auto;
-                background-color: white;
-                border-radius: 10px;
-                position: relative;
-                width: 250px;
-                padding-top: 250px;
-                cursor: pointer;
-
-                img {
-                    width: 250px;
-                    height: 250px;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
+            .itemRoot {
+                > .mobile {
+                    display: none;
                 }
 
-                .infos {
-                    padding: 15px;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
 
-                    .name {
-                        font-family: "CHEDROS", sans-serif;
-                        font-weight: bold;
-                        font-size: 1.4rem;
+                width: 250px;
+
+                > .desktop {
+                    display: block;
+                    flex-basis: auto;
+                    background-color: white;
+                    border-radius: 10px;
+                    position: relative;
+                    width: 250px;
+                    padding-top: 250px;
+                    cursor: pointer;
+
+                    img {
+                        width: 250px;
+                        height: 250px;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
                     }
 
-                    .rarity {
-                        margin-top: 0.6rem;
-                        font-family: "CHEDROS", sans-serif;
-                        font-weight: bold;
-                        color: $primary;
+                    .infos {
+                        padding: 15px;
+
+                        .name {
+                            font-family: "CHEDROS", sans-serif;
+                            font-weight: bold;
+                            font-size: 1.4rem;
+                        }
+
+                        .rarity {
+                            margin-top: 0.6rem;
+                            font-family: "CHEDROS", sans-serif;
+                            font-weight: bold;
+                            color: $primary;
+                        }
                     }
                 }
             }
