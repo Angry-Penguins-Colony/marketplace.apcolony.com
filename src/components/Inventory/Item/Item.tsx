@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { IItem } from '@apcolony/marketplace-api';
 import { ipfsGateway } from 'config';
 import style from './Item.module.scss';
 
@@ -11,7 +10,11 @@ export const Item = ({
         // do nothing
     }
 }: {
-    item: IItem,
+    item: {
+        name: string,
+        id: string,
+        thumbnailCID: string
+    },
     className?: string;
     displayId?: boolean;
     onClick?: () => void;

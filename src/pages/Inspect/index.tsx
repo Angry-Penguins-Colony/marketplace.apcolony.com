@@ -13,7 +13,6 @@ import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { items, marketplaceContractAddress, penguinCollection } from 'config';
 import { buildRouteLinks } from 'routes';
 import useGetActivity from 'sdk/hooks/api/useGetActivity';
-import useGetOffers from 'sdk/hooks/api/useGetOffers';
 import useGetPenguin from 'sdk/hooks/api/useGetPenguin';
 import { SellPayloadBuilder } from 'sdk/transactionsBuilders/sell/SellPayloadBuilder';
 import CategoriesType from 'sdk/types/CategoriesType';
@@ -31,9 +30,8 @@ const Inspect = () => {
     const { address: connectedAddress } = useGetAccountInfo();
     const { item, ownedByConnectedWallet } = useGetGenericItem(type, id);
     const activities = useGetActivity(type, id);
-    const offers = useGetOffers(type, id);
     const penguin = useGetPenguin(id);
-    const isInMarket = offers ? offers.length > 0 : undefined;
+    const isInMarket = false; // TODO: fill it
     const [priceInMarket] = React.useState(0);
 
     const typeInText = getTypeInText();

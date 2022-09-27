@@ -15,7 +15,7 @@ export const routeNames = {
   inspect: '/inspect/:type/:id',
   customize: '/customize',
   customizeOne: '/customize/:id',
-  categoriesOffers: '/offers/:type/',
+  categoriesOffers: '/offers/:category/',
   unlock: '/unlock',
   ledger: '/ledger',
   walletconnect: '/walletconnect'
