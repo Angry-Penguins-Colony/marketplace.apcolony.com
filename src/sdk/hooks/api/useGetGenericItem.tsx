@@ -13,7 +13,7 @@ export function useGetGenericItem(type: CategoriesType, id: string) {
     const { address } = useGetAccountInfo();
 
     const singularType = type == 'penguins' ? 'penguin' : 'item';
-    const raw = useGenericAPICall<any>(`${type}/${singularType}/${id}` + (address != '' ? `?owned=${address}` : ''));
+    const raw = useGenericAPICall<any>(`${type}/${singularType}/${id}` + (address != '' ? `?owner=${address}` : ''));
     const { address: connectedAddress } = useGetAccountInfo();
 
     React.useEffect(() => {
@@ -39,6 +39,8 @@ export function useGetGenericItem(type: CategoriesType, id: string) {
 
             case 'items':
                 const item = raw as IItem;
+
+                if (item.amount == undefined) throw new Error('The API should send the amount property.');
 
                 setData({
                     name: item.name,
