@@ -12,6 +12,7 @@
     "build": "tsc --build",
     "update:sdk": "npm i @apcolony/marketplace-api@latest",
     "update:sdk:local": "npm i ../../packages/sdk-marketplace-api",
+    "version:sdk": "npm list --depth=0 | findstr @apcolony/marketplace-api",
     "try:penguins": "curl http://localhost:5001/erd1tcj6pdcknflmaehxeq6dh8grf3l9l6xlyd5ycgj27ahmc368v4xqw5lcw5/penguins",
     "try:eggs": "curl http://localhost:3576/erd1tcj6pdcknflmaehxeq6dh8grf3l9l6xlyd5ycgj27ahmc368v4xqw5lcw5/eggs",
     "try:items:devnet": "curl http://localhost:5001/erd1s8pewfrtfd5r3ql94e4g5ulfacnm87acm9aq89q03r2k05hxlx4sj275zp/items",
@@ -42,7 +43,7 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "@apcolony/marketplace-api": "^1.0.24",
+    "@apcolony/marketplace-api": "^1.0.25",
     "@elrondnetwork/erdjs": "^10.2.7",
     "@elrondnetwork/erdjs-network-providers": "^0.1.7",
     "@elrondnetwork/erdjs-walletcore": "^1.0.0",

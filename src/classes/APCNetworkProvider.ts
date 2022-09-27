@@ -148,11 +148,14 @@ export class APCNetworkProvider {
 
         const auctioned_tokens = response.fieldsByName.get("auctioned_tokens");
 
+        console.log(response.fieldsByName);
+
         return {
             id: -1,
             price: response.fieldsByName.get("min_bid").value,
             collection: auctioned_tokens.value.fieldsByName.get("token_identifier").value.value,
-            nonce: auctioned_tokens.value.fieldsByName.get("token_nonce").value.value
+            nonce: auctioned_tokens.value.fieldsByName.get("token_nonce").value.value,
+            seller: Address.fromHex(response.fieldsByName.get("original_owner").value.value.valueHex).bech32()
         }
     }
 
