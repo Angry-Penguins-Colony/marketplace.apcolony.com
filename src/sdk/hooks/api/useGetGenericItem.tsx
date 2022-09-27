@@ -9,7 +9,6 @@ import { GenericItem } from '../../types/GenericItem';
 export function useGetGenericItem(type: CategoriesType, id: string) {
 
     const [data, setData] = React.useState<GenericItem | undefined>(undefined);
-    const [ownedByConnected, setOwnedByConnected] = React.useState<boolean | undefined>(undefined);
     const { address } = useGetAccountInfo();
 
     const singularType = type == 'penguins' ? 'penguin' : 'item';
@@ -33,8 +32,6 @@ export function useGetGenericItem(type: CategoriesType, id: string) {
                     price: -1,
                     amount: penguin.owner == connectedAddress ? 1 : 0,
                 });
-
-                setOwnedByConnected(penguin.owner == connectedAddress);
                 break;
 
             case 'items':
@@ -48,8 +45,6 @@ export function useGetGenericItem(type: CategoriesType, id: string) {
                     price: -1,
                     amount: item.amount
                 });
-
-                setOwnedByConnected(item.amount ? item.amount > 0 : false);
                 break;
 
             default:
@@ -58,8 +53,5 @@ export function useGetGenericItem(type: CategoriesType, id: string) {
 
     }, [raw, type, id]);
 
-    return {
-        item: data,
-        ownedByConnectedWallet: ownedByConnected
-    };
+    return data;
 }

@@ -16,7 +16,7 @@ import SpinningLoad from 'components/SpinningLoad';
 import { items, marketplaceContractAddress, penguinCollection } from 'config';
 import { buildRouteLinks } from 'routes';
 import useGetActivity from 'sdk/hooks/api/useGetActivity';
-import useGetOffersOfCategory from 'sdk/hooks/api/useGetOffersOfCategory';
+import useGetOffers from 'sdk/hooks/api/useGetOffers';
 import useGetPenguin from 'sdk/hooks/api/useGetPenguin';
 import { SellPayloadBuilder } from 'sdk/transactionsBuilders/sell/SellPayloadBuilder';
 import CategoriesType from 'sdk/types/CategoriesType';
@@ -25,27 +25,33 @@ import style from './index.module.scss';
 
 const Inspect = () => {
     const params = useParams();
+    const category = params.type as CategoriesType;
     const id = params.id;
-    const type = params.type as CategoriesType;
 
-    if (!type) throw new Error('type is required');
+    if (!category) throw new Error('type is required');
     if (!id) throw new Error('Item id is required');
 
     const { address: connectedAddress } = useGetAccountInfo();
-    const { item, ownedByConnectedWallet } = useGetGenericItem(type, id);
+    const item = useGetGenericItem(category, id);
 
-    const activities = useGetActivity(type, id);
+    const activities = useGetActivity(category, id);
     const penguin = useGetPenguin(id); // TODO: FIX 404 error in /items path
-    const [priceInMarket] = React.useState(0);
-    const isInMarket = false; // TODO: fill it
     const isConnected = connectedAddress != '';
+    const offers = useGetOffers(category, id);
+    const ownedOffers = offers && offers.filter((offer) => offer.seller === connectedAddress);
+    const isListedByConnected = ownedOffers && ownedOffers.length > 0;
+    const ownedByConnectedWallet = (() => {
+        if (isListedByConnected) return true;
 
-    const rawOffers = useGetOffersOfCategory(type);
-    console.log('rawOffers', rawOffers);
+        if (category === 'penguins') return penguin?.owner === connectedAddress;
+        if (category === 'items' && item?.amount) return item?.amount > 0;
+        return false;
+    })()
+    // TODO: move the new BigNumber into useGetOffers
+    const priceInMarket = ownedOffers && ownedOffers.length > 0 ? new BigNumber((ownedOffers[0].price as any).value).toNumber() : 0;
 
     const typeInText = getTypeInText();
 
-    // sell popup
     const [isSellPopupOpen, setIsSellPopupOpen] = React.useState(false);
 
     return (
@@ -70,31 +76,33 @@ const Inspect = () => {
                     {getOwnedProperty()}
                 </div>
             </div>
-            <div className={style.actions + (isInMarket ? ' ' + style['in-market'] : '')}>
+            <div className={style.actions + (isListedByConnected ? ' ' + style['in-market'] : '')}>
                 {ownedByConnectedWallet == true &&
                     <>
                         {
-                            isInMarket ? (
-                                <>
-                                    <Button type='cancel-outline'>Retire offer</Button>
-                                    <p className={style.price}>Listed for {priceInMarket} EGLD</p>
-                                </>
-                            ) : (
-                                <>
-                                    {
-                                        item && item.amount && item.amount > 0 &&
-                                        <Button type='normal' onClick={() => { setIsSellPopupOpen(true) }}>
-                                            Sell {typeInText.singular}
-                                        </Button>
-                                    }
-                                    {
-                                        type === 'penguins' &&
-                                        <Button type='primary' onClick={() => {
-                                            window.location.href = buildRouteLinks.customize(id);
-                                        }}>Customize</Button>
-                                    }
-                                </>
-                            )
+                            isListedByConnected ?
+                                (
+                                    <>
+                                        <Button type='cancel-outline'>Retire offer</Button>
+                                        <p className={style.price}>Listed for {priceInMarket ?? '--'} EGLD</p>
+                                    </>
+                                ) :
+                                (
+                                    <>
+                                        {
+                                            item && item.amount && item.amount > 0 &&
+                                            <Button type='normal' onClick={() => { setIsSellPopupOpen(true) }}>
+                                                Sell {typeInText.singular}
+                                            </Button>
+                                        }
+                                        {
+                                            category === 'penguins' &&
+                                            <Button type='primary' onClick={() => {
+                                                window.location.href = buildRouteLinks.customize(id);
+                                            }}>Customize</Button>
+                                        }
+                                    </>
+                                )
                         }
                     </>
                 }
@@ -107,7 +115,7 @@ const Inspect = () => {
                     onClose={() => { setIsSellPopupOpen(false) }}
                     onSell={sell}
                     item={item}
-                    type={type}
+                    type={category}
                     visible={isSellPopupOpen}
                 />
             }
@@ -118,7 +126,7 @@ const Inspect = () => {
 
         if (!item) return;
 
-        switch (type) {
+        switch (category) {
             case 'penguins':
 
                 return <div className={style['owned-property']}>
@@ -148,7 +156,8 @@ const Inspect = () => {
 
             case 'items':
                 return isConnected && <>
-                    <span className={style.primary}>{item?.amount ?? '--'}</span> owned
+                    <span className={style.primary}>{item?.amount ?? '--'}</span> owned<br />
+                    <span className={style.primary}>{ownedOffers?.length ?? '--'}</span> on sale
                 </>
 
             default:
@@ -186,7 +195,7 @@ const Inspect = () => {
 
 
         async function getToken() {
-            switch (type) {
+            switch (category) {
                 case 'penguins':
 
                     if (!penguin) throw new Error('id is required');
@@ -213,7 +222,7 @@ const Inspect = () => {
     }
 
     function getTypeInText() {
-        switch (type) {
+        switch (category) {
             case 'penguins':
                 return {
                     singular: 'Penguin',
