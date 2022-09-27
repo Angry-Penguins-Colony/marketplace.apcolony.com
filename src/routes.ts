@@ -25,7 +25,7 @@ export const buildRouteLinks = {
   customize: (id: string | number) => routeNames.customizeOne.replace(':id', id.toString()),
   inspect: (type: CategoriesType, id: string) => routeNames.inspect.replace(':type', type).replace(':id', id),
   inventory: (address: string) => routeNames.inventory.replace(':address', address),
-  categoriesOffers: (type: string) => routeNames.categoriesOffers.replace(':type', type)
+  categoriesOffers: (type: string) => routeNames.categoriesOffers.replace(':category', type)
 }
 
 const routes: Array<any> = [
