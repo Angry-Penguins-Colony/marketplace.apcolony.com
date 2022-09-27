@@ -132,8 +132,6 @@ export class APCNetworkProvider {
 
         const reponseOffers = (firstValue as any).backingCollection.items;
 
-        console.log("reponseOffers.length", reponseOffers.length)
-
         const offers = reponseOffers
             .map((o: any) => this.offerFromABI(o));
 
@@ -143,7 +141,6 @@ export class APCNetworkProvider {
     private offerFromABI(response: any): IOffer {
 
         const auctioned_tokens = response.fieldsByName.get("auctioned_tokens");
-        console.log(auctioned_tokens);
 
         return {
             id: -1,
@@ -196,11 +193,30 @@ export class APCNetworkProvider {
         return equippedItems;
     }
 
+
+    async getItemFromToken(collection: string, nonce: number): Promise<IItem> {
+        const item = items.find(item => {
+
+            const { collection: itemCollection, nonce: itemNonce } = splitCollectionAndNonce(item.identifier);
+
+            return itemCollection == collection && itemNonce == nonce;
+        });
+
+        if (!item) throw new Error(`No item found for ${collection} and ${nonce}`);
+
+        return this.getItemFromItemDb(item);
+    }
+
     async getItemFromName(name: string, slot: string, address?: IAddress): Promise<IItem> {
 
         const item = items.find(item => item.name == name && item.slot.toLowerCase() == slot.toLowerCase());
 
         if (!item) throw new Error(`No item found for ${name} and ${slot}`);
+
+        return this.getItemFromItemDb(item);
+    }
+
+    private async getItemFromItemDb(item: { identifier: string, name: string, slot: string }): Promise<IItem> {
 
         const { collection: ticker, nonce } = splitCollectionAndNonce(item.identifier);
 
@@ -210,12 +226,11 @@ export class APCNetworkProvider {
 
         if (!id) throw new Error(`No databaseId found for ${nft.identifier}`);
 
-
         return {
             id: id,
             identifier: item.identifier,
-            name: name,
-            slot: slot,
+            name: item.name,
+            slot: item.slot,
             nonce: nonce,
             thumbnailCID: extractCIDFromIPFS(nft.assets[0]),
             renderCID: extractCIDFromIPFS(nft.assets[1]),

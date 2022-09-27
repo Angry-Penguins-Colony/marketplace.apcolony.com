@@ -8,15 +8,19 @@ export default async function getOffers(req: Request, res: Response, type: "item
     const collectionId = getCollectionId();
 
     if (collectionId) {
-        const offers = await networkProvider.getOffers(collectionId);
+        const offers = (await networkProvider.getOffers(collectionId));
 
-        const response = offers
-            .map(o => {
-                return {
-                    ...o,
-                    ["price"]: o.price.toString(),
-                }
-            })
+        const response = {
+            offers: offers
+                .map(o => {
+                    return {
+                        ...o,
+                        ["price"]: o.price.toString(),
+                    }
+                }),
+            associatedItems: await Promise.all(offers
+                .map(o => networkProvider.getItemFromToken(o.collection, o.nonce)))
+        }
 
         sendSuccessfulJSON(res, response);
     }
