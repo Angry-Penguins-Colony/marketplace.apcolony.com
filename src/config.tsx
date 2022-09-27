@@ -1,6 +1,7 @@
 import { Address } from '@elrondnetwork/erdjs/out';
 import { devnetToolDeploy } from 'devnet.tool-result';
 import APCLogger, { LogType } from 'logger';
+import Explorer from 'sdk/classes/Explorer';
 
 const useDevnet = process.env.REACT_APP_DEVNET == '1';
 
@@ -26,6 +27,7 @@ function getNetworkInfos() {
   if (useDevnet) {
     return {
       api: 'https://apc-marketplace-api-devnet.herokuapp.com/',
+      explorerUrl: 'https://devnet-explorer.elrond.com/',
       customisationContractAddress: Address.fromBech32(devnetToolDeploy.customizationContractAddress.bech32),
       penguinCollection: devnetToolDeploy.penguinsIdentifier,
       marketplaceContractAddress: Address.fromBech32('erd1qqqqqqqqqqqqqpgq7dpna9wwv2yn5ukqlwgv3s0zmaxwnexpv4xq56xty9'),
@@ -42,3 +44,4 @@ export const customisationContractAddress = getNetworkInfos().customisationContr
 export const penguinCollection = getNetworkInfos().penguinCollection;
 export const marketplaceContractAddress = getNetworkInfos().marketplaceContractAddress;
 export const items = getNetworkInfos().items;
+export const explorer = new Explorer(getNetworkInfos().explorerUrl);

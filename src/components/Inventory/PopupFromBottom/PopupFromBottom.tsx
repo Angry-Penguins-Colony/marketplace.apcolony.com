@@ -76,7 +76,7 @@ const PopupFromBottom = (
 
                             return (
                                 <SelectableItem
-                                    count={item.amount}
+                                    count={item.amount ?? 0}
                                     name={item.name}
                                     renderImageSrc={ipfsGateway + item.renderCID}
                                     key={item.identifier}

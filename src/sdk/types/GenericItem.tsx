@@ -6,4 +6,5 @@ export interface GenericItem {
     items: IItem[];
     rank: number;
     price: number;
+    amount?: number;
 }

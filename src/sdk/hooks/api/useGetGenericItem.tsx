@@ -9,10 +9,10 @@ import { GenericItem } from '../../types/GenericItem';
 export function useGetGenericItem(type: CategoriesType, id: string) {
 
     const [data, setData] = React.useState<GenericItem | undefined>(undefined);
-    const [ownedByConnected, setOwnedByConnected] = React.useState<boolean | undefined>(undefined);
+    const { address } = useGetAccountInfo();
 
     const singularType = type == 'penguins' ? 'penguin' : 'item';
-    const raw = useGenericAPICall<any>(`${type}/${singularType}/${id}`);
+    const raw = useGenericAPICall<any>(`${type}/${singularType}/${id}` + (address != '' ? `?owner=${address}` : ''));
     const { address: connectedAddress } = useGetAccountInfo();
 
     React.useEffect(() => {
@@ -29,10 +29,9 @@ export function useGetGenericItem(type: CategoriesType, id: string) {
                     thumbnail: ipfsGateway + penguin.thumbnailCID,
                     items: Object.values(penguin.equippedItems),
                     rank: -1,
-                    price: -1
+                    price: -1,
+                    amount: penguin.owner == connectedAddress ? 1 : 0,
                 });
-
-                setOwnedByConnected(penguin.owner == connectedAddress);
                 break;
 
             case 'items':
@@ -44,9 +43,8 @@ export function useGetGenericItem(type: CategoriesType, id: string) {
                     items: [],
                     rank: -1,
                     price: -1,
+                    amount: item.amount
                 });
-
-                setOwnedByConnected(item.amount > 0);
                 break;
 
             default:
@@ -55,8 +53,5 @@ export function useGetGenericItem(type: CategoriesType, id: string) {
 
     }, [raw, type, id]);
 
-    return {
-        item: data,
-        ownedByConnectedWallet: ownedByConnected
-    };
+    return data;
 }
