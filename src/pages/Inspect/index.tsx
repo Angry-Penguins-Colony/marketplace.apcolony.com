@@ -73,7 +73,7 @@ const Inspect = () => {
                             isListedByConnected ?
                                 (
                                     <>
-                                        <Button type='cancel-outline'>Retire offer</Button>
+                                        <Button type='cancel-outline' onClick={retireOffer}>Retire offer</Button>
                                         <p className={style.price}>Listed for {priceListedByUser ?? '--'} EGLD</p>
                                     </>
                                 ) :
@@ -111,6 +111,10 @@ const Inspect = () => {
             }
         </div>
     );
+
+    function retireOffer() {
+        throw 'Not implemented yet.';
+    }
 
     function getOwnedProperty() {
 
