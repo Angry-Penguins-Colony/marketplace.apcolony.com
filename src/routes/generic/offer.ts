@@ -8,7 +8,7 @@ export default async function getOffer(req: Request, res: Response, type: "pengu
 
         const { collection, nonce } = await networkProvider.getToken(type, req.params.id);
         const offer = (await networkProvider.getOffers(collection))
-            .filter(o => o.nonce == nonce)[0];
+            .filter(o => o.nonce == nonce);
 
         sendSuccessfulJSON(res, offer);
     }
