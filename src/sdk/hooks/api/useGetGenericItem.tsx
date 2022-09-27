@@ -40,8 +40,6 @@ export function useGetGenericItem(type: CategoriesType, id: string) {
             case 'items':
                 const item = raw as IItem;
 
-                if (item.amount == undefined) throw new Error('The API should send the amount property.');
-
                 setData({
                     name: item.name,
                     thumbnail: ipfsGateway + item.thumbnailCID,
@@ -51,7 +49,7 @@ export function useGetGenericItem(type: CategoriesType, id: string) {
                     amount: item.amount
                 });
 
-                setOwnedByConnected(item.amount > 0);
+                setOwnedByConnected(item.amount ? item.amount > 0 : false);
                 break;
 
             default:

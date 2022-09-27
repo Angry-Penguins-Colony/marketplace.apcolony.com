@@ -36,8 +36,9 @@ const Inspect = () => {
 
     const activities = useGetActivity(type, id);
     const penguin = useGetPenguin(id); // TODO: FIX 404 error in /items path
-    const isInMarket = false; // TODO: fill it
     const [priceInMarket] = React.useState(0);
+    const isInMarket = false; // TODO: fill it
+    const isConnected = connectedAddress != '';
 
     const rawOffers = useGetOffersOfCategory(type);
     console.log('rawOffers', rawOffers);
@@ -81,7 +82,7 @@ const Inspect = () => {
                             ) : (
                                 <>
                                     {
-                                        item && item.amount > 0 &&
+                                        item && item.amount && item.amount > 0 &&
                                         <Button type='normal' onClick={() => { setIsSellPopupOpen(true) }}>
                                             Sell {typeInText.singular}
                                         </Button>
@@ -146,7 +147,7 @@ const Inspect = () => {
                 </div>;
 
             case 'items':
-                return <>
+                return isConnected && <>
                     <span className={style.primary}>{item?.amount ?? '--'}</span> owned
                 </>
 
