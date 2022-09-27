@@ -194,18 +194,14 @@ export class APCNetworkProvider {
         return equippedItems;
     }
 
-    public async getItem(item: { identifier: string, name: string, slot: string }): Promise<IItem> {
+    public async getItem(item: { identifier: string, name: string, slot: string, id: string }): Promise<IItem> {
 
         const { collection: ticker, nonce } = splitCollectionAndNonce(item.identifier);
 
         const nft = await this.fixed_getNonFungibleTokenOfAccount(customisationContract, ticker, nonce);
 
-        const id = items.find(item => item.identifier === nft.identifier)?.id;
-
-        if (!id) throw new Error(`No databaseId found for ${nft.identifier}`);
-
         return {
-            id: id,
+            id: item.id,
             identifier: item.identifier,
             name: item.name,
             slot: item.slot,
