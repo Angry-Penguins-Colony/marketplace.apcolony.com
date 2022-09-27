@@ -35,7 +35,7 @@ const CategoriesOffers = () => {
     });
 
 
-    const [offers, setOffers] = React.useState<IItem[]>([]);
+    const [offers, setOffers] = React.useState<IItem[] | undefined>(undefined);
 
     React.useEffect(() => {
         if (offersReponses) {
@@ -61,23 +61,42 @@ const CategoriesOffers = () => {
             </div>
             {/* TODO: add filters */}
             <div className={style.items}>
-                {
-                    offers.map(variant => (
-                        <>
-                            <Item item={variant} key={variant.id} displayId={false} className={style.mobile} onClick={() => navigateToInspect(category, variant.id)} />
-                            <div className={style.desktop} onClick={() => navigateToInspect(category, variant.id)}>
-                                <img src={defaultPenguinImg} alt="default background of any penguin" className={style.background} />
-                                <img src={ipfsGateway + variant.thumbnailCID} alt="" className={style.item} />
-                                <div className={style.infos}>
-                                    <div className={style.name}>{variant.name}</div>
-                                </div>
-                            </div>
-                        </>
-                    ))
-                }
+                {getItems()}
             </div>
         </div >
     );
+
+    function getItems() {
+
+        if (!category) throw new Error('Missing category');
+
+        if (offers) {
+            if (offers.length == 0) {
+                return <div>No offers yet.</div>
+            }
+            else {
+                return offers.map(variant => (
+                    <>
+                        <Item item={variant} key={variant.id} displayId={false} className={style.mobile} onClick={() => navigateToInspect(category, variant.id)} />
+                        <div className={style.desktop} onClick={() => navigateToInspect(category, variant.id)}>
+                            <img src={defaultPenguinImg} alt="default background of any penguin" className={style.background} />
+                            <img src={ipfsGateway + variant.thumbnailCID} alt="" className={style.item} />
+                            <div className={style.infos}>
+                                <div className={style.name}>{variant.name}</div>
+                            </div>
+                        </div>
+                    </>
+                ))
+            }
+        }
+        else {
+            return <div className="d-flex w-100 justify-content-center mt-2">
+                <div className="spinner-border" role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            </div>;
+        }
+    }
 
     function navigateToInspect(type: string, id: string) {
 
