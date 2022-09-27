@@ -3,13 +3,16 @@ import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
+import { Address } from '@elrondnetwork/erdjs/out';
 import BigNumber from 'bignumber.js';
 import { useParams } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
+import AddressWrapper from 'components/AddressWrapper';
 import BuyingPopup from 'components/Foreground/Popup/BuyingPopup/BuyingPopup';
 import ShareIcon from 'components/Icons/ShareIcon';
 import ItemsAndActivities from 'components/Inventory/ItemsAndActivities/ItemsAndActivities';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
+import SpinningLoad from 'components/SpinningLoad';
 import { items, marketplaceContractAddress, penguinCollection } from 'config';
 import { buildRouteLinks } from 'routes';
 import useGetActivity from 'sdk/hooks/api/useGetActivity';
@@ -112,20 +115,18 @@ const Inspect = () => {
 
         switch (type) {
             case 'penguins':
-                if (item.amount == 0) {
-                    return (
-                        <div className={style['owned-property']}>
-                            <p className={style['owned-property-text']}>Not owned</p>
-                        </div>
-                    );
-                }
-                else {
-                    return (
-                        <div className={style['owned-property']}>
-                            <p className={style['owned-property-text']}>Owned</p>
-                        </div>
-                    );
-                }
+                return <div className={style['owned-property']}>
+                    <p className={style['owned-property-text']}>
+                        Owned by
+                        {' ' /*force space between "owned by" and addresse*/}
+                        {penguin ?
+                            <AddressWrapper address={Address.fromBech32(penguin.owner)} />
+                            :
+                            <SpinningLoad />
+                        }
+                    </p>
+                </div>;
+
             case 'items':
                 return <>
                     <span className={style.primary}>{item?.amount ?? '--'}</span> owned
