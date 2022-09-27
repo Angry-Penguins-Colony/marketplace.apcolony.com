@@ -4,7 +4,7 @@ import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkPro
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { AbiRegistry, ArgSerializer, BytesValue, ContractFunction, Field, NumericalValue, ResultsParser, SmartContract, SmartContractAbi, Struct } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
-import { items, customisationContract, penguinsCollection, gateway, marketplaceContract } from "../const";
+import { customisationContract, penguinsCollection, gateway, marketplaceContract } from "../const";
 import { getItemFromName } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
