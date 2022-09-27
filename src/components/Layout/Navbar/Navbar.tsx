@@ -5,7 +5,6 @@ import Button from 'components/Abstract/Button/Button';
 import DiscordIcon from 'components/Icons/DiscordIcon';
 import HomeIcon from 'components/Icons/HomeIcon';
 import LabIcon from 'components/Icons/LabIcon';
-import MarketIcon from 'components/Icons/MarketIcon';
 import MenuIcon from 'components/Icons/MenuIcon';
 import ProfileIcon from 'components/Icons/ProfileIcon';
 import SearchIcon from 'components/Icons/SearchIcon';
@@ -22,15 +21,6 @@ const Navbar = () => {
       name: 'Home',
       route: routeNames.home,
       icon: <HomeIcon />,
-    },
-    {
-      name: 'Shop',
-      action: () => {
-        console.log('Marketplace');
-        // TODO: open Marketplace
-      },
-      icon: <MarketIcon />,
-      className: style.marketIcon,
     },
     {
       name: 'My Inventory',
