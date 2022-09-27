@@ -8,7 +8,6 @@ import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { ipfsGateway } from 'config';
 import { buildRouteLinks } from 'routes';
 import useGetOffers from 'sdk/hooks/api/useGetOffers';
-import CategoriesType from 'sdk/types/CategoriesType';
 import MarketData from '../../components/Inventory/MarketData';
 import defaultPenguinImg from './../../assets/img/penguin_default.png';
 import style from './index.module.scss';
@@ -79,21 +78,25 @@ const CategoriesOffers = () => {
                 return <div>No offers yet.</div>
             }
             else {
-                return offers.map(variant => (
-                    <>
-                        <Link className={style.itemRoot} to={buildRouteLinks.inspect(category as CategoriesType, variant.id)} key={variant.id} >
-                            <Item item={variant} displayId={false} className={style.mobile} />
+                return offers.map(variant => {
+                    const link = buildRouteLinks.inspect((category == 'penguins' ? 'penguins' : 'items'), variant.id)
 
-                            <div className={style.desktop}>
-                                <img src={defaultPenguinImg} alt="default background of any penguin" className={style.background} />
-                                <img src={ipfsGateway + variant.thumbnailCID} alt="" className={style.item} />
-                                <div className={style.infos}>
-                                    <div className={style.name}>{variant.name}</div>
+                    return (
+                        <>
+                            <Link className={style.itemRoot} to={link} key={variant.id}>
+                                <Item item={variant} displayId={false} className={style.mobile} />
+
+                                <div className={style.desktop}>
+                                    <img src={defaultPenguinImg} alt="default background of any penguin" className={style.background} />
+                                    <img src={ipfsGateway + variant.thumbnailCID} alt="" className={style.item} />
+                                    <div className={style.infos}>
+                                        <div className={style.name}>{variant.name}</div>
+                                    </div>
                                 </div>
-                            </div>
-                        </Link>
-                    </>
-                ))
+                            </Link>
+                        </>
+                    );
+                })
             }
         }
         else {
