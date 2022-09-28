@@ -8,6 +8,7 @@ import { customisationContract, penguinsCollection, gateway, marketplaceContract
 import { getItemFromName, getTokenFromItemID } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
+import { BigNumber } from "bignumber.js";
 
 /**
  * We create this function because a lot of methods of ProxyNetworkProvider are not implemented yet.
@@ -28,8 +29,6 @@ export class APCNetworkProvider {
      * Fixed method of getNonFungibleTokenOfAccount; This one fill properly the "assets" property.
      */
     public async fixed_getNonFungibleTokenOfAccount(address: IAddress, collection: string, nonce: number) {
-
-
         const url = `address/${address.bech32()}/nft/${collection}/nonce/${nonce.valueOf()}`;
         const response = await this.proxyProvider.doGetGeneric(url);
 
@@ -41,14 +40,11 @@ export class APCNetworkProvider {
     }
 
     public async getPenguinFromId(id: string): Promise<IPenguin | undefined> {
-        // get all nfts in collection
         const nfts = await this.getNfts(penguinsCollection);
 
         const nft = nfts.find(nft => getIdFromPenguinName(nft.name).toString() == id);
 
         if (nft == undefined) return undefined;
-
-
 
         return this.getPenguinFromNft(await this.getNft(nft.collection, nft.nonce));
     }
@@ -122,7 +118,7 @@ export class APCNetworkProvider {
         const reponseOffers = await this.queryGetAuctionsOfCollection(collection);
 
         const offers = reponseOffers
-            .map((o: any) => this.offerFromABI(o));
+            .map((o: any) => this.offerFromMultiValueABI(o));
 
         return offers;
     }
@@ -140,18 +136,26 @@ export class APCNetworkProvider {
         const endpointDefinition = contract.getEndpoint(contractViewName);
         const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition);
 
-        const reponseOffers = (firstValue as any).backingCollection.items;
-        return reponseOffers;
+        return (firstValue as any).items;
     }
 
-    private offerFromABI(response: any): IOffer {
+    /**
+     * @params response: MultiValue2<u64, Auction>
+     */
+    private offerFromMultiValueABI(response: any): IOffer {
 
+        const id = response.items[0].value;
+
+        return this.offerFromAbi(response.items[1], id);
+    }
+
+    private offerFromAbi(response: any, id: number) {
         const auctioned_tokens = response.fieldsByName.get("auctioned_tokens");
 
-        console.log(response.fieldsByName);
+        console.log(auctioned_tokens.value.fieldsByName.get("token_nonce"));
 
         return {
-            id: -1,
+            id: id,
             price: response.fieldsByName.get("min_bid").value,
             collection: auctioned_tokens.value.fieldsByName.get("token_identifier").value.value,
             nonce: auctioned_tokens.value.fieldsByName.get("token_nonce").value.value,
@@ -208,6 +212,9 @@ export class APCNetworkProvider {
         const { collection: ticker, nonce } = splitCollectionAndNonce(item.identifier);
 
         const nft = await this.fixed_getNonFungibleTokenOfAccount(customisationContract, ticker, nonce);
+
+        if (!nft.assets[0]) throw new Error(`No thumbnail CID linked to the item ${item.name}(${item.identifier})`);
+        if (!nft.assets[1]) throw new Error(`No render CID linked to the item ${item.name}(${item.identifier})`);
 
         let amount;
 

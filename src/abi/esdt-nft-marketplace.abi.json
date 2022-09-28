@@ -10,7 +10,7 @@
         "contractCrate": {
             "name": "esdt-nft-marketplace",
             "version": "0.0.0",
-            "git_version": "00a106b"
+            "git_version": "00a106b-modified"
         },
         "framework": {
             "name": "elrond-wasm",
@@ -138,7 +138,8 @@
             ],
             "outputs": [
                 {
-                    "type": "List<Auction>"
+                    "type": "variadic<multi<u64,Auction>>",
+                    "multi_result": true
                 }
             ]
         },
