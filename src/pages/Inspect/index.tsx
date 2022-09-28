@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { IOffer } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
@@ -9,6 +10,7 @@ import { useParams } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
 import AddressWrapper from 'components/AddressWrapper';
 import BuyingPopup from 'components/Foreground/Popup/BuyingPopup/BuyingPopup';
+import ShowOffersPopup from 'components/Foreground/Popup/ShowOffersPopup';
 import ShareIcon from 'components/Icons/ShareIcon';
 import ItemsAndActivities from 'components/Inventory/ItemsAndActivities/ItemsAndActivities';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
@@ -41,6 +43,7 @@ const Inspect = () => {
     const { address: connectedAddress } = useGetAccountInfo();
 
     const [isSellPopupOpen, setIsSellPopupOpen] = React.useState(false);
+    const [isOffersPopupOpen, setIsOffersPopupOpen] = React.useState(false);
 
     const isConnected = connectedAddress != '';
     const typeInText = getTypeInText();
@@ -71,29 +74,48 @@ const Inspect = () => {
                 {ownedByConnectedWallet == true &&
                     <>
                         {
-                            isListedByConnected ?
-                                (
-                                    <>
-                                        <Button type='cancel-outline' onClick={onClickRetireOffer}>Retire offer</Button>
-                                        <p className={style.price}>Listed for {priceListedByUser ?? '--'} EGLD</p>
+                            (item && item.amount != undefined && item.amount > 0) &&
+                            <Button type='normal' onClick={() => { setIsSellPopupOpen(true) }}>
+                                Sell {typeInText.singular}
+                            </Button>
+                        }
+
+                        {
+                            (category === 'penguins' && !isListedByConnected) &&
+                            <Button type='primary' onClick={() => {
+                                window.location.href = buildRouteLinks.customize(id);
+                            }}>
+                                Customize
+                            </Button>
+                        }
+
+                        {
+                            (() => {
+
+                                if (!ownedOffers) return;
+                                if (ownedOffers.length == 0) return;
+
+                                if (ownedOffers.length == 1) {
+                                    return <>
+                                        <Button type='cancel-outline' onClick={() => sendRetireOffer(ownedOffers[0])}>
+                                            Retire offer
+                                        </Button>
+                                        <p className={style.price}>
+                                            Listed for {priceListedByUser ?? '--'} EGLD
+                                        </p>
                                     </>
-                                ) :
-                                (
-                                    <>
-                                        {
-                                            item && item.amount && item.amount > 0 &&
-                                            <Button type='normal' onClick={() => { setIsSellPopupOpen(true) }}>
-                                                Sell {typeInText.singular}
-                                            </Button>
-                                        }
-                                        {
-                                            category === 'penguins' &&
-                                            <Button type='primary' onClick={() => {
-                                                window.location.href = buildRouteLinks.customize(id);
-                                            }}>Customize</Button>
-                                        }
+                                }
+                                else {
+                                    return <>
+                                        <Button type='cancel-outline' onClick={() => setIsOffersPopupOpen(true)}>
+                                            View offers
+                                        </Button>
+                                        <p className={style.price}>
+                                            {ownedOffers.length} listed                                        </p>
                                     </>
-                                )
+                                }
+
+                            })()
                         }
                     </>
                 }
@@ -101,7 +123,8 @@ const Inspect = () => {
             <hr />
             <ItemsAndActivities items={item?.items ?? []} activities={activities} className={style.activity} />
 
-            {item &&
+            {
+                item &&
                 <BuyingPopup
                     onClose={() => { setIsSellPopupOpen(false) }}
                     onSell={sell}
@@ -110,34 +133,30 @@ const Inspect = () => {
                     visible={isSellPopupOpen}
                 />
             }
-        </div>
+            {
+                ownedOffers &&
+                <ShowOffersPopup
+                    offers={ownedOffers}
+                    isVisible={isOffersPopupOpen}
+                    onCloseClicked={() => { setIsOffersPopupOpen(false) }}
+                />
+            }
+        </div >
     );
 
-    async function onClickRetireOffer() {
+    async function sendRetireOffer(offer: IOffer) {
+        const transaction: SimpleTransactionType = getRetireTransaction(offer);
+        await refreshAccount();
 
-        if (!ownedOffers) return;
-
-        if (ownedOffers.length == 0) {
-            throw new Error('No offer found. Cannot retire offer.');
-        }
-        else if (ownedOffers.length == 1) {
-            const transaction: SimpleTransactionType = getRetireTransaction(ownedOffers[0]);
-            await refreshAccount();
-
-            await sendTransactions({
-                transactions: transaction,
-                transactionDisplayInfo: {
-                    processingMessage: 'Retiring offer...',
-                    errorMessage: 'An error has occured during retirement of offer.',
-                    successMessage: 'Offer retired'
-                },
-                redirectAfterSign: false
-            });
-            throw new Error('Not implemented yet; Send retire tx');
-        }
-        else {
-            throw new Error('Not implemented yet; Show a list of offers');
-        }
+        await sendTransactions({
+            transactions: transaction,
+            transactionDisplayInfo: {
+                processingMessage: 'Retiring offer...',
+                errorMessage: 'An error has occured during retirement of offer.',
+                successMessage: 'Offer retired'
+            },
+            redirectAfterSign: false
+        });
     }
 
     function getOwnedProperty() {
@@ -175,7 +194,7 @@ const Inspect = () => {
             case 'items':
                 return isConnected && <>
                     <span className={style.primary}>{item?.amount ?? '--'}</span> owned<br />
-                    <span className={style.primary}>{ownedOffers?.length ?? '--'}</span> on sale
+                    <span className={style.primary}>{ownedOffers?.length ?? '--'}</span> on sale by you
                 </>
 
             default:

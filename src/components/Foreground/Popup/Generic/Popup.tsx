@@ -2,31 +2,33 @@ import * as React from 'react';
 import CrossIcon from 'components/Icons/CrossIcon';
 import style from './popup.module.scss';
 
+export interface IPopupProps {
+    isVisible?: boolean;
+    onCloseClicked?: () => void;
+    haveCloseButton?: boolean;
+    children?: React.ReactNode;
+    topIcon?: React.ReactNode;
+    className?: string;
+}
+
 const Popup = (
     {
         isVisible = false,
-        closePopup = () => {
+        onCloseClicked = () => {
             // do nothing
         },
         haveCloseButton = false,
         children,
         topIcon,
         className = '',
-    }: {
-        isVisible?: boolean,
-        closePopup?: () => void,
-        haveCloseButton?: boolean,
-        children?: React.ReactNode,
-        topIcon?: React.ReactNode,
-        className?: string,
-    }
+    }: IPopupProps
 ) => {
     return (
         <div className={style.popup + ' ' + (isVisible ? style.visible : '') + ' ' + className}>
             <div className={style.content}>
                 {
                     haveCloseButton && (
-                        <div className={style.close} onClick={closePopup}>
+                        <div className={style.close} onClick={onCloseClicked}>
                             <CrossIcon className={style.icon} />
                         </div>
                     )

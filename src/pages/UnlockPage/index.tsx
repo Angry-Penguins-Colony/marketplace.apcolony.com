@@ -23,7 +23,7 @@ export const UnlockRoute: () => JSX.Element = () => {
         topIcon={
           <img src={walletImg} />
         }
-        closePopup={() => {
+        onCloseClicked={() => {
           window.location.href = routeNames.home;
         }}>
         <h1>Connect Wallet</h1>
