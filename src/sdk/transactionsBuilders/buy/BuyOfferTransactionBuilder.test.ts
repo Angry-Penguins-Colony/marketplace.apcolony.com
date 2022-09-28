@@ -22,4 +22,5 @@ it('should build data', () => {
 
     expect(transaction.data).toEqual(expectedData);
     expect(transaction.value).toEqual('1');
+    expect(transaction.receiver).toEqual(address.bech32());
 })
