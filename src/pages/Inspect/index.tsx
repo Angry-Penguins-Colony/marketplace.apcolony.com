@@ -14,12 +14,21 @@ import ShowOffersPopup from 'components/Foreground/Popup/ShowOffersPopup';
 import ShareIcon from 'components/Icons/ShareIcon';
 import ItemsAndActivities from 'components/Inventory/ItemsAndActivities/ItemsAndActivities';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import SpinningLoad from 'components/SpinningLoad';
 import { marketplaceContractAddress } from 'config';
 import { buildRouteLinks } from 'routes';
 import useInspect from 'sdk/hooks/useInspect';
 import CategoriesType from 'sdk/types/CategoriesType';
 import style from './index.module.scss';
+
+/**
+ * TODO: refactor this page
+ * this inspect page has two responsabilities: show the item and show the penguin
+ * 
+ * It should be split in two pages, and one component:
+ * - InspectLayout
+ * - InspectItem
+ * - InspectPenguins
+ */
 
 const Inspect = () => {
     const params = useParams();
