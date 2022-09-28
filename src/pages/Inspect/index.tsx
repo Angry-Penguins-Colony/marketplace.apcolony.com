@@ -174,20 +174,19 @@ const Inspect = () => {
                     <p className={style['owned-property-text']}>
                         {
                             (() => {
-                                if (itemAsPenguin && itemAsPenguin.owner == marketplaceContractAddress.bech32()) {
-                                    return <>For sale</>;
-                                }
-                                else {
-                                    return <>
-                                        Owned by
-                                        {' ' /*force space between "owned by" and addresse*/}
-                                        {
-                                            itemAsPenguin ?
-                                                <AddressWrapper address={Address.fromBech32(itemAsPenguin.owner)} />
-                                                :
-                                                <SpinningLoad />
-                                        }
-                                    </>
+                                if (itemAsPenguin) {
+                                    if (itemAsPenguin.owner == marketplaceContractAddress.bech32()) {
+                                        return <>For sale</>;
+                                    }
+                                    else {
+                                        return <>
+                                            Owned by {
+                                                itemAsPenguin.owner == connectedAddress ?
+                                                    'me' :
+                                                    <AddressWrapper address={Address.fromBech32(itemAsPenguin.owner)} />
+                                            }
+                                        </>;
+                                    }
                                 }
                             })()
                         }
