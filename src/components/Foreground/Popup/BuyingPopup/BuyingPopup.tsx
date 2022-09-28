@@ -43,7 +43,9 @@ const BuyingPopup = (
                 <>
                     {type === 'items' ? (
                         <>
-                            <section>
+                            <section> <div className={style.close} onClick={onClose}>
+                                <CrossIcon className={style.icon} />
+                            </div>
                                 <h2>Sell item</h2>
                                 <img src={item.thumbnail} alt={item.name} />
                                 <div className={style.infos}>
@@ -61,7 +63,9 @@ const BuyingPopup = (
                         </>
                     ) : (
                         <>
-                            <section>
+                            <section> <div className={style.close} onClick={onClose}>
+                                <CrossIcon className={style.icon} />
+                            </div>
                                 <h2>Checkout</h2>
                                 <div className={style.infos}>
                                     <img src={item.thumbnail} alt={item.name} />
