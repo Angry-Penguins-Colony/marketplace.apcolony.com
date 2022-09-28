@@ -19,7 +19,7 @@ export function getItemFromToken(collection: string, nonce: number) {
         return itemCollection == collection && itemNonce == nonce;
     });
 
-    if (!item) throw new Error(`No item found for ${collection} and ${nonce}`);
+    if (!item) throw new Error(`No item found for collection ${collection} and ${nonce}`);
 
     return item;
 }
@@ -28,7 +28,7 @@ export function getItemFromName(name: string, slot: string) {
 
     const item = items.find(item => item.name == name && item.slot.toLowerCase() == slot.toLowerCase());
 
-    if (!item) throw new Error(`No item found for ${name} and ${slot}`);
+    if (!item) throw new Error(`No item found for ${name} at slot ${slot}`);
 
     return item;
 }
