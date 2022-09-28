@@ -1,82 +1,82 @@
 export const devnetToolDeploy = {
     'customizationContractAddress': {
-        'bech32': 'erd1qqqqqqqqqqqqqpgq0mgk3gqe7lpvy8496f38yw4zdzqxkk4pv4xq2xvgrn',
-        'pubkey': '000000000000000005007ed168a019f7c2c21ea5d262723aa268806b5aa1654c'
+        'bech32': 'erd1qqqqqqqqqqqqqpgqpul70rathjqzd3wq7qyj9yjdt032uejgv4xqtq4m5r',
+        'pubkey': '000000000000000005000f3fe78fabbc8026c5c0f00922924d5be2ae6648654c'
     },
-    'penguinsIdentifier': 'PENGUINS-718654',
+    'penguinsIdentifier': 'PENGUINS-d290e1',
     'itemsIdentifier': {
-        'background': 'BACKGROUND-12d7af',
-        'beak': 'BEAK-665c18',
-        'clothes': 'CLOTHES-78a64a',
-        'eyes': 'EYES-79e1ab',
-        'hat': 'HAT-e688d1',
-        'skin': 'SKIN-975873',
-        'weapon': 'WEAPON-8361fa'
+        'background': 'BACKGROUND-0f9860',
+        'beak': 'BEAK-effa84',
+        'clothes': 'CLOTHES-c87b4d',
+        'eyes': 'EYES-4eca6e',
+        'hat': 'HAT-3afdb2',
+        'skin': 'SKIN-257815',
+        'weapon': 'WEAPON-255c58'
     },
     'items': [
         {
             'id': '7',
             'name': 'Oceanic Trench',
             'slot': 'background',
-            'identifier': 'BACKGROUND-12d7af-01',
-            'collection': 'BACKGROUND-12d7af',
-            'nonce': 1,
+            'identifier': 'BACKGROUND-0f9860-01',
+            'collection': 'BACKGROUND-0f9860',
+            'nonce': 1
         },
         {
             'id': '4',
             'name': 'Green',
             'slot': 'background',
-            'identifier': 'BACKGROUND-12d7af-02',
-            'collection': 'BACKGROUND-12d7af',
-            'nonce': 2,
+            'identifier': 'BACKGROUND-0f9860-02',
+            'collection': 'BACKGROUND-0f9860',
+            'nonce': 2
         },
         {
             'id': '19',
             'name': 'Yellow',
             'slot': 'beak',
-            'identifier': 'BEAK-665c18-01',
-            'collection': 'BEAK-665c18',
-            'nonce': 1,
+            'identifier': 'BEAK-effa84-01',
+            'collection': 'BEAK-effa84',
+            'nonce': 1
         },
         {
             'id': '77',
             'name': 'Coat With Brown Fur',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-78a64a-01',
-            'collection': 'CLOTHES-78a64a',
-            'nonce': 1,
+            'identifier': 'CLOTHES-c87b4d-01',
+            'collection': 'CLOTHES-c87b4d',
+            'nonce': 1
         },
         {
             'id': '120',
             'name': 'Purple Headband',
             'slot': 'eyes',
-            'identifier': 'EYES-79e1ab-01',
-            'collection': 'EYES-79e1ab',
-            'nonce': 1,
+            'identifier': 'EYES-4eca6e-01',
+            'collection': 'EYES-4eca6e',
+            'nonce': 1
         },
         {
             'id': '118',
             'name': 'Green Headband',
             'slot': 'eyes',
-            'identifier': 'EYES-79e1ab-02',
-            'collection': 'EYES-79e1ab',
-            'nonce': 2,
+            'identifier': 'EYES-4eca6e-02',
+            'collection': 'EYES-4eca6e',
+            'nonce': 2
         },
         {
             'id': '172',
             'name': 'Black',
             'slot': 'skin',
-            'identifier': 'SKIN-975873-01',
-            'collection': 'SKIN-975873',
-            'nonce': 1,
+            'identifier': 'SKIN-257815-01',
+            'collection': 'SKIN-257815',
+            'nonce': 1
         },
         {
             'id': '210',
             'name': 'Spear',
             'slot': 'weapon',
-            'identifier': 'WEAPON-8361fa-01',
-            'collection': 'WEAPON-8361fa',
-            'nonce': 1,
+            'identifier': 'WEAPON-255c58-01',
+            'collection': 'WEAPON-255c58',
+            'nonce': 1
         }
     ]
 }

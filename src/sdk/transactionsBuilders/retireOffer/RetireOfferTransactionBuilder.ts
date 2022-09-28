@@ -25,7 +25,7 @@ export default class RetireOfferTransactionBuilder {
             value: '0',
             receiver: this.marketplaceContract.bech32(),
             data: this.getData(),
-            gasPrice: 20_000_000
+            gasLimit: 50_000_000
         }
     }
 

@@ -35,7 +35,8 @@ const Inspect = () => {
         activities,
         itemAsPenguin,
         ownedOffers,
-        getSellTransaction
+        getSellTransaction,
+        getRetireTransaction
     } = useInspect(category, id);
     const { address: connectedAddress } = useGetAccountInfo();
 
@@ -73,7 +74,7 @@ const Inspect = () => {
                             isListedByConnected ?
                                 (
                                     <>
-                                        <Button type='cancel-outline' onClick={retireOffer}>Retire offer</Button>
+                                        <Button type='cancel-outline' onClick={onClickRetireOffer}>Retire offer</Button>
                                         <p className={style.price}>Listed for {priceListedByUser ?? '--'} EGLD</p>
                                     </>
                                 ) :
@@ -112,8 +113,31 @@ const Inspect = () => {
         </div>
     );
 
-    function retireOffer() {
-        throw 'Not implemented yet.';
+    async function onClickRetireOffer() {
+
+        if (!ownedOffers) return;
+
+        if (ownedOffers.length == 0) {
+            throw new Error('No offer found. Cannot retire offer.');
+        }
+        else if (ownedOffers.length == 1) {
+            const transaction: SimpleTransactionType = getRetireTransaction(ownedOffers[0]);
+            await refreshAccount();
+
+            await sendTransactions({
+                transactions: transaction,
+                transactionDisplayInfo: {
+                    processingMessage: 'Retiring offer...',
+                    errorMessage: 'An error has occured during retirement of offer.',
+                    successMessage: 'Offer retired'
+                },
+                redirectAfterSign: false
+            });
+            throw new Error('Not implemented yet; Send retire tx');
+        }
+        else {
+            throw new Error('Not implemented yet; Show a list of offers');
+        }
     }
 
     function getOwnedProperty() {
@@ -167,9 +191,9 @@ const Inspect = () => {
         await sendTransactions({
             transactions: transaction,
             transactionDisplayInfo: {
-                processingMessage: 'Processing customization transaction',
-                errorMessage: 'An error has occured during customization',
-                successMessage: 'Customization transaction successful'
+                processingMessage: 'Listing',
+                errorMessage: 'An error has occured during listing',
+                successMessage: 'Listed successful'
             },
             redirectAfterSign: false
         });

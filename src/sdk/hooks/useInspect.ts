@@ -1,7 +1,9 @@
+import { IOffer } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import BigNumber from 'bignumber.js';
 import { marketplaceContractAddress, penguinCollection, items } from 'config';
+import RetireOfferTransactionBuilder from 'sdk/transactionsBuilders/retireOffer/RetireOfferTransactionBuilder';
 import { SellPayloadBuilder } from 'sdk/transactionsBuilders/sell/SellPayloadBuilder';
 import CategoriesType from 'sdk/types/CategoriesType';
 import useGetActivity from './api/useGetActivity';
@@ -37,7 +39,8 @@ function useInspect(category: CategoriesType, id: string) {
         activities,
         itemAsPenguin,
         ownedOffers,
-        getSellTransaction
+        getSellTransaction,
+        getRetireTransaction
     }
 
     function getSellTransaction(price: BigNumber): SimpleTransactionType {
@@ -56,6 +59,13 @@ function useInspect(category: CategoriesType, id: string) {
         };
 
         return transaction;
+    }
+
+    function getRetireTransaction(offer: IOffer): SimpleTransactionType {
+        return new RetireOfferTransactionBuilder()
+            .setAuctionId(offer.id)
+            .setMarketplaceContract(marketplaceContractAddress)
+            .build();
     }
 
     function getToken() {
