@@ -1,4 +1,4 @@
-import { extractCIDFromIPFS, getIdFromPenguinName } from "./string";
+import { extractCIDFromIPFS, getIdFromPenguinName, splitCollectionAndNonce } from "./string";
 
 it("extractCIDFromIPFS", () => {
     expect(extractCIDFromIPFS("https://ipfs.io/ipfs/cid/")).toBe("cid");
@@ -25,3 +25,23 @@ describe("getIdFromPenguinName", () => {
             .toThrowError("Invalid name Penguin #a");
     });
 });
+
+describe("splitCollectionAndNonce", () => {
+
+    it("parse dec", () => {
+        expect(splitCollectionAndNonce("HAT-a1a1a1-02"))
+            .toEqual({
+                collection: "HAT-a1a1a1",
+                nonce: 2
+            });
+    });
+
+    it("parse hex", () => {
+
+        expect(splitCollectionAndNonce("HAT-a1a1a1-0a"))
+            .toEqual({
+                collection: "HAT-a1a1a1",
+                nonce: 10
+            });
+    });
+})

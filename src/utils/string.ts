@@ -13,7 +13,7 @@ export function parseAttributes(attributes: string) {
 
 export function extractCIDFromIPFS(url: string): string {
 
-    if (!url) throw new Error("No url provided");
+    if (!url) throw new Error("Cannot get CID from IPFS because url is undefined.");
 
     if (url.endsWith("/")) {
         url = url.substring(0, url.length - 1);
@@ -43,7 +43,7 @@ export function splitCollectionAndNonce(identifier: string) {
     if (splited.length == 3) {
         return {
             collection: splited[0] + '-' + splited[1],
-            nonce: parseInt(splited[2])
+            nonce: parseInt(splited[2], 16)
         };
     } else {
         throw new Error(`Invalid identifier ${identifier}`);
