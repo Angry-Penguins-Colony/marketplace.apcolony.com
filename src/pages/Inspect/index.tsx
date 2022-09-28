@@ -42,6 +42,8 @@ const Inspect = () => {
         item,
         isListedByConnected,
         ownedByConnectedWallet,
+        buyableOffers,
+        lowestBuyableOffer,
         priceListedByUser,
         activities,
         itemAsPenguin,
@@ -80,6 +82,32 @@ const Inspect = () => {
                 </div>
             </div>
             <div className={style.actions + (isListedByConnected ? ' ' + style['in-market'] : '')}>
+
+                {!(category == 'penguins' && ownedByConnectedWallet) &&
+                    <>
+                        {
+                            (() => {
+                                if (lowestBuyableOffer == null) return <></>;
+
+                                return <span className={style.price}>
+                                    {/* TODO:  move new BigNumber((price.price as any).value) into useGetOffers*/}
+                                    {lowestBuyableOffer != undefined ? new BigNumber((lowestBuyableOffer.price as any).value).toString() : '--'} EGLD
+                                </span>
+                            })()
+                        }
+
+
+                        {category != 'penguins' &&
+                            /* don't show offers count for penguins because we can only have one offer max per penguin */
+                            <p>{buyableOffers ? buyableOffers.length : '--'} offers</p>
+                        }
+                        <Button type="primary">
+                            Buy
+                        </Button>
+                    </>
+                }
+
+
                 {ownedByConnectedWallet == true &&
                     <>
                         {

@@ -19,6 +19,14 @@ function useInspect(category: CategoriesType, id: string) {
     const activities = useGetActivity(category, id);
     const offers = useGetOffers(category, id);
     const ownedOffers = offers && offers.filter((offer) => offer.seller === connectedAddress);
+    const buyableOffers = offers && offers.filter((offer) => offer.seller !== connectedAddress);
+    const lowestBuyableOffer = (() => {
+
+        if (!buyableOffers) return undefined;
+        if (buyableOffers.length == 0) return null;
+
+        return buyableOffers.reduce((prev, current) => (prev.price < current.price ? prev : current));
+    })();
     const isListedByConnected = ownedOffers && ownedOffers.length > 0;
     const ownedByConnectedWallet = (() => {
         if (isListedByConnected) return true;
@@ -39,6 +47,8 @@ function useInspect(category: CategoriesType, id: string) {
         activities,
         itemAsPenguin,
         ownedOffers,
+        buyableOffers,
+        lowestBuyableOffer,
         getSellTransaction,
         getRetireTransaction
     }
