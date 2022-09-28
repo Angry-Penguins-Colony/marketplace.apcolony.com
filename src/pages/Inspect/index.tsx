@@ -75,9 +75,11 @@ const Inspect = () => {
                     <>
                         {
                             (item && item.amount != undefined && item.amount > 0) &&
-                            <Button type='normal' onClick={() => { setIsSellPopupOpen(true) }}>
-                                Sell {typeInText.singular}
-                            </Button>
+                            <div>
+                                <Button type='normal' onClick={() => { setIsSellPopupOpen(true) }}>
+                                    Sell {typeInText.singular}
+                                </Button>
+                            </div>
                         }
 
                         {
@@ -96,23 +98,23 @@ const Inspect = () => {
                                 if (ownedOffers.length == 0) return;
 
                                 if (ownedOffers.length == 1) {
-                                    return <>
-                                        <Button type='cancel-outline' onClick={() => sendRetireOffer(ownedOffers[0])}>
-                                            Retire offer
+                                    return <div>
+                                        <Button type='cancel-outline' onClick={() => sendRetireOfferTransaction(ownedOffers[0])}>
+                                            Retire my offer
                                         </Button>
-                                        <p className={style.price}>
+                                        <p className={style.price + ' ' + 'text-center mt-1'}>
                                             Listed for {priceListedByUser ?? '--'} EGLD
                                         </p>
-                                    </>
+                                    </div >
                                 }
                                 else {
                                     return <>
-                                        <Button type='normal' onClick={() => setIsOffersPopupOpen(true)}>
-                                            View offers
-                                        </Button>
-                                        <p className={style.price}>
-                                            {ownedOffers.length} listed
-                                        </p>
+                                        <div>
+
+                                            <Button type='normal' onClick={() => setIsOffersPopupOpen(true)}>
+                                                View my {ownedOffers.length} offers
+                                            </Button>
+                                        </div>
                                     </>
                                 }
 
@@ -140,12 +142,13 @@ const Inspect = () => {
                     offers={ownedOffers}
                     isVisible={isOffersPopupOpen}
                     onCloseClicked={() => { setIsOffersPopupOpen(false) }}
+                    onRetire={sendRetireOfferTransaction}
                 />
             }
         </div >
     );
 
-    async function sendRetireOffer(offer: IOffer) {
+    async function sendRetireOfferTransaction(offer: IOffer) {
         const transaction: SimpleTransactionType = getRetireTransaction(offer);
         await refreshAccount();
 

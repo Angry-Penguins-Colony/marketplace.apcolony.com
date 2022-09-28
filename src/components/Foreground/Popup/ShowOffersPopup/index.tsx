@@ -1,28 +1,30 @@
 import React from 'react';
 import { IOffer } from '@apcolony/marketplace-api';
+import BigNumber from 'bignumber.js';
 import Button from 'components/Abstract/Button/Button';
 import Popup, { IPopupProps } from '../Generic/Popup';
+import style from './index.module.scss';
 
 interface IProps extends IPopupProps {
-    offers: IOffer[]
+    offers: IOffer[],
+    onRetire: (offer: IOffer) => void
 }
 
 const ShowOffersPopup = (props: IProps) => {
     return <Popup haveCloseButton={true} {...props} >
-        <div className="flex flex-col">
-            <div className="flex flex-row justify-between">
-                <div className="text-2xl font-bold">Offers</div>
-                <div className="text-2xl font-bold">Price</div>
-            </div>
-            <div className="flex flex-col">
+
+        <p className={style.title}>Offers</p>
+
+        <table className="table">
+            <tbody>
                 {props.offers.map((offer, index) => {
-                    return <div className="flex flex-row justify-between" key={index}>
-                        <Button type='cancel-outline'>Retire offer</Button>
-                        <div className="text-xl">{offer.price.toString()}</div>
-                    </div>
+                    return <tr key={index}>
+                        <td className='align-middle'>{new BigNumber((offer.price as any).value).toString()} EGLD</td>
+                        <td><Button type='cancel-outline' onClick={() => props.onRetire(offer)}>Retire offer</Button>          </td>
+                    </tr>;
                 })}
-            </div>
-        </div>
+            </tbody>
+        </table>
     </Popup>
 }
 
