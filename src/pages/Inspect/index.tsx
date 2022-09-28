@@ -107,11 +107,12 @@ const Inspect = () => {
                                 }
                                 else {
                                     return <>
-                                        <Button type='cancel-outline' onClick={() => setIsOffersPopupOpen(true)}>
+                                        <Button type='normal' onClick={() => setIsOffersPopupOpen(true)}>
                                             View offers
                                         </Button>
                                         <p className={style.price}>
-                                            {ownedOffers.length} listed                                        </p>
+                                            {ownedOffers.length} listed
+                                        </p>
                                     </>
                                 }
 
