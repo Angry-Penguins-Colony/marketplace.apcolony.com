@@ -35,6 +35,12 @@
             align-items: center;
             flex-grow: 0;
             flex-shrink: 0;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $primary;
+                color: white;
+            }
 
             span {
                 position: relative;
