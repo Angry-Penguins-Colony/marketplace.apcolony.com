@@ -44,6 +44,6 @@ export default class BuyOfferTransactionBuilder {
             new U64Value(this.nonce),
         ]);
 
-        return 'buy_sft@' + argumentsString;
+        return 'buySft@' + argumentsString;
     }
 }

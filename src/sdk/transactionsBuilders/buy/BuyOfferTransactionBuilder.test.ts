@@ -14,7 +14,7 @@ it('should build data', () => {
         })
         .build();
 
-    const expectedData = 'buy_sft'
+    const expectedData = 'buySft'
         + '@' + '0a'
         + '@' + '4841542d613161316131' // token identier
         + '@' + '01'// nft_nonce
