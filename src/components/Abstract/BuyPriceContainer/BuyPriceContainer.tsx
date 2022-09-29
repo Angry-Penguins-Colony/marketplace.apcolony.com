@@ -6,18 +6,44 @@ import style from './buy-price-container.module.scss';
 const BuyPriceContainer = ({
     className = '',
     price,
-    onBuy
+    showOffersCount = false,
+    offersCount,
+    onBuy = () => { /* do nothing*/ }
 }: {
     className?: string,
-    price: BigNumber,
-    onBuy: () => void
+    showOffersCount: boolean,
+    offersCount: number | undefined,
+    price?: BigNumber,
+    onBuy?: () => void
 }) => {
+
+    const priceAsString = price ? price.toString(2) : '--';
+
     return (
         <section className={style.buy + ' ' + className}>
+
             <h2>Price</h2>
-            <p className={style.price}>{price.toString()} EGLD</p>
-            <Button onClick={onBuy} type='primary' className={style.desktop + ' ' + style.button}>Buy for {price.toString()} EGLD</Button>
-            <Button onClick={onBuy} className={style.mobile + ' ' + style.button}>Buy for {price.toString()} EGLD</Button>
+
+            {
+                offersCount == undefined || offersCount > 0 ?
+                    <>
+                        <p className={style.price}>{priceAsString} EGLD</p>
+                        <Button onClick={onBuy} type='primary' className={style.desktop + ' ' + style.button}>
+                            Buy
+                        </Button>
+                        <Button onClick={onBuy} className={style.mobile + ' ' + style.button}>
+                            Buy
+                        </Button>
+
+                        {showOffersCount &&
+                            /* don't show offers count for penguins because we can only have one offer max per penguin */
+                            <p className='mt-1'>{offersCount ?? '--'} offers</p>
+                        }
+                    </>
+                    :
+                    <p>No offers</p>
+            }
+
         </section>
     );
 };

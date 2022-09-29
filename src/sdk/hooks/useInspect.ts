@@ -14,16 +14,8 @@ function useInspect(category: CategoriesType, id: string) {
     const item = useGetGenericItem(category, id);
     const activities = useGetActivity(category, id);
 
-    const ownedByConnectedWallet = (() => {
-        if (category === 'penguins') return item?.amount === connectedAddress;
-        if (category === 'items' && item?.amount) return item?.amount > 0;
-        return false;
-    })()
-
-
     return {
         item,
-        ownedByConnectedWallet,
         activities,
         getSellTransaction,
         getRetireTransaction

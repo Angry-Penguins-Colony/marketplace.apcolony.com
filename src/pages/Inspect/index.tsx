@@ -8,6 +8,7 @@ import { Address } from '@elrondnetwork/erdjs/out';
 import BigNumber from 'bignumber.js';
 import { useParams } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
+import BuyPriceContainer from 'components/Abstract/BuyPriceContainer/BuyPriceContainer';
 import AddressWrapper from 'components/AddressWrapper';
 import BuyingPopup from 'components/Foreground/Popup/BuyingPopup/BuyingPopup';
 import ShowOffersPopup from 'components/Foreground/Popup/ShowOffersPopup';
@@ -41,7 +42,6 @@ const Inspect = () => {
 
     const {
         item,
-        ownedByConnectedWallet,
         activities,
         getSellTransaction,
         getRetireTransaction
@@ -60,8 +60,25 @@ const Inspect = () => {
     const [isSellPopupOpen, setIsSellPopupOpen] = React.useState(false);
     const [isOffersPopupOpen, setIsOffersPopupOpen] = React.useState(false);
 
+    const ownedByConnectedWallet = (() => {
+        if (item != undefined && item.amount != undefined && item.amount > 0) {
+            return true;
+        }
+        else if (ownedOffers != undefined) {
+            return ownedOffers.find(offer => offer.seller == connectedAddress) != undefined;
+        }
+        else {
+            return undefined;
+        }
+    })();
+
+    const canBuy = category == 'items' || (category == 'penguins' && ownedByConnectedWallet == false);
     const isConnected = connectedAddress != '';
     const typeInText = getTypeInText();
+    const buyableOffersCount = buyableOffers?.length;
+
+
+    console.log('offersCount', buyableOffersCount);
 
     return (
         <div id={style['item-in-inventory']}>
@@ -87,29 +104,15 @@ const Inspect = () => {
             </div>
             <div className={style.actions + (isListedByConnected ? ' ' + style['in-market'] : '')}>
 
-                {!(category == 'penguins' && ownedByConnectedWallet) &&
-                    <>
-                        {
-                            (() => {
-                                if (lowestBuyableOffer == null) return <></>;
-
-                                return <span className={style.price}>
-                                    {/* TODO:  move new BigNumber((price.price as any).value) into useGetOffers*/}
-                                    {lowestBuyableOffer != undefined ? new BigNumber((lowestBuyableOffer.price as any).value).toString() : '--'} EGLD
-                                </span>
-                            })()
-                        }
-
-
-                        {category != 'penguins' &&
-                            /* don't show offers count for penguins because we can only have one offer max per penguin */
-                            <p>{buyableOffers ? buyableOffers.length : '--'} offers</p>
-                        }
-                        <Button type="primary">
-                            Buy
-                        </Button>
-                    </>
+                {canBuy &&
+                    <BuyPriceContainer
+                        price={lowestBuyableOffer ? new BigNumber((lowestBuyableOffer.price as any).value) : undefined}
+                        onBuy={() => { console.log('buy'); }}
+                        offersCount={buyableOffersCount}
+                        showOffersCount={category != 'penguins'}  /* don't show offers count for penguins because we can only have one offer max per penguin */
+                    />
                 }
+
 
 
                 {ownedByConnectedWallet == true &&
