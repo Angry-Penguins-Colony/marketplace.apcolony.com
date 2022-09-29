@@ -1,4 +1,5 @@
 import { Address } from '@elrondnetwork/erdjs/out';
+import BigNumber from 'bignumber.js';
 import BuyOfferTransactionBuilder from './BuyOfferTransactionBuilder';
 
 const address = Address.fromBech32('erd1qqqqqqqqqqqqqpgqrc4pg2xarca9z34njcxeur622qmfjp8w2jps89fxnl');
@@ -10,7 +11,7 @@ it('should build data', () => {
             id: 10,
             collection: 'HAT-a1a1a1',
             nonce: 1,
-            price: 1
+            price: '1'
         })
         .build();
 
@@ -20,6 +21,6 @@ it('should build data', () => {
         + '@' + '01'// nft_nonce
 
     expect(transaction.data).toEqual(expectedData);
-    expect(transaction.value).toEqual('1');
+    expect(transaction.value).toEqual(new BigNumber('1e18').toString());
     expect(transaction.receiver).toEqual(address.bech32());
 })
