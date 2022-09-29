@@ -3,70 +3,11 @@ import DiscordIcon from 'components/Icons/DiscordIcon';
 import TwitterIcon from 'components/Icons/TwitterIcon';
 import style from './footer.module.scss';
 
-// TODO: bind newsletter mailchimp form
-
 const Footer = () => {
   return (
     <footer id={style['main-footer']}>
-      <div className={style.newsletter}>
-        <h2>Get the latest updates,<br />
-          highlights and team activities</h2>
-        <form action="" id={style['newsletter-form']}>
-          <input type="email" placeholder="E-mail..." />
-          <button type="submit">Sign In</button>
-        </form>
-        <div className={style['join-us']}>
-          <h2>Join Us</h2>
-          <div className={style.social}>
-            <div className={style.twitter + ' ' + style.icon}>
-              <TwitterIcon />
-            </div>
-            <div className={style.discord + ' ' + style.icon}>
-              <DiscordIcon />
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div className={style.footer}>
         <div className={style.main}>
-          <div className={style.logo}>
-            <img src="/img/logo/logo-blue.svg" alt="logo Angry Penguins" />
-          </div>
-          <div className={style.nav}>
-            <h2>Angry Penguins</h2>
-            <div className={style.content}>
-              <div className={style.column}>
-                <a href="TODO: add link">Home</a>
-                <a href="TODO: add link">Explore</a>
-                <a href="TODO: add link">My Profile</a>
-                <a href="TODO: add link">Following</a>
-              </div>
-              <div className={style.column}>
-                <a href="TODO: add link">Newsletter</a>
-                <a href="TODO: add link">Notifications</a>
-                <a href="TODO: add link">Suggest Feature</a>
-              </div>
-            </div>
-          </div>
-          <div className={style['join-us']}>
-            <h2>join Us</h2>
-            <form action="" id={style['newsletter-form']}>
-              <input type="email" placeholder="E-mail..." />
-              <button type="submit">Sign In</button>
-            </form>
-            <p className={style.info}>By subscribing to the newsletter, you agree to receive news from our brand.</p>
-            <div className={style.social}>
-              <div className={style.twitter + ' ' + style.icon}>
-                <TwitterIcon />
-              </div>
-              <div className={style.discord + ' ' + style.icon}>
-                <DiscordIcon />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className={style.privacy}>
           <div className={style['webdesign-by']}>
             <span>WebDesign by</span>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 153.842 8.754">
@@ -75,6 +16,19 @@ const Footer = () => {
               <path d="M19.338,8.754H11.562L15.493,0Z" transform="translate(-2.191 0)" fill="#242424" />
               <path d="M4.343,4.381V.021A4.36,4.36,0,1,0,8.72,4.381Z" transform="translate(0 -0.004)" fill="#242424" />
             </svg>
+          </div>
+          <div className={style.center}>
+            <div className={style.logo}>
+              <img src="/img/logo/logo-blue.svg" alt="logo Angry Penguins" />
+            </div>
+            <div className={style.social}>
+              <div className={style.twitter + ' ' + style.icon}>
+                <TwitterIcon />
+              </div>
+              <div className={style.discord + ' ' + style.icon}>
+                <DiscordIcon />
+              </div>
+            </div>
           </div>
           <div className={style['privacy-policy']}>
             <a href='TODO: add terms'>Terms</a>
