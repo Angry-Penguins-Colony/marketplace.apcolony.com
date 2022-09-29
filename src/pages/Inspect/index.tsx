@@ -5,9 +5,9 @@ import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
 import { Address } from '@elrondnetwork/erdjs/out';
-import BigNumber from 'bignumber.js';
 import { useParams } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
+import BuyPriceContainer from 'components/Abstract/BuyPriceContainer/BuyPriceContainer';
 import AddressWrapper from 'components/AddressWrapper';
 import BuyingPopup from 'components/Foreground/Popup/BuyingPopup/BuyingPopup';
 import ShowOffersPopup from 'components/Foreground/Popup/ShowOffersPopup';
@@ -16,7 +16,10 @@ import ItemsAndActivities from 'components/Inventory/ItemsAndActivities/ItemsAnd
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { marketplaceContractAddress } from 'config';
 import { buildRouteLinks } from 'routes';
+import Price from 'sdk/classes/Price';
+import useGetOffers from 'sdk/hooks/api/useGetOffers';
 import useInspect from 'sdk/hooks/useInspect';
+import BuyOfferTransactionBuilder from 'sdk/transactionsBuilders/buy/BuyOfferTransactionBuilder';
 import CategoriesType from 'sdk/types/CategoriesType';
 import style from './index.module.scss';
 
@@ -40,24 +43,40 @@ const Inspect = () => {
 
     const {
         item,
-        isListedByConnected,
-        ownedByConnectedWallet,
-        buyableOffers,
-        lowestBuyableOffer,
-        priceListedByUser,
         activities,
-        itemAsPenguin,
-        ownedOffers,
         getSellTransaction,
         getRetireTransaction
     } = useInspect(category, id);
+
+    const {
+        buyableOffers,
+        lowestBuyableOffer,
+        priceListedByUser,
+        ownedOffers,
+        isListedByConnected
+    } = useGetOffers(category, id);
+
     const { address: connectedAddress } = useGetAccountInfo();
 
     const [isSellPopupOpen, setIsSellPopupOpen] = React.useState(false);
     const [isOffersPopupOpen, setIsOffersPopupOpen] = React.useState(false);
 
+    const ownedByConnectedWallet = (() => {
+        if (item != undefined && item.amount != undefined && item.amount > 0) {
+            return true;
+        }
+        else if (ownedOffers != undefined) {
+            return ownedOffers.find(offer => offer.seller == connectedAddress) != undefined;
+        }
+        else {
+            return undefined;
+        }
+    })();
+
+    const canBuy = category == 'items' || (category == 'penguins' && ownedByConnectedWallet == false);
     const isConnected = connectedAddress != '';
     const typeInText = getTypeInText();
+    const buyableOffersCount = buyableOffers?.length;
 
     return (
         <div id={style['item-in-inventory']}>
@@ -83,29 +102,18 @@ const Inspect = () => {
             </div>
             <div className={style.actions + (isListedByConnected ? ' ' + style['in-market'] : '')}>
 
-                {!(category == 'penguins' && ownedByConnectedWallet) &&
-                    <>
-                        {
-                            (() => {
-                                if (lowestBuyableOffer == null) return <></>;
-
-                                return <span className={style.price}>
-                                    {/* TODO:  move new BigNumber((price.price as any).value) into useGetOffers*/}
-                                    {lowestBuyableOffer != undefined ? new BigNumber((lowestBuyableOffer.price as any).value).toString() : '--'} EGLD
-                                </span>
-                            })()
-                        }
-
-
-                        {category != 'penguins' &&
-                            /* don't show offers count for penguins because we can only have one offer max per penguin */
-                            <p>{buyableOffers ? buyableOffers.length : '--'} offers</p>
-                        }
-                        <Button type="primary">
-                            Buy
-                        </Button>
-                    </>
+                {canBuy &&
+                    <BuyPriceContainer
+                        price={lowestBuyableOffer ? Price.fromEgld(lowestBuyableOffer.price) : undefined}
+                        onBuy={() => {
+                            if (!lowestBuyableOffer) throw new Error('No offer to buy');
+                            sendBuyOfferTransaction(lowestBuyableOffer)
+                        }}
+                        offersCount={buyableOffersCount}
+                        showOffersCount={category != 'penguins'}  /* don't show offers count for penguins because we can only have one offer max per penguin */
+                    />
                 }
+
 
 
                 {ownedByConnectedWallet == true &&
@@ -164,13 +172,14 @@ const Inspect = () => {
             <ItemsAndActivities items={item?.items ?? []} activities={activities} className={style.activity} />
 
             {
-                item &&
+                (item) &&
                 <BuyingPopup
                     onClose={() => { setIsSellPopupOpen(false) }}
                     onSell={sell}
                     item={item}
                     type={category}
                     visible={isSellPopupOpen}
+                    floorPrice={Price.fromEgld(lowestBuyableOffer?.price ?? '0')}
                 />
             }
             {
@@ -200,6 +209,25 @@ const Inspect = () => {
         });
     }
 
+    async function sendBuyOfferTransaction(offer: IOffer) {
+        const transaction: SimpleTransactionType = new BuyOfferTransactionBuilder()
+            .setMarketplaceContract(marketplaceContractAddress)
+            .setOffer(offer)
+            .build();
+
+        await refreshAccount();
+
+        await sendTransactions({
+            transactions: transaction,
+            transactionDisplayInfo: {
+                processingMessage: 'Buying offer...',
+                errorMessage: 'An error has occured during buying.',
+                successMessage: 'Offer bought'
+            },
+            redirectAfterSign: false
+        });
+    }
+
     function getOwnedProperty() {
 
         if (!item) return;
@@ -211,19 +239,19 @@ const Inspect = () => {
                     <p className={style['owned-property-text']}>
                         {
                             (() => {
-                                if (itemAsPenguin) {
-                                    if (itemAsPenguin.owner == marketplaceContractAddress.bech32()) {
-                                        return <>For sale</>;
-                                    }
-                                    else {
-                                        return <>
-                                            Owned by {
-                                                itemAsPenguin.owner == connectedAddress ?
-                                                    'me' :
-                                                    <AddressWrapper address={Address.fromBech32(itemAsPenguin.owner)} />
-                                            }
-                                        </>;
-                                    }
+                                if (!item.owner) return;
+
+                                if (item.owner == marketplaceContractAddress.bech32()) {
+                                    return <>For sale</>;
+                                }
+                                else {
+                                    return <>
+                                        Owned by {
+                                            item.owner == connectedAddress ?
+                                                'me' :
+                                                <AddressWrapper address={Address.fromBech32(item.owner)} />
+                                        }
+                                    </>;
                                 }
                             })()
                         }
@@ -242,7 +270,7 @@ const Inspect = () => {
         }
     }
 
-    async function sell(price: BigNumber) {
+    async function sell(price: Price) {
 
         const transaction: SimpleTransactionType = getSellTransaction(price);
         await refreshAccount();

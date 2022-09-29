@@ -8,7 +8,9 @@ interface Output {
 
 function useGetOffersOfCategory(category: 'penguins' | string) {
 
-    return useGenericAPICall<Output>(`/${getType()}/offers/${getCat()}`);
+    const output = useGenericAPICall<Output>(`/${getType()}/offers/${getCat()}`);
+
+    return output;
 
     function getType() {
         return category === 'penguins' ? 'penguins' : 'items';

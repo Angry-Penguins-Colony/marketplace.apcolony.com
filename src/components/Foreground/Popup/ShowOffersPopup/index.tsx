@@ -1,6 +1,5 @@
 import React from 'react';
 import { IOffer } from '@apcolony/marketplace-api';
-import BigNumber from 'bignumber.js';
 import Button from 'components/Abstract/Button/Button';
 import Popup, { IPopupProps } from '../Generic/Popup';
 import style from './index.module.scss';
@@ -19,7 +18,7 @@ const ShowOffersPopup = (props: IProps) => {
             <tbody>
                 {props.offers.map((offer, index) => {
                     return <tr key={index}>
-                        <td className='align-middle'>{new BigNumber((offer.price as any).value).toString()} EGLD</td>
+                        <td className='align-middle'>{offer.price} EGLD</td>
                         <td><Button type='cancel-outline' onClick={() => props.onRetire(offer)}>Retire offer</Button>          </td>
                     </tr>;
                 })}

@@ -5,6 +5,8 @@ export interface GenericItem {
     thumbnail: string;
     items: IItem[];
     rank: number;
-    price: number;
     amount?: number;
+    owner?: string;
+    collection: string;
+    nonce: number;
 }

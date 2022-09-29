@@ -11,16 +11,16 @@ it('should build data', () => {
             id: 10,
             collection: 'HAT-a1a1a1',
             nonce: 1,
-            price: new BigNumber('1')
+            price: '1'
         })
         .build();
 
-    const expectedData = 'buy_sft'
+    const expectedData = 'buySft'
         + '@' + '0a'
         + '@' + '4841542d613161316131' // token identier
         + '@' + '01'// nft_nonce
 
     expect(transaction.data).toEqual(expectedData);
-    expect(transaction.value).toEqual('1');
+    expect(transaction.value).toEqual(new BigNumber('1e18').toString());
     expect(transaction.receiver).toEqual(address.bech32());
 })
