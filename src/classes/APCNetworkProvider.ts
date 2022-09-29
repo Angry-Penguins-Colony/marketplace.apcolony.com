@@ -156,7 +156,7 @@ export class APCNetworkProvider {
 
         return {
             id: id,
-            price: new BigNumber(response.fieldsByName.get("min_bid").value).toNumber(),
+            price: new BigNumber(response.fieldsByName.get("min_bid").value).div(10 ** 18).toString(),
             collection: auctioned_tokens.value.fieldsByName.get("token_identifier").value.value,
             nonce: auctioned_tokens.value.fieldsByName.get("token_nonce").value.value,
             seller: Address.fromHex(response.fieldsByName.get("original_owner").value.value.valueHex).bech32()
