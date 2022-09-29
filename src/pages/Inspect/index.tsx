@@ -77,9 +77,6 @@ const Inspect = () => {
     const typeInText = getTypeInText();
     const buyableOffersCount = buyableOffers?.length;
 
-
-    console.log('offersCount', buyableOffersCount);
-
     return (
         <div id={style['item-in-inventory']}>
             <MobileHeader title={typeInText.plural} type='light' />
