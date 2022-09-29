@@ -18,7 +18,7 @@ const ShowOffersPopup = (props: IProps) => {
             <tbody>
                 {props.offers.map((offer, index) => {
                     return <tr key={index}>
-                        <td className='align-middle'>{offer.price} EGLD</td>
+                        <td className='align-middle'>{offer.price.toString()} EGLD</td>
                         <td><Button type='cancel-outline' onClick={() => props.onRetire(offer)}>Retire offer</Button>          </td>
                     </tr>;
                 })}

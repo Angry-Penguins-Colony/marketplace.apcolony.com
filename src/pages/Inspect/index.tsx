@@ -148,7 +148,7 @@ const Inspect = () => {
                                             Retire my offer
                                         </Button>
                                         <p className={style.price + ' ' + 'text-center mt-1'}>
-                                            Listed for {priceListedByUser ?? '--'} EGLD
+                                            Listed for {priceListedByUser.toString() ?? '--'} EGLD
                                         </p>
                                     </div >
                                 }
@@ -212,7 +212,7 @@ const Inspect = () => {
     async function sendBuyOfferTransaction(offer: IOffer) {
         const transaction: SimpleTransactionType = new BuyOfferTransactionBuilder()
             .setMarketplaceContract(marketplaceContractAddress)
-            .setOffer(offer)
+            .setOffer(Object.assign(offer, { price: offer.price.toString() }))
             .build();
 
         await refreshAccount();
