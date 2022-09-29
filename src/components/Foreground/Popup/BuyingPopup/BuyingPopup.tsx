@@ -3,6 +3,7 @@ import Button from 'components/Abstract/Button/Button';
 import CrossIcon from 'components/Icons/CrossIcon';
 import { Item } from 'components/Inventory/Item/Item';
 import SetPrice from 'components/Inventory/SetPrice/SetPrice';
+import Price from 'sdk/classes/Price';
 import CategoriesType from 'sdk/types/CategoriesType';
 import { GenericItem } from 'sdk/types/GenericItem';
 import style from './BuyingPopup.module.scss';
@@ -18,9 +19,9 @@ const BuyingPopup = (
     }: {
         visible?: boolean;
         onClose: () => void;
-        onSell: (price: number) => void;
+        onSell: (price: Price) => void;
         item: GenericItem;
-        floorPrice: number;
+        floorPrice: Price;
         type: CategoriesType;
     }
 ) => {
@@ -91,7 +92,7 @@ const BuyingPopup = (
                     type === 'penguins' &&
                     <SetPrice floorPrice={floorPrice} price={price} setPrice={setPrice} className={style['set-price']} />
                 }
-                <Button className={style.button} onClick={() => onSell(parseInt(price))}>Place on the market</Button>
+                <Button className={style.button} onClick={() => onSell(Price.fromEgld(price))}>Place on the market</Button>
             </section>
         </div>
     </div>

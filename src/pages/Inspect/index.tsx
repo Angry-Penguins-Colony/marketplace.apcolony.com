@@ -16,6 +16,7 @@ import ItemsAndActivities from 'components/Inventory/ItemsAndActivities/ItemsAnd
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { marketplaceContractAddress } from 'config';
 import { buildRouteLinks } from 'routes';
+import Price from 'sdk/classes/Price';
 import useGetOffers from 'sdk/hooks/api/useGetOffers';
 import useInspect from 'sdk/hooks/useInspect';
 import BuyOfferTransactionBuilder from 'sdk/transactionsBuilders/buy/BuyOfferTransactionBuilder';
@@ -103,7 +104,7 @@ const Inspect = () => {
 
                 {canBuy &&
                     <BuyPriceContainer
-                        price={lowestBuyableOffer ? lowestBuyableOffer.price : undefined}
+                        price={lowestBuyableOffer ? Price.fromEgld(lowestBuyableOffer.price) : undefined}
                         onBuy={() => {
                             if (!lowestBuyableOffer) throw new Error('No offer to buy');
                             sendBuyOfferTransaction(lowestBuyableOffer)
@@ -178,7 +179,7 @@ const Inspect = () => {
                     item={item}
                     type={category}
                     visible={isSellPopupOpen}
-                    floorPrice={lowestBuyableOffer?.price ?? 0}
+                    floorPrice={Price.fromEgld(lowestBuyableOffer?.price ?? '0')}
                 />
             }
             {
@@ -269,7 +270,7 @@ const Inspect = () => {
         }
     }
 
-    async function sell(price: number) {
+    async function sell(price: Price) {
 
         const transaction: SimpleTransactionType = getSellTransaction(price);
         await refreshAccount();

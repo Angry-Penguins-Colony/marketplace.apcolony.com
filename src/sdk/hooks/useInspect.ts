@@ -2,6 +2,7 @@ import { IOffer } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import { marketplaceContractAddress } from 'config';
+import Price from 'sdk/classes/Price';
 import RetireOfferTransactionBuilder from 'sdk/transactionsBuilders/retireOffer/RetireOfferTransactionBuilder';
 import { SellPayloadBuilder } from 'sdk/transactionsBuilders/sell/SellPayloadBuilder';
 import CategoriesType from 'sdk/types/CategoriesType';
@@ -20,7 +21,7 @@ function useInspect(category: CategoriesType, id: string) {
         getRetireTransaction
     }
 
-    function getSellTransaction(price: number): SimpleTransactionType {
+    function getSellTransaction(price: Price): SimpleTransactionType {
         if (!item) throw new Error('Item not found');
 
         const payload = new SellPayloadBuilder()

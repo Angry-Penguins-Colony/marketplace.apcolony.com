@@ -1,15 +1,16 @@
 import * as React from 'react';
+import Price from 'sdk/classes/Price';
 import style from './SetPrice.module.scss';
 
 const SetPrice = ({
-    floorPrice = 0,
+    floorPrice = new Price(0, 1),
     price = '0',
     setPrice = () => {
         // do nothing
     },
     className = '',
 }: {
-    floorPrice: number;
+    floorPrice: Price;
     price: string;
     setPrice: (price: string) => void;
     className?: string;
@@ -38,7 +39,7 @@ const SetPrice = ({
                 </div>
                 <div className={style.control + ' ' + style.plus}><span>+</span></div>
             </div>
-            <p className={style['floor-price']}>Floor price {floorPrice} EGLD</p>
+            <p className={style['floor-price']}>Floor price {floorPrice.toDenomination()} EGLD</p>
         </div>
     );
 }

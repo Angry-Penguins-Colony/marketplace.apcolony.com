@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Price from 'sdk/classes/Price';
 import Button from '../Button/Button';
 import style from './buy-price-container.module.scss';
 
@@ -12,7 +13,7 @@ const BuyPriceContainer = ({
     className?: string,
     showOffersCount: boolean,
     offersCount: number | undefined,
-    price?: number,
+    price?: Price,
     onBuy?: () => void
 }) => {
 
@@ -24,7 +25,7 @@ const BuyPriceContainer = ({
             {
                 offersCount == undefined || offersCount > 0 ?
                     <>
-                        <p className={style.price}>{price ?? '--'} EGLD</p>
+                        <p className={style.price}>{price?.toDenomination() ?? '--'} EGLD</p>
                         <Button onClick={onBuy} type='primary' className={style.desktop + ' ' + style.button}>
                             Buy
                         </Button>
