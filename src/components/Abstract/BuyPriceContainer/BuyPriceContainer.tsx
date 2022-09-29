@@ -16,8 +16,6 @@ const BuyPriceContainer = ({
     onBuy?: () => void
 }) => {
 
-    const priceAsString = price ? price.toString(2) : '--';
-
     return (
         <section className={style.buy + ' ' + className}>
 
@@ -26,7 +24,7 @@ const BuyPriceContainer = ({
             {
                 offersCount == undefined || offersCount > 0 ?
                     <>
-                        <p className={style.price}>{priceAsString} EGLD</p>
+                        <p className={style.price}>{price ?? '--'} EGLD</p>
                         <Button onClick={onBuy} type='primary' className={style.desktop + ' ' + style.button}>
                             Buy
                         </Button>
