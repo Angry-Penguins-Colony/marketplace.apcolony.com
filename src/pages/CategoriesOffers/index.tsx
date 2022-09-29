@@ -48,10 +48,10 @@ const CategoriesOffers = () => {
             <MobileHeader title={'Marketplace'} rightIcon={<SearchIcon />} type='light' />
             <div className={style['background-header']} style={
                 {
-                    backgroundImage: 'url(/img/background/items_header_' + category + '.png)'
+                    backgroundImage: 'url(/img/background/header_' + category + '.png)'
                 }
             }></div>
-            <div className={style.icon}><img src={'/img/icon/' + category + '_unicolor_icon.svg'} alt={category} /></div>
+            <div className={style.icon + (category == 'penguins' ? ' ' + style.penguins : '')}><img src={category == 'penguins' ? '/img/icon/penguin_picture.png' : '/img/icon/' + category + '_unicolor_icon.svg'} alt={category} /></div>
             <h1>{title}</h1>
             <MarketData floorPrice={marketplace.floorPrice} totalVolume={marketplace.totalVolume} averagePrice={marketplace.averagePrice} totalListed={marketplace.totalListed} />
             <p className={style.description}>{marketplace.description}</p>
