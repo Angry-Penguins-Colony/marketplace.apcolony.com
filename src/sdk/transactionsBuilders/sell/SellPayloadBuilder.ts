@@ -1,12 +1,11 @@
 import { AddressValue, ArgSerializer, BigIntValue, BooleanValue, BytesValue, IAddress, OptionType, OptionValue, TransactionPayload, U64Type, U64Value } from '@elrondnetwork/erdjs/out';
-import BigNumber from 'bignumber.js';
 
 export class SellPayloadBuilder {
 
     private tokenCollection = '';
     private tokenNonce = -1;
     private marketplaceSc?: IAddress;
-    private price?: BigNumber;
+    private price = '0';
 
     public setToken(collection: string, nonce: number): SellPayloadBuilder {
         this.tokenCollection = collection;
@@ -19,7 +18,7 @@ export class SellPayloadBuilder {
         return this;
     }
 
-    public setPrice(price: BigNumber): SellPayloadBuilder {
+    public setPrice(price: string): SellPayloadBuilder {
         this.price = price;
         return this;
     }
@@ -27,7 +26,6 @@ export class SellPayloadBuilder {
     build(): TransactionPayload {
 
         if (!this.marketplaceSc) throw new Error('marketplaceSc is required');
-        if (!this.price) throw new Error('price is required');
         if (isNaN(this.tokenNonce)) throw new Error('tokenNonce as NaN is not supported');
 
         const args = [

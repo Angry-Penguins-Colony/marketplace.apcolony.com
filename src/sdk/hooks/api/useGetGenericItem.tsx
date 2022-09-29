@@ -29,7 +29,6 @@ export function useGetGenericItem(type: CategoriesType, id: string) {
                     thumbnail: ipfsGateway + penguin.thumbnailCID,
                     items: Object.values(penguin.equippedItems),
                     rank: -1,
-                    price: -1,
                     amount: penguin.owner == connectedAddress ? 1 : 0,
                     owner: penguin.owner,
                     nonce: penguin.nonce,
@@ -48,7 +47,6 @@ export function useGetGenericItem(type: CategoriesType, id: string) {
                     thumbnail: ipfsGateway + item.thumbnailCID,
                     items: [],
                     rank: -1,
-                    price: -1,
                     amount: item.amount,
                     nonce: item.nonce,
                     collection: collection

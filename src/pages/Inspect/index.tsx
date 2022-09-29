@@ -5,7 +5,6 @@ import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
 import { Address } from '@elrondnetwork/erdjs/out';
-import BigNumber from 'bignumber.js';
 import { useParams } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
 import BuyPriceContainer from 'components/Abstract/BuyPriceContainer/BuyPriceContainer';
@@ -19,6 +18,7 @@ import { marketplaceContractAddress } from 'config';
 import { buildRouteLinks } from 'routes';
 import useGetOffers from 'sdk/hooks/api/useGetOffers';
 import useInspect from 'sdk/hooks/useInspect';
+import BuyOfferTransactionBuilder from 'sdk/transactionsBuilders/buy/BuyOfferTransactionBuilder';
 import CategoriesType from 'sdk/types/CategoriesType';
 import style from './index.module.scss';
 
@@ -103,8 +103,11 @@ const Inspect = () => {
 
                 {canBuy &&
                     <BuyPriceContainer
-                        price={lowestBuyableOffer ? new BigNumber((lowestBuyableOffer.price as any).value) : undefined}
-                        onBuy={() => { console.log('buy'); }}
+                        price={lowestBuyableOffer ? lowestBuyableOffer.price : undefined}
+                        onBuy={() => {
+                            if (!lowestBuyableOffer) throw new Error('No offer to buy');
+                            sendBuyOfferTransaction(lowestBuyableOffer)
+                        }}
                         offersCount={buyableOffersCount}
                         showOffersCount={category != 'penguins'}  /* don't show offers count for penguins because we can only have one offer max per penguin */
                     />
@@ -168,13 +171,14 @@ const Inspect = () => {
             <ItemsAndActivities items={item?.items ?? []} activities={activities} className={style.activity} />
 
             {
-                item &&
+                (item && lowestBuyableOffer) &&
                 <BuyingPopup
                     onClose={() => { setIsSellPopupOpen(false) }}
                     onSell={sell}
                     item={item}
                     type={category}
                     visible={isSellPopupOpen}
+                    floorPrice={lowestBuyableOffer.price}
                 />
             }
             {
@@ -199,6 +203,25 @@ const Inspect = () => {
                 processingMessage: 'Retiring offer...',
                 errorMessage: 'An error has occured during retirement of offer.',
                 successMessage: 'Offer retired'
+            },
+            redirectAfterSign: false
+        });
+    }
+
+    async function sendBuyOfferTransaction(offer: IOffer) {
+        const transaction: SimpleTransactionType = new BuyOfferTransactionBuilder()
+            .setMarketplaceContract(marketplaceContractAddress)
+            .setOffer(offer)
+            .build();
+
+        await refreshAccount();
+
+        await sendTransactions({
+            transactions: transaction,
+            transactionDisplayInfo: {
+                processingMessage: 'Buying offer...',
+                errorMessage: 'An error has occured during buying.',
+                successMessage: 'Offer bought'
             },
             redirectAfterSign: false
         });
@@ -246,7 +269,7 @@ const Inspect = () => {
         }
     }
 
-    async function sell(price: BigNumber) {
+    async function sell(price: number) {
 
         const transaction: SimpleTransactionType = getSellTransaction(price);
         await refreshAccount();

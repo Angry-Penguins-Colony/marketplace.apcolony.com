@@ -16,7 +16,7 @@ test('test', () => {
     const actual = new SellPayloadBuilder()
         .setToken(tokenId.ascii, 1)
         .setMarketplaceSc(Address.fromBech32(smartContract.bech32))
-        .setPrice(new BigNumber('1e18'))
+        .setPrice(new BigNumber('1e18').toString())
         .build();
 
     // example: https://explorer.elrond.com/transactions/b2b6a7975a38077e6c0ca121203121f8755db6cf584149e2c9ba65f7ded61b90#smart

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import BigNumber from 'bignumber.js';
 import Button from 'components/Abstract/Button/Button';
 import CrossIcon from 'components/Icons/CrossIcon';
 import { Item } from 'components/Inventory/Item/Item';
@@ -14,16 +13,17 @@ const BuyingPopup = (
         onSell,
         visible = false,
         item,
+        floorPrice,
         type
     }: {
         visible?: boolean;
         onClose: () => void;
-        onSell: (price: BigNumber) => void;
+        onSell: (price: number) => void;
         item: GenericItem;
+        floorPrice: number;
         type: CategoriesType;
     }
 ) => {
-    const [floorPrice] = React.useState(0);
     const [price, setPrice] = React.useState('0');
 
     const rootClassName = [
@@ -52,10 +52,6 @@ const BuyingPopup = (
                                     <div className={style.line}>
                                         <div className={style.label}>Item Id</div>
                                         <div className={style.value}>{item.name}</div>
-                                    </div>
-                                    <div className={style.line}>
-                                        <div className={style.label}>Price</div>
-                                        <div className={style.value}>{item.price} EGLD</div>
                                     </div>
                                 </div>
                                 <SetPrice floorPrice={floorPrice} price={price} setPrice={setPrice} className={style['set-price']} />
@@ -95,7 +91,7 @@ const BuyingPopup = (
                     type === 'penguins' &&
                     <SetPrice floorPrice={floorPrice} price={price} setPrice={setPrice} className={style['set-price']} />
                 }
-                <Button className={style.button} onClick={() => onSell(new BigNumber(price))}>Place on the market</Button>
+                <Button className={style.button} onClick={() => onSell(parseInt(price))}>Place on the market</Button>
             </section>
         </div>
     </div>

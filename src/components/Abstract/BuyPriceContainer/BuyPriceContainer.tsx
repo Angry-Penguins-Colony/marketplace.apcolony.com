@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { BigNumber } from 'bignumber.js';
 import Button from '../Button/Button';
 import style from './buy-price-container.module.scss';
 
@@ -13,7 +12,7 @@ const BuyPriceContainer = ({
     className?: string,
     showOffersCount: boolean,
     offersCount: number | undefined,
-    price?: BigNumber,
+    price?: number,
     onBuy?: () => void
 }) => {
 

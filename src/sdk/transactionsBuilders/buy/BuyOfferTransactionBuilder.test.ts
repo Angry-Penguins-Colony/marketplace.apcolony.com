@@ -1,5 +1,4 @@
 import { Address } from '@elrondnetwork/erdjs/out';
-import BigNumber from 'bignumber.js';
 import BuyOfferTransactionBuilder from './BuyOfferTransactionBuilder';
 
 const address = Address.fromBech32('erd1qqqqqqqqqqqqqpgqrc4pg2xarca9z34njcxeur622qmfjp8w2jps89fxnl');
@@ -11,7 +10,7 @@ it('should build data', () => {
             id: 10,
             collection: 'HAT-a1a1a1',
             nonce: 1,
-            price: new BigNumber('1')
+            price: 1
         })
         .build();
 

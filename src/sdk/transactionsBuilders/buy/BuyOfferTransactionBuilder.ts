@@ -1,7 +1,6 @@
 import { IAddress } from '@apcolony/marketplace-api';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import { ArgSerializer, BytesValue, U64Value } from '@elrondnetwork/erdjs/out';
-import BigNumber from 'bignumber.js';
 
 export default class BuyOfferTransactionBuilder {
 
@@ -9,7 +8,7 @@ export default class BuyOfferTransactionBuilder {
     private auctionId = 0;
     private collection = '';
     private nonce = 0;
-    private price?: BigNumber;
+    private price = 0;
 
 
     public setMarketplaceContract(marketplaceContract: IAddress): BuyOfferTransactionBuilder {
@@ -17,7 +16,7 @@ export default class BuyOfferTransactionBuilder {
         return this;
     }
 
-    public setOffer(offer: { id: number, collection: string, nonce: number, price: BigNumber }): BuyOfferTransactionBuilder {
+    public setOffer(offer: { id: number, collection: string, nonce: number, price: number }): BuyOfferTransactionBuilder {
         this.auctionId = offer.id;
         this.collection = offer.collection;
         this.nonce = offer.nonce;
@@ -28,7 +27,7 @@ export default class BuyOfferTransactionBuilder {
     build(): SimpleTransactionType {
 
         if (this.marketplaceContract === undefined) throw new Error('marketplaceContract is undefined');
-        if (this.price === undefined) throw new Error('price is undefined');
+        if (this.price <= 0) throw new Error('price is undefined');
 
         return {
             value: this.price.toString(),

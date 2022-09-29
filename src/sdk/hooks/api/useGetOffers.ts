@@ -1,6 +1,5 @@
 import { IOffer } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
-import BigNumber from 'bignumber.js';
 import useGenericAPICall from './useGenericAPICall';
 
 
@@ -21,10 +20,8 @@ function useGetOffers(category: 'penguins' | 'items', id: string) {
         return buyableOffers.reduce((prev, current) => (prev.price < current.price ? prev : current));
     })();
 
-    // TODO: move the new BigNumber into useGetOffers
-    const priceListedByUser = ownedOffers && ownedOffers.length > 0 ? new BigNumber((ownedOffers[0].price as any).value).toNumber() : 0;
+    const priceListedByUser = (ownedOffers && ownedOffers.length > 0) ? ownedOffers[0].price : 0;
     const isListedByConnected = ownedOffers && ownedOffers.length > 0;
-
 
     return {
         offers,

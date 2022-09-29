@@ -1,7 +1,6 @@
 import { IOffer } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
-import BigNumber from 'bignumber.js';
 import { marketplaceContractAddress } from 'config';
 import RetireOfferTransactionBuilder from 'sdk/transactionsBuilders/retireOffer/RetireOfferTransactionBuilder';
 import { SellPayloadBuilder } from 'sdk/transactionsBuilders/sell/SellPayloadBuilder';
@@ -21,11 +20,11 @@ function useInspect(category: CategoriesType, id: string) {
         getRetireTransaction
     }
 
-    function getSellTransaction(price: BigNumber): SimpleTransactionType {
+    function getSellTransaction(price: number): SimpleTransactionType {
         if (!item) throw new Error('Item not found');
 
         const payload = new SellPayloadBuilder()
-            .setPrice(price)
+            .setPrice(price.toString())
             .setMarketplaceSc(marketplaceContractAddress)
             .setToken(item.collection, item.nonce)
             .build();
