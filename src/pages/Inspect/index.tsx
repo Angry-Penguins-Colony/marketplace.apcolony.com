@@ -171,14 +171,14 @@ const Inspect = () => {
             <ItemsAndActivities items={item?.items ?? []} activities={activities} className={style.activity} />
 
             {
-                (item && lowestBuyableOffer) &&
+                (item) &&
                 <BuyingPopup
                     onClose={() => { setIsSellPopupOpen(false) }}
                     onSell={sell}
                     item={item}
                     type={category}
                     visible={isSellPopupOpen}
-                    floorPrice={lowestBuyableOffer.price}
+                    floorPrice={lowestBuyableOffer?.price ?? 0}
                 />
             }
             {
