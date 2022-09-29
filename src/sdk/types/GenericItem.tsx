@@ -7,4 +7,7 @@ export interface GenericItem {
     rank: number;
     price: number;
     amount?: number;
+    owner?: string;
+    collection: string;
+    nonce: number;
 }

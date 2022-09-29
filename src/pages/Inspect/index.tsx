@@ -43,7 +43,6 @@ const Inspect = () => {
         item,
         ownedByConnectedWallet,
         activities,
-        itemAsPenguin,
         getSellTransaction,
         getRetireTransaction
     } = useInspect(category, id);
@@ -216,19 +215,19 @@ const Inspect = () => {
                     <p className={style['owned-property-text']}>
                         {
                             (() => {
-                                if (itemAsPenguin) {
-                                    if (itemAsPenguin.owner == marketplaceContractAddress.bech32()) {
-                                        return <>For sale</>;
-                                    }
-                                    else {
-                                        return <>
-                                            Owned by {
-                                                itemAsPenguin.owner == connectedAddress ?
-                                                    'me' :
-                                                    <AddressWrapper address={Address.fromBech32(itemAsPenguin.owner)} />
-                                            }
-                                        </>;
-                                    }
+                                if (!item.owner) return;
+
+                                if (item.owner == marketplaceContractAddress.bech32()) {
+                                    return <>For sale</>;
+                                }
+                                else {
+                                    return <>
+                                        Owned by {
+                                            item.owner == connectedAddress ?
+                                                'me' :
+                                                <AddressWrapper address={Address.fromBech32(item.owner)} />
+                                        }
+                                    </>;
                                 }
                             })()
                         }

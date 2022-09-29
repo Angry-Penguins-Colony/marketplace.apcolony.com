@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IItem, IPenguin } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
-import { ipfsGateway } from 'config';
+import { ipfsGateway, items, penguinCollection } from 'config';
 import useGenericAPICall from 'sdk/hooks/api/useGenericAPICall';
 import CategoriesType from 'sdk/types/CategoriesType';
 import { GenericItem } from '../../types/GenericItem';
@@ -31,11 +31,17 @@ export function useGetGenericItem(type: CategoriesType, id: string) {
                     rank: -1,
                     price: -1,
                     amount: penguin.owner == connectedAddress ? 1 : 0,
+                    owner: penguin.owner,
+                    nonce: penguin.nonce,
+                    collection: penguinCollection
                 });
                 break;
 
             case 'items':
                 const item = raw as IItem;
+
+                const index = items.findIndex(i => i.id == id);
+                const { collection } = items[index];
 
                 setData({
                     name: item.name,
@@ -43,7 +49,9 @@ export function useGetGenericItem(type: CategoriesType, id: string) {
                     items: [],
                     rank: -1,
                     price: -1,
-                    amount: item.amount
+                    amount: item.amount,
+                    nonce: item.nonce,
+                    collection: collection
                 });
                 break;
 
