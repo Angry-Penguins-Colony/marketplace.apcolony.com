@@ -18,13 +18,7 @@ export default async function getItemsOffers(req: Request, res: Response, networ
     const offers = (await networkProvider.getOffers(collectionId));
 
     const response = {
-        offers: offers
-            .map(o => {
-                return {
-                    ...o,
-                    ["price"]: o.price.toString(),
-                }
-            }),
+        offers: offers,
         associatedItems: await Promise.all(offers
             .map(o => networkProvider.getItem(getItemFromToken(o.collection, o.nonce))))
     }

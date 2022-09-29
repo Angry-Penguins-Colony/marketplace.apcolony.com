@@ -12,13 +12,7 @@ export default async function getPenguinsOffers(req: Request, res: Response, net
         const offers = (await networkProvider.getOffers(collectionId));
 
         const response = {
-            offers: offers
-                .map(o => {
-                    return {
-                        ...o,
-                        ["price"]: o.price.toString(),
-                    }
-                }),
+            offers: offers,
             associatedItems: await Promise.all(offers
                 .map(async (o) => networkProvider.getPenguinFromNft(await networkProvider.getNft(o.collection, o.nonce))))
         };
