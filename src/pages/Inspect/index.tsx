@@ -16,6 +16,7 @@ import ItemsAndActivities from 'components/Inventory/ItemsAndActivities/ItemsAnd
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { marketplaceContractAddress } from 'config';
 import { buildRouteLinks } from 'routes';
+import useGetOffers from 'sdk/hooks/api/useGetOffers';
 import useInspect from 'sdk/hooks/useInspect';
 import CategoriesType from 'sdk/types/CategoriesType';
 import style from './index.module.scss';
@@ -40,17 +41,21 @@ const Inspect = () => {
 
     const {
         item,
-        isListedByConnected,
         ownedByConnectedWallet,
-        buyableOffers,
-        lowestBuyableOffer,
-        priceListedByUser,
         activities,
         itemAsPenguin,
-        ownedOffers,
         getSellTransaction,
         getRetireTransaction
     } = useInspect(category, id);
+
+    const {
+        buyableOffers,
+        lowestBuyableOffer,
+        priceListedByUser,
+        ownedOffers,
+        isListedByConnected
+    } = useGetOffers(category, id);
+
     const { address: connectedAddress } = useGetAccountInfo();
 
     const [isSellPopupOpen, setIsSellPopupOpen] = React.useState(false);
