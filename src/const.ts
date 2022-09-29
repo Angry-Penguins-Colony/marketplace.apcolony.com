@@ -39,7 +39,7 @@ function getNetworkInfos() {
                 itemsIdentifier: devnetToolDeploy.itemsIdentifier,
                 items: devnetToolDeploy.items,
                 customisationContract: Address.fromBech32(devnetToolDeploy.customizationContractAddress.bech32),
-                marketplaceContract: Address.fromBech32("erd1qqqqqqqqqqqqqpgqm28edutye69fkef8r0rq6u530j2wcuq2v4xqasvh6g"),
+                marketplaceContract: Address.fromBech32("erd1qqqqqqqqqqqqqpgquc2slj56zfknacadtvy36y3uwxpx7s5yv4xq3w7xw3"),
             };
     }
 }
