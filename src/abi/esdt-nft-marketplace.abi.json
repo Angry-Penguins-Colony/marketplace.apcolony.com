@@ -10,7 +10,7 @@
         "contractCrate": {
             "name": "esdt-nft-marketplace",
             "version": "0.0.0",
-            "git_version": "00a106b-modified"
+            "git_version": "fb7d1b3-modified"
         },
         "framework": {
             "name": "elrond-wasm",
@@ -144,6 +144,25 @@
             ]
         },
         {
+            "name": "getBoughtAuctionsOfToken",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "collection",
+                    "type": "TokenIdentifier"
+                },
+                {
+                    "name": "nonce",
+                    "type": "u64"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "List<BoughtAuction>"
+                }
+            ]
+        },
+        {
             "name": "getLastValidAuctionId",
             "mutability": "readonly",
             "inputs": [],
@@ -162,28 +181,6 @@
                     "type": "BigUint"
                 }
             ]
-        },
-        {
-            "name": "bid",
-            "mutability": "mutable",
-            "payableInTokens": [
-                "*"
-            ],
-            "inputs": [
-                {
-                    "name": "auction_id",
-                    "type": "u64"
-                },
-                {
-                    "name": "nft_type",
-                    "type": "TokenIdentifier"
-                },
-                {
-                    "name": "nft_nonce",
-                    "type": "u64"
-                }
-            ],
-            "outputs": []
         },
         {
             "name": "buySft",
@@ -365,6 +362,35 @@
                 {
                     "name": "SftOnePerPayment",
                     "discriminant": 3
+                }
+            ]
+        },
+        "BoughtAuction": {
+            "type": "struct",
+            "fields": [
+                {
+                    "name": "transaction_hash",
+                    "type": "array32<u8>"
+                },
+                {
+                    "name": "price",
+                    "type": "BigUint"
+                },
+                {
+                    "name": "seller",
+                    "type": "Address"
+                },
+                {
+                    "name": "buyer",
+                    "type": "Address"
+                },
+                {
+                    "name": "buy_timestamp",
+                    "type": "u64"
+                },
+                {
+                    "name": "auctioned_tokens",
+                    "type": "EsdtTokenPayment"
                 }
             ]
         },
