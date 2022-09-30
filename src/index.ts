@@ -16,6 +16,7 @@ import getItemsOffers from './routes/items/offers';
 import getActivity from './routes/generic/activity';
 import getPenguinsOffers from './routes/penguins/offers';
 import getOffer from './routes/generic/offer';
+import getItemOffersStats from './routes/items/offersStats';
 
 const workers = parseInt(process.env.WEB_CONCURRENCY || "1");
 const port = process.env.PORT || 5001;
@@ -42,6 +43,7 @@ function start(id: number) {
     app.get("/items/item/:id", (req, res) => getItem(req, res, networkProvider));
     app.get("/items/activity/:id", (req, res) => getActivity(req, res, "items"));
     app.get("/items/offers/:category", (req, res) => getItemsOffers(req, res, networkProvider));
+    app.get("/items/offers/:category/stats", (req, res) => getItemOffersStats(req, res, networkProvider));
     app.get("/items/offer/:id", (req, res) => getOffer(req, res, "items", networkProvider));
     app.get('/items/owned/:bech32', (req, res) => getItems(req, res, networkProvider));
 

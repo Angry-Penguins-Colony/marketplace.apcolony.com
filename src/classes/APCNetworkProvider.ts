@@ -1,4 +1,4 @@
-import { IAddress, IItem, IOffer, IPenguin } from "@apcolony/marketplace-api";
+import { IAddress, IItem, IMarketData, IOffer, IPenguin } from "@apcolony/marketplace-api";
 import { Attributes } from "@apcolony/marketplace-api/out/classes";
 import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
@@ -123,6 +123,23 @@ export class APCNetworkProvider {
         return offers;
     }
 
+    public async getMarketData(collection: string): Promise<IMarketData> {
+
+        const offers = await this.getOffers(collection);
+        const lowestOffer = offers.reduce((prev, curr) => prev.price < curr.price ? prev : curr, offers[0]);
+        const totalPrice = offers.reduce((prev, curr) => prev.plus(curr.price), new BigNumber(0));
+        const averagePrice = totalPrice.div(offers.length);
+
+        console.log(offers);
+
+        return {
+            floorPrice: lowestOffer?.price ?? "0",
+            averagePrice: offers.length > 0 ? averagePrice.toString() : "0",
+            totalListed: offers.length,
+            totalVolume: "-1",
+        }
+    }
+
     private async queryGetAuctionsOfCollection(collection: string) {
         const contract = await this.getMarketplaceSmartContract();
 
@@ -151,8 +168,6 @@ export class APCNetworkProvider {
 
     private offerFromAbi(response: any, id: number) {
         const auctioned_tokens = response.fieldsByName.get("auctioned_tokens");
-
-        console.log(auctioned_tokens.value.fieldsByName.get("token_nonce"));
 
         return {
             id: id,

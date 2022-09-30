@@ -20,6 +20,7 @@
     "try:item": "curl http://localhost:5001/items/7",
     "try:offers:p": " curl http://localhost:5001/penguins/offers",
     "try:offers:i": " curl http://localhost:5001/items/offers/hat",
+    "try:offers:i:stats": " curl http://localhost:5001/items/offers/hat/stats",
     "log:remote": "heroku logs -a apc-marketplace-api-devnet --tail"
   },
   "repository": {
@@ -43,7 +44,7 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "@apcolony/marketplace-api": "^1.0.27",
+    "@apcolony/marketplace-api": "^1.0.28",
     "@elrondnetwork/erdjs": "^10.2.7",
     "@elrondnetwork/erdjs-network-providers": "^0.1.7",
     "@elrondnetwork/erdjs-walletcore": "^1.0.0",
