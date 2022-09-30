@@ -4,5 +4,9 @@ import { sendSuccessfulJSON } from '../../utils/response';
 
 export default async function getActivity(req: Request, res: Response, type: "items" | "penguins") {
 
-    sendSuccessfulJSON(res, []);
+    const id = req.params.id;
+
+    const activities: IActivity[] = [];
+
+    sendSuccessfulJSON(res, activities);
 }
