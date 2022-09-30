@@ -2,7 +2,7 @@ import { IActivity, IAddress, IItem, IMarketData, IOffer, IPenguin } from "@apco
 import { Attributes } from "@apcolony/marketplace-api/out/classes";
 import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
-import { AbiRegistry, Address, ArgSerializer, BytesValue, ContractFunction, Field, NumericalValue, ResultsParser, SmartContract, SmartContractAbi, Struct, U64Value } from "@elrondnetwork/erdjs/out";
+import { AbiRegistry, Address, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, U64Value } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
 import { customisationContract, penguinsCollection, gateway, marketplaceContract } from "../const";
 import { getItemFromName, getTokenFromItemID } from "../utils/dbHelper";
@@ -97,6 +97,7 @@ export class APCNetworkProvider {
 
         const queryResponse = await this.proxyProvider.queryContract(query);
         const endpointDefinition = contract.getEndpoint(contractViewName);
+
         const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition);
 
         const activities = (firstValue as any).backingCollection.items
@@ -150,8 +151,6 @@ export class APCNetworkProvider {
         const totalPrice = offers.reduce((prev, curr) => prev.plus(curr.price), new BigNumber(0));
         const averagePrice = totalPrice.div(offers.length);
 
-        console.log(offers);
-
         return {
             floorPrice: lowestOffer?.price ?? "0",
             averagePrice: offers.length > 0 ? averagePrice.toString() : "0",
@@ -177,9 +176,13 @@ export class APCNetworkProvider {
     }
 
     private activityFromABI(response: any): IActivity {
+
+        const txByteArray = response.fieldsByName.get("transaction_hash").value.backingCollection.items;
+        const tx = Buffer.from(txByteArray).toString("hex");
+
         return {
-            txHash: response.fieldsByName.get("transaction_hash").value.value,
-            price: new BigNumber(response.fieldsByName.get("min_bid").value).div(10 ** 18).toString(),
+            txHash: tx,
+            price: new BigNumber(response.fieldsByName.get("price").value).div(10 ** 18).toString(),
             from: Address.fromHex(response.fieldsByName.get("seller").value.value.valueHex).bech32(),
             to: Address.fromHex(response.fieldsByName.get("buyer").value.value.valueHex).bech32(),
             date: response.fieldsByName.get("buy_timestamp").value.value,
