@@ -99,7 +99,7 @@ export class APCNetworkProvider {
         const endpointDefinition = contract.getEndpoint(contractViewName);
         const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition);
 
-        const activities = (firstValue as any).items
+        const activities = (firstValue as any).backingCollection.items
             .map((o: any) => this.activityFromABI(o));
 
         return activities;
