@@ -1,8 +1,8 @@
-import { IAddress, IItem, IMarketData, IOffer, IPenguin } from "@apcolony/marketplace-api";
+import { IActivity, IAddress, IItem, IMarketData, IOffer, IPenguin } from "@apcolony/marketplace-api";
 import { Attributes } from "@apcolony/marketplace-api/out/classes";
 import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
-import { AbiRegistry, Address, ArgSerializer, BytesValue, ContractFunction, Field, NumericalValue, ResultsParser, SmartContract, SmartContractAbi, Struct } from "@elrondnetwork/erdjs/out";
+import { AbiRegistry, Address, ArgSerializer, BytesValue, ContractFunction, Field, NumericalValue, ResultsParser, SmartContract, SmartContractAbi, Struct, U64Value } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
 import { customisationContract, penguinsCollection, gateway, marketplaceContract } from "../const";
 import { getItemFromName, getTokenFromItemID } from "../utils/dbHelper";
@@ -85,6 +85,26 @@ export class APCNetworkProvider {
         return tokens;
     }
 
+    public async getActivities(collection: string, nonce: number): Promise<IActivity[]> {
+
+        const contract = await this.getMarketplaceSmartContract();
+
+        const contractViewName = "getBoughtAuctionsOfToken";
+        const query = contract.createQuery({
+            func: new ContractFunction(contractViewName),
+            args: [BytesValue.fromUTF8(collection), new U64Value(nonce)],
+        });
+
+        const queryResponse = await this.proxyProvider.queryContract(query);
+        const endpointDefinition = contract.getEndpoint(contractViewName);
+        const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition);
+
+        const activities = (firstValue as any).items
+            .map((o: any) => this.activityFromABI(o));
+
+        return activities;
+    }
+
     public async getCidOf(attributes: Attributes): Promise<string | undefined> {
 
         const res = await this.proxyProvider.queryContract({
@@ -154,6 +174,16 @@ export class APCNetworkProvider {
         const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition);
 
         return (firstValue as any).items;
+    }
+
+    private activityFromABI(response: any): IActivity {
+        return {
+            txHash: response.fieldsByName.get("transaction_hash").value.value,
+            price: new BigNumber(response.fieldsByName.get("min_bid").value).div(10 ** 18).toString(),
+            from: Address.fromHex(response.fieldsByName.get("seller").value.value.valueHex).bech32(),
+            to: Address.fromHex(response.fieldsByName.get("buyer").value.value.valueHex).bech32(),
+            date: response.fieldsByName.get("buy_timestamp").value.value,
+        }
     }
 
     /**
