@@ -183,8 +183,8 @@ export class APCNetworkProvider {
         return {
             txHash: tx,
             price: new BigNumber(response.fieldsByName.get("price").value).div(10 ** 18).toString(),
-            from: Address.fromHex(response.fieldsByName.get("seller").value.value.valueHex).bech32(),
-            to: Address.fromHex(response.fieldsByName.get("buyer").value.value.valueHex).bech32(),
+            seller: Address.fromHex(response.fieldsByName.get("seller").value.value.valueHex).bech32(),
+            buyer: Address.fromHex(response.fieldsByName.get("buyer").value.value.valueHex).bech32(),
             date: response.fieldsByName.get("buy_timestamp").value.value,
         }
     }
