@@ -6,19 +6,19 @@ import { BigNumber } from "bignumber.js";
  */
 export function parseMultiValueIdAuction(response: any): IOffer {
 
-    const id = response.items[0].value;
+    const id = new BigNumber(response.items[0].value).toNumber();
 
     return parseOffer(response.items[1], id);
 }
 
-export function parseOffer(response: any, id: number) {
+export function parseOffer(response: any, id: number): IOffer {
     const auctioned_tokens = response.fieldsByName.get("auctioned_tokens");
 
     return {
         id: id,
-        price: fromBigNumberToString(response.fieldsByName.get("min_bid")),
+        price: priceToBigNumber(response.fieldsByName.get("min_bid")).toString(),
         collection: auctioned_tokens.value.fieldsByName.get("token_identifier").value.value,
-        nonce: auctioned_tokens.value.fieldsByName.get("token_nonce").value.value,
+        nonce: toNumber(auctioned_tokens.value.fieldsByName.get("token_nonce")),
         seller: Address.fromHex(response.fieldsByName.get("original_owner").value.value.valueHex).bech32()
     }
 }
@@ -31,7 +31,7 @@ export function parseActivity(response: any): IActivity {
 
     return {
         txHash: tx,
-        price: fromBigNumberToString(response.fieldsByName.get("price")),
+        price: priceToBigNumber(response.fieldsByName.get("price")).toString(),
         seller: Address.fromHex(response.fieldsByName.get("seller").value.value.valueHex).bech32(),
         buyer: Address.fromHex(response.fieldsByName.get("buyer").value.value.valueHex).bech32(),
         date: response.fieldsByName.get("buy_timestamp").value.value,
@@ -41,15 +41,17 @@ export function parseActivity(response: any): IActivity {
 export function parseMarketData(response: any): IMarketData {
 
     return {
-        averagePrice: fromBigNumberToString(response.fieldsByName.get("average_price")),
-        floorPrice: fromBigNumberToString(response.fieldsByName.get("min_price")),
+        averagePrice: priceToBigNumber(response.fieldsByName.get("average_price")).toString(),
+        floorPrice: priceToBigNumber(response.fieldsByName.get("min_price")).toString(),
         totalListed: response.fieldsByName.get("total_listed").value.value,
-        totalVolume: fromBigNumberToString(response.fieldsByName.get("total_volume")),
+        totalVolume: priceToBigNumber(response.fieldsByName.get("total_volume")).toString(),
     }
 }
 
-function fromBigNumberToString(response: any): string {
-    const bigNumber = new BigNumber(response.value.value).div("1e18");
+function priceToBigNumber(response: any): BigNumber {
+    return new BigNumber(response.value.value).div("1e18");
+}
 
-    return bigNumber.toString();
+function toNumber(response: any): number {
+    return new BigNumber(response.value.value).toNumber();
 }
