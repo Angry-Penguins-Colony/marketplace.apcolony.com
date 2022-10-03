@@ -9,6 +9,7 @@ import { getItemFromName, getTokenFromItemID } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
 import { BigNumber } from "bignumber.js";
+import { parseActivity, parseMultiValueIdAuction } from "./ABIParser";
 
 /**
  * We create this function because a lot of methods of ProxyNetworkProvider are not implemented yet.
@@ -101,7 +102,7 @@ export class APCNetworkProvider {
         const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition);
 
         const activities = (firstValue as any).backingCollection.items
-            .map((o: any) => this.activityFromABI(o));
+            .map((o: any) => parseActivity(o));
 
         return activities;
     }
@@ -136,10 +137,23 @@ export class APCNetworkProvider {
 
     public async getOffers(collection: string): Promise<IOffer[]> {
 
-        const reponseOffers = await this.queryGetAuctionsOfCollection(collection);
+        const contract = await this.getMarketplaceSmartContract();
+
+        const contractViewName = "getAuctionsOfCollection";
+        const query = contract.createQuery({
+            func: new ContractFunction(contractViewName),
+            args: [BytesValue.fromUTF8(collection)],
+        });
+
+        const queryResponse = await this.proxyProvider.queryContract(query);
+        const endpointDefinition = contract.getEndpoint(contractViewName);
+        const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition);
+
+
+        const reponseOffers = (firstValue as any).items;
 
         const offers = reponseOffers
-            .map((o: any) => this.offerFromMultiValueABI(o));
+            .map((o: any) => parseMultiValueIdAuction(o));
 
         return offers;
     }
@@ -159,59 +173,6 @@ export class APCNetworkProvider {
         }
     }
 
-    private async queryGetAuctionsOfCollection(collection: string) {
-        const contract = await this.getMarketplaceSmartContract();
-
-        const contractViewName = "getAuctionsOfCollection";
-        const query = contract.createQuery({
-            func: new ContractFunction(contractViewName),
-            args: [BytesValue.fromUTF8(collection)],
-        });
-
-        const queryResponse = await this.proxyProvider.queryContract(query);
-        const endpointDefinition = contract.getEndpoint(contractViewName);
-        const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition);
-
-        return (firstValue as any).items;
-    }
-
-    private activityFromABI(response: any): IActivity {
-
-        const txByteArray = response.fieldsByName.get("transaction_hash").value.backingCollection.items;
-        const tx = Buffer.from(txByteArray).toString("hex");
-
-        return {
-            txHash: tx,
-            price: new BigNumber(response.fieldsByName.get("price").value).div(10 ** 18).toString(),
-            seller: Address.fromHex(response.fieldsByName.get("seller").value.value.valueHex).bech32(),
-            buyer: Address.fromHex(response.fieldsByName.get("buyer").value.value.valueHex).bech32(),
-            date: response.fieldsByName.get("buy_timestamp").value.value,
-        }
-    }
-
-    /**
-     * @params response: MultiValue2<u64, Auction>
-     */
-    private offerFromMultiValueABI(response: any): IOffer {
-
-        const id = response.items[0].value;
-
-        return this.offerFromAbi(response.items[1], id);
-    }
-
-    private offerFromAbi(response: any, id: number) {
-        const auctioned_tokens = response.fieldsByName.get("auctioned_tokens");
-
-        return {
-            id: id,
-            price: new BigNumber(response.fieldsByName.get("min_bid").value).div(10 ** 18).toString(),
-            collection: auctioned_tokens.value.fieldsByName.get("token_identifier").value.value,
-            nonce: auctioned_tokens.value.fieldsByName.get("token_nonce").value.value,
-            seller: Address.fromHex(response.fieldsByName.get("original_owner").value.value.valueHex).bech32()
-        }
-    }
-
-
     private async getMarketplaceSmartContract() {
         let jsonContent: string = await promises.readFile("src/abi/esdt-nft-marketplace.abi.json", { encoding: "utf8" });
         let json = JSON.parse(jsonContent);
@@ -222,7 +183,7 @@ export class APCNetworkProvider {
         return contract;
     }
 
-    async getPenguinFromNft(nft: APCNft): Promise<IPenguin> {
+    private async getPenguinFromNft(nft: APCNft): Promise<IPenguin> {
 
         if (nft.assets[0] == undefined) throw new Error(`No CID linked to the nft ${nft.identifier}`);
         if (!nft.owner) throw new Error("Missing owner on NFT");
