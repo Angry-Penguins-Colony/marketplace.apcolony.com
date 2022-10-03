@@ -1,4 +1,4 @@
-import { IOffer, IActivity } from "@apcolony/marketplace-api";
+import { IOffer, IActivity, IMarketData } from "@apcolony/marketplace-api";
 import { Address } from "@elrondnetwork/erdjs/out";
 import { BigNumber } from "bignumber.js";
 /**
@@ -16,7 +16,7 @@ export function parseOffer(response: any, id: number) {
 
     return {
         id: id,
-        price: new BigNumber(response.fieldsByName.get("min_bid").value).div(10 ** 18).toString(),
+        price: fromBigNumberToString(response.fieldsByName.get("min_bid")),
         collection: auctioned_tokens.value.fieldsByName.get("token_identifier").value.value,
         nonce: auctioned_tokens.value.fieldsByName.get("token_nonce").value.value,
         seller: Address.fromHex(response.fieldsByName.get("original_owner").value.value.valueHex).bech32()
@@ -31,9 +31,25 @@ export function parseActivity(response: any): IActivity {
 
     return {
         txHash: tx,
-        price: new BigNumber(response.fieldsByName.get("price").value).div(10 ** 18).toString(),
+        price: fromBigNumberToString(response.fieldsByName.get("price")),
         seller: Address.fromHex(response.fieldsByName.get("seller").value.value.valueHex).bech32(),
         buyer: Address.fromHex(response.fieldsByName.get("buyer").value.value.valueHex).bech32(),
         date: response.fieldsByName.get("buy_timestamp").value.value,
     }
+}
+
+export function parseMarketData(response: any): IMarketData {
+
+    return {
+        averagePrice: fromBigNumberToString(response.fieldsByName.get("average_price")),
+        floorPrice: fromBigNumberToString(response.fieldsByName.get("min_price")),
+        totalListed: response.fieldsByName.get("total_listed").value.value,
+        totalVolume: fromBigNumberToString(response.fieldsByName.get("total_volume")),
+    }
+}
+
+function fromBigNumberToString(response: any): string {
+    const bigNumber = new BigNumber(response.value.value).div("1e18");
+
+    return bigNumber.toString();
 }

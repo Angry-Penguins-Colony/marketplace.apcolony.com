@@ -12,6 +12,7 @@
     "build": "tsc --build",
     "update:sdk": "npm i @apcolony/marketplace-api@latest",
     "update:sdk:local": "npm i ../../packages/sdk-marketplace-api",
+    "update:abi": "copy \\\\wsl$\\Ubuntu-20.04\\home\\lortedo\\angry-penguins-wsl\\sc-nft-marketplace\\esdt-nft-marketplace\\output\\esdt-nft-marketplace.abi.json src\\abi\\esdt-nft-marketplace.abi.json",
     "version:sdk": "npm list --depth=0 | findstr @apcolony/marketplace-api",
     "try:penguins": "curl http://localhost:5001/erd1tcj6pdcknflmaehxeq6dh8grf3l9l6xlyd5ycgj27ahmc368v4xqw5lcw5/penguins",
     "try:eggs": "curl http://localhost:3576/erd1tcj6pdcknflmaehxeq6dh8grf3l9l6xlyd5ycgj27ahmc368v4xqw5lcw5/eggs",

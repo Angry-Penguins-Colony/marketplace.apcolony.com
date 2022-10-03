@@ -9,7 +9,7 @@ import { getItemFromName, getTokenFromItemID } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
 import { BigNumber } from "bignumber.js";
-import { parseActivity, parseMultiValueIdAuction } from "./ABIParser";
+import { parseActivity, parseMarketData, parseMultiValueIdAuction } from "./ABIParser";
 
 /**
  * We create this function because a lot of methods of ProxyNetworkProvider are not implemented yet.
@@ -160,17 +160,20 @@ export class APCNetworkProvider {
 
     public async getMarketData(collection: string): Promise<IMarketData> {
 
-        const offers = await this.getOffers(collection);
-        const lowestOffer = offers.reduce((prev, curr) => prev.price < curr.price ? prev : curr, offers[0]);
-        const totalPrice = offers.reduce((prev, curr) => prev.plus(curr.price), new BigNumber(0));
-        const averagePrice = totalPrice.div(offers.length);
 
-        return {
-            floorPrice: lowestOffer?.price ?? "0",
-            averagePrice: offers.length > 0 ? averagePrice.toString() : "0",
-            totalListed: offers.length,
-            totalVolume: "-1",
-        }
+        const contract = await this.getMarketplaceSmartContract();
+
+        const contractViewName = "getMarketData";
+        const query = contract.createQuery({
+            func: new ContractFunction(contractViewName),
+            args: [BytesValue.fromUTF8(collection)],
+        });
+
+        const queryResponse = await this.proxyProvider.queryContract(query);
+        const endpointDefinition = contract.getEndpoint(contractViewName);
+        const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition);
+
+        return parseMarketData(firstValue);
     }
 
     private async getMarketplaceSmartContract() {
@@ -183,7 +186,7 @@ export class APCNetworkProvider {
         return contract;
     }
 
-    private async getPenguinFromNft(nft: APCNft): Promise<IPenguin> {
+    public async getPenguinFromNft(nft: APCNft): Promise<IPenguin> {
 
         if (nft.assets[0] == undefined) throw new Error(`No CID linked to the nft ${nft.identifier}`);
         if (!nft.owner) throw new Error("Missing owner on NFT");

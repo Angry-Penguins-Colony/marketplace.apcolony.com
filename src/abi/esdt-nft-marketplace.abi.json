@@ -10,7 +10,7 @@
         "contractCrate": {
             "name": "esdt-nft-marketplace",
             "version": "0.0.0",
-            "git_version": "fb7d1b3-modified"
+            "git_version": "284cb6d-modified"
         },
         "framework": {
             "name": "elrond-wasm",
@@ -278,6 +278,21 @@
             "mutability": "mutable",
             "inputs": [],
             "outputs": []
+        },
+        {
+            "name": "getMarketData",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "collection",
+                    "type": "TokenIdentifier"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "MarketData"
+                }
+            ]
         }
     ],
     "events": [],
@@ -407,6 +422,27 @@
                 },
                 {
                     "name": "amount",
+                    "type": "BigUint"
+                }
+            ]
+        },
+        "MarketData": {
+            "type": "struct",
+            "fields": [
+                {
+                    "name": "min_price",
+                    "type": "BigUint"
+                },
+                {
+                    "name": "average_price",
+                    "type": "BigUint"
+                },
+                {
+                    "name": "total_listed",
+                    "type": "u64"
+                },
+                {
+                    "name": "total_volume",
                     "type": "BigUint"
                 }
             ]
