@@ -11,6 +11,7 @@ import { RenderPayloadBuilder } from 'sdk/transactionsBuilders/render/RenderPayl
 import { PenguinItemsIdentifier, Utils as PenguinItemsIdentifierUtils } from 'sdk/types/PenguinItemsIdentifier';
 import useGetAttributesStatus from './api/useGetAttributesStatus';
 import { useGetOwnedItems, useGetOwnedPenguins } from './api/useGetOwned';
+import useGetUserOwnedAmount from './api/useGetUserOwnedAmount';
 
 function useCustomization(selectedPenguinNonce: number, initialItemsIdentifier?: PenguinItemsIdentifier) {
 
@@ -20,6 +21,8 @@ function useCustomization(selectedPenguinNonce: number, initialItemsIdentifier?:
 
     const ownedItems = useGetOwnedItems();
     const ownedPenguins = useGetOwnedPenguins();
+
+    const ownedAmount = useGetUserOwnedAmount();
 
     const equippedItems = parseAttributes(equippedItemsIdentifier);
     const { attributesStatus } = useGetAttributesStatus(equippedItems);
@@ -53,6 +56,7 @@ function useCustomization(selectedPenguinNonce: number, initialItemsIdentifier?:
         attributesStatus,
         selectedPenguin,
         hasSomeModifications: isModified(),
+        ownedItemsAmount: ownedAmount?.items,
     }
 
     function isSlotModified(slot: string) {

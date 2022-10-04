@@ -48,6 +48,7 @@ const Customize = () => {
         attributesStatus,
         hasSomeModifications,
         selectedPenguin,
+        ownedItemsAmount
     } = useCustomization(selectedPenguinNonce, initialAttributes);
 
     const {
@@ -99,6 +100,7 @@ const Customize = () => {
                 items={itemsInPopup}
                 disableSelection={!editingEnabled}
                 selectedItemsIdentifier={selectedItemsInPopup}
+                ownedItemsAmount={ownedItemsAmount ?? {}}
                 onItemClick={onItemClick}
                 select={() => { setItemsPopupIsOpen(false); }}
                 changeType={(type) => {

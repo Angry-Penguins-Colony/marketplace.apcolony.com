@@ -12,6 +12,7 @@ const PopupFromBottom = (
         type,
         items,
         isOpen = false,
+        ownedItemsAmount,
         selectedItemsIdentifier: selectedItems,
         disableSelection = false,
         onItemClick = function () {
@@ -27,6 +28,7 @@ const PopupFromBottom = (
         title: string;
         type: string;
         items: IItem[],
+        ownedItemsAmount: Record<string, number>,
         selectedItemsIdentifier: Record<string, string | undefined>,
         isOpen?: boolean;
         onItemClick?: (item: IItem) => void;
@@ -76,7 +78,7 @@ const PopupFromBottom = (
 
                             return (
                                 <SelectableItem
-                                    count={item.amount ?? 0}
+                                    count={ownedItemsAmount[item.id] ?? 0}
                                     name={item.name}
                                     renderImageSrc={ipfsGateway + item.renderCID}
                                     key={item.identifier}

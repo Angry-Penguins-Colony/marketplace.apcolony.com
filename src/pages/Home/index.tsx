@@ -1,9 +1,9 @@
 import * as React from 'react';
-import BigNumber from 'bignumber.js';
 import Button from 'components/Abstract/Button/Button';
 import { BigCategory } from 'components/Navigation/BigCategory/BigCategory';
 import { CategoryItem } from 'components/Navigation/CategoryItem/CategoryItem';
 import { GenericItemExplorer } from 'components/Navigation/GenericItemExplorer';
+import { ipfsGateway } from 'config';
 import { buildRouteLinks, routeNames } from 'routes';
 import useGetExploreItems from 'sdk/hooks/api/useGetExploreItems';
 import CategoriesType from 'sdk/types/CategoriesType';
@@ -71,28 +71,29 @@ const Home = () => {
           <BigCategory title="Items" backgroundImg="/img/items_category.png" link="TODO: add link" /> */}
         </div>
       </section>
-      <section className={style['explore-all']}>
-        <h2>Explore</h2>
-        <div className={style.content}>
-          {
-            exploreItems.map(item => (
-              <GenericItemExplorer
-                key={item.id}
-                thumbnail={item.thumbnail}
-                name={item.name}
-                floorPrice={new BigNumber(item.floorPrice ?? 0)}
-                count={item.amount}
-                onClick={() => {
-                  window.location.href = buildRouteLinks.inspect(item.type, item.id);
-                }}
-              />
-            ))
-          }
-        </div>
-        <div className={style.control}>
-          <Button type='normal' className={style.button}>View all</Button>
-        </div>
-      </section>
+      {
+        exploreItems &&
+        <section className={style['explore-all']}>
+          <h2>Explore</h2>
+          <div className={style.content}>
+            {
+              exploreItems.map(item => (
+                <GenericItemExplorer
+                  key={item.id}
+                  thumbnail={ipfsGateway + item.thumbnailCID}
+                  name={item.name}
+                  onClick={() => {
+                    window.location.href = buildRouteLinks.inspect(item.type, item.id);
+                  }}
+                />
+              ))
+            }
+          </div>
+          <div className={style.control}>
+            <Button type='normal' className={style.button}>View all</Button>
+          </div>
+        </section>
+      }
       <section className={style['customize-your-penguins']}>
         <h2>Customize your<br />penguins !!!</h2>
         <p className={style.subtitle}>Make them unique with<br /> over a 100+ items</p>
