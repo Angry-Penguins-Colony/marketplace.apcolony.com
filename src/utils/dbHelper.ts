@@ -32,3 +32,22 @@ export function getItemFromName(name: string, slot: string) {
 
     return item;
 }
+
+export function getRandomItem() {
+    const item = items[Math.floor(Math.random() * items.length)];
+
+    return item;
+}
+
+export function getRandomItems(count: number) {
+    const _items = Array.from(items);
+    const output = [];
+
+    for (let i = 0; i < count; i++) {
+        const index = Math.floor(Math.random() * _items.length);
+        output.push(_items[index]);
+        _items.splice(index, 1);
+    }
+
+    return output;
+}
