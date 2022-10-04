@@ -64,3 +64,7 @@ export function getIdFromPenguinName(name: string): number {
 
     return id;
 }
+
+export function getNameFromPenguinId(id: string | number): string {
+    return `Penguin #${id}`;
+}

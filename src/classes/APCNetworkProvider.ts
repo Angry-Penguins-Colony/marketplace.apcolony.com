@@ -6,7 +6,7 @@ import { AbiRegistry, Address, ArgSerializer, BytesValue, ContractFunction, Resu
 import { promises } from "fs";
 import { customisationContract, penguinsCollection, gateway, marketplaceContract } from "../const";
 import { getItemFromName, getTokenFromItemID } from "../utils/dbHelper";
-import { extractCIDFromIPFS, getIdFromPenguinName, parseAttributes, splitCollectionAndNonce } from "../utils/string";
+import { extractCIDFromIPFS, getIdFromPenguinName, getNameFromPenguinId, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
 import { BigNumber } from "bignumber.js";
 import { parseActivity, parseMarketData, parseMultiValueIdAuction } from "./ABIParser";
@@ -42,20 +42,27 @@ export class APCNetworkProvider {
     }
 
     public async getPenguinFromId(id: string): Promise<IPenguin> {
-        const nfts = await this.getNfts(penguinsCollection);
+        const nfts = await this.getNfts(penguinsCollection, {
+            name: id,
+            withOwner: true
+        });
 
-        const nft = nfts.find(nft => getIdFromPenguinName(nft.name).toString() == id);
+        if (nfts.length == 0) throw new Error(`Penguin ${id} not found`);
+        if (nfts.length > 1) throw new Error(`Found ${nfts.length} penguins with the name ${getNameFromPenguinId(id)}.`);
 
-        if (nft == undefined) throw new Error(`Penguin ${id} not found`);
-
-        return this.getPenguinFromNft(await this.getNft(nft.collection, nft.nonce));
+        return this.getPenguinFromNft(nfts[0]);
     }
 
     /**
      * The API doesn't return owner
      */
-    public async getNfts(collection: string): Promise<APCNft[]> {
-        const res = await this.apiProvider.doGetGeneric(`collections/${collection}/nfts`);
+    public async getNfts(collection: string, args: { name?: string, withOwner?: boolean } = {}): Promise<APCNft[]> {
+
+        const p = new URLSearchParams();
+        if (args.name) p.append("name", args.name);
+        if (args.withOwner) p.append("withOwner", "true");
+
+        const res = await this.apiProvider.doGetGeneric(`collections/${collection}/nfts?${p.toString()}`);
 
         const nfts = Array.from(res)
             .map((raw: any) => APCNft.fromApiHttpResponse(raw));
