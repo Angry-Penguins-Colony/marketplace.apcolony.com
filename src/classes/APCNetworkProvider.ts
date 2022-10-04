@@ -40,12 +40,12 @@ export class APCNetworkProvider {
         return tokenData;
     }
 
-    public async getPenguinFromId(id: string): Promise<IPenguin | undefined> {
+    public async getPenguinFromId(id: string): Promise<IPenguin> {
         const nfts = await this.getNfts(penguinsCollection);
 
         const nft = nfts.find(nft => getIdFromPenguinName(nft.name).toString() == id);
 
-        if (nft == undefined) return undefined;
+        if (nft == undefined) throw new Error(`Penguin ${id} not found`);
 
         return this.getPenguinFromNft(await this.getNft(nft.collection, nft.nonce));
     }

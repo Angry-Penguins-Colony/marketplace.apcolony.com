@@ -4,6 +4,7 @@ export const devnetToolDeploy = {
         "pubkey": "0000000000000000050090fa8dfd55fadd99a48745e19744753f5a5ab1b5654c"
     },
     "penguinsIdentifier": "PENGUINS-a9d2f5",
+    "penguinsCount": 2,
     "itemsIdentifier": {
         "background": "BACKGROUND-591366",
         "beak": "BEAK-21d7ed",

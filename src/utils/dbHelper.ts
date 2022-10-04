@@ -1,5 +1,5 @@
 import { IItem } from "@apcolony/marketplace-api";
-import { items } from "../const";
+import { items, penguinsCount } from "../const";
 import item from "../routes/items/item";
 import { splitCollectionAndNonce } from "./string";
 
@@ -50,4 +50,24 @@ export function getRandomItems(count: number) {
     }
 
     return output;
+}
+
+export function getRandomsPenguinsIds(count: number): string[] {
+
+    if (count > penguinsCount) {
+        throw new Error(`Penguins count is ${penguinsCount} and you want ${count} penguins`);
+    }
+
+
+    const ids: number[] = [];
+
+    while (ids.length < count) {
+        const randomId = Math.floor(Math.random() * penguinsCount) + 1;
+
+        if (ids.includes(randomId)) continue;
+
+        ids.push(randomId);
+    }
+
+    return ids.map(id => id.toString());
 }
