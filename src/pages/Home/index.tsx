@@ -2,8 +2,10 @@ import * as React from 'react';
 import Button from 'components/Abstract/Button/Button';
 import { BigCategory } from 'components/Navigation/BigCategory/BigCategory';
 import { CategoryItem } from 'components/Navigation/CategoryItem/CategoryItem';
-import { ItemOrPenguininExplorer } from 'components/Navigation/ItemOrPenguininExplorer/ItemOrPenguininExplorer';
+import { GenericItemExplorer } from 'components/Navigation/GenericItemExplorer';
+import { ipfsGateway } from 'config';
 import { buildRouteLinks, routeNames } from 'routes';
+import useGetExploreItems from 'sdk/hooks/api/useGetExploreItems';
 import CategoriesType from 'sdk/types/CategoriesType';
 import style from './index.module.scss';
 
@@ -17,79 +19,13 @@ interface ItemOrPenguin {
 }
 
 const Home = () => {
-  const [exploreItems, setExploreItems] = React.useState<ItemOrPenguin[]>([]);
   const [highlightedItem, setHighlightedItem] = React.useState<ItemOrPenguin | undefined>(undefined);
+
+  const exploreItems = useGetExploreItems();
 
   React.useEffect(() => {
     // simulate API call
     setTimeout(() => {
-      setExploreItems([
-        {
-          id: '1',
-          type: 'penguins',
-          thumbnail: 'https://media.elrond.com/nfts/asset/QmcWbrFLTHN6DTTHdcwJPoVikk5htHBdB3eEB5EJ4eN8nU',
-          name: 'Penguin #0155',
-          price: 5,
-          count: 1
-        },
-        {
-          id: '2',
-          type: 'items',
-          thumbnail: 'https://apc.mypinata.cloud/ipfs/QmXWgGiuJrQmny1DPuwqqGyhewK2nDz1V5MUvVyJsBy2Vd',
-          name: 'Captain\s cap',
-          price: 1.2,
-          count: 15
-        },
-        {
-          id: '3',
-          type: 'items',
-          thumbnail: 'https://apc.mypinata.cloud/ipfs/QmckAEkwJuLv2FEvoXjpvpjtBaMxDxv2YT3CTTSYhwp2WS',
-          name: 'beak spe',
-          price: 3.5,
-          count: 1
-        },
-        {
-          id: '4',
-          type: 'penguins',
-          thumbnail: 'https://media.elrond.com/nfts/asset/QmcWbrFLTHN6DTTHdcwJPoVikk5htHBdB3eEB5EJ4eN8nU',
-          name: 'Penguin #0155',
-          price: 5,
-          count: 1
-        },
-        {
-          id: '5',
-          type: 'items',
-          thumbnail: 'https://apc.mypinata.cloud/ipfs/QmXWgGiuJrQmny1DPuwqqGyhewK2nDz1V5MUvVyJsBy2Vd',
-          name: 'Captain\s cap',
-          price: 1.2,
-          count: 15
-        },
-        {
-          id: '6',
-          type: 'items',
-          thumbnail: 'https://apc.mypinata.cloud/ipfs/QmckAEkwJuLv2FEvoXjpvpjtBaMxDxv2YT3CTTSYhwp2WS',
-          name: 'beak spe',
-          price: 3.5,
-          count: 1
-        },
-        {
-          id: '7',
-          type: 'penguins',
-          thumbnail: 'https://media.elrond.com/nfts/asset/QmcWbrFLTHN6DTTHdcwJPoVikk5htHBdB3eEB5EJ4eN8nU',
-          name: 'Penguin #0155',
-          price: 5,
-          count: 1
-        },
-        {
-          id: '8',
-          type: 'items',
-          thumbnail: 'https://apc.mypinata.cloud/ipfs/QmXWgGiuJrQmny1DPuwqqGyhewK2nDz1V5MUvVyJsBy2Vd',
-          name: 'Captain\s cap',
-          price: 1.2,
-          count: 15
-        }
-      ]);
-
       setHighlightedItem({
         id: '1',
         type: 'items',
@@ -135,28 +71,29 @@ const Home = () => {
           <BigCategory title="Items" backgroundImg="/img/items_category.png" link="TODO: add link" /> */}
         </div>
       </section>
-      <section className={style['explore-all']}>
-        <h2>Explore</h2>
-        <div className={style.content}>
-          {
-            exploreItems.map(item => (
-              <ItemOrPenguininExplorer
-                key={item.id}
-                thumbnail={item.thumbnail}
-                name={item.name}
-                price={item.price}
-                count={item.count}
-                onClick={() => {
-                  window.location.href = buildRouteLinks.inspect(item.type, item.id);
-                }}
-              />
-            ))
-          }
-        </div>
-        <div className={style.control}>
-          <Button type='normal' className={style.button}>View all</Button>
-        </div>
-      </section>
+      {
+        exploreItems &&
+        <section className={style['explore-all']}>
+          <h2>Explore</h2>
+          <div className={style.content}>
+            {
+              exploreItems.map(item => (
+                <GenericItemExplorer
+                  key={item.id}
+                  thumbnail={ipfsGateway + item.thumbnailCID}
+                  name={item.name}
+                  onClick={() => {
+                    window.location.href = buildRouteLinks.inspect(item.type, item.id);
+                  }}
+                />
+              ))
+            }
+          </div>
+          <div className={style.control}>
+            <Button type='normal' className={style.button}>View all</Button>
+          </div>
+        </section>
+      }
       <section className={style['customize-your-penguins']}>
         <h2>Customize your<br />penguins !!!</h2>
         <p className={style.subtitle}>Make them unique with<br /> over a 100+ items</p>

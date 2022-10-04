@@ -14,4 +14,8 @@ export default class Explorer {
     public getAddress(address: IAddress) {
         return this.url + 'accounts/' + address.bech32();
     }
+
+    public getTransaction(hash: string) {
+        return this.url + 'transactions/' + hash;
+    }
 }

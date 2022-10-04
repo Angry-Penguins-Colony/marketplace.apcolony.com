@@ -7,6 +7,7 @@ import { Item } from 'components/Inventory/Item/Item';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { ipfsGateway } from 'config';
 import { buildRouteLinks } from 'routes';
+import useGetMarketData from 'sdk/hooks/api/useGetMarketData';
 import useGetOffersOfCategory from 'sdk/hooks/api/useGetOffersOfCategory';
 import MarketData from '../../components/Inventory/MarketData';
 import defaultPenguinImg from './../../assets/img/penguin_default.png';
@@ -20,15 +21,7 @@ const CategoriesOffers = () => {
 
     const title = category;
     const offersReponses = useGetOffersOfCategory(category);
-
-    // get marketplace data by api call
-    const [marketplace] = React.useState({
-        floorPrice: -1,
-        totalVolume: -1,
-        averagePrice: -1,
-        totalListed: -1,
-        description: 'description is unset yet'
-    });
+    const marketData = useGetMarketData(category);
 
 
     const [offers, setOffers] = React.useState<IItem[] | undefined>(undefined);
@@ -53,8 +46,15 @@ const CategoriesOffers = () => {
             }></div>
             <div className={style.icon + (category == 'penguins' ? ' ' + style.penguins : '')}><img src={category == 'penguins' ? '/img/icon/penguin_picture.png' : '/img/icon/' + category + '_unicolor_icon.svg'} alt={category} /></div>
             <h1>{title}</h1>
-            <MarketData floorPrice={marketplace.floorPrice} totalVolume={marketplace.totalVolume} averagePrice={marketplace.averagePrice} totalListed={marketplace.totalListed} />
-            <p className={style.description}>{marketplace.description}</p>
+            {marketData &&
+                <MarketData
+                    floorPrice={parseInt(marketData.floorPrice)}
+                    totalVolume={parseInt(marketData.totalVolume)}
+                    averagePrice={parseInt(marketData.averagePrice)}
+                    totalListed={marketData.totalListed}
+                />
+            }
+            <p className={style.description}></p>
             <div className={style.labels}>
                 <UnderlineNavElmt name={'Offers'} isActive={true} />
             </div>

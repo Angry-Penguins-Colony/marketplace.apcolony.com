@@ -1,11 +1,12 @@
 import * as React from 'react';
+import { IGenericElement, IPenguin } from '@apcolony/marketplace-api';
 import Button from 'components/Abstract/Button/Button';
 import CrossIcon from 'components/Icons/CrossIcon';
 import { Item } from 'components/Inventory/Item/Item';
 import SetPrice from 'components/Inventory/SetPrice/SetPrice';
+import { ipfsGateway } from 'config';
 import Price from 'sdk/classes/Price';
 import CategoriesType from 'sdk/types/CategoriesType';
-import { GenericItem } from 'sdk/types/GenericItem';
 import style from './BuyingPopup.module.scss';
 
 const BuyingPopup = (
@@ -20,7 +21,7 @@ const BuyingPopup = (
         visible?: boolean;
         onClose: () => void;
         onSell: (price: Price) => void;
-        item: GenericItem;
+        item: IGenericElement;
         floorPrice: Price;
         type: CategoriesType;
     }
@@ -48,7 +49,7 @@ const BuyingPopup = (
                                 <CrossIcon className={style.icon} />
                             </div>
                                 <h2>Sell item</h2>
-                                <img src={item.thumbnail} alt={item.name} />
+                                <img src={ipfsGateway + item.thumbnailCID} alt={item.name} />
                                 <div className={style.infos}>
                                     <div className={style.line}>
                                         <div className={style.label}>Item Id</div>
@@ -65,7 +66,7 @@ const BuyingPopup = (
                             </div>
                                 <h2>Checkout</h2>
                                 <div className={style.infos}>
-                                    <img src={item.thumbnail} alt={item.name} />
+                                    <img src={ipfsGateway + item.thumbnailCID} alt={item.name} />
                                     <div className={style.infos}>
                                         <div className={style.line}>
                                             <div className={style.label}>Penguin ID</div>
@@ -76,7 +77,7 @@ const BuyingPopup = (
                                 <div className={style['items-attached']}>
                                     <h3>Items attached to the penguin</h3>
                                     <div className={style.content}>
-                                        {item.items.map((aItem: any) => {
+                                        {Object.values((item as IPenguin).equippedItems).map((aItem: any) => {
                                             return (
                                                 <Item key={aItem.id} item={aItem} />
                                             );

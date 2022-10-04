@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IOffer } from '@apcolony/marketplace-api';
+import { IOffer, IPenguin } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
@@ -14,10 +14,11 @@ import ShowOffersPopup from 'components/Foreground/Popup/ShowOffersPopup';
 import ShareIcon from 'components/Icons/ShareIcon';
 import ItemsAndActivities from 'components/Inventory/ItemsAndActivities/ItemsAndActivities';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import { marketplaceContractAddress } from 'config';
+import { ipfsGateway, marketplaceContractAddress } from 'config';
 import { buildRouteLinks } from 'routes';
 import Price from 'sdk/classes/Price';
 import useGetOffers from 'sdk/hooks/api/useGetOffers';
+import useGetUserOwnedAmount from 'sdk/hooks/api/useGetUserOwnedAmount';
 import useInspect from 'sdk/hooks/useInspect';
 import BuyOfferTransactionBuilder from 'sdk/transactionsBuilders/buy/BuyOfferTransactionBuilder';
 import CategoriesType from 'sdk/types/CategoriesType';
@@ -61,8 +62,13 @@ const Inspect = () => {
     const [isSellPopupOpen, setIsSellPopupOpen] = React.useState(false);
     const [isOffersPopupOpen, setIsOffersPopupOpen] = React.useState(false);
 
+
+    const userInventory = useGetUserOwnedAmount();
+    const itemOwnedAmount = userInventory && userInventory[category][id];
+
     const ownedByConnectedWallet = (() => {
-        if (item != undefined && item.amount != undefined && item.amount > 0) {
+
+        if (item != undefined && itemOwnedAmount != undefined && itemOwnedAmount > 0) {
             return true;
         }
         else if (ownedOffers != undefined) {
@@ -82,7 +88,7 @@ const Inspect = () => {
         <div id={style['item-in-inventory']}>
             <MobileHeader title={typeInText.plural} type='light' />
             <div className={style.thumbnail}>
-                <img src={item?.thumbnail ?? ''} alt={item?.name ?? 'loading item'} />
+                <img src={item ? (ipfsGateway + item.thumbnailCID) : ''} alt={item?.name ?? 'loading item'} />
             </div>
             <div className={style.infos}>
                 <p className={style.name}>{item?.name ?? '---'}</p>
@@ -119,7 +125,7 @@ const Inspect = () => {
                 {ownedByConnectedWallet == true &&
                     <>
                         {
-                            (item && item.amount != undefined && item.amount > 0) &&
+                            (itemOwnedAmount != undefined && itemOwnedAmount > 0) &&
                             <div>
                                 <Button type='normal' onClick={() => { setIsSellPopupOpen(true) }}>
                                     Sell {typeInText.singular}
@@ -169,7 +175,10 @@ const Inspect = () => {
                 }
             </div>
             <hr />
-            <ItemsAndActivities items={item?.items ?? []} activities={activities} className={style.activity} />
+            <ItemsAndActivities
+                items={(item != undefined && category == 'penguins') ? Object.values((item as IPenguin).equippedItems) : []}
+                activities={activities}
+                className={style.activity} />
 
             {
                 (item) &&
@@ -235,21 +244,23 @@ const Inspect = () => {
         switch (category) {
             case 'penguins':
 
+                const p = item as IPenguin;
+
                 return <div className={style['owned-property']}>
                     <p className={style['owned-property-text']}>
                         {
                             (() => {
-                                if (!item.owner) return;
+                                if (!p.owner) return;
 
-                                if (item.owner == marketplaceContractAddress.bech32()) {
+                                if (p.owner == marketplaceContractAddress.bech32()) {
                                     return <>For sale</>;
                                 }
                                 else {
                                     return <>
                                         Owned by {
-                                            item.owner == connectedAddress ?
+                                            p.owner == connectedAddress ?
                                                 'me' :
-                                                <AddressWrapper address={Address.fromBech32(item.owner)} />
+                                                <AddressWrapper address={Address.fromBech32(p.owner)} />
                                         }
                                     </>;
                                 }
@@ -261,7 +272,7 @@ const Inspect = () => {
 
             case 'items':
                 return isConnected && <>
-                    <span className={style.primary}>{item?.amount ?? '--'}</span> owned<br />
+                    <span className={style.primary}>{itemOwnedAmount ?? '--'}</span> owned<br />
                     <span className={style.primary}>{ownedOffers?.length ?? '--'}</span> on sale by you
                 </>
 

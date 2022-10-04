@@ -2,6 +2,7 @@ import * as React from 'react';
 import { IActivity, IItem } from '@apcolony/marketplace-api';
 import UnderlineNavElmt from 'components/Abstract/UnderlineNavElmt/UnderlineNavElmt';
 import RightArrowIcon from 'components/Icons/RightArrowIcon';
+import { explorer } from 'config';
 import { Item } from '../Item/Item';
 import style from './ItemsAndActivities.module.scss';
 
@@ -100,7 +101,8 @@ const Activity = ({
 }) => {
 
     function goToExplorer() {
-        window.open(`https://explorer.elrond.com/transactions/${activity.txHash}`, '_blank');
+
+        window.open(explorer.getTransaction(activity.txHash), '_blank');
     }
 
     return (
@@ -108,9 +110,11 @@ const Activity = ({
             <div className={style.controls}>
                 <RightArrowIcon className={style['arrow-icon']} />
             </div>
-            <p className={style['main-info']}><span className={style.from}>{activity.from}</span> brought for {activity.price} EGLD</p>
-            <p className={style.since}>{activity.date}</p>
+            <p className={style['main-info']}>
+                {activity.buyer.slice(0, 6) + '...' + activity.buyer.slice(-6)} brought for {activity.price} EGLD
+            </p>
+            <p className={style.since}>{new Date(activity.date * 1000).toISOString().slice(0, 10)}</p>
             <p className={style['see-it']}>See it now</p>
-        </div>
+        </div >
     );
 }

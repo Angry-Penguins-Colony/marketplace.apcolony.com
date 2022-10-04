@@ -14,6 +14,7 @@ function useInspect(category: CategoriesType, id: string) {
     const item = useGetGenericItem(category, id);
     const activities = useGetActivity(category, id);
 
+
     return {
         item,
         activities,
