@@ -10,6 +10,7 @@ import { extractCIDFromIPFS, getIdFromPenguinName, parseAttributes, splitCollect
 import APCNft from "./APCNft";
 import { BigNumber } from "bignumber.js";
 import { parseActivity, parseMarketData, parseMultiValueIdAuction } from "./ABIParser";
+import { toIdentifier } from "../utils/conversion";
 
 /**
  * We create this function because a lot of methods of ProxyNetworkProvider are not implemented yet.
@@ -193,11 +194,13 @@ export class APCNetworkProvider {
 
         return {
             id: getIdFromPenguinName(nft.name).toString(),
-            identifier: nft.identifier,
+            type: "penguins",
             name: nft.name,
+
+            identifier: toIdentifier(nft.collection, nft.nonce),
+            collection: nft.collection,
             nonce: nft.nonce,
-            score: -1,
-            purchaseDate: new Date(), // TODO:
+
             thumbnailCID: extractCIDFromIPFS(nft.assets[0]),
             equippedItems: await this.getEquippedItemsFromAttributes(nft.attributes.toString()),
             owner: nft.owner
@@ -237,14 +240,17 @@ export class APCNetworkProvider {
 
         return {
             id: item.id,
-            identifier: item.identifier,
+            type: "items",
             name: item.name,
-            slot: item.slot,
+
+            identifier: toIdentifier(nft.collection, nft.nonce),
+            collection: nft.collection,
             nonce: nonce,
+
             thumbnailCID: extractCIDFromIPFS(nft.assets[0]),
             renderCID: extractCIDFromIPFS(nft.assets[1]),
-            description: "", //TODO:
-            amount: amount
+            slot: item.slot,
+            description: "", //TODO:            
         }
 
     }

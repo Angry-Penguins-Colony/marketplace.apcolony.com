@@ -1,5 +1,6 @@
 import { IItem } from '@apcolony/marketplace-api';
 import { NonFungibleTokenOfAccountOnNetwork } from '@elrondnetwork/erdjs-network-providers/out';
+import { Nonce } from '@elrondnetwork/erdjs-network-providers/out/primitives';
 import { items, itemsCollection } from '../const';
 import { extractCIDFromIPFS, removeNonceFromIdentifier } from './string';
 
@@ -12,14 +13,17 @@ export function getItemFromNft(nft: NonFungibleTokenOfAccountOnNetwork): IItem {
 
     return {
         id: id,
+        type: "items",
+
         identifier: nft.identifier,
         nonce: nft.nonce,
+        collection: nft.collection,
+
         slot: getSlotFromIdentifier(nft.identifier),
         name: nft.name,
         description: "", // TODO:
         thumbnailCID: extractCIDFromIPFS(nft.assets[0]),
         renderCID: extractCIDFromIPFS(nft.assets[1]),
-        amount: nft.supply.toNumber(),
     }
 }
 
@@ -32,4 +36,9 @@ export function getSlotFromIdentifier(identifier: string): string {
     if (!foundSlot) throw new Error(`No slot found for ${identifier}`);
 
     return foundSlot;
+}
+
+
+export function toIdentifier(collection: string, nonce: number): string {
+    return `${collection}-${new Nonce(nonce).hex()}`;
 }
