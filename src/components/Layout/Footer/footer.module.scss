@@ -1,7 +1,6 @@
 @import './../../../assets/sass/var.scss';
 
 footer#main-footer {
-    background: #e9eef2;
     padding-top: 90px;
 
 
@@ -37,7 +36,7 @@ footer#main-footer {
         &::after {
             content: "";
             position: absolute;
-            height: 60px;
+            height: 120px;
             background-color: white;
             left: 0;
             right: 0;
@@ -115,6 +114,10 @@ footer#main-footer {
     footer#main-footer {
         .footer {
             padding: 0 60px;
+
+            &::after {
+                height: 60px;
+            }
 
             .main {
                 display: flex;
