@@ -25,14 +25,20 @@ export function useGetGenericItem(type: CategoriesType, id: string) {
                 const penguin = raw as IPenguin;
 
                 setData({
+                    id: id,
+                    type: type,
+
                     name: penguin.name,
+                    nonce: penguin.nonce,
+                    collection: penguinCollection,
+
                     thumbnail: ipfsGateway + penguin.thumbnailCID,
                     items: Object.values(penguin.equippedItems),
                     rank: -1,
+
                     amount: penguin.owner == connectedAddress ? 1 : 0,
                     owner: penguin.owner,
-                    nonce: penguin.nonce,
-                    collection: penguinCollection
+
                 });
                 break;
 
@@ -43,13 +49,18 @@ export function useGetGenericItem(type: CategoriesType, id: string) {
                 const { collection } = items[index];
 
                 setData({
+                    id: id,
+                    type: type,
+
+                    collection: collection,
+                    nonce: item.nonce,
+
                     name: item.name,
                     thumbnail: ipfsGateway + item.thumbnailCID,
                     items: [],
+
                     rank: -1,
                     amount: item.amount,
-                    nonce: item.nonce,
-                    collection: collection
                 });
                 break;
 

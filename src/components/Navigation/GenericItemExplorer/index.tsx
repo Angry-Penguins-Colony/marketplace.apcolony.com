@@ -1,11 +1,12 @@
 import * as React from 'react';
-import style from './ItemOrPenguininExplorer.module.scss';
+import BigNumber from 'bignumber.js';
+import style from './style.module.scss';
 
-export const ItemOrPenguininExplorer = (
+export const GenericItemExplorer = (
     {
         thumbnail,
         name,
-        price,
+        floorPrice,
         count = 1,
         onClick = () => {
             // do nothing
@@ -13,7 +14,7 @@ export const ItemOrPenguininExplorer = (
     }: {
         thumbnail: string;
         name: string;
-        price: number;
+        floorPrice: BigNumber;
         count?: number;
         onClick?: () => void;
     }
@@ -40,7 +41,7 @@ export const ItemOrPenguininExplorer = (
                             <span className={style.label}>Price : </span>
                         )
                     }
-                    <span className={style.price}>{price} EGLD</span>
+                    <span className={style.price}>{floorPrice.toString()} EGLD</span>
                 </p>
             </div>
         </div>

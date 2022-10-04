@@ -76,7 +76,7 @@ const BuyingPopup = (
                                 <div className={style['items-attached']}>
                                     <h3>Items attached to the penguin</h3>
                                     <div className={style.content}>
-                                        {item.items.map((aItem: any) => {
+                                        {item.items && item.items.map((aItem: any) => {
                                             return (
                                                 <Item key={aItem.id} item={aItem} />
                                             );
