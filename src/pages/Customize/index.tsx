@@ -88,6 +88,11 @@ const Customize = () => {
         window.location.href = buildRouteLinks.customize(ownedPenguins[0].nonce);
     }
 
+    // add root class for background style
+    React.useEffect(() => {
+        document.body.classList.add('background-image');
+    }, []);
+
     return (
         <div id={style['body-content']}>
             <ModalAboutRender isVisible={showModalAboutRender} onSignRenderClick={onSignRenderClick} />

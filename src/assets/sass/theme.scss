@@ -283,6 +283,12 @@ body {
   background-color: $background;
   line-height: 1;
 
+  &.background-image {
+    background-image: url("./../../assets/img/main-background.png");
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
   &.no-scroll {
     overflow: hidden;
   }
