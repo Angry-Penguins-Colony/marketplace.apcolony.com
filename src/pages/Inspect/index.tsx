@@ -176,7 +176,7 @@ const Inspect = () => {
             </div>
             <hr />
             <ItemsAndActivities
-                items={category == 'penguins' ? Object.values((item as IPenguin).equippedItems) : []}
+                items={(item != undefined && category == 'penguins') ? Object.values((item as IPenguin).equippedItems) : []}
                 activities={activities}
                 className={style.activity} />
 
