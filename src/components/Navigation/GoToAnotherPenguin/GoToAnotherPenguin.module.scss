@@ -54,6 +54,14 @@
                 justify-content: center;
                 cursor: pointer;
 
+                &:hover {
+                    background-color: $primary;
+
+                    svg {
+                        fill: white;
+                    }
+                }
+
                 > svg {
                     position: relative;
                     width: 22px;
