@@ -19,6 +19,7 @@ import getOffer from './routes/generic/offer';
 import getItemOffersStats from './routes/items/offersStats';
 import getPenguinsOffersStats from './routes/penguins/offersStats';
 import getExploreItems from './routes/root/exploreItems';
+import getOwnedAmount from './routes/root/ownedAmount';
 
 const workers = parseInt(process.env.WEB_CONCURRENCY || "1");
 const port = process.env.PORT || 5001;
@@ -36,6 +37,7 @@ function start(id: number) {
     const networkProvider = new APCNetworkProvider(gateway, api);
 
 
+    app.get("/owned/:bech32", async (req, res) => getOwnedAmount(req, res, networkProvider));
     app.get('/penguins/penguin/:id', (req, res) => getPenguin(req, res, networkProvider));
     app.get("/penguins/activity/:id", (req, res) => getActivity(req, res, "penguins", networkProvider));
     app.get("/penguins/offers", (req, res) => getPenguinsOffers(req, res, networkProvider));
