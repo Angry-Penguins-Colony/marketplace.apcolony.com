@@ -1512,7 +1512,7 @@ export const devnetToolDeploy = {
         },
         {
             "id": "212",
-            "name": "Surfboard",
+            "name": "Surboard",
             "slot": "weapon",
             "identifier": "WEAPON-1d29cd-0e",
             "collection": "WEAPON-1d29cd",
