@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { IGenericElement } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { Address } from '@elrondnetwork/erdjs/out';
 import { useParams } from 'react-router-dom';
@@ -8,9 +9,9 @@ import NavigationType from 'components/Inventory/NavigationType/NavigationType';
 import NavInventory from 'components/Inventory/NavInventory/NavInventory';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
+import useGetUserOwnedAmount from 'sdk/hooks/api/useGetUserOwnedAmount';
 import useInventoryFilter from 'sdk/hooks/useInventoryFilter';
 import CategoriesType from 'sdk/types/CategoriesType';
-import { IInventoryItem } from 'sdk/types/IInventoryItem';
 import style from './index.module.scss';
 
 const typeWithFilter: string[] = [];
@@ -29,8 +30,9 @@ const Inventory = () => {
     }, []);
 
 
-    const [items, setItems] = React.useState<IInventoryItem[] | undefined>(undefined);
+    const [items, setItems] = React.useState<IGenericElement[] | undefined>(undefined);
     const [itemsType, setItemsType] = React.useState<CategoriesType>('penguins');
+    const ownedAmount = useGetUserOwnedAmount();
 
     const penguinsItems = useGetOwnedPenguins({
         onLoaded: setItems,
@@ -68,7 +70,7 @@ const Inventory = () => {
         sortBy,
         changeFilters,
         filterData
-    } = useInventoryFilter(items, setItems);
+    } = useInventoryFilter(items, () => { /* setItems is disabled for the moment */ });
 
     return (
         <>
@@ -118,7 +120,13 @@ const Inventory = () => {
                 </section>
 
                 {items &&
-                    <ItemsInventory items={items} className={style['items-inventory']} type={itemsType} hasFilter={typeWithFilter.includes(itemsType)} filters={filterData} />
+                    <ItemsInventory
+                        className={style['items-inventory']}
+                        items={items}
+                        type={itemsType}
+                        amountById={ownedAmount ? ownedAmount[itemsType] : {}}
+                        hasFilter={typeWithFilter.includes(itemsType)}
+                        filters={filterData} />
                 }
             </div>
         </>

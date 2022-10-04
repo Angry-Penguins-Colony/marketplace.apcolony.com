@@ -1,3 +1,5 @@
+import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import useGenericAPICall from './useGenericAPICall';
 
 interface Output {
     penguins: Record<string, number>;
@@ -5,7 +7,8 @@ interface Output {
 }
 
 function useGetUserOwnedAmount(): Output | undefined {
-    throw new Error('Not implemented');
+    const { address } = useGetAccountInfo();
+    return useGenericAPICall('owned/' + address);
 }
 
 export default useGetUserOwnedAmount;

@@ -1,14 +1,23 @@
 import * as React from 'react';
+import { IGenericElement } from '@apcolony/marketplace-api';
 import ReactImageAppear from 'components/Images/ReactImageAppear/ReactImageAppear';
 import { ipfsGateway } from 'config';
 import { buildRouteLinks } from 'routes';
 import CategoriesType from 'sdk/types/CategoriesType';
-import Filters, { matchFilter } from '../../../sdk/types/Filters';
+import Filters from '../../../sdk/types/Filters';
 import style from './ItemsInventory.module.scss';
+
+export interface IInventoryItem {
+    name: string;
+    amount: number;
+    thumbnailCID: string;
+    id: string;
+}
 
 interface IProps {
     className?: string,
-    items: any[],
+    items: IGenericElement[],
+    amountById: Record<string, number>,
     type: CategoriesType,
     hasFilter: boolean,
     filters?: Filters
@@ -19,7 +28,7 @@ const ItemsInventory = ({
     items,
     type,
     hasFilter,
-    filters
+    amountById
 }: IProps) => {
     const title = 'My ' + type.charAt(0).toUpperCase() + type.slice(1);
 
@@ -39,15 +48,19 @@ const ItemsInventory = ({
 
         if (matchedItems.length > 0) {
             return matchedItems
-                .map((item: any, index: number) => <Item key={index} item={item} type={type} />);
+                .map((item: IGenericElement, index: number) => <Item key={index} item={{
+                    amount: amountById[item.id],
+                    ...item
+                }} type={type} />);
         }
         else {
             return <p>You own 0 {type}.</p>
         }
     }
 
-    function match(item: any) {
-        return !filters || !hasFilter || (filters && matchFilter(filters, item));
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    function match(item: IGenericElement) {
+        return true;
     }
 };
 
