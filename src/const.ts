@@ -21,7 +21,7 @@ function getNetworkInfos() {
                 gateway: process.env.GATEWAY ?? "https://devnet-gateway.elrond.com",
                 api: "https://devnet-api.elrond.com",
                 penguinsIdentifier: devnetToolDeploy.penguinsIdentifier,
-                penguinsCount: devnetToolDeploy.penguinsCount,
+                penguinsCount: 5555,
                 itemsIdentifier: devnetToolDeploy.itemsIdentifier,
                 items: devnetToolDeploy.items,
                 customisationContract: Address.fromBech32(devnetToolDeploy.customizationContractAddress.bech32),
