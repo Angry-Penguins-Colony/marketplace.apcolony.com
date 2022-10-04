@@ -62,6 +62,7 @@
         max-width: 1400px;
         margin: auto;
         margin-bottom: 40px;
+        min-height: calc(100vh - 220px); // for footer to be at the bottom
 
         > .background-header {
             display: block;
