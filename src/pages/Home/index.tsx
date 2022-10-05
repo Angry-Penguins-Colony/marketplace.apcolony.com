@@ -119,8 +119,6 @@ const Home = () => {
         <h2>Sell items you earned<br />and buy new ones</h2>
         <p className={style.subtitle}>Buy and sell rare items on the marketplace<br />with the angry penguins community</p>
         <img src="/img/sell_and_buy_penguin_example.png" alt="customization" className="penguin-example" />
-        <Button className={style.button + ' ' + style.sell} onClick={() => {/* TODO: do onclik*/ }}>Sell item</Button>
-        <Button className={style.button + ' ' + style.buy} onClick={() => {/* TODO: do onclik*/ }}>Buy items</Button>
       </section>
     </div>
   );
