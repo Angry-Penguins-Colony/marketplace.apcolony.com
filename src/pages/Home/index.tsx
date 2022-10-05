@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
 import { BigCategory } from 'components/Navigation/BigCategory/BigCategory';
 import { CategoryItem } from 'components/Navigation/CategoryItem/CategoryItem';
@@ -84,12 +85,12 @@ const Home = () => {
       <div className={style['global-unique-style']}>
         <section className={style['give-unique-style']}>
           <h2>Give your Angry Penguins<span><br /></span> gang a unique style</h2>
-          {/* TODO: add link */}
-          <Button type='normal' className={style.button}>Buy new items</Button>
+          <Link to={buildRouteLinks.categoriesOffers('weapons')}>
+            <Button type='normal' className={style.button}>Buy weapons</Button>
+          </Link>
         </section>
         {
           highlightedItem && (
-            // TODO: add link to item
             <section className={style['highlighted-item']} onClick={() => { window.location.href = buildRouteLinks.inspect('items', HIGHLIGHTED_ITEM_ID) }}>
               <div className={style.info}>
                 <h2>Highlighted item</h2>
