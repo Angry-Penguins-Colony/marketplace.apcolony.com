@@ -44,6 +44,17 @@ function useCustomization(selectedPenguinNonce: number, initialItemsIdentifier?:
 
     }, [selectedPenguin]);
 
+    const [ownedAndEquippedItems, setOwnedAndEquippedItems] = React.useState<IItem[]>([]);
+
+    React.useEffect(() => {
+        setOwnedAndEquippedItems([
+            ...selectedPenguin ? Object.values(selectedPenguin.equippedItems) : [],
+            ...ownedItems ?? []
+        ]);
+    }, [selectedPenguin, ownedItems]);
+
+
+
     return {
         resetItems,
         equipItem,
@@ -57,6 +68,7 @@ function useCustomization(selectedPenguinNonce: number, initialItemsIdentifier?:
         selectedPenguin,
         hasSomeModifications: isModified(),
         ownedItemsAmount: ownedAmount?.items,
+        ownedAndEquippedItems
     }
 
     function isSlotModified(slot: string) {

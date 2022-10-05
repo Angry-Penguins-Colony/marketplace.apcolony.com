@@ -48,8 +48,11 @@ const Customize = () => {
         attributesStatus,
         hasSomeModifications,
         selectedPenguin,
-        ownedItemsAmount
+        ownedItemsAmount,
+        ownedAndEquippedItems
     } = useCustomization(selectedPenguinNonce, initialAttributes);
+
+
 
     const {
         toggle,
@@ -80,10 +83,10 @@ const Customize = () => {
     }, [equippedItemsIdentifier])
 
     React.useEffect(() => {
-        if (ownedItems) {
-            setItemsInPopup(ownedItems);
-        }
-    }, [ownedItems]);
+        setItemsInPopup(ownedAndEquippedItems);
+
+    }, [ownedAndEquippedItems]);
+
 
     if (!isSelectedNonceOwned() && ownedPenguins && ownedPenguins.length > 0) {
         window.location.href = buildRouteLinks.customize(ownedPenguins[0].nonce);
@@ -235,7 +238,7 @@ const Customize = () => {
     function openItemsPopup(type: string, title: string) {
         setItemsPopupType(type);
         if (ownedItems) {
-            setItemsInPopup(ownedItems);
+            setItemsInPopup(ownedAndEquippedItems);
         }
         setItemsPopupTitle(title);
         setItemsPopupIsOpen(true);
@@ -301,14 +304,8 @@ const Customize = () => {
 
     function getItem(identifier: string | undefined) {
         if (!identifier) return undefined;
-        if (!ownedItems) return undefined;
 
-        let item = ownedItems.find(i => i.identifier === identifier);
-
-        if (!item && selectedPenguin) {
-            item = Object.values(selectedPenguin.equippedItems)
-                .find(i => i.identifier === identifier);
-        }
+        const item = ownedAndEquippedItems.find(i => i.identifier === identifier);
 
         if (!item) throw new Error(`Item ${identifier} not found in owned items.`);
 
