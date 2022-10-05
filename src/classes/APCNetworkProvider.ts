@@ -184,6 +184,7 @@ export class APCNetworkProvider {
         return parseMarketData(firstValue);
     }
 
+
     private async getMarketplaceSmartContract() {
         let jsonContent: string = await promises.readFile("src/abi/esdt-nft-marketplace.abi.json", { encoding: "utf8" });
         let json = JSON.parse(jsonContent);

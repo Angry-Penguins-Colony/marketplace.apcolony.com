@@ -1,7 +1,8 @@
 import { IItem } from "@apcolony/marketplace-api";
-import { items, penguinsCount } from "../const";
+import { APCNetworkProvider } from "../classes/APCNetworkProvider";
+import { items, penguinsCollection, penguinsCount } from "../const";
 import item from "../routes/items/item";
-import { splitCollectionAndNonce } from "./string";
+import { parseAttributes, splitCollectionAndNonce } from "./string";
 
 export function getTokenFromItemID(id: string): { collection: string, nonce: number } {
     const item = items.find(i => i.id == id);
@@ -70,4 +71,53 @@ export function getRandomsPenguinsIds(count: number): string[] {
     }
 
     return ids.map(id => id.toString());
+}
+
+export async function logErrorIfMissingItems(networkProvider: APCNetworkProvider) {
+
+    const missingItems = await getMissingItems(networkProvider);
+
+    if (missingItems.length > 0) {
+        console.error(`Missing items from NFTs in database:\n${missingItems.map(i => `\t- ${i}`).join("\n")}`);
+    }
+}
+
+async function getMissingItems(networkProvider: APCNetworkProvider): Promise<string[]> {
+    const nfts = await networkProvider.getNfts(penguinsCollection);
+
+    const missingItems = [] as string[];
+
+    for (const nft of nfts) {
+        try {
+            nft.owner = "erd1";
+            const attributes = parseAttributes(nft.attributes.toString());
+
+            for (const { slot, itemName } of attributes) {
+                if (itemName == "unequipped") continue;
+
+                getItemFromName(itemName, slot);
+            }
+        }
+        catch (e: any) {
+
+            const item = parseItemNameFromError(e);
+
+            if (!missingItems.includes(item)) {
+                missingItems.push(item);
+            }
+        }
+    }
+
+    return missingItems;
+
+    function parseItemNameFromError(e: any) {
+        const line: string = e.toString().split("\n")[0];
+
+        const item = line
+            .substring(0, line.indexOf(" at slot "))
+            .replace("Error: No item found for ", "")
+            .trim();
+
+        return item;
+    }
 }
