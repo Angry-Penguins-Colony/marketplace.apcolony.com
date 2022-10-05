@@ -7,6 +7,7 @@ import {
   WalletConnectLoginButton
 } from '@elrondnetwork/dapp-core/UI';
 import { routeNames } from 'routes';
+import style from './index.module.scss';
 
 export const UnlockRoute: () => JSX.Element = () => {
   const { isLoggedIn } = useGetLoginInfo();
@@ -18,7 +19,7 @@ export const UnlockRoute: () => JSX.Element = () => {
   }, [isLoggedIn]);
 
   return (
-    <div className='home d-flex flex-fill align-items-center'>
+    <div className={'home d-flex flex-fill align-items-center ' + style['unlock-page']}>
       <div className='m-auto' data-testid='unlockPage'>
         <div className='card my-4 text-center'>
           <div className='card-body py-4 px-2 px-sm-2 mx-lg-4'>
