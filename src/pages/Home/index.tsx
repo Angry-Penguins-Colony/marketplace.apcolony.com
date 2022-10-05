@@ -6,37 +6,18 @@ import { GenericItemExplorer } from 'components/Navigation/GenericItemExplorer';
 import { ipfsGateway } from 'config';
 import { buildRouteLinks, routeNames } from 'routes';
 import useGetExploreItems from 'sdk/hooks/api/useGetExploreItems';
-import CategoriesType from 'sdk/types/CategoriesType';
+import useGetItem from 'sdk/hooks/api/useGetItem';
+import useGetOffers from 'sdk/hooks/api/useGetOffers';
 import style from './index.module.scss';
 
-interface ItemOrPenguin {
-  id: string;
-  type: CategoriesType;
-  thumbnail: string;
-  name: string;
-  price: number;
-  count: number;
-}
+
+const HIGHLIGHTED_ITEM_ID = '94';
 
 const Home = () => {
-  const [highlightedItem, setHighlightedItem] = React.useState<ItemOrPenguin | undefined>(undefined);
-
+  const highlightedItem = useGetItem(HIGHLIGHTED_ITEM_ID);
   const exploreItems = useGetExploreItems();
 
-  React.useEffect(() => {
-    // simulate API call
-    setTimeout(() => {
-      setHighlightedItem({
-        id: '1',
-        type: 'items',
-        thumbnail: 'https://apc.mypinata.cloud/ipfs/QmXD8TYrFydZZmt7SjKdccDZixLTHpVVrx3jbDs3afCUBu',
-        name: 'Kimono With Red Belt',
-        price: 2,
-        count: 1
-      });
-    }, 1000);
-  }
-    , []);
+  const { lowestBuyableOffer } = useGetOffers('items', HIGHLIGHTED_ITEM_ID);
 
   return (
     <div id={style.home}>
@@ -103,18 +84,31 @@ const Home = () => {
       <div className={style['global-unique-style']}>
         <section className={style['give-unique-style']}>
           <h2>Give your Angry Penguins<span><br /></span> gang a unique style</h2>
+          {/* TODO: add link */}
           <Button type='normal' className={style.button}>Buy new items</Button>
         </section>
         {
           highlightedItem && (
             // TODO: add link to item
-            <section className={style['highlighted-item']} onClick={() => { window.location.href = buildRouteLinks.inspect(highlightedItem.type, highlightedItem.id) }}>
+            <section className={style['highlighted-item']} onClick={() => { window.location.href = buildRouteLinks.inspect('items', HIGHLIGHTED_ITEM_ID) }}>
               <div className={style.info}>
                 <h2>Highlighted item</h2>
-                <p className={style.name}>{highlightedItem.name}</p>
-                <p className={style.price}>{highlightedItem.price} EGLD</p>
+                <p className={style.name}>{highlightedItem?.name ?? '--'}</p>
+                <p className={style.price}>
+                  {
+                    (() => {
+                      if (lowestBuyableOffer == null) {
+                        return 'No offers';
+                      }
+                      else {
+                        const price = lowestBuyableOffer?.price ?? '--';
+                        return `${price} EGLD`;
+                      }
+                    })()
+                  }
+                </p>
               </div>
-              <img src={highlightedItem.thumbnail} alt={highlightedItem.name} />
+              <img src={ipfsGateway + highlightedItem.renderCID} alt={highlightedItem.name} />
             </section>
           )
         }
