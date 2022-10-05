@@ -301,8 +301,18 @@ const Customize = () => {
 
     function getItem(identifier: string | undefined) {
         if (!identifier) return undefined;
+        if (!ownedItems) return undefined;
 
-        return ownedItems?.find(item => item.identifier === identifier);
+        let item = ownedItems.find(i => i.identifier === identifier);
+
+        if (!item && selectedPenguin) {
+            item = Object.values(selectedPenguin.equippedItems)
+                .find(i => i.identifier === identifier);
+        }
+
+        if (!item) throw new Error(`Item ${identifier} not found in owned items.`);
+
+        return item;
     }
 
     function isSelectedNonceOwned() {
