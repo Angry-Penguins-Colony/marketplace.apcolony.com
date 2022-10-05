@@ -8,7 +8,7 @@
     &::after {
         content: "";
         display: block;
-        padding-bottom: calc(368 / 260 * 55vw);
+        // padding-bottom: calc(368 / 260 * 55vw);
     }
 
     img {
@@ -31,7 +31,7 @@
         font-family: "CHEDROS", sans-serif;
         font-weight: bold;
         font-size: 2.5rem;
-        color: white;
+        color: #080d26;
     }
 
     .button {
@@ -54,7 +54,7 @@
         }
 
         &::after {
-            padding-bottom: 140%;
+            padding-bottom: 25%;
         }
     }
 }

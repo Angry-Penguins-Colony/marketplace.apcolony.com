@@ -12,7 +12,7 @@ export const BigCategory = ({
     link: string;
 }) => {
     return (
-        <div className={style['big-category']} onClick={() => { window.location.href = link; }}>
+        <div className={style['big-category'] + ' w-100'} onClick={() => { window.location.href = link; }}>
             <img src={backgroundImg} alt={title} />
             <h2>{title}</h2>
             <Button type='normal' onClick={() => { window.location.href = link; }} className={style.button}>View all</Button>

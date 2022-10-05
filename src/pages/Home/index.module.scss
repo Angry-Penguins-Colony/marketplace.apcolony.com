@@ -1,5 +1,5 @@
-@import './../../assets/sass/var.scss';
-@import './../../assets/sass/theme.scss';
+@import "./../../assets/sass/var.scss";
+@import "./../../assets/sass/theme.scss";
 
 #home {
     background-color: $background;
@@ -24,7 +24,7 @@
 
         .info {
             h1 {
-                font-family: 'CHEDROS', sans-serif;
+                font-family: "CHEDROS", sans-serif;
                 font-weight: bold;
                 font-size: 3.5rem;
                 color: white;
@@ -33,14 +33,15 @@
             }
 
             p {
-                font-family: 'Config Rounded', sans-serif;
+                font-family: "Config Rounded", sans-serif;
                 font-size: 1.2rem;
                 text-align: center;
                 color: white;
             }
         }
 
-        .button {}
+        .button {
+        }
     }
 
     --padding-section: 25px;
@@ -51,14 +52,15 @@
         padding: 25px var(--padding-section);
 
         > h2 {
-            font-family: 'CHEDROS', sans-serif;
+            font-family: "CHEDROS", sans-serif;
             font-weight: bold;
             font-size: 1.8rem;
             color: $dark;
             margin-bottom: 0.5rem;
         }
 
-        .content {}
+        .content {
+        }
     }
 
     > .categories,
@@ -132,7 +134,7 @@
         .subtitle {
             color: white;
             text-align: center;
-            font-family: 'Config Rounded', sans-serif;
+            font-family: "Config Rounded", sans-serif;
             font-size: 1.1rem;
             margin-bottom: 1rem;
         }
@@ -162,7 +164,7 @@
             padding: 25px var(--padding-section);
 
             h2 {
-                font-family: 'CHEDROS', sans-serif;
+                font-family: "CHEDROS", sans-serif;
                 font-weight: bold;
                 margin-bottom: 0.5rem;
                 color: white;
@@ -198,14 +200,14 @@
                 right: 25px;
 
                 h2 {
-                    font-family: 'Config Rounded', sans-serif;
+                    font-family: "Config Rounded", sans-serif;
                     font-size: 1.2rem;
                     font-weight: 300;
                 }
 
                 .name,
                 .price {
-                    font-family: 'Config Rounded', sans-serif;
+                    font-family: "Config Rounded", sans-serif;
                     font-size: 1.5rem;
                 }
 
@@ -226,7 +228,7 @@
         display: grid;
         justify-items: center;
         grid-gap: 15px;
-        grid-template-areas: "title""subtitle""image""sell-button""buy-button";
+        grid-template-areas: "title" "subtitle" "image" "sell-button" "buy-button";
 
         h2 {
             color: white;
@@ -273,11 +275,6 @@
         }
 
         --padding-section: 80px;
-
-        > .chose-category .content {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-        }
 
         > .explore-all {
             padding-right: 0;

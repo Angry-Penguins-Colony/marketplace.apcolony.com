@@ -46,9 +46,8 @@ const Home = () => {
         </div>
       </section>
       <section className={style['chose-category']}>
-        <h2>Chose a category</h2>
         <div className={style.content}>
-          <BigCategory title="Penguins" backgroundImg="/img/penguin_category.png" link={buildRouteLinks.categoriesOffers('penguins')} />
+          <BigCategory title="Penguins" backgroundImg="/img/background/header_penguins.png" link={buildRouteLinks.categoriesOffers('penguins')} />
           {/* <BigCategory title="Eggs" backgroundImg="/img/eggs_category.png" link="TODO: add link" />
           <BigCategory title="Items" backgroundImg="/img/items_category.png" link="TODO: add link" /> */}
         </div>
@@ -115,7 +114,6 @@ const Home = () => {
         }
       </div>
       <section className={style['sell-items']}>
-        {/* TODO: add style with specifics assets */}
         <h2>Sell items you earned<br />and buy new ones</h2>
         <p className={style.subtitle}>Buy and sell rare items on the marketplace<br />with the angry penguins community</p>
         <img src="/img/sell_and_buy_penguin_example.png" alt="customization" className="penguin-example" />
