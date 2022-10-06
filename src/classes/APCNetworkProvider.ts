@@ -5,7 +5,7 @@ import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { AbiRegistry, Address, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, U64Value } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
 import { customisationContract, penguinsCollection, gateway, marketplaceContract } from "../const";
-import { getItemFromName, getTokenFromItemID } from "../utils/dbHelper";
+import { getItemFromAttributeName, getTokenFromItemID } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, getNameFromPenguinId, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
 import { BigNumber } from "bignumber.js";
@@ -224,7 +224,7 @@ export class APCNetworkProvider {
         for (const { slot, itemName } of attributes) {
             if (itemName == "unequipped") continue;
 
-            equippedItems[slot] = await this.getItem(getItemFromName(itemName, slot));
+            equippedItems[slot] = await this.getItem(getItemFromAttributeName(itemName, slot));
         }
 
         return equippedItems;

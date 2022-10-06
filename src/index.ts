@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import cors from "cors";
 import getPenguins from './routes/penguins/owned';
 import getItems from './routes/items/owned';
-import { api, gateway, penguinsCollection } from './const';
+import { api, gateway } from './const';
 import { getNetworkType } from './env';
 import throng from 'throng';
 import { APCNetworkProvider } from './classes/APCNetworkProvider';
@@ -20,8 +20,7 @@ import getItemOffersStats from './routes/items/offersStats';
 import getPenguinsOffersStats from './routes/penguins/offersStats';
 import getExploreItems from './routes/root/exploreItems';
 import getOwnedAmount from './routes/root/ownedAmount';
-import { parseAttributes } from './utils/string';
-import { getItemFromName, logErrorIfMissingItems } from './utils/dbHelper';
+import { logErrorIfMissingItems } from './utils/dbHelper';
 
 const workers = parseInt(process.env.WEB_CONCURRENCY || "1");
 const port = process.env.PORT || 5001;

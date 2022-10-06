@@ -26,9 +26,9 @@ export function getItemFromToken(collection: string, nonce: number) {
     return item;
 }
 
-export function getItemFromName(name: string, slot: string) {
+export function getItemFromAttributeName(name: string, slot: string) {
 
-    const item = items.find(item => item.name == name && item.slot.toLowerCase() == slot.toLowerCase());
+    const item = items.find(item => item.attributeName == name && item.slot.toLowerCase() == slot.toLowerCase());
 
     if (!item) throw new Error(`No item found for ${name} at slot ${slot}`);
 
@@ -110,7 +110,7 @@ async function getMissingItems(networkProvider: APCNetworkProvider) {
             for (const { slot, itemName } of attributes) {
                 if (itemName == "unequipped") continue;
 
-                getItemFromName(itemName, slot);
+                getItemFromAttributeName(itemName, slot);
             }
         }
         catch (e: any) {
