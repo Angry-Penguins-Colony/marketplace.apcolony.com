@@ -615,7 +615,7 @@ export const devnetToolDeploy = {
             "identifier": "CLOTHES-d8a4e2-21",
             "collection": "CLOTHES-d8a4e2",
             "nonce": 33,
-            "attributeName": "Coat with Black Fur"
+            "attributeName": "Coat With Black Fur"
         },
         {
             "id": "76",
@@ -624,7 +624,7 @@ export const devnetToolDeploy = {
             "identifier": "CLOTHES-d8a4e2-22",
             "collection": "CLOTHES-d8a4e2",
             "nonce": 34,
-            "attributeName": "Coat With Blue Fur"
+            "attributeName": "Coat with Blue Fur"
         },
         {
             "id": "77",
