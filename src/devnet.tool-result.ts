@@ -1182,7 +1182,7 @@ export const devnetToolDeploy = {
             "identifier": "HAT-6dd91b-10",
             "collection": "HAT-6dd91b",
             "nonce": 16,
-            "attributeName": "Simple Tiara"
+            "attributeName": "Tiara"
         },
         {
             "id": "143",
