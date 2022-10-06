@@ -399,7 +399,7 @@ export const devnetToolDeploy = {
             "identifier": "CLOTHES-d8a4e2-09",
             "collection": "CLOTHES-d8a4e2",
             "nonce": 9,
-            "attributeName": "Silver EGLD Coin Chain"
+            "attributeName": "Silver EGLD Chain"
         },
         {
             "id": "51",
