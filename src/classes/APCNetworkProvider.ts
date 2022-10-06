@@ -56,11 +56,12 @@ export class APCNetworkProvider {
     /**
      * The API doesn't return owner
      */
-    public async getNfts(collection: string, args: { name?: string, withOwner?: boolean } = {}): Promise<APCNft[]> {
+    public async getNfts(collection: string, args: { name?: string, withOwner?: boolean, size?: number } = {}): Promise<APCNft[]> {
 
         const p = new URLSearchParams();
         if (args.name) p.append("name", args.name);
         if (args.withOwner) p.append("withOwner", "true");
+        if (args.size) p.append("size", args.size.toString());
 
         const res = await this.apiProvider.doGetGeneric(`collections/${collection}/nfts?${p.toString()}`);
 

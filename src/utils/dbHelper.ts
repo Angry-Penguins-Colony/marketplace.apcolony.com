@@ -1,4 +1,5 @@
 import { IItem } from "@apcolony/marketplace-api";
+import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { APCNetworkProvider } from "../classes/APCNetworkProvider";
 import { items, penguinsCollection, penguinsCount } from "../const";
 import item from "../routes/items/item";
@@ -77,15 +78,29 @@ export async function logErrorIfMissingItems(networkProvider: APCNetworkProvider
 
     const missingItems = await getMissingItems(networkProvider);
 
-    if (missingItems.length > 0) {
-        console.error(`Missing items from NFTs in database:\n${missingItems.map(i => `\t- ${i}`).join("\n")}`);
+    if (missingItems.size > 0) {
+
+
+        let message = [];
+
+        for (const [item, nfts] of missingItems) {
+            message.push({
+                item,
+                exampleNonce: new Nonce(nfts[0]).hex(),
+            });
+        }
+
+        console.error("Missing items from NFTs in database:");
+        console.table(message)
     }
 }
 
-async function getMissingItems(networkProvider: APCNetworkProvider): Promise<string[]> {
-    const nfts = await networkProvider.getNfts(penguinsCollection);
+async function getMissingItems(networkProvider: APCNetworkProvider) {
+    const nfts = await networkProvider.getNfts(penguinsCollection, {
+        size: 5555
+    });
 
-    const missingItems = [] as string[];
+    const missingItems = new Map<string, number[]>();
 
     for (const nft of nfts) {
         try {
@@ -102,9 +117,9 @@ async function getMissingItems(networkProvider: APCNetworkProvider): Promise<str
 
             const item = parseItemNameFromError(e);
 
-            if (!missingItems.includes(item)) {
-                missingItems.push(item);
-            }
+            const missingItemsForItem = (missingItems.get(item) || []);
+            missingItemsForItem.push(nft.nonce);
+            missingItems.set(item, missingItemsForItem);
         }
     }
 
