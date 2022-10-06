@@ -83,10 +83,10 @@ export async function logErrorIfMissingItems(networkProvider: APCNetworkProvider
 
         let message = [];
 
-        for (const [item, nfts] of missingItems) {
+        for (const [item, identifiers] of missingItems) {
             message.push({
                 item,
-                exampleNonce: new Nonce(nfts[0]).hex(),
+                exampleIdentifier: identifiers[0],
             });
         }
 
@@ -100,7 +100,7 @@ async function getMissingItems(networkProvider: APCNetworkProvider) {
         size: 5555
     });
 
-    const missingItems = new Map<string, number[]>();
+    const missingItems = new Map<string, string[]>();
 
     for (const nft of nfts) {
         try {
@@ -118,7 +118,7 @@ async function getMissingItems(networkProvider: APCNetworkProvider) {
             const item = parseItemNameFromError(e);
 
             const missingItemsForItem = (missingItems.get(item) || []);
-            missingItemsForItem.push(nft.nonce);
+            missingItemsForItem.push(nft.identifier);
             missingItems.set(item, missingItemsForItem);
         }
     }
