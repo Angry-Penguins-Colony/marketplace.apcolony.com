@@ -23,7 +23,11 @@ export default class ItemsDatabase {
             .filter(({ name }) => name != "Default")
             .map(({ id, name, renderCID, thumbnailCID, slot, supply }) => {
 
-                const item = identifiers.find(i => i.id === id);
+                if (!id) {
+                    throw new Error(`Item ${name} has no id`);
+                }
+
+                const item = identifiers.find(i => i.id == id);
 
                 if (!item) {
                     console.warn(`Item ${name} (${id}) not found in identifiers`);
@@ -50,11 +54,11 @@ export default class ItemsDatabase {
     }
 
     public idExist(id: string) {
-        return this.items.some(item => item.id === id);
+        return this.items.some(item => item.id == id);
     }
 
     public getItemFromId(id: string): IItem {
-        const item = this.items.find(item => item.id === id);
+        const item = this.items.find(item => item.id == id);
         if (!item) {
             throw new Error(`Item ${id} not found`);
         }
@@ -62,7 +66,7 @@ export default class ItemsDatabase {
     }
 
     public getItemFromNameAndSlot(name: string, slot: string): IItem {
-        const item = this.items.find(item => item.name === name && item.slot === slot);
+        const item = this.items.find(item => item.name == name && item.slot == slot);
         if (!item) {
             throw new Error(`Unknown item ${name} for slot ${slot}`);
         }

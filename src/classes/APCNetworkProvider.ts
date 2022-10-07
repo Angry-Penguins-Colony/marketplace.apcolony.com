@@ -213,7 +213,7 @@ export class APCNetworkProvider {
             nonce: nft.nonce,
 
             thumbnailCID: extractCIDFromIPFS(nft.assets[0]),
-            equippedItems: await this.getEquippedItemsFromAttributes(nft.attributes.toString()),
+            equippedItems: this.getEquippedItemsFromAttributes(nft.attributes.toString()),
             owner: nft.owner
         }
     }
