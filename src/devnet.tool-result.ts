@@ -1,1538 +1,1719 @@
 export const devnetToolDeploy = {
     'customizationContractAddress': {
-        'bech32': 'erd1qqqqqqqqqqqqqpgqms5p6ru2wsskweuvv4v6w0f5vutqrg03wptqv3z3dc',
-        'pubkey': '00000000000000000500dc281d0f8a742167678c6559a73d34671601a1f17056'
+        'bech32': 'erd1qqqqqqqqqqqqqpgqhlncwutjwh32kdlrtyaqtcmstwrk0g6xwptqx32pwr',
+        'pubkey': '00000000000000000500bfe787717275e2ab37e3593a05e3705b8767a3467056'
     },
-    'penguinsIdentifier': 'PENGUINS-6cc0a3',
+    'penguinsIdentifier': 'PENGUINS-d4dc6f',
     'itemsIdentifier': {
-        'background': 'BACKGROUND-21d071',
-        'beak': 'BEAK-340056',
-        'clothes': 'CLOTHES-3b7b59',
-        'eyes': 'EYES-376cab',
-        'hat': 'HAT-84e513',
-        'skin': 'SKIN-64fef0',
-        'weapon': 'WEAPON-1d29cd'
+        'background': 'BACKGROUND-0f7a57',
+        'beak': 'BEAK-378aee',
+        'clothes': 'CLOTHES-255914',
+        'eyes': 'EYES-741af8',
+        'hat': 'HAT-7846ac',
+        'skin': 'SKIN-fb2ba6',
+        'weapon': 'WEAPON-498a25'
     },
     'items': [
         {
             'id': '1',
             'name': 'Turquoise',
             'slot': 'background',
-            'identifier': 'BACKGROUND-21d071-01',
-            'collection': 'BACKGROUND-21d071',
-            'nonce': 1
+            'identifier': 'BACKGROUND-0f7a57-01',
+            'collection': 'BACKGROUND-0f7a57',
+            'nonce': 1,
+            'attributeName': 'Turquoise'
         },
         {
             'id': '2',
             'name': 'Dark Blue',
             'slot': 'background',
-            'identifier': 'BACKGROUND-21d071-02',
-            'collection': 'BACKGROUND-21d071',
-            'nonce': 2
+            'identifier': 'BACKGROUND-0f7a57-02',
+            'collection': 'BACKGROUND-0f7a57',
+            'nonce': 2,
+            'attributeName': 'Dark Blue'
         },
         {
             'id': '3',
             'name': 'Red',
             'slot': 'background',
-            'identifier': 'BACKGROUND-21d071-03',
-            'collection': 'BACKGROUND-21d071',
-            'nonce': 3
+            'identifier': 'BACKGROUND-0f7a57-03',
+            'collection': 'BACKGROUND-0f7a57',
+            'nonce': 3,
+            'attributeName': 'Red'
         },
         {
             'id': '4',
             'name': 'Green',
             'slot': 'background',
-            'identifier': 'BACKGROUND-21d071-04',
-            'collection': 'BACKGROUND-21d071',
-            'nonce': 4
+            'identifier': 'BACKGROUND-0f7a57-04',
+            'collection': 'BACKGROUND-0f7a57',
+            'nonce': 4,
+            'attributeName': 'Green'
         },
         {
             'id': '5',
             'name': 'Purple',
             'slot': 'background',
-            'identifier': 'BACKGROUND-21d071-05',
-            'collection': 'BACKGROUND-21d071',
-            'nonce': 5
+            'identifier': 'BACKGROUND-0f7a57-05',
+            'collection': 'BACKGROUND-0f7a57',
+            'nonce': 5,
+            'attributeName': 'Purple'
         },
         {
             'id': '6',
             'name': 'Shallow Waters',
             'slot': 'background',
-            'identifier': 'BACKGROUND-21d071-06',
-            'collection': 'BACKGROUND-21d071',
-            'nonce': 6
+            'identifier': 'BACKGROUND-0f7a57-06',
+            'collection': 'BACKGROUND-0f7a57',
+            'nonce': 6,
+            'attributeName': 'Shallow Waters'
         },
         {
             'id': '7',
             'name': 'Oceanic Trench',
             'slot': 'background',
-            'identifier': 'BACKGROUND-21d071-07',
-            'collection': 'BACKGROUND-21d071',
-            'nonce': 7
+            'identifier': 'BACKGROUND-0f7a57-07',
+            'collection': 'BACKGROUND-0f7a57',
+            'nonce': 7,
+            'attributeName': 'Oceanic Trench'
         },
         {
             'id': '8',
             'name': 'Coral Reef',
             'slot': 'background',
-            'identifier': 'BACKGROUND-21d071-08',
-            'collection': 'BACKGROUND-21d071',
-            'nonce': 8
+            'identifier': 'BACKGROUND-0f7a57-08',
+            'collection': 'BACKGROUND-0f7a57',
+            'nonce': 8,
+            'attributeName': 'Coral Reef'
         },
         {
             'id': '9',
             'name': 'Green Gradient',
             'slot': 'background',
-            'identifier': 'BACKGROUND-21d071-09',
-            'collection': 'BACKGROUND-21d071',
-            'nonce': 9
+            'identifier': 'BACKGROUND-0f7a57-09',
+            'collection': 'BACKGROUND-0f7a57',
+            'nonce': 9,
+            'attributeName': 'Green Gradient'
         },
         {
             'id': '10',
             'name': 'Blue Gradient',
             'slot': 'background',
-            'identifier': 'BACKGROUND-21d071-0a',
-            'collection': 'BACKGROUND-21d071',
-            'nonce': 10
+            'identifier': 'BACKGROUND-0f7a57-0a',
+            'collection': 'BACKGROUND-0f7a57',
+            'nonce': 10,
+            'attributeName': 'Blue Gradient'
         },
         {
             'id': '11',
             'name': 'Bandana',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-01',
-            'collection': 'BEAK-340056',
-            'nonce': 1
+            'identifier': 'BEAK-378aee-01',
+            'collection': 'BEAK-378aee',
+            'nonce': 1,
+            'attributeName': 'Bandana'
         },
         {
             'id': '12',
             'name': 'Bitcoin',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-02',
-            'collection': 'BEAK-340056',
-            'nonce': 2
+            'identifier': 'BEAK-378aee-02',
+            'collection': 'BEAK-378aee',
+            'nonce': 2,
+            'attributeName': 'Bitcoin'
         },
         {
             'id': '13',
             'name': 'Blue Meth',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-03',
-            'collection': 'BEAK-340056',
-            'nonce': 3
+            'identifier': 'BEAK-378aee-03',
+            'collection': 'BEAK-378aee',
+            'nonce': 3,
+            'attributeName': 'Blue Meth'
         },
         {
             'id': '14',
             'name': 'Bronze',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-04',
-            'collection': 'BEAK-340056',
-            'nonce': 4
+            'identifier': 'BEAK-378aee-04',
+            'collection': 'BEAK-378aee',
+            'nonce': 4,
+            'attributeName': 'Bronze'
         },
         {
             'id': '15',
             'name': 'Chewing Gum',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-05',
-            'collection': 'BEAK-340056',
-            'nonce': 5
+            'identifier': 'BEAK-378aee-05',
+            'collection': 'BEAK-378aee',
+            'nonce': 5,
+            'attributeName': 'Chewing Gum'
         },
         {
             'id': '16',
             'name': 'Cigar',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-06',
-            'collection': 'BEAK-340056',
-            'nonce': 6
+            'identifier': 'BEAK-378aee-06',
+            'collection': 'BEAK-378aee',
+            'nonce': 6,
+            'attributeName': 'Cigar'
         },
         {
             'id': '17',
             'name': 'Cigarette',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-07',
-            'collection': 'BEAK-340056',
-            'nonce': 7
-        },
-        {
-            'id': '18',
-            'name': 'Default',
-            'slot': 'beak',
-            'identifier': 'BEAK-340056-08',
-            'collection': 'BEAK-340056',
-            'nonce': 8
+            'identifier': 'BEAK-378aee-07',
+            'collection': 'BEAK-378aee',
+            'nonce': 7,
+            'attributeName': 'Cigarette'
         },
         {
             'id': '19',
             'name': 'Yellow',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-09',
-            'collection': 'BEAK-340056',
-            'nonce': 9
+            'identifier': 'BEAK-378aee-08',
+            'collection': 'BEAK-378aee',
+            'nonce': 8,
+            'attributeName': 'Yellow'
         },
         {
             'id': '20',
             'name': 'Dagger',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-0a',
-            'collection': 'BEAK-340056',
-            'nonce': 10
+            'identifier': 'BEAK-378aee-09',
+            'collection': 'BEAK-378aee',
+            'nonce': 9,
+            'attributeName': 'Dagger'
         },
         {
             'id': '21',
             'name': 'Diamond',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-0b',
-            'collection': 'BEAK-340056',
-            'nonce': 11
+            'identifier': 'BEAK-378aee-0a',
+            'collection': 'BEAK-378aee',
+            'nonce': 10,
+            'attributeName': 'Diamond'
         },
         {
             'id': '22',
             'name': 'Eel',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-0c',
-            'collection': 'BEAK-340056',
-            'nonce': 12
+            'identifier': 'BEAK-378aee-0b',
+            'collection': 'BEAK-378aee',
+            'nonce': 11,
+            'attributeName': 'Eel'
         },
         {
             'id': '23',
             'name': 'EGLD Coin',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-0d',
-            'collection': 'BEAK-340056',
-            'nonce': 13
+            'identifier': 'BEAK-378aee-0c',
+            'collection': 'BEAK-378aee',
+            'nonce': 12,
+            'attributeName': 'EGLD Coin'
         },
         {
             'id': '24',
             'name': 'Flower',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-0e',
-            'collection': 'BEAK-340056',
-            'nonce': 14
+            'identifier': 'BEAK-378aee-0d',
+            'collection': 'BEAK-378aee',
+            'nonce': 13,
+            'attributeName': 'Flower'
         },
         {
             'id': '25',
             'name': 'Golden',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-0f',
-            'collection': 'BEAK-340056',
-            'nonce': 15
+            'identifier': 'BEAK-378aee-0e',
+            'collection': 'BEAK-378aee',
+            'nonce': 14,
+            'attributeName': 'Golden'
         },
         {
             'id': '26',
             'name': 'Hook',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-10',
-            'collection': 'BEAK-340056',
-            'nonce': 16
+            'identifier': 'BEAK-378aee-0f',
+            'collection': 'BEAK-378aee',
+            'nonce': 15,
+            'attributeName': 'Hook'
         },
         {
             'id': '27',
             'name': 'Party Horn',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-11',
-            'collection': 'BEAK-340056',
-            'nonce': 17
+            'identifier': 'BEAK-378aee-10',
+            'collection': 'BEAK-378aee',
+            'nonce': 16,
+            'attributeName': 'Party Horn'
         },
         {
             'id': '28',
             'name': 'Pipe',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-12',
-            'collection': 'BEAK-340056',
-            'nonce': 18
+            'identifier': 'BEAK-378aee-11',
+            'collection': 'BEAK-378aee',
+            'nonce': 17,
+            'attributeName': 'Pipe'
         },
         {
             'id': '29',
             'name': 'Pixel',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-13',
-            'collection': 'BEAK-340056',
-            'nonce': 19
+            'identifier': 'BEAK-378aee-12',
+            'collection': 'BEAK-378aee',
+            'nonce': 18,
+            'attributeName': 'Pixel'
         },
         {
             'id': '30',
             'name': 'Pizza',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-14',
-            'collection': 'BEAK-340056',
-            'nonce': 20
+            'identifier': 'BEAK-378aee-13',
+            'collection': 'BEAK-378aee',
+            'nonce': 19,
+            'attributeName': 'Pizza'
         },
         {
             'id': '31',
             'name': 'Silver',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-15',
-            'collection': 'BEAK-340056',
-            'nonce': 21
+            'identifier': 'BEAK-378aee-14',
+            'collection': 'BEAK-378aee',
+            'nonce': 20,
+            'attributeName': 'Silver'
         },
         {
             'id': '32',
             'name': 'Straw',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-16',
-            'collection': 'BEAK-340056',
-            'nonce': 22
+            'identifier': 'BEAK-378aee-15',
+            'collection': 'BEAK-378aee',
+            'nonce': 21,
+            'attributeName': 'Straw'
         },
         {
             'id': '33',
             'name': 'Teeth',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-17',
-            'collection': 'BEAK-340056',
-            'nonce': 23
+            'identifier': 'BEAK-378aee-16',
+            'collection': 'BEAK-378aee',
+            'nonce': 22,
+            'attributeName': 'Teeth'
         },
         {
             'id': '34',
             'name': 'Toothpick',
             'slot': 'beak',
-            'identifier': 'BEAK-340056-18',
-            'collection': 'BEAK-340056',
-            'nonce': 24
+            'identifier': 'BEAK-378aee-17',
+            'collection': 'BEAK-378aee',
+            'nonce': 23,
+            'attributeName': 'Toothpick'
         },
         {
             'id': '39',
             'name': 'Silver 42 Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-01',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 1
+            'identifier': 'CLOTHES-255914-01',
+            'collection': 'CLOTHES-255914',
+            'nonce': 1,
+            'attributeName': 'Silver 42 Chain'
         },
         {
             'id': '40',
             'name': 'Chain Silver Anarchist',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-02',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 2
+            'identifier': 'CLOTHES-255914-02',
+            'collection': 'CLOTHES-255914',
+            'nonce': 2,
+            'attributeName': 'Chain Silver Anarchist'
         },
         {
             'id': '41',
             'name': 'Golden APC Logo Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-03',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 3
+            'identifier': 'CLOTHES-255914-03',
+            'collection': 'CLOTHES-255914',
+            'nonce': 3,
+            'attributeName': 'Golden APC Logo Chain'
         },
         {
             'id': '43',
             'name': 'Golden Bitcoin Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-04',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 4
+            'identifier': 'CLOTHES-255914-04',
+            'collection': 'CLOTHES-255914',
+            'nonce': 4,
+            'attributeName': 'Golden Bitcoin Chain'
         },
         {
             'id': '44',
             'name': 'Silver Bitcoin Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-05',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 5
+            'identifier': 'CLOTHES-255914-05',
+            'collection': 'CLOTHES-255914',
+            'nonce': 5,
+            'attributeName': 'Silver Bitcoin Chain'
         },
         {
             'id': '45',
             'name': 'Black Panther Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-06',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 6
+            'identifier': 'CLOTHES-255914-06',
+            'collection': 'CLOTHES-255914',
+            'nonce': 6,
+            'attributeName': 'Black Panther Chain'
         },
         {
             'id': '46',
             'name': 'Golden Eggs Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-07',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 7
+            'identifier': 'CLOTHES-255914-07',
+            'collection': 'CLOTHES-255914',
+            'nonce': 7,
+            'attributeName': 'Golden Eggs Chain'
         },
         {
             'id': '47',
             'name': 'Silver Eggs Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-08',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 8
+            'identifier': 'CLOTHES-255914-08',
+            'collection': 'CLOTHES-255914',
+            'nonce': 8,
+            'attributeName': 'Silver Eggs Chain'
         },
         {
             'id': '49',
             'name': 'Silver EGLD Coin Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-09',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 9
+            'identifier': 'CLOTHES-255914-09',
+            'collection': 'CLOTHES-255914',
+            'nonce': 9,
+            'attributeName': 'Silver EGLD Chain'
         },
         {
             'id': '51',
             'name': 'Silver Fish Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-0a',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 10
+            'identifier': 'CLOTHES-255914-0a',
+            'collection': 'CLOTHES-255914',
+            'nonce': 10,
+            'attributeName': 'Silver Fish Chain'
         },
         {
             'id': '52',
             'name': 'Silver Fish Bone Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-0b',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 11
+            'identifier': 'CLOTHES-255914-0b',
+            'collection': 'CLOTHES-255914',
+            'nonce': 11,
+            'attributeName': 'Silver Fish Bone Chain'
         },
         {
             'id': '53',
             'name': 'Blue Flowers Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-0c',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 12
+            'identifier': 'CLOTHES-255914-0c',
+            'collection': 'CLOTHES-255914',
+            'nonce': 12,
+            'attributeName': 'Blue Flowers Chain'
         },
         {
             'id': '54',
             'name': 'Pink Flowers Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-0d',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 13
+            'identifier': 'CLOTHES-255914-0d',
+            'collection': 'CLOTHES-255914',
+            'nonce': 13,
+            'attributeName': 'Pink Flowers Chain'
         },
         {
             'id': '55',
             'name': 'Yellow Flowers Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-0e',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 14
+            'identifier': 'CLOTHES-255914-0e',
+            'collection': 'CLOTHES-255914',
+            'nonce': 14,
+            'attributeName': 'Yellow Flowers Chain'
         },
         {
             'id': '56',
             'name': 'Golden Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-0f',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 15
+            'identifier': 'CLOTHES-255914-0f',
+            'collection': 'CLOTHES-255914',
+            'nonce': 15,
+            'attributeName': 'Golden Chain'
         },
         {
             'id': '57',
             'name': 'Silver Ice Cream Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-10',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 16
+            'identifier': 'CLOTHES-255914-10',
+            'collection': 'CLOTHES-255914',
+            'nonce': 16,
+            'attributeName': 'Silver Ice Cream Chain'
         },
         {
             'id': '58',
             'name': 'Lord of the Ring Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-11',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 17
+            'identifier': 'CLOTHES-255914-11',
+            'collection': 'CLOTHES-255914',
+            'nonce': 17,
+            'attributeName': 'Lord of the Ring Chain'
         },
         {
             'id': '59',
             'name': 'Pearl Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-12',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 18
+            'identifier': 'CLOTHES-255914-12',
+            'collection': 'CLOTHES-255914',
+            'nonce': 18,
+            'attributeName': 'Pearl Chain'
         },
         {
             'id': '60',
             'name': 'Golden Penguin Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-13',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 19
+            'identifier': 'CLOTHES-255914-13',
+            'collection': 'CLOTHES-255914',
+            'nonce': 19,
+            'attributeName': 'Golden Penguin Chain'
         },
         {
             'id': '61',
             'name': 'Silver Penguin Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-14',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 20
+            'identifier': 'CLOTHES-255914-14',
+            'collection': 'CLOTHES-255914',
+            'nonce': 20,
+            'attributeName': 'Silver Penguin Chain'
         },
         {
             'id': '62',
             'name': 'Plastic Bag Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-15',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 21
+            'identifier': 'CLOTHES-255914-15',
+            'collection': 'CLOTHES-255914',
+            'nonce': 21,
+            'attributeName': 'Plastic Bag Chain'
         },
         {
             'id': '63',
             'name': 'Plastic Packaging Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-16',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 22
+            'identifier': 'CLOTHES-255914-16',
+            'collection': 'CLOTHES-255914',
+            'nonce': 22,
+            'attributeName': 'Plastic Packaging Chain'
         },
         {
             'id': '65',
             'name': 'Silver Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-17',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 23
+            'identifier': 'CLOTHES-255914-17',
+            'collection': 'CLOTHES-255914',
+            'nonce': 23,
+            'attributeName': 'Silver Chain'
         },
         {
             'id': '66',
             'name': 'Golden Straw Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-18',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 24
+            'identifier': 'CLOTHES-255914-18',
+            'collection': 'CLOTHES-255914',
+            'nonce': 24,
+            'attributeName': 'Golden Straw Chain'
         },
         {
             'id': '67',
             'name': 'Silver Straw Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-19',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 25
+            'identifier': 'CLOTHES-255914-19',
+            'collection': 'CLOTHES-255914',
+            'nonce': 25,
+            'attributeName': 'Silver Straw Chain'
         },
         {
             'id': '68',
             'name': 'Silver Weed Chain',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-1a',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 26
+            'identifier': 'CLOTHES-255914-1a',
+            'collection': 'CLOTHES-255914',
+            'nonce': 26,
+            'attributeName': 'Silver Weed Chain'
         },
         {
             'id': '69',
             'name': 'Red Basketball Jersey',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-1b',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 27
+            'identifier': 'CLOTHES-255914-1b',
+            'collection': 'CLOTHES-255914',
+            'nonce': 27,
+            'attributeName': 'Red Basketball Jersey'
         },
         {
             'id': '70',
             'name': 'Yellow Basketball Jersey',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-1c',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 28
+            'identifier': 'CLOTHES-255914-1c',
+            'collection': 'CLOTHES-255914',
+            'nonce': 28,
+            'attributeName': 'Yellow Basketball Jersey'
         },
         {
             'id': '71',
             'name': 'Bikini',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-1d',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 29
+            'identifier': 'CLOTHES-255914-1d',
+            'collection': 'CLOTHES-255914',
+            'nonce': 29,
+            'attributeName': 'Bikini'
         },
         {
             'id': '72',
             'name': 'Bulletproof Vest',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-1e',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 30
+            'identifier': 'CLOTHES-255914-1e',
+            'collection': 'CLOTHES-255914',
+            'nonce': 30,
+            'attributeName': 'Bulletproof Vest'
         },
         {
             'id': '73',
             'name': 'Bulletproof Vest With Harpoon',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-1f',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 31
+            'identifier': 'CLOTHES-255914-1f',
+            'collection': 'CLOTHES-255914',
+            'nonce': 31,
+            'attributeName': 'Bulletproof Vest With Harpoon'
         },
         {
             'id': '74',
-            'name': 'Bulletproof Vest With Bullets Holes',
+            'name': 'Bulletproof Vest With Bullet Holes',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-20',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 32
+            'identifier': 'CLOTHES-255914-20',
+            'collection': 'CLOTHES-255914',
+            'nonce': 32,
+            'attributeName': 'Bulletproof Vest With Bullet Holes'
         },
         {
             'id': '75',
             'name': 'Coat With Black Fur',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-21',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 33
+            'identifier': 'CLOTHES-255914-21',
+            'collection': 'CLOTHES-255914',
+            'nonce': 33,
+            'attributeName': 'Coat With Black Fur'
         },
         {
             'id': '76',
             'name': 'Coat With Blue Fur',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-22',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 34
+            'identifier': 'CLOTHES-255914-22',
+            'collection': 'CLOTHES-255914',
+            'nonce': 34,
+            'attributeName': 'Coat with Blue Fur'
         },
         {
             'id': '77',
             'name': 'Coat With Brown Fur',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-23',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 35
+            'identifier': 'CLOTHES-255914-23',
+            'collection': 'CLOTHES-255914',
+            'nonce': 35,
+            'attributeName': 'Coat With Brown Fur'
         },
         {
             'id': '78',
             'name': 'Coat With Red Fur',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-24',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 36
+            'identifier': 'CLOTHES-255914-24',
+            'collection': 'CLOTHES-255914',
+            'nonce': 36,
+            'attributeName': 'Coat With Red Fur'
         },
         {
             'id': '79',
             'name': 'Coat With White Fur',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-25',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 37
+            'identifier': 'CLOTHES-255914-25',
+            'collection': 'CLOTHES-255914',
+            'nonce': 37,
+            'attributeName': 'Coat with White Fur'
         },
         {
             'id': '80',
             'name': 'Diving Suit',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-26',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 38
+            'identifier': 'CLOTHES-255914-26',
+            'collection': 'CLOTHES-255914',
+            'nonce': 38,
+            'attributeName': 'Diving Suit'
         },
         {
             'id': '81',
             'name': 'Duck Buoy',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-27',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 39
+            'identifier': 'CLOTHES-255914-27',
+            'collection': 'CLOTHES-255914',
+            'nonce': 39,
+            'attributeName': 'Duck Buoy'
         },
         {
             'id': '82',
             'name': 'Fisherman Vest',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-28',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 40
+            'identifier': 'CLOTHES-255914-28',
+            'collection': 'CLOTHES-255914',
+            'nonce': 40,
+            'attributeName': 'Fisherman Vest'
         },
         {
             'id': '83',
             'name': 'Fishing Net',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-29',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 41
+            'identifier': 'CLOTHES-255914-29',
+            'collection': 'CLOTHES-255914',
+            'nonce': 41,
+            'attributeName': 'Fishing Net'
         },
         {
             'id': '84',
             'name': 'Fishing Net With Fishes',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-2a',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 42
+            'identifier': 'CLOTHES-255914-2a',
+            'collection': 'CLOTHES-255914',
+            'nonce': 42,
+            'attributeName': 'Fishing Net With Fishes'
         },
         {
             'id': '85',
             'name': 'Blue Hawaiian Shirt',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-2b',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 43
+            'identifier': 'CLOTHES-255914-2b',
+            'collection': 'CLOTHES-255914',
+            'nonce': 43,
+            'attributeName': 'Blue Hawaiian Shirt'
         },
         {
             'id': '86',
             'name': 'Red Hawaiian Shirt',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-2c',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 44
+            'identifier': 'CLOTHES-255914-2c',
+            'collection': 'CLOTHES-255914',
+            'nonce': 44,
+            'attributeName': 'Red Hawaiian Shirt'
         },
         {
             'id': '87',
             'name': 'Yellow Hawaiian Shirt',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-2d',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 45
+            'identifier': 'CLOTHES-255914-2d',
+            'collection': 'CLOTHES-255914',
+            'nonce': 45,
+            'attributeName': 'Yellow Hawaiian Shirt'
         },
         {
             'id': '88',
             'name': 'Black APC Hoodie',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-2e',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 46
+            'identifier': 'CLOTHES-255914-2e',
+            'collection': 'CLOTHES-255914',
+            'nonce': 46,
+            'attributeName': 'Black APC Hoodie'
         },
         {
             'id': '89',
             'name': 'Black Bitcoin Hoodie',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-2f',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 47
+            'identifier': 'CLOTHES-255914-2f',
+            'collection': 'CLOTHES-255914',
+            'nonce': 47,
+            'attributeName': 'Black Bitcoin Hoodie'
         },
         {
             'id': '91',
             'name': 'Black EGLD Hoodie',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-30',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 48
+            'identifier': 'CLOTHES-255914-30',
+            'collection': 'CLOTHES-255914',
+            'nonce': 48,
+            'attributeName': 'Black EGLD Hoodie'
         },
         {
             'id': '92',
             'name': 'Joker Vest',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-31',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 49
+            'identifier': 'CLOTHES-255914-31',
+            'collection': 'CLOTHES-255914',
+            'nonce': 49,
+            'attributeName': 'Joker Vest'
         },
         {
             'id': '93',
             'name': 'Kimono With Black Belt',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-32',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 50
+            'identifier': 'CLOTHES-255914-32',
+            'collection': 'CLOTHES-255914',
+            'nonce': 50,
+            'attributeName': 'Kimono With Black Belt'
         },
         {
             'id': '94',
             'name': 'Kimono With Red Belt',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-33',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 51
+            'identifier': 'CLOTHES-255914-33',
+            'collection': 'CLOTHES-255914',
+            'nonce': 51,
+            'attributeName': 'Kimono With Red Belt'
         },
         {
             'id': '95',
             'name': 'Lifebuoy',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-34',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 52
+            'identifier': 'CLOTHES-255914-34',
+            'collection': 'CLOTHES-255914',
+            'nonce': 52,
+            'attributeName': 'Lifebuoy'
         },
         {
             'id': '96',
-            'name': 'Lifeguard T-Shirt',
+            'name': 'Lifeguard T-shirt',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-35',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 53
+            'identifier': 'CLOTHES-255914-35',
+            'collection': 'CLOTHES-255914',
+            'nonce': 53,
+            'attributeName': 'Lifeguard T-shirt'
         },
         {
             'id': '97',
-            'name': 'Red Lifejack',
+            'name': 'Red Lifejacket',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-36',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 54
+            'identifier': 'CLOTHES-255914-36',
+            'collection': 'CLOTHES-255914',
+            'nonce': 54,
+            'attributeName': 'Red Lifejacket'
         },
         {
             'id': '98',
             'name': 'Yellow Lifejacket',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-37',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 55
+            'identifier': 'CLOTHES-255914-37',
+            'collection': 'CLOTHES-255914',
+            'nonce': 55,
+            'attributeName': 'Yellow Lifejacket'
         },
         {
             'id': '99',
             'name': 'Black Sailor Jacket',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-38',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 56
+            'identifier': 'CLOTHES-255914-38',
+            'collection': 'CLOTHES-255914',
+            'nonce': 56,
+            'attributeName': 'Black Sailor Jacket'
         },
         {
             'id': '100',
             'name': 'Blue Sailor Jacket',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-39',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 57
+            'identifier': 'CLOTHES-255914-39',
+            'collection': 'CLOTHES-255914',
+            'nonce': 57,
+            'attributeName': 'Blue Sailor Jacket'
         },
         {
             'id': '101',
             'name': 'Green Sailor Jacket',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-3a',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 58
+            'identifier': 'CLOTHES-255914-3a',
+            'collection': 'CLOTHES-255914',
+            'nonce': 58,
+            'attributeName': 'Green Sailor Jacket'
         },
         {
             'id': '102',
             'name': 'Red Sailor Jacket',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-3b',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 59
+            'identifier': 'CLOTHES-255914-3b',
+            'collection': 'CLOTHES-255914',
+            'nonce': 59,
+            'attributeName': 'Red Sailor Jacket'
         },
         {
             'id': '103',
             'name': 'Yellow Sailor Jacket',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-3c',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 60
+            'identifier': 'CLOTHES-255914-3c',
+            'collection': 'CLOTHES-255914',
+            'nonce': 60,
+            'attributeName': 'Yellow Sailor Jacket'
         },
         {
             'id': '104',
-            'name': 'Black APC T-Shirt',
+            'name': 'Black APC T-shirt',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-3d',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 61
+            'identifier': 'CLOTHES-255914-3d',
+            'collection': 'CLOTHES-255914',
+            'nonce': 61,
+            'attributeName': 'Black APC T-shirt'
         },
         {
             'id': '105',
-            'name': 'Black Bitcoin T-Shirt',
+            'name': 'Black Bitcoin T-shirt',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-3e',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 62
+            'identifier': 'CLOTHES-255914-3e',
+            'collection': 'CLOTHES-255914',
+            'nonce': 62,
+            'attributeName': 'Black Bitcoin T-shirt'
         },
         {
             'id': '106',
-            'name': 'Black EGLD T-Shirt',
+            'name': 'Black EGLD T-shirt',
             'slot': 'clothes',
-            'identifier': 'CLOTHES-3b7b59-3f',
-            'collection': 'CLOTHES-3b7b59',
-            'nonce': 63
+            'identifier': 'CLOTHES-255914-3f',
+            'collection': 'CLOTHES-255914',
+            'nonce': 63,
+            'attributeName': 'Black EGLD T-shirt'
+        },
+        {
+            'id': '215',
+            'name': 'Traditional Romanian',
+            'slot': 'clothes',
+            'identifier': 'CLOTHES-255914-40',
+            'collection': 'CLOTHES-255914',
+            'nonce': 64,
+            'attributeName': 'Traditional Romanian'
         },
         {
             'id': '12',
             'name': 'Bitcoin',
             'slot': 'eyes',
-            'identifier': 'EYES-376cab-01',
-            'collection': 'EYES-376cab',
-            'nonce': 1
+            'identifier': 'EYES-741af8-01',
+            'collection': 'EYES-741af8',
+            'nonce': 1,
+            'attributeName': 'Bitcoin'
         },
         {
             'id': '110',
             'name': 'Black',
             'slot': 'eyes',
-            'identifier': 'EYES-376cab-02',
-            'collection': 'EYES-376cab',
-            'nonce': 2
+            'identifier': 'EYES-741af8-02',
+            'collection': 'EYES-741af8',
+            'nonce': 2,
+            'attributeName': 'Black'
         },
         {
             'id': '111',
             'name': 'Blue',
             'slot': 'eyes',
-            'identifier': 'EYES-376cab-03',
-            'collection': 'EYES-376cab',
-            'nonce': 3
-        },
-        {
-            'id': '18',
-            'name': 'Default',
-            'slot': 'eyes',
-            'identifier': 'EYES-376cab-04',
-            'collection': 'EYES-376cab',
-            'nonce': 4
+            'identifier': 'EYES-741af8-03',
+            'collection': 'EYES-741af8',
+            'nonce': 3,
+            'attributeName': 'Blue'
         },
         {
             'id': '113',
             'name': 'Crying',
             'slot': 'eyes',
-            'identifier': 'EYES-376cab-05',
-            'collection': 'EYES-376cab',
-            'nonce': 5
+            'identifier': 'EYES-741af8-04',
+            'collection': 'EYES-741af8',
+            'nonce': 4,
+            'attributeName': 'Crying'
         },
         {
             'id': '114',
             'name': 'EGLD',
             'slot': 'eyes',
-            'identifier': 'EYES-376cab-06',
-            'collection': 'EYES-376cab',
-            'nonce': 6
+            'identifier': 'EYES-741af8-05',
+            'collection': 'EYES-741af8',
+            'nonce': 5,
+            'attributeName': 'EGLD'
         },
         {
             'id': '115',
             'name': 'Glassy',
             'slot': 'eyes',
-            'identifier': 'EYES-376cab-07',
-            'collection': 'EYES-376cab',
-            'nonce': 7
+            'identifier': 'EYES-741af8-06',
+            'collection': 'EYES-741af8',
+            'nonce': 6,
+            'attributeName': 'Glassy'
         },
         {
             'id': '4',
             'name': 'Green',
             'slot': 'eyes',
-            'identifier': 'EYES-376cab-08',
-            'collection': 'EYES-376cab',
-            'nonce': 8
+            'identifier': 'EYES-741af8-07',
+            'collection': 'EYES-741af8',
+            'nonce': 7,
+            'attributeName': 'Green'
         },
         {
             'id': '118',
             'name': 'Green Headband',
             'slot': 'eyes',
-            'identifier': 'EYES-376cab-09',
-            'collection': 'EYES-376cab',
-            'nonce': 9
+            'identifier': 'EYES-741af8-08',
+            'collection': 'EYES-741af8',
+            'nonce': 8,
+            'attributeName': 'Green Headband'
         },
         {
             'id': '119',
             'name': 'Orange Headband',
             'slot': 'eyes',
-            'identifier': 'EYES-376cab-0a',
-            'collection': 'EYES-376cab',
-            'nonce': 10
+            'identifier': 'EYES-741af8-09',
+            'collection': 'EYES-741af8',
+            'nonce': 9,
+            'attributeName': 'Orange Headband'
         },
         {
             'id': '120',
             'name': 'Purple Headband',
             'slot': 'eyes',
-            'identifier': 'EYES-376cab-0b',
-            'collection': 'EYES-376cab',
-            'nonce': 11
+            'identifier': 'EYES-741af8-0a',
+            'collection': 'EYES-741af8',
+            'nonce': 10,
+            'attributeName': 'Purple Headband'
         },
         {
             'id': '121',
             'name': 'Red Headband',
             'slot': 'eyes',
-            'identifier': 'EYES-376cab-0c',
-            'collection': 'EYES-376cab',
-            'nonce': 12
+            'identifier': 'EYES-741af8-0b',
+            'collection': 'EYES-741af8',
+            'nonce': 11,
+            'attributeName': 'Red Headband'
         },
         {
             'id': '122',
             'name': 'Wounded',
             'slot': 'eyes',
-            'identifier': 'EYES-376cab-0d',
-            'collection': 'EYES-376cab',
-            'nonce': 13
+            'identifier': 'EYES-741af8-0c',
+            'collection': 'EYES-741af8',
+            'nonce': 12,
+            'attributeName': 'Wounded'
         },
         {
             'id': '3',
             'name': 'Red',
             'slot': 'eyes',
-            'identifier': 'EYES-376cab-0e',
-            'collection': 'EYES-376cab',
-            'nonce': 14
+            'identifier': 'EYES-741af8-0d',
+            'collection': 'EYES-741af8',
+            'nonce': 13,
+            'attributeName': 'Red'
         },
         {
             'id': '124',
             'name': 'Snake',
             'slot': 'eyes',
-            'identifier': 'EYES-376cab-0f',
-            'collection': 'EYES-376cab',
-            'nonce': 15
+            'identifier': 'EYES-741af8-0e',
+            'collection': 'EYES-741af8',
+            'nonce': 14,
+            'attributeName': 'Snake'
         },
         {
             'id': '125',
             'name': 'Strabismus',
             'slot': 'eyes',
-            'identifier': 'EYES-376cab-10',
-            'collection': 'EYES-376cab',
-            'nonce': 16
+            'identifier': 'EYES-741af8-0f',
+            'collection': 'EYES-741af8',
+            'nonce': 15,
+            'attributeName': 'Strabismus'
         },
         {
             'id': '126',
             'name': 'White',
             'slot': 'eyes',
-            'identifier': 'EYES-376cab-11',
-            'collection': 'EYES-376cab',
-            'nonce': 17
+            'identifier': 'EYES-741af8-10',
+            'collection': 'EYES-741af8',
+            'nonce': 16,
+            'attributeName': 'White'
         },
         {
             'id': '127',
             'name': 'Brown Algae',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-01',
-            'collection': 'HAT-84e513',
-            'nonce': 1
+            'identifier': 'HAT-7846ac-01',
+            'collection': 'HAT-7846ac',
+            'nonce': 1,
+            'attributeName': 'Brown Algae'
         },
         {
             'id': '128',
-            'name': 'green Algae',
+            'name': 'Green Algae',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-02',
-            'collection': 'HAT-84e513',
-            'nonce': 2
+            'identifier': 'HAT-7846ac-02',
+            'collection': 'HAT-7846ac',
+            'nonce': 2,
+            'attributeName': 'Green Algae'
         },
         {
             'id': '129',
             'name': 'Neon Algae',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-03',
-            'collection': 'HAT-84e513',
-            'nonce': 3
+            'identifier': 'HAT-7846ac-03',
+            'collection': 'HAT-7846ac',
+            'nonce': 3,
+            'attributeName': 'Neon Algae'
         },
         {
             'id': '130',
             'name': 'Anchor',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-04',
-            'collection': 'HAT-84e513',
-            'nonce': 4
+            'identifier': 'HAT-7846ac-04',
+            'collection': 'HAT-7846ac',
+            'nonce': 4,
+            'attributeName': 'Anchor'
         },
         {
             'id': '131',
             'name': 'Beret',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-05',
-            'collection': 'HAT-84e513',
-            'nonce': 5
+            'identifier': 'HAT-7846ac-05',
+            'collection': 'HAT-7846ac',
+            'nonce': 5,
+            'attributeName': 'Beret'
         },
         {
             'id': '132',
             'name': 'Horns',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-06',
-            'collection': 'HAT-84e513',
-            'nonce': 6
+            'identifier': 'HAT-7846ac-06',
+            'collection': 'HAT-7846ac',
+            'nonce': 6,
+            'attributeName': 'Horns'
         },
         {
             'id': '133',
             'name': 'Black APC Cap',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-07',
-            'collection': 'HAT-84e513',
-            'nonce': 7
+            'identifier': 'HAT-7846ac-07',
+            'collection': 'HAT-7846ac',
+            'nonce': 7,
+            'attributeName': 'Black APC Cap'
         },
         {
             'id': '134',
             'name': 'Blue APC Cap',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-08',
-            'collection': 'HAT-84e513',
-            'nonce': 8
+            'identifier': 'HAT-7846ac-08',
+            'collection': 'HAT-7846ac',
+            'nonce': 8,
+            'attributeName': 'Blue APC Cap'
         },
         {
             'id': '135',
             'name': 'Red APC Cap',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-09',
-            'collection': 'HAT-84e513',
-            'nonce': 9
+            'identifier': 'HAT-7846ac-09',
+            'collection': 'HAT-7846ac',
+            'nonce': 9,
+            'attributeName': 'Red APC Cap'
         },
         {
             'id': '136',
             'name': 'White APC Cap',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-0a',
-            'collection': 'HAT-84e513',
-            'nonce': 10
+            'identifier': 'HAT-7846ac-0a',
+            'collection': 'HAT-7846ac',
+            'nonce': 10,
+            'attributeName': 'White APC Cap'
         },
         {
             'id': '137',
             'name': 'Beer Tank Cap',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-0b',
-            'collection': 'HAT-84e513',
-            'nonce': 11
+            'identifier': 'HAT-7846ac-0b',
+            'collection': 'HAT-7846ac',
+            'nonce': 11,
+            'attributeName': 'Beer Tank Cap'
         },
         {
             'id': '138',
             'name': 'Black Bitcoin Cap',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-0c',
-            'collection': 'HAT-84e513',
-            'nonce': 12
+            'identifier': 'HAT-7846ac-0c',
+            'collection': 'HAT-7846ac',
+            'nonce': 12,
+            'attributeName': 'Black Bitcoin Cap'
         },
         {
             'id': '139',
             'name': 'Blue Bitcoin Cap',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-0d',
-            'collection': 'HAT-84e513',
-            'nonce': 13
+            'identifier': 'HAT-7846ac-0d',
+            'collection': 'HAT-7846ac',
+            'nonce': 13,
+            'attributeName': 'Blue Bitcoin Cap'
         },
         {
             'id': '140',
             'name': 'Red Bitcoin Cap',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-0e',
-            'collection': 'HAT-84e513',
-            'nonce': 14
+            'identifier': 'HAT-7846ac-0e',
+            'collection': 'HAT-7846ac',
+            'nonce': 14,
+            'attributeName': 'Red Bitcoin Cap'
         },
         {
             'id': '141',
             'name': 'White Bitcoin Cap',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-0f',
-            'collection': 'HAT-84e513',
-            'nonce': 15
+            'identifier': 'HAT-7846ac-0f',
+            'collection': 'HAT-7846ac',
+            'nonce': 15,
+            'attributeName': 'White Bitcoin Cap'
         },
         {
             'id': '142',
             'name': 'Simple Tiara',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-10',
-            'collection': 'HAT-84e513',
-            'nonce': 16
+            'identifier': 'HAT-7846ac-10',
+            'collection': 'HAT-7846ac',
+            'nonce': 16,
+            'attributeName': 'Tiara'
         },
         {
             'id': '143',
             'name': 'Blue EGLD Cap',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-11',
-            'collection': 'HAT-84e513',
-            'nonce': 17
+            'identifier': 'HAT-7846ac-11',
+            'collection': 'HAT-7846ac',
+            'nonce': 17,
+            'attributeName': 'Blue EGLD Cap'
         },
         {
             'id': '144',
             'name': 'Red EGLD Cap',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-12',
-            'collection': 'HAT-84e513',
-            'nonce': 18
+            'identifier': 'HAT-7846ac-12',
+            'collection': 'HAT-7846ac',
+            'nonce': 18,
+            'attributeName': 'Red EGLD Cap'
         },
         {
             'id': '145',
             'name': 'White EGLD Cap',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-13',
-            'collection': 'HAT-84e513',
-            'nonce': 19
+            'identifier': 'HAT-7846ac-13',
+            'collection': 'HAT-7846ac',
+            'nonce': 19,
+            'attributeName': 'White EGLD Cap'
         },
         {
             'id': '146',
             'name': 'Propeller Cap',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-14',
-            'collection': 'HAT-84e513',
-            'nonce': 20
+            'identifier': 'HAT-7846ac-14',
+            'collection': 'HAT-7846ac',
+            'nonce': 20,
+            'attributeName': 'Propeller Cap'
         },
         {
             'id': '147',
             'name': 'Black Captain',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-15',
-            'collection': 'HAT-84e513',
-            'nonce': 21
+            'identifier': 'HAT-7846ac-15',
+            'collection': 'HAT-7846ac',
+            'nonce': 21,
+            'attributeName': 'Black Captain'
         },
         {
             'id': '148',
             'name': 'Golden Captain',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-16',
-            'collection': 'HAT-84e513',
-            'nonce': 22
+            'identifier': 'HAT-7846ac-16',
+            'collection': 'HAT-7846ac',
+            'nonce': 22,
+            'attributeName': 'Golden Captain'
         },
         {
             'id': '149',
             'name': 'Silver Captain',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-17',
-            'collection': 'HAT-84e513',
-            'nonce': 23
+            'identifier': 'HAT-7846ac-17',
+            'collection': 'HAT-7846ac',
+            'nonce': 23,
+            'attributeName': 'Silver Captain'
         },
         {
             'id': '150',
             'name': 'Chapka',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-18',
-            'collection': 'HAT-84e513',
-            'nonce': 24
+            'identifier': 'HAT-7846ac-18',
+            'collection': 'HAT-7846ac',
+            'nonce': 24,
+            'attributeName': 'Chapka'
         },
         {
             'id': '151',
             'name': 'Cowboy',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-19',
-            'collection': 'HAT-84e513',
-            'nonce': 25
+            'identifier': 'HAT-7846ac-19',
+            'collection': 'HAT-7846ac',
+            'nonce': 25,
+            'attributeName': 'Cowboy'
         },
         {
             'id': '152',
             'name': 'Crown',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-1a',
-            'collection': 'HAT-84e513',
-            'nonce': 26
+            'identifier': 'HAT-7846ac-1a',
+            'collection': 'HAT-7846ac',
+            'nonce': 26,
+            'attributeName': 'Crown'
         },
         {
             'id': '153',
             'name': 'APC Pirate Headscarf',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-1b',
-            'collection': 'HAT-84e513',
-            'nonce': 27
+            'identifier': 'HAT-7846ac-1b',
+            'collection': 'HAT-7846ac',
+            'nonce': 27,
+            'attributeName': 'APC Pirate Headscarf'
         },
         {
             'id': '154',
             'name': 'Bitcoin Headscarf',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-1c',
-            'collection': 'HAT-84e513',
-            'nonce': 28
+            'identifier': 'HAT-7846ac-1c',
+            'collection': 'HAT-7846ac',
+            'nonce': 28,
+            'attributeName': 'Bitcoin Headscarf'
         },
         {
             'id': '155',
             'name': 'EGLD Headscarf',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-1d',
-            'collection': 'HAT-84e513',
-            'nonce': 29
+            'identifier': 'HAT-7846ac-1d',
+            'collection': 'HAT-7846ac',
+            'nonce': 29,
+            'attributeName': 'EGLD Headscarf'
         },
         {
             'id': '156',
             'name': 'Heisenberg',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-1e',
-            'collection': 'HAT-84e513',
-            'nonce': 30
+            'identifier': 'HAT-7846ac-1e',
+            'collection': 'HAT-7846ac',
+            'nonce': 30,
+            'attributeName': 'Heisenberg'
         },
         {
             'id': '157',
             'name': 'Igloo',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-1f',
-            'collection': 'HAT-84e513',
-            'nonce': 31
+            'identifier': 'HAT-7846ac-1f',
+            'collection': 'HAT-7846ac',
+            'nonce': 31,
+            'attributeName': 'Igloo'
         },
         {
             'id': '158',
             'name': 'Joker',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-20',
-            'collection': 'HAT-84e513',
-            'nonce': 32
+            'identifier': 'HAT-7846ac-20',
+            'collection': 'HAT-7846ac',
+            'nonce': 32,
+            'attributeName': 'Joker'
         },
         {
             'id': '159',
             'name': 'Golden Laurels',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-21',
-            'collection': 'HAT-84e513',
-            'nonce': 33
+            'identifier': 'HAT-7846ac-21',
+            'collection': 'HAT-7846ac',
+            'nonce': 33,
+            'attributeName': 'Golden Laurels'
         },
         {
             'id': '160',
             'name': 'Nest',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-22',
-            'collection': 'HAT-84e513',
-            'nonce': 34
+            'identifier': 'HAT-7846ac-22',
+            'collection': 'HAT-7846ac',
+            'nonce': 34,
+            'attributeName': 'Nest'
         },
         {
             'id': '161',
             'name': 'Octopus',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-23',
-            'collection': 'HAT-84e513',
-            'nonce': 35
+            'identifier': 'HAT-7846ac-23',
+            'collection': 'HAT-7846ac',
+            'nonce': 35,
+            'attributeName': 'Octopus'
         },
         {
             'id': '163',
             'name': 'Plastic Bag',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-24',
-            'collection': 'HAT-84e513',
-            'nonce': 36
+            'identifier': 'HAT-7846ac-24',
+            'collection': 'HAT-7846ac',
+            'nonce': 36,
+            'attributeName': 'Plastic Bag'
         },
         {
             'id': '164',
             'name': 'Punk Hair',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-25',
-            'collection': 'HAT-84e513',
-            'nonce': 37
+            'identifier': 'HAT-7846ac-25',
+            'collection': 'HAT-7846ac',
+            'nonce': 37,
+            'attributeName': 'Punk Hair'
         },
         {
             'id': '165',
             'name': 'Sombrero',
             'slot': 'hat',
-            'identifier': 'HAT-84e513-26',
-            'collection': 'HAT-84e513',
-            'nonce': 38
+            'identifier': 'HAT-7846ac-26',
+            'collection': 'HAT-7846ac',
+            'nonce': 38,
+            'attributeName': 'Sombrero'
+        },
+        {
+            'id': '215',
+            'name': 'Traditional Romanian',
+            'slot': 'hat',
+            'identifier': 'HAT-7846ac-27',
+            'collection': 'HAT-7846ac',
+            'nonce': 39,
+            'attributeName': 'Traditional Romanian'
         },
         {
             'id': '170',
             'name': 'Albino',
             'slot': 'skin',
-            'identifier': 'SKIN-64fef0-01',
-            'collection': 'SKIN-64fef0',
-            'nonce': 1
+            'identifier': 'SKIN-fb2ba6-01',
+            'collection': 'SKIN-fb2ba6',
+            'nonce': 1,
+            'attributeName': 'Albino'
         },
         {
             'id': '110',
             'name': 'Black',
             'slot': 'skin',
-            'identifier': 'SKIN-64fef0-02',
-            'collection': 'SKIN-64fef0',
-            'nonce': 2
+            'identifier': 'SKIN-fb2ba6-02',
+            'collection': 'SKIN-fb2ba6',
+            'nonce': 2,
+            'attributeName': 'Black'
         },
         {
             'id': '14',
             'name': 'Bronze',
             'slot': 'skin',
-            'identifier': 'SKIN-64fef0-03',
-            'collection': 'SKIN-64fef0',
-            'nonce': 3
+            'identifier': 'SKIN-fb2ba6-03',
+            'collection': 'SKIN-fb2ba6',
+            'nonce': 3,
+            'attributeName': 'Bronze'
         },
         {
             'id': '174',
             'name': 'Crocodile',
             'slot': 'skin',
-            'identifier': 'SKIN-64fef0-04',
-            'collection': 'SKIN-64fef0',
-            'nonce': 4
+            'identifier': 'SKIN-fb2ba6-04',
+            'collection': 'SKIN-fb2ba6',
+            'nonce': 4,
+            'attributeName': 'Crocodile'
         },
         {
             'id': '21',
             'name': 'Diamond',
             'slot': 'skin',
-            'identifier': 'SKIN-64fef0-05',
-            'collection': 'SKIN-64fef0',
-            'nonce': 5
+            'identifier': 'SKIN-fb2ba6-05',
+            'collection': 'SKIN-fb2ba6',
+            'nonce': 5,
+            'attributeName': 'Diamond'
         },
         {
             'id': '176',
             'name': 'Dark Frozen',
             'slot': 'skin',
-            'identifier': 'SKIN-64fef0-06',
-            'collection': 'SKIN-64fef0',
-            'nonce': 6
+            'identifier': 'SKIN-fb2ba6-06',
+            'collection': 'SKIN-fb2ba6',
+            'nonce': 6,
+            'attributeName': 'Dark Frozen'
         },
         {
             'id': '177',
             'name': 'Light Frozen',
             'slot': 'skin',
-            'identifier': 'SKIN-64fef0-07',
-            'collection': 'SKIN-64fef0',
-            'nonce': 7
+            'identifier': 'SKIN-fb2ba6-07',
+            'collection': 'SKIN-fb2ba6',
+            'nonce': 7,
+            'attributeName': 'Light Frozen'
         },
         {
             'id': '178',
             'name': 'Gold',
             'slot': 'skin',
-            'identifier': 'SKIN-64fef0-08',
-            'collection': 'SKIN-64fef0',
-            'nonce': 8
+            'identifier': 'SKIN-fb2ba6-08',
+            'collection': 'SKIN-fb2ba6',
+            'nonce': 8,
+            'attributeName': 'Gold'
         },
         {
             'id': '179',
             'name': 'Leopard',
             'slot': 'skin',
-            'identifier': 'SKIN-64fef0-09',
-            'collection': 'SKIN-64fef0',
-            'nonce': 9
+            'identifier': 'SKIN-fb2ba6-09',
+            'collection': 'SKIN-fb2ba6',
+            'nonce': 9,
+            'attributeName': 'Leopard'
         },
         {
             'id': '180',
             'name': 'Oil Spill',
             'slot': 'skin',
-            'identifier': 'SKIN-64fef0-0a',
-            'collection': 'SKIN-64fef0',
-            'nonce': 10
-        },
-        {
-            'id': '18',
-            'name': 'Default',
-            'slot': 'skin',
-            'identifier': 'SKIN-64fef0-0b',
-            'collection': 'SKIN-64fef0',
-            'nonce': 11
+            'identifier': 'SKIN-fb2ba6-0a',
+            'collection': 'SKIN-fb2ba6',
+            'nonce': 10,
+            'attributeName': 'Oil Spill'
         },
         {
             'id': '182',
             'name': 'Parrot',
             'slot': 'skin',
-            'identifier': 'SKIN-64fef0-0c',
-            'collection': 'SKIN-64fef0',
-            'nonce': 12
+            'identifier': 'SKIN-fb2ba6-0b',
+            'collection': 'SKIN-fb2ba6',
+            'nonce': 11,
+            'attributeName': 'Parrot'
         },
         {
             'id': '183',
             'name': 'Pink',
             'slot': 'skin',
-            'identifier': 'SKIN-64fef0-0d',
-            'collection': 'SKIN-64fef0',
-            'nonce': 13
+            'identifier': 'SKIN-fb2ba6-0c',
+            'collection': 'SKIN-fb2ba6',
+            'nonce': 12,
+            'attributeName': 'Pink'
         },
         {
             'id': '29',
             'name': 'Pixel',
             'slot': 'skin',
-            'identifier': 'SKIN-64fef0-0e',
-            'collection': 'SKIN-64fef0',
-            'nonce': 14
+            'identifier': 'SKIN-fb2ba6-0d',
+            'collection': 'SKIN-fb2ba6',
+            'nonce': 13,
+            'attributeName': 'Pixel'
         },
         {
             'id': '186',
             'name': 'Robot',
             'slot': 'skin',
-            'identifier': 'SKIN-64fef0-0f',
-            'collection': 'SKIN-64fef0',
-            'nonce': 15
+            'identifier': 'SKIN-fb2ba6-0e',
+            'collection': 'SKIN-fb2ba6',
+            'nonce': 14,
+            'attributeName': 'Robot'
         },
         {
             'id': '31',
             'name': 'Silver',
             'slot': 'skin',
-            'identifier': 'SKIN-64fef0-10',
-            'collection': 'SKIN-64fef0',
-            'nonce': 16
+            'identifier': 'SKIN-fb2ba6-0f',
+            'collection': 'SKIN-fb2ba6',
+            'nonce': 15,
+            'attributeName': 'Silver'
         },
         {
             'id': '188',
             'name': 'Tiger',
             'slot': 'skin',
-            'identifier': 'SKIN-64fef0-11',
-            'collection': 'SKIN-64fef0',
-            'nonce': 17
+            'identifier': 'SKIN-fb2ba6-10',
+            'collection': 'SKIN-fb2ba6',
+            'nonce': 16,
+            'attributeName': 'Tiger'
         },
         {
             'id': '189',
             'name': 'Second Degree Burn',
             'slot': 'skin',
-            'identifier': 'SKIN-64fef0-12',
-            'collection': 'SKIN-64fef0',
-            'nonce': 18
+            'identifier': 'SKIN-fb2ba6-11',
+            'collection': 'SKIN-fb2ba6',
+            'nonce': 17,
+            'attributeName': 'Second Degree Burn'
         },
         {
             'id': '190',
             'name': 'Claw Marks',
             'slot': 'skin',
-            'identifier': 'SKIN-64fef0-13',
-            'collection': 'SKIN-64fef0',
-            'nonce': 19
+            'identifier': 'SKIN-fb2ba6-12',
+            'collection': 'SKIN-fb2ba6',
+            'nonce': 18,
+            'attributeName': 'Claw Marks'
         },
         {
             'id': '191',
             'name': 'Fighting Scars',
             'slot': 'skin',
-            'identifier': 'SKIN-64fef0-14',
-            'collection': 'SKIN-64fef0',
-            'nonce': 20
+            'identifier': 'SKIN-fb2ba6-13',
+            'collection': 'SKIN-fb2ba6',
+            'nonce': 19,
+            'attributeName': 'Fighting Scars'
         },
         {
             'id': '192',
             'name': 'Yellow Feathers',
             'slot': 'skin',
-            'identifier': 'SKIN-64fef0-15',
-            'collection': 'SKIN-64fef0',
-            'nonce': 21
+            'identifier': 'SKIN-fb2ba6-14',
+            'collection': 'SKIN-fb2ba6',
+            'nonce': 20,
+            'attributeName': 'Yellow Feathers'
         },
         {
             'id': '193',
             'name': 'Zebra',
             'slot': 'skin',
-            'identifier': 'SKIN-64fef0-16',
-            'collection': 'SKIN-64fef0',
-            'nonce': 22
+            'identifier': 'SKIN-fb2ba6-15',
+            'collection': 'SKIN-fb2ba6',
+            'nonce': 21,
+            'attributeName': 'Zebra'
         },
         {
             'id': '198',
             'name': 'Axe',
             'slot': 'weapon',
-            'identifier': 'WEAPON-1d29cd-01',
-            'collection': 'WEAPON-1d29cd',
-            'nonce': 1
+            'identifier': 'WEAPON-498a25-01',
+            'collection': 'WEAPON-498a25',
+            'nonce': 1,
+            'attributeName': 'Axe'
         },
         {
             'id': '199',
             'name': 'Bazooka',
             'slot': 'weapon',
-            'identifier': 'WEAPON-1d29cd-02',
-            'collection': 'WEAPON-1d29cd',
-            'nonce': 2
+            'identifier': 'WEAPON-498a25-02',
+            'collection': 'WEAPON-498a25',
+            'nonce': 2,
+            'attributeName': 'Bazooka'
         },
         {
             'id': '200',
             'name': 'Bow',
             'slot': 'weapon',
-            'identifier': 'WEAPON-1d29cd-03',
-            'collection': 'WEAPON-1d29cd',
-            'nonce': 3
+            'identifier': 'WEAPON-498a25-03',
+            'collection': 'WEAPON-498a25',
+            'nonce': 3,
+            'attributeName': 'Bow'
         },
         {
             'id': '201',
             'name': 'Crossbow',
             'slot': 'weapon',
-            'identifier': 'WEAPON-1d29cd-04',
-            'collection': 'WEAPON-1d29cd',
-            'nonce': 4
+            'identifier': 'WEAPON-498a25-04',
+            'collection': 'WEAPON-498a25',
+            'nonce': 4,
+            'attributeName': 'Crossbow'
         },
         {
             'id': '202',
             'name': 'Fishing Rifle',
             'slot': 'weapon',
-            'identifier': 'WEAPON-1d29cd-05',
-            'collection': 'WEAPON-1d29cd',
-            'nonce': 5
+            'identifier': 'WEAPON-498a25-05',
+            'collection': 'WEAPON-498a25',
+            'nonce': 5,
+            'attributeName': 'Fishing Rifle'
         },
         {
             'id': '204',
-            'name': 'Flamethrow',
+            'name': 'Flamethrower',
             'slot': 'weapon',
-            'identifier': 'WEAPON-1d29cd-06',
-            'collection': 'WEAPON-1d29cd',
-            'nonce': 6
+            'identifier': 'WEAPON-498a25-06',
+            'collection': 'WEAPON-498a25',
+            'nonce': 6,
+            'attributeName': 'Flamethrower'
         },
         {
             'id': '205',
             'name': 'Flashlight',
             'slot': 'weapon',
-            'identifier': 'WEAPON-1d29cd-07',
-            'collection': 'WEAPON-1d29cd',
-            'nonce': 7
+            'identifier': 'WEAPON-498a25-07',
+            'collection': 'WEAPON-498a25',
+            'nonce': 7,
+            'attributeName': 'Flashlight'
         },
         {
             'id': '206',
             'name': 'Machine Gun',
             'slot': 'weapon',
-            'identifier': 'WEAPON-1d29cd-08',
-            'collection': 'WEAPON-1d29cd',
-            'nonce': 8
+            'identifier': 'WEAPON-498a25-08',
+            'collection': 'WEAPON-498a25',
+            'nonce': 8,
+            'attributeName': 'Machine Gun'
         },
         {
             'id': '207',
             'name': 'Oxygen Tank',
             'slot': 'weapon',
-            'identifier': 'WEAPON-1d29cd-09',
-            'collection': 'WEAPON-1d29cd',
-            'nonce': 9
+            'identifier': 'WEAPON-498a25-09',
+            'collection': 'WEAPON-498a25',
+            'nonce': 9,
+            'attributeName': 'Oxygen Tank'
         },
         {
             'id': '208',
             'name': 'Sea Shepherd Gaff',
             'slot': 'weapon',
-            'identifier': 'WEAPON-1d29cd-0a',
-            'collection': 'WEAPON-1d29cd',
-            'nonce': 10
+            'identifier': 'WEAPON-498a25-0a',
+            'collection': 'WEAPON-498a25',
+            'nonce': 10,
+            'attributeName': 'Sea Shepherd Gaff'
         },
         {
             'id': '209',
             'name': 'Snowboard',
             'slot': 'weapon',
-            'identifier': 'WEAPON-1d29cd-0b',
-            'collection': 'WEAPON-1d29cd',
-            'nonce': 11
+            'identifier': 'WEAPON-498a25-0b',
+            'collection': 'WEAPON-498a25',
+            'nonce': 11,
+            'attributeName': 'Snowboard'
         },
         {
             'id': '210',
             'name': 'Spear',
             'slot': 'weapon',
-            'identifier': 'WEAPON-1d29cd-0c',
-            'collection': 'WEAPON-1d29cd',
-            'nonce': 12
+            'identifier': 'WEAPON-498a25-0c',
+            'collection': 'WEAPON-498a25',
+            'nonce': 12,
+            'attributeName': 'Spear'
         },
         {
             'id': '211',
             'name': 'Ice Spear',
             'slot': 'weapon',
-            'identifier': 'WEAPON-1d29cd-0d',
-            'collection': 'WEAPON-1d29cd',
-            'nonce': 13
+            'identifier': 'WEAPON-498a25-0d',
+            'collection': 'WEAPON-498a25',
+            'nonce': 13,
+            'attributeName': 'Ice spear'
         },
         {
             'id': '212',
             'name': 'Surfboard',
             'slot': 'weapon',
-            'identifier': 'WEAPON-1d29cd-0e',
-            'collection': 'WEAPON-1d29cd',
-            'nonce': 14
+            'identifier': 'WEAPON-498a25-0e',
+            'collection': 'WEAPON-498a25',
+            'nonce': 14,
+            'attributeName': 'Surboard'
         },
         {
             'id': '213',
             'name': 'Tomahawk',
             'slot': 'weapon',
-            'identifier': 'WEAPON-1d29cd-0f',
-            'collection': 'WEAPON-1d29cd',
-            'nonce': 15
+            'identifier': 'WEAPON-498a25-0f',
+            'collection': 'WEAPON-498a25',
+            'nonce': 15,
+            'attributeName': 'Tomahawk'
         },
         {
             'id': '214',
             'name': 'Poseidon Trident',
             'slot': 'weapon',
-            'identifier': 'WEAPON-1d29cd-10',
-            'collection': 'WEAPON-1d29cd',
-            'nonce': 16
+            'identifier': 'WEAPON-498a25-10',
+            'collection': 'WEAPON-498a25',
+            'nonce': 16,
+            'attributeName': 'Trident'
         }
     ]
 }

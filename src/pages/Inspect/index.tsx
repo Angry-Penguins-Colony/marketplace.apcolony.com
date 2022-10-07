@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IOffer, IPenguin } from '@apcolony/marketplace-api';
+import { IItem, IOffer, IPenguin } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
@@ -64,7 +64,7 @@ const Inspect = () => {
 
 
     const userInventory = useGetUserOwnedAmount();
-    const itemOwnedAmount = userInventory && userInventory[category][id];
+    const itemOwnedAmount = userInventory && (userInventory[category][id] ?? 0);
 
     const ownedByConnectedWallet = (() => {
 
@@ -103,7 +103,7 @@ const Inspect = () => {
                     <ShareIcon />
                 </div>
                 <div className={style.rank}>
-                    {getOwnedProperty()}
+                    {getSubProperties()}
                 </div>
             </div>
             <div className={style.actions + (isListedByConnected ? ' ' + style['in-market'] : '')}>
@@ -237,7 +237,7 @@ const Inspect = () => {
         });
     }
 
-    function getOwnedProperty() {
+    function getSubProperties() {
 
         if (!item) return;
 
@@ -272,8 +272,9 @@ const Inspect = () => {
 
             case 'items':
                 return isConnected && <>
-                    <span className={style.primary}>{itemOwnedAmount ?? '--'}</span> owned<br />
-                    <span className={style.primary}>{ownedOffers?.length ?? '--'}</span> on sale by you
+                    <span className={style.primary}>Total supply: {(item as IItem).supply ?? '--'}</span><br />
+                    <span className={style.primary}>Owned by me: {itemOwnedAmount ?? '--'}</span><br />
+                    <span className={style.primary}>My offers: {ownedOffers?.length ?? '--'}</span>
                 </>
 
             default:
