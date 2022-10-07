@@ -224,7 +224,10 @@ export class APCNetworkProvider {
         for (const { slot, itemName } of attributes) {
             if (itemName == "unequipped") continue;
 
-            equippedItems[slot] = await this.getItem(getItemFromAttributeName(itemName, slot));
+            const item = getItemFromAttributeName(itemName, slot);
+
+            if (!item) throw new Error(`Unknown item ${itemName} for slot ${slot}`);
+            equippedItems[slot] = await this.getItem(item);
         }
 
         return equippedItems;

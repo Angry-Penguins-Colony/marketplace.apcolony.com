@@ -28,11 +28,8 @@ export function getItemFromToken(collection: string, nonce: number) {
 
 export function getItemFromAttributeName(name: string, slot: string) {
 
-    const item = items.find(item => item.attributeName == name && item.slot.toLowerCase() == slot.toLowerCase());
-
-    if (!item) throw new Error(`No item found for ${name} at slot ${slot}`);
-
-    return item;
+    return items
+        .find(item => item.attributeName == name && item.slot.toLowerCase() == slot.toLowerCase());
 }
 
 export function getRandomItem() {
@@ -79,19 +76,21 @@ export async function logErrorIfMissingItems(networkProvider: APCNetworkProvider
     const missingItems = await getMissingItems(networkProvider);
 
     if (missingItems.size > 0) {
-
-
         let message = [];
 
-        for (const [item, identifiers] of missingItems) {
+        for (const [item, value] of missingItems) {
             message.push({
                 item,
-                exampleIdentifier: identifiers[0],
+                slot: value.slot,
+                exampleIdentifier: value.identifiers[0],
             });
         }
 
         console.error("Missing items from NFTs in database:");
         console.table(message)
+    }
+    else {
+        console.log("No missing items from NFTs in database.");
     }
 }
 
@@ -100,26 +99,25 @@ async function getMissingItems(networkProvider: APCNetworkProvider) {
         size: 5555
     });
 
-    const missingItems = new Map<string, string[]>();
+    const missingItems = new Map<string, { slot: string, identifiers: string[] }>();
 
     for (const nft of nfts) {
-        try {
-            nft.owner = "erd1";
-            const attributes = parseAttributes(nft.attributes.toString());
+        nft.owner = "erd1";
+        const attributes = parseAttributes(nft.attributes.toString());
 
-            for (const { slot, itemName } of attributes) {
-                if (itemName == "unequipped") continue;
+        for (const { slot, itemName } of attributes) {
+            if (itemName == "unequipped") continue;
 
-                getItemFromAttributeName(itemName, slot);
+            const item = getItemFromAttributeName(itemName, slot);
+
+            if (item == undefined) {
+                missingItems.set(
+                    itemName,
+                    {
+                        slot: missingItems.get(itemName)?.slot || slot,
+                        identifiers: [...(missingItems.get(itemName)?.identifiers || []), nft.identifier]
+                    });
             }
-        }
-        catch (e: any) {
-
-            const item = parseItemNameFromError(e);
-
-            const missingItemsForItem = (missingItems.get(item) || []);
-            missingItemsForItem.push(nft.identifier);
-            missingItems.set(item, missingItemsForItem);
         }
     }
 
