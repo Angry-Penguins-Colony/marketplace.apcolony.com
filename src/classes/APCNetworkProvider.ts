@@ -233,8 +233,17 @@ export class APCNetworkProvider {
         return equippedItems;
     }
 
+    public async getSupply(identifier: string): Promise<number> {
+        const url = `nfts/${identifier}/supply`;
+
+        const res = await this.apiProvider.doGetGeneric(url);
+        const supply = res.supply;
+
+        return supply;
+    }
+
     // TODO: there is two calls in this function, we should optimize it
-    public async getItem(item: { identifier: string, name: string, slot: string, id: string }, owner?: Address): Promise<IItem> {
+    public async getItem(item: { identifier: string, name: string, slot: string, id: string }): Promise<IItem> {
 
         const { collection: ticker, nonce } = splitCollectionAndNonce(item.identifier);
 
@@ -242,13 +251,6 @@ export class APCNetworkProvider {
 
         if (!nft.assets[0]) throw new Error(`No thumbnail CID linked to the item ${item.name}(${item.identifier})`);
         if (!nft.assets[1]) throw new Error(`No render CID linked to the item ${item.name}(${item.identifier})`);
-
-        let amount;
-
-        if (owner) {
-            const nftOnOwner = await this.fixed_getNonFungibleTokenOfAccount(owner, ticker, nonce);
-            amount = nftOnOwner.supply.toNumber();
-        }
 
         return {
             id: item.id,
@@ -262,7 +264,8 @@ export class APCNetworkProvider {
             thumbnailCID: extractCIDFromIPFS(nft.assets[0]),
             renderCID: extractCIDFromIPFS(nft.assets[1]),
             slot: item.slot,
-            description: "", //TODO:            
+            description: "", //TODO:  
+            supply: await this.getSupply(item.identifier),
         }
 
     }

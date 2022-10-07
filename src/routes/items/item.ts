@@ -16,13 +16,7 @@ export default async function getItem(req: Request, res: Response, proxyNetwork:
         return;
     }
 
-    let item;
-    if (req.query.owner) {
-        item = await proxyNetwork.getItem(associatedItem, Address.fromBech32(req.query.owner as string));
-    }
-    else {
-        item = await proxyNetwork.getItem(associatedItem);
-    }
+    let item = await proxyNetwork.getItem(associatedItem);
 
     sendSuccessfulJSON(res, item);
 }

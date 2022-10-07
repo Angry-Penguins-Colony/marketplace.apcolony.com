@@ -2,7 +2,7 @@ import { Address } from '@elrondnetwork/erdjs/out';
 import { Request, Response } from 'express';
 import { APCNetworkProvider } from '../../classes/APCNetworkProvider';
 import { itemsCollection } from '../../const';
-import { getItemFromNft } from '../../utils/conversion';
+import { getItemFromToken } from '../../utils/dbHelper';
 import { sendSuccessfulJSON } from '../../utils/response';
 
 export default async function getItems(req: Request, res: Response, gatewayProvider: APCNetworkProvider) {
@@ -13,9 +13,9 @@ export default async function getItems(req: Request, res: Response, gatewayProvi
 
     const items = accountsNfts
         .filter(nft => Object.values(itemsCollection).includes(nft.collection))
-        .map(getItemFromNft);
+        .map(nft => gatewayProvider.getItem(getItemFromToken(nft.collection, nft.nonce)));
 
     console.log("Found", items.length, "items.");
 
-    sendSuccessfulJSON(res, items);
+    sendSuccessfulJSON(res, await Promise.all(items));
 }
