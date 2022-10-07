@@ -96,7 +96,7 @@ export async function logErrorIfMissingItems(networkProvider: APCNetworkProvider
 
 async function getMissingItems(networkProvider: APCNetworkProvider) {
     const nfts = await networkProvider.getNfts(penguinsCollection, {
-        size: 5555
+        size: 10_000
     });
 
     const missingItems = new Map<string, { slot: string, identifiers: string[] }>();

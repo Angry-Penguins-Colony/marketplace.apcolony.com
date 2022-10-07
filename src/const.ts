@@ -2,6 +2,8 @@ import { IPenguin, IItem, IEgg } from '@apcolony/marketplace-api/out';
 import { Address } from '@elrondnetwork/erdjs/out';
 import { devnetToolDeploy } from './devnet.tool-result';
 import { getNetworkType } from './env';
+import fs from "fs";
+import ItemsDatabase from './classes/ItemsDatabase';
 
 function getNetworkInfos() {
 
@@ -38,3 +40,4 @@ export const api = getNetworkInfos().api;
 export const customisationContract = getNetworkInfos().customisationContract;
 export const marketplaceContract = getNetworkInfos().marketplaceContract;
 export const penguinsCount = getNetworkInfos().penguinsCount;
+export const itemsDatabase = ItemsDatabase.fromItemsDatabaseJSON('src/databases/items.json', items);

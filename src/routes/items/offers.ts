@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { penguinsCollection, itemsCollection } from '../../const';
+import { penguinsCollection, itemsCollection, itemsDatabase } from '../../const';
 import { APCNetworkProvider } from '../../classes/APCNetworkProvider';
 import { sendSuccessfulJSON } from '../../utils/response';
 import { getItemFromToken, getTokenFromItemID } from '../../utils/dbHelper';
@@ -27,7 +27,7 @@ export default async function getItemsOffers(req: Request, res: Response, networ
             .map(id => getTokenFromItemID(id));
 
         const itemsPromises = uniqueTokens
-            .map(({ collection, nonce }) => networkProvider.getItem(getItemFromToken(collection, nonce)));
+            .map(({ collection, nonce }) => itemsDatabase.getItemFromToken(collection, nonce));
 
         return Promise.all(itemsPromises);
     })();
@@ -39,8 +39,4 @@ export default async function getItemsOffers(req: Request, res: Response, networ
 
     sendSuccessfulJSON(res, response);
 
-}
-
-function distinct<T>(value: T, index: number, self: Array<T>): boolean {
-    return self.indexOf(value) == index;
 }

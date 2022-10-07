@@ -2,9 +2,9 @@ import { IActivity, IAddress, IItem, IMarketData, IOffer, IPenguin } from "@apco
 import { Attributes } from "@apcolony/marketplace-api/out/classes";
 import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
-import { AbiRegistry, Address, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, U64Value } from "@elrondnetwork/erdjs/out";
+import { AbiRegistry, Address, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, StringValue, U64Value } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
-import { customisationContract, penguinsCollection, gateway, marketplaceContract } from "../const";
+import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsDatabase } from "../const";
 import { getItemFromAttributeName, getTokenFromItemID } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, getNameFromPenguinId, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
@@ -24,7 +24,9 @@ export class APCNetworkProvider {
         this.proxyProvider = new ProxyNetworkProvider(gatewayUrl, {
             timeout: 15_000
         });
-        this.apiProvider = new ApiNetworkProvider(apiUrl)
+        this.apiProvider = new ApiNetworkProvider(apiUrl, {
+            timeout: 15_000
+        })
     }
 
     /**
@@ -216,7 +218,7 @@ export class APCNetworkProvider {
         }
     }
 
-    private async getEquippedItemsFromAttributes(rawAttributes: string): Promise<{ [key: string]: IItem }> {
+    private getEquippedItemsFromAttributes(rawAttributes: string): { [key: string]: IItem } {
 
         const attributes = parseAttributes(rawAttributes);
         const equippedItems = {} as { [key: string]: IItem };
@@ -224,50 +226,10 @@ export class APCNetworkProvider {
         for (const { slot, itemName } of attributes) {
             if (itemName == "unequipped") continue;
 
-            const item = getItemFromAttributeName(itemName, slot);
-
-            if (!item) throw new Error(`Unknown item ${itemName} for slot ${slot}`);
-            equippedItems[slot] = await this.getItem(item);
+            equippedItems[slot] = itemsDatabase.getItemFromNameAndSlot(itemName, slot);
         }
 
         return equippedItems;
-    }
-
-    public async getSupply(identifier: string): Promise<number> {
-        const url = `nfts/${identifier}/supply`;
-
-        const res = await this.apiProvider.doGetGeneric(url);
-        const supply = res.supply;
-
-        return supply;
-    }
-
-    // TODO: there is two calls in this function, we should optimize it
-    public async getItem(item: { identifier: string, name: string, slot: string, id: string }): Promise<IItem> {
-
-        const { collection: ticker, nonce } = splitCollectionAndNonce(item.identifier);
-
-        const nft = await this.fixed_getNonFungibleTokenOfAccount(customisationContract, ticker, nonce);
-
-        if (!nft.assets[0]) throw new Error(`No thumbnail CID linked to the item ${item.name}(${item.identifier})`);
-        if (!nft.assets[1]) throw new Error(`No render CID linked to the item ${item.name}(${item.identifier})`);
-
-        return {
-            id: item.id,
-            type: "items",
-            name: item.name,
-
-            identifier: toIdentifier(nft.collection, nft.nonce),
-            collection: nft.collection,
-            nonce: nonce,
-
-            thumbnailCID: extractCIDFromIPFS(nft.assets[0]),
-            renderCID: extractCIDFromIPFS(nft.assets[1]),
-            slot: item.slot,
-            description: "", //TODO:  
-            supply: await this.getSupply(item.identifier),
-        }
-
     }
 
     public async getToken(type: "penguins" | "items", id: string) {
