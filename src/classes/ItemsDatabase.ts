@@ -2,9 +2,13 @@ import { IItem } from "@apcolony/marketplace-api";
 import fs from "fs";
 
 
+interface Item extends IItem {
+    attributeName: string
+}
+
 export default class ItemsDatabase {
 
-    constructor(private readonly items: IItem[]) { }
+    constructor(private readonly items: Item[]) { }
 
     public static fromItemsDatabaseJSON(path: string, identifiers: { id: string, collection: string, nonce: number, identifier: string }[]) {
         const parsedItems: {
@@ -19,9 +23,9 @@ export default class ItemsDatabase {
             supply: number,
         }[] = JSON.parse(fs.readFileSync(path, 'utf8'));
 
-        const items: IItem[] = parsedItems
+        const items: Item[] = parsedItems
             .filter(({ name }) => name != "Default")
-            .map(({ id, name, renderCID, thumbnailCID, slot, supply }) => {
+            .map(({ id, name, renderCID, thumbnailCID, slot, supply, attributeName }) => {
 
                 if (!id) {
                     throw new Error(`Item ${name} has no id`);
@@ -37,6 +41,7 @@ export default class ItemsDatabase {
                     id,
                     type: "items",
                     name,
+                    attributeName,
 
                     thumbnailCID,
                     identifier: item?.identifier ?? "",
@@ -57,7 +62,7 @@ export default class ItemsDatabase {
         return this.items.some(item => item.id == id);
     }
 
-    public getItemFromId(id: string): IItem {
+    public getItemFromId(id: string): Item {
         const item = this.items.find(item => item.id == id);
         if (!item) {
             throw new Error(`Item ${id} not found`);
@@ -65,8 +70,8 @@ export default class ItemsDatabase {
         return item;
     }
 
-    public getItemFromNameAndSlot(name: string, slot: string): IItem {
-        const item = this.items.find(item => item.name == name && item.slot == slot);
+    public getItemFromNameAndSlot(attributeName: string, slot: string): Item {
+        const item = this.items.find(item => item.attributeName == attributeName && item.slot == slot);
         if (!item) {
             throw new Error(`Unknown item ${name} for slot ${slot}`);
         }
