@@ -1,7 +1,7 @@
 import { IItem } from "@apcolony/marketplace-api";
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { APCNetworkProvider } from "../classes/APCNetworkProvider";
-import { items, penguinsCollection, penguinsCount } from "../const";
+import { items, itemsCollection, penguinsCollection, penguinsCount } from "../const";
 import item from "../routes/items/item";
 import { parseAttributes, splitCollectionAndNonce } from "./string";
 
@@ -49,6 +49,11 @@ export function getRandomItems(count: number) {
     }
 
     return output;
+}
+
+export function isCollectionAnItem(collection: string) {
+
+    return Object.values(itemsCollection).flat().includes(collection);
 }
 
 export function getRandomsPenguinsIds(count: number): string[] {

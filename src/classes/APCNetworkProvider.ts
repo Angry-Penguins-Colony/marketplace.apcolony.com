@@ -4,8 +4,8 @@ import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkPro
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { AbiRegistry, Address, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, StringValue, U64Value } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
-import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsDatabase } from "../const";
-import { getItemFromAttributeName, getTokenFromItemID } from "../utils/dbHelper";
+import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsDatabase, itemsCollection } from "../const";
+import { getItemFromAttributeName, getTokenFromItemID, isCollectionAnItem } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, getNameFromPenguinId, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
 import { BigNumber } from "bignumber.js";
@@ -97,6 +97,16 @@ export class APCNetworkProvider {
         return tokens;
     }
 
+    public async getItemsOfAccount(address: IAddress): Promise<IItem[]> {
+        const accountsNfts = await this.getNftsOfAccount(address);
+
+        const items = accountsNfts
+            .filter(nft => isCollectionAnItem(nft.collection))
+            .map(nft => itemsDatabase.getItemFromToken(nft.collection, nft.nonce));
+
+        return items;
+    }
+
     public async getActivities(collection: string, nonce: number): Promise<IActivity[]> {
 
         const contract = await this.getMarketplaceSmartContract();
@@ -146,14 +156,14 @@ export class APCNetworkProvider {
             .map((b64: string) => Attributes.fromEndpointArgument(Buffer.from(b64, "base64").toString()));
     }
 
-    public async getOffers(collection: string): Promise<IOffer[]> {
+    public async getOffers(collections: string[]): Promise<IOffer[]> {
 
         const contract = await this.getMarketplaceSmartContract();
 
         const contractViewName = "getAuctionsOfCollection";
         const query = contract.createQuery({
             func: new ContractFunction(contractViewName),
-            args: [BytesValue.fromUTF8(collection)],
+            args: collections.map(c => BytesValue.fromUTF8(c)),
         });
 
         const queryResponse = await this.proxyProvider.queryContract(query);
@@ -169,7 +179,7 @@ export class APCNetworkProvider {
         return offers;
     }
 
-    public async getMarketData(collection: string): Promise<IMarketData> {
+    public async getMarketData(collections: string[]): Promise<IMarketData> {
 
 
         const contract = await this.getMarketplaceSmartContract();
@@ -177,7 +187,7 @@ export class APCNetworkProvider {
         const contractViewName = "getMarketData";
         const query = contract.createQuery({
             func: new ContractFunction(contractViewName),
-            args: [BytesValue.fromUTF8(collection)],
+            args: collections.map(c => BytesValue.fromUTF8(c)),
         });
 
         const queryResponse = await this.proxyProvider.queryContract(query);

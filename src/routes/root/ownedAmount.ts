@@ -2,7 +2,7 @@ import { Address } from '@elrondnetwork/erdjs/out';
 import { Request, Response } from 'express';
 import { APCNetworkProvider } from '../../classes/APCNetworkProvider';
 import { itemsCollection, penguinsCollection, penguinsCount } from '../../const';
-import { getItemFromToken, getRandomItems, getRandomsPenguinsIds } from '../../utils/dbHelper';
+import { getItemFromToken, getRandomItems, getRandomsPenguinsIds, isCollectionAnItem } from '../../utils/dbHelper';
 import { sendSuccessfulJSON } from '../../utils/response';
 import { getIdFromPenguinName } from '../../utils/string';
 
@@ -21,7 +21,7 @@ export default async function getOwnedAmount(req: Request, res: Response, networ
             const id = getIdFromPenguinName(nft.name).toString();
             penguinsById[id] = nft.supply.toString();
         }
-        else if (Object.values(itemsCollection).includes(nft.collection)) {
+        else if (isCollectionAnItem(nft.collection)) {
             const id = getItemFromToken(nft.collection, nft.nonce).id;
             itemsById[id] = nft.supply.toString();
         }

@@ -3,7 +3,7 @@ import 'dotenv/config'
 import helmet from 'helmet';
 import cors from "cors";
 import getPenguins from './routes/penguins/owned';
-import getItems from './routes/items/owned';
+import getOwnedItems from './routes/items/owned';
 import { api, gateway } from './const';
 import { getNetworkType } from './env';
 import throng from 'throng';
@@ -52,7 +52,7 @@ function start(id: number) {
     app.get("/items/offers/:category", (req, res) => getItemsOffers(req, res, networkProvider));
     app.get("/items/offers/:category/stats", (req, res) => getItemOffersStats(req, res, networkProvider));
     app.get("/items/offer/:id", (req, res) => getOffer(req, res, "items", networkProvider));
-    app.get('/items/owned/:bech32', (req, res) => getItems(req, res, networkProvider));
+    app.get('/items/owned/:bech32', (req, res) => getOwnedItems(req, res, networkProvider));
 
     app.get('/attributes', (req, res) => getAttributes(req, res, networkProvider));
     app.get("/exploreItems", (req, res) => getExploreItems(req, res, networkProvider));
