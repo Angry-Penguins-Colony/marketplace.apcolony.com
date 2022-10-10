@@ -6,6 +6,7 @@ import colors from "colors";
 import RenderConfig from "./RenderConfig";
 import IPFSCache from "./ipfscache";
 import Bottleneck from "bottleneck";
+import { toPaths } from "../utils/utils";
 
 export default class ImageRenderer {
     protected readonly _mimeType: string;
@@ -17,11 +18,12 @@ export default class ImageRenderer {
     }
 
     constructor(
-        config: RenderConfig
+        config: RenderConfig,
+        ipfsCache: IPFSCache,
     ) {
         this._config = config;
         this._mimeType = config.renderMIMEType;
-        this._ipfsCache = new IPFSCache(config.ipfsGateway, config.ipfsCachePath);
+        this._ipfsCache = ipfsCache;
     }
 
     public async downloadImages(options?: { verbose: boolean }): Promise<void> {
@@ -31,7 +33,7 @@ export default class ImageRenderer {
             minTime: 0 // no minTime
         });
 
-        log("⌛ Downloading images.", false);
+        log(`⌛ Downloading images from ${this._ipfsCache.ipfsGateway} to ${this._ipfsCache.ipfsCacheFolder}.`, false);
 
         const totalImages = this._config.allCIDs.length;
         let imagesDownloaded = 0;
@@ -80,7 +82,7 @@ export default class ImageRenderer {
         }
         watch.next();
 
-        let imageBuffer = await this.merge(this._config.toPaths(renderAttributes), {
+        let imageBuffer = await this.merge(toPaths(renderAttributes, this._ipfsCache, this._config), {
             format: this._mimeType
         });
         watch.next();

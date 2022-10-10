@@ -8,12 +8,12 @@ const Hash = require('ipfs-only-hash')
 
 export default class IPFSCache {
 
-    private readonly _ipfsGateway: string;
-    private readonly _ipfsCacheFolder: string;
+    public readonly ipfsGateway: string;
+    public readonly ipfsCacheFolder: string;
 
-    constructor(ipfsGateway: string, ipfsCacheFolder: string) {
-        this._ipfsCacheFolder = ipfsCacheFolder;
-        this._ipfsGateway = ipfsGateway;
+    constructor(options?: { ipfsGateway?: string, ipfsCacheFolder?: string }) {
+        this.ipfsGateway = options?.ipfsGateway ?? "https://ipfs.io/ipfs/";
+        this.ipfsCacheFolder = options?.ipfsCacheFolder ?? "./ipfs_cache";
     }
 
     public async downloadAllItemsCIDs(config: RenderConfig): Promise<void[]> {
@@ -42,7 +42,7 @@ export default class IPFSCache {
 
         if (!fs.existsSync(savePathFolders)) fs.mkdirSync(savePathFolders, { recursive: true });
 
-        const buffer = await downloadImage(this._ipfsGateway + cid + "/" + cidPathSuffix, savePath);
+        const buffer = await downloadImage(this.ipfsGateway + cid + "/" + cidPathSuffix, savePath);
         await sleep(500); // sleep to let the file be written
         await this.assertImageInGoodFormat(buffer, cid);
     }
@@ -63,7 +63,7 @@ export default class IPFSCache {
     }
 
     private getPath(cid: string): string {
-        return `${this._ipfsCacheFolder}/${cid}.png`;
+        return `${this.ipfsCacheFolder}/${cid}.png`;
     }
 
     private async existInCache(cid: string): Promise<boolean> {
@@ -114,5 +114,9 @@ export default class IPFSCache {
         const calculatedCID = await Hash.of(buffer);
 
         return calculatedCID;
+    }
+
+    public toPath(cid: string) {
+        return `${this.ipfsCacheFolder}/${cid}.png`;
     }
 }

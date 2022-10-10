@@ -1,5 +1,8 @@
 import fs from 'fs';
 import axios from "axios";
+import RenderAttributes from '../classes/RenderAttributes';
+import IPFSCache from '../classes/ipfscache';
+import RenderConfig from '../classes/RenderConfig';
 
 /**
  * Download image and write to filepath. Returns also the buffer
@@ -119,4 +122,16 @@ export function getOccurences(string: string, subString: string, allowOverlappin
         } else break;
     }
     return n;
+}
+
+export function toPaths(renderAttributes: RenderAttributes, ipfsCache: IPFSCache, renderConfig: RenderConfig): string[] {
+    const paths: [string, string][] = [];
+
+    renderAttributes.getIdsBySlot().forEach(([slot, itemId]) => {
+        const cid = renderConfig.getCid(slot, itemId);
+        paths.push([slot, ipfsCache.toPath(cid)]);
+    });
+
+    return sortImages(paths, renderAttributes.layersOrder)
+        .map(kvp => kvp[1]);
 }

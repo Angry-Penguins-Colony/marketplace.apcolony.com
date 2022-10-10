@@ -2,15 +2,11 @@ import ImageMIMEType from '../enums/ImageMIMEType';
 import { UnknownSlot, UnknownItem, MissingSlot } from '../errors/configErrors';
 import IPlugin from '../interfaces/IPlugin';
 import IRenderConfigOptions from '../interfaces/IRenderConfigOptions';
-import RenderAttributes from './RenderAttributes';
-import { sortImages } from '../utils/utils';
 
 export default class RenderConfig {
 
-    readonly ipfsGateway: string;
     readonly renderMIMEType: ImageMIMEType;
     readonly itemsCID: { [key: string]: { [key: string]: string; }; };
-    readonly ipfsCachePath: string;
 
     readonly layersOrder: string[];
     readonly defaultLayers?: { [key: string]: string; };
@@ -39,13 +35,10 @@ export default class RenderConfig {
 
         if (!config) throw new Error("config is undefined");
 
-        this.ipfsGateway = config.ipfsGateway ?? "https://ipfs.io/ipfs/";
-
         this.renderMIMEType = config.renderMIMEType ?? ImageMIMEType.JPEG;
         this.layersOrder = config.layersOrder ?? Object.keys(config.itemsCID);
         this.itemsCID = config.itemsCID;
         this.defaultLayers = config.defaultLayers ?? undefined;
-        this.ipfsCachePath = process.env.RENDERER_IPFS_CACHE_PATH ?? "./ipfs_cache";
         this.plugins = plugins;
 
         for (const plugin of this.plugins) {
@@ -100,21 +93,6 @@ export default class RenderConfig {
         return this.itemsCID[slot][itemName];
     }
 
-    public toPaths(renderAttributes: RenderAttributes): string[] {
 
-
-        const paths: [string, string][] = [];
-
-        renderAttributes.getIdsBySlot().forEach(([slot, itemId]) => {
-            paths.push([slot, this.toPath(slot, itemId)]);
-        });
-
-        return sortImages(paths, renderAttributes.layersOrder)
-            .map(kvp => kvp[1]);
-    }
-
-    private toPath(slot: string, itemName: string) {
-        return `${this.ipfsCachePath}/${this.getCid(slot, itemName)}.png`;
-    }
 }
 
