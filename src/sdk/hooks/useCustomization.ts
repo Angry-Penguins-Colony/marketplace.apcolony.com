@@ -4,7 +4,8 @@ import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import BigNumber from 'bignumber.js';
 import { customisationContractAddress, penguinCollection } from 'config';
-import { splitIdentifier } from 'sdk/convertion/tokenIdentifier';
+import { splitIdentifier } from 'sdk/conversion/tokenIdentifier';
+import { identifierToItem } from 'sdk/misc/dbHelper';
 import calculateCustomizeGasFees from 'sdk/transactionsBuilders/customize/calculateCustomizeGasFees';
 import CustomizePayloadBuilder, { ItemToken } from 'sdk/transactionsBuilders/customize/CustomizePayloadBuilder';
 import calculeRenderGasFees from 'sdk/transactionsBuilders/render/calculateRenderGasFees';
@@ -85,29 +86,20 @@ function useCustomization(selectedPenguinNonce: number, initialItemsIdentifier?:
     }
 
     function parseAttributes(itemsIdentifiers: PenguinItemsIdentifier) {
-
-        console.log('parseAttributes', ownedItems != undefined);
-        if (ownedItems === undefined) return;
-
-        console.log('identifiers amount', Object.keys(itemsIdentifiers).length);
-
         const _attributes = new Attributes();
-
 
         for (const slot in itemsIdentifiers) {
             const identifier = itemsIdentifiers[slot];
-            console.log(identifier);
+
             if (identifier) {
                 const item = identifierToItem(identifier);
 
-                console.log('slot', slot, '=>', item);
                 if (item) {
                     _attributes.set(slot, item.name);
                 }
             }
         }
 
-        console.log(_attributes);
         return _attributes;
     }
 
@@ -137,13 +129,6 @@ function useCustomization(selectedPenguinNonce: number, initialItemsIdentifier?:
             [slot]: undefined
         });
     }
-
-    function identifierToItem(identifier: string) {
-        if (!ownedItems) return undefined;
-
-        return ownedItems.find(item => item.identifier === identifier);
-    }
-
 
     function getRenderTransaction(): SimpleTransactionType {
 

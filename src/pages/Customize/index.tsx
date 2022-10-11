@@ -37,7 +37,6 @@ const Customize = () => {
 
     const initialAttributes = load();
 
-    console.log('load', load());
     const {
         resetItems,
         equipItem,
@@ -52,8 +51,6 @@ const Customize = () => {
         ownedItemsAmount,
         ownedAndEquippedItems
     } = useCustomization(selectedPenguinNonce, initialAttributes);
-
-
 
     const {
         toggle,
