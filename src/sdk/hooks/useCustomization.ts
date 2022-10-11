@@ -1,5 +1,5 @@
 import React from 'react';
-import { Attributes, IItem } from '@apcolony/marketplace-api';
+import { Attributes, IItem, IPenguin } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import BigNumber from 'bignumber.js';
@@ -12,10 +12,11 @@ import calculeRenderGasFees from 'sdk/transactionsBuilders/render/calculateRende
 import { RenderPayloadBuilder } from 'sdk/transactionsBuilders/render/RenderPayloadBuilder';
 import { PenguinItemsIdentifier, Utils as PenguinItemsIdentifierUtils } from 'sdk/types/PenguinItemsIdentifier';
 import useGetAttributesStatus from './api/useGetAttributesStatus';
-import { useGetOwnedItems, useGetOwnedPenguins } from './api/useGetOwned';
+import { useGetGenericItem } from './api/useGetGenericItem';
+import { useGetOwnedItems } from './api/useGetOwned';
 import useGetUserOwnedAmount from './api/useGetUserOwnedAmount';
 
-function useCustomization(selectedPenguinNonce: number, initialItemsIdentifier?: PenguinItemsIdentifier) {
+function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: PenguinItemsIdentifier) {
 
     const [equippedItemsIdentifier, setEquippedItemsIdentifier] = React.useState<PenguinItemsIdentifier>(initialItemsIdentifier ?? {});
     const [ownedAndEquippedItems, setOwnedAndEquippedItems] = React.useState<IItem[] | undefined>(undefined);
@@ -23,14 +24,12 @@ function useCustomization(selectedPenguinNonce: number, initialItemsIdentifier?:
     const { address: connectedAddress } = useGetAccountInfo();
 
     const ownedItems = useGetOwnedItems();
-    const ownedPenguins = useGetOwnedPenguins();
+    const selectedPenguin = useGetGenericItem('penguins', selectedPenguinId) as IPenguin | undefined;
 
     const ownedAmount = useGetUserOwnedAmount();
 
     const equippedItems = parseAttributes(equippedItemsIdentifier);
     const { attributesStatus } = useGetAttributesStatus(equippedItems);
-
-    const selectedPenguin = ownedPenguins?.find((penguin) => penguin.nonce === selectedPenguinNonce)
 
     React.useEffect(() => {
 
@@ -183,7 +182,7 @@ function useCustomization(selectedPenguinNonce: number, initialItemsIdentifier?:
         const payload = new CustomizePayloadBuilder()
             .setCustomizationContractAddress(customisationContractAddress)
             .setPenguinCollection(penguinCollection)
-            .setPenguinNonce(selectedPenguinNonce)
+            .setPenguinNonce(selectedPenguin.nonce)
             .setItemsToEquip(itemsToEquip)
             .setSlotsToUnequip(slotsToUnequip)
             .build();

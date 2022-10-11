@@ -8,31 +8,32 @@ import style from './GoToAnotherPenguin.module.scss';
 
 const GoToAnotherPenguin = (
     {
-        selectedPenguinNonce,
+        currentId,
         penguins,
         subTitle,
         className
     }: {
-        selectedPenguinNonce: number,
+        currentId: string,
         penguins: IPenguin[],
         subTitle: string,
         className?: string
     }
 ) => {
 
+    penguins = penguins.sort((a, b) => parseInt(a.id) - parseInt(b.id));
     const leftPenguin = getPreviousPenguin();
     const rightPenguin = getNextPenguin();
     const currentPenguin = penguins[getCurrentPenguinIndex()];
 
     function goToLeftPenguin() {
         if (leftPenguin) {
-            window.location.href = buildRouteLinks.customize(leftPenguin.nonce.toString());
+            window.location.href = buildRouteLinks.customize(leftPenguin.id.toString());
         }
     }
 
     function goToRightPenguin() {
         if (rightPenguin) {
-            window.location.href = buildRouteLinks.customize(rightPenguin.nonce.toString());
+            window.location.href = buildRouteLinks.customize(rightPenguin.id.toString());
         }
     }
 
@@ -62,7 +63,7 @@ const GoToAnotherPenguin = (
                     {
                         leftPenguin && (
                             <div className={style.penguin} onClick={goToLeftPenguin}>
-                                <img src={ipfsGateway + leftPenguin.thumbnailCID} alt={'Penguin #' + leftPenguin.nonce} />
+                                <img src={ipfsGateway + leftPenguin.thumbnailCID} alt={leftPenguin.name} />
                             </div>
                         ) || (
                             <div className={style.penguin + ' ' + style.empty}></div>
@@ -71,14 +72,14 @@ const GoToAnotherPenguin = (
                     {
                         currentPenguin && (
                             <div className={style.penguin + ' ' + style.current}>
-                                <img src={ipfsGateway + currentPenguin.thumbnailCID} alt={'Penguin #' + currentPenguin.nonce} />
+                                <img src={ipfsGateway + currentPenguin.thumbnailCID} alt={currentPenguin.name} />
                             </div>
                         )
                     }
                     {
                         rightPenguin && (
                             <div className={style.penguin} onClick={goToRightPenguin}>
-                                <img src={ipfsGateway + rightPenguin.thumbnailCID} alt={'Penguin #' + rightPenguin.nonce} />
+                                <img src={ipfsGateway + rightPenguin.thumbnailCID} alt={rightPenguin.name} />
                             </div>
                         ) || (
                             <div className={style.penguin + ' ' + style.empty}></div>
@@ -101,7 +102,7 @@ const GoToAnotherPenguin = (
     function getCurrentPenguinIndex() {
         if (!penguins) throw new Error('penguins is undefined');
 
-        return penguins.findIndex((penguin) => penguin.nonce === selectedPenguinNonce);
+        return penguins.findIndex((penguin) => penguin.id === currentId);
     }
 
     function getPreviousPenguin() {

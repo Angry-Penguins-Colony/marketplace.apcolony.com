@@ -1,8 +1,8 @@
 import { PenguinItemsIdentifier } from 'sdk/types/PenguinItemsIdentifier';
 
-function useCustomizationPersistence(selectedPenguinNonce: number) {
+function useCustomizationPersistence(penguinId: string) {
 
-    const storageKey = `penguin-${selectedPenguinNonce}`;
+    const storageKey = `penguin-${penguinId}`;
 
     return {
         load,
@@ -10,7 +10,7 @@ function useCustomizationPersistence(selectedPenguinNonce: number) {
     }
 
     function load(): PenguinItemsIdentifier | undefined {
-        console.log(`Loading penguin with nonce ${selectedPenguinNonce}.`);
+        console.log(`Loading penguin with nonce ${penguinId}.`);
         const saved = localStorage.getItem(storageKey);
 
         if (saved) {
@@ -22,7 +22,7 @@ function useCustomizationPersistence(selectedPenguinNonce: number) {
 
     function save(items: PenguinItemsIdentifier) {
 
-        console.log(`Saving penguin with nonce ${selectedPenguinNonce}.`);
+        console.log(`Saving penguin with nonce ${penguinId}.`);
 
         localStorage.setItem(storageKey, JSON.stringify(items));
     }
