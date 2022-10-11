@@ -19,7 +19,7 @@ export function useGetOwnedAndOnSalePenguins(overrideAddress?: Address): IPengui
         }
 
         setPenguins([...ownedPenguins, ...penguinsOffers.associatedItems as IPenguin[]]);
-    })
+    }, [ownedPenguins, penguinsOffers]);
 
     return penguins;
 }
