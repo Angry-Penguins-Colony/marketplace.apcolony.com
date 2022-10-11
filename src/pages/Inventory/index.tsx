@@ -8,7 +8,8 @@ import ItemsInventory from 'components/Inventory/ItemsInventory/ItemsInventory';
 import NavigationType from 'components/Inventory/NavigationType/NavigationType';
 import NavInventory from 'components/Inventory/NavInventory/NavInventory';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
+import { useGetOwnedItems } from 'sdk/hooks/api/useGetOwned';
+import { useGetOwnedAndOnSalePenguins } from 'sdk/hooks/api/useGetOwnedAndOnSalePenguins';
 import useGetUserOwnedAmount from 'sdk/hooks/api/useGetUserOwnedAmount';
 import useInventoryFilter from 'sdk/hooks/useInventoryFilter';
 import CategoriesType from 'sdk/types/CategoriesType';
@@ -34,15 +35,13 @@ const Inventory = () => {
     const [itemsType, setItemsType] = React.useState<CategoriesType>('penguins');
     const ownedAmount = useGetUserOwnedAmount();
 
-    const penguinsItems = useGetOwnedPenguins({
-        onLoaded: setItems,
-        overrideAddress: Address.fromBech32(walletAddress),
-    });
+    const penguins = useGetOwnedAndOnSalePenguins(Address.fromBech32(walletAddress));
+
     const itemsItems = useGetOwnedItems({
         overrideAddress: Address.fromBech32(walletAddress)
     });
 
-    function itemsTypeChange(type: string) {
+    function onChangeType(type: string) {
         switch (type) {
             case 'items':
                 setItems(itemsItems);
@@ -51,11 +50,16 @@ const Inventory = () => {
 
             case 'penguins':
             default:
-                setItems(penguinsItems);
+                setItems(penguins);
                 setItemsType('penguins');
                 break;
         }
     }
+
+    React.useEffect(() => {
+        onChangeType(itemsType);
+
+    }, [penguins, itemsItems]);
 
     function addArticle(txt: string) {
         const firstLetter = txt.charAt(0).toUpperCase();
@@ -97,12 +101,12 @@ const Inventory = () => {
                     </p>
                 </header>
 
-                <NavigationType className={style['navigation-type']} onChangeType={itemsTypeChange} itemsType={itemsType} />
+                <NavigationType className={style['navigation-type']} onChangeType={onChangeType} itemsType={itemsType} />
 
                 <section id={style.filter}>
                     <div className={style['number-items']}>
                         <div className={style.item}>
-                            <p className={style.number}>{penguinsItems?.length ?? '-'}</p>
+                            <p className={style.number}>{penguins?.length ?? '-'}</p>
                             <p className={style.name}>Penguins</p>
                         </div>
                         <div className={style.item}>
