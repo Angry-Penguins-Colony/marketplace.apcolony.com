@@ -4,6 +4,7 @@ import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import BigNumber from 'bignumber.js';
 import { customisationContractAddress, penguinCollection } from 'config';
+import { splitIdentifier } from 'sdk/convertion/tokenIdentifier';
 import calculateCustomizeGasFees from 'sdk/transactionsBuilders/customize/calculateCustomizeGasFees';
 import CustomizePayloadBuilder, { ItemToken } from 'sdk/transactionsBuilders/customize/CustomizePayloadBuilder';
 import calculeRenderGasFees from 'sdk/transactionsBuilders/render/calculateRenderGasFees';
@@ -16,6 +17,7 @@ import useGetUserOwnedAmount from './api/useGetUserOwnedAmount';
 function useCustomization(selectedPenguinNonce: number, initialItemsIdentifier?: PenguinItemsIdentifier) {
 
     const [equippedItemsIdentifier, setEquippedItemsIdentifier] = React.useState<PenguinItemsIdentifier>(initialItemsIdentifier ?? {});
+    const [ownedAndEquippedItems, setOwnedAndEquippedItems] = React.useState<IItem[] | undefined>(undefined);
 
     const { address: connectedAddress } = useGetAccountInfo();
 
@@ -44,7 +46,6 @@ function useCustomization(selectedPenguinNonce: number, initialItemsIdentifier?:
 
     }, [selectedPenguin]);
 
-    const [ownedAndEquippedItems, setOwnedAndEquippedItems] = React.useState<IItem[] | undefined>(undefined);
 
     React.useEffect(() => {
 
@@ -55,8 +56,6 @@ function useCustomization(selectedPenguinNonce: number, initialItemsIdentifier?:
             ]);
         }
     }, [selectedPenguin, ownedItems]);
-
-
 
     return {
         resetItems,
@@ -87,19 +86,28 @@ function useCustomization(selectedPenguinNonce: number, initialItemsIdentifier?:
 
     function parseAttributes(itemsIdentifiers: PenguinItemsIdentifier) {
 
+        console.log('parseAttributes', ownedItems != undefined);
         if (ownedItems === undefined) return;
+
+        console.log('identifiers amount', Object.keys(itemsIdentifiers).length);
 
         const _attributes = new Attributes();
 
+
         for (const slot in itemsIdentifiers) {
             const identifier = itemsIdentifiers[slot];
+            console.log(identifier);
             if (identifier) {
-                const item = getItem(identifier);
+                const item = identifierToItem(identifier);
+
+                console.log('slot', slot, '=>', item);
                 if (item) {
                     _attributes.set(slot, item.name);
                 }
             }
         }
+
+        console.log(_attributes);
         return _attributes;
     }
 
@@ -130,8 +138,10 @@ function useCustomization(selectedPenguinNonce: number, initialItemsIdentifier?:
         });
     }
 
-    function getItem(identifier: string) {
-        return ownedItems?.find(item => item.identifier === identifier);
+    function identifierToItem(identifier: string) {
+        if (!ownedItems) return undefined;
+
+        return ownedItems.find(item => item.identifier === identifier);
     }
 
 
@@ -175,14 +185,11 @@ function useCustomization(selectedPenguinNonce: number, initialItemsIdentifier?:
                     slotsToUnequip.push(slot);
                 }
                 else {
-                    const itemData = getItem(itemIdentifier);
-
-                    if (!itemData)
-                        throw new Error(`Item ${itemIdentifier} not found in owned items.`);
+                    const { collection, nonce } = splitIdentifier(itemIdentifier);
 
                     itemsToEquip.push({
-                        collection: itemData?.collection,
-                        nonce: itemData?.nonce
+                        collection: collection,
+                        nonce: nonce
                     });
                 }
             }

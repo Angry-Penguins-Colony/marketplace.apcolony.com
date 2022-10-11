@@ -36,6 +36,8 @@ const Customize = () => {
     } = useCustomizationPersistence(selectedPenguinNonce);
 
     const initialAttributes = load();
+
+    console.log('load', load());
     const {
         resetItems,
         equipItem,
