@@ -157,7 +157,7 @@ export default class RenderAttributes {
         const attributes = [];
 
         for (const slot of slots) {
-            if (!this.hasSlot(slot) || this.doEquipDefaultItem(slot)) {
+            if (!this.hasSlot(slot) || (slot != "background" && this.doEquipDefaultItem(slot))) {
                 attributes.push([slot, "unequipped"])
             }
             else {
