@@ -87,7 +87,7 @@ const Item = ({
         }}>
             <ReactImageAppear src={ipfsGateway + item.thumbnailCID} />
             <div className={style.name}>{item.name}</div>
-            {type == 'items' &&
+            {(item.amount && type == 'items') &&
                 <div className={style.count}>{item.amount}</div>
             }
         </div>

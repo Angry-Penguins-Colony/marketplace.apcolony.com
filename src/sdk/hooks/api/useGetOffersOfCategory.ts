@@ -17,7 +17,7 @@ function useGetOffersOfCategory(category: 'penguins' | string) {
     }
 
     function getCat() {
-        return category === 'penguins' ? '' : category;
+        return category === 'penguins' || category == 'items' ? '' : category;
     }
 }
 
