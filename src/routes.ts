@@ -13,7 +13,6 @@ export const routeNames = {
   transaction: '/transaction',
   inventory: '/inventory/:address',
   inspect: '/inspect/:type/:id',
-  customize: '/customize',
   customizeOne: '/customize/:id',
   categoriesOffers: '/offers/:category/',
   unlock: '/unlock',
@@ -48,12 +47,6 @@ const routes: Array<any> = [
     path: routeNames.inspect,
     title: 'Inspect',
     component: Inspect
-  },
-  {
-    path: routeNames.customize,
-    title: 'Customize',
-    component: Customize,
-    authenticatedRoute: true
   },
   {
     path: routeNames.customizeOne,

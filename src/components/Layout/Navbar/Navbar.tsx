@@ -29,7 +29,7 @@ const Navbar = () => {
     },
     {
       name: 'Customize',
-      route: routeNames.customize,
+      route: buildRouteLinks.customize(0),
       icon: <LabIcon />,
       className: style.labIcon,
     },
