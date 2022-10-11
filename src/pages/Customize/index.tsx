@@ -13,7 +13,7 @@ import GoToAnotherPenguin from 'components/Navigation/GoToAnotherPenguin/GoToAno
 import PenguinRender from 'components/PenguinRender/PenguinRender';
 import { ipfsGateway } from 'config';
 import { buildRouteLinks } from 'routes';
-import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
+import { useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
 import useCustomization from 'sdk/hooks/useCustomization';
 import useCustomizationPersistence from 'sdk/hooks/useCustomizationPersistence';
 import useItemsSelection from 'sdk/hooks/useItemsSelection';
@@ -25,7 +25,6 @@ const Customize = () => {
     const { id } = useParams();
     const selectedPenguinNonce = parseInt(id ?? '');
 
-    const ownedItems = useGetOwnedItems();
     const ownedPenguins = useGetOwnedPenguins();
     const [, setTransactionSessionId] = React.useState<string | null>(null);
 
@@ -83,8 +82,9 @@ const Customize = () => {
     }, [equippedItemsIdentifier])
 
     React.useEffect(() => {
-        setItemsInPopup(ownedAndEquippedItems);
-
+        if (ownedAndEquippedItems) {
+            setItemsInPopup(ownedAndEquippedItems);
+        }
     }, [ownedAndEquippedItems]);
 
 
@@ -237,7 +237,7 @@ const Customize = () => {
 
     function openItemsPopup(type: string, title: string) {
         setItemsPopupType(type);
-        if (ownedItems) {
+        if (ownedAndEquippedItems) {
             setItemsInPopup(ownedAndEquippedItems);
         }
         setItemsPopupTitle(title);
@@ -304,6 +304,7 @@ const Customize = () => {
 
     function getItem(identifier: string | undefined) {
         if (!identifier) return undefined;
+        if (!ownedAndEquippedItems) return undefined;
 
         const item = ownedAndEquippedItems.find(i => i.identifier === identifier);
 

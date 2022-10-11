@@ -44,13 +44,16 @@ function useCustomization(selectedPenguinNonce: number, initialItemsIdentifier?:
 
     }, [selectedPenguin]);
 
-    const [ownedAndEquippedItems, setOwnedAndEquippedItems] = React.useState<IItem[]>([]);
+    const [ownedAndEquippedItems, setOwnedAndEquippedItems] = React.useState<IItem[] | undefined>(undefined);
 
     React.useEffect(() => {
-        setOwnedAndEquippedItems([
-            ...selectedPenguin ? Object.values(selectedPenguin.equippedItems) : [],
-            ...ownedItems ?? []
-        ]);
+
+        if (selectedPenguin && ownedItems) {
+            setOwnedAndEquippedItems([
+                ...Object.values(selectedPenguin.equippedItems),
+                ...ownedItems
+            ]);
+        }
     }, [selectedPenguin, ownedItems]);
 
 
@@ -178,7 +181,7 @@ function useCustomization(selectedPenguinNonce: number, initialItemsIdentifier?:
                         throw new Error(`Item ${itemIdentifier} not found in owned items.`);
 
                     itemsToEquip.push({
-                        collection: itemData?.identifier,
+                        collection: itemData?.collection,
                         nonce: itemData?.nonce
                     });
                 }
