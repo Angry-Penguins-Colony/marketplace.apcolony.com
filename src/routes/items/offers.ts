@@ -7,16 +7,11 @@ import { IItem } from '@apcolony/marketplace-api';
 
 export default async function getItemsOffers(req: Request, res: Response, networkProvider: APCNetworkProvider) {
 
-    const cat = req.params.category;
+    const collections = getCollections();
 
-    if (Object.keys(itemsCollection).includes(cat) == false) {
-        res.status(400).send("Invalid category");
-        return null;
-    }
+    if (!collections) return null;
 
-    const collectionId = itemsCollection[cat as keyof typeof itemsCollection];
-
-    const offers = (await networkProvider.getOffers(collectionId));
+    const offers = (await networkProvider.getOffers(collections));
 
     const associatedItems: IItem[] = await (() => {
         const tokens = offers
@@ -39,4 +34,20 @@ export default async function getItemsOffers(req: Request, res: Response, networ
 
     sendSuccessfulJSON(res, response);
 
+    function getCollections(): string[] | null {
+        const cat = req.params.category;
+
+        if (!cat) {
+            return Object.values(itemsCollection).flat();
+        }
+        else {
+            if (Object.keys(itemsCollection).includes(cat) == false) {
+                res.status(400).send("Invalid category");
+                return null;
+            }
+
+            return itemsCollection[cat as keyof typeof itemsCollection];
+        }
+    }
 }
+

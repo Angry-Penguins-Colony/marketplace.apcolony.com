@@ -49,6 +49,7 @@ function start(id: number) {
 
     app.get("/items/item/:id", (req, res) => getItem(req, res, networkProvider));
     app.get("/items/activity/:id", (req, res) => getActivity(req, res, "items", networkProvider));
+    app.get("/items/offers/", (req, res) => getItemsOffers(req, res, networkProvider));
     app.get("/items/offers/:category", (req, res) => getItemsOffers(req, res, networkProvider));
     app.get("/items/offers/:category/stats", (req, res) => getItemOffersStats(req, res, networkProvider));
     app.get("/items/offer/:id", (req, res) => getOffer(req, res, "items", networkProvider));
