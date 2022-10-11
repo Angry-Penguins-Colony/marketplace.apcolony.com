@@ -1,3 +1,3 @@
 export default function calculateCustomizeGasFees() {
-    return 20_000_000;
+    return 60_000_000;
 }
