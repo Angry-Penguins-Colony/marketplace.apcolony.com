@@ -11,8 +11,11 @@ import { IItemToProcess } from './interfaces/IItemToProcess';
 import BigNumber from "bignumber.js";
 import { officialGatewayMaxRPS } from './const';
 import Bottleneck from 'bottleneck';
-import imageRenderer from '@apcolony/renderer';
+import { renderConfig } from '@apcolony/renderer';
 import RenderAttributes from '@apcolony/renderer/dist/classes/RenderAttributes';
+import ImageRenderer from '@apcolony/renderer/dist/classes/ImageRenderer';
+import IPFSCache from '@apcolony/renderer/dist/classes/ipfscache';
+import "dotenv/config";
 const Hash = require('ipfs-only-hash')
 
 main();
@@ -33,8 +36,11 @@ async function main() {
     const readGateway = new ReadGateway(config.gatewayUrl, config.customisationContract, gatewayLimiter);
     const writeGateway = new WriteGateway(config.gatewayUrl, envVariables.senderAddress, envVariables.signer, gatewayLimiter);
     const customisationSC = new SmartContract({ address: config.customisationContract });
-    const renderConfig = imageRenderer.config;
     const pinata = new PinataPin(envVariables.pinataApiKey, envVariables.pinataApiSecret, "pin_folder");
+    const imageRenderer = new ImageRenderer(renderConfig, new IPFSCache({
+        ipfsGateway: process.env.IPFS_GATEWAY,
+        ipfsCacheFolder: process.env.IPFS_CACHE_FOLDER
+    }))
 
     await pinata.testAuthentication();
     await writeGateway.sync();
@@ -50,7 +56,7 @@ async function main() {
 
         if (queue.length > 0) {
             const itemsPromises = queue
-                .map((item) => renderAdvanced(item));
+                .map((item) => renderAdvanced(item, imageRenderer));
 
             const items = (await Promise.all(itemsPromises))
                 .filter((item) => item !== undefined && alreadyProcessedCID.includes(item.cid) == false) as IItemToProcess[];
@@ -79,7 +85,7 @@ async function main() {
     }
 }
 
-async function renderAdvanced(item: RenderAttributes): Promise<IItemToProcess | undefined> {
+async function renderAdvanced(item: RenderAttributes, imageRenderer: ImageRenderer): Promise<IItemToProcess | undefined> {
 
     try {
 
