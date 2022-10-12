@@ -26,10 +26,7 @@ export default class ReadGateway {
 
 
     public async getToBuildQueue(
-        layersOrder: string[],
-        defaultLayers?: {
-            [key: string]: string;
-        }
+        layersOrder: string[]
     ): Promise<RenderAttributes[]> {
 
         const output = await this._requestLimiter.schedule(this._gateway.queryContract.bind(this._gateway), {
@@ -46,7 +43,7 @@ export default class ReadGateway {
 
         const renderAttributes = output.returnData
             .map(data => Buffer.from(data, "base64").toString())
-            .map(attributes => RenderAttributes.fromAttributes(attributes, devnetToolDeploy.items, layersOrder, defaultLayers));
+            .map(attributes => RenderAttributes.fromAttributes(attributes, devnetToolDeploy.items, layersOrder));
 
         return renderAttributes
     }

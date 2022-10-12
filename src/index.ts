@@ -50,7 +50,7 @@ async function main() {
 
     while (true) {
 
-        const queue = await readGateway.getToBuildQueue(renderConfig.layersOrder, renderConfig.defaultLayers);
+        const queue = await readGateway.getToBuildQueue(renderConfig.layersOrder);
 
         console.log(`\nProcessing ${queue.length} elements from the rendering queue...`)
 
