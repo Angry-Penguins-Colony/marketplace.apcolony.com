@@ -1,8 +1,23 @@
 # dapp-marketplace
 
-[![Node.js CI](https://github.com/Angry-Penguins-Colony/dapp-marketplace/actions/workflows/node.js.yml/badge.svg)](https://github.com/Angry-Penguins-Colony/dapp-marketplace/actions/workflows/node.js.yml)
+## Env variables
 
-## Configuration
+`REACT_APP_DEVNET_API`  
+Override the default API url
 
-To enable placeholder calls to the API server, set the env variable to `REACT_APP_USE_PLACEHOLDERS_CALL=1`.
-For example, you can create a `.env` file to set this value like so.
+> Ex: `http://localhost:5001/`
+
+
+`REACT_APP_DEVNET`  
+Start the dApp either on the devnet or the mainnet
+`1` for the devnet  
+any other values for the mainnet
+
+`REACT_APP_MUTED_LOG`  
+Specify the categories to mute.
+See `LogType` in `src/logger.ts`
+
+> Ex: 'api'
+
+`REACT_APP_USE_PLACEHOLDERS_CALL`  
+⚠️ deprecated
