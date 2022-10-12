@@ -1,3 +1,4 @@
+import { RouteType } from '@elrondnetwork/dapp-core/types';
 import { dAppName } from 'config';
 import CategoriesOffers from 'pages/CategoriesOffers';
 import Inspect from 'pages/Inspect';
@@ -8,11 +9,8 @@ import Home from './pages/Home';
 import Inventory from './pages/Inventory';
 import Transaction from './pages/Transaction';
 
-interface IRoute {
-  path: string,
+interface ITitledRoute extends RouteType {
   title?: string,
-  component: any,
-  authenticatedRoute?: boolean
 }
 
 export const routeNames = {
@@ -34,7 +32,7 @@ export const buildRouteLinks = {
   categoriesOffers: (type: string) => routeNames.categoriesOffers.replace(':category', type)
 }
 
-const routes: Array<IRoute> = [
+const routes: Array<ITitledRoute> = [
   {
     path: routeNames.home,
     title: 'Home',
@@ -68,7 +66,7 @@ const routes: Array<IRoute> = [
   },
 ];
 
-const mappedRoutes = routes.map((route) => {
+const mappedRoutes: ITitledRoute[] = routes.map((route) => {
   const title = route.title
     ? `${route.title} • ${dAppName}`
     : `${dAppName}`;
