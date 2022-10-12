@@ -9,6 +9,8 @@ interface Props {
 
 /**
  * AuthenticatedRoutesWrapper but only for children and works with patterns (eg. /customize/:id) 
+ * 
+ * Updating @elrondnetwork/dapp-core to 2.0.3 will make this component obsolete (but update cause troubles for the moment)
  */
 const AuthentificatedPatternRouteWrapper = ({ children, unlockRoute }: Props) => {
     const { address } = useGetAccountInfo();
