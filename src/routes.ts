@@ -13,7 +13,7 @@ export const routeNames = {
   transaction: '/transaction',
   inventory: '/inventory/:address',
   inspect: '/inspect/:type/:id',
-  customizeOne: '/customize/:id',
+  customize: '/customize/:id',
   categoriesOffers: '/offers/:category/',
   unlock: '/unlock',
   ledger: '/ledger',
@@ -21,7 +21,7 @@ export const routeNames = {
 };
 
 export const buildRouteLinks = {
-  customize: (id: string | number) => routeNames.customizeOne.replace(':id', id.toString()),
+  customize: (id: string | number) => routeNames.customize.replace(':id', id.toString()),
   inspect: (type: CategoriesType, id: string) => routeNames.inspect.replace(':type', type).replace(':id', id),
   inventory: (address: string) => routeNames.inventory.replace(':address', address),
   categoriesOffers: (type: string) => routeNames.categoriesOffers.replace(':category', type)
@@ -49,9 +49,10 @@ const routes: Array<any> = [
     component: Inspect
   },
   {
-    path: routeNames.customizeOne,
+    path: routeNames.customize,
     title: 'Customize',
-    component: Customize
+    component: Customize,
+    authenticatedRoute: true,
   },
   {
     path: routeNames.categoriesOffers,

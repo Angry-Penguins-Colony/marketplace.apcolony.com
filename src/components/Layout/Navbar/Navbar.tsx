@@ -15,6 +15,7 @@ import style from './navbar.module.scss';
 const Navbar = () => {
 
   const { address } = useGetAccountInfo();
+  const isConnected = !!address;
 
   const navItems = [
     {
@@ -26,12 +27,14 @@ const Navbar = () => {
       name: 'My Inventory',
       route: buildRouteLinks.inventory(address),
       icon: <ProfileIcon />,
+      authenticated: true,
     },
     {
       name: 'Customize',
       route: buildRouteLinks.customize(0),
       icon: <LabIcon />,
       className: style.labIcon,
+      authenticated: true,
     },
     {
       name: 'Menu',
@@ -42,8 +45,6 @@ const Navbar = () => {
       icon: <MenuIcon />,
     },
   ];
-
-  const isConnected = !!address;
 
   const handleLogout = () => {
     logout(`${window.location.origin}/unlock`);
@@ -87,7 +88,7 @@ const Navbar = () => {
               {/* TODO: bind nav link */}
               {
                 navItems.map((item, index) => {
-                  if (item.name != 'Menu') {
+                  if (item.name != 'Menu' && (!item.authenticated || (item.authenticated && isConnected))) {
                     return (<a href={item.route} key={index} className={style.item}>{item.name}</a>);
                   }
                 })
