@@ -1,0 +1,44 @@
+@import "./../../../assets/sass/var.scss";
+
+.advantage {
+    &::before{
+        counter-increment: advantages;
+        content: counter(advantages);
+        position: absolute;
+        top: -21px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #5977de;
+        border-radius: 100%;
+        width: 41px;
+        height: 41px;
+        line-height: 36px;
+    }
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    margin: 65px 0 250px 0;
+    text-align: center;
+    background-color: $grey;
+    border-radius: 20px;
+    padding: 30px;
+    p{
+        font-size: 1.5rem;
+        color:black;
+    }
+    p:first-child{
+        color:$primary2;
+        margin-top:25px;
+        margin-bottom: 20px;
+    }
+    img{
+        margin-top:30px;
+        width:200px;
+        transform-origin: center 31px;
+        transform: scale(3);
+    }
+
+}
