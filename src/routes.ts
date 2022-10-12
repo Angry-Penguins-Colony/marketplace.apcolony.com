@@ -7,6 +7,7 @@ import withPageTitle from './components/PageTitle';
 import Customize from './pages/Customize';
 import Home from './pages/Home';
 import Inventory from './pages/Inventory';
+import Launchpad from './pages/Launchpad';
 import Transaction from './pages/Transaction';
 
 interface ITitledRoute extends RouteType {
@@ -22,7 +23,8 @@ export const routeNames = {
   categoriesOffers: '/offers/:category/',
   unlock: '/unlock',
   ledger: '/ledger',
-  walletconnect: '/walletconnect'
+  walletconnect: '/walletconnect',
+  launchpad: '/launchpad',
 };
 
 export const buildRouteLinks = {
@@ -64,6 +66,11 @@ const routes: Array<ITitledRoute> = [
     title: 'Offers',
     component: CategoriesOffers
   },
+  {
+    path: routeNames.launchpad,
+    title: 'Launchpad',
+    component: Launchpad
+  }
 ];
 
 const mappedRoutes: ITitledRoute[] = routes.map((route) => {
