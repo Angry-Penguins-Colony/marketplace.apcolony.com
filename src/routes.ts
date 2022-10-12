@@ -8,6 +8,13 @@ import Home from './pages/Home';
 import Inventory from './pages/Inventory';
 import Transaction from './pages/Transaction';
 
+interface IRoute {
+  path: string,
+  title?: string,
+  component: any,
+  authenticatedRoute?: boolean
+}
+
 export const routeNames = {
   home: '/',
   transaction: '/transaction',
@@ -27,7 +34,7 @@ export const buildRouteLinks = {
   categoriesOffers: (type: string) => routeNames.categoriesOffers.replace(':category', type)
 }
 
-const routes: Array<any> = [
+const routes: Array<IRoute> = [
   {
     path: routeNames.home,
     title: 'Home',
