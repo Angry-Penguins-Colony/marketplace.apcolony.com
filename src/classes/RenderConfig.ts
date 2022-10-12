@@ -23,6 +23,9 @@ export default class RenderConfig {
             }
         }
 
+        if (this.defaultLayers) {
+            cids.push(...Object.values(this.defaultLayers));
+        }
 
         return cids;
     }
@@ -49,9 +52,6 @@ export default class RenderConfig {
 
         for (const slot in this.defaultLayers) {
             if (this.itemsCID[slot] == undefined) throw new UnknownSlot(slot, "defaultLayers");
-
-            const defaultItem = this.defaultLayers[slot];
-            if (this.itemsCID[slot][defaultItem] == undefined) throw new UnknownItem(defaultItem, "defaultLayers");
         }
 
         if (this.layersOrder) {

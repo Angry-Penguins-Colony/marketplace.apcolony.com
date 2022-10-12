@@ -15,7 +15,6 @@ interface IItem {
 export default class RenderAttributes {
 
     private readonly _layersOrder: string[];
-    private readonly _defaultLayers: { [key: string]: string; } | undefined;
 
     private readonly _idsBySlot: Map<string, string>;
 
@@ -37,24 +36,14 @@ export default class RenderAttributes {
         return Array.from(this._layersOrder);
     }
 
-    /**
-     * Return a copy of defaultLayers. Modify it will not modify the defaultLayers of the RenderAttributes.
-     */
-    public get defaultLayers(): { [key: string]: string; } {
-        return Object.assign({}, this._defaultLayers);
-    }
-
     constructor(
         idsBySlot: Iterable<readonly [string, string]>,
-        layersOrder: string[],
-        defaultLayers?: { [key: string]: string; }
+        layersOrder: string[]
     ) {
 
         this._layersOrder = layersOrder;
-        this._defaultLayers = defaultLayers;
 
         this._idsBySlot = new Map<string, string>(idsBySlot);
-        this.addDefaultValues(this._idsBySlot);
 
         for (const [slot, id] of this._idsBySlot) {
             if (id == undefined) throw new Error("Item set is undefined at slot: " + slot);
@@ -77,39 +66,14 @@ export default class RenderAttributes {
         return this._idsBySlot.has(slot);
     }
 
-    public doEquipDefaultItem(slot: string): boolean {
-
-        if (!this._defaultLayers) return false;
-
-        const defaultItem = this._defaultLayers[slot];
-        const currentItem = this._idsBySlot.get(slot);
-
-        return defaultItem == currentItem;
-    }
-
-    private addDefaultValues(idsBySlot: Map<string, string>) {
-
-        for (const slot in this._defaultLayers) {
-
-            if (idsBySlot.has(slot)) continue;
-
-            const defaultImage = this._defaultLayers[slot];
-
-            if (defaultImage != undefined) {
-                idsBySlot.set(slot, defaultImage);
-            }
-        }
-    }
-
     public static fromAttributes(
         attributes: string,
         itemsDatabase: IItem[],
-        layersOrder: string[],
-        defaultLayers?: { [key: string]: string; }
+        layersOrder: string[]
     ): RenderAttributes {
 
 
-        if (!attributes) return new RenderAttributes([], layersOrder, defaultLayers);
+        if (!attributes) return new RenderAttributes([], layersOrder);
 
         if (getOccurences(attributes, ":") != (getOccurences(attributes, ";") + 1)) throw new Error(ERR_BAD_FORMAT);
 
@@ -147,7 +111,7 @@ export default class RenderAttributes {
             idBySlot.set(slot.toLowerCase(), databaseId);
         }
 
-        return new RenderAttributes(idBySlot, layersOrder, defaultLayers);
+        return new RenderAttributes(idBySlot, layersOrder);
     }
 
 
@@ -157,7 +121,7 @@ export default class RenderAttributes {
         const attributes = [];
 
         for (const slot of slots) {
-            if (!this.hasSlot(slot) || (slot != "background" && this.doEquipDefaultItem(slot))) {
+            if (!this.hasSlot(slot)) {
                 attributes.push([slot, "unequipped"])
             }
             else {

@@ -6,7 +6,7 @@ import colors from "colors";
 import RenderConfig from "./RenderConfig";
 import IPFSCache from "./ipfscache";
 import Bottleneck from "bottleneck";
-import { toPaths } from "../utils/utils";
+import { addDefaultImages, toCidBySlot, toPaths } from "../utils/utils";
 
 export default class ImageRenderer {
     protected readonly _mimeType: string;
@@ -82,7 +82,9 @@ export default class ImageRenderer {
         }
         watch.next();
 
-        let imageBuffer = await this.merge(toPaths(renderAttributes, this._ipfsCache, this._config), {
+        const cidBySlot = addDefaultImages(toCidBySlot(renderAttributes, this._config), this._config);
+
+        let imageBuffer = await this.merge(toPaths(cidBySlot, this._ipfsCache, this._config), {
             format: this._mimeType
         });
         watch.next();
@@ -124,7 +126,10 @@ export default class ImageRenderer {
             Image: Image,
             format: options.format
         })
-            .catch(err => { throw Error("Merge error: " + err) });
+            .catch(err => {
+                console.log(layersPath);
+                throw Error("Merge error: " + err)
+            });
 
         merged = merged.slice("data:image/jpeg;base64,".length);
 

@@ -83,9 +83,9 @@ export default class BadgePlugin implements IPlugin {
 
         // iter itemsBySlot
         for (const [slot] of itemsBySlots) {
-            if (deleteBadge.includes(slot) && !renderAttributes.doEquipDefaultItem(slot)) {
+            if (deleteBadge.includes(slot)) {
                 itemsBySlots.delete(this.badgeSlotName);
-                return new RenderAttributes(itemsBySlots, renderAttributes.layersOrder, renderAttributes.defaultLayers);
+                return new RenderAttributes(itemsBySlots, renderAttributes.layersOrder);
             }
         }
     }

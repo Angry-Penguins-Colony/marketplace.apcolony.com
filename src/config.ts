@@ -30,10 +30,10 @@ export const userConfig: IRenderConfigOptions = {
         "badge",
     ],
     defaultLayers: {
-        "background": "1",
-        "beak": "18",
-        "eyes": "112",
-        "skin": "181",
+        "background": "Qmc1rfcs7w7wRs2Ey8GXsfGFA5GhSULiJ9yvQvxwBmVpay",
+        "beak": "Qmamqckr2cpqfXGfDroDZTY61k9by2tYAsw1HeBKEcAg8n",
+        "eyes": "QmaapjJRWBzUvgGfJLdkFtjdBRZCvyPkv7oSM9xxbehDJq",
+        "skin": "QmdBbSbwW9Ho7Yk2sKLnV8bbvrwLzJfhLUejQpH7CvGkik",
     },
 
 };

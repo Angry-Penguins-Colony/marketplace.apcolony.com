@@ -124,14 +124,38 @@ export function getOccurences(string: string, subString: string, allowOverlappin
     return n;
 }
 
-export function toPaths(renderAttributes: RenderAttributes, ipfsCache: IPFSCache, renderConfig: RenderConfig): string[] {
+export function toPaths(cidBySlot: { [key: string]: string }, ipfsCache: IPFSCache, renderConfig: RenderConfig): string[] {
     const paths: [string, string][] = [];
+
+    for (const slot in cidBySlot) {
+        const cid = cidBySlot[slot];
+        const path = ipfsCache.toPath(cid);
+        paths.push([slot, path]);
+    }
+
+    return sortImages(paths, renderConfig.layersOrder)
+        .map(kvp => kvp[1]);
+}
+
+export function toCidBySlot(renderAttributes: RenderAttributes, renderConfig: RenderConfig): { [key: string]: string } {
+    const output: { [key: string]: string } = {};
 
     renderAttributes.getIdsBySlot().forEach(([slot, itemId]) => {
         const cid = renderConfig.getCid(slot, itemId);
-        paths.push([slot, ipfsCache.toPath(cid)]);
+        output[slot] = cid;
     });
 
-    return sortImages(paths, renderAttributes.layersOrder)
-        .map(kvp => kvp[1]);
+    return output;
+}
+
+export function addDefaultImages(cidBySlot: { [key: string]: string }, renderConfig: RenderConfig) {
+    if (renderConfig.defaultLayers) {
+        for (const slot in renderConfig.defaultLayers) {
+            if (cidBySlot[slot] == null) {
+                cidBySlot[slot] = renderConfig.defaultLayers[slot];
+            }
+        }
+    }
+
+    return cidBySlot;
 }
