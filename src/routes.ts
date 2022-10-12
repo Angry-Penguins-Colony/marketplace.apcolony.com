@@ -1,3 +1,4 @@
+import { RouteType } from '@elrondnetwork/dapp-core/types';
 import { dAppName } from 'config';
 import CategoriesOffers from 'pages/CategoriesOffers';
 import Inspect from 'pages/Inspect';
@@ -8,13 +9,16 @@ import Home from './pages/Home';
 import Inventory from './pages/Inventory';
 import Transaction from './pages/Transaction';
 
+interface ITitledRoute extends RouteType {
+  title?: string,
+}
+
 export const routeNames = {
   home: '/',
   transaction: '/transaction',
   inventory: '/inventory/:address',
   inspect: '/inspect/:type/:id',
-  customize: '/customize',
-  customizeOne: '/customize/:id',
+  customize: '/customize/:id',
   categoriesOffers: '/offers/:category/',
   unlock: '/unlock',
   ledger: '/ledger',
@@ -22,13 +26,13 @@ export const routeNames = {
 };
 
 export const buildRouteLinks = {
-  customize: (id: string | number) => routeNames.customizeOne.replace(':id', id.toString()),
+  customize: (id: string | number) => routeNames.customize.replace(':id', id.toString()),
   inspect: (type: CategoriesType, id: string) => routeNames.inspect.replace(':type', type).replace(':id', id),
   inventory: (address: string) => routeNames.inventory.replace(':address', address),
   categoriesOffers: (type: string) => routeNames.categoriesOffers.replace(':category', type)
 }
 
-const routes: Array<any> = [
+const routes: Array<ITitledRoute> = [
   {
     path: routeNames.home,
     title: 'Home',
@@ -53,12 +57,7 @@ const routes: Array<any> = [
     path: routeNames.customize,
     title: 'Customize',
     component: Customize,
-    authenticatedRoute: true
-  },
-  {
-    path: routeNames.customizeOne,
-    title: 'Customize',
-    component: Customize
+    authenticatedRoute: true,
   },
   {
     path: routeNames.categoriesOffers,
@@ -67,7 +66,7 @@ const routes: Array<any> = [
   },
 ];
 
-const mappedRoutes = routes.map((route) => {
+const mappedRoutes: ITitledRoute[] = routes.map((route) => {
   const title = route.title
     ? `${route.title} • ${dAppName}`
     : `${dAppName}`;

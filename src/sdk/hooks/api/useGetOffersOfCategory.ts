@@ -1,9 +1,9 @@
-import { IItem, IOffer } from '@apcolony/marketplace-api';
+import { IGenericElement, IOffer } from '@apcolony/marketplace-api';
 import useGenericAPICall from './useGenericAPICall';
 
 interface Output {
     offers: IOffer[];
-    associatedItems: IItem[];
+    associatedItems: IGenericElement[];
 }
 
 function useGetOffersOfCategory(category: 'penguins' | string) {
@@ -17,7 +17,7 @@ function useGetOffersOfCategory(category: 'penguins' | string) {
     }
 
     function getCat() {
-        return category === 'penguins' ? '' : category;
+        return category === 'penguins' || category == 'items' ? '' : category;
     }
 }
 

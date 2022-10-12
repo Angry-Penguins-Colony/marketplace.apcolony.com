@@ -31,7 +31,7 @@ const CategoriesOffers = () => {
         console.log(offersReponses);
 
         if (offersReponses) {
-            setOffers(offersReponses.associatedItems);
+            setOffers(offersReponses.associatedItems as IItem[]);
         }
     }, [offersReponses]);
 

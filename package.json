@@ -38,7 +38,8 @@
     "copy-devnet-config": "cp ./src/config.devnet.tsx ./src/config.tsx",
     "eject": "react-scripts eject",
     "lint": "eslint --ext js,ts,tsx src",
-    "update:sdk": "npm i @apcolony/marketplace-api"
+    "update:sdk": "npm i @apcolony/marketplace-api",
+    "log:remote": "heroku logs -a apc-marketplace-api-devnet --tail"
   },
   "eslintConfig": {
     "extends": [

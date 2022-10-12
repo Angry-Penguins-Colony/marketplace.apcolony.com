@@ -8,7 +8,8 @@ import ItemsInventory from 'components/Inventory/ItemsInventory/ItemsInventory';
 import NavigationType from 'components/Inventory/NavigationType/NavigationType';
 import NavInventory from 'components/Inventory/NavInventory/NavInventory';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
+import { useGetOwnedAndOnSaleItems } from 'sdk/hooks/api/useGetOwnedAndOnSaleItems';
+import { useGetOwnedAndOnSalePenguins } from 'sdk/hooks/api/useGetOwnedAndOnSalePenguins';
 import useGetUserOwnedAmount from 'sdk/hooks/api/useGetUserOwnedAmount';
 import useInventoryFilter from 'sdk/hooks/useInventoryFilter';
 import CategoriesType from 'sdk/types/CategoriesType';
@@ -30,32 +31,31 @@ const Inventory = () => {
     }, []);
 
 
-    const [items, setItems] = React.useState<IGenericElement[] | undefined>(undefined);
-    const [itemsType, setItemsType] = React.useState<CategoriesType>('penguins');
+    const [inventoryElements, setElements] = React.useState<IGenericElement[] | undefined>(undefined);
+    const [inventoryType, setInventoryType] = React.useState<CategoriesType>('penguins');
+
     const ownedAmount = useGetUserOwnedAmount();
+    const penguins = useGetOwnedAndOnSalePenguins(Address.fromBech32(walletAddress));
+    const items = useGetOwnedAndOnSaleItems(Address.fromBech32(walletAddress));
 
-    const penguinsItems = useGetOwnedPenguins({
-        onLoaded: setItems,
-        overrideAddress: Address.fromBech32(walletAddress),
-    });
-    const itemsItems = useGetOwnedItems({
-        overrideAddress: Address.fromBech32(walletAddress)
-    });
-
-    function itemsTypeChange(type: string) {
+    function onChangeType(type: string) {
         switch (type) {
             case 'items':
-                setItems(itemsItems);
-                setItemsType('items');
+                setElements(items);
+                setInventoryType('items');
                 break;
 
             case 'penguins':
             default:
-                setItems(penguinsItems);
-                setItemsType('penguins');
+                setElements(penguins);
+                setInventoryType('penguins');
                 break;
         }
     }
+
+    React.useEffect(() => {
+        onChangeType(inventoryType); items
+    }, [penguins, items]);
 
     function addArticle(txt: string) {
         const firstLetter = txt.charAt(0).toUpperCase();
@@ -70,7 +70,7 @@ const Inventory = () => {
         sortBy,
         changeFilters,
         filterData
-    } = useInventoryFilter(items, () => { /* setItems is disabled for the moment */ });
+    } = useInventoryFilter(inventoryElements, () => { /* setItems is disabled for the moment */ });
 
     return (
         <>
@@ -97,35 +97,35 @@ const Inventory = () => {
                     </p>
                 </header>
 
-                <NavigationType className={style['navigation-type']} onChangeType={itemsTypeChange} itemsType={itemsType} />
+                <NavigationType className={style['navigation-type']} onChangeType={onChangeType} itemsType={inventoryType} />
 
                 <section id={style.filter}>
                     <div className={style['number-items']}>
                         <div className={style.item}>
-                            <p className={style.number}>{penguinsItems?.length ?? '-'}</p>
+                            <p className={style.number}>{penguins?.length ?? '-'}</p>
                             <p className={style.name}>Penguins</p>
                         </div>
                         <div className={style.item}>
-                            <p className={style.number}>{itemsItems?.length ?? '-'}</p>
+                            <p className={style.number}>{items?.length ?? '-'}</p>
                             <p className={style.name}>Items</p>
                         </div>
                     </div>
                     <div className={style.title}>
-                        <h3>My {itemsType.charAt(0).toUpperCase() + itemsType.slice(1)}</h3>
-                        <span className={style['number-items']}>{items?.length ?? '-'}</span>
-                        <p className={style.info}>(Select {addArticle(itemsType.slice(0, -1))} to customize it)</p>
+                        <h3>My {inventoryType.charAt(0).toUpperCase() + inventoryType.slice(1)}</h3>
+                        <span className={style['number-items']}>{inventoryElements?.length ?? '-'}</span>
+                        <p className={style.info}>(Select {addArticle(inventoryType.slice(0, -1))} to customize it)</p>
                     </div>
-                    <NavInventory type={itemsType} typeWithFilter={typeWithFilter} sortByFunction={sortBy}
+                    <NavInventory type={inventoryType} typeWithFilter={typeWithFilter} sortByFunction={sortBy}
                         filterData={filterData} changeFilters={changeFilters} />
                 </section>
 
-                {items &&
+                {inventoryElements &&
                     <ItemsInventory
                         className={style['items-inventory']}
-                        items={items}
-                        type={itemsType}
-                        amountById={ownedAmount ? ownedAmount[itemsType] : {}}
-                        hasFilter={typeWithFilter.includes(itemsType)}
+                        items={inventoryElements}
+                        type={inventoryType}
+                        amountById={ownedAmount ? ownedAmount[inventoryType] : {}}
+                        hasFilter={typeWithFilter.includes(inventoryType)}
                         filters={filterData} />
                 }
             </div>

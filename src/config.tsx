@@ -26,7 +26,7 @@ export const defaultImages = {
 function getNetworkInfos() {
   if (useDevnet) {
     return {
-      api: 'https://apc-marketplace-api-devnet.herokuapp.com/',
+      api: process.env.REACT_APP_DEVNET_API ?? 'https://apc-marketplace-api-devnet.herokuapp.com/',
       explorerUrl: 'https://devnet-explorer.elrond.com/',
       customisationContractAddress: Address.fromBech32(devnetToolDeploy.customizationContractAddress.bech32),
       penguinCollection: devnetToolDeploy.penguinsIdentifier,

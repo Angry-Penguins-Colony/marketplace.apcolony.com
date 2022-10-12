@@ -13,7 +13,7 @@ import GoToAnotherPenguin from 'components/Navigation/GoToAnotherPenguin/GoToAno
 import PenguinRender from 'components/PenguinRender/PenguinRender';
 import { ipfsGateway } from 'config';
 import { buildRouteLinks } from 'routes';
-import { useGetOwnedItems, useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
+import { useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
 import useCustomization from 'sdk/hooks/useCustomization';
 import useCustomizationPersistence from 'sdk/hooks/useCustomizationPersistence';
 import useItemsSelection from 'sdk/hooks/useItemsSelection';
@@ -23,9 +23,9 @@ import style from './index.module.scss';
 const Customize = () => {
 
     const { id } = useParams();
-    const selectedPenguinNonce = parseInt(id ?? '');
 
-    const ownedItems = useGetOwnedItems();
+    if (!id) throw new Error('No id provided');
+
     const ownedPenguins = useGetOwnedPenguins();
     const [, setTransactionSessionId] = React.useState<string | null>(null);
 
@@ -34,9 +34,10 @@ const Customize = () => {
     const {
         load,
         save
-    } = useCustomizationPersistence(selectedPenguinNonce);
+    } = useCustomizationPersistence(id);
 
     const initialAttributes = load();
+
     const {
         resetItems,
         equipItem,
@@ -50,9 +51,7 @@ const Customize = () => {
         selectedPenguin,
         ownedItemsAmount,
         ownedAndEquippedItems
-    } = useCustomization(selectedPenguinNonce, initialAttributes);
-
-
+    } = useCustomization(id, initialAttributes);
 
     const {
         toggle,
@@ -83,13 +82,14 @@ const Customize = () => {
     }, [equippedItemsIdentifier])
 
     React.useEffect(() => {
-        setItemsInPopup(ownedAndEquippedItems);
-
+        if (ownedAndEquippedItems) {
+            setItemsInPopup(ownedAndEquippedItems);
+        }
     }, [ownedAndEquippedItems]);
 
 
     if (!isSelectedNonceOwned() && ownedPenguins && ownedPenguins.length > 0) {
-        window.location.href = buildRouteLinks.customize(ownedPenguins[0].nonce);
+        window.location.href = buildRouteLinks.customize(ownedPenguins[0].id);
     }
 
     // add root class for background style
@@ -163,9 +163,9 @@ const Customize = () => {
                     </>
                 }
             </section >
-            {ownedPenguins &&
+            {(ownedPenguins && selectedPenguin) &&
                 <GoToAnotherPenguin className={style['another-penguins']}
-                    selectedPenguinNonce={selectedPenguinNonce}
+                    currentId={selectedPenguin.id}
                     penguins={ownedPenguins}
                     subTitle={selectedPenguin?.name ?? ''}
                 />
@@ -237,7 +237,7 @@ const Customize = () => {
 
     function openItemsPopup(type: string, title: string) {
         setItemsPopupType(type);
-        if (ownedItems) {
+        if (ownedAndEquippedItems) {
             setItemsInPopup(ownedAndEquippedItems);
         }
         setItemsPopupTitle(title);
@@ -304,6 +304,7 @@ const Customize = () => {
 
     function getItem(identifier: string | undefined) {
         if (!identifier) return undefined;
+        if (!ownedAndEquippedItems) return undefined;
 
         const item = ownedAndEquippedItems.find(i => i.identifier === identifier);
 
@@ -313,7 +314,7 @@ const Customize = () => {
     }
 
     function isSelectedNonceOwned() {
-        return ownedPenguins && ownedPenguins.find(p => p.nonce == selectedPenguinNonce);
+        return (ownedPenguins && selectedPenguin) && ownedPenguins.find(p => p.nonce == selectedPenguin.nonce);
     }
 
     function getSelectedItemInSlot(slot: string) {
