@@ -1,4 +1,6 @@
+import React from 'react';
 import { RouteType } from '@elrondnetwork/dapp-core/types';
+import AuthentificatedPatternRouteWrapper from 'components/Abstract/AuthentificatedPatternRouteWrapper';
 import { dAppName } from 'config';
 import CategoriesOffers from 'pages/CategoriesOffers';
 import Inspect from 'pages/Inspect';
@@ -58,7 +60,11 @@ const routes: Array<ITitledRoute> = [
   {
     path: routeNames.customize,
     title: 'Customize',
-    component: Customize,
+    component: () => {
+      return <AuthentificatedPatternRouteWrapper unlockRoute={routeNames.unlock}>
+        <Customize />
+      </AuthentificatedPatternRouteWrapper>;
+    },
     authenticatedRoute: true,
   },
   {
