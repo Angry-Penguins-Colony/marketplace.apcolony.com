@@ -83,17 +83,11 @@ export class APCNetworkProvider {
 
     public async getNftsOfAccount(address: IAddress): Promise<APCNft[]> {
 
-        const tokens = await this.apiProvider.getNonFungibleTokensOfAccount(address, {
-            from: 0,
-            size: 10000
-        });
+        // we are using the api, while we would use the gateway, because the API handle when the account is empty (and so not founded by the gateway)
+        const response = await this.apiProvider.doGetGeneric(`accounts/${address.bech32()}/nfts?size=10000`);
 
-        return tokens.map((item: any) => {
-            let nft = APCNft.fromProxyHttpResponse(item)
-            nft.owner = address.bech32();
-
-            return nft;
-        });
+        return response
+            .map((item: any) => APCNft.fromApiHttpResponse({ owner: address.bech32(), ...item }));
     }
 
     public async getItemsOfAccount(address: IAddress): Promise<IItem[]> {
