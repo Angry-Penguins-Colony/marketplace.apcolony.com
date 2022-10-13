@@ -92,23 +92,18 @@ const Customize = () => {
         document.body.classList.add('background-image');
     }, []);
 
-    if (ownedPenguins != undefined) {
-
-        if (ownedPenguins.length == 0) {
-            return <Navigate to={routeNames.errors.customize.noPenguin} />
-        }
-
-        if (isSelectedOwned() == false) {
-            return <Navigate to={buildRouteLinks.customize(ownedPenguins[0].id)} />;
-        }
+    if (ownedPenguins != undefined && ownedPenguins.length == 0) {
+        return <Navigate to={routeNames.errors.customize.noPenguin} />
     }
 
+    const neededId = getNeededIdRedirection();
 
-    if (isIdValid(id) == false) {
-        const newId = ownedPenguins ? ownedPenguins[0].id : 1;
-
-        return <Navigate to={buildRouteLinks.customize(newId)} />
+    if (neededId) {
+        // WHY we don't use <Redirect /> here?
+        // This page doesn't support id changement WITHOUT being refreshed
+        window.location.href = buildRouteLinks.customize(neededId);
     }
+
 
     return (
         <div id={style['body-content']}>
@@ -186,9 +181,22 @@ const Customize = () => {
         </div >
     );
 
-    function getCustomizeButtonContent() {
+    function getNeededIdRedirection(): string | undefined {
 
-        console.log(attributesStatus);
+        if (!id) throw new Error('No id provided');
+
+        if (ownedPenguins != undefined) {
+            if (isSelectedOwned() == false) {
+                return ownedPenguins[0].id;
+            }
+        }
+
+        if (isIdValid(id) == false) {
+            return ownedPenguins ? ownedPenguins[0].id : '1';
+        }
+    }
+
+    function getCustomizeButtonContent() {
 
         if (attributesStatus) {
             switch (attributesStatus.renderStatus) {
