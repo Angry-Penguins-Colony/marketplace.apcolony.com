@@ -1,6 +1,6 @@
 import { IOffer } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
-import SellTransactionFilter from '../transactionsFilters/filters';
+import { RetireTransactionFilter, SellTransactionFilter } from '../transactionsFilters/filters';
 import useGetOnTransactionSuccesful from '../useGetOnTransactionSuccesful';
 import useGenericAPICall from './useGenericAPICall';
 
@@ -26,11 +26,13 @@ function useGetOffers(category: 'penguins' | 'items', id: string) {
     const isListedByConnected = ownedOffers && ownedOffers.length > 0;
 
     useGetOnTransactionSuccesful(
-        () => {
-            console.log('force update');
-            forceUpdate()
-        },
+        () => forceUpdate(),
         new SellTransactionFilter()
+    );
+
+    useGetOnTransactionSuccesful(
+        () => forceUpdate(),
+        new RetireTransactionFilter()
     );
 
     return {
