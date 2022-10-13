@@ -128,7 +128,7 @@ const Inspect = () => {
                             (itemOwnedAmount != undefined && itemOwnedAmount > 0) &&
                             <div>
                                 <Button type='normal' onClick={() => { setIsSellPopupOpen(true) }}>
-                                    Sell {typeInText.singular}
+                                    Sell
                                 </Button>
                             </div>
                         }
