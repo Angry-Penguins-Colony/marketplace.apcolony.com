@@ -6,15 +6,20 @@ function useGenericAPICall<T>(url: string) {
     const [data, setData] = React.useState<T | undefined>(undefined);
 
     React.useEffect(() => {
-        async function get() {
-            const res = await doGetGeneric(url);
-            setData(res.data.data);
-        }
 
         get();
     }, []);
 
-    return data;
+    return {
+        data,
+        forceReload: get
+    };
+
+    async function get() {
+        const res = await doGetGeneric(url);
+        setData(res.data.data);
+    }
+
 }
 
 export default useGenericAPICall;

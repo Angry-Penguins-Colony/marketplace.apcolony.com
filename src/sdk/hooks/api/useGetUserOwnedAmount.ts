@@ -8,7 +8,9 @@ interface Output {
 
 function useGetUserOwnedAmount(): Output | undefined {
     const { address } = useGetAccountInfo();
-    return useGenericAPICall('owned/' + address);
+    const { data } = useGenericAPICall<Output>('owned/' + address);
+
+    return data;
 }
 
 export default useGetUserOwnedAmount;

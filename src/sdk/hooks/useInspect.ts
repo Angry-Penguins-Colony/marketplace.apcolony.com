@@ -11,8 +11,8 @@ import { useGetGenericItem } from './api/useGetGenericItem';
 
 function useInspect(category: CategoriesType, id: string) {
     const { address: connectedAddress } = useGetAccountInfo();
-    const item = useGetGenericItem(category, id);
-    const activities = useGetActivity(category, id);
+    const { data: item } = useGetGenericItem(category, id);
+    const { data: activities } = useGetActivity(category, id);
 
 
     return {

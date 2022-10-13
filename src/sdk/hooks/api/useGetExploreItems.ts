@@ -9,7 +9,7 @@ interface ExploreItemsResponse {
 
 function useGetExploreItems(): IGenericElement[] | undefined {
 
-    const exploreItems = useGenericAPICall<ExploreItemsResponse>('exploreItems');
+    const { data: exploreItems } = useGenericAPICall<ExploreItemsResponse>('exploreItems');
 
     const [genericItems, setGenericItems] = React.useState<IGenericElement[] | undefined>(undefined);
 

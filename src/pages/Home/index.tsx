@@ -15,7 +15,7 @@ import style from './index.module.scss';
 const HIGHLIGHTED_ITEM_ID = '94';
 
 const Home = () => {
-  const highlightedItem = useGetItem(HIGHLIGHTED_ITEM_ID);
+  const { data: highlightedItem } = useGetItem(HIGHLIGHTED_ITEM_ID);
   const exploreItems = useGetExploreItems();
 
   const { lowestBuyableOffer } = useGetOffers('items', HIGHLIGHTED_ITEM_ID);
