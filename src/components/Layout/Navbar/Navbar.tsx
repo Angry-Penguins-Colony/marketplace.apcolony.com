@@ -31,7 +31,7 @@ const Navbar = () => {
     },
     {
       name: 'Customize',
-      route: buildRouteLinks.customize(0),
+      route: buildRouteLinks.customize(1),
       icon: <LabIcon />,
       className: style.labIcon,
       authenticated: true,
