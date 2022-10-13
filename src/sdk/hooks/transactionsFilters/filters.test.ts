@@ -1,4 +1,4 @@
-import SellTransactionFilter from './sell'
+import SellTransactionFilter from './filters'
 
 test('should returns true', () => {
     const tx = {
