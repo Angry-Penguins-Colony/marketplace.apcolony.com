@@ -1,3 +1,4 @@
+import { Attributes } from '@apcolony/marketplace-api';
 import ITransactionFilter from './ITransactionFilter';
 
 export class SellTransactionFilter implements ITransactionFilter {
@@ -10,5 +11,23 @@ export class SellTransactionFilter implements ITransactionFilter {
 export class RetireTransactionFilter implements ITransactionFilter {
     contains(data: string): boolean {
         return data.includes('withdraw');
+    }
+}
+
+export class RenderTransactionFilter implements ITransactionFilter {
+
+    constructor(
+        private readonly attributes: Attributes
+    ) { }
+
+    contains(data: string): boolean {
+
+        const [endpointName, encodedAttributes] = data.split('@');
+
+        if (endpointName !== 'renderImage') return false;
+
+        const decodedAttributes = Buffer.from(encodedAttributes, 'hex').toString('utf-8');
+
+        return this.attributes.equals(Attributes.fromEndpointArgument(decodedAttributes));
     }
 }

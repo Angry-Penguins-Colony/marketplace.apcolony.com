@@ -3,33 +3,53 @@ import { IAttributesStatus } from '@apcolony/marketplace-api';
 import { Attributes } from '@apcolony/marketplace-api/out/classes';
 import axios from 'axios';
 import { apcLogger, marketplaceApi } from 'config';
+import { RenderTransactionFilter } from '../transactionsFilters/filters';
+import useGetOnNewPendingTransaction from '../useGetOnTransactionPending';
 import usePrevious from '../usePrevious';
 
-function useGetAttributesStatus(attributes: Attributes | undefined, periodicRefreshMS?: number) {
+const periodicRefreshMS = 3_000;
+
+function useGetAttributesStatus(attributes: Attributes) {
 
     const [attributesStatus, setAttributesStatus] = React.useState<IAttributesStatus | undefined>(undefined);
+    const [forcePendingStatus, setForcePendingStatus] = React.useState<boolean>(false);
     const previousStatus = usePrevious(attributes);
 
-    React.useEffect(() => {
+    useGetOnNewPendingTransaction(() => {
+        setForcePendingStatus(true)
+    },
+        new RenderTransactionFilter(attributes));
 
+    React.useEffect(() => {
         if (attributes && previousStatus && attributes.equals(previousStatus)) return;
 
         forceUpdate();
     });
 
+    // when we are in pending status, we need to refresh the status periodically
     React.useEffect(() => {
-
-        if (periodicRefreshMS) {
+        if (forcePendingStatus || (attributesStatus && attributesStatus.renderStatus == 'rendering')) {
             const interval = setInterval(() => {
-                console.log('periodic check');
+                console.log('check')
                 forceUpdate();
             }, periodicRefreshMS);
 
             return () => clearInterval(interval);
         }
-    }, [periodicRefreshMS]);
+    }, [forcePendingStatus, attributesStatus]);
 
-    return { attributesStatus, forceUpdate };
+    // stop pending status when we have a new status
+    React.useEffect(() => {
+
+        if (forcePendingStatus && attributesStatus?.renderStatus == 'rendered') {
+            setForcePendingStatus(false);
+        }
+    }, [attributesStatus])
+
+    return {
+        attributesStatus: forcePendingStatus ? { renderStatus: 'rendering' } : attributesStatus,
+        forceUpdate
+    };
 
     async function forceUpdate() {
         if (attributes == undefined) return;

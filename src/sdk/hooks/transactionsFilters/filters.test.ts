@@ -1,4 +1,5 @@
-import { RetireTransactionFilter, SellTransactionFilter } from './filters'
+import { Attributes } from '@apcolony/marketplace-api';
+import { RenderTransactionFilter, RetireTransactionFilter, SellTransactionFilter } from './filters'
 
 test('sell transaction', () => {
     const tx = {
@@ -7,6 +8,7 @@ test('sell transaction', () => {
 
     expect(new SellTransactionFilter().contains(tx.data)).toBeTruthy();
     expect(new RetireTransactionFilter().contains(tx.data)).toBeFalsy();
+    expect(new RenderTransactionFilter(new Attributes({})).contains(tx.data)).toBeFalsy();
 })
 
 test('withdraw transaction', () => {
@@ -16,4 +18,26 @@ test('withdraw transaction', () => {
 
     expect(new RetireTransactionFilter().contains(tx.data)).toBeTruthy()
     expect(new SellTransactionFilter().contains(tx.data)).toBeFalsy();
+    expect(new RenderTransactionFilter(new Attributes({})).contains(tx.data)).toBeFalsy();
+})
+
+test('render image, returns true if contains attributes', () => {
+    const data = 'renderImage@4261636B67726F756E643A426C7565204772616469656E743B436C6F746865733A477265656E205361696C6F72204A61636B6574';
+
+    expect(new RenderTransactionFilter(new Attributes({
+        'background': 'Blue Gradient',
+        'clothes': 'Green Sailor Jacket'
+    })).contains(data)).toBeTruthy();
+    expect(new SellTransactionFilter().contains(data)).toBeFalsy();
+    expect(new RetireTransactionFilter().contains(data)).toBeFalsy();
+})
+test('render image, returns false if dont contians attributes', () => {
+    const data = 'renderImage@4261636b67726f756e643a426c7565204772616469656e743b436c6f746865733a477265656e205361696c6f72204a61636b65743b4861743a50726f70656c6c6572204361703b536b696e3a4f696c205370696c6c3b576561706f6e3a53656120536865706865726420476166663b4265616b3a756e65717569707065643b457965733a756e6571756970706564';
+
+    expect(new RenderTransactionFilter(new Attributes({
+        'background': 'Blue Gradient',
+        'clothes': 'Green Sailor Jacket'
+    })).contains(data)).toBeFalsy();
+    expect(new SellTransactionFilter().contains(data)).toBeFalsy();
+    expect(new RetireTransactionFilter().contains(data)).toBeFalsy();
 })
