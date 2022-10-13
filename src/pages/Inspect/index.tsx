@@ -4,14 +4,14 @@ import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
-import { Address } from '@elrondnetwork/erdjs/out';
 import { useParams } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
 import BuyPriceContainer from 'components/Abstract/BuyPriceContainer/BuyPriceContainer';
-import AddressWrapper from 'components/AddressWrapper';
 import BuyingPopup from 'components/Foreground/Popup/BuyingPopup/BuyingPopup';
 import ShowOffersPopup from 'components/Foreground/Popup/ShowOffersPopup';
 import ShareIcon from 'components/Icons/ShareIcon';
+import ItemSubProperties from 'components/InspectSubProperties/ItemSubProperties';
+import PenguinSubProperties from 'components/InspectSubProperties/PenguinSubProperties';
 import ItemsAndActivities from 'components/Inventory/ItemsAndActivities/ItemsAndActivities';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { ipfsGateway, marketplaceContractAddress } from 'config';
@@ -80,7 +80,6 @@ const Inspect = () => {
     })();
 
     const canBuy = category == 'items' || (category == 'penguins' && ownedByConnectedWallet == false);
-    const isConnected = connectedAddress != '';
     const typeInText = getTypeInText();
     const buyableOffersCount = buyableOffers?.length;
 
@@ -243,39 +242,10 @@ const Inspect = () => {
 
         switch (category) {
             case 'penguins':
-
-                const p = item as IPenguin;
-
-                return <div className={style['owned-property']}>
-                    <p className={style['owned-property-text']}>
-                        {
-                            (() => {
-                                if (!p.owner) return;
-
-                                if (p.owner == marketplaceContractAddress.bech32()) {
-                                    return <>For sale</>;
-                                }
-                                else {
-                                    return <>
-                                        Owned by {
-                                            p.owner == connectedAddress ?
-                                                'me' :
-                                                <AddressWrapper address={Address.fromBech32(p.owner)} />
-                                        }
-                                    </>;
-                                }
-                            })()
-                        }
-
-                    </p>
-                </div>;
+                return <PenguinSubProperties penguin={item as IPenguin} />
 
             case 'items':
-                return isConnected && <>
-                    <span className={style.primary}>Total supply: {(item as IItem).supply ?? '--'}</span><br />
-                    <span className={style.primary}>Owned by me: {itemOwnedAmount ?? '--'}</span><br />
-                    <span className={style.primary}>My offers: {ownedOffers?.length ?? '--'}</span>
-                </>
+                return <ItemSubProperties item={item as IItem} />
 
             default:
                 throw new Error('Unknown type');
