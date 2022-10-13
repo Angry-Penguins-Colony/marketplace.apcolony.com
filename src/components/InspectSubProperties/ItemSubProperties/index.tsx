@@ -21,11 +21,14 @@ const ItemSubProperties = ({ item }: Props) => {
 
     const properties = [];
 
-    properties.push(`Total supply: ${item.supply}`);
+    properties.push(`${item.supply} of total supply`);
 
     if (address) {
-        properties.push(`Owned by me: ${itemOwnedAmount ?? '--'}`);
-        properties.push(`My offers: ${ownedOffers?.length ?? '--'}`);
+        properties.push(`${itemOwnedAmount ?? '--'} owned by you `);
+
+        if (ownedOffers) {
+            properties.push(`Your offers: ${ownedOffers.length}`);
+        }
     }
 
     return <SubProperties properties={properties} />
