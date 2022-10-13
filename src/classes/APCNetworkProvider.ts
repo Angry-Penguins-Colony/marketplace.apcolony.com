@@ -83,18 +83,17 @@ export class APCNetworkProvider {
 
     public async getNftsOfAccount(address: IAddress): Promise<APCNft[]> {
 
-        const response = await this.proxyProvider.doGetGeneric(`address/${address.bech32()}/esdt`);
+        const tokens = await this.apiProvider.getNonFungibleTokensOfAccount(address, {
+            from: 0,
+            size: 10000
+        });
 
-        const tokens = Object.values(response.esdts)
-            .filter((item: any) => item.nonce >= 0) // we keep only NFTs        
-            .map((item: any) => {
-                let nft = APCNft.fromProxyHttpResponse(item)
-                nft.owner = address.bech32();
+        return tokens.map((item: any) => {
+            let nft = APCNft.fromProxyHttpResponse(item)
+            nft.owner = address.bech32();
 
-                return nft;
-            });
-
-        return tokens;
+            return nft;
+        });
     }
 
     public async getItemsOfAccount(address: IAddress): Promise<IItem[]> {
