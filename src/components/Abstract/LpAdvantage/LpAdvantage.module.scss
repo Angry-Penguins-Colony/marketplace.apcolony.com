@@ -1,0 +1,86 @@
+@import "./../../../assets/sass/var.scss";
+
+.advantage {
+    &::before{
+        counter-increment: advantages;
+        content: counter(advantages);
+        position: absolute;
+        top: -21px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #5977de;
+        border-radius: 100%;
+        width: 41px;
+        height: 41px;
+        line-height: 36px;
+    }
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    margin-top: 65px;
+    margin-bottom: 250px;
+    text-align: center;
+    background-color: $grey;
+    border-radius: 20px;
+    padding: 30px;
+    p{
+        font-size: 1.5rem;
+        color:black;
+    }
+    p:first-child{
+        color:$primary2;
+        margin-top:25px;
+        margin-bottom: 20px;
+    }
+}
+
+// desktop
+@media (min-width: 800px) {
+    .advantage {
+        &::before{
+            content:unset;
+        }
+        min-height: 343px;
+        max-width: 1284px;
+        margin:auto;
+        margin-top: 80px;
+        margin-bottom: 250px;
+        padding: 80px 120px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        >div:first-child{
+            position: relative;
+            &::before{
+                counter-increment: advantages;
+                content: counter(advantages);
+                position: absolute;
+                top: 18px;
+                left: -47px;
+                transform: translateX(-50%);
+                background-color: #5977de;
+                border-radius: 100%;
+                width: 60px;
+                height: 60px;
+                line-height: 57px;
+                font-size: 2.2rem;
+            }
+            p{
+                text-align: left;
+                line-height: 110%;
+                margin-bottom: 10px;
+            }
+            p:first-child{
+                font-size: 2.5rem;
+            }
+        }
+        >div:last-child{
+            img{
+                transform: scale(6) !important; //Todo : Find a way to not use !important
+                transform-origin: center 31px !important;
+            }
+        }
+    }
+}
