@@ -25,6 +25,13 @@
         color: white;
     }
 
+    &.primary-outline {
+        border: 2px solid white;
+        background-color: $primary;
+        color: white;
+    }
+
+
     &.cancel {
         border: 1px solid $red;
         background-color: $red;

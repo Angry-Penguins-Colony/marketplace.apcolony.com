@@ -12,7 +12,7 @@ const Button = ({
     children: React.ReactNode,
     className?: string,
     icon?: React.ReactNode,
-    type?: 'normal' | 'primary' | 'cancel' | 'cancel-outline',
+    type?: 'normal' | 'primary' | 'primary-outline' | 'cancel' | 'cancel-outline',
     disabled?: boolean,
     onClick?: () => void,
 }) => {
