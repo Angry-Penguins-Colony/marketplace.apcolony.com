@@ -92,14 +92,22 @@ const Customize = () => {
         document.body.classList.add('background-image');
     }, []);
 
-    if (ownedPenguins) {
+    if (ownedPenguins != undefined) {
+
         if (ownedPenguins.length == 0) {
             return <Navigate to={routeNames.errors.customize.noPenguin} />
         }
 
-        if (ownedPenguins.length > 0 && !isSelectedOwned()) {
+        if (isSelectedOwned() == false) {
             return <Navigate to={buildRouteLinks.customize(ownedPenguins[0].id)} />;
         }
+    }
+
+
+    if (isIdValid(id) == false) {
+        const newId = ownedPenguins ? ownedPenguins[0].id : 1;
+
+        return <Navigate to={buildRouteLinks.customize(newId)} />
     }
 
     return (
@@ -319,7 +327,9 @@ const Customize = () => {
     }
 
     function isSelectedOwned() {
-        return (ownedPenguins && selectedPenguin) && ownedPenguins.find(p => p.nonce == selectedPenguin.nonce);
+        if (!ownedPenguins) return undefined;
+
+        return ownedPenguins.find(p => p.id === id) != undefined;
     }
 
     function getSelectedItemInSlot(slot: string) {
@@ -367,3 +377,10 @@ const Customize = () => {
 };
 
 export default Customize;
+
+function isIdValid(id: string) {
+
+    const idAsNumber = parseInt(id);
+
+    return isNaN(idAsNumber) == false && idAsNumber >= 1 && idAsNumber <= penguinsCount;
+}
