@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
 import { routeNames } from 'routes';
 import lostPenguin from './../../assets/img/lost_penguin.svg';
@@ -16,9 +17,11 @@ const ErrorPage = ({ title, description }: Prop) => {
                 <img src={lostPenguin} alt="Penguin is lost" />
                 <h1>{title}</h1>
                 <p>{description}</p>
-                <Button type='primary' onClick={() => {
-                    window.location.href = routeNames.home;
-                }}>Back to website</Button>
+                <Link to={routeNames.home}>
+                    <Button type='primary'>
+                        Back to website
+                    </Button>
+                </Link>
             </div>
         </div>
     );
