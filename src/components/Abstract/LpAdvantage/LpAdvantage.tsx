@@ -6,24 +6,24 @@ const LpAdvantage = ({
     mainText,
     subText,
     img,
-    imgStyle
+    className
 }: {
     children?: React.ReactNode,
     mainText: string,
     subText: string,
     img:string,
-    imgStyle:React.CSSProperties
+    className: string
 }) => {
   return (
     <>
-        <div className={style.advantage}>
+        <div className={style.advantage + ' ' + style[className]}>
             <div>
               <p>{mainText}</p>
               <p>{subText}</p>
               {children}
             </div>
             <div>
-              <img style={imgStyle}  className={style.img} src={img} alt="Lanchpad avantage" />
+              <img className={style.img2} src={img} alt="Lanchpad avantage" />
             </div>
         </div>
         <br />

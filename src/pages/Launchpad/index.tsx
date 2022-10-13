@@ -38,46 +38,46 @@ export default function Launchpad() {
             mainText='Time saving to focus on the development of their games/universe, less on the technical implementation (SC, dapps…)'
             subText='Our personalized services will allow you to be assisted during crucial stages of your project.'
             img={timeImg}
-            imgStyle={{transformOrigin: 'center 15px', marginTop: '30px', width:'80px', transform: 'scale(3)'}}
+            className='time'
            ></LpAdvantage>
           <LpAdvantage 
             mainText='Strategy Consulting'
             subText='Providing of our experience in project management :'
             img={penguinTableauImg}
-            imgStyle={{transformOrigin: 'center -10px', width:'80px', transform: 'scale(3)'}}
+            className='strategy'
            >
             <div>
               <div style={{
                   display: 'flex',
                   flexWrap: 'wrap',
                   gap: '10px',
-                  margin: '12px 0',
+                  margin: '12px 0 20px',
               }}>
                 <Button type='primary'>Communication strategy</Button>
                 <Button type='primary'>Flexible financial management</Button>
                 <Button type='primary'>Partnership strategy</Button>
                 <Button type='primary'>And more...</Button>
               </div>
-              <p style={{textAlign:'left'}}><img src={addButton} alt="Add button" style={{width:'20px'}} /> access to our network</p>
+              <p style={{textAlign:'left'}}><img src={addButton} alt="Add button"/> access to our network</p>
             </div>
            </LpAdvantage>
           <LpAdvantage 
             mainText='Personalized & preferential place in our marketplace'
             subText='This integration will allow you to fully integrate your universe in an ecosystem of ambitious projects on Elrond.'
             img={penguinComputerImg}
-            imgStyle={{transformOrigin: 'center 15px', marginTop: '30px', width:'129px', transform: 'scale(3)'}}
+            className='personalized'
            ></LpAdvantage>
           <LpAdvantage 
             mainText='Technical help for your development needs on the blockchain'
             subText='Sharing of our technical experience on Elrond and our ability to innovate in a young ecosystem. Providing of our tools (Airdrops, snapshots...).'
             img={penguinWorkerImg}
-            imgStyle={{transformOrigin: 'center 10px', marginTop: '30px', width:'75px', transform: 'scale(3)'}}
+            className='technical'
            ></LpAdvantage>
         </div>
       </section>
 
       <section className={style['submit']}>
-        <p>Submit your project now !!</p>
+        <p>Submit your <br /> project now !!</p>
         <Button onClick={() => window.open(typeFormUrl, '_blank')} className={style.button} type='primary-outline'>Submit project</Button>
       </section>
 

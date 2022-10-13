@@ -14,10 +14,12 @@ export default function ContactCard() {
   return (
     <div className={style.contact}>
         <img src={penguinContact} alt="Penguin asking question" />
-        <p>If you have any questions, you can reach us at</p>
-        <Button onClick={()=> sendEmail()} className="button" type='normal'>{mail}</Button>
-        <p className={style.or}>OR</p>
-        <Button onClick={() => window.open('https://discord.gg/hfK6CvgF8M', '_blank')} className="button" type='normal'>Discord</Button>
+        <p>If you have any questions, <br /> you can reach us at</p>
+        <div className={style.buttons}>
+          <Button onClick={()=> sendEmail()} className="button" type='normal'>{mail}</Button>
+          <p className={style.or}>OR</p>
+          <Button onClick={() => window.open('https://discord.gg/hfK6CvgF8M', '_blank')} className="button" type='normal'><DiscordIcon fill='#5078DF'/> Discord</Button>
+        </div>
     </div>
   )
 }

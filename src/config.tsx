@@ -24,7 +24,7 @@ export const defaultImages = {
 };
 
 function getNetworkInfos() {
-  if (useDevnet) {
+  if (true) {
     return {
       api: process.env.REACT_APP_DEVNET_API ?? 'https://apc-marketplace-api-devnet.herokuapp.com/',
       explorerUrl: 'https://devnet-explorer.elrond.com/',

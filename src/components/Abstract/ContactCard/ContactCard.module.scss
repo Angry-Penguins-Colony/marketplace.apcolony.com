@@ -29,4 +29,48 @@
         font-size: 2.6rem;
         font-weight: 400;
     }
+    button:last-child {
+        margin: auto;
+        span{
+            display: flex;
+            align-items: center;
+            svg{
+                width: 20px;
+                margin-right: 5px;
+                margin-bottom: 4px;
+            }
+        }
+    } 
+    
+}
+
+// desktop
+@media (min-width: 800px) {
+    .contact{
+        max-width: 1088px;
+        margin: auto;
+        padding: 55px 30px;
+        img{
+            width: 190px;
+        }
+        p{
+            font-size: 3rem;
+            line-height: 120%;
+        }
+        >div{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 60%;
+            margin-top:10px;
+            button{
+                width: 48%;
+                padding: 18px 30px;
+                span{
+                    font-size: 1.4rem;
+                }
+            }
+        }
+    }
 }

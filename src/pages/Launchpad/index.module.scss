@@ -184,5 +184,15 @@
                 line-height: 130%;
             }
         }
+        .submit {
+            background-size: 100%;
+            p{
+                margin-top:20px;
+            }
+            button{
+                margin-bottom: 30px;
+                padding: 20px 30px;
+            }
+        }
     }
 }

@@ -19,13 +19,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0 20px;
     margin-top: 65px;
     margin-bottom: 250px;
     text-align: center;
     background-color: $grey;
     border-radius: 20px;
-    padding: 30px;
+    padding: 20px 30px;
     p{
         font-size: 1.5rem;
         color:black;
@@ -36,6 +35,51 @@
         margin-bottom: 20px;
     }
 }
+.time{
+    padding-bottom: 165px;
+    img{
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 154px);
+        width: 289px;
+    }
+}
+.strategy{
+    padding-bottom: 92px;
+    >div:first-child img{
+        width: 20px;
+    }
+    >div:last-child img{
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-52%, 214px);
+        width: 278px;
+    }
+}
+.personalized{
+    padding-bottom: 161px;
+    img{
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 85px);
+        width: 436px;
+        max-width: 100%;
+    }
+}
+.technical{
+    padding-bottom: 146px;
+    img{
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 160px);
+        width: 221px;
+    }
+}
+
 
 // desktop
 @media (min-width: 800px) {
@@ -43,7 +87,7 @@
         &::before{
             content:unset;
         }
-        min-height: 343px;
+        min-height: 450px;
         max-width: 1284px;
         margin:auto;
         margin-top: 80px;
@@ -76,11 +120,77 @@
                 font-size: 2.5rem;
             }
         }
-        >div:last-child{
-            img{
-                transform: scale(6) !important; //Todo : Find a way to not use !important
-                transform-origin: center 31px !important;
-            }
+        >div:last-child {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .time{
+        img{
+            width: 100%;
+            left:50%;
+            transform: translate(-43%, -15%);
+        }
+    }
+    .strategy{
+        >div:first-child img{
+            width: 25px;
+            margin-bottom: 4px;
+        }
+        >div:last-child img{
+            width: 100%;
+            left:50%;
+            transform: translate(-45%, 7%) scale(1);
+        }
+    }
+    .personalized{
+        img{
+            width: 100%;
+            left:50%;
+            transform: translate(-39%, -24%) scale(1.4);
+        }
+    }
+    .technical{
+        img{
+            width: 100%;
+            left:50%;
+            transform: translate(-47%, 16%);
+        }
+    }
+}
+
+@media (min-width: 1020px) {
+    .time{
+        img{
+            width: 100%;
+            left:50%;
+            transform: translate(-46%, 38%) scale(1.05);
+        }
+    }
+    .strategy{
+        >div:first-child img{
+            width: 25px;
+            margin-bottom: 4px;
+        }
+        >div:last-child img{
+            width: 100%;
+            left:50%;
+            transform: translate(-47%, 39%) scale(1.1);
+        }
+    }
+    .personalized{
+        img{
+            width: 100%;
+            left:50%;
+            transform: translate(-47%, 16%) scale(1.4);
+        }
+    }
+    .technical{
+        img{
+            width: 100%;
+            left:50%;
+            transform: translate(-47%, 43%) scale(0.9);
         }
     }
 }
