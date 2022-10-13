@@ -9,7 +9,7 @@ export function useGetOwnedAndOnSalePenguins(overrideAddress?: Address): IPengui
         overrideAddress: overrideAddress,
     });
 
-    const penguinsOffers = useGetOffersOfCategory('penguins');
+    const { data: penguinsOffers } = useGetOffersOfCategory('penguins');
 
     const [penguins, setPenguins] = React.useState<IPenguin[] | undefined>(undefined);
 

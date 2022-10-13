@@ -9,7 +9,7 @@ export function useGetOwnedAndOnSaleItems(overrideAddress?: Address): IItem[] | 
         overrideAddress: overrideAddress,
     });
 
-    const offersItems = useGetOffersOfCategory('items');
+    const { data: offersItems } = useGetOffersOfCategory('items');
 
     const [offers, setItems] = React.useState<IItem[] | undefined>(undefined);
 
