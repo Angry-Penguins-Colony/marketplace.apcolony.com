@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IItem } from '@apcolony/marketplace-api';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
 import ModalAboutRender from 'components/Foreground/Modals/ModalAboutRender/ModalAboutRender';
 import OverlayRenderInProgress from 'components/Foreground/Overlays/OverlayRenderInProgress';
@@ -11,8 +11,8 @@ import PopupFromBottom from 'components/Inventory/PopupFromBottom/PopupFromBotto
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import GoToAnotherPenguin from 'components/Navigation/GoToAnotherPenguin/GoToAnotherPenguin';
 import PenguinRender from 'components/PenguinRender/PenguinRender';
-import { ipfsGateway } from 'config';
-import { buildRouteLinks } from 'routes';
+import { ipfsGateway, penguinsCount } from 'config';
+import { buildRouteLinks, routeNames } from 'routes';
 import { useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
 import useCustomization from 'sdk/hooks/useCustomization';
 import useCustomizationPersistence from 'sdk/hooks/useCustomizationPersistence';
@@ -87,15 +87,20 @@ const Customize = () => {
         }
     }, [ownedAndEquippedItems]);
 
-
-    if (!isSelectedNonceOwned() && ownedPenguins && ownedPenguins.length > 0) {
-        window.location.href = buildRouteLinks.customize(ownedPenguins[0].id);
-    }
-
     // add root class for background style
     React.useEffect(() => {
         document.body.classList.add('background-image');
     }, []);
+
+    if (ownedPenguins) {
+        if (ownedPenguins.length == 0) {
+            return <Navigate to={routeNames.errors.customize.noPenguin} />
+        }
+
+        if (ownedPenguins.length > 0 && !isSelectedOwned()) {
+            return <Navigate to={buildRouteLinks.customize(ownedPenguins[0].id)} />;
+        }
+    }
 
     return (
         <div id={style['body-content']}>
@@ -313,7 +318,7 @@ const Customize = () => {
         return item;
     }
 
-    function isSelectedNonceOwned() {
+    function isSelectedOwned() {
         return (ownedPenguins && selectedPenguin) && ownedPenguins.find(p => p.nonce == selectedPenguin.nonce);
     }
 

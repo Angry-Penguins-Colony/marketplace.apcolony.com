@@ -31,7 +31,8 @@ function getNetworkInfos() {
       customisationContractAddress: Address.fromBech32(devnetToolDeploy.customizationContractAddress.bech32),
       penguinCollection: devnetToolDeploy.penguinsIdentifier,
       marketplaceContractAddress: Address.fromBech32('erd1qqqqqqqqqqqqqpgqffweul9250tqr4vuf04zxdcpjdy82yvpv4xq4uha83'),
-      items: devnetToolDeploy.items
+      items: devnetToolDeploy.items,
+      penguinsCount: 5555,
     }
   }
   else {
@@ -45,3 +46,4 @@ export const penguinCollection = getNetworkInfos().penguinCollection;
 export const marketplaceContractAddress = getNetworkInfos().marketplaceContractAddress;
 export const items = getNetworkInfos().items;
 export const explorer = new Explorer(getNetworkInfos().explorerUrl);
+export const penguinsCount = getNetworkInfos().penguinsCount;

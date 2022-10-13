@@ -3,6 +3,7 @@ import { RouteType } from '@elrondnetwork/dapp-core/types';
 import AuthentificatedPatternRouteWrapper from 'components/Abstract/AuthentificatedPatternRouteWrapper';
 import { dAppName } from 'config';
 import CategoriesOffers from 'pages/CategoriesOffers';
+import NoPenguinCustomizeError from 'pages/Errors/Customize/NoPenguin';
 import Inspect from 'pages/Inspect';
 import CategoriesType from 'sdk/types/CategoriesType';
 import withPageTitle from './components/PageTitle';
@@ -27,6 +28,11 @@ export const routeNames = {
   ledger: '/ledger',
   walletconnect: '/walletconnect',
   launchpad: '/launchpad',
+  errors: {
+    customize: {
+      noPenguin: '/error/customize/nopenguin'
+    }
+  }
 };
 
 export const buildRouteLinks = {
@@ -76,6 +82,11 @@ const routes: Array<ITitledRoute> = [
     path: routeNames.launchpad,
     title: 'Launchpad',
     component: Launchpad
+  },
+  {
+    path: routeNames.errors.customize.noPenguin,
+    title: 'No penguin to customize',
+    component: NoPenguinCustomizeError
   }
 ];
 
