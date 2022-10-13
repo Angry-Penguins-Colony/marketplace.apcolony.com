@@ -1,4 +1,4 @@
-@import './../../assets/sass/var.scss';
+@import "./../../assets/sass/var.scss";
 
 .error-page {
     min-height: 100vh;
@@ -21,14 +21,14 @@
         }
 
         h1 {
-            font-family: 'CHEDROS', sans-serif;
+            font-family: "CHEDROS", sans-serif;
             font-size: 3.8rem;
             font-weight: bold;
             color: $primary-dark;
         }
 
         p {
-            font-family: 'Config Rounded', sans-serif;
+            font-family: "Config Rounded", sans-serif;
             font-size: 1.3rem;
             color: $primary-dark;
             margin-bottom: 1.5rem;
