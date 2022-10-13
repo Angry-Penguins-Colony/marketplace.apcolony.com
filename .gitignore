@@ -25,10 +25,4 @@ yarn-debug.log*
 yarn-error.log*
 
 #local ignore
-/src/config.tsx
-src/config.tsx
-routes.ts
 /.history
-/src/components/Layout/Navbar/Navbar.tsx
-src/components/Layout/Navbar/Navbar.tsx
-.gitignore
