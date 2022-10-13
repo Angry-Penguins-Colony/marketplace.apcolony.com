@@ -105,7 +105,7 @@ const Inspect = () => {
                     {getSubProperties()}
                 </div>
             </div>
-            <div className={style.actions + (isListedByConnected ? ' ' + style['in-market'] : '')}>
+            <div>
 
                 {canBuy &&
                     <BuyPriceContainer
@@ -122,7 +122,7 @@ const Inspect = () => {
 
 
                 {ownedByConnectedWallet == true &&
-                    <>
+                    <div className={style.actions}>
                         {
                             (itemOwnedAmount != undefined && itemOwnedAmount > 0) &&
                             <div>
@@ -152,7 +152,7 @@ const Inspect = () => {
                                         <Button type='cancel-outline' onClick={() => sendRetireOfferTransaction(ownedOffers[0])}>
                                             Retire my offer
                                         </Button>
-                                        <p className={style.price + ' ' + 'text-center mt-1'}>
+                                        <p className={'text-center mt-1'}>
                                             Listed for {priceListedByUser.toString() ?? '--'} EGLD
                                         </p>
                                     </div >
@@ -170,7 +170,7 @@ const Inspect = () => {
 
                             })()
                         }
-                    </>
+                    </div>
                 }
             </div>
             <hr />
