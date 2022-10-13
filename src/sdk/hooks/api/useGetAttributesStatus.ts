@@ -5,7 +5,7 @@ import axios from 'axios';
 import { apcLogger, marketplaceApi } from 'config';
 import usePrevious from '../usePrevious';
 
-function useGetAttributesStatus(attributes: Attributes | undefined) {
+function useGetAttributesStatus(attributes: Attributes | undefined, periodicRefreshMS?: number) {
 
     const [attributesStatus, setAttributesStatus] = React.useState<IAttributesStatus | undefined>(undefined);
     const previousStatus = usePrevious(attributes);
@@ -16,6 +16,18 @@ function useGetAttributesStatus(attributes: Attributes | undefined) {
 
         forceUpdate();
     });
+
+    React.useEffect(() => {
+
+        if (periodicRefreshMS) {
+            const interval = setInterval(() => {
+                console.log('periodic check');
+                forceUpdate();
+            }, periodicRefreshMS);
+
+            return () => clearInterval(interval);
+        }
+    }, [periodicRefreshMS]);
 
     return { attributesStatus, forceUpdate };
 
