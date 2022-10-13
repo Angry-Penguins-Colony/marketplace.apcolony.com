@@ -24,7 +24,8 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
     const { address: connectedAddress } = useGetAccountInfo();
 
     const ownedItems = useGetOwnedItems();
-    const selectedPenguin = useGetGenericItem('penguins', selectedPenguinId) as IPenguin | undefined;
+    const { data } = useGetGenericItem('penguins', selectedPenguinId);
+    const selectedPenguin = data as IPenguin | undefined;
 
     const ownedAmount = useGetUserOwnedAmount();
 
