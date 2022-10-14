@@ -1,7 +1,11 @@
 import React from 'react';
-import style from './OverlayRenderInProgress.module.scss';
+import style from './style.module.scss';
 
-const OverlayRenderInProgress = () => {
+interface IProps {
+    children: React.ReactNode;
+}
+
+const LoadingOverlay = ({ children }: IProps) => {
     return <div className={style['locked-content']}>
         <div>
             <div className="spinner-border" role="status">
@@ -10,13 +14,11 @@ const OverlayRenderInProgress = () => {
             <br />
 
             <div>
-                <h2>Editing disabled</h2>
-                <br />
-                <p>Syncing new penguin image on the blockchain...</p>
-                <p>Please, wait a minute</p>
+                {children}
+
             </div>
         </div>
     </div>
 };
 
-export default OverlayRenderInProgress;
+export default LoadingOverlay;

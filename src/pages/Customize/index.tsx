@@ -4,8 +4,8 @@ import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
 import { useParams, Navigate } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
+import LoadingOverlay from 'components/Foreground/LoadingOverlay';
 import ModalAboutRender from 'components/Foreground/Modals/ModalAboutRender/ModalAboutRender';
-import OverlayRenderInProgress from 'components/Foreground/Overlays/OverlayRenderInProgress';
 import RefreshIcon from 'components/Icons/RefreshIcon';
 import PopupFromBottom from 'components/Inventory/PopupFromBottom/PopupFromBottom';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
@@ -142,7 +142,12 @@ const Customize = () => {
 
                     }}>
                         {attributesStatus?.renderStatus == 'rendering' &&
-                            <OverlayRenderInProgress />
+                            <LoadingOverlay>
+                                <h2>Editing disabled</h2>
+                                <br />
+                                <p>Syncing new penguin image on the blockchain...</p>
+                                <p>Please, wait a minute</p>
+                            </LoadingOverlay>
                         }
                     </PenguinRender>
                     <div className={style.items}>
