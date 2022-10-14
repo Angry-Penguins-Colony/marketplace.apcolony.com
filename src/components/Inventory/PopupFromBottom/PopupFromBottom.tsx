@@ -9,7 +9,7 @@ import style from './PopupFromBottom.module.scss';
 const PopupFromBottom = (
     {
         title,
-        type,
+        filterSlot,
         items,
         isOpen = false,
         ownedItemsAmount,
@@ -26,17 +26,22 @@ const PopupFromBottom = (
         }
     }: {
         title: string;
-        type: string;
+        filterSlot?: string;
         items: IItem[],
         ownedItemsAmount: Record<string, number>,
         selectedItemsIdentifier: Record<string, string | undefined>,
         isOpen?: boolean;
         onItemClick?: (item: IItem) => void;
-        select?: (type: string) => void;
-        changeType?: (type: string) => void;
+        select?: () => void;
+        changeType?: (type: string | undefined) => void;
         disableSelection?: boolean;
     }
 ) => {
+
+    if (filterSlot) {
+        items = items
+            .filter(item => item.slot == filterSlot);
+    }
 
     return (
         <div id={style['popup-from-bottom']} className={(isOpen ? style['is-open'] : style['is-close'])}>
@@ -51,9 +56,9 @@ const PopupFromBottom = (
                         {
                             name: 'All Items',
                             number: items.length,
-                            current: type === 'all',
+                            current: !filterSlot,
                             onClick: function () {
-                                changeType('all');
+                                changeType(undefined);
                             }
                         },
                         getRoundedSlotChild('Background', 'background'),
@@ -84,7 +89,7 @@ const PopupFromBottom = (
                                     key={item.identifier}
                                     isSelected={isSelected}
                                     isDisabled={disableSelection}
-                                    isVisible={type == 'all' || item.slot == type}
+                                    isVisible={!filterSlot || item.slot == filterSlot}
                                     onClick={() => {
                                         onItemClick(item);
                                     }}
@@ -96,7 +101,7 @@ const PopupFromBottom = (
                 <div className={style.controls}>
                     {/* TODO: bind buttons */}
                     {/* <Button type="cancel" onClick={cancel}>Cancel</Button> */}
-                    <Button type="primary" onClick={() => { select(type); }}>Select</Button>
+                    <Button type="primary" onClick={() => { select(); }}>Select</Button>
                 </div>
             </div>
         </div>

@@ -74,19 +74,12 @@ const Customize = () => {
     /* Choose items popup */
     const [itemsPopupIsOpen, setItemsPopupIsOpen] = React.useState<boolean>(false);
     const [itemsPopupTitle, setItemsPopupTitle] = React.useState<string>('All My Items');
-    const [itemsPopupType, setItemsPopupType] = React.useState<string>('all');
-    const [itemsInPopup, setItemsInPopup] = React.useState<IItem[]>([]);
+    const [filterSlot, setFilterSlot] = React.useState<string | undefined>(undefined);
 
     // Selected equipped items
     React.useEffect(() => {
         setSelectedItemsInPopup(equippedItemsIdentifier);
     }, [equippedItemsIdentifier])
-
-    React.useEffect(() => {
-        if (ownedAndEquippedItems) {
-            setItemsInPopup(ownedAndEquippedItems);
-        }
-    }, [ownedAndEquippedItems]);
 
     // add root class for background style
     React.useEffect(() => {
@@ -112,9 +105,9 @@ const Customize = () => {
             <MobileHeader title="Customize" subTitle={selectedPenguin?.name ?? ''} className={style['mobile-header']} />
             <PopupFromBottom
                 title={itemsPopupTitle}
-                type={itemsPopupType}
+                filterSlot={filterSlot}
                 isOpen={itemsPopupIsOpen}
-                items={itemsInPopup}
+                items={ownedAndEquippedItems ?? []}
                 disableSelection={!editingEnabled}
                 selectedItemsIdentifier={selectedItemsInPopup}
                 ownedItemsAmount={ownedItemsAmount ?? {}}
@@ -271,11 +264,8 @@ const Customize = () => {
         }
     }
 
-    function openItemsPopup(type: string, title: string) {
-        setItemsPopupType(type);
-        if (ownedAndEquippedItems) {
-            setItemsInPopup(ownedAndEquippedItems);
-        }
+    function openItemsPopup(type: string | undefined, title: string) {
+        setFilterSlot(type);
         setItemsPopupTitle(title);
         setItemsPopupIsOpen(true);
     }
