@@ -19,3 +19,18 @@ export function isIdValid(rawId: string, category: CategoriesType): boolean {
 export function isCategoryValid(category: string) {
     return categoriesTypeValues.includes(category);
 }
+
+export function isOfferCategoryValid(category: string) {
+    const validCategories = [
+        'penguins',
+        'hat',
+        'beak',
+        'skin',
+        'weapon',
+        'background',
+        'eyes',
+        'clothes'
+    ];
+
+    return validCategories.includes(category);
+}

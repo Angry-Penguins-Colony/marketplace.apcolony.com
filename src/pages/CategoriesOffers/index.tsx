@@ -2,6 +2,7 @@ import * as React from 'react';
 import { IItem } from '@apcolony/marketplace-api';
 import { Link, useParams } from 'react-router-dom';
 import UnderlineNavElmt from 'components/Abstract/UnderlineNavElmt/UnderlineNavElmt';
+import ErrorPage from 'components/ErrorPage';
 import SearchIcon from 'components/Icons/SearchIcon';
 import { Item } from 'components/Inventory/Item/Item';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
@@ -9,6 +10,7 @@ import { ipfsGateway } from 'config';
 import { buildRouteLinks } from 'routes';
 import useGetMarketData from 'sdk/hooks/api/useGetMarketData';
 import useGetOffersOfCategory from 'sdk/hooks/api/useGetOffersOfCategory';
+import { isOfferCategoryValid } from 'sdk/misc/guards';
 import MarketData from '../../components/Inventory/MarketData';
 import defaultPenguinImg from './../../assets/img/penguin_default.png';
 import style from './index.module.scss';
@@ -105,4 +107,20 @@ const CategoriesOffers = () => {
     }
 };
 
-export default CategoriesOffers;
+const ErrorWrapper = () => {
+    const { category } = useParams();
+
+    if (!category) throw new Error('Missing category');
+
+    if (isOfferCategoryValid(category) == false) {
+        return <ErrorPage
+            title="Invalid category"
+            description="The category you are looking for does not exist."
+        />
+    }
+    else {
+        return <CategoriesOffers />
+    }
+}
+
+export default ErrorWrapper;
