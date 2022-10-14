@@ -20,8 +20,8 @@ const CategoriesOffers = () => {
     if (!category) throw new Error('Missing category');
 
     const title = category;
-    const offersReponses = useGetOffersOfCategory(category);
-    const marketData = useGetMarketData(category);
+    const { data: offersReponses } = useGetOffersOfCategory(category);
+    const { data: marketData } = useGetMarketData(category);
 
 
     const [offers, setOffers] = React.useState<IItem[] | undefined>(undefined);
