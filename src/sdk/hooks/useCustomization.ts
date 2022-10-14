@@ -3,7 +3,7 @@ import { Attributes, IItem, IPenguin } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import BigNumber from 'bignumber.js';
-import { customisationContractAddress, items, penguinCollection } from 'config';
+import { customisationContractAddress, penguinCollection } from 'config';
 import { splitIdentifier } from 'sdk/conversion/tokenIdentifier';
 import { identifierToItem } from 'sdk/misc/dbHelper';
 import calculateCustomizeGasFees from 'sdk/transactionsBuilders/customize/calculateCustomizeGasFees';
