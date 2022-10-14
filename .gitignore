@@ -107,3 +107,4 @@ ipfs_cache
 pin_folder
 
 start.bat
+.env*
