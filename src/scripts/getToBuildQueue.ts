@@ -12,5 +12,6 @@ async function main() {
     const queue = await gateway.getToBuildQueue([]);
 
     console.log(queue.map(a => a.toAttributes(devnetToolDeploy.items, renderConfig.slots)));
+    console.log("Found " + queue.length + " images in the queue");
 }
 
