@@ -1,3 +1,5 @@
+@import "./../../../assets/sass/var.scss";
+
 .market-data {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -15,23 +17,22 @@
         gap: 6px;
 
         .value {
-            font-family: 'Config Rounded', sans-serif;
+            font-family: "Config Rounded", sans-serif;
             font-weight: 500;
             font-size: 1.3rem;
         }
 
         .label {
-            font-family: 'Config Rounded', sans-serif;
+            font-family: "Config Rounded", sans-serif;
             font-weight: 500;
             font-size: 1.1rem;
-            color: #080D2680;
+            color: #080d2680;
         }
     }
 }
 
-
 // desktop
-@media (min-width:800px) {
+@media (min-width: $desktop_min_width) {
     .market-data {
         max-width: 860px;
         grid-template-columns: 1fr 1fr 1fr 1fr;

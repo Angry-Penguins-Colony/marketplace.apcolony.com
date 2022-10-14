@@ -69,7 +69,7 @@
 }
 
 // desktop
-@media (min-width: 800px) {
+@media (min-width: $desktop_min_width) {
     #item-in-inventory {
         min-height: 100vh;
         padding-top: 120px;

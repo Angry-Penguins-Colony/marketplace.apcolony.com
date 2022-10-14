@@ -14,7 +14,7 @@
 }
 
 // desktop
-@media (min-width:800px) {*/
+@media (min-width: $desktop_min_width) {*/
 .buy {
     margin-top: 40px;
     background-color: white;

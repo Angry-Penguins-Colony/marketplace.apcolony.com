@@ -1,4 +1,4 @@
-@import './../../../assets/sass/var.scss';
+@import "./../../../assets/sass/var.scss";
 
 .navbar {
     background-color: white;
@@ -47,7 +47,7 @@
 
             text-align: center;
             color: $dark;
-            font-family: 'CHEDROS', sans-serif;
+            font-family: "CHEDROS", sans-serif;
             position: absolute;
             top: 15px;
             margin-top: 10px;
@@ -80,7 +80,6 @@
     }
 }
 
-
 #desktop-header {
     display: none;
     padding: 15px 40px;
@@ -111,9 +110,8 @@
                 align-items: center;
                 gap: 25px;
 
-
                 .item {
-                    font-family: 'CHEDROS', sans-serif;
+                    font-family: "CHEDROS", sans-serif;
                     font-size: 1.3rem;
                     font-weight: bold;
                     color: $dark;
@@ -126,7 +124,7 @@
             width: 40%;
 
             .search {
-                background: #E9EEF2;
+                background: #e9eef2;
                 border-radius: 999px;
                 padding: 10px 18px;
                 display: flex;
@@ -140,7 +138,7 @@
                 input {
                     border: none;
                     background-color: transparent;
-                    font-family: 'Config Rounded', sans-serif;
+                    font-family: "Config Rounded", sans-serif;
                     font-weight: 300;
                     width: 100%;
                 }
@@ -193,7 +191,7 @@
 }
 
 // intermediaire
-@media (max-width:1130px) {
+@media (max-width: 1130px) {
     #desktop-header {
         header {
             padding-left: 25px;
@@ -220,7 +218,7 @@
 }
 
 // intermediaire
-@media (max-width:1000px) {
+@media (max-width: 1000px) {
     #desktop-header {
         header {
             .left {
@@ -237,7 +235,7 @@
 }
 
 // desktop
-@media (min-width:800px) {
+@media (min-width: $desktop_min_width) {
     .navbar {
         display: none;
     }

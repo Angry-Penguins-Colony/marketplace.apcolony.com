@@ -111,7 +111,7 @@
 }
 
 // desktop
-@media (min-width: 800px) {
+@media (min-width: $desktop_min_width) {
     body {
         background-position: center;
     }

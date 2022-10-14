@@ -68,7 +68,7 @@
 }
 
 // desktop
-@media (min-width: 800px) {
+@media (min-width: $desktop_min_width) {
     .item-or-penguin {
         min-width: 250px;
         width: 0;

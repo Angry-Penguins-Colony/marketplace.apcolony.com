@@ -119,7 +119,7 @@
 }
 
 // desktop
-@media (min-width: 800px) {
+@media (min-width: $desktop_min_width) {
     #go-to-another-penguin {
         grid-area: head;
         padding-bottom: 0;

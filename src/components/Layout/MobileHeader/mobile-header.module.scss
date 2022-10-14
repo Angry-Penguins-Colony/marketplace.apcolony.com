@@ -1,4 +1,4 @@
-@import './../../../assets/sass/var.scss';
+@import "./../../../assets/sass/var.scss";
 
 #mobile-header {
     display: flex;
@@ -14,7 +14,7 @@
         text-align: center;
 
         h1 {
-            font-family: 'CHEDROS', sans-serif;
+            font-family: "CHEDROS", sans-serif;
             font-weight: bold;
             position: relative;
             top: -0.1em;
@@ -22,7 +22,7 @@
         }
 
         h2 {
-            font-family: 'Config Rounded', sans-serif;
+            font-family: "Config Rounded", sans-serif;
             font-weight: medium;
             position: relative;
             top: -0.2em;
@@ -51,7 +51,7 @@
 }
 
 // desktop
-@media (min-width:800px) {
+@media (min-width: $desktop_min_width) {
     #mobile-header {
         display: none;
     }

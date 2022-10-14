@@ -51,7 +51,7 @@
 }
 
 // desktop
-@media (min-width: 800px) {
+@media (min-width: $desktop_min_width) {
     .popup {
         align-items: center;
 

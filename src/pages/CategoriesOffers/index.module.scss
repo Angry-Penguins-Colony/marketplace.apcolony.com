@@ -56,7 +56,7 @@
 }
 
 // desktop
-@media (min-width: 800px) {
+@media (min-width: $desktop_min_width) {
     .type-in-marketplace {
         padding-top: 120px;
         max-width: 1400px;

@@ -1,4 +1,4 @@
-@import './../../../assets/sass/var.scss';
+@import "./../../../assets/sass/var.scss";
 
 .popup {
     position: fixed;
@@ -9,14 +9,15 @@
     z-index: 9999;
     background-color: rgba(8, 13, 38, 0.8);
 
-    &.open {}
+    &.open {
+    }
 
     &.close {
         display: none;
     }
 
     .close {
-        background-color: #5078DF;
+        background-color: #5078df;
         border-radius: 999px;
         height: 2.8rem;
         width: 2.8rem;
@@ -57,7 +58,7 @@
             }
 
             h2 {
-                font-family: 'CHEDROS', sans-serif;
+                font-family: "CHEDROS", sans-serif;
                 font-weight: bold;
                 color: white;
                 margin-bottom: 10px;
@@ -80,10 +81,10 @@
                     background-color: transparent;
                     border: none;
                     width: 100%;
-                    font-family: 'Config Rounded', sans-serif;
+                    font-family: "Config Rounded", sans-serif;
 
                     &::placeholder {
-                        font-family: 'Config Rounded', sans-serif;
+                        font-family: "Config Rounded", sans-serif;
                         font-style: italic;
                         color: rgba(8, 13, 38, 0.2);
                         font-size: 1.1rem;
@@ -125,7 +126,7 @@
                 border: white 2px solid;
                 border-radius: 999px;
                 color: white;
-                font-family: 'CHEDROS', sans-serif;
+                font-family: "CHEDROS", sans-serif;
                 font-weight: bold;
                 font-size: 1.5rem;
                 cursor: pointer;
@@ -137,14 +138,13 @@
                     background-color: white;
                     color: $primary;
                 }
-
             }
         }
     }
 }
 
 // desktop
-@media (min-width:800px) {
+@media (min-width: $desktop_min_width) {
     .popup {
         > .close {
             display: none;

@@ -25,7 +25,6 @@
         overflow: auto;
         padding: 15px;
 
-
         &::-webkit-scrollbar {
             width: 0;
             height: 0;
@@ -275,7 +274,7 @@
 }
 
 // desktop
-@media (min-width: 800px) {
+@media (min-width: $desktop_min_width) {
     .popup {
         > .content {
             > .close {
@@ -289,7 +288,6 @@
                 > .close {
                     display: flex;
                 }
-
             }
         }
     }

@@ -1,8 +1,7 @@
-@import './../../../assets/sass/var.scss';
+@import "./../../../assets/sass/var.scss";
 
 footer#main-footer {
     padding-top: 90px;
-
 
     .social {
         display: flex;
@@ -53,7 +52,7 @@ footer#main-footer {
             display: grid;
             grid-template-columns: 1fr;
             grid-template-rows: auto;
-            grid-template-areas: "logo_social""terms""web_by";
+            grid-template-areas: "logo_social" "terms" "web_by";
             justify-items: center;
             grid-gap: 30px;
 
@@ -81,8 +80,8 @@ footer#main-footer {
                 align-items: center;
 
                 span {
-                    color: #3D3D3D;
-                    font-family: 'Config Rounded', sans-serif;
+                    color: #3d3d3d;
+                    font-family: "Config Rounded", sans-serif;
                     font-size: 1rem;
                     font-weight: bold;
                     text-transform: uppercase;
@@ -101,7 +100,7 @@ footer#main-footer {
 
                 a {
                     color: rgba(36, 36, 36, 0.5);
-                    font-family: 'Config Rounded', sans-serif;
+                    font-family: "Config Rounded", sans-serif;
                     font-size: 1.1rem;
                     font-weight: 600;
                 }
@@ -110,7 +109,7 @@ footer#main-footer {
     }
 }
 
-@media (min-width:800px) {
+@media (min-width: $desktop_min_width) {
     footer#main-footer {
         .footer {
             padding: 0 60px;
