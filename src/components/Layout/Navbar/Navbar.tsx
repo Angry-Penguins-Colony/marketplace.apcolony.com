@@ -37,12 +37,6 @@ const Navbar = () => {
       authenticated: true,
     },
     {
-      name: 'Launchpad',
-      route: routeNames.launchpad,
-      icon: <LabIcon />, //Todo: add launchpad icon
-      className: style.labIcon,
-    },
-    {
       name: 'Menu',
       action: () => {
         console.log('menu');

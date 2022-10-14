@@ -10,7 +10,6 @@ import withPageTitle from './components/PageTitle';
 import Customize from './pages/Customize';
 import Home from './pages/Home';
 import Inventory from './pages/Inventory';
-import Launchpad from './pages/Launchpad';
 import Transaction from './pages/Transaction';
 
 interface ITitledRoute extends RouteType {
@@ -27,7 +26,6 @@ export const routeNames = {
   unlock: '/unlock',
   ledger: '/ledger',
   walletconnect: '/walletconnect',
-  launchpad: '/launchpad',
   errors: {
     customize: {
       noPenguin: '/error/customize/nopenguin'
@@ -77,11 +75,6 @@ const routes: Array<ITitledRoute> = [
     path: routeNames.categoriesOffers,
     title: 'Offers',
     component: CategoriesOffers
-  },
-  {
-    path: routeNames.launchpad,
-    title: 'Launchpad',
-    component: Launchpad
   },
   {
     path: routeNames.errors.customize.noPenguin,
