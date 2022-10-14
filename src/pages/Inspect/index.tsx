@@ -7,6 +7,7 @@ import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
 import { useParams } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
 import BuyPriceContainer from 'components/Abstract/BuyPriceContainer/BuyPriceContainer';
+import ErrorPage from 'components/ErrorPage';
 import BuyingPopup from 'components/Foreground/Popup/BuyingPopup/BuyingPopup';
 import ShowOffersPopup from 'components/Foreground/Popup/ShowOffersPopup';
 import ShareIcon from 'components/Icons/ShareIcon';
@@ -15,12 +16,12 @@ import PenguinSubProperties from 'components/InspectSubProperties/PenguinSubProp
 import ItemsAndActivities from 'components/Inventory/ItemsAndActivities/ItemsAndActivities';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { ipfsGateway, marketplaceContractAddress } from 'config';
-import { buildRouteLinks, routeNames } from 'routes';
+import { buildRouteLinks } from 'routes';
 import Price from 'sdk/classes/Price';
 import useGetOffers from 'sdk/hooks/api/useGetOffers';
 import useGetUserOwnedAmount from 'sdk/hooks/api/useGetUserOwnedAmount';
-import { useNavigateIfBadId } from 'sdk/hooks/redirection/useNavigateIfBadId';
 import useInspect from 'sdk/hooks/useInspect';
+import { isCategoryValid, isIdValid } from 'sdk/misc/guards';
 import BuyOfferTransactionBuilder from 'sdk/transactionsBuilders/buy/BuyOfferTransactionBuilder';
 import CategoriesType from 'sdk/types/CategoriesType';
 import style from './index.module.scss';
@@ -42,8 +43,6 @@ const Inspect = () => {
 
     if (!category) throw new Error('type is required');
     if (!id) throw new Error('Item id is required');
-
-    useNavigateIfBadId(id, category, routeNames.errors.inspect.unknownId);
 
     const {
         item,
@@ -291,4 +290,30 @@ const Inspect = () => {
     }
 }
 
-export default Inspect;
+const InspectErrorWrapper = () => {
+
+    const params = useParams();
+    const category = params.type as CategoriesType;
+    const id = params.id;
+
+    if (!category) throw new Error('type is required');
+    if (!id) throw new Error('Item id is required');
+
+    if (isCategoryValid(category) == false) {
+        return <ErrorPage
+            title='Unknown category'
+            description=""
+        />
+    }
+    else if (isIdValid(id, category) == false) {
+        return <ErrorPage
+            title='Unknown ID'
+            description=""
+        />
+    }
+    else {
+        return <Inspect />
+    }
+};
+
+export default InspectErrorWrapper;

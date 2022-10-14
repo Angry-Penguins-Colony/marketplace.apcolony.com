@@ -1,5 +1,5 @@
 import { items, penguinsCount } from 'config';
-import CategoriesType from 'sdk/types/CategoriesType';
+import CategoriesType, { categoriesTypeValues } from 'sdk/types/CategoriesType';
 
 export function isIdValid(rawId: string, category: CategoriesType): boolean {
 
@@ -14,4 +14,8 @@ export function isIdValid(rawId: string, category: CategoriesType): boolean {
         default:
             throw new Error('Unknown type');
     }
+}
+
+export function isCategoryValid(category: string) {
+    return categoriesTypeValues.includes(category);
 }

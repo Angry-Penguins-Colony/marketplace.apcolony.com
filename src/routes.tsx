@@ -4,8 +4,7 @@ import AuthentificatedPatternRouteWrapper from 'components/Abstract/Authentifica
 import { dAppName } from 'config';
 import CategoriesOffers from 'pages/CategoriesOffers';
 import NoPenguinCustomizeError from 'pages/Errors/Customize/NoPenguin';
-import UnknownIdInspectError from 'pages/Errors/Inspect/UnknownId';
-import InspectErrorWrapper from 'pages/Inspect/ErrorWrapper';
+import Inspect from 'pages/Inspect';
 import CategoriesType from 'sdk/types/CategoriesType';
 import withPageTitle from './components/PageTitle';
 import Customize from './pages/Customize';
@@ -31,9 +30,6 @@ export const routeNames = {
     customize: {
       noPenguin: '/error/customize/nopenguin'
     },
-    inspect: {
-      unknownId: '/error/inspect/unknownid'
-    }
   }
 };
 
@@ -63,7 +59,7 @@ const routes: Array<ITitledRoute> = [
   {
     path: routeNames.inspect,
     title: 'Inspect',
-    component: InspectErrorWrapper
+    component: Inspect
   },
   {
     path: routeNames.customize,
@@ -84,11 +80,6 @@ const routes: Array<ITitledRoute> = [
     path: routeNames.errors.customize.noPenguin,
     title: 'No penguin to customize',
     component: NoPenguinCustomizeError
-  },
-  {
-    path: routeNames.errors.inspect.unknownId,
-    title: 'Unknown id',
-    component: UnknownIdInspectError
   }
 ];
 
