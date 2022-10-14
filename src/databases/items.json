@@ -187,14 +187,6 @@
         "supply": 241
     },
     {
-        "id": "18",
-        "descriptionCID": "QmYkDX8xvGLWY9zBgsHVbfmuCX3zacRGFxYHVtj2WLLYSM",
-        "renderCID": "Qmamqckr2cpqfXGfDroDZTY61k9by2tYAsw1HeBKEcAg8n",
-        "name": "Default",
-        "slot": "beak",
-        "attributeName": "Default"
-    },
-    {
         "id": "19",
         "descriptionCID": "QmbCeoeQwop1xySLM4k4R5hfkV5vTFpLB5y1pCtxuWFWqN",
         "renderCID": "QmdJzrkK17skt18SYT5dLQpNFNnnbMPAh3nkVUf9Fnv4X9",
@@ -1097,14 +1089,6 @@
         "supply": 362
     },
     {
-        "id": "112",
-        "descriptionCID": "QmabTUTrqGKN1FU5WPsBQgutn5gMRHxZjsixs3GKnCjVgp",
-        "renderCID": "QmaapjJRWBzUvgGfJLdkFtjdBRZCvyPkv7oSM9xxbehDJq",
-        "name": "Default",
-        "slot": "eyes",
-        "attributeName": "Default"
-    },
-    {
         "id": "113",
         "descriptionCID": "QmZFxqCgoNu7jJieds58wZw6k6ybBiMtrHsdf7pf3JVS2M",
         "renderCID": "QmP5NcPfjP5P2WbffTtW6ZjBqCAw4F8b5XTzVLTyDiiaCP",
@@ -1774,14 +1758,6 @@
         "slot": "skin",
         "attributeName": "Oil Spill",
         "supply": 220
-    },
-    {
-        "id": "181",
-        "descriptionCID": "QmejDFSvpkRH6Cr1xQm1LVZpza3zZCG76SKzhEe98CBEpp",
-        "renderCID": "QmdBbSbwW9Ho7Yk2sKLnV8bbvrwLzJfhLUejQpH7CvGkik",
-        "name": "Default",
-        "slot": "skin",
-        "attributeName": "Default"
     },
     {
         "id": "182",
