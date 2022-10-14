@@ -31,3 +31,10 @@ export class RenderTransactionFilter implements ITransactionFilter {
         return this.attributes.equals(Attributes.fromEndpointArgument(decodedAttributes));
     }
 }
+
+export class CustomizeTransactionFilter implements ITransactionFilter {
+    contains(data: string): boolean {
+        const endpointName = Buffer.from('customize', 'utf-8').toString('hex');
+        return data.includes(endpointName);
+    }
+}

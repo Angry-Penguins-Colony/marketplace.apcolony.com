@@ -15,6 +15,8 @@ import useGetAttributesStatus from './api/useGetAttributesStatus';
 import { useGetGenericItem } from './api/useGetGenericItem';
 import { useGetOwnedItems } from './api/useGetOwned';
 import useGetUserOwnedAmount from './api/useGetUserOwnedAmount';
+import { CustomizeTransactionFilter } from './transactionsFilters/filters';
+import useGetOnTransactionSuccesful from './useGetOnTransactionSuccesful';
 
 function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: PenguinItemsIdentifier) {
 
@@ -24,13 +26,18 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
     const { address: connectedAddress } = useGetAccountInfo();
 
     const ownedItems = useGetOwnedItems();
-    const { data } = useGetGenericItem('penguins', selectedPenguinId);
+    const { data, forceReload: reloadSelectedPenguin } = useGetGenericItem('penguins', selectedPenguinId);
     const selectedPenguin = data as IPenguin | undefined;
 
     const ownedAmount = useGetUserOwnedAmount();
 
     const equippedItems = parseAttributes(equippedItemsIdentifier);
     const { attributesStatus } = useGetAttributesStatus(equippedItems);
+
+    useGetOnTransactionSuccesful(() => {
+        console.log('reload selected penguin');
+        reloadSelectedPenguin();
+    }, new CustomizeTransactionFilter());
 
     React.useEffect(() => {
 
