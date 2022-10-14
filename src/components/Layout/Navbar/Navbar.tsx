@@ -10,6 +10,7 @@ import ProfileIcon from 'components/Icons/ProfileIcon';
 import SearchIcon from 'components/Icons/SearchIcon';
 import TwitterIcon from 'components/Icons/TwitterIcon';
 import { buildRouteLinks, routeNames } from 'routes';
+import MobileMenu from '../MobileMenu/MobileMenu';
 import style from './navbar.module.scss';
 
 const Navbar = () => {
@@ -39,12 +40,15 @@ const Navbar = () => {
     {
       name: 'Menu',
       action: () => {
-        console.log('menu');
-        // TODO: open menu
+        setMobileMenuIsOpen(true);
       },
       icon: <MenuIcon />,
     },
   ];
+
+  const [mobileMenuIsOpen, setMobileMenuIsOpen] = React.useState<boolean>(false);
+
+
 
   const handleLogout = () => {
     logout(`${window.location.origin}/unlock`);
@@ -52,6 +56,7 @@ const Navbar = () => {
 
   return (
     <>
+      <MobileMenu navItems={navItems.filter((item) => item.name !== 'Menu')} isOpen={mobileMenuIsOpen} onClose={() => setMobileMenuIsOpen(false)} />
       <div id="NavBar" className={style.navbar}>
         {
           navItems.map((item, index) => (
