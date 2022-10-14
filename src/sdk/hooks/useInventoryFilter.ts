@@ -201,7 +201,7 @@ const placeholder = {
         {
             title: 'Weapons',
             value: 'weapons',
-            icon: '/img/icon/weapons_icon.png',
+            icon: '/img/icon/weapon_icon.png',
             attributes: [
                 {
                     name: 'Snowboard',
