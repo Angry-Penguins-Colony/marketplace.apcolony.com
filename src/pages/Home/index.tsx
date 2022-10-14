@@ -90,7 +90,7 @@ const Home = () => {
       <div className={style['global-unique-style']}>
         <section className={style['give-unique-style']}>
           <h2>Give your Angry Penguins<span><br /></span> gang a unique style</h2>
-          <Link to={buildRouteLinks.categoriesOffers('weapons')}>
+          <Link to={buildRouteLinks.categoriesOffers('weapon')}>
             <Button type='normal' className={style.button}>Buy weapons</Button>
           </Link>
         </section>
