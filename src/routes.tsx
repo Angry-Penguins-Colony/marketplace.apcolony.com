@@ -5,7 +5,7 @@ import { dAppName } from 'config';
 import CategoriesOffers from 'pages/CategoriesOffers';
 import NoPenguinCustomizeError from 'pages/Errors/Customize/NoPenguin';
 import UnknownIdInspectError from 'pages/Errors/Inspect/UnknownId';
-import Inspect from 'pages/Inspect';
+import InspectErrorWrapper from 'pages/Inspect/ErrorWrapper';
 import CategoriesType from 'sdk/types/CategoriesType';
 import withPageTitle from './components/PageTitle';
 import Customize from './pages/Customize';
@@ -63,7 +63,7 @@ const routes: Array<ITitledRoute> = [
   {
     path: routeNames.inspect,
     title: 'Inspect',
-    component: Inspect
+    component: InspectErrorWrapper
   },
   {
     path: routeNames.customize,
