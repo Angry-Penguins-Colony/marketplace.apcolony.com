@@ -3,7 +3,7 @@ import { Attributes, IItem, IPenguin } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import BigNumber from 'bignumber.js';
-import { customisationContractAddress, penguinCollection } from 'config';
+import { customisationContractAddress, items, penguinCollection } from 'config';
 import { splitIdentifier } from 'sdk/conversion/tokenIdentifier';
 import { identifierToItem } from 'sdk/misc/dbHelper';
 import calculateCustomizeGasFees from 'sdk/transactionsBuilders/customize/calculateCustomizeGasFees';
@@ -89,10 +89,23 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
     React.useEffect(() => {
 
         if (selectedPenguin && ownedItems) {
-            setOwnedAndEquippedItems([
-                ...Object.values(selectedPenguin.equippedItems),
-                ...ownedItems
-            ]);
+
+            const uniqueIds = new Set(
+                [
+                    ...Object.values(selectedPenguin.equippedItems)
+                        .map(item => item.id),
+                    ...ownedItems
+                        .map(i => i.id)
+                ]);
+
+            const _ownedAndEquippedItems = Array.from(uniqueIds).map(id => {
+                return {
+                    ...ownedItems.find(i => i.id == id),
+                    ...Object.values(selectedPenguin.equippedItems).find(i => i.id == id),
+                };
+            }) as IItem[];
+
+            setOwnedAndEquippedItems(_ownedAndEquippedItems);
         }
     }, [selectedPenguin, ownedItems]);
 
