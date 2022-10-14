@@ -28,7 +28,7 @@ const MarketData = ({
             </div>
             <div className={style.item}>
                 <div className={style.value}>{totalListed}</div>
-                <div className={style.label}>Total Listed</div>
+                <div className={style.label}>For sale</div>
             </div>
         </div>
     );
