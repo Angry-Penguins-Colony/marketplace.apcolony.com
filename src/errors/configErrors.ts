@@ -10,8 +10,8 @@ export class UnknownSlot extends Error {
     }
 }
 
-export class UnknownItem extends Error {
-    constructor(unexistingItems: string, propertyName: string) {
-        super(`Missing items ${unexistingItems} in property itemsCID of config file. It is used in ${propertyName} in the config file.`);
+export class UnknownId extends Error {
+    constructor(id: string, slot: string, propertyName: string) {
+        super(`Missing item ${id} at slot ${slot} in property itemsCID of config file. It is used in ${propertyName} in the config file.`);
     }
 }

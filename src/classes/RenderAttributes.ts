@@ -7,6 +7,7 @@ export const ERR_EMPTY_SLOT_VALUE = "Bad format. Slot value is empty";
 interface IItem {
     id: string;
     name: string;
+    slot: string;
 }
 
 /**
@@ -105,7 +106,8 @@ export default class RenderAttributes {
             // What could be done is to push a .json containing metadata (with server-push-render), 
             // and set the NFT attributes with a struct containing everything we need (instead of the string that is parsed inside the TopEncode method)
 
-            const databaseId = itemsDatabase.find(i => i.name == itemName)?.id;
+            const databaseId = itemsDatabase
+                .find(i => i.name == itemName && i.slot.toLowerCase() == slot.toLowerCase())?.id;
             if (!databaseId) throw new Error(`Missing id for ${itemName}`);
 
             idBySlot.set(slot.toLowerCase(), databaseId);

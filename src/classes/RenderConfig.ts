@@ -1,5 +1,5 @@
 import ImageMIMEType from '../enums/ImageMIMEType';
-import { UnknownSlot, UnknownItem, MissingSlot } from '../errors/configErrors';
+import { UnknownSlot, UnknownId, MissingSlot } from '../errors/configErrors';
 import IPlugin from '../interfaces/IPlugin';
 import IRenderConfigOptions from '../interfaces/IRenderConfigOptions';
 
@@ -88,7 +88,7 @@ export default class RenderConfig {
         }
 
         if (this.itemsCID[slot] == undefined) throw new Error(`Unknow slot: ${slot}.`);
-        if (this.itemsCID[slot][itemName] == undefined) throw new UnknownItem(itemName, "getCid");
+        if (this.itemsCID[slot][itemName] == undefined) throw new UnknownId(itemName, slot, "getCid");
 
         return this.itemsCID[slot][itemName];
     }
