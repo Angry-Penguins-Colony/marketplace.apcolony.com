@@ -1,8 +1,8 @@
 import { IActivity } from '@apcolony/marketplace-api';
-import useGenericAPICall from './useGenericAPICall';
+import useGenericAPICall, { IGenericAPIOptions } from './useGenericAPICall';
 
-function useGetActivity(type: 'penguins' | 'items', id: string) {
-    return useGenericAPICall<IActivity[]>(`/${type}/activity/${id}`);
+function useGetActivity(type: 'penguins' | 'items', id: string, options?: IGenericAPIOptions) {
+    return useGenericAPICall<IActivity[]>(`/${type}/activity/${id}`, options);
 }
 
 export default useGetActivity;

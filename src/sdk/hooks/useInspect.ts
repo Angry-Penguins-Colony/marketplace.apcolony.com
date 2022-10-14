@@ -9,10 +9,10 @@ import CategoriesType from 'sdk/types/CategoriesType';
 import useGetActivity from './api/useGetActivity';
 import { useGetGenericItem } from './api/useGetGenericItem';
 
-function useInspect(category: CategoriesType, id: string) {
+function useInspect(category: CategoriesType, id: string, onWrongId: () => void = () => { }) {
     const { address: connectedAddress } = useGetAccountInfo();
-    const { data: item } = useGetGenericItem(category, id);
-    const { data: activities } = useGetActivity(category, id);
+    const { data: item } = useGetGenericItem(category, id, { onGetError: onWrongId });
+    const { data: activities } = useGetActivity(category, id, { onGetError: onWrongId });
 
 
     return {

@@ -15,10 +15,11 @@ import PenguinSubProperties from 'components/InspectSubProperties/PenguinSubProp
 import ItemsAndActivities from 'components/Inventory/ItemsAndActivities/ItemsAndActivities';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { ipfsGateway, marketplaceContractAddress } from 'config';
-import { buildRouteLinks } from 'routes';
+import { buildRouteLinks, routeNames } from 'routes';
 import Price from 'sdk/classes/Price';
 import useGetOffers from 'sdk/hooks/api/useGetOffers';
 import useGetUserOwnedAmount from 'sdk/hooks/api/useGetUserOwnedAmount';
+import { useNavigateIfBadId } from 'sdk/hooks/redirection/useNavigateIfBadId';
 import useInspect from 'sdk/hooks/useInspect';
 import BuyOfferTransactionBuilder from 'sdk/transactionsBuilders/buy/BuyOfferTransactionBuilder';
 import CategoriesType from 'sdk/types/CategoriesType';
@@ -41,6 +42,8 @@ const Inspect = () => {
 
     if (!category) throw new Error('type is required');
     if (!id) throw new Error('Item id is required');
+
+    useNavigateIfBadId(id, category, routeNames.errors.inspect.unknownId);
 
     const {
         item,
