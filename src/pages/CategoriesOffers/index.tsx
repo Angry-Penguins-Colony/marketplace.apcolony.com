@@ -46,7 +46,9 @@ const CategoriesOffers = () => {
                     backgroundImage: 'url(/img/background/header_' + category + '.png)'
                 }
             }></div>
-            <div className={style.icon + (category == 'penguins' ? ' ' + style.penguins : '')}><img src={category == 'penguins' ? '/img/icon/penguin_picture.png' : '/img/icon/' + category + '_unicolor_icon.svg'} alt={category} /></div>
+            <div className={style.icon + (category == 'penguins' ? (' ' + style.penguins) : '')}>
+                <img src={category == 'penguins' ? '/img/icon/penguin_picture.png' : '/img/icon/' + category + '_unicolor_icon.svg'} alt={category} />
+            </div>
             <h1>{title}</h1>
             {marketData &&
                 <MarketData
