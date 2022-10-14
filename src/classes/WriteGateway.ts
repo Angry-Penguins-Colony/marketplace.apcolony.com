@@ -98,30 +98,34 @@ export default class WriteGateway {
         return this.sendTransaction(tx);
     }
 
-    public async setCid(cid: CIDKvp[], customisationContract: ISmartContract): Promise<TransactionResult> {
-        if (cid.length == 0) throw new Error("No CID to send");
+    public async setCid(cids: CIDKvp[], customisationContract: ISmartContract) {
+        if (cids.length == 0) throw new Error("No CID to send");
 
-        const func = { name: "setCidOf" };
-        const args = cid
-            .flatMap(({ cid, attributes }) => [
+        const txPromises = cids.map(({ cid, attributes }) => {
+
+            const func = { name: "setCidOf" };
+            const args = [
                 new StringValue(attributes.toAttributes(devnetToolDeploy.items, renderConfig.slots)),
                 new StringValue(cid)
-            ]);
+            ];
 
-        const tx = customisationContract.call({
-            func: func,
-            args: args,
-            value: "",
-            gasLimit: 600_000_000,
-            gasPrice: this.networkConfig.MinGasPrice,
-            chainID: this.networkConfig.ChainID,
-        });
+            const tx = customisationContract.call({
+                func: func,
+                args: args,
+                value: "",
+                gasLimit: 35_000_000 + 10_000_000 * cids.length,
+                gasPrice: this.networkConfig.MinGasPrice,
+                chainID: this.networkConfig.ChainID,
+            });
 
-        const result = await this.sendTransaction(tx);
+            return this.sendTransaction(tx)
+                .then((result) => {
+                    console.log(`Sent CID to customisation contract. Transaction hash: ${result.hash.grey}`);
 
-        console.log(`Sent ${cid.length} CIDs to customisation contract. Transaction hash: ${result.hash.grey}`);
+                });
+        })
 
-        return result;
+        return Promise.all(txPromises);
     }
 
     public async sendTransaction(tx: Transaction): Promise<TransactionResult> {
