@@ -5,10 +5,16 @@ import { sendSuccessfulJSON } from '../../utils/response';
 
 export default async function getActivity(req: Request, res: Response, type: "items" | "penguins", networkProvider: APCNetworkProvider) {
 
-    const id = req.params.id;
+    try {
 
-    const { collection, nonce } = await networkProvider.getToken(type, req.params.id);
-    const activities: IActivity[] = await networkProvider.getActivities(collection, nonce);
+        const id = req.params.id;
 
-    sendSuccessfulJSON(res, activities);
+        const { collection, nonce } = await networkProvider.getToken(type, req.params.id);
+        const activities: IActivity[] = await networkProvider.getActivities(collection, nonce);
+
+        sendSuccessfulJSON(res, activities);
+    }
+    catch (e: any) {
+        res.status(400).send(e.toString())
+    }
 }

@@ -13,7 +13,6 @@ export default async function getOffer(req: Request, res: Response, type: "pengu
         sendSuccessfulJSON(res, offer);
     }
     catch (e: any) {
-        console.error(e);
         res.status(400).send(e.toString())
     }
 
