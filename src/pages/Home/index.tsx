@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { Link } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
 import { BigCategory } from 'components/Navigation/BigCategory/BigCategory';
@@ -15,6 +16,10 @@ import style from './index.module.scss';
 const HIGHLIGHTED_ITEM_ID = '94';
 
 const Home = () => {
+
+  const { address } = useGetAccountInfo();
+  const isConnected = !!address;
+
   const { data: highlightedItem } = useGetItem(HIGHLIGHTED_ITEM_ID);
   const exploreItems = useGetExploreItems();
 
@@ -29,9 +34,13 @@ const Home = () => {
           <p>Customize, share, sell,<br />
             buy items you ever wanted !</p>
         </div>
-        <Button className={style.button} type='primary' onClick={() => {
-          window.location.href = routeNames.unlock;
-        }}>Connect your wallet</Button>
+        {isConnected ?
+          <p></p>
+          :
+          <Button className={style.button} type='primary' onClick={() => {
+            window.location.href = routeNames.unlock;
+          }}>Connect your wallet</Button>
+        }
       </section>
       <section className={style.categories}>
         <h2>Categories</h2>
