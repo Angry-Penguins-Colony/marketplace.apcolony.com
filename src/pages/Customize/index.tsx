@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { IItem } from '@apcolony/marketplace-api';
+import { IItem, IPenguin } from '@apcolony/marketplace-api';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
-import { useParams, Navigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
+import ErrorPage from 'components/ErrorPage';
 import LoadingOverlay from 'components/Foreground/LoadingOverlay';
 import ModalAboutRender from 'components/Foreground/Modals/ModalAboutRender/ModalAboutRender';
 import RefreshIcon from 'components/Icons/RefreshIcon';
@@ -11,22 +12,29 @@ import PopupFromBottom from 'components/Inventory/PopupFromBottom/PopupFromBotto
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import GoToAnotherPenguin from 'components/Navigation/GoToAnotherPenguin/GoToAnotherPenguin';
 import PenguinRender from 'components/PenguinRender/PenguinRender';
-import { ipfsGateway, penguinsCount } from 'config';
-import { buildRouteLinks, routeNames } from 'routes';
+import { ipfsGateway } from 'config';
 import { useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
 import useCustomization from 'sdk/hooks/useCustomization';
 import useCustomizationPersistence from 'sdk/hooks/useCustomizationPersistence';
 import useItemsSelection from 'sdk/hooks/useItemsSelection';
+import { isIdValid } from 'sdk/misc/guards';
 import { PenguinItemsIdentifier } from 'sdk/types/PenguinItemsIdentifier';
 import style from './index.module.scss';
 
-const Customize = () => {
+/**
+ * We only set ownedPenguins in props, because we already get it in the ErrorWrapper.
+ * It is an optimization to reduce API calls.
+ */
+interface ICustomizeProps {
+    ownedPenguins: IPenguin[]
+}
+
+const Customize = ({ ownedPenguins }: ICustomizeProps) => {
 
     const { id } = useParams();
 
     if (!id) throw new Error('No id provided');
 
-    const ownedPenguins = useGetOwnedPenguins();
     const [, setTransactionSessionId] = React.useState<string | null>(null);
 
     const [showModalAboutRender, setShowModalAboutRender] = React.useState<boolean>(false);
@@ -85,19 +93,6 @@ const Customize = () => {
     React.useEffect(() => {
         document.body.classList.add('background-image');
     }, []);
-
-    if (ownedPenguins != undefined && ownedPenguins.length == 0) {
-        return <Navigate to={routeNames.errors.customize.noPenguin} />
-    }
-
-    const neededId = getNeededIdRedirection();
-
-    if (neededId) {
-        // WHY we don't use <Redirect /> here?
-        // This page doesn't support id changement WITHOUT being refreshed
-        window.location.href = buildRouteLinks.customize(neededId);
-    }
-
 
     return (
         <div id={style['body-content']}>
@@ -188,21 +183,6 @@ const Customize = () => {
             }
         </div >
     );
-
-    function getNeededIdRedirection(): string | undefined {
-
-        if (!id) throw new Error('No id provided');
-
-        if (ownedPenguins != undefined) {
-            if (isSelectedOwned() == false) {
-                return ownedPenguins[0].id;
-            }
-        }
-
-        if (isIdValid(id) == false) {
-            return ownedPenguins ? ownedPenguins[0].id : '1';
-        }
-    }
 
     function getCustomizeButtonContent() {
 
@@ -339,12 +319,6 @@ const Customize = () => {
         return item;
     }
 
-    function isSelectedOwned() {
-        if (!ownedPenguins) return undefined;
-
-        return ownedPenguins.find(p => p.id === id) != undefined;
-    }
-
     function getSelectedItemInSlot(slot: string) {
         return getItem(selectedItemsInPopup[slot]);
     }
@@ -389,11 +363,31 @@ const Customize = () => {
 
 };
 
-export default Customize;
+const CustomizeErrorWrapper = () => {
 
-function isIdValid(id: string) {
+    const { id } = useParams();
+    const ownedPenguins = useGetOwnedPenguins();
 
-    const idAsNumber = parseInt(id);
+    if (!id) throw new Error('No id provided');
 
-    return isNaN(idAsNumber) == false && idAsNumber >= 1 && idAsNumber <= penguinsCount;
+    if (isIdValid(id, 'penguins') == false) {
+        return <ErrorPage
+            title='Unknown id'
+            description="Please, select another penguin."
+        />
+    }
+    else if (!ownedPenguins) {
+        return <></>;
+    }
+    else if (ownedPenguins.length == 0) {
+        return <ErrorPage
+            title='No penguin'
+            description="Sorry, you don't own any penguin :("
+        />;
+    }
+    else {
+        return <Customize ownedPenguins={ownedPenguins} />
+    }
 }
+
+export default CustomizeErrorWrapper;
