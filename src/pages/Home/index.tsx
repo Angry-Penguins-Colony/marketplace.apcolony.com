@@ -79,9 +79,6 @@ const Home = () => {
               ))
             }
           </div>
-          <div className={style.control}>
-            <Button type='normal' className={style.button}>View all</Button>
-          </div>
         </section>
       }
       <section className={style['customize-your-penguins']}>
