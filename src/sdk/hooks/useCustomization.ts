@@ -16,28 +16,59 @@ import { useGetGenericItem } from './api/useGetGenericItem';
 import { useGetOwnedItems } from './api/useGetOwned';
 import useGetUserOwnedAmount from './api/useGetUserOwnedAmount';
 import { CustomizeTransactionFilter } from './transactionsFilters/filters';
+import useGetOnNewPendingTransaction from './useGetOnTransactionPending';
 import useGetOnTransactionSuccesful from './useGetOnTransactionSuccesful';
+import usePrevious from './usePrevious';
+
+const periodicRefreshMS = 10_000;
 
 function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: PenguinItemsIdentifier) {
 
     const [equippedItemsIdentifier, setEquippedItemsIdentifier] = React.useState<PenguinItemsIdentifier>(initialItemsIdentifier ?? {});
     const [ownedAndEquippedItems, setOwnedAndEquippedItems] = React.useState<IItem[] | undefined>(undefined);
+    const [isCustomizationPending, setIsCustomizationPending] = React.useState(false);
 
     const { address: connectedAddress } = useGetAccountInfo();
 
     const ownedItems = useGetOwnedItems();
     const { data, forceReload: reloadSelectedPenguin } = useGetGenericItem('penguins', selectedPenguinId);
     const selectedPenguin = data as IPenguin | undefined;
+    const previousSelectedPenguin = usePrevious(data);
 
     const ownedAmount = useGetUserOwnedAmount();
 
     const equippedItems = parseAttributes(equippedItemsIdentifier);
     const { attributesStatus } = useGetAttributesStatus(equippedItems);
 
+    useGetOnNewPendingTransaction(() => {
+        setIsCustomizationPending(true)
+    }, new CustomizeTransactionFilter())
+
     useGetOnTransactionSuccesful(() => {
-        console.log('reload selected penguin');
         reloadSelectedPenguin();
     }, new CustomizeTransactionFilter());
+
+    // useGetOnTransactionSuccesful with customize works half the time, 
+    // so we also use a periodic check
+    React.useEffect(() => {
+        if (isCustomizationPending == true) {
+            const interval = setInterval(() => {
+                console.log('check')
+                reloadSelectedPenguin();
+            }, periodicRefreshMS);
+
+            return () => clearInterval(interval);
+        }
+    }, [isCustomizationPending])
+
+    // when the selected penguin is updated, the customisation pending flag is reset
+    React.useEffect(() => {
+        console.log('penguin updated');
+
+        if (isCustomizationPending && isModified() == false) {
+            setIsCustomizationPending(false);
+        }
+    }, [selectedPenguin, previousSelectedPenguin])
 
     React.useEffect(() => {
 
@@ -73,6 +104,7 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
         getRenderTransaction,
         isSlotModified,
         setEquippedItemsIdentifier,
+        isCustomizationPending,
         equippedItemsIdentifier,
         attributesStatus,
         selectedPenguin,

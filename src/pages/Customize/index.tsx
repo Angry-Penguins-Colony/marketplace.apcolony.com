@@ -50,7 +50,8 @@ const Customize = () => {
         hasSomeModifications,
         selectedPenguin,
         ownedItemsAmount,
-        ownedAndEquippedItems
+        ownedAndEquippedItems,
+        isCustomizationPending
     } = useCustomization(id, initialAttributes);
 
     const {
@@ -143,9 +144,18 @@ const Customize = () => {
                     }}>
                         {attributesStatus?.renderStatus == 'rendering' &&
                             <LoadingOverlay>
-                                <h2>Editing disabled</h2>
+                                <h2>Rendering in progress</h2>
                                 <br />
-                                <p>Syncing new penguin image on the blockchain...</p>
+                                <p>We are building your new penguin thumbnail on the blockchain</p>
+                                <p>Please, wait a minute</p>
+                            </LoadingOverlay>
+                        }
+
+                        {
+                            isCustomizationPending &&
+                            <LoadingOverlay>
+                                <h2>Customisation in progress</h2>
+                                <br />
                                 <p>Please, wait a minute</p>
                             </LoadingOverlay>
                         }
@@ -157,7 +167,7 @@ const Customize = () => {
                         {createItemButton('background', 'Background')}
                     </div>
                 </div>
-                {(attributesStatus?.renderStatus != 'rendering') &&
+                {(!isCustomizationPending && attributesStatus?.renderStatus != 'rendering') &&
                     <>
                         <div className={style.reset}>
                             <Button icon={<RefreshIcon />} onClick={resetItems}>Unequip Items</Button>
