@@ -15,7 +15,7 @@ interface NavItem {
   name: string,
   route: string,
   icon: JSX.Element,
-  authenticated?: boolean,
+  visibleIfConnected?: boolean,
   className?: string;
   onClick?: () => void;
 }
@@ -35,14 +35,14 @@ const Navbar = () => {
       name: 'My Inventory',
       route: buildRouteLinks.inventory(address),
       icon: <ProfileIcon />,
-      authenticated: true,
+      visibleIfConnected: true,
     },
     {
       name: 'Customize',
       route: buildRouteLinks.customize(1),
       icon: <LabIcon />,
       className: style.labIcon,
-      authenticated: true,
+      visibleIfConnected: true,
     },
     // {
     //   name: 'Menu',
@@ -53,6 +53,9 @@ const Navbar = () => {
     // },
   ];
 
+  const visibleNavItems = navItems
+    .filter((item) => !item.visibleIfConnected || (item.visibleIfConnected && isConnected));
+
   const [mobileMenuIsOpen, setMobileMenuIsOpen] = React.useState<boolean>(false);
 
   return (
@@ -60,7 +63,7 @@ const Navbar = () => {
       <MobileMenu navItems={navItems.filter((item) => item.name !== 'Menu')} isOpen={mobileMenuIsOpen} onClose={() => setMobileMenuIsOpen(false)} />
       <div id="NavBar" className={style.navbar}>
         {
-          navItems.map((item, index) => (
+          visibleNavItems.map((item, index) => (
             <div className={
               style.navItem
               + ' ' + item.className
@@ -93,11 +96,10 @@ const Navbar = () => {
             <nav>
               {/* TODO: bind nav link */}
               {
-                navItems.map((item, index) => {
-                  if (item.name != 'Menu' && (!item.authenticated || (item.authenticated && isConnected))) {
-                    return (<a href={item.route} key={index} className={style.item}>{item.name}</a>);
-                  }
-                })
+                visibleNavItems
+                  .map((item, index) => {
+                    return <a href={item.route} key={index} className={style.item}>{item.name}</a>
+                  })
               }
             </nav>
           </div>
