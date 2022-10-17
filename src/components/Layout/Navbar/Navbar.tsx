@@ -3,7 +3,6 @@ import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import DiscordIcon from 'components/Icons/DiscordIcon';
 import HomeIcon from 'components/Icons/HomeIcon';
 import LabIcon from 'components/Icons/LabIcon';
-import MenuIcon from 'components/Icons/MenuIcon';
 import ProfileIcon from 'components/Icons/ProfileIcon';
 import SearchIcon from 'components/Icons/SearchIcon';
 import TwitterIcon from 'components/Icons/TwitterIcon';
@@ -12,12 +11,21 @@ import { buildRouteLinks, routeNames } from 'routes';
 import MobileMenu from '../MobileMenu/MobileMenu';
 import style from './navbar.module.scss';
 
+interface NavItem {
+  name: string,
+  route: string,
+  icon: JSX.Element,
+  authenticated?: boolean,
+  className?: string;
+  onClick?: () => void;
+}
+
 const Navbar = () => {
 
   const { address } = useGetAccountInfo();
   const isConnected = !!address;
 
-  const navItems = [
+  const navItems: NavItem[] = [
     {
       name: 'Home',
       route: routeNames.home,
@@ -36,13 +44,13 @@ const Navbar = () => {
       className: style.labIcon,
       authenticated: true,
     },
-    {
-      name: 'Menu',
-      action: () => {
-        setMobileMenuIsOpen(true);
-      },
-      icon: <MenuIcon />,
-    },
+    // {
+    //   name: 'Menu',
+    //   onClick: () => {
+    //     setMobileMenuIsOpen(true);
+    //   },
+    //   icon: <MenuIcon />,
+    // },
   ];
 
   const [mobileMenuIsOpen, setMobileMenuIsOpen] = React.useState<boolean>(false);
@@ -58,8 +66,8 @@ const Navbar = () => {
               + ' ' + item.className
               + ((item.route && item.route === window.location.pathname) ? ' ' + style.active : '')
             } key={index} onClick={() => (
-              item.action ?
-                item.action() :
+              item.onClick ?
+                item.onClick() :
                 window.location.href = item.route
             )}>
               {
