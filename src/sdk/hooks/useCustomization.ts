@@ -109,6 +109,7 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
         }
     }, [selectedPenguin, ownedItems]);
 
+    const doUserOwnSelectedPenguin = selectedPenguin && selectedPenguin.owner == connectedAddress;
     return {
         resetItems,
         equipItem,
@@ -123,7 +124,8 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
         selectedPenguin,
         hasSomeModifications: isModified(),
         ownedItemsAmount: ownedAmount?.items,
-        ownedAndEquippedItems
+        ownedAndEquippedItems,
+        doUserOwnSelectedPenguin
     }
 
     function isSlotModified(slot: string) {

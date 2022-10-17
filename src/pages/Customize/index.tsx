@@ -13,6 +13,7 @@ import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import GoToAnotherPenguin from 'components/Navigation/GoToAnotherPenguin/GoToAnotherPenguin';
 import PenguinRender from 'components/PenguinRender/PenguinRender';
 import { ipfsGateway } from 'config';
+import { buildRouteLinks } from 'routes';
 import { useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
 import useCustomization from 'sdk/hooks/useCustomization';
 import useCustomizationPersistence from 'sdk/hooks/useCustomizationPersistence';
@@ -59,7 +60,8 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
         selectedPenguin,
         ownedItemsAmount,
         ownedAndEquippedItems,
-        isCustomizationPending
+        isCustomizationPending,
+        doUserOwnSelectedPenguin
     } = useCustomization(id, initialAttributes);
 
     const {
@@ -93,6 +95,10 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
     React.useEffect(() => {
         document.body.classList.add('background-image');
     }, []);
+
+    if (doUserOwnSelectedPenguin == false) {
+        window.location.href = buildRouteLinks.customize(ownedPenguins[0].id);
+    }
 
     return (
         <div id={style['body-content']}>
