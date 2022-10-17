@@ -4,6 +4,7 @@ import LoginLogoutButton from 'components/Buttons/LoginLogoutButton';
 import DiscordIcon from 'components/Icons/DiscordIcon';
 import HomeIcon from 'components/Icons/HomeIcon';
 import LabIcon from 'components/Icons/LabIcon';
+import MenuIcon from 'components/Icons/MenuIcon';
 import ProfileIcon from 'components/Icons/ProfileIcon';
 import TwitterIcon from 'components/Icons/TwitterIcon';
 import { buildRouteLinks, routeNames } from 'routes';
@@ -12,7 +13,7 @@ import style from './navbar.module.scss';
 
 interface NavItem {
   name: string,
-  route: string,
+  route?: string,
   icon: JSX.Element,
   visibleIfConnected?: boolean,
   className?: string;
@@ -43,13 +44,13 @@ const Navbar = () => {
       className: style.labIcon,
       visibleIfConnected: true,
     },
-    // {
-    //   name: 'Menu',
-    //   onClick: () => {
-    //     setMobileMenuIsOpen(true);
-    //   },
-    //   icon: <MenuIcon />,
-    // },
+    {
+      name: 'Menu',
+      onClick: () => {
+        setMobileMenuIsOpen(true);
+      },
+      icon: <MenuIcon />,
+    },
   ];
 
   const visibleNavItems = navItems
@@ -59,7 +60,7 @@ const Navbar = () => {
 
   return (
     <>
-      <MobileMenu navItems={navItems.filter((item) => item.name !== 'Menu')} isOpen={mobileMenuIsOpen} onClose={() => setMobileMenuIsOpen(false)} />
+      <MobileMenu navItems={visibleNavItems.filter((item) => item.name !== 'Menu')} isOpen={mobileMenuIsOpen} onClose={() => setMobileMenuIsOpen(false)} />
       <div id="NavBar" className={style.navbar}>
         {
           visibleNavItems.map((item, index) => (
@@ -70,7 +71,7 @@ const Navbar = () => {
             } key={index} onClick={() => (
               item.onClick ?
                 item.onClick() :
-                window.location.href = item.route
+                window.location.href = item.route ?? ''
             )}>
               {
                 React.cloneElement(
