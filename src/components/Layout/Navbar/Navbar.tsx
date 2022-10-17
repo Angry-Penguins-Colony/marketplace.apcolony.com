@@ -104,11 +104,10 @@ const Navbar = () => {
             </nav>
           </div>
           <div className={style.center}>
-            <div className={style.search}>
+            {/* <div className={style.search}>
               <SearchIcon className={style.icon} />
               <input type="text" placeholder="Search..." />
-              {/* TODO: connect search bar */}
-            </div>
+            </div> */}
           </div>
           <div className={style.right}>
             <div className={style.social}>
