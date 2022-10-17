@@ -1,6 +1,6 @@
 import React from 'react';
+import LoginLogoutButton from 'components/Buttons/LoginLogoutButton';
 import CrossIcon from 'components/Icons/CrossIcon';
-import LoginButton from 'components/LoginButton';
 import style from './mobile-menu.module.scss';
 
 const MobileMenu = (
@@ -38,7 +38,7 @@ const MobileMenu = (
                 }
             </div>
             <footer>
-                <LoginButton type="normal" btnClassName={style.button} />
+                <LoginLogoutButton type="normal" btnClassName={style.button} />
                 <hr />
                 <div className={style['privacy-policy']}>
                     <a href='TODO: add terms'>Terms</a>

@@ -1,12 +1,11 @@
 import React from 'react';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import LoginLogoutButton from 'components/Buttons/LoginLogoutButton';
 import DiscordIcon from 'components/Icons/DiscordIcon';
 import HomeIcon from 'components/Icons/HomeIcon';
 import LabIcon from 'components/Icons/LabIcon';
 import ProfileIcon from 'components/Icons/ProfileIcon';
-import SearchIcon from 'components/Icons/SearchIcon';
 import TwitterIcon from 'components/Icons/TwitterIcon';
-import LoginButton from 'components/LoginButton';
 import { buildRouteLinks, routeNames } from 'routes';
 import MobileMenu from '../MobileMenu/MobileMenu';
 import style from './navbar.module.scss';
@@ -119,7 +118,7 @@ const Navbar = () => {
               </div>
             </div>
 
-            <LoginButton btnClassName={style.button} />
+            <LoginLogoutButton btnClassName={style.button} />
           </div>
         </header>
       </div >
