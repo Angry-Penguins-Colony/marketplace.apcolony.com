@@ -1,6 +1,8 @@
 import * as React from 'react';
 import style from './button.module.scss';
 
+export type ButtonType = 'normal' | 'primary' | 'primary-outline' | 'cancel' | 'cancel-outline';
+
 const Button = ({
     children,
     className,
@@ -12,7 +14,7 @@ const Button = ({
     children: React.ReactNode,
     className?: string,
     icon?: React.ReactNode,
-    type?: 'normal' | 'primary' | 'primary-outline' | 'cancel' | 'cancel-outline',
+    type?: ButtonType,
     disabled?: boolean,
     onClick?: () => void,
 }) => {

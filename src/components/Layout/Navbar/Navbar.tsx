@@ -110,7 +110,7 @@ const Navbar = () => {
               </div>
             </div>
 
-            <LoginButton />
+            <LoginButton btnClassName={style.button} />
           </div>
         </header>
       </div >

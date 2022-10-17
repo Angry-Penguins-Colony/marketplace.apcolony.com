@@ -1,7 +1,6 @@
 import React from 'react';
-import Button from 'components/Abstract/Button/Button';
 import CrossIcon from 'components/Icons/CrossIcon';
-import { routeNames } from 'routes';
+import LoginButton from 'components/LoginButton';
 import style from './mobile-menu.module.scss';
 
 const MobileMenu = (
@@ -39,11 +38,7 @@ const MobileMenu = (
                 }
             </div>
             <footer>
-                <Button type='normal' className={style.button} onClick={() => {
-                    window.location.href = routeNames.unlock;
-                }}>
-                    Connect Wallet
-                </Button>
+                <LoginButton type="normal" btnClassName={style.button} />
                 <hr />
                 <div className={style['privacy-policy']}>
                     <a href='TODO: add terms'>Terms</a>
