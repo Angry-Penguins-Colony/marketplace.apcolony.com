@@ -38,7 +38,7 @@ const MobileMenu = (
                 }
             </div>
             <footer>
-                <LoginLogoutButton type="normal" btnClassName={style.button} />
+                <LoginLogoutButton type="normal" className={style.button} />
                 <hr />
                 <div className={style['privacy-policy']}>
                     <a href='TODO: add terms'>Terms</a>

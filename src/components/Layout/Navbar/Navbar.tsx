@@ -118,7 +118,7 @@ const Navbar = () => {
               </div>
             </div>
 
-            <LoginLogoutButton btnClassName={style.button} />
+            <LoginLogoutButton className={style.button} />
           </div>
         </header>
       </div >

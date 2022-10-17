@@ -6,7 +6,7 @@ import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
 import { useParams } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
-import BuyPriceContainer from 'components/Abstract/BuyPriceContainer/BuyPriceContainer';
+import BuyPriceContainer from 'components/Abstract/BuyPriceContainer';
 import ErrorPage from 'components/ErrorPage';
 import BuyingPopup from 'components/Foreground/Popup/BuyingPopup/BuyingPopup';
 import ShowOffersPopup from 'components/Foreground/Popup/ShowOffersPopup';

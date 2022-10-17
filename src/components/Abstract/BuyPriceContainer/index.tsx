@@ -1,7 +1,9 @@
 import * as React from 'react';
+import LoginButton from 'components/Buttons/LoginButton/LoginButton';
 import Price from 'sdk/classes/Price';
+import useIsConnected from 'sdk/hooks/dapp-core-upgraded/useIsConnected';
 import Button from '../Button/Button';
-import style from './buy-price-container.module.scss';
+import style from './style.module.scss';
 
 const BuyPriceContainer = ({
     className = '',
@@ -17,6 +19,8 @@ const BuyPriceContainer = ({
     onBuy?: () => void
 }) => {
 
+    const isConnected = useIsConnected();
+
     return (
         <section className={style.buy + ' ' + className}>
 
@@ -26,15 +30,18 @@ const BuyPriceContainer = ({
                 offersCount == undefined || offersCount > 0 ?
                     <>
                         <p className={style.price}>{price?.toDenomination() ?? '--'} EGLD</p>
-                        <Button onClick={onBuy} type='primary' className={style.desktop + ' ' + style.button}>
-                            Buy
-                        </Button>
-                        <Button onClick={onBuy} className={style.mobile + ' ' + style.button}>
-                            Buy
-                        </Button>
+
+                        {
+                            isConnected ?
+
+                                <Button onClick={onBuy} type='primary' className={style.button}>
+                                    Buy
+                                </Button>
+                                :
+                                <LoginButton className={style.button} />
+                        }
 
                         {showOffersCount &&
-                            /* don't show offers count for penguins because we can only have one offer max per penguin */
                             <p className='mt-1'>{offersCount ?? '--'} offers</p>
                         }
                     </>

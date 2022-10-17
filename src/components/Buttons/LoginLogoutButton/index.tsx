@@ -5,7 +5,7 @@ import LoginButton from '../LoginButton/LoginButton';
 import LogoutButton from '../LogoutButton';
 
 export interface ILogButtonProps {
-    btnClassName?: string;
+    className?: string;
     type?: ButtonType;
 }
 
