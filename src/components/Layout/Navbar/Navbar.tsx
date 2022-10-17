@@ -1,7 +1,5 @@
 import React from 'react';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
-import { logout } from '@elrondnetwork/dapp-core/utils';
-import Button from 'components/Abstract/Button/Button';
 import DiscordIcon from 'components/Icons/DiscordIcon';
 import HomeIcon from 'components/Icons/HomeIcon';
 import LabIcon from 'components/Icons/LabIcon';
@@ -9,6 +7,7 @@ import MenuIcon from 'components/Icons/MenuIcon';
 import ProfileIcon from 'components/Icons/ProfileIcon';
 import SearchIcon from 'components/Icons/SearchIcon';
 import TwitterIcon from 'components/Icons/TwitterIcon';
+import LoginButton from 'components/LoginButton';
 import { buildRouteLinks, routeNames } from 'routes';
 import MobileMenu from '../MobileMenu/MobileMenu';
 import style from './navbar.module.scss';
@@ -47,12 +46,6 @@ const Navbar = () => {
   ];
 
   const [mobileMenuIsOpen, setMobileMenuIsOpen] = React.useState<boolean>(false);
-
-
-
-  const handleLogout = () => {
-    logout(`${window.location.origin}/unlock`);
-  };
 
   return (
     <>
@@ -116,16 +109,8 @@ const Navbar = () => {
                 <DiscordIcon />
               </div>
             </div>
-            {isConnected ?
-              <Button type='primary' className={style.button} onClick={handleLogout}>
-                Disconnect {'...' + address?.slice(-4)}
-              </Button> :
-              <Button type='primary' className={style.button} onClick={() => {
-                window.location.href = routeNames.unlock;
-              }}>
-                Connect Wallet
-              </Button>
-            }
+
+            <LoginButton />
           </div>
         </header>
       </div >
