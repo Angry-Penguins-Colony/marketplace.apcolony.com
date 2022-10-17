@@ -17,6 +17,7 @@ export default async function getPenguin(req: Request, res: Response, proxyNetwo
             sendSuccessfulJSON(res, penguin);
         }
         catch (e: any) {
+            console.log(e);
             res.status(400).send(e.toString());
         }
     }

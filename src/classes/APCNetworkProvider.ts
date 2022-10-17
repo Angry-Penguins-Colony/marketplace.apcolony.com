@@ -73,7 +73,7 @@ export class APCNetworkProvider {
         return nfts;
     }
 
-    public async getNft(collection: string, nonce: number): Promise<NonFungibleTokenOfAccountOnNetwork> {
+    public async getNft(collection: string, nonce: number): Promise<APCNft> {
         let nonceAsHex = new Nonce(nonce).hex();
         let response = await this.apiProvider.doGetGeneric(`nfts/${collection}-${nonceAsHex}`);
         let token = APCNft.fromApiHttpResponse(response);
@@ -201,7 +201,7 @@ export class APCNetworkProvider {
         return contract;
     }
 
-    public async getPenguinFromNft(nft: APCNft): Promise<IPenguin> {
+    public getPenguinFromNft(nft: APCNft): IPenguin {
 
         if (nft.assets[0] == undefined) throw new Error(`No CID linked to the nft ${nft.identifier}`);
         if (!nft.owner) throw new Error("Missing owner on NFT");

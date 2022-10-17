@@ -12,7 +12,7 @@ export default async function getPenguins(req: Request, res: Response, proxyNetw
     const accountsNfts = await proxyNetwork.getNftsOfAccount(address);
 
     const penguinsPromises = accountsNfts
-        .filter(nft => nft.collection === penguinsCollection)
+        .filter(nft => nft.collection === penguinsCollection && !!nft.owner)
         .map((nft) => proxyNetwork.getPenguinFromNft(nft));
 
     const penguinsNfts = (await Promise.all(penguinsPromises))
