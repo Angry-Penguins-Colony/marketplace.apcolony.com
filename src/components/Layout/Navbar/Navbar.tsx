@@ -17,6 +17,7 @@ interface NavItem {
   icon: JSX.Element,
   visibleIfConnected?: boolean,
   className?: string;
+  mobileOnly?: boolean;
   onClick?: () => void;
 }
 
@@ -50,6 +51,7 @@ const Navbar = () => {
         setMobileMenuIsOpen(true);
       },
       icon: <MenuIcon />,
+      mobileOnly: true,
     },
   ];
 
@@ -97,6 +99,7 @@ const Navbar = () => {
               {/* TODO: bind nav link */}
               {
                 visibleNavItems
+                  .filter((item) => !item.mobileOnly)
                   .map((item, index) => {
                     return <a href={item.route} key={index} className={style.item}>{item.name}</a>
                   })
