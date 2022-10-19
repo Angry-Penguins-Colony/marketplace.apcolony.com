@@ -1,4 +1,5 @@
 import React from 'react';
+import APCLogoWhite from 'assets/img/apc-logo/white.png';
 import LoginLogoutButton from 'components/Buttons/LoginLogoutButton';
 import CrossIcon from 'components/Icons/CrossIcon';
 import style from './mobile-menu.module.scss';
@@ -18,7 +19,7 @@ const MobileMenu = (
     return (
         <div className={style['mobile-menu'] + ' ' + (isOpen ? style['open'] : style['close'])}>
             <header>
-                <img src="/img/logo/logo-white.png" alt="logo Angry Penguins" />
+                <img src={APCLogoWhite} alt="logo Angry Penguins" />
                 <div className={style['close']} onClick={onClose}>
                     <CrossIcon className={style['icon']} />
                 </div>

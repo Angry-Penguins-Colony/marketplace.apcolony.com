@@ -1,4 +1,5 @@
 import React from 'react';
+import APCLogoWhite from 'assets/img/apc-logo/white.png';
 import Button from 'components/Abstract/Button/Button';
 import ContactCard from 'components/Abstract/ContactCard/ContactCard';
 import LpAdvantage from 'components/Abstract/LpAdvantage/LpAdvantage';
@@ -15,7 +16,7 @@ export default function Launchpad() {
   return (
     <div id={style.launchpad}>
       <section className={style['top-page']}>
-        <img src="/img/logo/logo-white.png" alt="" className="logo" />
+        <img src={APCLogoWhite} alt="" className="logo" />
         <div className={style.info}>
           <h1>Participating in the construction <br /> of Elrond is our duty.</h1>
           <Button onClick={() => window.open(typeFormUrl, '_blank')} className={style.button} type='primary'>Submit project</Button>
@@ -34,45 +35,45 @@ export default function Launchpad() {
       <section className={style['advantages']}>
         <p>What you get by entering <br /> the launchpad ?</p>
         <div className={style.info}>
-          <LpAdvantage 
+          <LpAdvantage
             mainText='Time saving to focus on the development of their games/universe, less on the technical implementation (SC, dapps…)'
             subText='Our personalized services will allow you to be assisted during crucial stages of your project.'
             img={timeImg}
             className='time'
-           ></LpAdvantage>
-          <LpAdvantage 
+          ></LpAdvantage>
+          <LpAdvantage
             mainText='Strategy Consulting'
             subText='Providing of our experience in project management :'
             img={penguinTableauImg}
             className='strategy'
-           >
+          >
             <div>
               <div style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '10px',
-                  margin: '12px 0 20px',
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '10px',
+                margin: '12px 0 20px',
               }}>
                 <Button type='primary'>Communication strategy</Button>
                 <Button type='primary'>Flexible financial management</Button>
                 <Button type='primary'>Partnership strategy</Button>
                 <Button type='primary'>And more...</Button>
               </div>
-              <p style={{textAlign:'left'}}><img src={addButton} alt="Add button"/> access to our network</p>
+              <p style={{ textAlign: 'left' }}><img src={addButton} alt="Add button" /> access to our network</p>
             </div>
-           </LpAdvantage>
-          <LpAdvantage 
+          </LpAdvantage>
+          <LpAdvantage
             mainText='Personalized & preferential place in our marketplace'
             subText='This integration will allow you to fully integrate your universe in an ecosystem of ambitious projects on Elrond.'
             img={penguinComputerImg}
             className='personalized'
-           ></LpAdvantage>
-          <LpAdvantage 
+          ></LpAdvantage>
+          <LpAdvantage
             mainText='Technical help for your development needs on the blockchain'
             subText='Sharing of our technical experience on Elrond and our ability to innovate in a young ecosystem. Providing of our tools (Airdrops, snapshots...).'
             img={penguinWorkerImg}
             className='technical'
-           ></LpAdvantage>
+          ></LpAdvantage>
         </div>
       </section>
 
@@ -85,6 +86,6 @@ export default function Launchpad() {
         <ContactCard />
       </section>
 
-  </div>
+    </div>
   );
 }

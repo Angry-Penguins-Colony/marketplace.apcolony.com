@@ -1,5 +1,6 @@
 import React from 'react';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import APCLogoColored from 'assets/img/apc-logo/colored.png';
 import LoginLogoutButton from 'components/Buttons/LoginLogoutButton';
 import DiscordIcon from 'components/Icons/DiscordIcon';
 import HomeIcon from 'components/Icons/HomeIcon';
@@ -92,7 +93,7 @@ const Navbar = () => {
       <div id={style['desktop-header']}>
         <header>
           <div className={style.left}>
-            <img src="/img/logo/logo.png" alt="Logo Angry Penguins" onClick={function () {
+            <img src={APCLogoColored} alt="Logo Angry Penguins" onClick={function () {
               window.location.href = routeNames.home;
             }} />
             <nav>

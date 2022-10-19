@@ -14,6 +14,7 @@ import { isOfferCategoryValid } from 'sdk/misc/guards';
 import MarketData from '../../components/Inventory/MarketData';
 import defaultPenguinImg from './../../assets/img/penguin_default.png';
 import style from './index.module.scss';
+import PenguinIcon from './penguin-icon.png';
 
 // TODO: for penguin
 const CategoriesOffers = () => {
@@ -47,7 +48,7 @@ const CategoriesOffers = () => {
                 }
             }></div>
             <div className={style.icon + (category == 'penguins' ? (' ' + style.penguins) : '')}>
-                <img src={category == 'penguins' ? '/img/icon/penguin_picture.png' : '/img/icon/' + category + '_unicolor_icon.svg'} alt={category} />
+                <img src={category == 'penguins' ? PenguinIcon : '/img/icon/' + category + '_unicolor_icon.svg'} alt={category} />
             </div>
             <h1>{title}</h1>
             {marketData &&

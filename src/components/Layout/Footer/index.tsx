@@ -1,4 +1,5 @@
 import React from 'react';
+import APCLogoBlue from 'assets/img/apc-logo/blue.svg';
 import DiscordIcon from 'components/Icons/DiscordIcon';
 import TwitterIcon from 'components/Icons/TwitterIcon';
 import style from './footer.module.scss';
@@ -19,7 +20,7 @@ const Footer = () => {
           </div>
           <div className={style.center}>
             <div className={style.logo}>
-              <img src="/img/logo/logo-blue.svg" alt="logo Angry Penguins" />
+              <img src={APCLogoBlue} alt="logo Angry Penguins" />
             </div>
             <div className={style.social}>
               <div className={style.twitter + ' ' + style.icon}>
