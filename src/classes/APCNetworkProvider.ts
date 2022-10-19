@@ -121,11 +121,11 @@ export class APCNetworkProvider {
         return activities;
     }
 
-    public async getCidOf(attributes: Attributes): Promise<string | undefined> {
+    public async getUriOf(attributes: Attributes): Promise<string | undefined> {
 
         const res = await this.proxyProvider.queryContract({
             address: customisationContract,
-            func: "getCidOf",
+            func: "getUriOf",
             getEncodedArguments() {
                 return new ArgSerializer().valuesToStrings([
                     BytesValue.fromUTF8(attributes.toEndpointArgument())
@@ -133,7 +133,12 @@ export class APCNetworkProvider {
             },
         });
 
-        return Buffer.from(res.returnData[0], "base64").toString();
+        if (res.returnCode == "user error") {
+            return undefined;
+        }
+        else {
+            return Buffer.from(res.returnData[0], "base64").toString();
+        }
     }
 
     public async getAttributesToRender(): Promise<Attributes[]> {

@@ -8,12 +8,12 @@ export default async function getAttributes(req: Request, res: Response, network
 
     const attributes = parseAttributes(req);
 
-    const cid = await networkProvider.getCidOf(attributes);
+    const uri = await networkProvider.getUriOf(attributes);
 
-    if (cid) {
+    if (uri) {
         sendResponse(res, {
             renderStatus: "rendered",
-            cid
+            cid: uri
         })
     }
     else {
