@@ -4,6 +4,7 @@ import AuthentificatedPatternRouteWrapper from 'components/Abstract/Authentifica
 import { dAppName } from 'config';
 import CategoriesOffers from 'pages/CategoriesOffers';
 import Inspect from 'pages/Inspect';
+import UnlockRoute from 'pages/UnlockPage';
 import CategoriesType from 'sdk/types/CategoriesType';
 import withPageTitle from './components/PageTitle';
 import Customize from './pages/Customize';
@@ -64,6 +65,11 @@ const routes: Array<ITitledRoute> = [
       </AuthentificatedPatternRouteWrapper>;
     },
     authenticatedRoute: true,
+  },
+  {
+    path: routeNames.unlock,
+    title: 'Connect',
+    component: UnlockRoute
   },
   {
     path: routeNames.categoriesOffers,

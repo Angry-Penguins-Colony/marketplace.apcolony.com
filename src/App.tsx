@@ -9,8 +9,6 @@ import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import WIPModal from 'components/Foreground/Modals/WIPModal/WIPModal';
 import Layout from 'components/Layout';
 import PageNotFound from 'pages/PageNotFound';
-import UnlockPageFromTemplate from 'pages/UnlockPageFromTemplate';
-import { routeNames } from 'routes';
 import routes from 'routes';
 
 const environment = 'devnet';
@@ -29,12 +27,6 @@ const App = () => {
           <NotificationModal />
           <SignTransactionsModals className='custom-class-for-modals' />
           <Routes>
-            <Route
-              path={routeNames.unlock}
-              // element={<UnlockPageBis /*loginRoute={routeNames.home}*/ />}
-              // TODO: here is basic "connect wallet" page
-              element={<UnlockPageFromTemplate />}
-            />
             {routes.map((route: any, index: number) => (
               <Route
                 path={route.path}
