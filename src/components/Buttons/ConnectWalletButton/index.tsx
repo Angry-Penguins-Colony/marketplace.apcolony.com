@@ -7,9 +7,7 @@ import { ILogButtonProps } from '../LoginLogoutButton';
 const ConnectWalletButton = ({ className: btnClassName = '', type = 'primary' }: ILogButtonProps) => {
 
 
-    return <Button type={type} className={btnClassName} onClick={() => {
-        window.location.href = routeNames.unlock;
-    }}>
+    return <Button link={routeNames.unlock} type={type} className={btnClassName}>
         Connect Wallet
     </Button>
 };
