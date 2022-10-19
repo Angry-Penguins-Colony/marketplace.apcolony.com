@@ -60,7 +60,7 @@ export const UnlockRoute = ({ loginRoute }: UnlockRouteProps) => {
         return <WalletConnectLoginContainer
           callbackRoute={loginRoute}
           loginButtonText={'Maiar App'}
-          title={'Maiar  Loggin'}
+          title={'Maiar Login'}
           token={undefined}
           className={undefined}
           logoutRoute={routeNames.unlock}

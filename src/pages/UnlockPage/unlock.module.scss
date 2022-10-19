@@ -1,16 +1,16 @@
-@import './../../assets/sass/var.scss';
+@import "./../../assets/sass/var.scss";
 
 .unlock {
     .popup {
         h1 {
-            font-family: 'CHEDROS', sans-serif;
+            font-family: "CHEDROS", sans-serif;
             font-size: 1.4rem;
             font-weight: bold;
             align-self: flex-start;
         }
 
         .desc {
-            font-family: 'Config Rounded', sans-serif;
+            font-family: "Config Rounded", sans-serif;
             align-self: flex-start;
             margin-bottom: 15px;
         }
@@ -24,6 +24,11 @@
             display: flex;
             gap: 15px;
 
+            &:hover {
+                cursor: pointer;
+                background-color: darken($primary, 10%);
+            }
+
             .icon {
                 img {
                     height: 22px;
@@ -31,7 +36,7 @@
             }
 
             p {
-                font-family: 'Config Rounded', sans-serif;
+                font-family: "Config Rounded", sans-serif;
                 font-size: 1.6rem;
                 color: white;
             }
@@ -41,10 +46,9 @@
 
 .error-popup,
 .success-popup {
-
     h2,
     p {
-        font-family: 'CHEDROS', sans-serif;
+        font-family: "CHEDROS", sans-serif;
         font-size: 1.4rem;
         font-weight: bold;
     }

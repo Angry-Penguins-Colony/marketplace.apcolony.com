@@ -46,6 +46,11 @@
             justify-content: center;
             align-items: center;
 
+            &:hover {
+                cursor: pointer;
+                background-color: darken($primary, 10%);
+            }
+
             .icon {
                 fill: white;
                 height: 14px;
