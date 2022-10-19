@@ -9,7 +9,8 @@ import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import WIPModal from 'components/Foreground/Modals/WIPModal/WIPModal';
 import Layout from 'components/Layout';
 import PageNotFound from 'pages/PageNotFound';
-import routes from 'routes';
+import APCUnlockPage from 'pages/UnlockPage';
+import routes, { routeNames } from 'routes';
 
 const environment = 'devnet';
 
@@ -26,7 +27,12 @@ const App = () => {
           <TransactionsToastList />
           <NotificationModal />
           <SignTransactionsModals className='custom-class-for-modals' />
+
           <Routes>
+            <Route
+              path={routeNames.unlock}
+              element={<APCUnlockPage loginRoute={routeNames.home} />}
+            />
             {routes.map((route: any, index: number) => (
               <Route
                 path={route.path}

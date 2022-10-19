@@ -9,7 +9,7 @@ import MaiarLogo from './../../assets/img/icons/Maiar_logo.png';
 import walletImg from './../../assets/img/wallet.png';
 import style from './unlock.module.scss';
 
-interface UnlockRouteProps {
+interface Props {
   loginRoute: string;
 }
 
@@ -19,7 +19,7 @@ enum State {
   Ledger,
 }
 
-export const UnlockRoute = ({ loginRoute }: UnlockRouteProps) => {
+export const APCUnlockPage = ({ loginRoute }: Props) => {
 
   const [state, setState] = React.useState(State.LoginButtons);
 
@@ -82,7 +82,7 @@ export const UnlockRoute = ({ loginRoute }: UnlockRouteProps) => {
   }
 };
 
-export default UnlockRoute;
+export default APCUnlockPage;
 
 interface LoginButtonsProps {
   loginRoute: string;
