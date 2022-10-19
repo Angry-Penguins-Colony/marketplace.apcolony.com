@@ -4,7 +4,6 @@ import AuthentificatedPatternRouteWrapper from 'components/Abstract/Authentifica
 import { dAppName } from 'config';
 import CategoriesOffers from 'pages/CategoriesOffers';
 import Inspect from 'pages/Inspect';
-import APCUnlockPage from 'pages/UnlockPage';
 import CategoriesType from 'sdk/types/CategoriesType';
 import withPageTitle from './components/PageTitle';
 import Customize from './pages/Customize';
