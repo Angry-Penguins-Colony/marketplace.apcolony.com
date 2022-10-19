@@ -1,5 +1,5 @@
 import * as React from 'react';
-import LoginButton from 'components/Buttons/LoginButton/LoginButton';
+import ConnectWalletButton from 'components/Buttons/ConnectWalletButton';
 import Price from 'sdk/classes/Price';
 import useIsConnected from 'sdk/hooks/dapp-core-upgraded/useIsConnected';
 import Button from '../Button/Button';
@@ -38,7 +38,7 @@ const BuyPriceContainer = ({
                                     Buy
                                 </Button>
                                 :
-                                <LoginButton className={style.button} />
+                                <ConnectWalletButton className={style.button} />
                         }
 
                         {showOffersCount &&

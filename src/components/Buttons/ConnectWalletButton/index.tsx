@@ -4,7 +4,7 @@ import { routeNames } from 'routes';
 import { ILogButtonProps } from '../LoginLogoutButton';
 
 
-const LoginButton = ({ className: btnClassName = '', type = 'primary' }: ILogButtonProps) => {
+const ConnectWalletButton = ({ className: btnClassName = '', type = 'primary' }: ILogButtonProps) => {
 
 
     return <Button type={type} className={btnClassName} onClick={() => {
@@ -14,4 +14,4 @@ const LoginButton = ({ className: btnClassName = '', type = 'primary' }: ILogBut
     </Button>
 };
 
-export default LoginButton;
+export default ConnectWalletButton;

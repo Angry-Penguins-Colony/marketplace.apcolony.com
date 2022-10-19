@@ -5,7 +5,7 @@ import Button from 'components/Abstract/Button/Button';
 import { ILogButtonProps } from '../LoginLogoutButton';
 
 
-const LogoutButton = ({ className: btnClassName = '', type = 'primary' }: ILogButtonProps) => {
+const DisconnectWalletButton = ({ className: btnClassName = '', type = 'primary' }: ILogButtonProps) => {
 
     const { address } = useGetAccountInfo();
 
@@ -19,4 +19,4 @@ const LogoutButton = ({ className: btnClassName = '', type = 'primary' }: ILogBu
 
 };
 
-export default LogoutButton;
+export default DisconnectWalletButton;

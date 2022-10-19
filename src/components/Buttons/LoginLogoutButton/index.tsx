@@ -1,8 +1,8 @@
 import React from 'react';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { ButtonType } from 'components/Abstract/Button/Button';
-import LoginButton from '../LoginButton/LoginButton';
-import LogoutButton from '../LogoutButton';
+import ConnectWalletButton from '../ConnectWalletButton';
+import DisconnectWalletButton from '../DisconnectWalletButton';
 
 export interface ILogButtonProps {
     className?: string;
@@ -15,11 +15,11 @@ const LoginLogoutButton = (props: ILogButtonProps) => {
     const isConnected = !!address;
 
     if (isConnected) {
-        return <LogoutButton {...props} />
+        return <DisconnectWalletButton {...props} />
 
     }
     else {
-        return <LoginButton {...props} />
+        return <ConnectWalletButton {...props} />
     }
 
 };
