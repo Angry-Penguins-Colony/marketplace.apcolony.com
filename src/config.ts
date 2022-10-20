@@ -13,7 +13,7 @@ export const userConfig: IRenderConfigOptions = {
 
         for (const item of items) {
             if (!itemsCID[item.slot]) itemsCID[item.slot] = {};
-            itemsCID[item.slot][item.id] = item.renderCID;
+            itemsCID[item.slot][item.id] = item.id;
         }
 
         return itemsCID
