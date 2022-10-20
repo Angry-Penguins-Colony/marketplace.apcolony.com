@@ -12,7 +12,7 @@ import useGetExploreItems from 'sdk/hooks/api/useGetExploreItems';
 import useGetItem from 'sdk/hooks/api/useGetItem';
 import useGetOffers from 'sdk/hooks/api/useGetOffers';
 import CustomizationIcon from './customization.png';
-import HeaderPenguin from './header-penguins.png';
+import HeaderPenguin from './header-penguins.jpg';
 import style from './index.module.scss';
 import SellAndBuyPenguinExample from './sell_and_buy_penguin_example.png';
 

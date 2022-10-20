@@ -14,7 +14,7 @@ import { isOfferCategoryValid } from 'sdk/misc/guards';
 import MarketData from '../../components/Inventory/MarketData';
 import defaultPenguinImg from './../../assets/img/penguin_default.png';
 import style from './index.module.scss';
-import PenguinIcon from './penguin-icon.png';
+import PenguinIcon from './penguin-icon.jpg';
 
 // TODO: for penguin
 const CategoriesOffers = () => {
