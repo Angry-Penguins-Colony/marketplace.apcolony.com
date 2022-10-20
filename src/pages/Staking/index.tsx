@@ -7,6 +7,7 @@ import APCLogoWhite from 'assets/img/apc-logo/white.png';
 import apCoinRewardsImg from 'assets/img/apc_coin_reward.png';
 import apcStakedImg from 'assets/img/apc_staked.png';
 import penguinAndStack from 'assets/img/penguin_and_stack.png';
+import tokenGeneratedMobile from 'assets/img/token_generated_mobile.png';
 import AccessoriesExamples from 'components/Abstract/AccessoriesExamples/AccessoriesExamples';
 import AccessoriesGeneration from 'components/Abstract/AccessoriesGeneration/AccessoriesGeneration';
 import Button from 'components/Abstract/Button/Button';
@@ -85,6 +86,16 @@ export default function Staking() {
           <AccessoriesExamples />
         </div>
       </section>
+
+      <section className={style['token-generated']}>
+        <div className={style['img-container']}>
+          <img src={tokenGeneratedMobile} alt="Token generated" />
+        </div>
+        <div className={style.counter}>
+          20000
+        </div>
+      </section>
+
       
     </div>
 
