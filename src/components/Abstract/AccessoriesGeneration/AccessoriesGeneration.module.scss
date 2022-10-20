@@ -1,0 +1,34 @@
+@import "./../../../assets/sass/var.scss";
+
+.accessory-generation{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px 25px 10px 20px;
+    min-width:271px;
+    margin-top:38px;
+    .info{
+        >div:first-child{
+            font-family: "Config Rounded", sans-serif;
+            text-transform: uppercase;
+            color:#9C9EA8;
+            font-size: 1rem;
+            margin-bottom: 7px;
+        }
+        >div:last-child{
+            font-family: "CHEDROS", sans-serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color:$primary;
+        }
+    }
+    
+    .img-container{
+        img{
+            width: 62px;
+        }
+    }
+
+}

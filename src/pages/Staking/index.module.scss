@@ -137,7 +137,7 @@
             }
         }
     }
-    --padding-section: 80px;
+    --padding-section: 37px;
     .stake-list{
         >p{
             font-family: "CHEDROS", sans-serif;
@@ -170,11 +170,10 @@
         > .content {
             display: flex;
             overflow: auto;
-            gap:10px;
+            gap:18px;
             padding-right: var(--padding-section);
             padding-left: var(--padding-section);
             padding-bottom: 15px;
-            @extend .custom-scrollbar;
 
             >div{
                 min-width: 250px;
@@ -182,6 +181,40 @@
 
             &::-webkit-scrollbar-track {
                 margin: var(--padding-section);
+            }
+        }
+    }
+    .accessories{
+        margin-top: 60px;
+        padding: $layout_padding;
+        h2{
+            font-family: "CHEDROS", sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-align: center;
+            span{
+                color:$primary;
+            }
+        }
+        .accessories-list{
+            display: flex;
+            overflow: auto;
+            gap:18px;
+            padding-right: var(--padding-section);
+            padding-bottom: 15px;
+
+            &::-webkit-scrollbar-track {
+                margin: var(--padding-section);
+            }
+        }
+        .img-container{
+            text-align: center;
+            margin-bottom: 20px;
+            img{
+                width: 100%;
+                margin-top: 62px;
+                transform: scale(1.35);
+                max-width: 350px;
             }
         }
     }
