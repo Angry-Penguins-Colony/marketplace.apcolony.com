@@ -17,9 +17,10 @@ import ImageRenderer from '@apcolony/renderer/dist/classes/ImageRenderer';
 import IPFSCache from '@apcolony/renderer/dist/classes/ipfscache';
 import "dotenv/config";
 import { UrisKvp } from './structs/CIDKvp';
+import throng from 'throng';
 const Hash = require('ipfs-only-hash')
 
-main();
+throng(1, main);
 
 async function main() {
 
