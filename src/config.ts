@@ -1,4 +1,3 @@
-import BadgePlugin from "./classes/plugins/badgePlugin/BadgePlugin";
 import Resize2DImage from "./classes/plugins/Resize2DImage/Resize2DImage";
 import ImageMIMEType from "./enums/ImageMIMEType";
 import IPlugin from "./interfaces/IPlugin";
