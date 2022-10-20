@@ -7,7 +7,6 @@ import ErrorPage from 'components/ErrorPage';
 import SearchIcon from 'components/Icons/SearchIcon';
 import { Item } from 'components/Inventory/Item/Item';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import { ipfsGateway } from 'config';
 import { buildRouteLinks } from 'routes';
 import useGetMarketData from 'sdk/hooks/api/useGetMarketData';
 import useGetOffersOfCategory from 'sdk/hooks/api/useGetOffersOfCategory';
@@ -89,7 +88,7 @@ const CategoriesOffers = () => {
 
                                 <div className={style.desktop}>
                                     <img src={defaultPenguinImg} alt="default background of any penguin" className={style.background} />
-                                    <img src={ipfsGateway + variant.thumbnailCID} alt="" className={style.item} />
+                                    <img src={variant.thumbnailWebUri} alt="" className={style.item} />
                                     <div className={style.infos}>
                                         <div className={style.name}>{variant.name}</div>
                                     </div>

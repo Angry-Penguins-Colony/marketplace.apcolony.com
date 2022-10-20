@@ -10,7 +10,6 @@ import penguinAndStack from 'assets/img/penguin_and_stack.png';
 import AccessoriesGeneration from 'components/Abstract/AccessoriesGeneration/AccessoriesGeneration';
 import Button from 'components/Abstract/Button/Button';
 import { GenericItemExplorer } from 'components/Navigation/GenericItemExplorer';
-import { ipfsGateway } from 'config';
 import { buildRouteLinks } from 'routes';
 import useGetExploreItems from 'sdk/hooks/api/useGetExploreItems';
 import style from './index.module.scss';
@@ -45,30 +44,30 @@ export default function Staking() {
           <span>00001/5555</span>
         </div>
       </section>
-      
+
       {
         exploreItems && exploreItems.length > 0 && (
           <section className={style['stake-list']}>
             <p>You have <span>{exploreItems.length}</span> angry penguins staked.</p>
             <div className={style.content}>
-                {
-                  exploreItems?.map(item => (
-                    <GenericItemExplorer
-                      key={item.id}
-                      thumbnail={ipfsGateway + item.thumbnailCID}
-                      name={item.name}
-                      onClick={() => {
-                        window.location.href = buildRouteLinks.inspect(item.type, item.id);
-                      }}
-                    />
-                  ))
-                }
-              </div>
+              {
+                exploreItems?.map(item => (
+                  <GenericItemExplorer
+                    key={item.id}
+                    thumbnail={item.thumbnailWebUri}
+                    name={item.name}
+                    onClick={() => {
+                      window.location.href = buildRouteLinks.inspect(item.type, item.id);
+                    }}
+                  />
+                ))
+              }
+            </div>
           </section>
         )
       }
 
-      <section  className={style['accessories']}>
+      <section className={style['accessories']}>
         <div className={style.grid}>
           <h2><span>Each accessory</span> on your penguin <span>generates</span> a <span>certain amount of token</span> when it is deposited in staking.</h2>
           <div className={style['accessories-list']}>
@@ -90,7 +89,7 @@ export default function Staking() {
       <section className={style['accessories']}>
 
       </section>
-      
+
     </div>
 
   )

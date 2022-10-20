@@ -2,7 +2,6 @@ import * as React from 'react';
 import { IItem } from '@apcolony/marketplace-api';
 import Button from 'components/Abstract/Button/Button';
 import RoundedList from 'components/Abstract/RoundedList/RoundedList';
-import { ipfsGateway } from 'config';
 import defaultPenguinImg from './../../../assets/img/penguin_default.png';
 import style from './PopupFromBottom.module.scss';
 
@@ -85,7 +84,7 @@ const PopupFromBottom = (
                                 <SelectableItem
                                     count={ownedItemsAmount[item.id] ?? 0}
                                     name={item.name}
-                                    renderImageSrc={ipfsGateway + item.renderCID}
+                                    renderImageSrc={item.renderUrl}
                                     key={item.identifier}
                                     isSelected={isSelected}
                                     isDisabled={disableSelection}

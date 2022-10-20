@@ -4,7 +4,6 @@ import Button from 'components/Abstract/Button/Button';
 import CrossIcon from 'components/Icons/CrossIcon';
 import { Item } from 'components/Inventory/Item/Item';
 import SetPrice from 'components/Inventory/SetPrice/SetPrice';
-import { ipfsGateway } from 'config';
 import Price from 'sdk/classes/Price';
 import CategoriesType from 'sdk/types/CategoriesType';
 import style from './BuyingPopup.module.scss';
@@ -49,7 +48,7 @@ const BuyingPopup = (
                                 <CrossIcon className={style.icon} />
                             </div>
                                 <h2>Sell item</h2>
-                                <img src={ipfsGateway + item.thumbnailCID} alt={item.name} />
+                                <img src={item.thumbnailWebUri} alt={item.name} />
                                 <div className={style.infos}>
                                     <div className={style.line}>
                                         <div className={style.label}>Item Id</div>
@@ -66,7 +65,7 @@ const BuyingPopup = (
                             </div>
                                 <h2>Checkout</h2>
                                 <div className={style.infos}>
-                                    <img src={ipfsGateway + item.thumbnailCID} alt={item.name} />
+                                    <img src={item.thumbnailWebUri} alt={item.name} />
                                     <div className={style.infos}>
                                         <div className={style.line}>
                                             <div className={style.label}>Penguin ID</div>

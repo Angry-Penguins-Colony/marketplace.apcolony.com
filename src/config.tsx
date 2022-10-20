@@ -14,16 +14,15 @@ console.log('Muted logs', logFlags);
 export const apcLogger = new APCLogger(logFlags as LogType[]);
 
 export const dAppName = 'Marketplace';
-export const ipfsGateway = 'https://ipfs.io/ipfs/';
 
 export const twitter = 'https://twitter.com/angrypenguins_';
 export const discordInvitation = 'https://discord.com/invite/GKUV3XFcG8';
 
 export const defaultImages = {
-  'background': ipfsGateway + 'Qmc1rfcs7w7wRs2Ey8GXsfGFA5GhSULiJ9yvQvxwBmVpay',
-  'beak': ipfsGateway + 'Qmamqckr2cpqfXGfDroDZTY61k9by2tYAsw1HeBKEcAg8n',
-  'eyes': ipfsGateway + 'QmaapjJRWBzUvgGfJLdkFtjdBRZCvyPkv7oSM9xxbehDJq',
-  'skin': ipfsGateway + 'QmdBbSbwW9Ho7Yk2sKLnV8bbvrwLzJfhLUejQpH7CvGkik',
+  'background': 'https://apc-items.s3.eu-west-3.amazonaws.com/render_default/background.png',
+  'beak': 'https://apc-items.s3.eu-west-3.amazonaws.com/render_default/beak.png',
+  'eyes': 'https://apc-items.s3.eu-west-3.amazonaws.com/render_default/eyes.png',
+  'skin': 'https://apc-items.s3.eu-west-3.amazonaws.com/render_default/skin.png',
 };
 
 function getNetworkInfos() {

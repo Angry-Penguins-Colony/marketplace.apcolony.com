@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { ipfsGateway } from 'config';
 import style from './Item.module.scss';
 
 export const Item = ({
@@ -13,7 +12,7 @@ export const Item = ({
     item: {
         name: string,
         id: string,
-        thumbnailCID: string
+        thumbnailWebUri: string
     },
     className?: string;
     displayId?: boolean;
@@ -30,7 +29,7 @@ export const Item = ({
                 {/* <p className={style.rarity}>Rarity: {item.rarity}%</p> */}
             </div>
             <div className={style.thumbnail}>
-                <img src={ipfsGateway + item.thumbnailCID} alt={item.name} />
+                <img src={item.thumbnailWebUri} alt={item.name} />
             </div>
         </div>
     );

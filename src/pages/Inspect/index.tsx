@@ -15,7 +15,7 @@ import ItemSubProperties from 'components/InspectSubProperties/ItemSubProperties
 import PenguinSubProperties from 'components/InspectSubProperties/PenguinSubProperties';
 import ItemsAndActivities from 'components/Inventory/ItemsAndActivities/ItemsAndActivities';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import { ipfsGateway, marketplaceContractAddress } from 'config';
+import { marketplaceContractAddress } from 'config';
 import { buildRouteLinks } from 'routes';
 import Price from 'sdk/classes/Price';
 import useGetOffers from 'sdk/hooks/api/useGetOffers';
@@ -89,7 +89,7 @@ const Inspect = () => {
         <div id={style['item-in-inventory']}>
             <MobileHeader title={typeInText.plural} type='light' />
             <div className={style.thumbnail}>
-                <img src={item ? (ipfsGateway + item.thumbnailCID) : ''} alt={item?.name ?? 'loading item'} />
+                <img src={item ? (item.thumbnailWebUri) : ''} alt={item?.name ?? 'loading item'} />
             </div>
             <div className={style.infos}>
                 <p className={style.name}>{item?.name ?? '---'}</p>

@@ -12,7 +12,6 @@ import PopupFromBottom from 'components/Inventory/PopupFromBottom/PopupFromBotto
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import GoToAnotherPenguin from 'components/Navigation/GoToAnotherPenguin/GoToAnotherPenguin';
 import PenguinRender from 'components/PenguinRender/PenguinRender';
-import { ipfsGateway } from 'config';
 import { buildRouteLinks } from 'routes';
 import { useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
 import useCustomization from 'sdk/hooks/useCustomization';
@@ -348,7 +347,7 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
             className={className}
             onClick={() => { openItemsPopup(slot, title); }}>
             {
-                item && <img src={ipfsGateway + item.thumbnailCID} />
+                item && <img src={item.thumbnailWebUri} />
             }
         </div >
     }
@@ -358,9 +357,9 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
 
         if (item != undefined) {
 
-            if (!item.renderCID) throw new Error(`Item ${item.name} in slot ${slot} has no renderCID.`);
+            if (!item.renderUrl) throw new Error(`Item ${item.name} in slot ${slot} has no renderCID.`);
 
-            return ipfsGateway + item.renderCID;
+            return item.renderUrl;
         }
         else {
             return undefined;

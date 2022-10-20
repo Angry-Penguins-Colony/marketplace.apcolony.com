@@ -2,7 +2,6 @@ import * as React from 'react';
 import { IPenguin } from '@apcolony/marketplace-api';
 import LeftArrowIcon from 'components/Icons/LeftArrowIcon';
 import RightArrowIcon from 'components/Icons/RightArrowIcon';
-import { ipfsGateway } from 'config';
 import { buildRouteLinks } from 'routes';
 import style from './GoToAnotherPenguin.module.scss';
 
@@ -63,7 +62,7 @@ const GoToAnotherPenguin = (
                     {
                         leftPenguin && (
                             <div className={style.penguin} onClick={goToLeftPenguin}>
-                                <img src={ipfsGateway + leftPenguin.thumbnailCID} alt={leftPenguin.name} />
+                                <img src={leftPenguin.thumbnailWebUri} alt={leftPenguin.name} />
                             </div>
                         ) || (
                             <div className={style.penguin + ' ' + style.empty}></div>
@@ -72,14 +71,14 @@ const GoToAnotherPenguin = (
                     {
                         currentPenguin && (
                             <div className={style.penguin + ' ' + style.current}>
-                                <img src={ipfsGateway + currentPenguin.thumbnailCID} alt={currentPenguin.name} />
+                                <img src={currentPenguin.thumbnailWebUri} alt={currentPenguin.name} />
                             </div>
                         )
                     }
                     {
                         rightPenguin && (
                             <div className={style.penguin} onClick={goToRightPenguin}>
-                                <img src={ipfsGateway + rightPenguin.thumbnailCID} alt={rightPenguin.name} />
+                                <img src={rightPenguin.thumbnailWebUri} alt={rightPenguin.name} />
                             </div>
                         ) || (
                             <div className={style.penguin + ' ' + style.empty}></div>

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { IGenericElement } from '@apcolony/marketplace-api';
 import ReactImageAppear from 'components/Images/ReactImageAppear/ReactImageAppear';
-import { ipfsGateway } from 'config';
 import { buildRouteLinks } from 'routes';
 import CategoriesType from 'sdk/types/CategoriesType';
 import Filters from '../../../sdk/types/Filters';
@@ -10,7 +9,7 @@ import style from './ItemsInventory.module.scss';
 export interface IInventoryItem {
     name: string;
     amount: number;
-    thumbnailCID: string;
+    thumbnailWebUri: string;
     id: string;
 }
 
@@ -70,7 +69,7 @@ interface IItemProps {
     item: {
         name: string,
         amount: number,
-        thumbnailCID: string,
+        thumbnailWebUri: string,
         id: string
     },
     type: CategoriesType
@@ -85,7 +84,7 @@ const Item = ({
         <div className={style.item} onClick={() => {
             window.location.href = buildRouteLinks.inspect(type, item.id);
         }}>
-            <ReactImageAppear src={ipfsGateway + item.thumbnailCID} />
+            <ReactImageAppear src={item.thumbnailWebUri} />
             <div className={style.name}>{item.name}</div>
             {(item.amount && type == 'items') &&
                 <div className={style.count}>{item.amount}</div>

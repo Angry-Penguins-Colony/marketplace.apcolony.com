@@ -9,7 +9,6 @@ import Button from 'components/Abstract/Button/Button';
 import { BigCategory } from 'components/Navigation/BigCategory/BigCategory';
 import { CategoryItem } from 'components/Navigation/CategoryItem/CategoryItem';
 import { GenericItemExplorer } from 'components/Navigation/GenericItemExplorer';
-import { ipfsGateway } from 'config';
 import { buildRouteLinks, routeNames } from 'routes';
 import useGetExploreItems from 'sdk/hooks/api/useGetExploreItems';
 import useGetItem from 'sdk/hooks/api/useGetItem';
@@ -71,7 +70,7 @@ const Home = () => {
               exploreItems.map(item => (
                 <GenericItemExplorer
                   key={item.id}
-                  thumbnail={ipfsGateway + item.thumbnailCID}
+                  thumbnail={item.thumbnailWebUri}
                   name={item.name}
                   onClick={() => {
                     window.location.href = buildRouteLinks.inspect(item.type, item.id);
@@ -115,7 +114,7 @@ const Home = () => {
                   }
                 </p>
               </div>
-              <img src={ipfsGateway + highlightedItem.renderCID} alt={highlightedItem.name} />
+              <img src={highlightedItem.renderUrl} alt={highlightedItem.name} />
             </section>
           )
         }
