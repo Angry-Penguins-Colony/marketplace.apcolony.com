@@ -1,7 +1,6 @@
 import React from 'react';
 import APCLogoBlue from 'assets/img/apc-logo/blue.svg';
-import DiscordIcon from 'components/Icons/DiscordIcon';
-import TwitterIcon from 'components/Icons/TwitterIcon';
+import SocialButtons from 'components/Buttons/SocialButtons';
 import style from './footer.module.scss';
 
 const Footer = () => {
@@ -22,14 +21,7 @@ const Footer = () => {
             <div className={style.logo}>
               <img src={APCLogoBlue} alt="logo Angry Penguins" />
             </div>
-            <div className={style.social}>
-              <div className={style.twitter + ' ' + style.icon}>
-                <TwitterIcon />
-              </div>
-              <div className={style.discord + ' ' + style.icon}>
-                <DiscordIcon />
-              </div>
-            </div>
+            <SocialButtons className={style.social} />
           </div>
           <div className={style['privacy-policy']}>
             <a href='TODO: add terms'>Terms</a>

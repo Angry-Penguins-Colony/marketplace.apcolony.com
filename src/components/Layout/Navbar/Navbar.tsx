@@ -2,12 +2,11 @@ import React from 'react';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import APCLogoColored from 'assets/img/apc-logo/colored.png';
 import LoginLogoutButton from 'components/Buttons/LoginLogoutButton';
-import DiscordIcon from 'components/Icons/DiscordIcon';
+import SocialButtons from 'components/Buttons/SocialButtons';
 import HomeIcon from 'components/Icons/HomeIcon';
 import LabIcon from 'components/Icons/LabIcon';
 import MenuIcon from 'components/Icons/MenuIcon';
 import ProfileIcon from 'components/Icons/ProfileIcon';
-import TwitterIcon from 'components/Icons/TwitterIcon';
 import { buildRouteLinks, routeNames } from 'routes';
 import MobileMenu from '../MobileMenu/MobileMenu';
 import style from './navbar.module.scss';
@@ -114,14 +113,7 @@ const Navbar = () => {
             </div> */}
           </div>
           <div className={style.right}>
-            <div className={style.social}>
-              <div className={style.twitter + ' ' + style.icon}>
-                <TwitterIcon />
-              </div>
-              <div className={style.discord + ' ' + style.icon}>
-                <DiscordIcon />
-              </div>
-            </div>
+            <SocialButtons className={style.social} />
 
             <LoginLogoutButton className={style.button} />
           </div>
