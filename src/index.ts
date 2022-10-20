@@ -16,6 +16,7 @@ import RenderAttributes from '@apcolony/renderer/dist/classes/RenderAttributes';
 import ImageRenderer from '@apcolony/renderer/dist/classes/ImageRenderer';
 import IPFSCache from '@apcolony/renderer/dist/classes/ipfscache';
 import "dotenv/config";
+import { UrisKvp } from './structs/CIDKvp';
 const Hash = require('ipfs-only-hash')
 
 main();
@@ -59,7 +60,13 @@ async function main() {
                 .map((item) => renderAdvanced(item, imageRenderer));
 
             const items = (await Promise.all(itemsPromises))
-                .filter((item) => item !== undefined && alreadyProcessedCID.includes(item.cid) == false) as IItemToProcess[];
+                .filter((item) => item != undefined && alreadyProcessedCID.includes(item.cid) == false)
+                .map((item: any) => {
+                    return {
+                        uri: "https://ipfs.io/ipfs/" + item.cid,
+                        ...item
+                    }
+                });
 
             const skippedElements = itemsPromises.length - items.length;
             if (skippedElements > 0) {
@@ -72,7 +79,7 @@ async function main() {
 
                 await Promise.all([
                     pinata.multiplePin(items),
-                    writeGateway.setCid(items, customisationSC),
+                    writeGateway.setUris(items, customisationSC),
                 ])
 
                 for (const item of items) {

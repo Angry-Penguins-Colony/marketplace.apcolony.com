@@ -4,7 +4,7 @@ import { ISigner } from "@elrondnetwork/erdjs-walletcore/out/interface";
 import { IAddress, ISmartContract, StringValue, Transaction, TransactionPayload } from "@elrondnetwork/erdjs/out";
 import { sleep } from "ts-apc-utils";
 import { TransactionResult } from "../interfaces/TransactionResult";
-import { CIDKvp } from "../structs/CIDKvp";
+import { UrisKvp } from "../structs/CIDKvp";
 import BigNumber from "bignumber.js";
 import colors from "colors";
 import Bottleneck from "bottleneck";
@@ -98,12 +98,12 @@ export default class WriteGateway {
         return this.sendTransaction(tx);
     }
 
-    public async setCid(cids: CIDKvp[], customisationContract: ISmartContract) {
-        if (cids.length == 0) throw new Error("No CID to send");
+    public async setUris(uris: UrisKvp[], customisationContract: ISmartContract) {
+        if (uris.length == 0) throw new Error("No CID to send");
 
-        const txPromises = cids.map(({ cid, attributes }) => {
+        const txPromises = uris.map(({ uri: cid, attributes }) => {
 
-            const func = { name: "setCidOf" };
+            const func = { name: "setUriOfAttributes" };
             const args = [
                 new StringValue(attributes.toAttributes(devnetToolDeploy.items, renderConfig.slots)),
                 new StringValue(cid)
@@ -113,7 +113,7 @@ export default class WriteGateway {
                 func: func,
                 args: args,
                 value: "",
-                gasLimit: 35_000_000 + 10_000_000 * cids.length,
+                gasLimit: 35_000_000 + 10_000_000 * uris.length,
                 gasPrice: this.networkConfig.MinGasPrice,
                 chainID: this.networkConfig.ChainID,
             });
