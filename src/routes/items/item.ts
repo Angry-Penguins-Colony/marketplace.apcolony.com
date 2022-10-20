@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { APCNetworkProvider } from "../../classes/APCNetworkProvider";
-import { itemsDatabase } from '../../const';
+import ItemsDatabase from '../../classes/ItemsDatabase';
 import { sendSuccessfulJSON } from '../../utils/response';
 
-export default async function getItem(req: Request, res: Response, proxyNetwork: APCNetworkProvider) {
+export default async function getItem(req: Request, res: Response, itemsDatabase: ItemsDatabase) {
 
     const id = req.params.id;
 

@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import cors from "cors";
 import getPenguins from './routes/penguins/owned';
 import getOwnedItems from './routes/items/owned';
-import { api, gateway } from './const';
+import { api, gateway, items, itemsDatabaseJson } from './const';
 import { getNetworkType } from './env';
 import throng from 'throng';
 import { APCNetworkProvider } from './classes/APCNetworkProvider';
@@ -21,6 +21,7 @@ import getPenguinsOffersStats from './routes/penguins/offersStats';
 import getExploreItems from './routes/root/exploreItems';
 import getOwnedAmount from './routes/root/ownedAmount';
 import { logErrorIfMissingItems } from './utils/dbHelper';
+import ItemsDatabase from './classes/ItemsDatabase';
 
 const workers = parseInt(process.env.WEB_CONCURRENCY || "1");
 const port = process.env.PORT || 5001;
@@ -35,7 +36,8 @@ function start(id: number) {
     }));
     app.use(cors());
 
-    const networkProvider = new APCNetworkProvider(gateway, api);
+    const itemsDatabase = ItemsDatabase.fromItemsDatabaseJSON(itemsDatabaseJson, items);
+    const networkProvider = new APCNetworkProvider(gateway, api, itemsDatabase);
 
     logErrorIfMissingItems(networkProvider);
 
@@ -47,16 +49,16 @@ function start(id: number) {
     app.get("/penguins/offer/:id", (req, res) => getOffer(req, res, "penguins", networkProvider));
     app.get('/penguins/owned/:bech32', (req, res) => getPenguins(req, res, networkProvider));
 
-    app.get("/items/item/:id", (req, res) => getItem(req, res, networkProvider));
+    app.get("/items/item/:id", (req, res) => getItem(req, res, itemsDatabase));
     app.get("/items/activity/:id", (req, res) => getActivity(req, res, "items", networkProvider));
-    app.get("/items/offers/", (req, res) => getItemsOffers(req, res, networkProvider));
-    app.get("/items/offers/:category", (req, res) => getItemsOffers(req, res, networkProvider));
+    app.get("/items/offers/", (req, res) => getItemsOffers(req, res, networkProvider, itemsDatabase));
+    app.get("/items/offers/:category", (req, res) => getItemsOffers(req, res, networkProvider, itemsDatabase));
     app.get("/items/offers/:category/stats", (req, res) => getItemOffersStats(req, res, networkProvider));
     app.get("/items/offer/:id", (req, res) => getOffer(req, res, "items", networkProvider));
     app.get('/items/owned/:bech32', (req, res) => getOwnedItems(req, res, networkProvider));
 
     app.get('/attributes', (req, res) => getAttributes(req, res, networkProvider));
-    app.get("/exploreItems", (req, res) => getExploreItems(req, res, networkProvider));
+    app.get("/exploreItems", (req, res) => getExploreItems(req, res, networkProvider, itemsDatabase));
 
 
     app.listen(port, () => {

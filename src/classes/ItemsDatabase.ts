@@ -1,5 +1,6 @@
 import { IItem } from "@apcolony/marketplace-api";
 import fs from "fs";
+import { webThumbnail, ipfsGateway } from "../const";
 
 
 interface Item extends IItem {
@@ -25,7 +26,7 @@ export default class ItemsDatabase {
 
         const items: Item[] = parsedItems
             .filter(({ name }) => name != "Default")
-            .map(({ id, name, renderCID, thumbnailCID, slot, supply, attributeName }) => {
+            .map(({ id, name, renderCID, slot, supply, attributeName }) => {
 
                 if (!id) {
                     throw new Error(`Item ${name} has no id`);
@@ -43,14 +44,14 @@ export default class ItemsDatabase {
                     name,
                     attributeName,
 
-                    thumbnailCID,
+                    thumbnailWebUri: webThumbnail(id),
                     identifier: item?.identifier ?? "",
                     collection: item?.collection ?? "",
                     nonce: item?.nonce ?? 0,
 
                     slot,
                     description: "", // TODO:
-                    renderCID,
+                    renderUrl: ipfsGateway + renderCID,
                     supply
                 }
             });

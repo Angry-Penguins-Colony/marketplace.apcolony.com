@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
-import { penguinsCollection, itemsCollection, itemsDatabase } from '../../const';
+import { penguinsCollection, itemsCollection } from '../../const';
 import { APCNetworkProvider } from '../../classes/APCNetworkProvider';
 import { sendSuccessfulJSON } from '../../utils/response';
 import { getItemFromToken, getTokenFromItemID } from '../../utils/dbHelper';
 import { IItem } from '@apcolony/marketplace-api';
+import ItemsDatabase from '../../classes/ItemsDatabase';
 
-export default async function getItemsOffers(req: Request, res: Response, networkProvider: APCNetworkProvider) {
+export default async function getItemsOffers(req: Request, res: Response, networkProvider: APCNetworkProvider, itemsDatabase: ItemsDatabase) {
 
     const collections = getCollections();
 

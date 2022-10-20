@@ -4,13 +4,14 @@ import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkPro
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { AbiRegistry, Address, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, StringValue, U64Value } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
-import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsDatabase, itemsCollection } from "../const";
+import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsCollection, items } from "../const";
 import { getItemFromAttributeName, getTokenFromItemID, isCollectionAnItem } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, getNameFromPenguinId, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
 import { BigNumber } from "bignumber.js";
 import { parseActivity, parseMarketData, parseMultiValueIdAuction } from "./ABIParser";
 import { toIdentifier } from "../utils/conversion";
+import ItemsDatabase from "./ItemsDatabase";
 
 /**
  * We create this function because a lot of methods of ProxyNetworkProvider are not implemented yet.
@@ -19,14 +20,16 @@ export class APCNetworkProvider {
 
     private readonly apiProvider: ApiNetworkProvider;
     private readonly proxyProvider: ProxyNetworkProvider;
+    private readonly itemsDatabase: ItemsDatabase;
 
-    constructor(gatewayUrl: string, apiUrl: string) {
+    constructor(gatewayUrl: string, apiUrl: string, itemsDatabase: ItemsDatabase) {
         this.proxyProvider = new ProxyNetworkProvider(gatewayUrl, {
             timeout: 15_000
         });
         this.apiProvider = new ApiNetworkProvider(apiUrl, {
             timeout: 15_000
         })
+        this.itemsDatabase = itemsDatabase;
     }
 
     /**
@@ -95,7 +98,7 @@ export class APCNetworkProvider {
 
         const items = accountsNfts
             .filter(nft => isCollectionAnItem(nft.collection))
-            .map(nft => itemsDatabase.getItemFromToken(nft.collection, nft.nonce));
+            .map(nft => this.itemsDatabase.getItemFromToken(nft.collection, nft.nonce));
 
         return items;
     }
@@ -220,7 +223,7 @@ export class APCNetworkProvider {
             collection: nft.collection,
             nonce: nft.nonce,
 
-            thumbnailCID: extractCIDFromIPFS(nft.assets[0]),
+            thumbnailWebUri: nft.assets[0],
             equippedItems: this.getEquippedItemsFromAttributes(nft.attributes.toString()),
             owner: nft.owner
         }
@@ -234,7 +237,7 @@ export class APCNetworkProvider {
         for (const { slot, itemName } of attributes) {
             if (itemName == "unequipped") continue;
 
-            equippedItems[slot] = itemsDatabase.getItemFromNameAndSlot(itemName, slot);
+            equippedItems[slot] = this.itemsDatabase.getItemFromNameAndSlot(itemName, slot);
         }
 
         return equippedItems;
