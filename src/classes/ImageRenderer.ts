@@ -4,14 +4,14 @@ import { Canvas, Image } from 'canvas';
 import IPlugin from "../interfaces/IPlugin";
 import colors from "colors";
 import RenderConfig from "./RenderConfig";
-import IPFSCache from "./ipfscache";
+import ImagesDownloader from "./ImagesDownloader";
 import Bottleneck from "bottleneck";
 import { addDefaultImages, toCidBySlot, toPaths } from "../utils/utils";
 
 export default class ImageRenderer {
     protected readonly _mimeType: string;
     protected readonly _config: RenderConfig;
-    protected readonly _ipfsCache: IPFSCache;
+    protected readonly _ipfsCache: ImagesDownloader;
 
     public get config(): RenderConfig {
         return this._config;
@@ -19,7 +19,7 @@ export default class ImageRenderer {
 
     constructor(
         config: RenderConfig,
-        ipfsCache: IPFSCache,
+        ipfsCache: ImagesDownloader,
     ) {
         this._config = config;
         this._mimeType = config.renderMIMEType;
@@ -33,7 +33,7 @@ export default class ImageRenderer {
             minTime: 0 // no minTime
         });
 
-        log(`⌛ Downloading images from ${this._ipfsCache.ipfsGateway} to ${this._ipfsCache.ipfsCacheFolder}.`, false);
+        log(`⌛ Downloading images to ${this._ipfsCache.ipfsCacheFolder}.`, false);
 
         const totalImages = this._config.allCIDs.length;
         let imagesDownloaded = 0;
@@ -57,8 +57,8 @@ export default class ImageRenderer {
             }
         }
 
-        async function downloadCID(cid: string, ipfsCache: IPFSCache) {
-            await ipfsCache.downloadCID(cid);
+        async function downloadCID(cid: string, ipfsCache: ImagesDownloader) {
+            await ipfsCache.downloadImage(cid);
 
             imagesDownloaded++;
 

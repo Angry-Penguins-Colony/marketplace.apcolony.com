@@ -1,7 +1,7 @@
 import RenderConfig from "../classes/RenderConfig";
-import IPFSCache from "../classes/ipfscache";
+import ImagesDownloader from "../classes/ImagesDownloader";
 
 export default interface IServices {
     config: RenderConfig;
-    ipfsCache: IPFSCache;
+    ipfsCache: ImagesDownloader;
 }

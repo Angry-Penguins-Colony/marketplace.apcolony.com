@@ -26,7 +26,6 @@ export const userConfig: IRenderConfigOptions = {
         "beak",
         "hat",
         "eyes",
-        "badge",
     ],
     defaultLayers: {
         "background": "Qmc1rfcs7w7wRs2Ey8GXsfGFA5GhSULiJ9yvQvxwBmVpay",

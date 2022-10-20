@@ -1,7 +1,7 @@
 import fs from 'fs';
 import axios from "axios";
 import RenderAttributes from '../classes/RenderAttributes';
-import IPFSCache from '../classes/ipfscache';
+import ImagesDownloader from '../classes/ImagesDownloader';
 import RenderConfig from '../classes/RenderConfig';
 
 /**
@@ -124,7 +124,7 @@ export function getOccurences(string: string, subString: string, allowOverlappin
     return n;
 }
 
-export function toPaths(cidBySlot: { [key: string]: string }, ipfsCache: IPFSCache, renderConfig: RenderConfig): string[] {
+export function toPaths(cidBySlot: { [key: string]: string }, ipfsCache: ImagesDownloader, renderConfig: RenderConfig): string[] {
     const paths: [string, string][] = [];
 
     for (const slot in cidBySlot) {
