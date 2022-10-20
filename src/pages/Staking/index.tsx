@@ -3,9 +3,16 @@ import APCLogoWhite from 'assets/img/apc-logo/white.png';
 import apCoinRewardsImg from 'assets/img/apc_coin_reward.png';
 import apcStakedImg from 'assets/img/apc_staked.png';
 import Button from 'components/Abstract/Button/Button';
+import { GenericItemExplorer } from 'components/Navigation/GenericItemExplorer';
+import { ipfsGateway } from 'config';
+import { buildRouteLinks } from 'routes';
+import useGetExploreItems from 'sdk/hooks/api/useGetExploreItems';
 import style from './index.module.scss';
 
+
 export default function Staking() {
+  const exploreItems = useGetExploreItems();
+
   return (
     <div id={style.launchpadVente}>
       <section className={style['top-page']}>
@@ -32,6 +39,29 @@ export default function Staking() {
           <span>00001/5555</span>
         </div>
       </section>
+      
+      {
+        exploreItems && exploreItems.length > 0 && (
+          <section className={style['stake-list']}>
+            <p>You have <span>{exploreItems.length}</span> angry penguins staked.</p>
+            <div className={style.content}>
+                {
+                  exploreItems?.map(item => (
+                    <GenericItemExplorer
+                      key={item.id}
+                      thumbnail={ipfsGateway + item.thumbnailCID}
+                      name={item.name}
+                      onClick={() => {
+                        window.location.href = buildRouteLinks.inspect(item.type, item.id);
+                      }}
+                    />
+                  ))
+                }
+              </div>
+          </section>
+        )
+      }
+      
     </div>
 
   )

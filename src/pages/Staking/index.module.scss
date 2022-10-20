@@ -20,13 +20,14 @@
         color: white;
 
         h1 {
-            font-family: "Config Rounded", sans-serif;
+            font-family: "CHEDROS", sans-serif;
+            letter-spacing: 2px;
+            font-size: 2rem;
             font-weight: 700;
             text-transform: uppercase;
             text-align: center;
             line-height: 1;
             text-align: center;
-            font-size: 1.7rem;
             line-height: 120%;
         }
         .cta{
@@ -36,6 +37,7 @@
             transform: translateX(-50%);
             width: 100%;
             p{
+                font-family: "Config Rounded", sans-serif;
                 font-size: 1.3rem;
                 max-width: 260px;
                 margin: auto;
@@ -67,7 +69,6 @@
             position: relative;
             border-radius: $radius;
             background-color: white;
-            letter-spacing: -2px;
             img{
                 position: absolute;
                 top: 0;
@@ -75,13 +76,15 @@
                 transform: translate(-55%, -50%);
             }
             h2{
+                font-family: "CHEDROS", sans-serif;
                 font-weight: 900;
-                font-size: 2.3rem;
+                font-size: 3.1rem;
             }
             >span{
+                font-family: "Config Rounded", sans-serif;
                 display: block;
                 font-weight: 700;
-                font-size: 1.8rem;
+                font-size: 2.1rem;
                 margin: 10px 0 29px;
                 color:$primary;
             }
@@ -99,10 +102,11 @@
                 padding: 20px 43px;
             }
             a{
+                font-family: "Config Rounded", sans-serif;
                 letter-spacing: 0;
                 font-weight: bold;
                 color: #ACBBEE;
-                font-size: 1.2rem;
+                font-size: 1.3rem;
                 span{
                     position: relative;
                     display:inline-block;
@@ -126,10 +130,58 @@
             }
         }
         .staked{
-            margin-top: 140px;
+            margin: 140px 0 110px;
             padding:100px 32px 17px;
             img{
                 width: 170px;
+            }
+        }
+    }
+    --padding-section: 80px;
+    .stake-list{
+        >p{
+            font-family: "CHEDROS", sans-serif;
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            span{
+                position: relative;
+                display: inline-block;
+                color:white;
+                z-index: 1;
+                margin: 0 10px;
+                &::after{
+                    content:'';
+                    position: absolute;
+                    inset:50%;
+                    transform: translate(-50%, -56%);
+                    background-color: $primary;
+                    border-radius: 100%;
+                    width: 28px;
+                    height: 28px;
+                    z-index: -1;
+                }
+            }
+        }
+        
+        > .content {
+            display: flex;
+            overflow: auto;
+            gap:10px;
+            padding-right: var(--padding-section);
+            padding-left: var(--padding-section);
+            padding-bottom: 15px;
+            @extend .custom-scrollbar;
+
+            >div{
+                min-width: 250px;
+            }
+
+            &::-webkit-scrollbar-track {
+                margin: var(--padding-section);
             }
         }
     }
