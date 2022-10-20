@@ -17,7 +17,7 @@ export const dAppName = 'Marketplace';
 export const ipfsGateway = 'https://ipfs.io/ipfs/';
 
 export const twitter = 'https://twitter.com/angrypenguins_';
-export const discordInvitation = 'https://discord.gg/angry-penguins';
+export const discordInvitation = 'https://discord.com/invite/GKUV3XFcG8';
 
 export const defaultImages = {
   'background': ipfsGateway + 'Qmc1rfcs7w7wRs2Ey8GXsfGFA5GhSULiJ9yvQvxwBmVpay',
