@@ -39,16 +39,6 @@ export const userConfig: IRenderConfigOptions = {
 };
 
 export const userPlugins: IPlugin[] = [
-    new BadgePlugin(
-        {
-            badgesFolderCID: "QmQyu1jfTbqnQ5MCdZ7iYUWx6h2KP4a922WZnboBuveqAa",
-            badgePrefix: "badges-",
-            badgeSuffix: "-render.png",
-            deleteBadgeIfSlotsEquipped: [
-                "skin"
-            ]
-        }
-    ),
     new Resize2DImage(
         1024,
         1024
