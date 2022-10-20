@@ -186,7 +186,9 @@
     }
     .accessories{
         margin-top: 60px;
-        padding: $layout_padding;
+        >div:first-child{
+            padding: $layout_padding;
+        }
         h2{
             font-family: "CHEDROS", sans-serif;
             font-weight: 700;

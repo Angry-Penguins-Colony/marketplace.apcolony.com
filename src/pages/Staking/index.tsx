@@ -7,6 +7,7 @@ import APCLogoWhite from 'assets/img/apc-logo/white.png';
 import apCoinRewardsImg from 'assets/img/apc_coin_reward.png';
 import apcStakedImg from 'assets/img/apc_staked.png';
 import penguinAndStack from 'assets/img/penguin_and_stack.png';
+import AccessoriesExamples from 'components/Abstract/AccessoriesExamples/AccessoriesExamples';
 import AccessoriesGeneration from 'components/Abstract/AccessoriesGeneration/AccessoriesGeneration';
 import Button from 'components/Abstract/Button/Button';
 import { GenericItemExplorer } from 'components/Navigation/GenericItemExplorer';
@@ -54,7 +55,7 @@ export default function Staking() {
                 exploreItems?.map(item => (
                   <GenericItemExplorer
                     key={item.id}
-                    thumbnail={item.thumbnailWebUri}
+                    thumbnail={'placeholder'}
                     name={item.name}
                     onClick={() => {
                       window.location.href = buildRouteLinks.inspect(item.type, item.id);
@@ -67,7 +68,7 @@ export default function Staking() {
         )
       }
 
-      <section className={style['accessories']}>
+      <section  className={style['accessories']}>
         <div className={style.grid}>
           <h2><span>Each accessory</span> on your penguin <span>generates</span> a <span>certain amount of token</span> when it is deposited in staking.</h2>
           <div className={style['accessories-list']}>
@@ -81,15 +82,10 @@ export default function Staking() {
           </div>
         </div>
         <div>
-          Test
+          <AccessoriesExamples />
         </div>
-
       </section>
-
-      <section className={style['accessories']}>
-
-      </section>
-
+      
     </div>
 
   )

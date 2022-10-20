@@ -1,0 +1,60 @@
+.accessories-examples{
+    position: relative;
+    background-image: url("./../../../assets/img/bg_bronze.png");
+    background-size: cover;
+    background-position: center center;
+    background-color: #090d26;
+    text-align: center;
+    >img{
+        width: 100%;
+        padding-bottom: 35px;
+    }
+    .hidden{
+        display: none;
+    }
+    .info{
+        position: absolute;
+        top:20px;
+        left:20px;
+        font-family: "Config Rounded", sans-serif;
+        color:white;
+        text-align: left;
+        p{
+            &:first-child{
+                font-weight: 200;
+                font-size: 1.1rem;
+            }
+            &:last-child{
+                font-size: 1.3rem;
+                margin-top: 9px;
+            }
+        }
+    }
+    .menu{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background-color: white;
+        width: 100%;
+        border-radius: 60px 60px 0 0;
+        padding-bottom: 20px;
+        p{
+            font-family: "CHEDROS", sans-serif;
+            font-size:1.4rem;
+            font-weight: 700;
+            padding: 15px 0 15px 0;
+        }
+        .img-container{
+            img{
+                width: 35px;
+                margin: 0 5px;
+                filter:grayscale(0.5);
+            }
+            .active{
+                filter:grayscale(0);
+                transform: scale(1.1);
+            }
+        }
+
+    }
+}
