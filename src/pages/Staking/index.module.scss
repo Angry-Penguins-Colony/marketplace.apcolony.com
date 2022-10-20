@@ -58,6 +58,81 @@
             z-index: 1;
         }
     }
+
+    .rewards{
+        padding: $layout_padding;
+
+        >div{
+            text-align: center;
+            position: relative;
+            border-radius: $radius;
+            background-color: white;
+            letter-spacing: -2px;
+            img{
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translate(-55%, -50%);
+            }
+            h2{
+                font-weight: 900;
+                font-size: 2.3rem;
+            }
+            >span{
+                display: block;
+                font-weight: 700;
+                font-size: 1.8rem;
+                margin: 10px 0 29px;
+                color:$primary;
+            }
+            
+        }
+        .claim{
+            margin-top: 170px;
+            padding:90px 32px 17px;
+            img{
+                width:400px;
+            }
+            button{
+                margin:auto;
+                margin-bottom: 15px;
+                padding: 20px 43px;
+            }
+            a{
+                letter-spacing: 0;
+                font-weight: bold;
+                color: #ACBBEE;
+                font-size: 1.2rem;
+                span{
+                    position: relative;
+                    display:inline-block;
+                    margin-left: 17px;
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                    &::after{
+                        content:'';
+                        position: absolute;
+                        inset:50%;
+                        transform: translate(-50%, -50%);
+                        border: 2px solid;
+                        border-radius: 100%;
+                        width: 22px;
+                        height: 22px;
+                    }
+                }
+                &:hover{
+                    color:$primary;
+                }
+            }
+        }
+        .staked{
+            margin-top: 140px;
+            padding:100px 32px 17px;
+            img{
+                width: 170px;
+            }
+        }
+    }
 }
 
 // desktop

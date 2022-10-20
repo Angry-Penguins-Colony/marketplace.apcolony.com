@@ -1,5 +1,7 @@
 import React from 'react'
 import APCLogoWhite from 'assets/img/apc-logo/white.png';
+import apCoinRewardsImg from 'assets/img/apc_coin_reward.png';
+import apcStakedImg from 'assets/img/apc_staked.png';
 import Button from 'components/Abstract/Button/Button';
 import style from './index.module.scss';
 
@@ -14,9 +16,21 @@ export default function Staking() {
           <Button className={style.button} type='primary-outline'>STAKE</Button>
         </div>
       </section>
-      
-      <section className={style['rewards']}>
 
+      <section className={style['rewards']}>
+        <div className={style['claim']} >
+          <img src={apCoinRewardsImg} alt="APC coin" />
+          <h2>REWARD TO CLAIM</h2>
+          <span>150 APC</span>
+          <Button className={style.button} type='primary'>CLAIM REWARDS</Button>
+          <a href="">More infos <span>i</span></a>
+        </div>
+
+        <div className={style['staked']}>
+          <img src={apcStakedImg} alt="APC staked" />
+          <h2>APC STAKED</h2>
+          <span>00001/5555</span>
+        </div>
       </section>
     </div>
 
