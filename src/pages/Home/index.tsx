@@ -2,6 +2,9 @@ import * as React from 'react';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { Link } from 'react-router-dom';
 import APCLogoWhite from 'assets/img/apc-logo/white.png';
+import CustomizationIcon from 'assets/img/customization.png';
+import HeaderPenguin from 'assets/img/header-penguins.jpg';
+import SellAndBuyPenguinExample from 'assets/img/sell_and_buy_penguin_example.png';
 import Button from 'components/Abstract/Button/Button';
 import { BigCategory } from 'components/Navigation/BigCategory/BigCategory';
 import { CategoryItem } from 'components/Navigation/CategoryItem/CategoryItem';
@@ -11,10 +14,7 @@ import { buildRouteLinks, routeNames } from 'routes';
 import useGetExploreItems from 'sdk/hooks/api/useGetExploreItems';
 import useGetItem from 'sdk/hooks/api/useGetItem';
 import useGetOffers from 'sdk/hooks/api/useGetOffers';
-import CustomizationIcon from './customization.png';
-import HeaderPenguin from './header-penguins.jpg';
 import style from './index.module.scss';
-import SellAndBuyPenguinExample from './sell_and_buy_penguin_example.png';
 
 const HIGHLIGHTED_ITEM_ID = '94';
 

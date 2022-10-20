@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { IItem } from '@apcolony/marketplace-api';
 import { Link, useParams } from 'react-router-dom';
+import PenguinIcon from 'assets/img/icons/penguin-icon.jpg';
 import UnderlineNavElmt from 'components/Abstract/UnderlineNavElmt/UnderlineNavElmt';
 import ErrorPage from 'components/ErrorPage';
 import SearchIcon from 'components/Icons/SearchIcon';
@@ -14,7 +15,6 @@ import { isOfferCategoryValid } from 'sdk/misc/guards';
 import MarketData from '../../components/Inventory/MarketData';
 import defaultPenguinImg from './../../assets/img/penguin_default.png';
 import style from './index.module.scss';
-import PenguinIcon from './penguin-icon.jpg';
 
 // TODO: for penguin
 const CategoriesOffers = () => {
