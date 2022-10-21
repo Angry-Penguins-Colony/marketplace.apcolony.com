@@ -1,3 +1,5 @@
+@import "./../../../assets/sass/var.scss";
+
 .accessories-examples{
     position: relative;
     background-image: url("./../../../assets/img/bg_bronze.png");
@@ -46,6 +48,7 @@
         }
         .img-container{
             img{
+                cursor: pointer;
                 width: 35px;
                 margin: 0 5px;
                 filter:grayscale(0.5);
@@ -56,5 +59,34 @@
             }
         }
 
+    }
+}
+
+// desktop
+@media (min-width: $desktop_min_width) {
+    .accessories-examples{
+        .info{
+            top:60px;
+            left:60px;
+            max-width: 335px;
+            p:first-child{
+                font-size: 1.4rem;
+            }
+            p:last-child{
+                font-size: 2.8rem;
+            }
+        }
+        >img{
+            padding-bottom: 0;
+        }
+        .menu{
+            padding-top: 5px;
+            .img-container{
+                padding: 10px 0;
+                img{
+                    width: 50px;
+                }
+            }
+        }
     }
 }

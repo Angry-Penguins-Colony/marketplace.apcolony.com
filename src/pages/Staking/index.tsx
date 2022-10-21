@@ -7,6 +7,7 @@ import APCLogoWhite from 'assets/img/apc-logo/white.png';
 import apCoinRewardsImg from 'assets/img/apc_coin_reward.png';
 import apcStakedImg from 'assets/img/apc_staked.png';
 import penguinAndStack from 'assets/img/penguin_and_stack.png';
+import tokenGeneratedDesktop from 'assets/img/token_generated_desktop.png';
 import tokenGeneratedMobile from 'assets/img/token_generated_mobile.png';
 import AccessoriesExamples from 'components/Abstract/AccessoriesExamples/AccessoriesExamples';
 import AccessoriesGeneration from 'components/Abstract/AccessoriesGeneration/AccessoriesGeneration';
@@ -26,7 +27,7 @@ export default function Staking() {
         <img src={APCLogoWhite} alt="" className="logo" />
         <h1>Welcome to one of the most <br /> important places of the <br /> Angry Penguins colony…</h1>
         <div className={style['cta']}>
-          <p>Here is the place where you can Stake your Angry Penguins and receive the colony’s token!</p>
+          <p>Here is the place where you can Stake <br />your Angry Penguins and receive the colony’s token!</p>
           <Button className={style.button} type='primary-outline'>STAKE</Button>
         </div>
       </section>
@@ -71,7 +72,7 @@ export default function Staking() {
 
       <section  className={style['accessories']}>
         <div className={style.grid}>
-          <h2><span>Each accessory</span> on your penguin <span>generates</span> a <span>certain amount of token</span> when it is deposited in staking.</h2>
+          <h2><span>Each accessory</span> on your penguin <br /><span>generates</span> a <span>certain amount <br />of token</span> when it is deposited <br />in staking.</h2>
           <div className={style['accessories-list']}>
             <AccessoriesGeneration rarity='Bronze' tokenGenerated={9999} img={AccessoryIconBronze} />
             <AccessoriesGeneration rarity='Silver' tokenGenerated={9999} img={AccessoryIconSilver} />
@@ -89,7 +90,8 @@ export default function Staking() {
 
       <section className={style['token-generated']}>
         <div className={style['img-container']}>
-          <img src={tokenGeneratedMobile} alt="Token generated" />
+          <img className={style.mobile} src={tokenGeneratedMobile} alt="Token generated" />
+          <img className={style.desktop} src={tokenGeneratedDesktop} alt="Token generated" />
         </div>
         <div className={style.counter}>
           20000

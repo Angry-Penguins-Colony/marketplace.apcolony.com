@@ -13,9 +13,9 @@ export default function AccessoriesExamples() {
   return (
     <div className={style['accessories-examples']}>
         <img src={kimono} alt="Bronze accessory" className={`${accessory != 1 && style.hidden}`} />
-        <img src={exampleImg} alt="Silver accessory" className={`${accessory != 2 && style.hidden}`}/>
+        <img src={kimono} alt="Silver accessory" className={`${accessory != 2 && style.hidden}`}/>
         <img src={kimono} alt="Gold accessory" className={`${accessory != 3 && style.hidden}`}/>
-        <img src={exampleImg} alt="Diamond accessory" className={`${accessory != 4 && style.hidden}`}/>
+        <img src={kimono} alt="Diamond accessory" className={`${accessory != 4 && style.hidden}`}/>
         <div className={style.info}>
             <p>Clothing Items</p>
             <p>Kimono white with red belt</p>
