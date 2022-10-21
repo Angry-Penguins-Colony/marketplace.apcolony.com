@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import { Address, AddressValue } from '@elrondnetwork/erdjs/out';
 import AccessoryIconBronze from 'assets/img/accessory_icon_bronze.png';
 import AccessoryIconDiamond from 'assets/img/accessory_icon_diamond.png';
 import AccessoryIconGold from 'assets/img/accessory_icon_gold.png';
@@ -12,14 +14,46 @@ import tokenGeneratedMobile from 'assets/img/token_generated_mobile.png';
 import AccessoriesExamples from 'components/Abstract/AccessoriesExamples/AccessoriesExamples';
 import AccessoriesGeneration from 'components/Abstract/AccessoriesGeneration/AccessoriesGeneration';
 import Button from 'components/Abstract/Button/Button';
+import StakePopup from 'components/Foreground/Popup/StakePopup/StakePopup';
 import { GenericItemExplorer } from 'components/Navigation/GenericItemExplorer';
 import { buildRouteLinks } from 'routes';
 import useGetExploreItems from 'sdk/hooks/api/useGetExploreItems';
+import QueryBuilder from 'sdk/queryBuilder/QueryBuilder';
 import style from './index.module.scss';
 
 
 export default function Staking() {
+  const { address } = useGetAccountInfo();
   const exploreItems = useGetExploreItems();
+  const [isStakePopupVisible, setIsStakePopupVisible] = React.useState(false);
+  const [rewardsToClaim, setRewardsToClaim] = React.useState('');
+  const [apcStaked, setApcStaked] = React.useState('');
+  const query = new QueryBuilder();
+  
+  const scAddress = 'erd1qqqqqqqqqqqqqpgqdcjdvpvncw7s8ug56rehyvl8tehk3vl368mqxa7llg'; //Todo : Change this function of the environment
+  const apcToken = 'TEST-17e1db';//Todo : Change this function of the environment and the sdk ?
+  const apcTokenInSc = 1000000;//Todo : Change this function of the environment and the sdk ?
+
+  useEffect(() => {
+    const getNftsForStakerFunc = async () => {
+      query.createQuery(
+        address,
+        scAddress,
+        'getNftsNumberAndRewardsAvailableForStaker',
+        [new AddressValue(new Address('erd1gsqegzjref54nv4hzjn9zhyze0g8us0tvm7fd5ph5z9z3tuqhzcq6g3503'))]
+        ).then((response) => {
+          const rewards = response.values[1].valueOf().toString();
+          const staked = response.values[0].valueOf().toString();
+          setRewardsToClaim(rewards);
+          setApcStaked(staked);
+        }).catch((error) => {
+          //ToDop: handle error 
+        })
+    }
+      getNftsForStakerFunc();
+  }, [])
+  
+
 
   return (
     <div id={style.launchpadVente}>
@@ -28,7 +62,7 @@ export default function Staking() {
         <h1>Welcome to one of the most <br /> important places of the <br /> Angry Penguins colony…</h1>
         <div className={style['cta']}>
           <p>Here is the place where you can Stake <br />your Angry Penguins and receive the colony’s token!</p>
-          <Button className={style.button} type='primary-outline'>STAKE</Button>
+          <Button onClick={() => setIsStakePopupVisible(true)} className={style.button} type='primary-outline'>STAKE</Button>
         </div>
       </section>
 
@@ -36,7 +70,7 @@ export default function Staking() {
         <div className={style['claim']} >
           <img src={apCoinRewardsImg} alt="APC coin" />
           <h2>REWARD TO CLAIM</h2>
-          <span>150 APC</span>
+          <span>{rewardsToClaim == '' ? 0 : rewardsToClaim} APC</span>
           <Button className={style.button} type='primary'>CLAIM REWARDS</Button>
           <a href="">More infos <span>i</span></a>
         </div>
@@ -44,7 +78,7 @@ export default function Staking() {
         <div className={style['staked']}>
           <img src={apcStakedImg} alt="APC staked" />
           <h2>APC STAKED</h2>
-          <span>00001/5555</span>
+          <span>{apcStaked == '' ? 0 : apcStaked}/5555</span>
         </div>
       </section>
 
@@ -57,7 +91,7 @@ export default function Staking() {
                 exploreItems?.map(item => (
                   <GenericItemExplorer
                     key={item.id}
-                    thumbnail={'placeholder'}
+                    thumbnail={item.thumbnailWebUri}
                     name={item.name}
                     onClick={() => {
                       window.location.href = buildRouteLinks.inspect(item.type, item.id);
@@ -72,12 +106,12 @@ export default function Staking() {
 
       <section  className={style['accessories']}>
         <div className={style.grid}>
-          <h2><span>Each accessory</span> on your penguin <br /><span>generates</span> a <span>certain amount <br />of token</span> when it is deposited <br />in staking.</h2>
+          <h2><span>Each accessory</span> on your penguin <br /><span>generates</span> a <span>certain amount <br />of token per day</span> when it is deposited <br />in staking.</h2>
           <div className={style['accessories-list']}>
-            <AccessoriesGeneration rarity='Bronze' tokenGenerated={9999} img={AccessoryIconBronze} />
-            <AccessoriesGeneration rarity='Silver' tokenGenerated={9999} img={AccessoryIconSilver} />
-            <AccessoriesGeneration rarity='Gold' tokenGenerated={9999} img={AccessoryIconGold} />
-            <AccessoriesGeneration rarity='Diamond' tokenGenerated={9999} img={AccessoryIconDiamond} />
+            <AccessoriesGeneration rarity='Bronze' tokenGenerated={1} img={AccessoryIconBronze} />
+            <AccessoriesGeneration rarity='Silver' tokenGenerated={2} img={AccessoryIconSilver} />
+            <AccessoriesGeneration rarity='Gold' tokenGenerated={3} img={AccessoryIconGold} />
+            <AccessoriesGeneration rarity='Diamond' tokenGenerated={4} img={AccessoryIconDiamond} />
           </div>
           <div className={style['img-container']}>
             <img src={penguinAndStack} alt="Penguin on APC stack" />
@@ -98,7 +132,7 @@ export default function Staking() {
         </div>
       </section>
 
-      
+      <StakePopup isVisible={isStakePopupVisible} closeModal={() => setIsStakePopupVisible(false)} />
     </div>
 
   )
