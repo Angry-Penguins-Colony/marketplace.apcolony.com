@@ -2,8 +2,8 @@
  * Send renderImage with a random attributes.
  */
 
+import { renderConfig } from "@apcolony/renderer";
 import RenderAttributes from "@apcolony/renderer/dist/classes/RenderAttributes";
-import { userConfig } from "@apcolony/renderer/dist/config";
 import { getRandomAttributes } from "@apcolony/renderer/dist/utils/random";
 import { UserSigner } from "@elrondnetwork/erdjs-walletcore/out";
 import { Address } from "@elrondnetwork/erdjs/out";
@@ -23,11 +23,11 @@ async function main() {
     const gateway = await initializeWriteGateway();
     console.log(`Sending ${imagesToSend} images with ${gateway.senderAddress.bech32()}...`);
 
-    const defaultLayersIds = Object.values(userConfig.defaultLayers ?? {});
+    const defaultLayersIds = Object.values(renderConfig.defaultLayers ?? {});
 
     for (let i = 0; i < imagesToSend; i++) {
         const attributes = new RenderAttributes(getRandomAttributes(
-            userConfig.itemsCID,
+            renderConfig.itemsCID,
             defaultLayersIds
         ), []);
 
