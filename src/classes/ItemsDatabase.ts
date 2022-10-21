@@ -1,6 +1,6 @@
 import { IItem } from "@apcolony/marketplace-api";
 import fs from "fs";
-import { webThumbnail, ipfsGateway } from "../const";
+import { getItemWebThumbnail, ipfsGateway } from "../const";
 
 
 interface Item extends IItem {
@@ -44,7 +44,7 @@ export default class ItemsDatabase {
                     name,
                     attributeName,
 
-                    thumbnailWebUri: webThumbnail(id),
+                    thumbnailWebUri: getItemWebThumbnail(id),
                     identifier: item?.identifier ?? "",
                     collection: item?.collection ?? "",
                     nonce: item?.nonce ?? 0,

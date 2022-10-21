@@ -41,6 +41,10 @@ export const penguinsCount = getNetworkInfos().penguinsCount;
 export const itemsDatabaseJson = 'src/databases/items.json';
 export const ipfsGateway = "https://ipfs.io/ipfs/";
 
-export const webThumbnail = (id: string): string => {
+export const getItemWebThumbnail = (id: string): string => {
     return `https://apc-items.s3.eu-west-3.amazonaws.com/thumbnail_web/${id}-thumbnail-web.jpg`
 };
+
+export const getPenguinWebThumbnail = (cid: string): string => {
+    return `https://apc-penguins.s3.eu-west-3.amazonaws.com/${cid}-web.jpg`;
+}

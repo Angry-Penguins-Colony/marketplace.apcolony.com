@@ -4,7 +4,7 @@ import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkPro
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { AbiRegistry, Address, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, StringValue, U64Value } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
-import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsCollection, items } from "../const";
+import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsCollection, items, getPenguinWebThumbnail } from "../const";
 import { getItemFromAttributeName, getTokenFromItemID, isCollectionAnItem } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, getNameFromPenguinId, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
@@ -214,6 +214,8 @@ export class APCNetworkProvider {
         if (nft.assets[0] == undefined) throw new Error(`No CID linked to the nft ${nft.identifier}`);
         if (!nft.owner) throw new Error("Missing owner on NFT");
 
+
+
         return {
             id: getIdFromPenguinName(nft.name).toString(),
             type: "penguins",
@@ -223,7 +225,7 @@ export class APCNetworkProvider {
             collection: nft.collection,
             nonce: nft.nonce,
 
-            thumbnailWebUri: nft.assets[0],
+            thumbnailWebUri: getPenguinWebThumbnail(extractCIDFromIPFS(nft.assets[0])),
             equippedItems: this.getEquippedItemsFromAttributes(nft.attributes.toString()),
             owner: nft.owner
         }
