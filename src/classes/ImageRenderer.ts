@@ -5,7 +5,6 @@ import IPlugin from "../interfaces/IPlugin";
 import colors from "colors";
 import RenderConfig from "./RenderConfig";
 import ImagesDownloader from "./ImagesDownloader";
-import Bottleneck from "bottleneck";
 import { addDefaultImages, toCidBySlot, toPaths } from "../utils/utils";
 
 export default class ImageRenderer {
@@ -25,47 +24,6 @@ export default class ImageRenderer {
         this._mimeType = config.renderMIMEType;
         this._ipfsCache = ipfsCache;
     }
-
-    public async downloadImages(options?: { verbose: boolean }): Promise<void> {
-
-        const limiter = new Bottleneck({
-            maxConcurrent: 5,
-            minTime: 0 // no minTime
-        });
-
-        log(`⌛ Downloading images to ${this._ipfsCache.ipfsCacheFolder}.`, false);
-
-        const totalImages = this._config.allCIDs.length;
-        let imagesDownloaded = 0;
-
-        const downloadPromises = this._config.allCIDs
-            .map((cid) => limiter.schedule(downloadCID, cid, this._ipfsCache));
-
-        await Promise.all(downloadPromises);
-
-        log("\n✔ All images downloaded.", false);
-
-        function log(msg: string, isProgress: boolean) {
-            if (options && options?.verbose == true) {
-                if (isProgress && process.stdout && typeof process.stdout.cursorTo === 'function' && typeof process.stdout.write === 'function') {
-                    process.stdout.cursorTo(0);
-                    process.stdout.write(msg);
-                }
-                else {
-                    console.log(msg);
-                }
-            }
-        }
-
-        async function downloadCID(cid: string, ipfsCache: ImagesDownloader) {
-            await ipfsCache.downloadImage(cid);
-
-            imagesDownloaded++;
-
-            log(`${imagesDownloaded}/${totalImages} images downloaded.`, true);
-        }
-    }
-
 
     public async render(renderAttributes: RenderAttributes, plugins: IPlugin[], options?: { verbose: boolean }): Promise<Buffer> {
 

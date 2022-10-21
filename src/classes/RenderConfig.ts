@@ -1,7 +1,7 @@
 import ImageMIMEType from '../enums/ImageMIMEType';
 import { UnknownSlot, UnknownId, MissingSlot } from '../errors/configErrors';
 import IPlugin from '../interfaces/IPlugin';
-import IRenderConfigOptions from '../interfaces/IRenderConfigOptions';
+import { IRenderConfigOptions } from '../interfaces/IRenderConfigOptions';
 
 export default class RenderConfig {
 
@@ -42,6 +42,7 @@ export default class RenderConfig {
         this.layersOrder = config.layersOrder ?? Object.keys(config.itemsCID);
         this.itemsCID = config.itemsCID;
         this.defaultLayers = config.defaultLayers ?? undefined;
+
         this.plugins = plugins;
 
         for (const plugin of this.plugins) {

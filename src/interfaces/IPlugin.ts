@@ -1,5 +1,5 @@
-import IRenderConfigOptions from "./IRenderConfigOptions";
 import RenderAttributes from "../classes/RenderAttributes";
+import { IRenderConfigOptions } from "./IRenderConfigOptions";
 import IServices from "./IServices";
 
 export default interface IPlugin {
