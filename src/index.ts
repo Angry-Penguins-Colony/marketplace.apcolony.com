@@ -42,9 +42,11 @@ async function main() {
     const imagesDownloader = new ImagesDownloader();
     const imageRenderer = new ImageRenderer(renderConfig, imagesDownloader);
 
-    await pinata.testAuthentication();
-    await writeGateway.sync();
-    await imagesDownloader.downloadImages(renderConfig.allCIDs);
+    await Promise.all([
+        pinata.testAuthentication(),
+        writeGateway.sync(),
+        imagesDownloader.downloadImages(renderConfig.allCIDs),
+    ]);
 
     const alreadyProcessedCID: string[] = [];
 
