@@ -14,10 +14,10 @@ import Bottleneck from 'bottleneck';
 import { renderConfig } from '@apcolony/renderer';
 import RenderAttributes from '@apcolony/renderer/dist/classes/RenderAttributes';
 import ImageRenderer from '@apcolony/renderer/dist/classes/ImageRenderer';
-import IPFSCache from '@apcolony/renderer/dist/classes/ipfscache';
 import "dotenv/config";
 import { UrisKvp } from './structs/CIDKvp';
 import throng from 'throng';
+import ImagesDownloader from '@apcolony/renderer/dist/classes/ImagesDownloader';
 const Hash = require('ipfs-only-hash')
 
 throng(1, main);
@@ -39,14 +39,12 @@ async function main() {
     const writeGateway = new WriteGateway(config.gatewayUrl, envVariables.senderAddress, envVariables.signer, gatewayLimiter);
     const customisationSC = new SmartContract({ address: config.customisationContract });
     const pinata = new PinataPin(envVariables.pinataApiKey, envVariables.pinataApiSecret, "pin_folder");
-    const imageRenderer = new ImageRenderer(renderConfig, new IPFSCache({
-        ipfsGateway: process.env.IPFS_GATEWAY,
-        ipfsCacheFolder: process.env.IPFS_CACHE_FOLDER
-    }))
+    const imagesDownloader = new ImagesDownloader();
+    const imageRenderer = new ImageRenderer(renderConfig, imagesDownloader);
 
     await pinata.testAuthentication();
     await writeGateway.sync();
-    await imageRenderer.downloadImages({ verbose: true });
+    await imagesDownloader.downloadImages(renderConfig.allCIDs);
 
     const alreadyProcessedCID: string[] = [];
 

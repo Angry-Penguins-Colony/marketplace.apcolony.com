@@ -108,3 +108,4 @@ pin_folder
 
 start.bat
 .env*
+images_cache

@@ -9,6 +9,7 @@
     "start:dev": "ts-node src/index.ts",
     "start:dev:watch": "nodemon src/index.ts",
     "build": "tsc --build",
+    "reset:cache": "rmdir -r images_cache",
     "send:renderImage": "ts-node src/scripts/sendRenderImageRandom.ts",
     "get:queue": "ts-node src/scripts/getToBuildQueue.ts",
     "update:renderer": "npm i git+ssh://git@github.com/Angry-Penguins-Colony/package-renderer.git",
@@ -37,7 +38,7 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "@apcolony/renderer": "github:Angry-Penguins-Colony/package-renderer",
+    "@apcolony/renderer": "file:../../packages/package-renderer",
     "@elrondnetwork/erdjs": "^10.2.7",
     "@elrondnetwork/erdjs-network-providers": "^0.1.6",
     "@elrondnetwork/erdjs-walletcore": "^1.0.0",
