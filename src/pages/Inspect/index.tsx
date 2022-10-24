@@ -136,9 +136,7 @@ const Inspect = () => {
 
                         {
                             (category === 'penguins' && !isListedByConnected) &&
-                            <Button type='primary' onClick={() => {
-                                window.location.href = buildRouteLinks.customize(id);
-                            }}>
+                            <Button type='primary' link={buildRouteLinks.customize(id)}>
                                 Customize
                             </Button>
                         }

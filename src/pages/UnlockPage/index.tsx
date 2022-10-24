@@ -1,6 +1,7 @@
 import React from 'react';
 import { useExtensionLogin, useGetLoginInfo, useWebWalletLogin } from '@elrondnetwork/dapp-core/hooks';
 import { LedgerLoginContainer, WalletConnectLoginContainer } from '@elrondnetwork/dapp-core/UI';
+import { useNavigate } from 'react-router-dom';
 import Popup from 'components/Foreground/Popup/Generic/Popup';
 import { routeNames } from 'routes';
 import ElrondLogo from './../../assets/img/icons/Elrond_logo.png';
@@ -25,9 +26,11 @@ export const APCUnlockPage = ({ loginRoute }: Props) => {
 
   const { isLoggedIn } = useGetLoginInfo();
 
+  const navigate = useNavigate();
+
   React.useEffect(() => {
     if (isLoggedIn) {
-      window.location.href = routeNames.home;
+      navigate(routeNames.home);
     }
   }, [isLoggedIn]);
 
@@ -38,7 +41,7 @@ export const APCUnlockPage = ({ loginRoute }: Props) => {
           <img src={walletImg} />
         }
         onCloseClicked={() => {
-          window.location.href = routeNames.home;
+          navigate(routeNames.home);
         }}>
 
 

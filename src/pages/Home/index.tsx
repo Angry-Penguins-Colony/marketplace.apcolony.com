@@ -39,9 +39,9 @@ const Home = () => {
         {isConnected ?
           <p></p>
           :
-          <Button className={style.button} type='primary' onClick={() => {
-            window.location.href = routeNames.unlock;
-          }}>Connect your wallet</Button>
+          <Button className={style.button} type='primary' link={routeNames.unlock}>
+            Connect your wallet
+          </Button>
         }
       </section>
       <section className={style.categories}>
@@ -85,7 +85,7 @@ const Home = () => {
         <h2>Customize your<br />penguins !!!</h2>
         <p className={style.subtitle}>Make them unique with<br /> over a 100+ items</p>
         <img src={CustomizationIcon} alt="customization" />
-        <Button type='normal' onClick={() => { window.location.href = buildRouteLinks.customize(1); }} className={style.button}>Customize</Button>
+        <Button type='normal' link={buildRouteLinks.customize(1)} className={style.button}>Customize</Button>
       </section>
       <div className={style['global-unique-style']}>
         <section className={style['give-unique-style']}>
@@ -96,26 +96,28 @@ const Home = () => {
         </section>
         {
           highlightedItem && (
-            <section className={style['highlighted-item']} onClick={() => { window.location.href = buildRouteLinks.inspect('items', HIGHLIGHTED_ITEM_ID) }}>
-              <div className={style.info}>
-                <h2>Highlighted item</h2>
-                <p className={style.name}>{highlightedItem?.name ?? '--'}</p>
-                <p className={style.price}>
-                  {
-                    (() => {
-                      if (lowestBuyableOffer == null) {
-                        return 'No offers';
-                      }
-                      else {
-                        const price = lowestBuyableOffer?.price ?? '--';
-                        return `${price} EGLD`;
-                      }
-                    })()
-                  }
-                </p>
-              </div>
-              <img src={highlightedItem.renderUrls.high} alt={highlightedItem.name} />
-            </section>
+            <Link className={style['highlighted-item']} to={buildRouteLinks.inspect('items', HIGHLIGHTED_ITEM_ID)}>
+              <section>
+                <div className={style.info}>
+                  <h2>Highlighted item</h2>
+                  <p className={style.name}>{highlightedItem?.name ?? '--'}</p>
+                  <p className={style.price}>
+                    {
+                      (() => {
+                        if (lowestBuyableOffer == null) {
+                          return 'No offers';
+                        }
+                        else {
+                          const price = lowestBuyableOffer?.price ?? '--';
+                          return `${price} EGLD`;
+                        }
+                      })()
+                    }
+                  </p>
+                </div>
+                <img src={highlightedItem.renderUrls.high} alt={highlightedItem.name} />
+              </section>
+            </Link>
           )
         }
       </div>
