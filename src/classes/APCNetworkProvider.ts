@@ -225,7 +225,11 @@ export class APCNetworkProvider {
             collection: nft.collection,
             nonce: nft.nonce,
 
-            thumbnailWebUri: getPenguinWebThumbnail(extractCIDFromIPFS(nft.assets[0])),
+            thumbnailUrls: {
+                ipfs: nft.assets[0],
+                high: getPenguinWebThumbnail(extractCIDFromIPFS(nft.assets[0])),
+                small: getPenguinWebThumbnail(extractCIDFromIPFS(nft.assets[0])),
+            },
             equippedItems: this.getEquippedItemsFromAttributes(nft.attributes.toString()),
             owner: nft.owner
         }
