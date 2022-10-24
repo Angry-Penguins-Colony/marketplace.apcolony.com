@@ -13,12 +13,14 @@ export const BigCategory = ({
     link: string;
 }) => {
     return (
-        <div className={style['big-category'] + ' w-100'} onClick={() => { window.location.href = link; }}>
-            <img src={backgroundImg} alt={title} />
-            <h2>{title}</h2>
-            <Link to={link}>
-                <Button type='normal' link={link} className={style.button}>View all</Button>
-            </Link>
-        </div>
+        <Link to={link} className={style['big-category'] + ' w-100'}>
+            <div >
+                <img src={backgroundImg} alt={title} />
+                <h2>{title}</h2>
+                <Link to={link}>
+                    <Button type='normal' link={link} className={style.button}>View all</Button>
+                </Link>
+            </div>
+        </Link>
     );
 };
