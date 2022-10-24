@@ -17,6 +17,8 @@ export const envVariables = {
     senderAddress: Address.fromString(getFromEnv("SENDER_BECH32")),
     pinataApiKey: getFromEnv("PINATA_API_KEY"),
     pinataApiSecret: getFromEnv("PINATA_API_SECRET"),
+    awsAccessKeyId: getFromEnv("AWS_ACCESS_KEY_ID"),
+    awsSecretAccessKey: getFromEnv("AWS_SECRET_ACCESS_KEY"),
 }
 
 

@@ -18,7 +18,9 @@ import "dotenv/config";
 import { UrisKvp } from './structs/CIDKvp';
 import throng from 'throng';
 import ImagesDownloader from '@apcolony/renderer/dist/classes/ImagesDownloader';
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 const Hash = require('ipfs-only-hash')
+import sharp from "sharp";
 
 throng(1, main);
 
@@ -41,6 +43,14 @@ async function main() {
     const pinata = new PinataPin(envVariables.pinataApiKey, envVariables.pinataApiSecret, "pin_folder");
     const imagesDownloader = new ImagesDownloader();
     const imageRenderer = new ImageRenderer(renderConfig, imagesDownloader);
+    const client = new S3Client(
+        {
+            region: "eu-west-3",
+            credentials: {
+                accessKeyId: envVariables.awsAccessKeyId,
+                secretAccessKey: envVariables.awsSecretAccessKey
+            }
+        });
 
     await Promise.all([
         pinata.testAuthentication(),
@@ -54,9 +64,9 @@ async function main() {
 
         const queue = await readGateway.getToBuildQueue(renderConfig.layersOrder);
 
-        console.log(`\nProcessing ${queue.length} elements from the rendering queue...`)
-
         if (queue.length > 0) {
+            console.log(`\nProcessing ${queue.length} elements from the rendering queue...`)
+
             const itemsPromises = queue
                 .map((item) => renderAdvanced(item, imageRenderer));
 
@@ -78,9 +88,33 @@ async function main() {
 
                 await claimIfNeeded(readGateway, writeGateway, customisationSC, config.claimThreshold);
 
+                async function uploadToS3({ cid, imageBuffer }: IItemToProcess) {
+
+                    // convert buffer to 
+                    const jpegBuffer = await sharp(imageBuffer)
+                        .resize(1024, 1024)
+                        .jpeg()
+                        .toBuffer();
+
+                    const filename = cid + "-web.jpg";
+
+                    const params = {
+                        Bucket: "apc-penguins",
+                        Key: filename,
+                        Body: jpegBuffer,
+                        ContentType: "image/jpeg",
+                        ACL: "public-read",
+                    };
+
+                    console.log(`Uploading ${filename} to S3`);
+
+                    return client.send(new PutObjectCommand(params));
+                }
+
                 await Promise.all([
                     pinata.multiplePin(items),
                     writeGateway.setUris(items, customisationSC),
+                    items.map(i => uploadToS3(i))
                 ])
 
                 for (const item of items) {
