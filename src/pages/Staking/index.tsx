@@ -29,7 +29,7 @@ export default function Staking() {
   const [rewardsToClaim, setRewardsToClaim] = React.useState('');
   const [apcStaked, setApcStaked] = React.useState('');
   const query = new QueryBuilder();
-  
+
   const scAddress = 'erd1qqqqqqqqqqqqqpgqdcjdvpvncw7s8ug56rehyvl8tehk3vl368mqxa7llg'; //Todo : Change this function of the environment
   const apcToken = 'TEST-17e1db';//Todo : Change this function of the environment and the sdk ?
   const apcTokenInSc = 1000000;//Todo : Change this function of the environment and the sdk ?
@@ -41,18 +41,18 @@ export default function Staking() {
         scAddress,
         'getNftsNumberAndRewardsAvailableForStaker',
         [new AddressValue(new Address('erd1gsqegzjref54nv4hzjn9zhyze0g8us0tvm7fd5ph5z9z3tuqhzcq6g3503'))]
-        ).then((response) => {
-          const rewards = response.values[1].valueOf().toString();
-          const staked = response.values[0].valueOf().toString();
-          setRewardsToClaim(rewards);
-          setApcStaked(staked);
-        }).catch((error) => {
-          //ToDop: handle error 
-        })
+      ).then((response) => {
+        const rewards = response.values[1].valueOf().toString();
+        const staked = response.values[0].valueOf().toString();
+        setRewardsToClaim(rewards);
+        setApcStaked(staked);
+      }).catch((error) => {
+        //ToDop: handle error 
+      })
     }
-      getNftsForStakerFunc();
+    getNftsForStakerFunc();
   }, [])
-  
+
 
 
   return (
@@ -91,7 +91,7 @@ export default function Staking() {
                 exploreItems?.map(item => (
                   <GenericItemExplorer
                     key={item.id}
-                    thumbnail={item.thumbnailWebUri}
+                    thumbnail={item.thumbnailUrls.high}
                     name={item.name}
                     onClick={() => {
                       window.location.href = buildRouteLinks.inspect(item.type, item.id);
@@ -104,7 +104,7 @@ export default function Staking() {
         )
       }
 
-      <section  className={style['accessories']}>
+      <section className={style['accessories']}>
         <div className={style.grid}>
           <h2><span>Each accessory</span> on your penguin <br /><span>generates</span> a <span>certain amount <br />of token per day</span> when it is deposited <br />in staking.</h2>
           <div className={style['accessories-list']}>

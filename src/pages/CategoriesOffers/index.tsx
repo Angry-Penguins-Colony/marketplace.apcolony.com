@@ -88,7 +88,7 @@ const CategoriesOffers = () => {
 
                                 <div className={style.desktop}>
                                     <img src={defaultPenguinImg} alt="default background of any penguin" className={style.background} />
-                                    <img src={variant.thumbnailWebUri} alt="" className={style.item} />
+                                    <img src={variant.thumbnailUrls.high} alt="" className={style.item} />
                                     <div className={style.infos}>
                                         <div className={style.name}>{variant.name}</div>
                                     </div>

@@ -69,7 +69,9 @@ interface IItemProps {
     item: {
         name: string,
         amount: number,
-        thumbnailWebUri: string,
+        thumbnailUrls: {
+            small: string;
+        },
         id: string
     },
     type: CategoriesType
@@ -84,7 +86,7 @@ const Item = ({
         <div className={style.item} onClick={() => {
             window.location.href = buildRouteLinks.inspect(type, item.id);
         }}>
-            <ReactImageAppear src={item.thumbnailWebUri} />
+            <ReactImageAppear src={item.thumbnailUrls.small} />
             <div className={style.name}>{item.name}</div>
             {(item.amount && type == 'items') &&
                 <div className={style.count}>{item.amount}</div>

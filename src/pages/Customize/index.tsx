@@ -347,7 +347,7 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
             className={className}
             onClick={() => { openItemsPopup(slot, title); }}>
             {
-                item && <img src={item.thumbnailWebUri} />
+                item && <img src={item.thumbnailUrls.small} />
             }
         </div >
     }
@@ -357,9 +357,9 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
 
         if (item != undefined) {
 
-            if (!item.renderUrl) throw new Error(`Item ${item.name} in slot ${slot} has no renderCID.`);
+            if (!item.renderUrls.high) throw new Error(`Item ${item.name} in slot ${slot} has no renderCID.`);
 
-            return item.renderUrl;
+            return item.renderUrls.high;
         }
         else {
             return undefined;

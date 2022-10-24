@@ -1,5 +1,7 @@
 export interface IInventoryItem {
-    thumbnailWebUri: string;
+    thumbnailUrls: {
+        high: string;
+    };
     name: string;
     score?: number;
     purchaseDate?: Date;

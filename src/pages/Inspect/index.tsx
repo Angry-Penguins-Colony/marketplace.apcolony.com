@@ -89,7 +89,7 @@ const Inspect = () => {
         <div id={style['item-in-inventory']}>
             <MobileHeader title={typeInText.plural} type='light' />
             <div className={style.thumbnail}>
-                <img src={item ? (item.thumbnailWebUri) : ''} alt={item?.name ?? 'loading item'} />
+                <img src={item ? (item.thumbnailUrls.high) : ''} alt={item?.name ?? 'loading item'} />
             </div>
             <div className={style.infos}>
                 <p className={style.name}>{item?.name ?? '---'}</p>

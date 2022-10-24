@@ -12,7 +12,9 @@ export const Item = ({
     item: {
         name: string,
         id: string,
-        thumbnailWebUri: string
+        thumbnailUrls: {
+            high: string;
+        }
     },
     className?: string;
     displayId?: boolean;
@@ -29,7 +31,7 @@ export const Item = ({
                 {/* <p className={style.rarity}>Rarity: {item.rarity}%</p> */}
             </div>
             <div className={style.thumbnail}>
-                <img src={item.thumbnailWebUri} alt={item.name} />
+                <img src={item.thumbnailUrls.high} alt={item.name} />
             </div>
         </div>
     );

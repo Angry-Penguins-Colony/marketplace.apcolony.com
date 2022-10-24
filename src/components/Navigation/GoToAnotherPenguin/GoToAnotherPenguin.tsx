@@ -62,7 +62,7 @@ const GoToAnotherPenguin = (
                     {
                         leftPenguin && (
                             <div className={style.penguin} onClick={goToLeftPenguin}>
-                                <img src={leftPenguin.thumbnailWebUri} alt={leftPenguin.name} />
+                                <img src={leftPenguin.thumbnailUrls.small} alt={leftPenguin.name} />
                             </div>
                         ) || (
                             <div className={style.penguin + ' ' + style.empty}></div>
@@ -71,14 +71,14 @@ const GoToAnotherPenguin = (
                     {
                         currentPenguin && (
                             <div className={style.penguin + ' ' + style.current}>
-                                <img src={currentPenguin.thumbnailWebUri} alt={currentPenguin.name} />
+                                <img src={currentPenguin.thumbnailUrls.small} alt={currentPenguin.name} />
                             </div>
                         )
                     }
                     {
                         rightPenguin && (
                             <div className={style.penguin} onClick={goToRightPenguin}>
-                                <img src={rightPenguin.thumbnailWebUri} alt={rightPenguin.name} />
+                                <img src={rightPenguin.thumbnailUrls.small} alt={rightPenguin.name} />
                             </div>
                         ) || (
                             <div className={style.penguin + ' ' + style.empty}></div>

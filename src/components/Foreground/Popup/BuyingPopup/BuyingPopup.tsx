@@ -48,7 +48,7 @@ const BuyingPopup = (
                                 <CrossIcon className={style.icon} />
                             </div>
                                 <h2>Sell item</h2>
-                                <img src={item.thumbnailWebUri} alt={item.name} />
+                                <img src={item.thumbnailUrls.high} alt={item.name} />
                                 <div className={style.infos}>
                                     <div className={style.line}>
                                         <div className={style.label}>Item Id</div>
@@ -65,7 +65,7 @@ const BuyingPopup = (
                             </div>
                                 <h2>Checkout</h2>
                                 <div className={style.infos}>
-                                    <img src={item.thumbnailWebUri} alt={item.name} />
+                                    <img src={item.thumbnailUrls.high} alt={item.name} />
                                     <div className={style.infos}>
                                         <div className={style.line}>
                                             <div className={style.label}>Penguin ID</div>

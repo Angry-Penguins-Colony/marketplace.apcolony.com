@@ -70,7 +70,7 @@ const Home = () => {
               exploreItems.map(item => (
                 <GenericItemExplorer
                   key={item.id}
-                  thumbnail={item.thumbnailWebUri}
+                  thumbnail={item.thumbnailUrls.high}
                   name={item.name}
                   onClick={() => {
                     window.location.href = buildRouteLinks.inspect(item.type, item.id);
@@ -114,7 +114,7 @@ const Home = () => {
                   }
                 </p>
               </div>
-              <img src={highlightedItem.renderUrl} alt={highlightedItem.name} />
+              <img src={highlightedItem.renderUrls.high} alt={highlightedItem.name} />
             </section>
           )
         }
