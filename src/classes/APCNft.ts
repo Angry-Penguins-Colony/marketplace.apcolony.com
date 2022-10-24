@@ -10,7 +10,10 @@ export default class APCNft extends NonFungibleTokenOfAccountOnNetwork {
         let token = NonFungibleTokenOfAccountOnNetwork.fromApiHttpResponse(payload) as APCNft;
 
         token.owner = payload.owner;
-        token.assets = urisFromHttpResponse(payload.uris);
+
+        if (payload.uris) {
+            token.assets = urisFromHttpResponse(payload.uris);
+        }
 
         return token;
     }
