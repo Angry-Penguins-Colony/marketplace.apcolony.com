@@ -72,9 +72,7 @@ const Home = () => {
                   key={item.id}
                   thumbnail={item.thumbnailUrls.high}
                   name={item.name}
-                  onClick={() => {
-                    window.location.href = buildRouteLinks.inspect(item.type, item.id);
-                  }}
+                  link={buildRouteLinks.inspect(item.type, item.id)}
                 />
               ))
             }
