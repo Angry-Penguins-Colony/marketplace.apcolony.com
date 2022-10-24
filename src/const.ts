@@ -25,6 +25,7 @@ function getNetworkInfos() {
                 items: devnetToolDeploy.items,
                 customisationContract: Address.fromBech32(devnetToolDeploy.customizationContractAddress.bech32),
                 marketplaceContract: Address.fromBech32("erd1qqqqqqqqqqqqqpgqffweul9250tqr4vuf04zxdcpjdy82yvpv4xq4uha83"),
+                nftStakingContract: Address.fromBech32("erd1qqqqqqqqqqqqqpgqdcjdvpvncw7s8ug56rehyvl8tehk3vl368mqxa7llg"),
             };
     }
 }
@@ -37,6 +38,7 @@ export const api = getNetworkInfos().api;
 export const customisationContract = getNetworkInfos().customisationContract;
 export const marketplaceContract = getNetworkInfos().marketplaceContract;
 export const penguinsCount = getNetworkInfos().penguinsCount;
+export const nftStakingContract = getNetworkInfos().nftStakingContract;
 
 export const itemsDatabaseJson = 'src/databases/items.json';
 export const ipfsGateway = "https://ipfs.io/ipfs/";

@@ -4,7 +4,7 @@ import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkPro
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { AbiRegistry, Address, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, StringValue, U64Value } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
-import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsCollection, items, getPenguinWebThumbnail } from "../const";
+import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsCollection, items, getPenguinWebThumbnail, nftStakingContract } from "../const";
 import { getItemFromAttributeName, getTokenFromItemID, isCollectionAnItem } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, getNameFromPenguinId, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
@@ -206,6 +206,16 @@ export class APCNetworkProvider {
         let abi = new SmartContractAbi(abiRegistry, ["EsdtNftMarketplace"]);
 
         let contract = new SmartContract({ address: marketplaceContract, abi: abi });
+        return contract;
+    }
+
+    private async getStakingSmartContract() {
+        let jsonContent: string = await promises.readFile("src/abi/nft-staking.abi.json", { encoding: "utf8" });
+        let json = JSON.parse(jsonContent);
+        let abiRegistry = AbiRegistry.create(json);
+        let abi = new SmartContractAbi(abiRegistry, ["nftStaking"]); 
+
+        let contract = new SmartContract({ address: nftStakingContract, abi: abi });
         return contract;
     }
 
