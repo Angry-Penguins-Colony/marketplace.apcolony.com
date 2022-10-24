@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import {
   TransactionsToastList,
   SignTransactionsModals,
@@ -28,20 +28,22 @@ const App = () => {
           <NotificationModal />
           <SignTransactionsModals className='custom-class-for-modals' />
 
-          <Routes>
-            <Route
-              path={routeNames.unlock}
-              element={<APCUnlockPage loginRoute={routeNames.home} />}
-            />
-            {routes.map((route: any, index: number) => (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
               <Route
-                path={route.path}
-                key={'route-key-' + index}
-                element={<route.component />}
+                path={routeNames.unlock}
+                element={<APCUnlockPage loginRoute={routeNames.home} />}
               />
-            ))}
-            <Route path='*' element={<PageNotFound />} />
-          </Routes>
+              {routes.map((route: any, index: number) => (
+                <Route
+                  path={route.path}
+                  key={'route-key-' + index}
+                  element={<route.component />}
+                />
+              ))}
+              <Route path='*' element={<PageNotFound />} />
+            </Routes>
+          </Suspense>
         </Layout>
       </DappProvider>
     </Router>
