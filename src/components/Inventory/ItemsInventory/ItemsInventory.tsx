@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { IGenericElement } from '@apcolony/marketplace-api';
+import { Link } from 'react-router-dom';
 import ReactImageAppear from 'components/Images/ReactImageAppear/ReactImageAppear';
 import { buildRouteLinks } from 'routes';
 import CategoriesType from 'sdk/types/CategoriesType';
@@ -83,14 +84,14 @@ const Item = ({
 }: IItemProps) => {
 
     return (
-        <div className={style.item} onClick={() => {
-            window.location.href = buildRouteLinks.inspect(type, item.id);
-        }}>
-            <ReactImageAppear src={item.thumbnailUrls.small} />
-            <div className={style.name}>{item.name}</div>
-            {(item.amount && type == 'items') &&
-                <div className={style.count}>{item.amount}</div>
-            }
-        </div>
+        <Link to={buildRouteLinks.inspect(type, item.id)}>
+            <div className={style.item}>
+                <ReactImageAppear src={item.thumbnailUrls.small} />
+                <div className={style.name}>{item.name}</div>
+                {(item.amount && type == 'items') &&
+                    <div className={style.count}>{item.amount}</div>
+                }
+            </div>
+        </Link>
     );
 }

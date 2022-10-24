@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import APCLogoWhite from 'assets/img/apc-logo/white.png';
 import LoginLogoutButton from 'components/Buttons/LoginLogoutButton';
 import CrossIcon from 'components/Icons/CrossIcon';
@@ -16,6 +17,8 @@ const MobileMenu = (
     }
 ) => {
 
+    const navigate = useNavigate();
+
     return (
         <div className={style['mobile-menu'] + ' ' + (isOpen ? style['open'] : style['close'])}>
             <header>
@@ -28,11 +31,15 @@ const MobileMenu = (
                 <div className={style['title']}>Marketplace</div>
                 {
                     navItems.map((item, index) => (
-                        <p className={style['menu-item']} key={index} onClick={() => (
-                            item.action ?
-                                item.action() :
-                                window.location.href = item.route
-                        )}>
+                        <p className={style['menu-item']} key={index} onClick={() => {
+                            if (item.action) {
+                                item.action();
+                            }
+                            else {
+                                navigate(item.route);
+                                onClose();
+                            }
+                        }}>
                             {item.name}
                         </p>
                     ))
@@ -55,7 +62,7 @@ const MobileMenu = (
                     </svg>
                 </div>
             </footer>
-        </div>
+        </div >
     );
 }
 
