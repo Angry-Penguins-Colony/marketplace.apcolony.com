@@ -19,10 +19,10 @@ export const twitter = 'https://twitter.com/angrypenguins_';
 export const discordInvitation = 'https://discord.com/invite/GKUV3XFcG8';
 
 export const defaultImages = {
-  'background': 'https://apc-items.s3.eu-west-3.amazonaws.com/render_default/background.png',
-  'beak': 'https://apc-items.s3.eu-west-3.amazonaws.com/render_default/beak.png',
-  'eyes': 'https://apc-items.s3.eu-west-3.amazonaws.com/render_default/eyes.png',
-  'skin': 'https://apc-items.s3.eu-west-3.amazonaws.com/render_default/skin.png',
+  'background': 'https://apc-items.s3.eu-west-3.amazonaws.com/render/default-background-render.png',
+  'beak': 'https://apc-items.s3.eu-west-3.amazonaws.com/render/default-beak-render.png',
+  'eyes': 'https://apc-items.s3.eu-west-3.amazonaws.com/render/default-eyes-render.png',
+  'skin': 'https://apc-items.s3.eu-west-3.amazonaws.com/render/default-skin-render.png',
 };
 
 function getNetworkInfos() {
