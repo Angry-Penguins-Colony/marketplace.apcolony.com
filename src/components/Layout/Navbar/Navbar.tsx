@@ -1,5 +1,6 @@
 import React from 'react';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import { useNavigate } from 'react-router-dom';
 import APCLogoColored from 'assets/img/apc-logo/colored.png';
 import LoginLogoutButton from 'components/Buttons/LoginLogoutButton';
 import SocialButtons from 'components/Buttons/SocialButtons';
@@ -60,6 +61,8 @@ const Navbar = () => {
 
   const [mobileMenuIsOpen, setMobileMenuIsOpen] = React.useState<boolean>(false);
 
+  const navigate = useNavigate();
+
   return (
     <>
       <MobileMenu navItems={visibleNavItems.filter((item) => item.name !== 'Menu')} isOpen={mobileMenuIsOpen} onClose={() => setMobileMenuIsOpen(false)} />
@@ -73,7 +76,7 @@ const Navbar = () => {
             } key={index} onClick={() => (
               item.onClick ?
                 item.onClick() :
-                window.location.href = item.route ?? ''
+                navigate(item.route ?? '')
             )}>
               {
                 React.cloneElement(

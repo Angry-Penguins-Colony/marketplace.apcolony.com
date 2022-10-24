@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import style from './button.module.scss';
 
 export type ButtonType = 'normal' | 'primary' | 'primary-outline' | 'cancel' | 'cancel-outline';
@@ -34,7 +34,8 @@ const Button = ({
         }
     }
 
-    return (
+
+    return withLink(
         <button disabled={disabled} className={style.button + ' ' + style[type] + ' ' + className} onClick={handleClick}>
             <span className={style.text}>
                 {children}
@@ -42,6 +43,15 @@ const Button = ({
             {icon && <span className={style.icon}>{icon}</span>}
         </button>
     );
+
+    function withLink(_children: JSX.Element) {
+        if (link) {
+            return <Link to={link}>{_children}</Link>;
+        }
+        else {
+            return _children;
+        }
+    }
 };
 
 export default Button;
