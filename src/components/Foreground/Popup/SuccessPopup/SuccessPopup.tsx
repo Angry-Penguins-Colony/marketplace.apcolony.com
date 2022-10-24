@@ -26,17 +26,12 @@ const SuccessPopup = (
                     <br />
                     <span>Brought</span>
                 </h2>
-                <Button type='primary'
-                    onClick={() => {
-                        // go to marketplace
-                        window.location.href = routeNames.home;
-                    }}>Continue shopping</Button>
-                <Button type='primary'
-                    onClick={() => {
-                        // go to item in inventory
-                        // TODO: add link to direct item
-                        window.location.href = routeNames.inventory;
-                    }}>View on the inventory</Button>
+                <Button type='primary' link={routeNames.home}>
+                    Continue shopping
+                </Button>
+                <Button type='primary' link={routeNames.inventory}>
+                    View on the inventory
+                </Button>
             </div>
         </div >
     );
