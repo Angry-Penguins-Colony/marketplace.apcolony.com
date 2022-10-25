@@ -3,6 +3,7 @@ import { RouteType } from '@elrondnetwork/dapp-core/types';
 import AuthentificatedPatternRouteWrapper from 'components/Abstract/AuthentificatedPatternRouteWrapper';
 import { dAppName } from 'config';
 import Inspect from 'pages/Inspect';
+import ItemsOffersNavigator from 'pages/ItemsOffersNavigator';
 import CategoriesOffers from 'pages/OffersList';
 import CategoriesType from 'sdk/types/CategoriesType';
 import withPageTitle from './components/PageTitle';
@@ -23,6 +24,7 @@ export const routeNames = {
   customize: '/customize/:id',
   penguinsOffers: '/offers/penguins/',
   itemsOffers: '/offers/items/:slot',
+  itemsOffersNavigator: '/offers/items',
   unlock: '/unlock',
   ledger: '/ledger',
   walletconnect: '/walletconnect',
@@ -85,6 +87,11 @@ const routes: Array<ITitledRoute> = [
       return <CategoriesOffers category='penguins' />
     }
   },
+  {
+    path: routeNames.itemsOffersNavigator,
+    title: 'Items Offers',
+    component: ItemsOffersNavigator
+  }
 ];
 
 const mappedRoutes: ITitledRoute[] = routes.map((route) => {

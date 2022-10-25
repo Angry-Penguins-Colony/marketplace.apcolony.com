@@ -1,175 +1,64 @@
 @import "./../../assets/sass/var.scss";
 
-.type-in-marketplace {
-    background-color: $background;
-    padding-bottom: 60px;
-
-    > * {
-        padding-left: 30px;
-        padding-right: 30px;
-    }
-
-    > .background-header {
-        display: none;
-    }
-
-    > .icon {
-        display: none;
-    }
-
-    > h1 {
-        font-family: "CHEDROS", sans-serif;
-        font-weight: bold;
-        position: relative;
-        top: -2rem;
-        font-size: 2rem;
-        color: $primary;
-        text-align: center;
-    }
-
-    > .description {
-        font-family: "Config Rounded", sans-serif;
-        text-align: center;
-        margin-top: 1rem;
-        padding-left: 40px;
-        padding-right: 40px;
-    }
-
-    > .labels {
+> .items {
+    .itemRoot {
         display: flex;
-        justify-content: center;
-        margin-top: 40px;
-        margin-bottom: 30px;
-    }
+        flex-direction: column;
+        gap: 10px;
 
-    > .items {
-        .itemRoot {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-
-            > .desktop {
-                display: none;
-            }
+        > .desktop {
+            display: none;
         }
     }
 }
 
 // desktop
 @media (min-width: $desktop_min_width) {
-    .type-in-marketplace {
-        padding-top: 120px;
-        max-width: 1400px;
-        margin: auto;
-        margin-bottom: 40px;
-        min-height: calc(100vh - 220px); // for footer to be at the bottom
-
-        > .background-header {
-            display: block;
-            height: 350px;
-            width: 100%;
-            background-position: center;
-            background-size: cover;
-            position: absolute;
-            top: 0px;
-            left: 0px;
-
-            &.penguins {
-                background-image: url("./../../assets/img/background/header-penguins.jpg");
+    > .items {
+        .itemRoot {
+            > .mobile {
+                display: none;
             }
-
-            &.items {
-                background-image: url("./../../assets/img/background/header-items.jpg");
-            }
-        }
-
-        > .icon {
-            position: relative;
-            background-color: white;
-            border-radius: 6px;
-            margin: 140px auto 3rem auto;
-            width: fit-content;
-            aspect-ratio: 1 / 1;
-            padding: 15px;
 
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: row;
+            flex-wrap: wrap;
 
-            &.penguins {
-                padding: 0;
+            width: 250px;
+
+            > .desktop {
+                display: block;
+                flex-basis: auto;
+                background-color: white;
+                border-radius: 10px;
+                position: relative;
+                width: 250px;
+                padding-top: 250px;
+                cursor: pointer;
 
                 img {
-                    max-height: 127px;
-                    max-width: 127px;
-                    border-radius: 6px;
-                }
-            }
-
-            img {
-                height: 100%;
-                width: 100%;
-                max-height: 97px;
-                max-width: 97px;
-            }
-        }
-
-        > h1 {
-            font-family: "CHEDROS", sans-serif;
-            font-weight: bold;
-            position: relative;
-            top: -2rem;
-            font-size: 3rem;
-            color: $primary-dark;
-            text-align: center;
-        }
-
-        > .items {
-            .itemRoot {
-                > .mobile {
-                    display: none;
-                }
-
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-
-                width: 250px;
-
-                > .desktop {
-                    display: block;
-                    flex-basis: auto;
-                    background-color: white;
-                    border-radius: 10px;
-                    position: relative;
                     width: 250px;
-                    padding-top: 250px;
-                    cursor: pointer;
+                    height: 250px;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                }
 
-                    img {
-                        width: 250px;
-                        height: 250px;
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        right: 0;
+                .infos {
+                    padding: 15px;
+
+                    .name {
+                        font-family: "CHEDROS", sans-serif;
+                        font-weight: bold;
+                        font-size: 1.4rem;
                     }
 
-                    .infos {
-                        padding: 15px;
-
-                        .name {
-                            font-family: "CHEDROS", sans-serif;
-                            font-weight: bold;
-                            font-size: 1.4rem;
-                        }
-
-                        .rarity {
-                            margin-top: 0.6rem;
-                            font-family: "CHEDROS", sans-serif;
-                            font-weight: bold;
-                            color: $primary;
-                        }
+                    .rarity {
+                        margin-top: 0.6rem;
+                        font-family: "CHEDROS", sans-serif;
+                        font-weight: bold;
+                        color: $primary;
                     }
                 }
             }
