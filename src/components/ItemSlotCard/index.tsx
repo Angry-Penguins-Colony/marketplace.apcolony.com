@@ -11,7 +11,7 @@ export interface IItemSlotCardProps {
 }
 
 const ItemSlotCard = ({ icon, link, title, className = '' }: IItemSlotCardProps) => {
-    return <Link to={link}>
+    return <Link to={link} className={style.link}>
         <div className={style['item-slot-card'] + ' ' + className}>
             <div>
                 <p className={style.title}>{title}</p>
