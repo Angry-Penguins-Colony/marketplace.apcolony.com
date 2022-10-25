@@ -11,6 +11,7 @@ import { buildRouteLinks } from 'routes';
 import useGetMarketData from 'sdk/hooks/api/useGetMarketData';
 import useGetOffersOfCategory from 'sdk/hooks/api/useGetOffersOfCategory';
 import { isOfferCategoryValid } from 'sdk/misc/guards';
+import CategoriesType from 'sdk/types/CategoriesType';
 import MarketData from '../../components/Inventory/MarketData';
 import defaultPenguinImg from './../../assets/img/penguin_default.png';
 import style from './index.module.scss';
@@ -21,6 +22,7 @@ const CategoriesOffers = () => {
 
     if (!category) throw new Error('Missing category');
 
+    const type: CategoriesType = category == 'penguins' ? 'penguins' : 'items';
     const title = category;
     const { data: offersReponses } = useGetOffersOfCategory(category);
     const { data: marketData } = useGetMarketData(category);
@@ -41,16 +43,13 @@ const CategoriesOffers = () => {
     return (
         <div className={style['type-in-marketplace']}>
             <MobileHeader title={'Marketplace'} rightIcon={<SearchIcon />} type='light' />
-            <div className={style['background-header']} style={
-                {
-                    backgroundImage: 'url(/img/background/header_' + category + '.png)'
-                }
-            }></div>
+            <div className={style['background-header'] + ' ' + style[type]} />
             <div className={style.icon + (category == 'penguins' ? (' ' + style.penguins) : '')}>
                 <img src={category == 'penguins' ? PenguinIcon : '/img/icon/' + category + '_unicolor_icon.svg'} alt={category} />
             </div>
             <h1>{title}</h1>
-            {marketData &&
+            {
+                marketData &&
                 <MarketData
                     floorPrice={parseInt(marketData.floorPrice)}
                     totalVolume={parseInt(marketData.totalVolume)}

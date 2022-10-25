@@ -73,6 +73,14 @@
             position: absolute;
             top: 0px;
             left: 0px;
+
+            &.penguins {
+                background-image: url("./../../assets/img/background/header-penguins.jpg");
+            }
+
+            &.items {
+                background-image: url("./../../assets/img/background/header-items.jpg");
+            }
         }
 
         > .icon {
