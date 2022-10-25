@@ -9,6 +9,7 @@ import { buildRouteLinks } from 'routes';
 import useGetMarketData from 'sdk/hooks/api/useGetMarketData';
 import useGetOffersOfCategory from 'sdk/hooks/api/useGetOffersOfCategory';
 import { isSlot } from 'sdk/misc/guards';
+import { getIconOfSlot } from 'sdk/misc/shorthands';
 import CategoriesType from 'sdk/types/CategoriesType';
 import defaultPenguinImg from './../../assets/img/penguin_default.png';
 import style from './index.module.scss';
@@ -37,9 +38,7 @@ const OffersList = ({
         }
     }, [offersReponses]);
 
-    const icon = category == 'penguins' ?
-        PenguinIcon
-        : `/img/icon/${slot}_unicolor_icon.svg`;
+    const icon = category == 'penguins' ? PenguinIcon : getIconOfSlot(slot);
 
     return <OffersPageLayout
         icon={icon}
@@ -105,3 +104,4 @@ const ErrorWrapper = (props: IProps) => {
 }
 
 export default ErrorWrapper;
+
