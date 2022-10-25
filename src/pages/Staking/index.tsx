@@ -18,7 +18,6 @@ import StakePopup from 'components/Foreground/Popup/StakePopup/StakePopup';
 import { GenericItemExplorer } from 'components/Navigation/GenericItemExplorer';
 import { buildRouteLinks } from 'routes';
 import useGetExploreItems from 'sdk/hooks/api/useGetExploreItems';
-import QueryBuilder from 'sdk/queryBuilder/QueryBuilder';
 import style from './index.module.scss';
 
 
@@ -28,30 +27,30 @@ export default function Staking() {
   const [isStakePopupVisible, setIsStakePopupVisible] = React.useState(false);
   const [rewardsToClaim, setRewardsToClaim] = React.useState('');
   const [apcStaked, setApcStaked] = React.useState('');
-  const query = new QueryBuilder();
+  // const query = new QueryBuilder();
 
   const scAddress = 'erd1qqqqqqqqqqqqqpgqdcjdvpvncw7s8ug56rehyvl8tehk3vl368mqxa7llg'; //Todo : Change this function of the environment
   const apcToken = 'TEST-17e1db';//Todo : Change this function of the environment and the sdk ?
   const apcTokenInSc = 1000000;//Todo : Change this function of the environment and the sdk ?
 
-  useEffect(() => {
-    const getNftsForStakerFunc = async () => {
-      query.createQuery(
-        address,
-        scAddress,
-        'getNftsNumberAndRewardsAvailableForStaker',
-        [new AddressValue(new Address('erd1gsqegzjref54nv4hzjn9zhyze0g8us0tvm7fd5ph5z9z3tuqhzcq6g3503'))]
-      ).then((response) => {
-        const rewards = response.values[1].valueOf().toString();
-        const staked = response.values[0].valueOf().toString();
-        setRewardsToClaim(rewards);
-        setApcStaked(staked);
-      }).catch((error) => {
-        //ToDop: handle error 
-      })
-    }
-    getNftsForStakerFunc();
-  }, [])
+  // useEffect(() => {
+  //   const getNftsForStakerFunc = async () => {
+  //     query.createQuery(
+  //       address,
+  //       scAddress,
+  //       'getNftsNumberAndRewardsAvailableForStaker',
+  //       [new AddressValue(new Address('erd1gsqegzjref54nv4hzjn9zhyze0g8us0tvm7fd5ph5z9z3tuqhzcq6g3503'))]
+  //     ).then((response) => {
+  //       const rewards = response.values[1].valueOf().toString();
+  //       const staked = response.values[0].valueOf().toString();
+  //       setRewardsToClaim(rewards);
+  //       setApcStaked(staked);
+  //     }).catch((error) => {
+  //       //ToDop: handle error 
+  //     })
+  //   }
+  //   getNftsForStakerFunc();
+  // }, [])
 
 
 
