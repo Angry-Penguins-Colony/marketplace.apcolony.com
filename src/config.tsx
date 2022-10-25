@@ -25,6 +25,16 @@ export const defaultImages = {
   'skin': 'https://apc-items.s3.eu-west-3.amazonaws.com/render/default-skin-render.png',
 };
 
+export const slots = [
+  'hat',
+  'beak',
+  'skin',
+  'weapon',
+  'background',
+  'eyes',
+  'clothes'
+];
+
 function getNetworkInfos() {
   if (useDevnet) {
     return {

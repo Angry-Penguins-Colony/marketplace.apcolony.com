@@ -1,4 +1,4 @@
-@import "./../../assets/sass/var.scss";
+@import "./../../../assets/sass/var.scss";
 
 .type-in-marketplace {
     background-color: $background;
@@ -41,18 +41,6 @@
         margin-top: 40px;
         margin-bottom: 30px;
     }
-
-    > .items {
-        .itemRoot {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-
-            > .desktop {
-                display: none;
-            }
-        }
-    }
 }
 
 // desktop
@@ -75,11 +63,11 @@
             left: 0px;
 
             &.penguins {
-                background-image: url("./../../assets/img/background/header-penguins.jpg");
+                background-image: url("/assets/img/background/header-penguins.jpg");
             }
 
             &.items {
-                background-image: url("./../../assets/img/background/header-items.jpg");
+                background-image: url("/assets/img/background/header-items.jpg");
             }
         }
 
@@ -95,6 +83,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+
+            overflow: hidden;
 
             &.penguins {
                 padding: 0;
@@ -122,57 +112,6 @@
             font-size: 3rem;
             color: $primary-dark;
             text-align: center;
-        }
-
-        > .items {
-            .itemRoot {
-                > .mobile {
-                    display: none;
-                }
-
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-
-                width: 250px;
-
-                > .desktop {
-                    display: block;
-                    flex-basis: auto;
-                    background-color: white;
-                    border-radius: 10px;
-                    position: relative;
-                    width: 250px;
-                    padding-top: 250px;
-                    cursor: pointer;
-
-                    img {
-                        width: 250px;
-                        height: 250px;
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                    }
-
-                    .infos {
-                        padding: 15px;
-
-                        .name {
-                            font-family: "CHEDROS", sans-serif;
-                            font-weight: bold;
-                            font-size: 1.4rem;
-                        }
-
-                        .rarity {
-                            margin-top: 0.6rem;
-                            font-family: "CHEDROS", sans-serif;
-                            font-weight: bold;
-                            color: $primary;
-                        }
-                    }
-                }
-            }
         }
     }
 }

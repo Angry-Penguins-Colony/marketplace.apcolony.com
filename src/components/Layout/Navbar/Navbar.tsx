@@ -46,84 +46,104 @@ const Navbar = () => {
       className: style.labIcon,
       visibleIfConnected: true,
     },
-    {
-      name: 'Menu',
-      onClick: () => {
-        setMobileMenuIsOpen(true);
-      },
-      icon: <MenuIcon />,
-      mobileOnly: true,
-    },
   ];
 
   const visibleNavItems = navItems
     .filter((item) => !item.visibleIfConnected || (item.visibleIfConnected && isConnected));
 
-  const [mobileMenuIsOpen, setMobileMenuIsOpen] = React.useState<boolean>(false);
-
-  const navigate = useNavigate();
 
   return (
     <>
-      <MobileMenu navItems={visibleNavItems.filter((item) => item.name !== 'Menu')} isOpen={mobileMenuIsOpen} onClose={() => setMobileMenuIsOpen(false)} />
-      <div id="NavBar" className={style.navbar}>
-        {
-          visibleNavItems.map((item, index) => (
-            <div className={
-              style.navItem
-              + ' ' + item.className
-              + ((item.route && item.route === window.location.pathname) ? ' ' + style.active : '')
-            } key={index} onClick={() => (
-              item.onClick ?
-                item.onClick() :
-                navigate(item.route ?? '')
-            )}>
-              {
-                React.cloneElement(
-                  item.icon,
-                  {
-                    fulfill: (item.route && item.route === window.location.pathname),
-                    className: style.icon,
-                  }
-                )
-              }
-              <p>{item.name}</p>
-            </div>
-          ))
-        }
-      </div>
-      <div id={style['desktop-header']}>
-        <header>
-          <div className={style.left}>
-            <Link to={routeNames.home}>
-              <img src={APCLogoColored} alt="Logo Angry Penguins" />
-            </Link>
-            <nav>
-              {/* TODO: bind nav link */}
-              {
-                visibleNavItems
-                  .filter((item) => !item.mobileOnly)
-                  .map((item, index) => {
-                    return <a href={item.route} key={index} className={style.item}>{item.name}</a>
-                  })
-              }
-            </nav>
-          </div>
-          <div className={style.center}>
-            {/* <div className={style.search}>
-              <SearchIcon className={style.icon} />
-              <input type="text" placeholder="Search..." />
-            </div> */}
-          </div>
-          <div className={style.right}>
-            <SocialButtons className={style.social} />
-
-            <LoginLogoutButton className={style.button} />
-          </div>
-        </header>
-      </div >
+      <MobileNavBar navItems={visibleNavItems} />
+      <DesktopHeader navItems={visibleNavItems} />
     </>
   );
 };
 
+
+const DesktopHeader = ({ navItems: visibleNavItems }: { navItems: NavItem[] }) => {
+  return <div id={style['desktop-header']}>
+    <header>
+      <div className={style.left}>
+        <Link to={routeNames.home}>
+          <img src={APCLogoColored} alt="Logo Angry Penguins" />
+        </Link>
+        <nav>
+          {visibleNavItems
+            .filter((item) => !item.mobileOnly)
+            .map((item, index) => <DesktopHeaderItem item={item} key={index} />)}
+        </nav>
+      </div>
+      <div className={style.center}>
+
+      </div>
+      <div className={style.right}>
+        <SocialButtons className={style.social} />
+
+        <LoginLogoutButton className={style.button} />
+      </div>
+    </header>
+  </div>;
+}
+
+const DesktopHeaderItem = ({ item }: { item: NavItem }) => {
+  return <a href={item.route} className={style.item}>{item.name}</a>;
+}
+
 export default Navbar;
+
+const MobileNavBar = ({ navItems }: { navItems: NavItem[], }) => {
+
+  const [mobileMenuIsOpen, setMobileMenuIsOpen] = React.useState<boolean>(false);
+
+  const openMenuButton: NavItem = {
+    name: 'Menu',
+    onClick: () => {
+      setMobileMenuIsOpen(true);
+    },
+    icon: <MenuIcon />,
+  };
+
+  return <>
+    <MobileMenu navItems={navItems.filter((item) => item.name !== 'Menu')} isOpen={mobileMenuIsOpen} onClose={() => setMobileMenuIsOpen(false)} />
+
+    <div id="NavBar" className={style.navbar}>
+      {navItems.map((item, index) => <MobileNavBarItem item={item} key={index} />)}
+      <MobileNavBarItem item={openMenuButton} />
+    </div>
+  </>;
+}
+
+const MobileNavBarItem = ({ item }: { item: NavItem }) => {
+  const navigate = useNavigate();
+
+  const isSelected = item.route && item.route === window.location.pathname;
+
+  const className = [
+    style.navItem,
+    item.className,
+    (isSelected ? ' ' + style.active : '')
+  ].join(' ');
+
+  const handleOnClick = () => {
+    if (item.onClick) {
+      item.onClick();
+    } else if (item.route) {
+      navigate(item.route);
+    }
+  }
+
+  return <div className={className} onClick={handleOnClick}>
+    {React.cloneElement(
+      item.icon,
+      {
+        fulfill: isSelected,
+        className: style.icon,
+      }
+    )}
+
+    {/*  */}
+    <p>{item.name}</p>
+  </div>
+}
+

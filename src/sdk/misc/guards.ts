@@ -1,4 +1,4 @@
-import { items, penguinsCount } from 'config';
+import { items, penguinsCount, slots } from 'config';
 import CategoriesType, { categoriesTypeValues } from 'sdk/types/CategoriesType';
 
 export function isIdValid(rawId: string, category: CategoriesType): boolean {
@@ -33,4 +33,8 @@ export function isOfferCategoryValid(category: string) {
     ];
 
     return validCategories.includes(category);
+}
+
+export function isSlot(slot: string): boolean {
+    return slots.includes(slot);
 }
