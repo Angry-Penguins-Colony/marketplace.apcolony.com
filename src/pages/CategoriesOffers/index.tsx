@@ -10,22 +10,24 @@ import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { buildRouteLinks } from 'routes';
 import useGetMarketData from 'sdk/hooks/api/useGetMarketData';
 import useGetOffersOfCategory from 'sdk/hooks/api/useGetOffersOfCategory';
-import { isOfferCategoryValid } from 'sdk/misc/guards';
+import { isSlot } from 'sdk/misc/guards';
 import CategoriesType from 'sdk/types/CategoriesType';
 import MarketData from '../../components/Inventory/MarketData';
 import defaultPenguinImg from './../../assets/img/penguin_default.png';
 import style from './index.module.scss';
 
-// TODO: for penguin
-const CategoriesOffers = () => {
-    const { category } = useParams();
+interface IProps {
+    category: CategoriesType
+}
 
-    if (!category) throw new Error('Missing category');
+const CategoriesOffers = ({
+    category
+}: IProps) => {
+    const { slot } = useParams();
 
-    const type: CategoriesType = category == 'penguins' ? 'penguins' : 'items';
-    const title = category;
-    const { data: offersReponses } = useGetOffersOfCategory(category);
-    const { data: marketData } = useGetMarketData(category);
+    const title = slot ?? category;
+    const { data: offersReponses } = useGetOffersOfCategory(slot ?? category);
+    const { data: marketData } = useGetMarketData(slot ?? category);
 
 
     const [offers, setOffers] = React.useState<IItem[] | undefined>(undefined);
@@ -39,13 +41,17 @@ const CategoriesOffers = () => {
         }
     }, [offersReponses]);
 
+    const icon = category == 'penguins' ?
+        PenguinIcon
+        : `/img/icon/${slot}_unicolor_icon.svg`;
+
 
     return (
         <div className={style['type-in-marketplace']}>
             <MobileHeader title={'Marketplace'} rightIcon={<SearchIcon />} type='light' />
-            <div className={style['background-header'] + ' ' + style[type]} />
+            <div className={style['background-header'] + ' ' + style[category]} />
             <div className={style.icon + (category == 'penguins' ? (' ' + style.penguins) : '')}>
-                <img src={category == 'penguins' ? PenguinIcon : '/img/icon/' + category + '_unicolor_icon.svg'} alt={category} />
+                <img src={icon} alt={category} />
             </div>
             <h1>{title}</h1>
             {
@@ -108,19 +114,17 @@ const CategoriesOffers = () => {
     }
 };
 
-const ErrorWrapper = () => {
-    const { category } = useParams();
+const ErrorWrapper = (props: IProps) => {
+    const { slot } = useParams();
 
-    if (!category) throw new Error('Missing category');
-
-    if (isOfferCategoryValid(category) == false) {
+    if (slot && isSlot(slot) == false) {
         return <ErrorPage
-            title="Invalid category"
-            description="The category you are looking for does not exist."
+            title="Invalid slot"
+            description="The slot you are looking for does not exist."
         />
     }
     else {
-        return <CategoriesOffers />
+        return <CategoriesOffers {...props} />
     }
 }
 

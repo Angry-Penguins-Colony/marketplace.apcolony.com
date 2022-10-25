@@ -34,3 +34,17 @@ export function isOfferCategoryValid(category: string) {
 
     return validCategories.includes(category);
 }
+
+export function isSlot(slot: string): boolean {
+    const validSlot = [
+        'hat',
+        'beak',
+        'skin',
+        'weapon',
+        'background',
+        'eyes',
+        'clothes'
+    ];
+
+    return validSlot.includes(slot);
+}

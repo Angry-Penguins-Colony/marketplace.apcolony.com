@@ -21,17 +21,23 @@ export const routeNames = {
   inventory: '/inventory/:address',
   inspect: '/inspect/:type/:id',
   customize: '/customize/:id',
-  categoriesOffers: '/offers/:category/',
+  penguinsOffers: '/offers/penguins/',
+  itemsOffers: '/offers/items/:slot',
   unlock: '/unlock',
   ledger: '/ledger',
   walletconnect: '/walletconnect',
 };
 
 export const buildRouteLinks = {
-  customize: (id: string | number) => routeNames.customize.replace(':id', id.toString()),
-  inspect: (type: CategoriesType, id: string) => routeNames.inspect.replace(':type', type).replace(':id', id),
-  inventory: (address: string) => routeNames.inventory.replace(':address', address),
-  categoriesOffers: (type: string) => routeNames.categoriesOffers.replace(':category', type)
+  customize: (id: string | number) => routeNames.customize
+    .replace(':id', id.toString()),
+  inspect: (type: CategoriesType, id: string) => routeNames.inspect
+    .replace(':type', type)
+    .replace(':id', id),
+  inventory: (address: string) => routeNames.inventory
+    .replace(':address', address),
+  itemsOffers: (slot: string) => routeNames.itemsOffers
+    .replace(':slot', slot),
 }
 
 const routes: Array<ITitledRoute> = [
@@ -66,9 +72,18 @@ const routes: Array<ITitledRoute> = [
     authenticatedRoute: true,
   },
   {
-    path: routeNames.categoriesOffers,
-    title: 'Offers',
-    component: CategoriesOffers
+    path: routeNames.itemsOffers,
+    title: 'Items Offers',
+    component: () => {
+      return <CategoriesOffers category='items' />
+    }
+  },
+  {
+    path: routeNames.penguinsOffers,
+    title: 'Penguins Offers',
+    component: () => {
+      return <CategoriesOffers category='penguins' />
+    }
   },
 ];
 

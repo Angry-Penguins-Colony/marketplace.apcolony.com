@@ -47,18 +47,18 @@ const Home = () => {
       <section className={style.categories}>
         <h2>Categories</h2>
         <div className={style.content}>
-          <CategoryItem title="Hat" img="/img/icon/hat_big.png" link={buildRouteLinks.categoriesOffers('hat')} />
-          <CategoryItem title="Beak" img="/img/icon/hat_big.png" link={buildRouteLinks.categoriesOffers('beak')} />
-          <CategoryItem title="Skin" img="/img/icon/hat_big.png" link={buildRouteLinks.categoriesOffers('skin')} />
-          <CategoryItem title="Weapon" img="/img/icon/hat_big.png" link={buildRouteLinks.categoriesOffers('weapon')} />
-          <CategoryItem title="Background" img="/img/icon/hat_big.png" link={buildRouteLinks.categoriesOffers('background')} />
-          <CategoryItem title="Eyes" img="/img/icon/hat_big.png" link={buildRouteLinks.categoriesOffers('eyes')} />
-          <CategoryItem title="Clothes" img="/img/icon/hat_big.png" link={buildRouteLinks.categoriesOffers('clothes')} />
+          <CategoryItem title="Hat" img="/img/icon/hat_big.png" link={buildRouteLinks.itemsOffers('hat')} />
+          <CategoryItem title="Beak" img="/img/icon/hat_big.png" link={buildRouteLinks.itemsOffers('beak')} />
+          <CategoryItem title="Skin" img="/img/icon/hat_big.png" link={buildRouteLinks.itemsOffers('skin')} />
+          <CategoryItem title="Weapon" img="/img/icon/hat_big.png" link={buildRouteLinks.itemsOffers('weapon')} />
+          <CategoryItem title="Background" img="/img/icon/hat_big.png" link={buildRouteLinks.itemsOffers('background')} />
+          <CategoryItem title="Eyes" img="/img/icon/hat_big.png" link={buildRouteLinks.itemsOffers('eyes')} />
+          <CategoryItem title="Clothes" img="/img/icon/hat_big.png" link={buildRouteLinks.itemsOffers('clothes')} />
         </div>
       </section>
       <section className={style['chose-category']}>
         <div className={style.content}>
-          <BigCategory title="Penguins" backgroundImg={HeaderPenguin} link={buildRouteLinks.categoriesOffers('penguins')} />
+          <BigCategory title="Penguins" backgroundImg={HeaderPenguin} link={routeNames.penguinsOffers} />
         </div>
       </section>
       {
@@ -88,7 +88,7 @@ const Home = () => {
       <div className={style['global-unique-style']}>
         <section className={style['give-unique-style']}>
           <h2>Give your Angry Penguins<span><br /></span> gang a unique style</h2>
-          <Link to={buildRouteLinks.categoriesOffers('weapon')}>
+          <Link to={buildRouteLinks.itemsOffers('weapon')}>
             <Button type='normal' className={style.button}>Buy weapons</Button>
           </Link>
         </section>
