@@ -20,7 +20,7 @@ interface IProps {
     category: CategoriesType
 }
 
-const CategoriesOffers = ({
+const OffersList = ({
     category
 }: IProps) => {
     const { slot } = useParams();
@@ -124,7 +124,7 @@ const ErrorWrapper = (props: IProps) => {
         />
     }
     else {
-        return <CategoriesOffers {...props} />
+        return <OffersList {...props} />
     }
 }
 
