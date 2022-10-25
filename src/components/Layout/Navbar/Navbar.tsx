@@ -71,9 +71,7 @@ const DesktopHeader = ({ navItems: visibleNavItems }: { navItems: NavItem[] }) =
         <nav>
           {visibleNavItems
             .filter((item) => !item.mobileOnly)
-            .map((item, index) => {
-              return <a href={item.route} key={index} className={style.item}>{item.name}</a>;
-            })}
+            .map((item, index) => <DesktopHeaderItem item={item} key={index} />)}
         </nav>
       </div>
       <div className={style.center}>
@@ -86,6 +84,10 @@ const DesktopHeader = ({ navItems: visibleNavItems }: { navItems: NavItem[] }) =
       </div>
     </header>
   </div>;
+}
+
+const DesktopHeaderItem = ({ item }: { item: NavItem }) => {
+  return <a href={item.route} className={style.item}>{item.name}</a>;
 }
 
 export default Navbar;
@@ -112,7 +114,7 @@ const MobileNavBar = ({ navItems }: { navItems: NavItem[], }) => {
   </>;
 }
 
-const MobileNavBarItem = ({ item, key }: { item: NavItem, key?: React.Key }) => {
+const MobileNavBarItem = ({ item }: { item: NavItem }) => {
   const navigate = useNavigate();
 
   const isSelected = item.route && item.route === window.location.pathname;
@@ -123,11 +125,15 @@ const MobileNavBarItem = ({ item, key }: { item: NavItem, key?: React.Key }) => 
     (isSelected ? ' ' + style.active : '')
   ].join(' ');
 
-  return <div className={className} key={key} onClick={() => (
-    item.onClick ?
-      item.onClick() :
-      navigate(item.route ?? '')
-  )}>
+  const handleOnClick = () => {
+    if (item.onClick) {
+      item.onClick();
+    } else if (item.route) {
+      navigate(item.route);
+    }
+  }
+
+  return <div className={className} onClick={handleOnClick}>
     {React.cloneElement(
       item.icon,
       {
