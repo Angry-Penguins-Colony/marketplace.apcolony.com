@@ -8,11 +8,12 @@ import MobileHeader from '../MobileHeader/MobileHeader';
 import style from './index.module.scss';
 
 interface IProps {
-    icon: string;
-    marketData?: IMarketData;
-    children?: React.ReactNode;
+    icon?: string;
     pageStyle: CategoriesType;
     pageTitle: string;
+    marketData?: IMarketData;
+    children?: React.ReactNode;
+    iconClassName?: string;
 }
 
 const OffersPageLayout = ({
@@ -20,18 +21,24 @@ const OffersPageLayout = ({
     marketData,
     children,
     pageStyle,
-    pageTitle
+    pageTitle,
+    iconClassName: anotherIconClassName = ''
 }: IProps) => {
 
 
-    const iconClassName = pageStyle == 'penguins' ? (' ' + style.penguins) : '';
+    const iconClassName = [
+        style.icon,
+        pageStyle == 'penguins' ? (' ' + style.penguins) : '',
+        anotherIconClassName
+    ].join(' ');
     const backgroundHeaderClassName = style[pageStyle];
 
     return (
         <div className={style['type-in-marketplace']}>
             <MobileHeader title={'Marketplace'} rightIcon={<SearchIcon />} type='light' />
             <div className={style['background-header'] + ' ' + backgroundHeaderClassName} />
-            <div className={style.icon + ' ' + iconClassName}>
+
+            <div className={iconClassName}>
                 <img src={icon} alt={pageStyle} />
             </div>
             <h1>{pageTitle}</h1>
