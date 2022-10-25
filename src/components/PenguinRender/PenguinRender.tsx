@@ -20,20 +20,12 @@ const PenguinRender = (
     }
 ) => {
 
-    // TODO: how to get the fallback images CID ?
-    // -> in const ?
-    // -> get uri from api
-
     return (
         <div className={style.render + (items.background ? ' ' + style.hasBackground : '')}>
 
             <img src={items.background ?? defaultImages.background} alt="background" className='background' />
             <img src={items.skin ?? defaultImages.skin} alt="skin" className='skin' />
-            {
-                items.hat && (
-                    <img src={items.hat} alt="hat" className='hat' />
-                )
-            }
+
 
             <img src={items.eyes ?? defaultImages.eyes} alt="eyes" className='eyes' />
 
@@ -50,6 +42,12 @@ const PenguinRender = (
             }
 
             <img src={items.beak ?? defaultImages.beak} alt="beak" className='beak' />
+
+            {
+                items.hat && (
+                    <img src={items.hat} alt="hat" className='hat' />
+                )
+            }
 
             {children}
         </div>);
