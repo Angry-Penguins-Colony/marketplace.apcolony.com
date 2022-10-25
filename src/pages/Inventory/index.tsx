@@ -119,15 +119,14 @@ const Inventory = () => {
                         filterData={filterData} changeFilters={changeFilters} />
                 </section>
 
-                {inventoryElements &&
-                    <ItemsInventory
-                        className={style['items-inventory']}
-                        items={inventoryElements}
-                        type={inventoryType}
-                        amountById={ownedAmount ? ownedAmount[inventoryType] : {}}
-                        hasFilter={typeWithFilter.includes(inventoryType)}
-                        filters={filterData} />
-                }
+
+                <ItemsInventory
+                    className={style['items-inventory']}
+                    items={inventoryElements}
+                    type={inventoryType}
+                    amountById={ownedAmount ? ownedAmount[inventoryType] : {}}
+                    hasFilter={typeWithFilter.includes(inventoryType)}
+                    filters={filterData} />
             </div>
         </>
     );

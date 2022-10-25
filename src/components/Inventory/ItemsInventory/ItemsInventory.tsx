@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { IGenericElement } from '@apcolony/marketplace-api';
 import { Link } from 'react-router-dom';
+import Loading from 'components/Abstract/Loading';
 import ReactImageAppear from 'components/Images/ReactImageAppear/ReactImageAppear';
 import { buildRouteLinks } from 'routes';
 import CategoriesType from 'sdk/types/CategoriesType';
@@ -16,7 +17,7 @@ export interface IInventoryItem {
 
 interface IProps {
     className?: string,
-    items: IGenericElement[],
+    items?: IGenericElement[],
     amountById: Record<string, number>,
     type: CategoriesType,
     hasFilter: boolean,
@@ -43,18 +44,24 @@ const ItemsInventory = ({
 
     function fillContent() {
 
-        const matchedItems = items
-            .filter(item => match(item));
+        if (items) {
 
-        if (matchedItems.length > 0) {
-            return matchedItems
-                .map((item: IGenericElement, index: number) => <Item key={index} item={{
-                    amount: amountById[item.id],
-                    ...item
-                }} type={type} />);
+            const matchedItems = items
+                .filter(item => match(item));
+
+            if (matchedItems.length > 0) {
+                return matchedItems
+                    .map((item: IGenericElement, index: number) => <Item key={index} item={{
+                        amount: amountById[item.id],
+                        ...item
+                    }} type={type} />);
+            }
+            else {
+                return <p>You own 0 {type}.</p>
+            }
         }
         else {
-            return <p>You own 0 {type}.</p>
+            return <Loading size="large" />
         }
     }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import style from './style.module.scss';
 
 interface IProps {
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 const LoadingOverlay = ({ children }: IProps) => {
