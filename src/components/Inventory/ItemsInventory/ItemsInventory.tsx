@@ -14,7 +14,8 @@ interface IProps {
     amountById: Record<string, number>,
     type: CategoriesType,
     hasFilter: boolean,
-    filters?: Filters
+    filters?: Filters,
+    makeItemComponent?: (item: IGenericElement) => JSX.Element
 }
 
 const ItemsInventory = ({
@@ -22,7 +23,16 @@ const ItemsInventory = ({
     items,
     type,
     hasFilter,
-    amountById
+    amountById,
+    makeItemComponent = (item) => {
+        return <Item
+            key={item.id}
+            item={{
+                amount: amountById[item.id],
+                ...item
+            }}
+            type={type} />
+    }
 }: IProps) => {
     const title = 'My ' + type.charAt(0).toUpperCase() + type.slice(1);
 
@@ -44,10 +54,7 @@ const ItemsInventory = ({
 
             if (matchedItems.length > 0) {
                 return matchedItems
-                    .map((item: IGenericElement, index: number) => <Item key={index} item={{
-                        amount: amountById[item.id],
-                        ...item
-                    }} type={type} />);
+                    .map(item => makeItemComponent(item));
             }
             else {
                 return <p>You own 0 {type}.</p>
@@ -75,12 +82,14 @@ interface IItemProps {
         },
         id: string
     },
-    type: CategoriesType
+    type: CategoriesType,
+    children?: React.ReactNode
 }
 
 const Item = ({
     item,
-    type
+    type,
+    children
 }: IItemProps) => {
 
     return (
@@ -91,6 +100,8 @@ const Item = ({
                 {(item.amount && type == 'items') &&
                     <div className={style.count}>{item.amount}</div>
                 }
+
+                {children}
             </div>
         </Link>
     );
