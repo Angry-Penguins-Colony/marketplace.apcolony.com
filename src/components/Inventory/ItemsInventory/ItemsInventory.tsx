@@ -8,13 +8,6 @@ import CategoriesType from 'sdk/types/CategoriesType';
 import Filters from '../../../sdk/types/Filters';
 import style from './ItemsInventory.module.scss';
 
-export interface IInventoryItem {
-    name: string;
-    amount: number;
-    thumbnailWebUri: string;
-    id: string;
-}
-
 interface IProps {
     className?: string,
     items?: IGenericElement[],
