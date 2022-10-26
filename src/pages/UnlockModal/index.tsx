@@ -20,7 +20,7 @@ enum State {
   Ledger,
 }
 
-export const APCUnlockPage = ({ loginRoute }: Props) => {
+export const UnlockModal = ({ loginRoute }: Props) => {
 
   const [state, setState] = React.useState(State.LoginButtons);
 
@@ -85,7 +85,7 @@ export const APCUnlockPage = ({ loginRoute }: Props) => {
   }
 };
 
-export default APCUnlockPage;
+export default UnlockModal;
 
 interface LoginButtonsProps {
   loginRoute: string;

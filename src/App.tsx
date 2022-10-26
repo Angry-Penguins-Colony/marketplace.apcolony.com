@@ -9,7 +9,7 @@ import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import WIPModal from 'components/Foreground/Modals/WIPModal/WIPModal';
 import Layout from 'components/Layout';
 import PageNotFound from 'pages/PageNotFound';
-import APCUnlockPage from 'pages/UnlockPage';
+import UnlockModal from 'pages/UnlockModal';
 import routes, { routeNames } from 'routes';
 
 const environment = 'devnet';
@@ -32,7 +32,7 @@ const App = () => {
             <Routes>
               <Route
                 path={routeNames.unlock}
-                element={<APCUnlockPage loginRoute={routeNames.home} />}
+                element={<UnlockModal loginRoute={routeNames.home} />}
               />
               {routes.map((route: any, index: number) => (
                 <Route
