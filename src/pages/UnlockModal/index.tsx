@@ -12,6 +12,8 @@ import style from './unlock.module.scss';
 
 interface Props {
   loginRoute: string;
+  isVisible?: boolean;
+  onCloseClicked?: () => void
 }
 
 enum State {
@@ -20,7 +22,7 @@ enum State {
   Ledger,
 }
 
-export const UnlockModal = ({ loginRoute }: Props) => {
+export const UnlockModal = ({ loginRoute, isVisible = true, onCloseClicked }: Props) => {
 
   const [state, setState] = React.useState(State.LoginButtons);
 
@@ -36,12 +38,17 @@ export const UnlockModal = ({ loginRoute }: Props) => {
 
   return (
     <div className={style.unlock}>
-      <Popup isVisible={true} haveCloseButton={true} className={style.popup}
+      <Popup isVisible={isVisible} haveCloseButton={true} className={style.popup}
         topIcon={
           <img src={walletImg} />
         }
         onCloseClicked={() => {
-          navigate(routeNames.home);
+          if (onCloseClicked) {
+            onCloseClicked();
+          }
+          else {
+            navigate(routeNames.home);
+          }
         }}>
 
 
