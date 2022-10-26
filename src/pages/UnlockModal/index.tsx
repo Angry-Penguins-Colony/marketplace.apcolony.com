@@ -4,6 +4,7 @@ import { LedgerLoginContainer, WalletConnectLoginContainer } from '@elrondnetwor
 import { useNavigate } from 'react-router-dom';
 import Popup from 'components/Foreground/Popup/Generic/Popup';
 import { routeNames } from 'routes';
+import { createModal } from 'sdk/misc/shorthands';
 import ElrondLogo from './../../assets/img/icons/Elrond_logo.png';
 import LedgerLogo from './../../assets/img/icons/Ledger_logo.png';
 import MaiarLogo from './../../assets/img/icons/Maiar_logo.png';
@@ -12,6 +13,8 @@ import style from './unlock.module.scss';
 
 interface Props {
   loginRoute: string;
+  isVisible?: boolean;
+  onCloseClicked?: () => void
 }
 
 enum State {
@@ -20,7 +23,7 @@ enum State {
   Ledger,
 }
 
-export const APCUnlockPage = ({ loginRoute }: Props) => {
+export const UnlockModal = ({ loginRoute, isVisible = true, onCloseClicked }: Props) => {
 
   const [state, setState] = React.useState(State.LoginButtons);
 
@@ -34,14 +37,20 @@ export const APCUnlockPage = ({ loginRoute }: Props) => {
     }
   }, [isLoggedIn]);
 
-  return (
+
+  return createModal(
     <div className={style.unlock}>
-      <Popup isVisible={true} haveCloseButton={true} className={style.popup}
+      <Popup isVisible={isVisible} haveCloseButton={true} className={style.popup}
         topIcon={
           <img src={walletImg} />
         }
         onCloseClicked={() => {
-          navigate(routeNames.home);
+          if (onCloseClicked) {
+            onCloseClicked();
+          }
+          else {
+            navigate(routeNames.home);
+          }
         }}>
 
 
@@ -85,7 +94,7 @@ export const APCUnlockPage = ({ loginRoute }: Props) => {
   }
 };
 
-export default APCUnlockPage;
+export default UnlockModal;
 
 interface LoginButtonsProps {
   loginRoute: string;
