@@ -1,9 +1,18 @@
 import React from 'react';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 import APCLogoWhite from 'assets/img/apc-logo/white.png';
 import LoginLogoutButton from 'components/Buttons/LoginLogoutButton';
 import CrossIcon from 'components/Icons/CrossIcon';
 import style from './mobile-menu.module.scss';
+
+interface MenuLink {
+    action?: () => void;
+    route?: string;
+    name: string;
+    nestedItems?: MenuLink[];
+}
 
 const MobileMenu = (
     {
@@ -11,13 +20,11 @@ const MobileMenu = (
         isOpen,
         onClose,
     }: {
-        navItems: any[],
+        navItems: MenuLink[],
         isOpen: boolean,
         onClose: () => void,
     }
 ) => {
-
-    const navigate = useNavigate();
 
     return (
         <div className={style['mobile-menu'] + ' ' + (isOpen ? style['open'] : style['close'])}>
@@ -29,21 +36,7 @@ const MobileMenu = (
             </header>
             <div className={style['content']}>
                 <div className={style['title']}>Marketplace</div>
-                {
-                    navItems.map((item, index) => (
-                        <p className={style['menu-item']} key={index} onClick={() => {
-                            if (item.action) {
-                                item.action();
-                            }
-                            else {
-                                navigate(item.route);
-                                onClose();
-                            }
-                        }}>
-                            {item.name}
-                        </p>
-                    ))
-                }
+                {navItems.map((item, index) => <Item item={item} onClose={onClose} key={index} />)}
             </div>
             <footer>
                 <LoginLogoutButton type="normal" className={style.button} />
@@ -67,3 +60,32 @@ const MobileMenu = (
 }
 
 export default MobileMenu;
+
+
+const Item = ({ item, onClose, className = '' }: { item: MenuLink, onClose: () => void, className?: string }) => {
+
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        if (item.action) {
+            item.action();
+            onClose();
+        }
+        if (item.route) {
+            navigate(item.route);
+            onClose();
+        }
+    };
+
+    return <>
+        <p className={style['menu-item'] + ' ' + className} onClick={handleClick}>
+            {item.name}
+            {item.nestedItems &&
+                <FontAwesomeIcon className="ml-2" icon={faCaretDown} />}
+
+        </p>
+        {item.nestedItems &&
+            item.nestedItems.map(((i, index) => <Item className="ml-3" onClose={onClose} item={i} key={index} />))
+        }
+    </>
+}

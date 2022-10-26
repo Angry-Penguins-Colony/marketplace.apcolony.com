@@ -18,8 +18,7 @@ interface NavItem {
   icon?: JSX.Element,
   visibleIfConnected?: boolean,
   className?: string;
-  mobileOnly?: boolean;
-  type?: 'mobile-nav-bar' | 'mobile-menu';
+  mobileType?: 'nav-bar' | 'menu' | 'none';
   nestedItems?: NavItem[];
   onClick?: () => void;
 }
@@ -37,17 +36,17 @@ const Navbar = () => {
     },
     {
       name: 'Shop',
-      type: 'mobile-menu',
+      mobileType: 'menu',
       nestedItems: [
         {
           name: 'Penguins',
           route: routeNames.penguinsOffers,
-          type: 'mobile-menu',
+          mobileType: 'menu',
         },
         {
           name: 'Items',
           route: routeNames.itemsOffersNavigator,
-          type: 'mobile-menu',
+          mobileType: 'menu',
         }
       ]
     },
@@ -88,7 +87,6 @@ const DesktopHeader = ({ navItems: visibleNavItems }: { navItems: NavItem[] }) =
         </Link>
         <nav>
           {visibleNavItems
-            .filter((item) => !item.mobileOnly)
             .map((item, index) => <DesktopHeaderItem item={item} key={index} />)}
         </nav>
       </div>
@@ -107,9 +105,9 @@ const DesktopHeader = ({ navItems: visibleNavItems }: { navItems: NavItem[] }) =
 const DesktopHeaderItem = ({ item }: { item: NavItem }) => {
   if (item.nestedItems) {
     return <div className={style.item}>
-      <span className={style.itemName}>
+      <p className={style.itemName}>
         {item.name}
-      </span>
+      </p>
       <div className={style.nestedDropdown}>
         <div className={style.container} >
 
@@ -119,7 +117,7 @@ const DesktopHeaderItem = ({ item }: { item: NavItem }) => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   }
   else {
     return <a href={item.route} className={style.item}>{item.name}</a>;
@@ -140,9 +138,8 @@ const MobileNavBar = ({ navItems }: { navItems: NavItem[], }) => {
     icon: <MenuIcon />,
   };
 
-  const mobileMenuItems = navItems.filter((item) => !item.type || item.type == 'mobile-menu');
-
-  const navBarItems = navItems.filter((item) => !item.type || item.type == 'mobile-nav-bar');
+  const mobileMenuItems = navItems.filter((item) => !item.mobileType || item.mobileType == 'menu');
+  const navBarItems = navItems.filter((item) => !item.mobileType || item.mobileType == 'nav-bar');
 
   return <>
     <MobileMenu navItems={mobileMenuItems} isOpen={mobileMenuIsOpen} onClose={() => setMobileMenuIsOpen(false)} />
