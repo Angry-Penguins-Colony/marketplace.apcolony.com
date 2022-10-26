@@ -6,14 +6,16 @@ import style from './BigCategory.module.scss';
 export const BigCategory = ({
     title,
     backgroundImg,
-    link
+    link,
+    className = ''
 }: {
     title: string;
     backgroundImg: string;
     link: string;
+    className?: string;
 }) => {
     return (
-        <Link to={link} className={style['big-category'] + ' w-100'}>
+        <Link to={link} className={style['big-category'] + ' w-100 ' + className}>
             <div >
                 <img src={backgroundImg} alt={title} />
                 <h2>{title}</h2>

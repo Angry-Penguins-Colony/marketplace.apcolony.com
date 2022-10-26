@@ -49,10 +49,11 @@
     .big-category {
         min-width: auto;
         width: auto;
+        height: 365px;
 
         img {
-            min-height: auto;
             height: auto;
+            object-fit: cover;
         }
 
         &::after {

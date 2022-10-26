@@ -3,8 +3,8 @@ import ItemsIcon from 'assets/img/icons/items-icon.jpg';
 import ItemSlotCard, { IItemSlotCardProps } from 'components/ItemSlotCard';
 import OffersPageLayout from 'components/Layout/OffersPageLayout';
 import { slots } from 'config';
+import { icons } from 'icons';
 import { buildRouteLinks } from 'routes';
-import { getIconOfSlot } from 'sdk/misc/shorthands';
 import style from './index.module.scss';
 
 const ItemsOffersNavigator = () => {
@@ -13,7 +13,7 @@ const ItemsOffersNavigator = () => {
     const items: IItemSlotCardProps[] = slots
         .map(slot => {
             return {
-                icon: getIconOfSlot(slot),
+                icon: icons[slot].unicolor,
                 link: buildRouteLinks.itemsOffers(slot),
                 title: slot
             }
