@@ -8,6 +8,7 @@ import { DappProvider } from '@elrondnetwork/dapp-core/wrappers';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import WIPModal from 'components/Foreground/Modals/WIPModal/WIPModal';
 import Layout from 'components/Layout';
+import Home from 'pages/Home';
 import PageNotFound from 'pages/PageNotFound';
 import UnlockModal from 'pages/UnlockModal';
 import routes, { routeNames } from 'routes';
@@ -32,7 +33,11 @@ const App = () => {
             <Routes>
               <Route
                 path={routeNames.unlock}
-                element={<UnlockModal loginRoute={routeNames.home} />}
+                element={<>
+                  <Home />
+                  <UnlockModal loginRoute={routeNames.home} />
+                </>
+                }
               />
               {routes.map((route: any, index: number) => (
                 <Route
