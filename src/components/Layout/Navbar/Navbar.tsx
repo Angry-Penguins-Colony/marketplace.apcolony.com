@@ -2,6 +2,7 @@ import React from 'react';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { Link, useNavigate } from 'react-router-dom';
 import APCLogoColored from 'assets/img/apc-logo/colored.png';
+import UnderlineNavElmt from 'components/Abstract/UnderlineNavElmt/UnderlineNavElmt';
 import LoginLogoutButton from 'components/Buttons/LoginLogoutButton';
 import SocialButtons from 'components/Buttons/SocialButtons';
 import HomeIcon from 'components/Icons/HomeIcon';
@@ -15,10 +16,12 @@ import style from './navbar.module.scss';
 interface NavItem {
   name: string,
   route?: string,
-  icon: JSX.Element,
+  icon?: JSX.Element,
   visibleIfConnected?: boolean,
   className?: string;
   mobileOnly?: boolean;
+  type?: 'mobile-nav-bar' | 'mobile-menu';
+  nestedItems?: NavItem[];
   onClick?: () => void;
 }
 
@@ -32,6 +35,22 @@ const Navbar = () => {
       name: 'Home',
       route: routeNames.home,
       icon: <HomeIcon />,
+    },
+    {
+      name: 'Shop',
+      type: 'mobile-menu',
+      nestedItems: [
+        {
+          name: 'Penguins',
+          route: routeNames.penguinsOffers,
+          type: 'mobile-menu',
+        },
+        {
+          name: 'Items',
+          route: routeNames.itemsOffersNavigator,
+          type: 'mobile-menu',
+        }
+      ]
     },
     {
       name: 'My Inventory',
@@ -87,7 +106,25 @@ const DesktopHeader = ({ navItems: visibleNavItems }: { navItems: NavItem[] }) =
 }
 
 const DesktopHeaderItem = ({ item }: { item: NavItem }) => {
-  return <a href={item.route} className={style.item}>{item.name}</a>;
+  if (item.nestedItems) {
+    return <div className={style.item}>
+      <span className={style.itemName}>
+        {item.name}
+      </span>
+      <div className={style.nestedDropdown}>
+        <div className={style.container} >
+
+          <div className={style.underline} />
+          <div className={style.flex}>
+            {item.nestedItems.map((nestedItem, index) => <DesktopHeaderItem item={nestedItem} key={index} />)}
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+  else {
+    return <a href={item.route} className={style.item}>{item.name}</a>;
+  }
 }
 
 export default Navbar;
@@ -104,11 +141,15 @@ const MobileNavBar = ({ navItems }: { navItems: NavItem[], }) => {
     icon: <MenuIcon />,
   };
 
+  const mobileMenuItems = navItems.filter((item) => !item.type || item.type == 'mobile-menu');
+
+  const navBarItems = navItems.filter((item) => !item.type || item.type == 'mobile-nav-bar');
+
   return <>
-    <MobileMenu navItems={navItems.filter((item) => item.name !== 'Menu')} isOpen={mobileMenuIsOpen} onClose={() => setMobileMenuIsOpen(false)} />
+    <MobileMenu navItems={mobileMenuItems} isOpen={mobileMenuIsOpen} onClose={() => setMobileMenuIsOpen(false)} />
 
     <div id="NavBar" className={style.navbar}>
-      {navItems.map((item, index) => <MobileNavBarItem item={item} key={index} />)}
+      {navBarItems.map((item, index) => <MobileNavBarItem item={item} key={index} />)}
       <MobileNavBarItem item={openMenuButton} />
     </div>
   </>;
@@ -132,6 +173,8 @@ const MobileNavBarItem = ({ item }: { item: NavItem }) => {
       navigate(item.route);
     }
   }
+
+  if (!item.icon) throw new Error(`MobileNavBarItem: icon is required for ${item.name}`);
 
   return <div className={className} onClick={handleOnClick}>
     {React.cloneElement(
