@@ -2,15 +2,14 @@ import * as React from 'react';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { Link } from 'react-router-dom';
 import APCLogoWhite from 'assets/img/apc-logo/white.png';
+import ItemsCover from 'assets/img/background/header-items.jpg';
+import PenguinsCover from 'assets/img/background/header-penguins.jpg';
 import CustomizationIcon from 'assets/img/customization.png';
-import HeaderPenguin from 'assets/img/header-penguins.jpg';
 import SellAndBuyPenguinExample from 'assets/img/sell_and_buy_penguin_example.png';
 import Button from 'components/Abstract/Button/Button';
 import ConnectWalletButton from 'components/Buttons/ConnectWalletButton';
 import { BigCategory } from 'components/Navigation/BigCategory/BigCategory';
-import { CategoryItem } from 'components/Navigation/CategoryItem/CategoryItem';
 import { GenericItemExplorer } from 'components/Navigation/GenericItemExplorer';
-import { icons } from 'icons';
 import { buildRouteLinks, routeNames } from 'routes';
 import useGetExploreItems from 'sdk/hooks/api/useGetExploreItems';
 import useGetItem from 'sdk/hooks/api/useGetItem';
@@ -44,21 +43,11 @@ const Home = () => {
           <ConnectWalletButton className={style.button} />
         }
       </section>
-      <section className={style.categories}>
+      <section className={style['chose-category']}>
         <h2>Categories</h2>
         <div className={style.content}>
-          <CategoryItem title="Hat" img={icons['hat'].unicolor} link={buildRouteLinks.itemsOffers('hat')} />
-          <CategoryItem title="Beak" img={icons['beak'].unicolor} link={buildRouteLinks.itemsOffers('beak')} />
-          <CategoryItem title="Skin" img={icons['skin'].unicolor} link={buildRouteLinks.itemsOffers('skin')} />
-          <CategoryItem title="Weapon" img={icons['weapon'].unicolor} link={buildRouteLinks.itemsOffers('weapon')} />
-          <CategoryItem title="Background" img={icons['background'].unicolor} link={buildRouteLinks.itemsOffers('background')} />
-          <CategoryItem title="Eyes" img={icons['eyes'].unicolor} link={buildRouteLinks.itemsOffers('eyes')} />
-          <CategoryItem title="Clothes" img={icons['clothes'].unicolor} link={buildRouteLinks.itemsOffers('clothes')} />
-        </div>
-      </section>
-      <section className={style['chose-category']}>
-        <div className={style.content}>
-          <BigCategory title="Penguins" backgroundImg={HeaderPenguin} link={routeNames.penguinsOffers} />
+          <BigCategory title="Penguins" backgroundImg={PenguinsCover} link={routeNames.penguinsOffers} />
+          <BigCategory className={style.items} title="Items" backgroundImg={ItemsCover} link={routeNames.itemsOffersNavigator} />
         </div>
       </section>
       {
