@@ -5,11 +5,11 @@ import PenguinIcon from 'assets/img/icons/penguin-icon.jpg';
 import ErrorPage from 'components/ErrorPage';
 import { Item } from 'components/Inventory/Item/Item';
 import OffersPageLayout from 'components/Layout/OffersPageLayout';
+import { icons } from 'icons';
 import { buildRouteLinks } from 'routes';
 import useGetMarketData from 'sdk/hooks/api/useGetMarketData';
 import useGetOffersOfCategory from 'sdk/hooks/api/useGetOffersOfCategory';
 import { isSlot } from 'sdk/misc/guards';
-import { getIconOfSlot } from 'sdk/misc/shorthands';
 import CategoriesType from 'sdk/types/CategoriesType';
 import defaultPenguinImg from './../../assets/img/penguin_default.png';
 import style from './index.module.scss';
@@ -35,7 +35,7 @@ const OffersList = ({
         }
     }, [offersReponses]);
 
-    const icon = category == 'penguins' ? PenguinIcon : getIconOfSlot(slot);
+    const icon = category == 'penguins' ? PenguinIcon : icons[slot as any].unicolor;
 
     return <OffersPageLayout
         icon={icon}

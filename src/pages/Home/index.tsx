@@ -10,6 +10,7 @@ import ConnectWalletButton from 'components/Buttons/ConnectWalletButton';
 import { BigCategory } from 'components/Navigation/BigCategory/BigCategory';
 import { CategoryItem } from 'components/Navigation/CategoryItem/CategoryItem';
 import { GenericItemExplorer } from 'components/Navigation/GenericItemExplorer';
+import { icons } from 'icons';
 import { buildRouteLinks, routeNames } from 'routes';
 import useGetExploreItems from 'sdk/hooks/api/useGetExploreItems';
 import useGetItem from 'sdk/hooks/api/useGetItem';
@@ -46,13 +47,13 @@ const Home = () => {
       <section className={style.categories}>
         <h2>Categories</h2>
         <div className={style.content}>
-          <CategoryItem title="Hat" img="/img/icon/hat_big.png" link={buildRouteLinks.itemsOffers('hat')} />
-          <CategoryItem title="Beak" img="/img/icon/hat_big.png" link={buildRouteLinks.itemsOffers('beak')} />
-          <CategoryItem title="Skin" img="/img/icon/hat_big.png" link={buildRouteLinks.itemsOffers('skin')} />
-          <CategoryItem title="Weapon" img="/img/icon/hat_big.png" link={buildRouteLinks.itemsOffers('weapon')} />
-          <CategoryItem title="Background" img="/img/icon/hat_big.png" link={buildRouteLinks.itemsOffers('background')} />
-          <CategoryItem title="Eyes" img="/img/icon/hat_big.png" link={buildRouteLinks.itemsOffers('eyes')} />
-          <CategoryItem title="Clothes" img="/img/icon/hat_big.png" link={buildRouteLinks.itemsOffers('clothes')} />
+          <CategoryItem title="Hat" img={icons['hat'].unicolor} link={buildRouteLinks.itemsOffers('hat')} />
+          <CategoryItem title="Beak" img={icons['beak'].unicolor} link={buildRouteLinks.itemsOffers('beak')} />
+          <CategoryItem title="Skin" img={icons['skin'].unicolor} link={buildRouteLinks.itemsOffers('skin')} />
+          <CategoryItem title="Weapon" img={icons['weapon'].unicolor} link={buildRouteLinks.itemsOffers('weapon')} />
+          <CategoryItem title="Background" img={icons['background'].unicolor} link={buildRouteLinks.itemsOffers('background')} />
+          <CategoryItem title="Eyes" img={icons['eyes'].unicolor} link={buildRouteLinks.itemsOffers('eyes')} />
+          <CategoryItem title="Clothes" img={icons['clothes'].unicolor} link={buildRouteLinks.itemsOffers('clothes')} />
         </div>
       </section>
       <section className={style['chose-category']}>
