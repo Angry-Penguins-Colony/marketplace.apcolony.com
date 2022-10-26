@@ -1,4 +1,4 @@
-@import "./../../assets/sass/var.scss";
+@import "assets/sass/var.scss";
 
 .customize {
     margin-bottom: 50px;
@@ -60,35 +60,35 @@
                 }
 
                 &.hat {
-                    background-image: url("./../../assets/img/icons/hat.svg");
+                    background-image: url("/assets/img/icons/items/unicolor_blue/hat.svg");
                 }
 
                 &.eyes {
-                    background-image: url("./../../assets/img/icons/eyes.svg");
+                    background-image: url("/assets/img/icons/items/unicolor_blue/eyes.svg");
                 }
 
                 &.clothes {
-                    background-image: url("./../../assets/img/icons/clothes.svg");
+                    background-image: url("/assets/img/icons/items/unicolor_blue/clothes.svg");
                 }
 
                 &.beak {
-                    background-image: url("./../../assets/img/icons/beak.svg");
+                    background-image: url("/assets/img/icons/items/unicolor_blue/beak.svg");
                 }
 
                 &.skin {
-                    background-image: url("./../../assets/img/icons/skin.svg");
+                    background-image: url("/assets/img/icons/items/unicolor_blue/skin.svg");
                     background-size: 90%;
                     background-position: center bottom;
                 }
 
                 &.weapon {
-                    background-image: url("./../../assets/img/icons/weapon.svg");
+                    background-image: url("/assets/img/icons/items/unicolor_blue/weapon.svg");
                     transform: rotate(20deg);
                     background-size: 60%;
                 }
 
                 &.background {
-                    background-image: url("./../../assets/img/icons/background.svg");
+                    background-image: url("/assets/img/icons/items/unicolor_blue/background.svg");
                 }
             }
         }
