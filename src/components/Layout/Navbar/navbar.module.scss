@@ -108,7 +108,8 @@
                 bottom: -0.2rem;
                 display: flex;
                 align-items: center;
-                gap: 25px;
+                justify-content: center;
+                gap: 0px;
                 height: 100%;
 
                 .item {
@@ -118,7 +119,16 @@
                     color: $dark;
                     white-space: nowrap;
                     position: relative;
-                    height: 100%;
+
+                    padding: 5px 15px;
+                    padding-bottom: 1px; // without this, the text is not vertically centered when hovering
+                    text-align: center;
+                    line-height: 20px;
+
+                    .itemName {
+                        height: fit-content;
+                        width: fit-content;
+                    }
 
                     .nestedDropdown {
                         display: none;
@@ -152,13 +162,16 @@
                                 flex-direction: column;
                                 gap: 10px;
 
-                                padding: 15px 25px;
+                                padding: 15px 15px;
                             }
                         }
                     }
 
                     &:hover {
                         cursor: pointer;
+                        background-color: #ebeef6;
+                        text-decoration: none;
+                        border-radius: 9999px;
 
                         .nestedDropdown {
                             display: block;

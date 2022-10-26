@@ -105,9 +105,9 @@ const DesktopHeader = ({ navItems: visibleNavItems }: { navItems: NavItem[] }) =
 const DesktopHeaderItem = ({ item }: { item: NavItem }) => {
   if (item.nestedItems) {
     return <div className={style.item}>
-      <p className={style.itemName}>
+      <div className={style.itemName}>
         {item.name}
-      </p>
+      </div>
       <div className={style.nestedDropdown}>
         <div className={style.container} >
 
