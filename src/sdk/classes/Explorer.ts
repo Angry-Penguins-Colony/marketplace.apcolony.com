@@ -1,4 +1,3 @@
-import { IAddress } from '@elrondnetwork/erdjs/out';
 
 export default class Explorer {
     private readonly url: string
@@ -11,8 +10,8 @@ export default class Explorer {
         this.url = url;
     }
 
-    public getAddress(address: IAddress) {
-        return this.url + 'accounts/' + address.bech32();
+    public getAddress(bech32: string) {
+        return this.url + 'accounts/' + bech32;
     }
 
     public getTransaction(hash: string) {

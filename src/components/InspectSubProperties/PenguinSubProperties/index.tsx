@@ -1,7 +1,6 @@
 import React from 'react';
 import { IPenguin } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
-import { Address } from '@elrondnetwork/erdjs/out';
 import AddressWrapper from 'components/AddressWrapper';
 import { marketplaceContractAddress } from 'config';
 import SubProperties from '../SubProperties';
@@ -24,7 +23,7 @@ const PenguinSubProperties = ({ penguin }: Props) => {
                 Owned by {
                     penguin.owner == connectedAddress ?
                         'me' :
-                        <AddressWrapper address={Address.fromBech32(penguin.owner)} />
+                        <AddressWrapper bech32={penguin.owner} />
                 }
             </>);
         }

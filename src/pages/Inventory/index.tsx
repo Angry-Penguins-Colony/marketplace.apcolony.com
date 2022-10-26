@@ -3,6 +3,7 @@ import { IGenericElement } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { Address } from '@elrondnetwork/erdjs/out';
 import { useParams } from 'react-router-dom';
+import AddressWrapper from 'components/AddressWrapper';
 import ShareIcon from 'components/Icons/ShareIcon';
 import ItemsInventory from 'components/Inventory/ItemsInventory/ItemsInventory';
 import NavigationType from 'components/Inventory/NavigationType/NavigationType';
@@ -82,7 +83,9 @@ const Inventory = () => {
                         <><br /><br /></>
                     }
                     <p className={style['wallet-address']}>
-                        <span>{walletAddress}</span>
+                        <span>
+                            <AddressWrapper bech32={walletAddress} withLink={false} />
+                        </span>
                         <div className={style.share} onClick={
                             () => {
                                 navigator.share({
