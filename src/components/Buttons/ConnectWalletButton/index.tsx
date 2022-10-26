@@ -1,13 +1,14 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
 import UnlockModal from 'pages/UnlockModal';
-import { routeNames } from 'routes';
 import { ILogButtonProps } from '../LoginLogoutButton';
 
 
 const ConnectWalletButton = ({ className: btnClassName = '', type = 'primary' }: ILogButtonProps) => {
 
     const [isUnlockModalVisible, setIsUnlockModalVisible] = React.useState(false);
+    const location = useLocation();
 
     return <>
         <Button type={type} className={btnClassName} onClick={() => setIsUnlockModalVisible(true)}>
@@ -15,7 +16,7 @@ const ConnectWalletButton = ({ className: btnClassName = '', type = 'primary' }:
         </Button>
 
         <UnlockModal
-            loginRoute={routeNames.home}
+            loginRoute={location.pathname}
             isVisible={isUnlockModalVisible}
             onCloseClicked={() => setIsUnlockModalVisible(false)}
         />
