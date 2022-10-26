@@ -121,11 +121,12 @@
                     height: 100%;
 
                     .nestedDropdown {
-                        display: none;
+                        display: block;
                         position: absolute;
-                        // top: 25px; /* the height of the main nav */
+                        left: 50%;
 
-                        padding-top: 25px;
+                        padding-top: 10px;
+                        transform: translateX(-50%);
 
                         .container {
                             background-color: white;

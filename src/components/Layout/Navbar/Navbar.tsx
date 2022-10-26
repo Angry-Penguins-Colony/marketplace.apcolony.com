@@ -2,7 +2,6 @@ import React from 'react';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { Link, useNavigate } from 'react-router-dom';
 import APCLogoColored from 'assets/img/apc-logo/colored.png';
-import UnderlineNavElmt from 'components/Abstract/UnderlineNavElmt/UnderlineNavElmt';
 import LoginLogoutButton from 'components/Buttons/LoginLogoutButton';
 import SocialButtons from 'components/Buttons/SocialButtons';
 import HomeIcon from 'components/Icons/HomeIcon';
