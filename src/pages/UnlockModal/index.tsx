@@ -4,6 +4,7 @@ import { LedgerLoginContainer, WalletConnectLoginContainer } from '@elrondnetwor
 import { useNavigate } from 'react-router-dom';
 import Popup from 'components/Foreground/Popup/Generic/Popup';
 import { routeNames } from 'routes';
+import { createModal } from 'sdk/misc/shorthands';
 import ElrondLogo from './../../assets/img/icons/Elrond_logo.png';
 import LedgerLogo from './../../assets/img/icons/Ledger_logo.png';
 import MaiarLogo from './../../assets/img/icons/Maiar_logo.png';
@@ -36,7 +37,8 @@ export const UnlockModal = ({ loginRoute, isVisible = true, onCloseClicked }: Pr
     }
   }, [isLoggedIn]);
 
-  return (
+
+  return createModal(
     <div className={style.unlock}>
       <Popup isVisible={isVisible} haveCloseButton={true} className={style.popup}
         topIcon={

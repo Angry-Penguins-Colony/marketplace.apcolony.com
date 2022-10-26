@@ -6,6 +6,7 @@ import CustomizationIcon from 'assets/img/customization.png';
 import HeaderPenguin from 'assets/img/header-penguins.jpg';
 import SellAndBuyPenguinExample from 'assets/img/sell_and_buy_penguin_example.png';
 import Button from 'components/Abstract/Button/Button';
+import ConnectWalletButton from 'components/Buttons/ConnectWalletButton';
 import { BigCategory } from 'components/Navigation/BigCategory/BigCategory';
 import { CategoryItem } from 'components/Navigation/CategoryItem/CategoryItem';
 import { GenericItemExplorer } from 'components/Navigation/GenericItemExplorer';
@@ -39,9 +40,7 @@ const Home = () => {
         {isConnected ?
           <p></p>
           :
-          <Button className={style.button} type='primary' link={routeNames.unlock}>
-            Connect your wallet
-          </Button>
+          <ConnectWalletButton className={style.button} />
         }
       </section>
       <section className={style.categories}>

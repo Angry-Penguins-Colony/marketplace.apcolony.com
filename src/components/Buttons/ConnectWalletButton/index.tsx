@@ -20,7 +20,6 @@ const ConnectWalletButton = ({ className: btnClassName = '', type = 'primary' }:
             isVisible={isUnlockModalVisible}
             onCloseClicked={() => setIsUnlockModalVisible(false)}
         />
-
     </>;
 };
 
