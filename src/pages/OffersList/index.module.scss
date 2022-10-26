@@ -1,12 +1,12 @@
 @import "./../../assets/sass/var.scss";
 
-> .items {
+.items {
     .itemRoot {
         display: flex;
         flex-direction: column;
         gap: 10px;
 
-        > .desktop {
+        .desktop {
             display: none;
         }
     }
@@ -14,9 +14,9 @@
 
 // desktop
 @media (min-width: $desktop_min_width) {
-    > .items {
+    .items {
         .itemRoot {
-            > .mobile {
+            .mobile {
                 display: none;
             }
 
@@ -26,7 +26,7 @@
 
             width: 250px;
 
-            > .desktop {
+            .desktop {
                 display: block;
                 flex-basis: auto;
                 background-color: white;

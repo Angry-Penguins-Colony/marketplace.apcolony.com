@@ -30,9 +30,6 @@ const OffersList = ({
     const [offers, setOffers] = React.useState<IItem[] | undefined>(undefined);
 
     React.useEffect(() => {
-
-        console.log(offersReponses);
-
         if (offersReponses) {
             setOffers(offersReponses.associatedItems as IItem[]);
         }
@@ -46,7 +43,9 @@ const OffersList = ({
         pageStyle={category}
         pageTitle={slot ?? category}
     >
-        {getItems()}
+        <div className={style.items}>
+            {getItems()}
+        </div>
     </OffersPageLayout>
 
     function getItems() {
