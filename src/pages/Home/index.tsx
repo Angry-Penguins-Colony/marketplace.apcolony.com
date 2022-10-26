@@ -113,7 +113,7 @@ const Home = () => {
                     }
                   </p>
                 </div>
-                <img src={highlightedItem.renderUrls.high} alt={highlightedItem.name} />
+                <img className="w-100" src={highlightedItem.renderUrls.high} alt={highlightedItem.name} />
               </section>
             </Link>
           )
