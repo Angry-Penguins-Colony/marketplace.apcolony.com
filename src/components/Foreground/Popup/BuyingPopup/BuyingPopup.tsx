@@ -51,7 +51,7 @@ const BuyingPopup = (
                                 <img src={item.thumbnailUrls.high} alt={item.name} />
                                 <div className={style.infos}>
                                     <div className={style.line}>
-                                        <div className={style.label}>Item Id</div>
+                                        <div className={style.label}>Item</div>
                                         <div className={style.value}>{item.name}</div>
                                     </div>
                                 </div>
@@ -63,16 +63,8 @@ const BuyingPopup = (
                             <section> <div className={style.close} onClick={onClose}>
                                 <CrossIcon className={style.icon} />
                             </div>
-                                <h2>Checkout</h2>
-                                <div className={style.infos}>
-                                    <img src={item.thumbnailUrls.high} alt={item.name} />
-                                    <div className={style.infos}>
-                                        <div className={style.line}>
-                                            <div className={style.label}>Penguin ID</div>
-                                            <div className={style.value}>{item.name}</div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <h2>Sell</h2>
+                                <img src={item.thumbnailUrls.high} alt={item.name} />
                                 <div className={style['items-attached']}>
                                     <h3>Items attached to the penguin</h3>
                                     <div className={style.content}>
