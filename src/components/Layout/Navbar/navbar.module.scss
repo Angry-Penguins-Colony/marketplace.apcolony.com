@@ -135,6 +135,8 @@
                         position: absolute;
                         left: 50%;
 
+                        z-index: $popup-z-index;
+
                         padding-top: 10px;
                         transform: translateX(-50%);
 
@@ -291,6 +293,6 @@
         left: 0;
         right: 0;
         top: 0;
-        z-index: 1;
+        z-index: $nav-header;
     }
 }
