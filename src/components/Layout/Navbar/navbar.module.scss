@@ -109,6 +109,7 @@
                 display: flex;
                 align-items: center;
                 gap: 25px;
+                height: 100%;
 
                 .item {
                     font-family: "CHEDROS", sans-serif;
@@ -116,6 +117,58 @@
                     font-weight: bold;
                     color: $dark;
                     white-space: nowrap;
+                    position: relative;
+                    height: 100%;
+
+                    .nestedDropdown {
+                        display: none;
+                        position: absolute;
+                        // top: 25px; /* the height of the main nav */
+
+                        padding-top: 25px;
+
+                        .container {
+                            background-color: white;
+                            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+                            border-radius: 6px;
+
+                            .underline {
+                                color: #080d26;
+                                width: 100%;
+
+                                &::after {
+                                    content: "";
+                                    display: block;
+
+                                    height: 0.3rem;
+                                    background-color: $primary;
+                                    border-radius: 0.3rem 0.3rem 0 0;
+                                }
+                            }
+
+                            .flex {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 10px;
+
+                                padding: 15px 25px;
+                            }
+                        }
+                    }
+
+                    &:hover {
+                        cursor: pointer;
+
+                        .nestedDropdown {
+                            display: block;
+                        }
+                    }
+
+                    &:only-child:after {
+                        .itemName {
+                            content: " +";
+                        }
+                    }
                 }
             }
         }
