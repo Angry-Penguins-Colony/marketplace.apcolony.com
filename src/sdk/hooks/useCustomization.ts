@@ -63,8 +63,6 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
 
     // when the selected penguin is updated, the customisation pending flag is reset
     React.useEffect(() => {
-        console.log('penguin updated');
-
         if (isCustomizationPending && isModified() == false) {
             setIsCustomizationPending(false);
         }
@@ -208,8 +206,6 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
 
         const itemsToEquip: ItemToken[] = [];
         const slotsToUnequip: string[] = [];
-
-        console.log(selectedPenguin?.equippedItems);
 
         const slots = new Set([...Object.keys(equippedItemsIdentifier), ...Object.keys(selectedPenguin.equippedItems || {})]);
 
