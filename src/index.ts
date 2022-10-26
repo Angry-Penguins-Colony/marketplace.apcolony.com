@@ -62,7 +62,11 @@ async function main() {
 
     while (true) {
 
-        const queue = await readGateway.getToBuildQueue(renderConfig.layersOrder);
+        const queue = await readGateway.getToBuildQueue(renderConfig.layersOrder)
+            .catch(() => {
+                console.error("Error while fetching the queue. Retrying in 5s");
+                return [];
+            })
 
         if (queue.length > 0) {
             console.log(`\nProcessing ${queue.length} elements from the rendering queue...`)
