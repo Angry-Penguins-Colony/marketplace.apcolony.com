@@ -74,6 +74,10 @@ export default class CustomizePayloadBuilder {
 
         return new TransactionPayload(data);
     }
+
+    gesGasLimit(): number {
+        return 60_000_000 * (this.itemsToEquip.length + this.slotsToUnequip.length + 1);
+    }
 }
 
 export const ERR_PENGUIN_NONCE_MUST_BE_POSITIVE = 'Penguin nonce must be positive';

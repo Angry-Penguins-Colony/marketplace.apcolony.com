@@ -6,7 +6,6 @@ import BigNumber from 'bignumber.js';
 import { customisationContractAddress, penguinCollection } from 'config';
 import { splitIdentifier } from 'sdk/conversion/tokenIdentifier';
 import { identifierToItem } from 'sdk/misc/dbHelper';
-import calculateCustomizeGasFees from 'sdk/transactionsBuilders/customize/calculateCustomizeGasFees';
 import CustomizePayloadBuilder, { ItemToken } from 'sdk/transactionsBuilders/customize/CustomizePayloadBuilder';
 import calculeRenderGasFees from 'sdk/transactionsBuilders/render/calculateRenderGasFees';
 import { RenderPayloadBuilder } from 'sdk/transactionsBuilders/render/RenderPayloadBuilder';
@@ -230,19 +229,18 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
             }
         }
 
-        const payload = new CustomizePayloadBuilder()
+        const payloadBuilder = new CustomizePayloadBuilder()
             .setCustomizationContractAddress(customisationContractAddress)
             .setPenguinCollection(penguinCollection)
             .setPenguinNonce(selectedPenguin.nonce)
             .setItemsToEquip(itemsToEquip)
             .setSlotsToUnequip(slotsToUnequip)
-            .build();
 
         const transaction: SimpleTransactionType = {
             value: '0',
-            data: payload.toString(),
+            data: payloadBuilder.build().toString(),
             receiver: connectedAddress,
-            gasLimit: calculateCustomizeGasFees()
+            gasLimit: payloadBuilder.gesGasLimit()
         };
 
         console.log(`Found ${itemsToEquip.length} items to equip and ${slotsToUnequip.length} slots to unequip.`);

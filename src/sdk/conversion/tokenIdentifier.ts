@@ -1,21 +1,19 @@
-import { stringIsFloat } from '@elrondnetwork/dapp-core/utils';
-
 export function splitIdentifier(identifier: string): { collection: string, nonce: number } {
 
     const separatorIndex = identifier.lastIndexOf('-');
 
     if (separatorIndex === -1) {
-        throw new Error(`Invalid identifier: ${identifier}`);
+        throw new Error(`Invalid identifier ${identifier} missing separator.`);
     }
 
     const collection = identifier.substring(0, separatorIndex);
     const nonceString = identifier.substring(separatorIndex + 1);
+    const nonce = parseInt(nonceString);
 
-    if (stringIsFloat(nonceString)) {
-        throw new Error(`Invalid identifier: ${identifier}`);
+    if (isNaN(nonce)) {
+        throw new Error(`Invalid identifier ${identifier}. Nonce "${nonceString}" is NaN`);
     }
 
-    const nonce = parseInt(nonceString);
 
     return { collection, nonce };
 }
