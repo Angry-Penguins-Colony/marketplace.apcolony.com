@@ -31,6 +31,7 @@ const OffersList = ({
 
     React.useEffect(() => {
         if (offersReponses) {
+            console.log(offersReponses);
             setOffers(offersReponses.associatedItems as IItem[]);
         }
     }, [offersReponses]);
