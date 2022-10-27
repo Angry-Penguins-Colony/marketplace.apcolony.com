@@ -15,7 +15,7 @@ import getItem from './routes/items/item';
 import getItemsOffers from './routes/items/offers';
 import getActivity from './routes/generic/activity';
 import getPenguinsOffers from './routes/penguins/offers';
-import getOffer from './routes/generic/offer';
+import getOffer, { getOffersOfAccount } from './routes/generic/offer';
 import getItemOffersStats from './routes/items/offersStats';
 import getPenguinsOffersStats from './routes/penguins/offersStats';
 import getExploreItems from './routes/root/exploreItems';
@@ -42,6 +42,7 @@ function start(id: number) {
     logErrorIfMissingItems(networkProvider);
 
     app.get("/owned/:bech32", async (req, res) => getOwnedAmount(req, res, networkProvider));
+    app.get("/offers/:bech32", async (req, res) => getOffersOfAccount(req, res, networkProvider));
     app.get('/penguins/penguin/:id', (req, res) => getPenguin(req, res, networkProvider));
     app.get("/penguins/activity/:id", (req, res) => getActivity(req, res, "penguins", networkProvider));
     app.get("/penguins/offers", (req, res) => getPenguinsOffers(req, res, networkProvider));

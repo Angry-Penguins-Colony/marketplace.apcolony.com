@@ -11,16 +11,8 @@ export default async function getPenguinsOffers(req: Request, res: Response, net
 
     const response = {
         offers: offers,
-        associatedItems: await getPenguinsFromOffers()
+        associatedItems: await networkProvider.getPenguinsFromOffers(offers)
     };
 
     sendSuccessfulJSON(res, response);
-
-    async function getPenguinsFromOffers() {
-        const nfts = await Promise.all(offers.map(o => networkProvider.getNft(o.collection, o.nonce)));
-
-        return nfts
-            .filter(nft => !!nft.owner)
-            .map(nft => networkProvider.getPenguinFromNft(nft));
-    }
 }
