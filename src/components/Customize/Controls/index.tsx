@@ -9,6 +9,8 @@ interface IProps {
     onCustomizeClick: () => void;
 }
 
+type Step = 'modify' | 'render' | 'customize';
+
 const CustomizeControls = ({
     renderStatus,
     hasSomeModifications,
@@ -16,34 +18,33 @@ const CustomizeControls = ({
     onCustomizeClick
 }: IProps) => {
 
-    const showSteps = {
-        'modify': hasSomeModifications,
-        'render': renderStatus == 'none',
-        'customize': renderStatus == 'rendered' && hasSomeModifications
-    };
-
-    const completeSteps = {
-        'modify': hasSomeModifications,
-        'render': renderStatus != undefined && renderStatus != 'none',
-        'customize': false
-    }
+    const currentStep = ((): Step => {
+        if (renderStatus === 'rendering') {
+            return 'customize';
+        } else if (renderStatus == 'none' && hasSomeModifications) {
+            return 'render';
+        }
+        else {
+            return 'modify';
+        }
+    })();
 
     return <div className={style.controls}>
         <div className={style.content}>
 
-            <div className={style.control + ' ' + (completeSteps['modify'] ? style.completed : '')}>
+            <div className={style.control + ' ' + (currentStep == 'modify' ? style.current : '')}>
                 <p className='ml-2'>Step 1. Make some modifications</p>
-                <input type="checkbox" checked={showSteps['modify']} />
+                <input type="checkbox" checked={hasSomeModifications} />
             </div>
 
 
             <Control
                 title="Step 2. Generate new penguin image"
-                completed={completeSteps['render']}
+                current={currentStep == 'render'}
             >
                 <Button
                     type='primary'
-                    disabled={!showSteps['render']}
+                    disabled={currentStep != 'render'}
                     onClick={onRenderClick}>
                     Render
                 </Button>
@@ -51,25 +52,26 @@ const CustomizeControls = ({
 
             <Control
                 title="Step 3. Equip new items"
-                completed={completeSteps['customize']}
+                current={currentStep == 'customize'}
             >
                 <Button
                     type='primary'
-                    disabled={!showSteps['customize']}
+                    disabled={currentStep != 'customize'}
                     onClick={onCustomizeClick}>
                     Customize
                 </Button>
             </Control>
         </div>
     </div >;
+
 }
 
 export default CustomizeControls;
 
 const Control = (
-    { children, title, completed }: { children?: JSX.Element, title: string, completed: boolean }) => {
+    { children, title, current: current }: { children?: JSX.Element, title: string, current: boolean }) => {
 
-    return <div className={style.control + ' ' + (completed ? style.completed : '')}>
+    return <div className={style.control + ' ' + (current ? style.current : '')}>
         <p className='ml-2'>{title}</p>
 
         <div className={style.content}>
