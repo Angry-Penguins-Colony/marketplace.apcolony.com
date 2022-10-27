@@ -62,19 +62,17 @@ const OffersList = ({
                     const link = buildRouteLinks.inspect((category == 'penguins' ? 'penguins' : 'items'), variant.id)
 
                     return (
-                        <>
-                            <Link className={style.itemRoot} to={link} key={variant.id}>
-                                <Item item={variant} displayId={false} className={style.mobile} />
+                        <Link className={style.itemRoot} to={link} key={variant.id}>
+                            <Item item={variant} displayId={false} className={style.mobile} />
 
-                                <div className={style.desktop}>
-                                    <img src={defaultPenguinImg} alt="default background of any penguin" className={style.background} />
-                                    <img src={variant.thumbnailUrls.high} alt="" className={style.item} />
-                                    <div className={style.infos}>
-                                        <div className={style.name}>{variant.name}</div>
-                                    </div>
+                            <div className={style.desktop}>
+                                <img src={defaultPenguinImg} alt="default background of any penguin" className={style.background} />
+                                <img src={variant.thumbnailUrls.high} alt="" className={style.item} />
+                                <div className={style.infos}>
+                                    <div className={style.name}>{variant.name}</div>
                                 </div>
-                            </Link>
-                        </>
+                            </div>
+                        </Link>
                     );
                 })
             }
