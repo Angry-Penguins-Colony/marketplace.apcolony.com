@@ -8,7 +8,7 @@ export function splitIdentifier(identifier: string): { collection: string, nonce
 
     const collection = identifier.substring(0, separatorIndex);
     const nonceString = identifier.substring(separatorIndex + 1);
-    const nonce = parseInt(nonceString);
+    const nonce = parseInt(nonceString, 16);
 
     if (isNaN(nonce)) {
         throw new Error(`Invalid identifier ${identifier}. Nonce "${nonceString}" is NaN`);
