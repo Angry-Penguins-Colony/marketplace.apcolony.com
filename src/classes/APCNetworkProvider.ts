@@ -333,12 +333,29 @@ export class APCNetworkProvider {
 
         const queryResponse = await this.proxyProvider.queryContract(query);
         const endpointDefinition = contract.getEndpoint(contractViewName);
-        const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition); //TODO: Add type
+        const { firstValue, returnCode } : any = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition); //TODO: Add type
         
         const nftsStaked = parseStakedPenguins(firstValue);
             
-        return nftsStaked;
+        return returnCode == 'ok' ? nftsStaked : 'Unable to fetch data';
 
+    }
+
+    public async getNftsNumberAndRewardsAvailableForStaker(address : string){
+
+        const contract = await this.getStakingSmartContract();
+    
+        const contractViewName = "getNftsNumberAndRewardsAvailableForStaker";
+        const query = contract.createQuery({
+            func: new ContractFunction(contractViewName),
+            args: [new AddressValue(new Address(address))],
+        });
+
+        const queryResponse = await this.proxyProvider.queryContract(query);
+        const endpointDefinition = contract.getEndpoint(contractViewName);
+        const { secondValue, returnCode  } : any = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition); //TODO: Add type        
+
+        return returnCode == 'ok' ? secondValue : 'Unable to fetch data';
     }
 
 }
