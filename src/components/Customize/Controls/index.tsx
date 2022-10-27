@@ -19,13 +19,15 @@ const CustomizeControls = ({
 }: IProps) => {
 
     const currentStep = ((): Step => {
+
+        if (!hasSomeModifications) {
+            return 'modify';
+        }
+
         if (renderStatus === 'rendering') {
             return 'customize';
-        } else if (renderStatus == 'none' && hasSomeModifications) {
+        } else {
             return 'render';
-        }
-        else {
-            return 'modify';
         }
     })();
 
