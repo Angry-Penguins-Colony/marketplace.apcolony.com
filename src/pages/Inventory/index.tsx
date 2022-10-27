@@ -126,6 +126,7 @@ const Inventory = () => {
                 <ItemsInventory
                     className={style['items-inventory']}
                     items={inventoryElements}
+                    title={'My ' + inventoryType}
                     type={inventoryType}
                     amountById={ownedAmount ? ownedAmount[inventoryType] : {}}
                     hasFilter={typeWithFilter.includes(inventoryType)}

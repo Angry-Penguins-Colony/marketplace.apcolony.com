@@ -15,6 +15,7 @@ interface IProps {
     type: CategoriesType,
     hasFilter: boolean,
     filters?: Filters,
+    title?: string,
     makeItemComponent?: (item: IGenericElement) => JSX.Element
 }
 
@@ -22,6 +23,7 @@ const ItemsInventory = ({
     className = '',
     items,
     type,
+    title,
     hasFilter,
     amountById,
     makeItemComponent = (item) => {
@@ -34,11 +36,11 @@ const ItemsInventory = ({
             type={type} />
     }
 }: IProps) => {
-    const title = 'My ' + type.charAt(0).toUpperCase() + type.slice(1);
-
     return (
         <div className={style['all-items'] + ' ' + className + ' ' + style[type] + (hasFilter ? ' ' + style['has-filter'] : '')}>
-            <h2>{title}</h2>
+            {title &&
+                <h2>{title}</h2>
+            }
             <div className={style.content}>
                 {fillContent()}
             </div>
