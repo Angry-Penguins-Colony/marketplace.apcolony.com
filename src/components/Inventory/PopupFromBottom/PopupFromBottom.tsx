@@ -37,10 +37,9 @@ const PopupFromBottom = (
     }
 ) => {
 
-    if (filterSlot) {
-        items = items
-            .filter(item => item.slot == filterSlot);
-    }
+
+    const displayItems = filterSlot ? items
+        .filter(item => item.slot == filterSlot) : items;
 
     return (
         <div id={style['popup-from-bottom']} className={(isOpen ? style['is-open'] : style['is-close'])}>
@@ -74,7 +73,7 @@ const PopupFromBottom = (
                 <div className={style.items}>
 
                     <div className={style.content}>
-                        {items.map((item) => {
+                        {displayItems.map((item) => {
 
                             if (!item.identifier) throw new Error(`Item has no identifier. ${item}`);
 
