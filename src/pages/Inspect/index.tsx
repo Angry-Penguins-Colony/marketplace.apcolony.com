@@ -8,7 +8,7 @@ import Button from 'components/Abstract/Button/Button';
 import BuyPriceContainer from 'components/Abstract/BuyPriceContainer';
 import ErrorPage from 'components/ErrorPage';
 import BuyingPopup from 'components/Foreground/Popup/BuyingPopup/BuyingPopup';
-import ShowOffersPopup from 'components/Foreground/Popup/ShowOffersPopup';
+import ShowMyOffersPopup from 'components/Foreground/Popup/ShowMyOffersPopup';
 import ShareIcon from 'components/Icons/ShareIcon';
 import ItemSubProperties from 'components/InspectSubProperties/ItemSubProperties';
 import PenguinSubProperties from 'components/InspectSubProperties/PenguinSubProperties';
@@ -185,7 +185,7 @@ const Inspect = () => {
             }
             {
                 ownedOffers &&
-                <ShowOffersPopup
+                <ShowMyOffersPopup
                     offers={ownedOffers}
                     isVisible={isOffersPopupOpen}
                     onCloseClicked={() => { setIsOffersPopupOpen(false) }}

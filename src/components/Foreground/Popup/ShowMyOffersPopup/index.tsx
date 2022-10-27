@@ -9,7 +9,7 @@ interface IProps extends IPopupProps {
     onRetire: (offer: IOffer) => void
 }
 
-const ShowOffersPopup = (props: IProps) => {
+const ShowMyOffersPopup = (props: IProps) => {
     return <Popup haveCloseButton={true} {...props} >
 
         <p className={style.title}>Offers</p>
@@ -27,4 +27,4 @@ const ShowOffersPopup = (props: IProps) => {
     </Popup>
 }
 
-export default ShowOffersPopup;
+export default ShowMyOffersPopup;
