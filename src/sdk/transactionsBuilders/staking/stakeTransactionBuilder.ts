@@ -1,10 +1,8 @@
-import { IAddress } from '@apcolony/marketplace-api';
-import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
-import { Address, AddressValue, ArgSerializer, BytesValue, ContractFunction, ESDTNFTTransferPayloadBuilder, StringValue, TokenPayment, U64Value } from '@elrondnetwork/erdjs/out';
+import { Address, AddressValue, ArgSerializer, BytesValue, StringValue, U64Value } from '@elrondnetwork/erdjs/out';
 import BigNumber from 'bignumber.js';
 import Price from 'sdk/classes/Price';
 
-export default class stakeBuilder {
+export default class stakeTransactionBuilder {
 
     private stakingContract?: Address;
     private connecteAddress?: string;
@@ -12,12 +10,12 @@ export default class stakeBuilder {
     private nonce = 0;
 
 
-    public setStakingContract(stakingContract: Address): stakeBuilder {
+    public setStakingContract(stakingContract: Address): stakeTransactionBuilder {
         this.stakingContract = stakingContract;
         return this;
     }
 
-    public setStaking(staking: {collection: string, nonce: number, connectedAddress: string }): stakeBuilder {
+    public setStaking(staking: {collection: string, nonce: number, connectedAddress: string }): stakeTransactionBuilder {
         this.collection = staking.collection;
         this.nonce = staking.nonce;
         this.connecteAddress = staking.connectedAddress;

@@ -47,7 +47,8 @@ function getNetworkInfos() {
         items: devnetToolDeploy.items,
         itemsCollections: devnetToolDeploy.itemsIdentifier,
         penguinsCount: 5555,
-        stakingContractAddress: Address.fromBech32('erd1qqqqqqqqqqqqqpgqdcjdvpvncw7s8ug56rehyvl8tehk3vl368mqxa7llg')
+        stakingContractAddress: Address.fromBech32('erd1qqqqqqqqqqqqqpgqdcjdvpvncw7s8ug56rehyvl8tehk3vl368mqxa7llg'),
+        stakingToken: 'TEST-17e1db',
       }
     case 'mainnet':
       throw new Error('Mainnet not supported yet');
@@ -66,3 +67,4 @@ export const explorer = new Explorer(getNetworkInfos().explorerUrl);
 export const penguinsCount = getNetworkInfos().penguinsCount;
 export const itemsCollections = getNetworkInfos().itemsCollections;
 export const stakingContract = getNetworkInfos().stakingContractAddress;
+export const stakingToken = getNetworkInfos().stakingToken;

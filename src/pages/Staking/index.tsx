@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import { sendTransactions } from '@elrondnetwork/dapp-core/services';
+import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
 import { Address, AddressValue } from '@elrondnetwork/erdjs/out';
 import AccessoryIconBronze from 'assets/img/accessory_icon_bronze.png';
 import AccessoryIconDiamond from 'assets/img/accessory_icon_diamond.png';
@@ -16,8 +18,11 @@ import AccessoriesGeneration from 'components/Abstract/AccessoriesGeneration/Acc
 import Button from 'components/Abstract/Button/Button';
 import StakePopup from 'components/Foreground/Popup/StakePopup/StakePopup';
 import { GenericItemExplorer } from 'components/Navigation/GenericItemExplorer';
+import { stakingContract } from 'config';
 import { buildRouteLinks } from 'routes';
 import useGetExploreItems from 'sdk/hooks/api/useGetExploreItems';
+import {useGetStakingClaimable, useGetPenguinsStaked} from 'sdk/hooks/api/useGetStaking';
+import ClaimTransactioNBuilder from 'sdk/transactionsBuilders/staking/ClaimTransactionBuilder';
 import style from './index.module.scss';
 
 
@@ -27,30 +32,35 @@ export default function Staking() {
   const [isStakePopupVisible, setIsStakePopupVisible] = React.useState(false);
   const [rewardsToClaim, setRewardsToClaim] = React.useState('');
   const [apcStaked, setApcStaked] = React.useState('');
+  const claimable : any = useGetStakingClaimable(address).data; 
+  const penguinsStaked : any = useGetPenguinsStaked(address).data;
+  const penguinsStakedCount = penguinsStaked != undefined ? Object.keys(penguinsStaked.penguinsNonce).length : 0;
+
+  
   // const query = new QueryBuilder();
 
   const scAddress = 'erd1qqqqqqqqqqqqqpgqdcjdvpvncw7s8ug56rehyvl8tehk3vl368mqxa7llg'; //Todo : Change this function of the environment
   const apcToken = 'TEST-17e1db';//Todo : Change this function of the environment and the sdk ?
   const apcTokenInSc = 1000000;//Todo : Change this function of the environment and the sdk ?
+  
 
-  // useEffect(() => {
-  //   const getNftsForStakerFunc = async () => {
-  //     query.createQuery(
-  //       address,
-  //       scAddress,
-  //       'getNftsNumberAndRewardsAvailableForStaker',
-  //       [new AddressValue(new Address('erd1gsqegzjref54nv4hzjn9zhyze0g8us0tvm7fd5ph5z9z3tuqhzcq6g3503'))]
-  //     ).then((response) => {
-  //       const rewards = response.values[1].valueOf().toString();
-  //       const staked = response.values[0].valueOf().toString();
-  //       setRewardsToClaim(rewards);
-  //       setApcStaked(staked);
-  //     }).catch((error) => {
-  //       //ToDop: handle error 
-  //     })
-  //   }
-  //   getNftsForStakerFunc();
-  // }, [])
+  const claimFunc = async () => {
+    const claim = new ClaimTransactioNBuilder();
+    claim.setStakingContract(stakingContract);
+    const transaction = claim.build();
+
+    await refreshAccount();        
+
+    await sendTransactions({
+        transactions: transaction,
+        transactionDisplayInfo: {
+            processingMessage: 'Staking...',
+            errorMessage: 'An error has occured during staking.',
+            successMessage: 'Penguin staked successfully.',
+        },
+        redirectAfterSign: false
+    });
+}
 
 
 
@@ -69,15 +79,15 @@ export default function Staking() {
         <div className={style['claim']} >
           <img src={apCoinRewardsImg} alt="APC coin" />
           <h2>REWARD TO CLAIM</h2>
-          <span>{rewardsToClaim == '' ? 0 : rewardsToClaim} APC</span>
-          <Button className={style.button} type='primary'>CLAIM REWARDS</Button>
+          <span>{claimable == undefined ? 0 : claimable.claimable } APC</span>
+          <Button className={style.button} type='primary' onClick={() => claimFunc()}>CLAIM REWARDS</Button>
           <a href="">More infos <span>i</span></a>
         </div>
 
         <div className={style['staked']}>
           <img src={apcStakedImg} alt="APC staked" />
           <h2>APC STAKED</h2>
-          <span>{apcStaked == '' ? 0 : apcStaked}/5555</span>
+          <span>{penguinsStakedCount}/5555</span>
         </div>
       </section>
 
