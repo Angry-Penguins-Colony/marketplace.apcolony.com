@@ -44,6 +44,7 @@ function getNetworkInfos() {
       penguinCollection: devnetToolDeploy.penguinsIdentifier,
       marketplaceContractAddress: Address.fromBech32('erd1qqqqqqqqqqqqqpgqffweul9250tqr4vuf04zxdcpjdy82yvpv4xq4uha83'),
       items: devnetToolDeploy.items,
+      itemsIdentifier: devnetToolDeploy.itemsIdentifier,
       penguinsCount: 5555,
     }
   }
@@ -59,3 +60,4 @@ export const marketplaceContractAddress = getNetworkInfos().marketplaceContractA
 export const items = getNetworkInfos().items;
 export const explorer = new Explorer(getNetworkInfos().explorerUrl);
 export const penguinsCount = getNetworkInfos().penguinsCount;
+export const itemsIdentifier = getNetworkInfos().itemsIdentifier;
