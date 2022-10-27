@@ -4,9 +4,9 @@ import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
 import { useParams } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
+import CustomizeControls from 'components/Customize/Controls';
 import ErrorPage from 'components/ErrorPage';
 import LoadingOverlay from 'components/Foreground/LoadingOverlay';
-import ModalAboutRender from 'components/Foreground/Modals/ModalAboutRender/ModalAboutRender';
 import RefreshIcon from 'components/Icons/RefreshIcon';
 import PopupFromBottom from 'components/Inventory/PopupFromBottom/PopupFromBottom';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
@@ -36,8 +36,6 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
     if (!id) throw new Error('No id provided');
 
     const [, setTransactionSessionId] = React.useState<string | null>(null);
-
-    const [showModalAboutRender, setShowModalAboutRender] = React.useState<boolean>(false);
 
     const {
         load,
@@ -101,7 +99,6 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
 
     return (
         <div id={style['body-content']}>
-            <ModalAboutRender isVisible={showModalAboutRender} onSignRenderClick={onSignRenderClick} />
             <MobileHeader title="Customize" subTitle={selectedPenguin?.name ?? ''} className={style['mobile-header']} />
             <PopupFromBottom
                 title={itemsPopupTitle}
@@ -165,17 +162,13 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
                         <div className={style.reset}>
                             <Button icon={<RefreshIcon />} onClick={resetItems}>Unequip Items</Button>
                         </div>
-                        <div className={style.controls}>
-                            {/* <Button type='cancel' onClick={cancelAll}>Cancel All</Button> */}
-                            <Button type='primary' onClick={onConfirmCustomClick} disabled={!hasSomeModifications || !attributesStatus}>
 
-                                {getCustomizeButtonContent()}
-                            </Button>
-
-
-                        </div>
-
-
+                        <CustomizeControls
+                            hasSomeModifications={hasSomeModifications}
+                            onCustomizeClick={sendCustomizationTx}
+                            onRenderClick={sendRenderImageTx}
+                            renderStatus={attributesStatus?.renderStatus}
+                        />
                     </>
                 }
             </section >
@@ -189,63 +182,12 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
         </div >
     );
 
-    function getCustomizeButtonContent() {
-
-        if (attributesStatus) {
-            switch (attributesStatus.renderStatus) {
-                case 'none':
-                    return 'Render Image on blockchain';
-
-                case 'rendering':
-                case 'rendered':
-
-                    if (!hasSomeModifications) {
-                        return 'No changes detected'
-                    }
-                    else {
-                        return 'Customize';
-                    }
-            }
-        }
-        else {
-            return <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-            </div>;
-        }
-    }
-
     function onItemClick(item: IItem) {
         if (!editingEnabled) return;
         toggle(item);
 
         if (window.innerWidth > 800) {
             setItemsPopupIsOpen(false);
-        }
-    }
-
-    function onSignRenderClick() {
-        setShowModalAboutRender(false);
-        sendRenderImageTx();
-    }
-
-    async function onConfirmCustomClick() {
-
-
-        console.log('onConfirmCustomClick');
-
-        if (!attributesStatus) return;
-
-        switch (attributesStatus?.renderStatus) {
-            case 'none':
-                setShowModalAboutRender(true);
-                return;
-
-            case 'rendered':
-                sendCustomizationTx();
-                return;
-
-            case 'rendering':
-                throw new Error('Not implemented');
         }
     }
 

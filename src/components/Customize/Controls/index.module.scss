@@ -1,0 +1,34 @@
+.controls {
+    // center content
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > .content {
+        // add space between controls
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        justify-content: center;
+        gap: 15px;
+
+        margin-top: 25px;
+        border-radius: 6px;
+
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 25px;
+        width: 350px;
+
+        .control {
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+
+            &.completed {
+                color: grey;
+            }
+        }
+    }
+}
