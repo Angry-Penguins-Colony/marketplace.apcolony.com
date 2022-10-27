@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { IItem, IOffer, IPenguin } from '@apcolony/marketplace-api';
-import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
@@ -60,8 +59,6 @@ const Inspect = () => {
         isListedByConnected
     } = useGetOffers(category, id);
 
-    const { address: connectedAddress } = useGetAccountInfo();
-
     const [isSellPopupOpen, setIsSellPopupOpen] = React.useState(false);
     const [isOffersPopupOpen, setIsOffersPopupOpen] = React.useState(false);
 
@@ -71,15 +68,10 @@ const Inspect = () => {
 
     const ownedByConnectedWallet = (() => {
 
-        if (item != undefined && itemOwnedAmount != undefined && itemOwnedAmount > 0) {
-            return true;
-        }
-        else if (ownedOffers != undefined) {
-            return ownedOffers.find(offer => offer.seller == connectedAddress) != undefined;
-        }
-        else {
-            return undefined;
-        }
+        if (item == undefined || itemOwnedAmount == undefined || ownedOffers == undefined) return undefined;
+
+
+        return itemOwnedAmount > 0 || isListedByConnected;
     })();
 
     const canBuy = category == 'items' || (category == 'penguins' && ownedByConnectedWallet == false);
