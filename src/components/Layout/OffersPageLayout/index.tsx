@@ -45,9 +45,9 @@ const OffersPageLayout = ({
             {
                 marketData &&
                 <MarketData
-                    floorPrice={parseInt(marketData.floorPrice)}
-                    totalVolume={parseInt(marketData.totalVolume)}
-                    averagePrice={parseInt(marketData.averagePrice)}
+                    floorPrice={parseFloat(marketData.floorPrice)}
+                    totalVolume={parseFloat(marketData.totalVolume)}
+                    averagePrice={parseFloat(marketData.averagePrice)}
                     totalListed={marketData.totalListed}
                 />
             }

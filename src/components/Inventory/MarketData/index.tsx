@@ -15,7 +15,7 @@ const MarketData = ({
     return (
         <div className={style['market-data']}>
             <div className={style.item}>
-                <div className={style.value}>{floorPrice} EGLD</div>
+                <div className={style.value}>{floorPrice.toString()} EGLD</div>
                 <div className={style.label}>Floor Price</div>
             </div>
             <div className={style.item}>

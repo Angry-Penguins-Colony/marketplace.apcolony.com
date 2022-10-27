@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { IItem } from '@apcolony/marketplace-api';
 import BigNumber from 'bignumber.js';
 import { Link, useParams } from 'react-router-dom';
 import PenguinIcon from 'assets/img/icons/penguin-icon.jpg';
