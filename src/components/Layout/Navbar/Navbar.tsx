@@ -120,7 +120,9 @@ const DesktopHeaderItem = ({ item }: { item: NavItem }) => {
     </div >
   }
   else {
-    return <a href={item.route} className={style.item}>{item.name}</a>;
+    return <Link to={item.route ?? routeNames.home} className={style.item}>
+      {item.name}
+    </Link>;
   }
 }
 
