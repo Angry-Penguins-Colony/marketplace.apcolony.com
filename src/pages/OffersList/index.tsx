@@ -48,19 +48,19 @@ const OffersList = ({
                 return <div>No offers yet.</div>
             }
             else {
-                return offers.associatedItems.map(item => {
+                return offers.associatedItems
+                    .map(item => {
 
-                    const lowestOffer = offers.offers
-                        .filter(offer => offer.collection == item.collection && offer.nonce == item.nonce)
-                        .sort((a, b) => new BigNumber(a.price).isGreaterThan((new BigNumber(b.price))) ? 1 : -1)[0];
+                        const lowestOffer = offers.offers
+                            .filter(offer => offer.collection == item.collection && offer.nonce == item.nonce)
+                            .sort((a, b) => new BigNumber(a.price).isGreaterThan((new BigNumber(b.price))) ? 1 : -1)[0];
 
-                    const price = lowestOffer.price;
+                        const price = lowestOffer.price;
 
 
-                    const link = buildRouteLinks.inspect((category == 'penguins' ? 'penguins' : 'items'), item.id)
+                        const link = buildRouteLinks.inspect((category == 'penguins' ? 'penguins' : 'items'), item.id)
 
-                    return (
-                        <Link className={style.itemRoot} to={link} key={item.id}>
+                        const component = <Link className={style.itemRoot} to={link} key={item.id}>
                             <Item item={item} displayId={false} className={style.mobile} />
 
                             <div className={style.desktop}>
@@ -73,9 +73,14 @@ const OffersList = ({
                                     </div>
                                 </div>
                             </div>
-                        </Link>
-                    );
-                })
+                        </Link>;
+                        return {
+                            component,
+                            price
+                        };
+                    })
+                    .sort((a, b) => new BigNumber(a.price).isGreaterThan((new BigNumber(b.price))) ? 1 : -1)
+                    .map(item => item.component);
             }
         }
         else {
