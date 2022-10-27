@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IItem } from '@apcolony/marketplace-api';
 import Button from 'components/Abstract/Button/Button';
-import RoundedList from 'components/Abstract/RoundedList/RoundedList';
+import RoundedList, { IRoundedItem } from 'components/Abstract/RoundedList/RoundedList';
 import defaultPenguinImg from './../../../assets/img/penguin_default.png';
 import style from './PopupFromBottom.module.scss';
 
@@ -55,7 +55,7 @@ const PopupFromBottom = (
                         {
                             name: 'All Items',
                             number: items.length,
-                            current: !filterSlot,
+                            selected: !filterSlot,
                             onClick: function () {
                                 changeType(undefined);
                             }
@@ -106,11 +106,11 @@ const PopupFromBottom = (
         </div>
     );
 
-    function getRoundedSlotChild(name: string, slotType: string) {
+    function getRoundedSlotChild(name: string, slotType: string): IRoundedItem {
         return {
             name: name,
             number: getAmountOfItems(items, slotType),
-            current: slotType === slotType,
+            selected: slotType === filterSlot,
             onClick: function () {
                 changeType(slotType);
             }
