@@ -54,6 +54,14 @@
         margin-top: 20px;
         min-width: 70%;
     }
+
+    .seeOffers {
+        color: gray;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
 }
 
 /*}*/

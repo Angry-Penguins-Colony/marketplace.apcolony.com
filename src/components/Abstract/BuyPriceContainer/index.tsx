@@ -10,13 +10,15 @@ const BuyPriceContainer = ({
     price,
     showOffersCount = false,
     offersCount,
-    onBuy = () => { /* do nothing*/ }
+    onBuy = () => { /* do nothing*/ },
+    onOffersCountClick
 }: {
     className?: string,
     showOffersCount: boolean,
     offersCount: number | undefined,
     price?: Price,
     onBuy?: () => void
+    onOffersCountClick?: () => void
 }) => {
 
     const isConnected = useIsConnected();
@@ -42,7 +44,20 @@ const BuyPriceContainer = ({
                         }
 
                         {showOffersCount &&
-                            <p className='mt-1'>{offersCount ?? '--'} offers</p>
+                            <span className="mt-1">
+                                {offersCount ?? '--'} offers
+
+                                {
+                                    onOffersCountClick &&
+                                    <span className={style.seeOffers + ' ' + 'ml-1'} onClick={() => {
+                                        if (onOffersCountClick) {
+                                            onOffersCountClick();
+                                        }
+                                    }}>
+                                        (show list)
+                                    </span>
+                                }
+                            </span>
                         }
                     </>
                     :

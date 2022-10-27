@@ -9,6 +9,7 @@ import BuyPriceContainer from 'components/Abstract/BuyPriceContainer';
 import ErrorPage from 'components/ErrorPage';
 import BuyingPopup from 'components/Foreground/Popup/BuyingPopup/BuyingPopup';
 import ShowMyOffersPopup from 'components/Foreground/Popup/ShowMyOffersPopup';
+import ShowOffersPopup from 'components/Foreground/Popup/ShowOffersPopup';
 import ShareIcon from 'components/Icons/ShareIcon';
 import ItemSubProperties from 'components/InspectSubProperties/ItemSubProperties';
 import PenguinSubProperties from 'components/InspectSubProperties/PenguinSubProperties';
@@ -60,7 +61,8 @@ const Inspect = () => {
     } = useGetOffers(category, id);
 
     const [isSellPopupOpen, setIsSellPopupOpen] = React.useState(false);
-    const [isOffersPopupOpen, setIsOffersPopupOpen] = React.useState(false);
+    const [isMyOffersPopupOpen, showMyOffersPopup] = React.useState(false);
+    const [isOffersPopupOpen, showOffersPopup] = React.useState(false);
 
 
     const userInventory = useGetUserOwnedAmount();
@@ -109,8 +111,9 @@ const Inspect = () => {
                             if (!lowestBuyableOffer) throw new Error('No offer to buy');
                             sendBuyOfferTransaction(lowestBuyableOffer)
                         }}
-                        offersCount={buyableOffersCount}
+                        offersCount={offers?.length}
                         showOffersCount={category != 'penguins'}  /* don't show offers count for penguins because we can only have one offer max per penguin */
+                        onOffersCountClick={() => showOffersPopup(true)}
                     />
                 }
 
@@ -154,7 +157,7 @@ const Inspect = () => {
                                     return <>
                                         <div>
 
-                                            <Button type='normal' onClick={() => setIsOffersPopupOpen(true)}>
+                                            <Button type='normal' onClick={() => showMyOffersPopup(true)}>
                                                 View my {ownedOffers.length} offers
                                             </Button>
                                         </div>
@@ -187,9 +190,16 @@ const Inspect = () => {
                 ownedOffers &&
                 <ShowMyOffersPopup
                     offers={ownedOffers}
-                    isVisible={isOffersPopupOpen}
-                    onCloseClicked={() => { setIsOffersPopupOpen(false) }}
+                    isVisible={isMyOffersPopupOpen}
+                    onCloseClicked={() => { showMyOffersPopup(false) }}
                     onRetire={sendRetireOfferTransaction}
+                />
+            }
+            {offers &&
+                <ShowOffersPopup
+                    offers={offers}
+                    isVisible={isOffersPopupOpen}
+                    onCloseClicked={() => { showOffersPopup(false) }}
                 />
             }
         </div >
