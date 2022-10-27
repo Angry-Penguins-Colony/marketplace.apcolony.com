@@ -24,6 +24,7 @@ import { logErrorIfMissingItems } from './utils/dbHelper';
 import ItemsDatabase from './classes/ItemsDatabase';
 import getPenguinsStaked from './routes/staking/owned';
 import getStakingClaimable from './routes/staking/claim';
+import getGeneratedTokens from './routes/staking/generated';
 
 const workers = parseInt(process.env.WEB_CONCURRENCY || "1");
 const port = process.env.PORT || 5001;
@@ -62,6 +63,8 @@ function start(id: number) {
 
     app.get('/staking/owned/:bech32', (req, res) => getPenguinsStaked(req, res, networkProvider));
     app.get('/staking/claimable/:bech32', (req, res) => getStakingClaimable(req, res, networkProvider));
+    app.get('/staking/tokensGenerated/', (req, res) => getGeneratedTokens(req, res, networkProvider));
+
 
     app.get('/attributes', (req, res) => getAttributes(req, res, networkProvider));
     app.get("/exploreItems", (req, res) => getExploreItems(req, res, networkProvider, itemsDatabase));

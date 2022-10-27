@@ -4,7 +4,7 @@ import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkPro
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { AbiRegistry, Address, AddressValue, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, StringValue, U64Value } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
-import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsCollection, items, getPenguinWebThumbnail, nftStakingContract } from "../const";
+import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsCollection, items, getPenguinWebThumbnail, nftStakingContract, nftStakingToken, originalTokensAmountInStakingSc } from "../const";
 import { getItemFromAttributeName, getItemFromToken, getTokenFromItemID, isCollectionAnItem } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, getNameFromPenguinId, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
@@ -356,6 +356,13 @@ export class APCNetworkProvider {
         const { secondValue, returnCode  } : any = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition); //TODO: Add type        
 
         return returnCode == 'ok' ? secondValue : 'Unable to fetch data';
+    }
+
+    public async getTokensGeneratedByTheSc(){
+
+        const res = await this.apiProvider.doGetGeneric(`accounts/${nftStakingContract}/tokens?${nftStakingToken}`);
+
+        return originalTokensAmountInStakingSc - res[0].balance
     }
 
 }
