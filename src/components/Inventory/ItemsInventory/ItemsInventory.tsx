@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { IGenericElement } from '@apcolony/marketplace-api';
 import { Link } from 'react-router-dom';
+import Button from 'components/Abstract/Button/Button';
 import Loading from 'components/Abstract/Loading';
 import ReactImageAppear from 'components/Images/ReactImageAppear/ReactImageAppear';
 import { buildRouteLinks } from 'routes';
@@ -16,7 +17,10 @@ interface IProps {
     hasFilter: boolean,
     filters?: Filters,
     title?: string,
-    makeItemComponent?: (item: IGenericElement) => JSX.Element
+    makeItemComponent?: (item: IGenericElement) => JSX.Element,
+    displayStakingStatus?: boolean,
+    isStaked?: boolean,
+    stakingFunction?: (itemNonce:number) => void
 }
 
 const ItemsInventory = ({
@@ -27,14 +31,26 @@ const ItemsInventory = ({
     hasFilter,
     amountById,
     makeItemComponent = (item) => {
-        return <Item
-            key={item.id}
-            item={{
-                amount: amountById[item.id],
-                ...item
-            }}
-            type={type} />
-    }
+        return (
+            <div className={style['item-wrapper']}>
+                <Item
+                key={item.id}
+                item={{
+                    amount: amountById[item.id],
+                    ...item
+                }}
+                type={type} />
+                {displayStakingStatus && stakingFunction &&
+                    <Button onClick={() => stakingFunction(item.nonce) }>
+                        {isStaked ? 'Unstake' : 'Stake'}
+                    </Button>
+                }
+            </div>
+        )
+    },
+    displayStakingStatus = false,
+    isStaked,
+    stakingFunction
 }: IProps) => {
     return (
         <div className={style['all-items'] + ' ' + className + ' ' + style[type] + (hasFilter ? ' ' + style['has-filter'] : '')}>
