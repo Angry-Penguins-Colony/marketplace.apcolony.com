@@ -14,23 +14,9 @@ export default async function getItemsOffers(req: Request, res: Response, networ
 
     const offers = (await networkProvider.getOffers(collections));
 
-    const associatedItems: IItem[] = await (() => {
-        const tokens = offers
-            .map(offer => getItemFromToken(offer.collection, offer.nonce));
-
-        const uniqueIds = [...new Set(tokens.map(token => token.id))];
-        const uniqueTokens = uniqueIds
-            .map(id => getTokenFromItemID(id));
-
-        const itemsPromises = uniqueTokens
-            .map(({ collection, nonce }) => itemsDatabase.getItemFromToken(collection, nonce));
-
-        return Promise.all(itemsPromises);
-    })();
-
     const response = {
         offers: offers,
-        associatedItems: associatedItems
+        associatedItems: networkProvider.getItemsFromOffers(offers)
     }
 
     sendSuccessfulJSON(res, response);

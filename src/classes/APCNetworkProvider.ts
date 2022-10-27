@@ -5,7 +5,7 @@ import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { AbiRegistry, Address, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, StringValue, U64Value } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
 import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsCollection, items, getPenguinWebThumbnail } from "../const";
-import { getItemFromAttributeName, getTokenFromItemID, isCollectionAnItem } from "../utils/dbHelper";
+import { getItemFromAttributeName, getItemFromToken, getTokenFromItemID, isCollectionAnItem } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, getNameFromPenguinId, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
 import { BigNumber } from "bignumber.js";
@@ -178,6 +178,48 @@ export class APCNetworkProvider {
             .map((o: any) => parseMultiValueIdAuction(o));
 
         return offers;
+    }
+
+    public async getOffersOfAccount(account: string): Promise<IOffer[]> {
+        const allCollections = [...Object.values(itemsCollection).flat(), penguinsCollection];
+
+        const offers = await this.getOffers(allCollections);
+
+        return offers.filter(o => o.seller == account);
+    }
+
+    public async getPenguinsFromOffers(offers: IOffer[]): Promise<IPenguin[]> {
+
+        if (offers.find(o => o.collection != penguinsCollection)) {
+            throw new Error("getPenguinsFromOffers contains items");
+        }
+
+        const penguinsPromises = offers
+            .map(o => this.getNft(o.collection, o.nonce));
+        const nfts = await Promise.all(penguinsPromises);
+
+        return nfts
+            .filter(nft => !!nft.owner)
+            .map(nft => this.getPenguinFromNft(nft));
+    }
+
+    public async getItemsFromOffers(offers: IOffer[]): Promise<IItem[]> {
+
+        if (offers.find(o => o.collection == penguinsCollection)) {
+            throw new Error("getItemsFromOffers contains penguins");
+        }
+
+        const tokens = offers
+            .map(offer => getItemFromToken(offer.collection, offer.nonce));
+
+        const uniqueIds = [...new Set(tokens.map(token => token.id))];
+        const uniqueTokens = uniqueIds
+            .map(id => getTokenFromItemID(id));
+
+        const items = uniqueTokens
+            .map(({ collection, nonce }) => this.itemsDatabase.getItemFromToken(collection, nonce));
+
+        return items;
     }
 
     public async getMarketData(collections: string[]): Promise<IMarketData> {
