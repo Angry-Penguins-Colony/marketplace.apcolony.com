@@ -9,8 +9,7 @@ import ItemsInventory from 'components/Inventory/ItemsInventory/ItemsInventory';
 import NavigationType from 'components/Inventory/NavigationType/NavigationType';
 import NavInventory from 'components/Inventory/NavInventory/NavInventory';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import { useGetOwnedAndOnSaleItems } from 'sdk/hooks/api/useGetOwnedAndOnSaleItems';
-import { useGetOwnedAndOnSalePenguins } from 'sdk/hooks/api/useGetOwnedAndOnSalePenguins';
+import { useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
 import useGetUserOwnedAmount from 'sdk/hooks/api/useGetUserOwnedAmount';
 import useInventoryFilter from 'sdk/hooks/useInventoryFilter';
 import CategoriesType from 'sdk/types/CategoriesType';
@@ -36,8 +35,8 @@ const Inventory = () => {
     const [inventoryType, setInventoryType] = React.useState<CategoriesType>('penguins');
 
     const ownedAmount = useGetUserOwnedAmount();
-    const penguins = useGetOwnedAndOnSalePenguins(Address.fromBech32(walletAddress));
-    const items = useGetOwnedAndOnSaleItems(Address.fromBech32(walletAddress));
+    const penguins = useGetOwnedPenguins({ overrideAddress: Address.fromBech32(walletAddress) });
+    const items = useGetOwnedPenguins({ overrideAddress: Address.fromBech32(walletAddress) });
 
     function onChangeType(type: string) {
         switch (type) {
