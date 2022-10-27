@@ -1,10 +1,13 @@
 @import "assets/sass/var.scss";
 
 .items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
     .itemRoot {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+        border-radius: 6px;
+        overflow: hidden;
 
         .desktop {
             display: none;
@@ -15,6 +18,11 @@
 // desktop
 @media (min-width: $desktop_min_width) {
     .items {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+
         .itemRoot {
             .mobile {
                 display: none;
