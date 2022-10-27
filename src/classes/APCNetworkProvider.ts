@@ -203,7 +203,7 @@ export class APCNetworkProvider {
             .map(nft => this.getPenguinFromNft(nft));
     }
 
-    public async getItemsFromOffers(offers: IOffer[]): Promise<IItem[]> {
+    public getItemsFromOffers(offers: IOffer[]): IItem[] {
 
         if (offers.find(o => o.collection == penguinsCollection)) {
             throw new Error("getItemsFromOffers contains penguins");
