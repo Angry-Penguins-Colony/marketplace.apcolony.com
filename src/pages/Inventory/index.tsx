@@ -62,7 +62,7 @@ const Inventory = () => {
                         <h2>Your Inventory</h2> :
                         <><br /><br /></>
                     }
-                    <p className={style['wallet-address']}>
+                    <div className={style['wallet-address']}>
                         <span>
                             <AddressWrapper bech32={walletAddress} withLink={false} />
                         </span>
@@ -77,7 +77,7 @@ const Inventory = () => {
                         }>
                             <ShareIcon className={style.icon} />
                         </div>
-                    </p>
+                    </div>
                 </header>
 
                 <NavigationType className={style['navigation-type']} onChangeType={setInventoryType} itemsType={inventoryType} />
