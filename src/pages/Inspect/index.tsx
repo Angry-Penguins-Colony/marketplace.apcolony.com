@@ -52,6 +52,7 @@ const Inspect = () => {
     } = useInspect(category, id);
 
     const {
+        offers,
         buyableOffers,
         lowestBuyableOffer,
         priceListedByUser,
@@ -242,7 +243,7 @@ const Inspect = () => {
 
         switch (category) {
             case 'penguins':
-                return <PenguinSubProperties penguin={item as IPenguin} />
+                return <PenguinSubProperties offer={offers ? offers[0] : undefined} penguin={item as IPenguin} />
 
             case 'items':
                 return <ItemSubProperties item={item as IItem} />

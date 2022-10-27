@@ -1,5 +1,5 @@
 import React from 'react';
-import { IPenguin } from '@apcolony/marketplace-api';
+import { IOffer, IPenguin } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import AddressWrapper from 'components/AddressWrapper';
 import { marketplaceContractAddress } from 'config';
@@ -7,16 +7,23 @@ import SubProperties from '../SubProperties';
 
 interface Props {
     penguin: IPenguin;
+    offer: IOffer | null | undefined;
 }
 
-const PenguinSubProperties = ({ penguin }: Props) => {
+const PenguinSubProperties = ({ penguin, offer }: Props) => {
 
     const { address: connectedAddress } = useGetAccountInfo();
     const properties = [];
 
     if (penguin.owner) {
         if (penguin.owner == marketplaceContractAddress.bech32()) {
-            properties.push('For sale');
+
+            const address = offer ? <AddressWrapper bech32={offer.seller} /> : '--';
+
+            properties.push(<>
+                For sale by {address}
+            </>
+            );
         }
         else {
             properties.push(<>

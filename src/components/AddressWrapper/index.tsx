@@ -1,5 +1,6 @@
 import React from 'react';
-import { explorer } from 'config';
+import { Link } from 'react-router-dom';
+import { buildRouteLinks } from 'routes';
 
 interface Props {
     bech32: string;
@@ -14,9 +15,9 @@ const AddressWrapper = ({ bech32: bech32, withLink = true, totalLength = 15 }: P
     const croppped = bech32.slice(0, sideWidth) + separator + bech32.slice(-sideWidth);
 
     if (withLink) {
-        return <a href={explorer.getAddress(bech32)} target="_blank" rel="noopener noreferrer">
+        return <Link to={buildRouteLinks.inventory(bech32)}>
             {croppped}
-        </a>
+        </Link>
     }
     else {
         return <>
