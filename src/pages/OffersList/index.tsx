@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { IItem } from '@apcolony/marketplace-api';
+import BigNumber from 'bignumber.js';
 import { Link, useParams } from 'react-router-dom';
 import PenguinIcon from 'assets/img/icons/penguin-icon.jpg';
 import ErrorPage from 'components/ErrorPage';
@@ -23,18 +24,8 @@ const OffersList = ({
 }: IProps) => {
     const { slot } = useParams();
 
-    const { data: offersReponses } = useGetOffersOfCategory(slot ?? category);
+    const { data: offers } = useGetOffersOfCategory(slot ?? category);
     const { data: marketData } = useGetMarketData(slot ?? category);
-
-
-    const [offers, setOffers] = React.useState<IItem[] | undefined>(undefined);
-
-    React.useEffect(() => {
-        if (offersReponses) {
-            console.log(offersReponses);
-            setOffers(offersReponses.associatedItems as IItem[]);
-        }
-    }, [offersReponses]);
 
     const icon = category == 'penguins' ? PenguinIcon : icons[slot as any].unicolor;
 
@@ -54,22 +45,33 @@ const OffersList = ({
         if (!category) throw new Error('Missing category');
 
         if (offers) {
-            if (offers.length == 0) {
+            if (offers.associatedItems.length == 0) {
                 return <div>No offers yet.</div>
             }
             else {
-                return offers.map(variant => {
-                    const link = buildRouteLinks.inspect((category == 'penguins' ? 'penguins' : 'items'), variant.id)
+                return offers.associatedItems.map(item => {
+
+                    const lowestOffer = offers.offers
+                        .filter(offer => offer.collection == item.collection && offer.nonce == item.nonce)
+                        .sort((a, b) => new BigNumber(a.price).isGreaterThan((new BigNumber(b.price))) ? 1 : -1)[0];
+
+                    const price = lowestOffer.price;
+
+
+                    const link = buildRouteLinks.inspect((category == 'penguins' ? 'penguins' : 'items'), item.id)
 
                     return (
-                        <Link className={style.itemRoot} to={link} key={variant.id}>
-                            <Item item={variant} displayId={false} className={style.mobile} />
+                        <Link className={style.itemRoot} to={link} key={item.id}>
+                            <Item item={item} displayId={false} className={style.mobile} />
 
                             <div className={style.desktop}>
                                 <img src={defaultPenguinImg} alt="default background of any penguin" className={style.background} />
-                                <img src={variant.thumbnailUrls.high} alt="" className={style.item} />
+                                <img src={item.thumbnailUrls.high} alt="" className={style.item} />
                                 <div className={style.infos}>
-                                    <div className={style.name}>{variant.name}</div>
+                                    <div className={style.name}>{item.name}</div>
+                                    <div className={style.price}>
+                                        {price} EGLD
+                                    </div>
                                 </div>
                             </div>
                         </Link>
