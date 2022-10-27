@@ -1,1 +1,18 @@
 @import "./../../../../assets/sass/var.scss";
+
+.items-inventory{
+    position: relative;
+    top:unset;
+    left:unset;
+    right:unset;
+    bottom:unset;
+
+    button{
+        margin:auto;
+        margin-bottom: 20px;
+        margin-top: 12px;
+    }
+    >div{
+        justify-content: center;
+    }
+}
