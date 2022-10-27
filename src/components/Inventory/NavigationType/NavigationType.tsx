@@ -1,4 +1,5 @@
 import * as React from 'react';
+import CategoriesType from 'sdk/types/CategoriesType';
 import style from './NavigationType.module.scss';
 
 const NavigationType = ({
@@ -7,8 +8,8 @@ const NavigationType = ({
     itemsType,
 }: {
     className?: string,
-    onChangeType?: (type: string) => void,
-    itemsType?: string,
+    onChangeType?: (type: CategoriesType) => void,
+    itemsType?: CategoriesType,
 }) => {
     return (
         <section id={style['navigation-type']} className={className}>

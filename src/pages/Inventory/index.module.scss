@@ -1,5 +1,5 @@
-@import "./../../assets/sass/var.scss";
-
+@import "assets/sass/var.scss";
+@import "assets/sass/theme.scss";
 // body can't scrollable directly
 // body {
 //     overflow: hidden; // TODO: make overflow for specific page
@@ -138,6 +138,10 @@
                 line-height: 1.1;
             }
         }
+    }
+
+    .items-inventory {
+        @extend .custom-scrollbar;
     }
 }
 
@@ -278,6 +282,8 @@
         .items-inventory {
             grid-area: inventory;
             padding: 0;
+            height: auto;
+            overflow: auto;
         }
     }
 }

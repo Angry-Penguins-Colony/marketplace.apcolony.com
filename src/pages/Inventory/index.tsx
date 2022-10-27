@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { IGenericElement } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
-import { Address } from '@elrondnetwork/erdjs/out';
 import { useParams } from 'react-router-dom';
 import AddressWrapper from 'components/AddressWrapper';
 import ShareIcon from 'components/Icons/ShareIcon';
@@ -9,10 +7,8 @@ import ItemsInventory from 'components/Inventory/ItemsInventory/ItemsInventory';
 import NavigationType from 'components/Inventory/NavigationType/NavigationType';
 import NavInventory from 'components/Inventory/NavInventory/NavInventory';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import { useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
-import useGetUserOwnedAmount from 'sdk/hooks/api/useGetUserOwnedAmount';
+import useGetInventory from 'sdk/hooks/pages/useGetInventory';
 import useInventoryFilter from 'sdk/hooks/useInventoryFilter';
-import CategoriesType from 'sdk/types/CategoriesType';
 import style from './index.module.scss';
 
 const typeWithFilter: string[] = [];
@@ -30,32 +26,22 @@ const Inventory = () => {
         document.body.classList.add('no-scroll');
     }, []);
 
+    const {
+        inventoryType,
+        inventoryElements,
+        inventoryOffers,
+        ownedAmount,
+        penguinsCount,
+        itemsCount,
+        setInventoryType
+    } = useGetInventory(walletAddress);
 
-    const [inventoryElements, setElements] = React.useState<IGenericElement[] | undefined>(undefined);
-    const [inventoryType, setInventoryType] = React.useState<CategoriesType>('penguins');
+    const {
+        sortBy,
+        changeFilters,
+        filterData
+    } = useInventoryFilter(inventoryElements, () => { /* setItems is disabled for the moment */ });
 
-    const ownedAmount = useGetUserOwnedAmount();
-    const penguins = useGetOwnedPenguins({ overrideAddress: Address.fromBech32(walletAddress) });
-    const items = useGetOwnedPenguins({ overrideAddress: Address.fromBech32(walletAddress) });
-
-    function onChangeType(type: string) {
-        switch (type) {
-            case 'items':
-                setElements(items);
-                setInventoryType('items');
-                break;
-
-            case 'penguins':
-            default:
-                setElements(penguins);
-                setInventoryType('penguins');
-                break;
-        }
-    }
-
-    React.useEffect(() => {
-        onChangeType(inventoryType); items
-    }, [penguins, items]);
 
     function addArticle(txt: string) {
         const firstLetter = txt.charAt(0).toUpperCase();
@@ -66,11 +52,6 @@ const Inventory = () => {
         }
     }
 
-    const {
-        sortBy,
-        changeFilters,
-        filterData
-    } = useInventoryFilter(inventoryElements, () => { /* setItems is disabled for the moment */ });
 
     return (
         <>
@@ -99,16 +80,16 @@ const Inventory = () => {
                     </p>
                 </header>
 
-                <NavigationType className={style['navigation-type']} onChangeType={onChangeType} itemsType={inventoryType} />
+                <NavigationType className={style['navigation-type']} onChangeType={setInventoryType} itemsType={inventoryType} />
 
                 <section id={style.filter}>
                     <div className={style['number-items']}>
                         <div className={style.item}>
-                            <p className={style.number}>{penguins?.length ?? '-'}</p>
+                            <p className={style.number}>{penguinsCount ?? '-'}</p>
                             <p className={style.name}>Penguins</p>
                         </div>
                         <div className={style.item}>
-                            <p className={style.number}>{items?.length ?? '-'}</p>
+                            <p className={style.number}>{itemsCount ?? '-'}</p>
                             <p className={style.name}>Items</p>
                         </div>
                     </div>
@@ -117,19 +98,37 @@ const Inventory = () => {
                         <span className={style['number-items']}>{inventoryElements?.length ?? '-'}</span>
                         <p className={style.info}>(Select {addArticle(inventoryType.slice(0, -1))} to customize it)</p>
                     </div>
-                    <NavInventory type={inventoryType} typeWithFilter={typeWithFilter} sortByFunction={sortBy}
-                        filterData={filterData} changeFilters={changeFilters} />
+                    <NavInventory
+                        type={inventoryType}
+                        typeWithFilter={typeWithFilter}
+                        sortByFunction={sortBy}
+                        filterData={filterData}
+                        changeFilters={changeFilters}
+                    />
                 </section>
 
 
-                <ItemsInventory
-                    className={style['items-inventory']}
-                    items={inventoryElements}
-                    title={'My ' + inventoryType}
-                    type={inventoryType}
-                    amountById={ownedAmount ? ownedAmount[inventoryType] : {}}
-                    hasFilter={typeWithFilter.includes(inventoryType)}
-                    filters={filterData} />
+                <div className={style['items-inventory']}>
+
+                    {inventoryOffers && inventoryOffers.length > 0 &&
+                        <ItemsInventory
+
+                            items={inventoryOffers}
+                            title={'In sale'}
+                            type={inventoryType}
+                            amountById={{}}
+                            hasFilter={false}
+                        />
+                    }
+
+                    <ItemsInventory
+                        items={inventoryElements}
+                        title={'My ' + inventoryType}
+                        type={inventoryType}
+                        amountById={ownedAmount ? ownedAmount[inventoryType] : {}}
+                        hasFilter={typeWithFilter.includes(inventoryType)}
+                        filters={filterData} />
+                </div>
             </div>
         </>
     );
