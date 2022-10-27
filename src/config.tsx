@@ -46,6 +46,7 @@ function getNetworkInfos() {
       items: devnetToolDeploy.items,
       itemsIdentifier: devnetToolDeploy.itemsIdentifier,
       penguinsCount: 5555,
+      stakingContractAddress: Address.fromBech32('erd1qqqqqqqqqqqqqpgqdcjdvpvncw7s8ug56rehyvl8tehk3vl368mqxa7llg')
     }
   }
   else {
@@ -59,5 +60,5 @@ export const penguinCollection = getNetworkInfos().penguinCollection;
 export const marketplaceContractAddress = getNetworkInfos().marketplaceContractAddress;
 export const items = getNetworkInfos().items;
 export const explorer = new Explorer(getNetworkInfos().explorerUrl);
-export const penguinsCount = getNetworkInfos().penguinsCount;
 export const itemsIdentifier = getNetworkInfos().itemsIdentifier;
+export const stakingContract = getNetworkInfos().stakingContractAddress;
