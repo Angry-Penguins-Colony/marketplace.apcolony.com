@@ -6,7 +6,6 @@ import {
 } from '@elrondnetwork/dapp-core/UI';
 import { DappProvider } from '@elrondnetwork/dapp-core/wrappers';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
-import WIPModal from 'components/Foreground/Modals/WIPModal/WIPModal';
 import Layout from 'components/Layout';
 import Home from 'pages/Home';
 import PageNotFound from 'pages/PageNotFound';
@@ -17,8 +16,6 @@ const environment = 'devnet';
 
 const App = () => {
   return <>
-    <WIPModal />
-
     <Router>
       <DappProvider
         environment={environment}
