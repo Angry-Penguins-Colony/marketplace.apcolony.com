@@ -44,7 +44,7 @@ function getNetworkInfos() {
       penguinCollection: devnetToolDeploy.penguinsIdentifier,
       marketplaceContractAddress: Address.fromBech32('erd1qqqqqqqqqqqqqpgqffweul9250tqr4vuf04zxdcpjdy82yvpv4xq4uha83'),
       items: devnetToolDeploy.items,
-      itemsIdentifier: devnetToolDeploy.itemsIdentifier,
+      itemsCollections: devnetToolDeploy.itemsIdentifier,
       penguinsCount: 5555,
       stakingContractAddress: Address.fromBech32('erd1qqqqqqqqqqqqqpgqdcjdvpvncw7s8ug56rehyvl8tehk3vl368mqxa7llg')
     }
@@ -60,5 +60,6 @@ export const penguinCollection = getNetworkInfos().penguinCollection;
 export const marketplaceContractAddress = getNetworkInfos().marketplaceContractAddress;
 export const items = getNetworkInfos().items;
 export const explorer = new Explorer(getNetworkInfos().explorerUrl);
-export const itemsIdentifier = getNetworkInfos().itemsIdentifier;
+export const penguinsCount = getNetworkInfos().penguinsCount;
+export const itemsCollections = getNetworkInfos().itemsCollections;
 export const stakingContract = getNetworkInfos().stakingContractAddress;
