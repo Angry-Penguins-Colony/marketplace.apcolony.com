@@ -78,7 +78,7 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
         }
     });
 
-    const editingEnabled = attributesStatus?.renderStatus != 'rendering';
+    const editingEnabled = attributesStatus?.renderStatus != 'rendering' && !isCustomizationPending;
 
     /* Choose items popup */
     const [itemsPopupIsOpen, setItemsPopupIsOpen] = React.useState<boolean>(false);
@@ -160,7 +160,7 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
                         {createItemButton('background', 'Background')}
                     </div>
                 </div>
-                {(!isCustomizationPending && attributesStatus?.renderStatus != 'rendering') &&
+                {(editingEnabled) &&
                     <>
                         <div className={style.reset}>
                             <Button icon={<RefreshIcon />} onClick={resetItems}>Unequip Items</Button>
@@ -250,6 +250,9 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
     }
 
     function openItemsPopup(type: string | undefined, title: string) {
+
+        if (!editingEnabled) return;
+
         setFilterSlot(type);
         setItemsPopupTitle(title);
         setItemsPopupIsOpen(true);
