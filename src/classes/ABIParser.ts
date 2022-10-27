@@ -48,6 +48,19 @@ export function parseMarketData(response: any): IMarketData {
     }
 }
 
+
+export function parseStakedPenguins(response: any) {
+    const data : any = {};
+
+    response.items
+    .map((o: any) => {        
+        const penguinNonce = o.value.toNumber();
+        data[penguinNonce] = 1;
+    });
+    return data;
+}
+
+
 function priceToBigNumber(response: any): BigNumber {
     return new BigNumber(response.value.value).div("1e18");
 }

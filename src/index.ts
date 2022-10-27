@@ -22,6 +22,7 @@ import getExploreItems from './routes/root/exploreItems';
 import getOwnedAmount from './routes/root/ownedAmount';
 import { logErrorIfMissingItems } from './utils/dbHelper';
 import ItemsDatabase from './classes/ItemsDatabase';
+import getPenguinsStaked from './routes/staking/owned';
 
 const workers = parseInt(process.env.WEB_CONCURRENCY || "1");
 const port = process.env.PORT || 5001;
@@ -57,6 +58,8 @@ function start(id: number) {
     app.get("/items/offers/:category/stats", (req, res) => getItemOffersStats(req, res, networkProvider));
     app.get("/items/offer/:id", (req, res) => getOffer(req, res, "items", networkProvider));
     app.get('/items/owned/:bech32', (req, res) => getOwnedItems(req, res, networkProvider));
+
+    app.get('/staking/owned/:bech32', (req, res) => getPenguinsStaked(req, res, networkProvider));
 
     app.get('/attributes', (req, res) => getAttributes(req, res, networkProvider));
     app.get("/exploreItems", (req, res) => getExploreItems(req, res, networkProvider, itemsDatabase));

@@ -2,14 +2,14 @@ import { IActivity, IAddress, IItem, IMarketData, IOffer, IPenguin } from "@apco
 import { Attributes } from "@apcolony/marketplace-api/out/classes";
 import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
-import { AbiRegistry, Address, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, StringValue, U64Value } from "@elrondnetwork/erdjs/out";
+import { AbiRegistry, Address, AddressValue, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, StringValue, U64Value } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
 import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsCollection, items, getPenguinWebThumbnail, nftStakingContract } from "../const";
 import { getItemFromAttributeName, getItemFromToken, getTokenFromItemID, isCollectionAnItem } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, getNameFromPenguinId, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
 import { BigNumber } from "bignumber.js";
-import { parseActivity, parseMarketData, parseMultiValueIdAuction } from "./ABIParser";
+import { parseActivity, parseMarketData, parseMultiValueIdAuction, parseStakedPenguins } from "./ABIParser";
 import { toIdentifier } from "../utils/conversion";
 import ItemsDatabase from "./ItemsDatabase";
 
@@ -320,4 +320,25 @@ export class APCNetworkProvider {
                 throw new Error("Invalid type");
         }
     }
+    
+    public async getNftsForStaker(address : string){
+
+        const contract = await this.getStakingSmartContract();
+    
+        const contractViewName = "getNftsForStaker";
+        const query = contract.createQuery({
+            func: new ContractFunction(contractViewName),
+            args: [new AddressValue(new Address(address))],
+        });
+
+        const queryResponse = await this.proxyProvider.queryContract(query);
+        const endpointDefinition = contract.getEndpoint(contractViewName);
+        const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition); //TODO: Add type
+        
+        const nftsStaked = parseStakedPenguins(firstValue);
+            
+        return nftsStaked;
+
+    }
+
 }
