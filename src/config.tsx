@@ -2,12 +2,12 @@ import { Address } from '@elrondnetwork/erdjs/out';
 import { devnetToolDeploy } from 'devnet.tool-result';
 import APCLogger, { LogType } from 'logger';
 import Explorer from 'sdk/classes/Explorer';
+import 'dotenv/config';
 
-const useDevnet = process.env.REACT_APP_DEVNET == '1';
+const network = process.env.REACT_APP_DEVNET == '1' ? 'devnet' : 'mainnet';
 
-if (useDevnet) {
-  console.log('Using devnet');
-}
+console.log(`Using ${network} network`);
+
 
 const logFlags = process.env.REACT_APP_MUTED_LOG?.split(' ') ?? [];
 console.log('Muted logs', logFlags);
@@ -36,21 +36,24 @@ export const slots = [
 ];
 
 function getNetworkInfos() {
-  if (useDevnet) {
-    return {
-      api: process.env.REACT_APP_DEVNET_API ?? 'https://apc-marketplace-api-devnet.herokuapp.com/',
-      explorerUrl: 'https://devnet-explorer.elrond.com/',
-      customisationContractAddress: Address.fromBech32(devnetToolDeploy.customizationContractAddress.bech32),
-      penguinCollection: devnetToolDeploy.penguinsIdentifier,
-      marketplaceContractAddress: Address.fromBech32('erd1qqqqqqqqqqqqqpgqffweul9250tqr4vuf04zxdcpjdy82yvpv4xq4uha83'),
-      items: devnetToolDeploy.items,
-      itemsCollections: devnetToolDeploy.itemsIdentifier,
-      penguinsCount: 5555,
-      stakingContractAddress: Address.fromBech32('erd1qqqqqqqqqqqqqpgqdcjdvpvncw7s8ug56rehyvl8tehk3vl368mqxa7llg')
-    }
-  }
-  else {
-    throw new Error('Not implemented');
+  switch (network) {
+    case 'devnet':
+      return {
+        api: process.env.REACT_APP_DEVNET_API ?? 'https://apc-marketplace-api-devnet.herokuapp.com/',
+        explorerUrl: 'https://devnet-explorer.elrond.com/',
+        customisationContractAddress: Address.fromBech32(devnetToolDeploy.customizationContractAddress.bech32),
+        penguinCollection: devnetToolDeploy.penguinsIdentifier,
+        marketplaceContractAddress: Address.fromBech32('erd1qqqqqqqqqqqqqpgqffweul9250tqr4vuf04zxdcpjdy82yvpv4xq4uha83'),
+        items: devnetToolDeploy.items,
+        itemsCollections: devnetToolDeploy.itemsIdentifier,
+        penguinsCount: 5555,
+        stakingContractAddress: Address.fromBech32('erd1qqqqqqqqqqqqqpgqdcjdvpvncw7s8ug56rehyvl8tehk3vl368mqxa7llg')
+      }
+    case 'mainnet':
+      throw new Error('Mainnet not supported yet');
+
+    default:
+      throw new Error('Unknown network');
   }
 }
 
