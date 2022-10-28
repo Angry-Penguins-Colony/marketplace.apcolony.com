@@ -384,8 +384,10 @@
         .accessories{
             display: grid;
             grid-template-columns: 1fr 1fr;
+            align-items: center;
             margin-top:100px;
             >div:first-child{
+                position: relative;
                 height: 100%;
                 overflow: hidden;
                 padding: 0;
@@ -404,15 +406,17 @@
                 }
                 .img-container{
                     img{
+                        position: absolute;
+                        bottom: 0;
                         z-index: 0;
-                        transform: scale(3.35) translate(-5%, 21%);
+                        transform: scale(3.35) translate(-18%, 11%)
                     }
                 }
             }
             .accessories-list{
                 display: grid;
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: 1fr 1fr;
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr;
                 justify-content: center;
                 row-gap: 18px;
             }
@@ -428,13 +432,29 @@
             }
             .counter{
                 top:76%;
-                padding: 35px 35px 35px 40px;
+                padding: 35px 35px 35px 50px;
                 font-size: 3.4rem;
                 letter-spacing: 25px;
                 border-radius: 15px;
                 &::after{
                     border-radius: 25px;
                 }
+            }
+        }
+    }
+}
+
+@media (min-width: 1308px) {
+    #launchpadVente {
+        .accessories{
+            align-items: start;
+
+            .accessories-list{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
+                justify-content: center;
+                row-gap: 18px;
             }
         }
     }

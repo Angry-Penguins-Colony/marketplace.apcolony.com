@@ -22,29 +22,38 @@ export default class stakeTransactionBuilder {
         return this;
     }
 
-    build() {
+    build(type : string) {
 
         if (this.stakingContract === undefined) throw new Error('stakingContract is undefined');
 
         return {
             value: Price.fromEgld(0).toString(),
-            receiver: this.connecteAddress,
-            data: this.getData(),
+            receiver: type === 'stake' ? this.connecteAddress : this.stakingContract.bech32(),
+            data: this.getData(type),
             gasLimit: 50_000_000
         }
     }
 
-    private getData() {
+    private getData(type:string) {
         if (this.stakingContract === undefined) throw new Error('stakingContract is undefined');
 
-        const { argumentsString } = new ArgSerializer().valuesToString([
-            BytesValue.fromUTF8(this.collection),
-            new U64Value(new BigNumber(this.nonce)),
-            new U64Value(new BigNumber(1)),
-            new AddressValue(this.stakingContract), // receiver
-            new StringValue('stake'), // amount
-        ]);
-      
-        return 'ESDTNFTTransfer@' + argumentsString;
+        if (type === 'stake') {
+            const { argumentsString } = new ArgSerializer().valuesToString([
+                BytesValue.fromUTF8(this.collection),
+                new U64Value(new BigNumber(this.nonce)),
+                new U64Value(new BigNumber(1)),
+                new AddressValue(this.stakingContract), // receiver
+                new StringValue('stake'), // amount
+            ]);
+
+            return 'ESDTNFTTransfer@' + argumentsString;
+
+        }else if(type === 'unstake') {
+            const { argumentsString } = new ArgSerializer().valuesToString([
+                new U64Value(new BigNumber(this.nonce)),
+            ]);
+
+            return 'unstake@00000000000000' + argumentsString;
+        }
     }
 }

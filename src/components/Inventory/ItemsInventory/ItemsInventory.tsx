@@ -20,7 +20,7 @@ interface IProps {
     makeItemComponent?: (item: IGenericElement, key: React.Key) => JSX.Element,
     displayStakingStatus?: boolean,
     isStaked?: boolean,
-    stakingFunction?: (itemNonce: number) => void
+    stakingFunction?: (type:string, itemNonce: number) => void
 }
 
 const ItemsInventory = ({
@@ -41,7 +41,7 @@ const ItemsInventory = ({
                     }}
                     type={type} />
                 {displayStakingStatus && stakingFunction &&
-                    <Button onClick={() => stakingFunction(item.nonce)}>
+                    <Button onClick={() => stakingFunction(isStaked ? 'unstake' : 'stake', item.nonce)}>
                         {isStaked ? 'Unstake' : 'Stake'}
                     </Button>
                 }
