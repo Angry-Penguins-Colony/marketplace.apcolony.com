@@ -35,6 +35,17 @@ export const slots = [
   'clothes'
 ];
 
+export function getBadgeUri(id: number) {
+  // source: https://stackoverflow.com/questions/40716894/angular2-or-typescript-left-padding-a-string-with-zeros
+  function pad(num: number, size: number): string {
+    let s = num + '';
+    while (s.length < size) s = '0' + s;
+    return s;
+  }
+
+  return `https://apc-items.s3.eu-west-3.amazonaws.com/badges_render/badges-${pad(id, 5)}-render.png`;
+}
+
 function getNetworkInfos() {
   switch (network) {
     case 'devnet':

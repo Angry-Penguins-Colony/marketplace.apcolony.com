@@ -122,16 +122,18 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
                         {createItemButton('clothes', 'Clothes')}
                     </div>
                     {/* TODO: REFACTOR: too much repetitive */}
-                    <PenguinRender items={{
-                        background: getImageSrcToRender('background'),
-                        hat: getImageSrcToRender('hat'),
-                        eyes: getImageSrcToRender('eyes'),
-                        clothes: getImageSrcToRender('clothes'),
-                        beak: getImageSrcToRender('beak'),
-                        skin: getImageSrcToRender('skin'),
-                        weapon: getImageSrcToRender('weapon'),
+                    <PenguinRender
+                        badge={parseInt(id)}
+                        items={{
+                            background: getImageSrcToRender('background'),
+                            hat: getImageSrcToRender('hat'),
+                            eyes: getImageSrcToRender('eyes'),
+                            clothes: getImageSrcToRender('clothes'),
+                            beak: getImageSrcToRender('beak'),
+                            skin: getImageSrcToRender('skin'),
+                            weapon: getImageSrcToRender('weapon'),
 
-                    }}>
+                        }}>
                         {attributesStatus?.renderStatus == 'rendering' &&
                             <LoadingOverlay>
                                 <h2>Rendering in progress</h2>
