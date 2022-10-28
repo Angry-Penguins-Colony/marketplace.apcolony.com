@@ -36,8 +36,11 @@ function start(id: number) {
 
     app.use(helmet({
         crossOriginEmbedderPolicy: false,
+        contentSecurityPolicy: false,
+
     }));
     app.use(cors());
+    app.use(require('express-status-monitor')());
 
     const itemsDatabase = ItemsDatabase.fromItemsDatabaseJSON(itemsDatabaseJson, items);
     const networkProvider = new APCNetworkProvider(gateway, api, itemsDatabase);
