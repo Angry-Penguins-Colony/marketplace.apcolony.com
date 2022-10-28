@@ -59,13 +59,13 @@ export async function parseStakedPenguins(response: any, proxyNetwork: APCNetwor
         return penguinNonce;
     });
 
-    const ids : any = {};
+    const PenguinsInfo : any = [];
     for await (const nonce of nonces) {
         const PenguinInfo = await proxyNetwork.getPenguinFromNft(await proxyNetwork.getNft(penguinsCollection, nonce)); 
-        ids[PenguinInfo.id] = '1';
+        PenguinsInfo.push(PenguinInfo);
     }   
 
-    return ids;
+    return PenguinsInfo;
 }
 
 function priceToBigNumber(response: any): BigNumber {

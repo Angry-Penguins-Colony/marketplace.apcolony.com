@@ -6,11 +6,8 @@ import { getIdFromPenguinName } from '../../utils/string';
 
 export default async function getPenguinsStaked(req: Request, res: Response, proxyNetwork: APCNetworkProvider) {
     
-     proxyNetwork.getNftsForStaker(req.params.bech32, proxyNetwork).then((ids:any) => {
-                
-        sendSuccessfulJSON(res, {
-            penguinsIds : ids
-        });
+     proxyNetwork.getNftsForStaker(req.params.bech32, proxyNetwork).then((penguinsInfo:any) => {               
+        sendSuccessfulJSON(res, penguinsInfo);
     }).catch((err) => {
         res.status(500).send(err);
     })
