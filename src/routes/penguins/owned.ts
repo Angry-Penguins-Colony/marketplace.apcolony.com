@@ -9,7 +9,7 @@ export default async function getPenguins(req: Request, res: Response, proxyNetw
 
     const address = new Address(req.params.bech32);
 
-    const penguins = proxyNetwork.getPenguinsOfAccount(address);
+    const penguins = await proxyNetwork.getPenguinsOfAccount(address);
 
     sendSuccessfulJSON(res, penguins);
 }
