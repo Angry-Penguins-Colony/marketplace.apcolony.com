@@ -32,20 +32,6 @@ export class APCNetworkProvider {
         this.itemsDatabase = itemsDatabase;
     }
 
-    /**
-     * Fixed method of getNonFungibleTokenOfAccount; This one fill properly the "assets" property.
-     */
-    public async fixed_getNonFungibleTokenOfAccount(address: IAddress, collection: string, nonce: number) {
-        const url = `address/${address.bech32()}/nft/${collection}/nonce/${nonce.valueOf()}`;
-        const response = await this.proxyProvider.doGetGeneric(url);
-
-        const tokenData = NonFungibleTokenOfAccountOnNetwork.fromProxyHttpResponseByNonce(response.tokenData);
-        tokenData.assets = (Array.from(response.tokenData.uris ?? []) as string[])
-            .map(b64 => Buffer.from(b64, "base64").toString());
-
-        return tokenData;
-    }
-
     public async getPenguinFromId(id: string): Promise<IPenguin> {
         const nfts = await this.getNfts(penguinsCollection, {
             name: id,
@@ -91,6 +77,20 @@ export class APCNetworkProvider {
 
         return response
             .map((item: any) => APCNft.fromApiHttpResponse({ owner: address.bech32(), ...item }));
+    }
+
+    public async getPenguinsOfAccount(address: IAddress): Promise<IPenguin[]> {
+        const accountsNfts = await this.getNftsOfAccount(address);
+
+        const penguinsPromises = accountsNfts
+            .filter(nft => nft.collection === penguinsCollection && !!nft.owner)
+            .map((nft) => this.getPenguinFromNft(nft));
+
+        const penguinsNfts = (await Promise.all(penguinsPromises))
+            .sort((a, b) => a.nonce - b.nonce);
+
+        return penguinsNfts;
+
     }
 
     public async getItemsOfAccount(address: IAddress): Promise<IItem[]> {
@@ -320,11 +320,11 @@ export class APCNetworkProvider {
                 throw new Error("Invalid type");
         }
     }
-    
-    public async getNftsForStaker(address : string){
+
+    public async getNftsForStaker(address: string) {
 
         const contract = await this.getStakingSmartContract();
-    
+
         const contractViewName = "getNftsForStaker";
         const query = contract.createQuery({
             func: new ContractFunction(contractViewName),
@@ -333,18 +333,18 @@ export class APCNetworkProvider {
 
         const queryResponse = await this.proxyProvider.queryContract(query);
         const endpointDefinition = contract.getEndpoint(contractViewName);
-        const { firstValue, returnCode } : any = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition); //TODO: Add type
-        
+        const { firstValue, returnCode }: any = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition); //TODO: Add type
+
         const nftsStaked = parseStakedPenguins(firstValue);
-            
+
         return returnCode == 'ok' ? nftsStaked : 'Unable to fetch data';
 
     }
 
-    public async getNftsNumberAndRewardsAvailableForStaker(address : string){
+    public async getNftsNumberAndRewardsAvailableForStaker(address: string) {
 
         const contract = await this.getStakingSmartContract();
-    
+
         const contractViewName = "getNftsNumberAndRewardsAvailableForStaker";
         const query = contract.createQuery({
             func: new ContractFunction(contractViewName),
@@ -353,12 +353,12 @@ export class APCNetworkProvider {
 
         const queryResponse = await this.proxyProvider.queryContract(query);
         const endpointDefinition = contract.getEndpoint(contractViewName);
-        const { secondValue, returnCode  } : any = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition); //TODO: Add type        
+        const { secondValue, returnCode }: any = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition); //TODO: Add type        
 
         return returnCode == 'ok' ? secondValue : 'Unable to fetch data';
     }
 
-    public async getTokensGeneratedByTheSc(){
+    public async getTokensGeneratedByTheSc() {
 
         const res = await this.apiProvider.doGetGeneric(`accounts/${nftStakingContract}/tokens?${nftStakingToken}`);
 

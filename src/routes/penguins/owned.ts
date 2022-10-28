@@ -9,14 +9,7 @@ export default async function getPenguins(req: Request, res: Response, proxyNetw
 
     const address = new Address(req.params.bech32);
 
-    const accountsNfts = await proxyNetwork.getNftsOfAccount(address);
+    const penguins = proxyNetwork.getPenguinsOfAccount(address);
 
-    const penguinsPromises = accountsNfts
-        .filter(nft => nft.collection === penguinsCollection && !!nft.owner)
-        .map((nft) => proxyNetwork.getPenguinFromNft(nft));
-
-    const penguinsNfts = (await Promise.all(penguinsPromises))
-        .sort((a, b) => a.nonce - b.nonce);
-
-    sendSuccessfulJSON(res, penguinsNfts);
+    sendSuccessfulJSON(res, penguins);
 }
