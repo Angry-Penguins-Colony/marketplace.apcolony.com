@@ -217,12 +217,10 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
 
     async function sendRenderImageTx() {
 
+        save(equippedItemsIdentifier);
         const transaction = getRenderTransaction();
 
-
         await refreshAccount();
-
-        save(equippedItemsIdentifier);
 
         const { sessionId } = await sendTransactions({
             transactions: transaction,
