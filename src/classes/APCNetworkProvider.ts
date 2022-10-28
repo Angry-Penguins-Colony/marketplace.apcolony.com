@@ -321,7 +321,7 @@ export class APCNetworkProvider {
         }
     }
     
-    public async getNftsForStaker(address : string){
+    public async getNftsForStaker(address : string, proxyNetwork: APCNetworkProvider){
 
         const contract = await this.getStakingSmartContract();
     
@@ -335,7 +335,7 @@ export class APCNetworkProvider {
         const endpointDefinition = contract.getEndpoint(contractViewName);
         const { firstValue, returnCode } : any = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition); //TODO: Add type
         
-        const nftsStaked = parseStakedPenguins(firstValue);
+        const nftsStaked = await parseStakedPenguins(firstValue, proxyNetwork);
             
         return returnCode == 'ok' ? nftsStaked : 'Unable to fetch data';
 
