@@ -25,6 +25,7 @@ import ItemsDatabase from './classes/ItemsDatabase';
 import getPenguinsStaked from './routes/staking/owned';
 import getStakingClaimable from './routes/staking/claim';
 import getGeneratedTokens from './routes/staking/generated';
+import rateLimit from 'express-rate-limit'
 
 const workers = parseInt(process.env.WEB_CONCURRENCY || "1");
 const port = process.env.PORT || 5001;
@@ -42,6 +43,15 @@ function start(id: number) {
     app.use(cors());
     app.use(require('express-status-monitor')());
 
+    const limiter = rateLimit({
+        windowMs: 60000, // 1 minute
+        max: 120,
+        standardHeaders: true,
+        legacyHeaders: false,
+    })
+
+    app.use(limiter);
+
     const itemsDatabase = ItemsDatabase.fromItemsDatabaseJSON(itemsDatabaseJson, items);
     const networkProvider = new APCNetworkProvider(gateway, api, itemsDatabase);
 
@@ -56,7 +66,7 @@ function start(id: number) {
     app.get("/penguins/offer/:id", (req, res) => getOffer(req, res, "penguins", networkProvider));
     app.get('/penguins/owned/:bech32', (req, res) => getPenguins(req, res, networkProvider));
 
-    app.get("/items/item/:id", (req, res) => getItem(req, res, itemsDatabase));
+    app.get("/items/item/:id", (req, res) => getItem(req, res, itemsDatabase)); // don't need limiter
     app.get("/items/activity/:id", (req, res) => getActivity(req, res, "items", networkProvider));
     app.get("/items/offers/", (req, res) => getItemsOffers(req, res, networkProvider, itemsDatabase));
     app.get("/items/offers/:category", (req, res) => getItemsOffers(req, res, networkProvider, itemsDatabase));
