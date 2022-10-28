@@ -62,7 +62,7 @@ export async function parseStakedPenguins(response: any, proxyNetwork: APCNetwor
     const ids : any = {};
     for await (const nonce of nonces) {
         const PenguinInfo = await proxyNetwork.getPenguinFromNft(await proxyNetwork.getNft(penguinsCollection, nonce)); 
-        ids[PenguinInfo.id] = 1;
+        ids[PenguinInfo.id] = '1';
     }   
 
     return ids;
