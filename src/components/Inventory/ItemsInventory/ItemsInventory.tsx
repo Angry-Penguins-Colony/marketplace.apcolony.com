@@ -17,10 +17,10 @@ interface IProps {
     hasFilter: boolean,
     filters?: Filters,
     title?: string,
-    makeItemComponent?: (item: IGenericElement) => JSX.Element,
+    makeItemComponent?: (item: IGenericElement, key: React.Key) => JSX.Element,
     displayStakingStatus?: boolean,
     isStaked?: boolean,
-    stakingFunction?: (itemNonce:number) => void
+    stakingFunction?: (itemNonce: number) => void
 }
 
 const ItemsInventory = ({
@@ -30,18 +30,18 @@ const ItemsInventory = ({
     title,
     hasFilter,
     amountById,
-    makeItemComponent = (item) => {
+    makeItemComponent = (item, key) => {
         return (
-            <div className={style['item-wrapper']}>
+            <div className={style['item-wrapper']} key={key}>
                 <Item
-                key={item.id}
-                item={{
-                    amount: amountById[item.id],
-                    ...item
-                }}
-                type={type} />
+                    key={item.id}
+                    item={{
+                        amount: amountById[item.id],
+                        ...item
+                    }}
+                    type={type} />
                 {displayStakingStatus && stakingFunction &&
-                    <Button onClick={() => stakingFunction(item.nonce) }>
+                    <Button onClick={() => stakingFunction(item.nonce)}>
                         {isStaked ? 'Unstake' : 'Stake'}
                     </Button>
                 }
@@ -72,7 +72,7 @@ const ItemsInventory = ({
 
             if (matchedItems.length > 0) {
                 return matchedItems
-                    .map(item => makeItemComponent(item));
+                    .map(item => makeItemComponent(item, item.id));
             }
             else {
                 return <p>You own 0 {type}.</p>
