@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
-import { Address, AddressValue } from '@elrondnetwork/erdjs/out';
 import AccessoryIconBronze from 'assets/img/accessory_icon_bronze.png';
 import AccessoryIconDiamond from 'assets/img/accessory_icon_diamond.png';
 import AccessoryIconGold from 'assets/img/accessory_icon_gold.png';
@@ -21,29 +20,22 @@ import { GenericItemExplorer } from 'components/Navigation/GenericItemExplorer';
 import { stakingContract } from 'config';
 import { buildRouteLinks } from 'routes';
 import useGetExploreItems from 'sdk/hooks/api/useGetExploreItems';
-import {useGetStakingClaimable, useGetPenguinsStaked} from 'sdk/hooks/api/useGetStaking';
+import {useGetStakingClaimable, useGetPenguinsStaked, useGetTokensGenerated} from 'sdk/hooks/api/useGetStaking';
 import ClaimTransactioNBuilder from 'sdk/transactionsBuilders/staking/ClaimTransactionBuilder';
 import style from './index.module.scss';
 
 
 export default function Staking() {
-  const { address } = useGetAccountInfo();
+  const { address : connectedAddress } = useGetAccountInfo();
   const exploreItems = useGetExploreItems();
   const [isStakePopupVisible, setIsStakePopupVisible] = React.useState(false);
-  const [rewardsToClaim, setRewardsToClaim] = React.useState('');
-  const [apcStaked, setApcStaked] = React.useState('');
-  const claimable : any = useGetStakingClaimable(address).data; 
-  const penguinsStaked : any = useGetPenguinsStaked(address).data;
-  const penguinsStakedCount = penguinsStaked != undefined ? Object.keys(penguinsStaked.penguinsNonce).length : 0;
+  const claimable : any = useGetStakingClaimable(connectedAddress).data; 
+  const penguinsStaked : any = useGetPenguinsStaked(connectedAddress).data;  
+  const penguinsStakedCount = penguinsStaked != undefined ? Object.keys(penguinsStaked).length : 0;
+  const tokensGeneratedByTheColony : any = useGetTokensGenerated().data;
+  const tokensGeneratedByTheColonyCount = tokensGeneratedByTheColony != undefined ? tokensGeneratedByTheColony.tokensGenerated : 0;
 
-  
-  // const query = new QueryBuilder();
-
-  const scAddress = 'erd1qqqqqqqqqqqqqpgqdcjdvpvncw7s8ug56rehyvl8tehk3vl368mqxa7llg'; //Todo : Change this function of the environment
-  const apcToken = 'TEST-17e1db';//Todo : Change this function of the environment and the sdk ?
-  const apcTokenInSc = 1000000;//Todo : Change this function of the environment and the sdk ?
-  
-
+ 
   const claimFunc = async () => {
     const claim = new ClaimTransactioNBuilder();
     claim.setStakingContract(stakingContract);
@@ -61,8 +53,6 @@ export default function Staking() {
         redirectAfterSign: false
     });
 }
-
-
 
   return (
     <div id={style.launchpadVente}>
@@ -135,7 +125,7 @@ export default function Staking() {
           <img className={style.desktop} src={tokenGeneratedDesktop} alt="Token generated" />
         </div>
         <div className={style.counter}>
-          20000
+          {tokensGeneratedByTheColonyCount}
         </div>
       </section>
 

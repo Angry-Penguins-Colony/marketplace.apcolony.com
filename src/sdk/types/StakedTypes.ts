@@ -1,8 +1,8 @@
-type StakedType = 'penguinsNonStaked' | 'penguinsStaked';
+type StakedType = 'staked' | 'unstaked';
 
 export const stakedTypeValues = [
-    'penguinsNonStaked',
-    'penguinsStaked'
+    'staked',
+    'unstaked'
 ]
 
 export default StakedType;
