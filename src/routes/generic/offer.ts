@@ -2,6 +2,8 @@ import { APCNetworkProvider } from "../../classes/APCNetworkProvider";
 import { Request, Response } from 'express';
 import { sendSuccessfulJSON } from "../../utils/response";
 import { penguinsCollection } from "../../const";
+import { IOffer } from "@apcolony/marketplace-api";
+import { filterOffers } from "../../utils/filter";
 
 export default async function getOffer(req: Request, res: Response, type: "penguins" | "items", networkProvider: APCNetworkProvider) {
 
@@ -24,11 +26,10 @@ export async function getOffersOfAccount(req: Request, res: Response, networkPro
         const account = req.params.bech32;
         const offersOfAccount = await networkProvider.getOffersOfAccount(account);
 
-        const penguinsOffers = offersOfAccount.filter(o => o.collection === penguinsCollection);
-        const itemsOffers = offersOfAccount.filter(o => o.collection != penguinsCollection);
+        const { penguinsOffers, itemsOffers } = filterOffers(offersOfAccount);
 
         const associatedPenguins = await networkProvider.getPenguinsFromOffers(penguinsOffers);
-        const associatedItems = await networkProvider.getItemsFromOffers(itemsOffers);
+        const associatedItems = networkProvider.getItemsFromOffers(itemsOffers);
 
         sendSuccessfulJSON(res, {
             offers: offersOfAccount,
