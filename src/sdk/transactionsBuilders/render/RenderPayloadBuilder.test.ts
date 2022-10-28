@@ -12,9 +12,12 @@ it('build correctly', () => {
             'Beak': 'Beak Dagger',
             'Hat': 'Hat Headscarf-pirate-bitcoin'
         }))
+        .setName('Penguin #512')
         .build();
 
-    const expected = 'renderImage@' + Buffer.from(expectedAttributes).toString('hex');
+    const expected = 'renderImage'
+        + '@' + Buffer.from(expectedAttributes).toString('hex')
+        + '@' + Buffer.from('Penguin #512').toString('hex');
 
     expect(actual.toString())
         .toEqual(expected);

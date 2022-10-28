@@ -37,7 +37,7 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
     const ownedAmount = useGetUserOwnedAmount();
 
     const equippedItems = parseAttributes(equippedItemsIdentifier);
-    const { attributesStatus } = useGetAttributesStatus(equippedItems);
+    const { attributesStatus } = useGetAttributesStatus(equippedItems, selectedPenguinId);
 
     useGetOnNewPendingTransaction(() => {
         setIsCustomizationPending(true)
@@ -184,9 +184,11 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
     function getRenderTransaction(): SimpleTransactionType {
 
         if (!equippedItems) throw new Error('Attributes are required');
+        if (!selectedPenguin) throw new Error('Selected penguin is required');
 
         const payload = new RenderPayloadBuilder()
             .setAttributes(equippedItems)
+            .setName(selectedPenguin.name)
             .build();
 
         const transaction: SimpleTransactionType = {

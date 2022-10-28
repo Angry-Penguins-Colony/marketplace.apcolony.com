@@ -9,7 +9,7 @@ import usePrevious from '../usePrevious';
 
 const periodicRefreshMS = 3_000;
 
-function useGetAttributesStatus(attributes: Attributes) {
+function useGetAttributesStatus(attributes: Attributes, penguinId: string) {
 
     const [attributesStatus, setAttributesStatus] = React.useState<IAttributesStatus | undefined>(undefined);
     const [forcePendingStatus, setForcePendingStatus] = React.useState<boolean>(false);
@@ -54,7 +54,7 @@ function useGetAttributesStatus(attributes: Attributes) {
     async function forceUpdate() {
         if (attributes == undefined) return;
 
-        const url = marketplaceApi + 'attributes?' + attributes.toApiParameters();
+        const url = `${marketplaceApi}attributes/${penguinId}/?${attributes.toApiParameters()}`;
         apcLogger.apiCall(url);
 
         const res = await axios.get(url);
