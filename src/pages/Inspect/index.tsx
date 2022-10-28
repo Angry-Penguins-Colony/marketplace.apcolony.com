@@ -53,7 +53,6 @@ const Inspect = () => {
 
     const {
         offers,
-        buyableOffers,
         lowestBuyableOffer,
         priceListedByUser,
         ownedOffers,
@@ -78,7 +77,6 @@ const Inspect = () => {
 
     const canBuy = category == 'items' || (category == 'penguins' && ownedByConnectedWallet == false);
     const typeInText = getTypeInText();
-    const buyableOffersCount = buyableOffers?.length;
 
     return (
         <div id={style['item-in-inventory']}>
