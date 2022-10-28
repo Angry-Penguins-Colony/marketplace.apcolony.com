@@ -124,14 +124,15 @@ export class APCNetworkProvider {
         return activities;
     }
 
-    public async getUriOf(attributes: Attributes): Promise<string | undefined> {
+    public async getUriOf(attributes: Attributes, name: string): Promise<string | undefined> {
 
         const res = await this.proxyProvider.queryContract({
             address: customisationContract,
             func: "getUriOf",
             getEncodedArguments() {
                 return new ArgSerializer().valuesToStrings([
-                    BytesValue.fromUTF8(attributes.toEndpointArgument())
+                    BytesValue.fromUTF8(attributes.toEndpointArgument()),
+                    BytesValue.fromUTF8(name)
                 ]);
             },
         });
@@ -320,8 +321,8 @@ export class APCNetworkProvider {
                 throw new Error("Invalid type");
         }
     }
-    
-    public async getNftsForStaker(address : string, proxyNetwork: APCNetworkProvider){
+
+    public async getNftsForStaker(address: string, proxyNetwork: APCNetworkProvider) {
 
         const contract = await this.getStakingSmartContract();
 
@@ -333,10 +334,10 @@ export class APCNetworkProvider {
 
         const queryResponse = await this.proxyProvider.queryContract(query);
         const endpointDefinition = contract.getEndpoint(contractViewName);
-        const { firstValue, returnCode } : any = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition); //TODO: Add type
-        
+        const { firstValue, returnCode }: any = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition); //TODO: Add type
+
         const nftsStaked = await parseStakedPenguins(firstValue, proxyNetwork);
-            
+
         return returnCode == 'ok' ? nftsStaked : 'Unable to fetch data';
 
     }

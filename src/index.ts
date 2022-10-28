@@ -79,7 +79,7 @@ function start(id: number) {
     app.get('/staking/tokensGenerated/', (req, res) => getGeneratedTokens(req, res, networkProvider));
 
 
-    app.get('/attributes', (req, res) => getAttributes(req, res, networkProvider));
+    app.get('/attributes/:penguinId', (req, res) => getAttributes(req, res, networkProvider));
     app.get("/exploreItems", (req, res) => getExploreItems(req, res, networkProvider, itemsDatabase));
 
 
