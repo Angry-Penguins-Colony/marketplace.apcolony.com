@@ -24,7 +24,7 @@ const CustomizeControls = ({
             return 'modify';
         }
 
-        if (renderStatus === 'rendering') {
+        if (renderStatus === 'rendered') {
             return 'customize';
         } else {
             return 'render';
