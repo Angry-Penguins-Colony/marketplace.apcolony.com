@@ -19,9 +19,7 @@ export const BigCategory = ({
             <div >
                 <img src={backgroundImg} alt={title} />
                 <h2>{title}</h2>
-                <Link to={link}>
-                    <Button type='normal' link={link} className={style.button}>View all</Button>
-                </Link>
+                <Button type='normal' className={style.button}>View all</Button>
             </div>
         </Link>
     );
