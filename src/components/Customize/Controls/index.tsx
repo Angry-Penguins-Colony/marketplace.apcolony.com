@@ -36,7 +36,7 @@ const CustomizeControls = ({
 
             <div className={style.control + ' ' + (currentStep == 'modify' ? style.current : '')}>
                 <p className='ml-2'>Step 1. Make some modifications</p>
-                <input type="checkbox" checked={hasSomeModifications} />
+                <input type="checkbox" checked={hasSomeModifications} readOnly />
             </div>
 
 
