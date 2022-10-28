@@ -15,8 +15,6 @@ interface IItem {
  */
 export default class RenderAttributes {
 
-    private readonly _layersOrder: string[];
-
     private readonly _idsBySlot: Map<string, string>;
 
     /**
@@ -30,20 +28,9 @@ export default class RenderAttributes {
         return Array.from(this._idsBySlot.keys());
     }
 
-    /**
-     * Return a copy of layersOrder. Modify it will not modify the defaultLayers of the RenderAttributes.
-     */
-    public get layersOrder(): string[] {
-        return Array.from(this._layersOrder);
-    }
-
     constructor(
         idsBySlot: Iterable<readonly [string, string]>,
-        layersOrder: string[]
     ) {
-
-        this._layersOrder = layersOrder;
-
         this._idsBySlot = new Map<string, string>(idsBySlot);
 
         for (const [slot, id] of this._idsBySlot) {
@@ -69,12 +56,11 @@ export default class RenderAttributes {
 
     public static fromAttributes(
         attributes: string,
-        itemsDatabase: IItem[],
-        layersOrder: string[]
+        itemsDatabase: IItem[]
     ): RenderAttributes {
 
 
-        if (!attributes) return new RenderAttributes([], layersOrder);
+        if (!attributes) return new RenderAttributes([]);
 
         if (getOccurences(attributes, ":") != (getOccurences(attributes, ";") + 1)) throw new Error(ERR_BAD_FORMAT);
 
@@ -113,7 +99,7 @@ export default class RenderAttributes {
             idBySlot.set(slot.toLowerCase(), databaseId);
         }
 
-        return new RenderAttributes(idBySlot, layersOrder);
+        return new RenderAttributes(idBySlot);
     }
 
 
