@@ -55,16 +55,17 @@ async function main() {
     await Promise.all([
         pinata.testAuthentication(),
         writeGateway.sync(),
-        imagesDownloader.downloadImages(renderConfig.allCIDs),
+        imagesDownloader.downloadCIDs(renderConfig.allCIDs),
     ]);
 
     const alreadyProcessedCID: string[] = [];
 
     while (true) {
 
-        const queue = await readGateway.getToBuildQueue(renderConfig.layersOrder)
-            .catch(() => {
+        const queue = await readGateway.getToBuildQueue()
+            .catch((e) => {
                 console.error("Error while fetching the queue. Retrying in 5s");
+                console.trace(e);
                 return [];
             })
 
@@ -72,10 +73,16 @@ async function main() {
             console.log(`\nProcessing ${queue.length} elements from the rendering queue...`)
 
             const itemsPromises = queue
-                .map((item) => renderAdvanced(item, imageRenderer));
+                .map(async (item) => {
+                    const rendering = await renderAdvanced(item.renderAttribute, imageRenderer);
+                    return {
+                        badgeNumber: item.badgeNumber,
+                        ...rendering
+                    }
+                });
 
             const items = (await Promise.all(itemsPromises))
-                .filter((item) => item != undefined && alreadyProcessedCID.includes(item.cid) == false)
+                .filter((item) => item != undefined && item.cid != undefined && alreadyProcessedCID.includes(item.cid) == false)
                 .map((item: any) => {
                     return {
                         uri: "https://ipfs.io/ipfs/" + item.cid,
@@ -131,7 +138,7 @@ async function main() {
     }
 }
 
-async function renderAdvanced(item: RenderAttributes, imageRenderer: ImageRenderer): Promise<IItemToProcess | undefined> {
+async function renderAdvanced(item: RenderAttributes, imageRenderer: ImageRenderer) {
 
     try {
 
@@ -146,6 +153,7 @@ async function renderAdvanced(item: RenderAttributes, imageRenderer: ImageRender
     }
     catch (e: any) {
         console.error(`${"[Error]".red} ${e.toString().red} => Skipping item ${[...item.idsBySlot.entries()].toString().grey} `);
+        console.log(e);
         return undefined;
     }
 }

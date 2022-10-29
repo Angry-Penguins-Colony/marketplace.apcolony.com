@@ -1,7 +1,7 @@
 import { NetworkConfig, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import { INetworkProvider } from "@elrondnetwork/erdjs-network-providers/out/interface";
 import { ISigner } from "@elrondnetwork/erdjs-walletcore/out/interface";
-import { IAddress, ISmartContract, StringValue, Transaction, TransactionPayload } from "@elrondnetwork/erdjs/out";
+import { IAddress, ISmartContract, StringValue, Transaction, TransactionPayload, U64Value } from "@elrondnetwork/erdjs/out";
 import { sleep } from "ts-apc-utils";
 import { TransactionResult } from "../interfaces/TransactionResult";
 import { UrisKvp } from "../structs/CIDKvp";
@@ -101,11 +101,12 @@ export default class WriteGateway {
     public async setUris(uris: UrisKvp[], customisationContract: ISmartContract) {
         if (uris.length == 0) throw new Error("No CID to send");
 
-        const txPromises = uris.map(({ uri: cid, attributes }) => {
+        const txPromises = uris.map(({ uri: cid, badgeNumber, attributes }) => {
 
             const func = { name: "setUriOfAttributes" };
             const args = [
                 new StringValue(attributes.toAttributes(devnetToolDeploy.items, renderConfig.slots)),
+                new U64Value(badgeNumber),
                 new StringValue(cid)
             ];
 

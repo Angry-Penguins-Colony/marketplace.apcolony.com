@@ -25,9 +25,7 @@ export default class ReadGateway {
     }
 
 
-    public async getToBuildQueue(
-        layersOrder: string[]
-    ): Promise<RenderAttributes[]> {
+    public async getToBuildQueue() {
 
         const output = await this._requestLimiter.schedule(this._gateway.queryContract.bind(this._gateway), {
             address: this._customisationContract.getAddress(),
@@ -41,11 +39,24 @@ export default class ReadGateway {
             },
         });
 
-        const renderAttributes = output.returnData
-            .map(data => Buffer.from(data, "base64").toString())
-            .map(attributes => RenderAttributes.fromAttributes(attributes, devnetToolDeploy.items, layersOrder));
+        const rawAttributes = output.returnData;
+        const renderAttributes = [];
 
-        return renderAttributes
+        for (var i = 0; i < rawAttributes.length; i += 2) {
+            const attributes = Buffer.from(rawAttributes[i], "base64").toString();
+            const name = Buffer.from(rawAttributes[i + 1], "base64").toString();
+            const badgeNumber = parseInt(name.slice(name.lastIndexOf("#") + 1));
+
+            const renderAttribute = RenderAttributes.fromAttributes(attributes, badgeNumber, devnetToolDeploy.items)
+            renderAttributes.push(
+                {
+                    renderAttribute,
+                    badgeNumber
+                }
+            );
+        }
+
+        return renderAttributes;
     }
 
     public async getBalance(address: IAddress): Promise<BigNumber> {
