@@ -12,8 +12,6 @@
     "reset:cache": "rmdir -r images_cache",
     "send:render": "ts-node src/scripts/sendRenderImageRandom.ts",
     "get:queue": "ts-node src/scripts/getToBuildQueue.ts",
-    "update:renderer": "npm i git+ssh://git@github.com/Angry-Penguins-Colony/package-renderer.git",
-    "update:renderer:local": "npm i ../../packages/package-renderer",
     "log:remote": "heroku logs -a apc-devnet-push-render --tail",
     "postinstall": "npm run update:renderer",
     "test": "jest",
@@ -36,10 +34,10 @@
     "@types/throng": "^5.0.4",
     "jest": "^28.1.2",
     "ts-jest": "^28.0.5",
-    "typescript": "^4.7.4"
+    "typescript": "^4.8.4"
   },
   "dependencies": {
-    "@apcolony/renderer": "file:../../packages/package-renderer",
+    "@apcolony/renderer": "file:../package-renderer",
     "@aws-sdk/client-s3": "^3.193.0",
     "@elrondnetwork/erdjs": "^10.2.7",
     "@elrondnetwork/erdjs-network-providers": "^0.1.6",
