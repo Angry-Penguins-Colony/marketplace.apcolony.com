@@ -1,0 +1,13 @@
+node_modules
+generated_images
+o
+dist
+.env
+
+build
+tmp
+
+ipfscache
+rendercache
+
+wallets
