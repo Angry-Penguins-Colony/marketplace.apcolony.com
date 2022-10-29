@@ -15,8 +15,7 @@
     "build": "tsc --build",
     "build:watch": "tsc --build --watch",
     "test": "jest",
-    "test:watch": "jest --watch",
-    "prepare": "npm run build"
+    "test:watch": "jest --watch"
   },
   "keywords": [],
   "author": "",

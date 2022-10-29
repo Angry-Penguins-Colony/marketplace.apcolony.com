@@ -14,7 +14,8 @@
     "get:queue": "ts-node src/scripts/getToBuildQueue.ts",
     "log:remote": "heroku logs -a apc-devnet-push-render --tail",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "postinstall": "cd ../package-renderer && npm install && npm run build"
   },
   "repository": {
     "type": "git",
