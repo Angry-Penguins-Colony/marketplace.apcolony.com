@@ -1,0 +1,63 @@
+{
+  "name": "server-api-marketplace",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node --optimize_for_size --max_old_space_size=320 dist/index.js",
+    "start:dev": "ts-node src/index.ts",
+    "start:dev:watch": "nodemon src/index.ts",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "build": "tsc --build",
+    "update:sdk": "npm i @apcolony/marketplace-api@latest",
+    "update:sdk:local": "npm i ../../packages/sdk-marketplace-api",
+    "update:abi": "copy \\\\wsl$\\Ubuntu-20.04\\home\\lortedo\\angry-penguins-wsl\\sc-nft-marketplace\\esdt-nft-marketplace\\output\\esdt-nft-marketplace.abi.json src\\abi\\esdt-nft-marketplace.abi.json",
+    "version:sdk": "npm list --depth=0 | findstr @apcolony/marketplace-api",
+    "try:penguins": "curl http://localhost:5001/erd1tcj6pdcknflmaehxeq6dh8grf3l9l6xlyd5ycgj27ahmc368v4xqw5lcw5/penguins",
+    "try:eggs": "curl http://localhost:3576/erd1tcj6pdcknflmaehxeq6dh8grf3l9l6xlyd5ycgj27ahmc368v4xqw5lcw5/eggs",
+    "try:items:devnet": "curl http://localhost:5001/erd1s8pewfrtfd5r3ql94e4g5ulfacnm87acm9aq89q03r2k05hxlx4sj275zp/items",
+    "try:penguin": "curl http://localhost:5001/penguins/3",
+    "try:item": "curl http://localhost:5001/items/7",
+    "try:offers:p": " curl http://localhost:5001/penguins/offers",
+    "try:offers:i": " curl http://localhost:5001/items/offers/hat",
+    "try:offers:i:stats": " curl http://localhost:5001/items/offers/hat/stats",
+    "spam": "autocannon -c 50 -d 100 http://localhost:5001/offers/erd1tzkvnkvhc45zmqza02gqkuktvsd7ryywgsx62l5gjuf34y9tlksq0tacy5",
+    "log:remote": "heroku logs -a apc-marketplace-api-devnet --tail"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Angry-Penguins-Colony/server-api-marketplace.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Angry-Penguins-Colony/server-api-marketplace/issues"
+  },
+  "homepage": "https://github.com/Angry-Penguins-Colony/server-api-marketplace#readme",
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/express-status-monitor": "^1.3.0",
+    "@types/jest": "^28.1.6",
+    "@types/node": "^18.6.2",
+    "@types/throng": "^5.0.4",
+    "jest": "^28.1.3",
+    "ts-jest": "^28.0.7",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@apcolony/marketplace-api": "^1.1.3",
+    "@elrondnetwork/erdjs": "^10.2.7",
+    "@elrondnetwork/erdjs-network-providers": "^0.1.7",
+    "@elrondnetwork/erdjs-walletcore": "^1.0.0",
+    "axios": "^0.27.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-rate-limit": "^6.6.0",
+    "express-status-monitor": "^1.3.4",
+    "helmet": "^5.1.1",
+    "throng": "^5.0.0"
+  }
+}
