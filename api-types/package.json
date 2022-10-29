@@ -8,9 +8,8 @@
     "out/**/*"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --build",
     "test": "jest",
-    "prepare": "npm run build",
     "postversion": "git push && git push --tags",
     "open": "start chrome /new-window https://www.npmjs.com/package/@apcolony/marketplace-api"
   },
