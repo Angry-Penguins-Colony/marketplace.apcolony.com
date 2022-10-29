@@ -37,8 +37,7 @@
     "copy-testnet-config": "cp ./src/config.testnet.tsx ./src/config.tsx",
     "copy-devnet-config": "cp ./src/config.devnet.tsx ./src/config.tsx",
     "eject": "react-scripts eject",
-    "lint": "eslint --ext js,ts,tsx src",
-    "log:remote": "heroku logs -a apc-marketplace-api-devnet --tail"
+    "lint": "eslint --ext js,ts,tsx src"
   },
   "eslintConfig": {
     "extends": [
