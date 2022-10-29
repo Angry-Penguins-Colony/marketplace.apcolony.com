@@ -124,7 +124,7 @@ export function getOccurences(string: string, subString: string, allowOverlappin
     return n;
 }
 
-export function toPaths(cidBySlot: { [key: string]: string }, ipfsCache: ImagesDownloader, renderConfig: RenderConfig): string[] {
+export async function toPaths(cidBySlot: { [key: string]: string }, ipfsCache: ImagesDownloader, renderConfig: RenderConfig, badgeNumber: number): Promise<string[]> {
     const paths: [string, string][] = [];
 
     for (const slot in cidBySlot) {
@@ -133,8 +133,25 @@ export function toPaths(cidBySlot: { [key: string]: string }, ipfsCache: ImagesD
         paths.push([slot, path]);
     }
 
-    return sortImages(paths, renderConfig.layersOrder)
+    let sortedImages = sortImages(paths, renderConfig.layersOrder)
         .map(kvp => kvp[1]);
+
+    // insert badge
+
+    if (renderConfig.defaultLayers && cidBySlot["skin"] == renderConfig.defaultLayers["skin"]) {
+        const paddedBadgeNumber = pad(badgeNumber, 5);
+
+        // TODO: (REFACTOR) this is tight coupled to s3 link
+        const url = `https://apc-items.s3.eu-west-3.amazonaws.com/badges_render/badges-${paddedBadgeNumber}-render.png`;
+        const badgePath = await ipfsCache.downloadImage(url, "badge/" + paddedBadgeNumber + ".png");
+
+
+        const insertIndex = sortedImages.indexOf(cidBySlot["skin"]);
+        sortedImages = insert(sortedImages, insertIndex, badgePath);
+    }
+
+    return sortedImages
+
 }
 
 export function toCidBySlot(renderAttributes: RenderAttributes, renderConfig: RenderConfig): { [key: string]: string } {
@@ -159,3 +176,12 @@ export function addDefaultImages(cidBySlot: { [key: string]: string }, renderCon
 
     return cidBySlot;
 }
+
+const insert = <T>(arr: T[], index: number, newItem: T) => [
+    // part of the array before the specified index
+    ...arr.slice(0, index),
+    // inserted item
+    newItem,
+    // part of the array after the specified index
+    ...arr.slice(index)
+]

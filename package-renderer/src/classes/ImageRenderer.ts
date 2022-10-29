@@ -42,7 +42,7 @@ export default class ImageRenderer {
 
         const cidBySlot = addDefaultImages(toCidBySlot(renderAttributes, this._config), this._config);
 
-        let imageBuffer = await this.merge(toPaths(cidBySlot, this._ipfsCache, this._config), {
+        let imageBuffer = await this.merge(await toPaths(cidBySlot, this._ipfsCache, this._config, renderAttributes.badgeNumber), {
             format: this._mimeType
         });
         watch.next();

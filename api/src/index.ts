@@ -41,7 +41,6 @@ function start(id: number) {
 
     }));
     app.use(cors());
-    app.use(require('express-status-monitor')());
 
     const limiter = rateLimit({
         windowMs: 60000, // 1 minute

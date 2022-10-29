@@ -13,7 +13,6 @@
     "send:render": "ts-node src/scripts/sendRenderImageRandom.ts",
     "get:queue": "ts-node src/scripts/getToBuildQueue.ts",
     "log:remote": "heroku logs -a apc-devnet-push-render --tail",
-    "postinstall": "npm run update:renderer",
     "test": "jest",
     "test:watch": "jest --watch"
   },

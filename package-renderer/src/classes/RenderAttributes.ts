@@ -16,6 +16,7 @@ interface IItem {
 export default class RenderAttributes {
 
     private readonly _idsBySlot: Map<string, string>;
+    public readonly badgeNumber: number;
 
     /**
      * Return a copy of idsBySlot. Modify it will not modify the defaultLayers of the RenderAttributes.
@@ -30,8 +31,10 @@ export default class RenderAttributes {
 
     constructor(
         idsBySlot: Iterable<readonly [string, string]>,
+        badgeNumber: number,
     ) {
         this._idsBySlot = new Map<string, string>(idsBySlot);
+        this.badgeNumber = badgeNumber;
 
         for (const [slot, id] of this._idsBySlot) {
             if (id == undefined) throw new Error("Item set is undefined at slot: " + slot);
@@ -56,11 +59,12 @@ export default class RenderAttributes {
 
     public static fromAttributes(
         attributes: string,
+        badgeNumber: number,
         itemsDatabase: IItem[]
     ): RenderAttributes {
 
 
-        if (!attributes) return new RenderAttributes([]);
+        if (!attributes) return new RenderAttributes([], badgeNumber);
 
         if (getOccurences(attributes, ":") != (getOccurences(attributes, ";") + 1)) throw new Error(ERR_BAD_FORMAT);
 
@@ -99,7 +103,7 @@ export default class RenderAttributes {
             idBySlot.set(slot.toLowerCase(), databaseId);
         }
 
-        return new RenderAttributes(idBySlot);
+        return new RenderAttributes(idBySlot, badgeNumber);
     }
 
 
