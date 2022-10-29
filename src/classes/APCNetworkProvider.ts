@@ -2,14 +2,14 @@ import { IActivity, IAddress, IItem, IMarketData, IOffer, IPenguin } from "@apco
 import { Attributes } from "@apcolony/marketplace-api/out/classes";
 import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
-import { AbiRegistry, Address, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, StringValue, U64Value } from "@elrondnetwork/erdjs/out";
+import { AbiRegistry, Address, AddressValue, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, StringValue, U64Value } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
-import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsCollection, items, getPenguinWebThumbnail } from "../const";
+import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsCollection, items, getPenguinWebThumbnail, nftStakingContract, nftStakingToken, originalTokensAmountInStakingSc } from "../const";
 import { getItemFromAttributeName, getItemFromToken, getTokenFromItemID, isCollectionAnItem } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, getNameFromPenguinId, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
 import { BigNumber } from "bignumber.js";
-import { parseActivity, parseMarketData, parseMultiValueIdAuction } from "./ABIParser";
+import { parseActivity, parseMarketData, parseMultiValueIdAuction, parseStakedPenguins } from "./ABIParser";
 import { toIdentifier } from "../utils/conversion";
 import ItemsDatabase from "./ItemsDatabase";
 
@@ -30,20 +30,6 @@ export class APCNetworkProvider {
             timeout: 15_000
         })
         this.itemsDatabase = itemsDatabase;
-    }
-
-    /**
-     * Fixed method of getNonFungibleTokenOfAccount; This one fill properly the "assets" property.
-     */
-    public async fixed_getNonFungibleTokenOfAccount(address: IAddress, collection: string, nonce: number) {
-        const url = `address/${address.bech32()}/nft/${collection}/nonce/${nonce.valueOf()}`;
-        const response = await this.proxyProvider.doGetGeneric(url);
-
-        const tokenData = NonFungibleTokenOfAccountOnNetwork.fromProxyHttpResponseByNonce(response.tokenData);
-        tokenData.assets = (Array.from(response.tokenData.uris ?? []) as string[])
-            .map(b64 => Buffer.from(b64, "base64").toString());
-
-        return tokenData;
     }
 
     public async getPenguinFromId(id: string): Promise<IPenguin> {
@@ -93,6 +79,20 @@ export class APCNetworkProvider {
             .map((item: any) => APCNft.fromApiHttpResponse({ owner: address.bech32(), ...item }));
     }
 
+    public async getPenguinsOfAccount(address: IAddress): Promise<IPenguin[]> {
+        const accountsNfts = await this.getNftsOfAccount(address);
+
+        const penguinsPromises = accountsNfts
+            .filter(nft => nft.collection === penguinsCollection && !!nft.owner)
+            .map((nft) => this.getPenguinFromNft(nft));
+
+        const penguinsNfts = (await Promise.all(penguinsPromises))
+            .sort((a, b) => a.nonce - b.nonce);
+
+        return penguinsNfts;
+
+    }
+
     public async getItemsOfAccount(address: IAddress): Promise<IItem[]> {
         const accountsNfts = await this.getNftsOfAccount(address);
 
@@ -124,14 +124,15 @@ export class APCNetworkProvider {
         return activities;
     }
 
-    public async getUriOf(attributes: Attributes): Promise<string | undefined> {
+    public async getUriOf(attributes: Attributes, name: string): Promise<string | undefined> {
 
         const res = await this.proxyProvider.queryContract({
             address: customisationContract,
             func: "getUriOf",
             getEncodedArguments() {
                 return new ArgSerializer().valuesToStrings([
-                    BytesValue.fromUTF8(attributes.toEndpointArgument())
+                    BytesValue.fromUTF8(attributes.toEndpointArgument()),
+                    BytesValue.fromUTF8(name)
                 ]);
             },
         });
@@ -203,7 +204,7 @@ export class APCNetworkProvider {
             .map(nft => this.getPenguinFromNft(nft));
     }
 
-    public async getItemsFromOffers(offers: IOffer[]): Promise<IItem[]> {
+    public getItemsFromOffers(offers: IOffer[]): IItem[] {
 
         if (offers.find(o => o.collection == penguinsCollection)) {
             throw new Error("getItemsFromOffers contains penguins");
@@ -248,6 +249,16 @@ export class APCNetworkProvider {
         let abi = new SmartContractAbi(abiRegistry, ["EsdtNftMarketplace"]);
 
         let contract = new SmartContract({ address: marketplaceContract, abi: abi });
+        return contract;
+    }
+
+    private async getStakingSmartContract() {
+        let jsonContent: string = await promises.readFile("src/abi/nft-staking.abi.json", { encoding: "utf8" });
+        let json = JSON.parse(jsonContent);
+        let abiRegistry = AbiRegistry.create(json);
+        let abi = new SmartContractAbi(abiRegistry, ["nftStaking"]);
+
+        let contract = new SmartContract({ address: nftStakingContract, abi: abi });
         return contract;
     }
 
@@ -310,4 +321,49 @@ export class APCNetworkProvider {
                 throw new Error("Invalid type");
         }
     }
+
+    public async getNftsForStaker(address: string, proxyNetwork: APCNetworkProvider) {
+
+        const contract = await this.getStakingSmartContract();
+
+        const contractViewName = "getNftsForStaker";
+        const query = contract.createQuery({
+            func: new ContractFunction(contractViewName),
+            args: [new AddressValue(new Address(address))],
+        });
+
+        const queryResponse = await this.proxyProvider.queryContract(query);
+        const endpointDefinition = contract.getEndpoint(contractViewName);
+        const { firstValue, returnCode }: any = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition); //TODO: Add type
+
+        const nftsStaked = await parseStakedPenguins(firstValue, proxyNetwork);
+
+        return returnCode == 'ok' ? nftsStaked : 'Unable to fetch data';
+
+    }
+
+    public async getNftsNumberAndRewardsAvailableForStaker(address: string) {
+
+        const contract = await this.getStakingSmartContract();
+
+        const contractViewName = "getNftsNumberAndRewardsAvailableForStaker";
+        const query = contract.createQuery({
+            func: new ContractFunction(contractViewName),
+            args: [new AddressValue(new Address(address))],
+        });
+
+        const queryResponse = await this.proxyProvider.queryContract(query);
+        const endpointDefinition = contract.getEndpoint(contractViewName);
+        const { secondValue, returnCode }: any = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition); //TODO: Add type        
+
+        return returnCode == 'ok' ? secondValue : 'Unable to fetch data';
+    }
+
+    public async getTokensGeneratedByTheSc() {
+
+        const res = await this.apiProvider.doGetGeneric(`accounts/${nftStakingContract}/tokens?${nftStakingToken}`);
+
+        return originalTokensAmountInStakingSc - res[0].balance
+    }
+
 }

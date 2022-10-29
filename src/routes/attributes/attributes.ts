@@ -7,8 +7,9 @@ import { IAttributesStatus } from '@apcolony/marketplace-api';
 export default async function getAttributes(req: Request, res: Response, networkProvider: APCNetworkProvider) {
 
     const attributes = parseAttributes(req);
+    const penguinName = "Penguin #" + req.params.penguinId;
 
-    const uri = await networkProvider.getUriOf(attributes);
+    const uri = await networkProvider.getUriOf(attributes, penguinName);
 
     if (uri) {
         sendResponse(res, {

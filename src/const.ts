@@ -25,18 +25,25 @@ function getNetworkInfos() {
                 items: devnetToolDeploy.items,
                 customisationContract: Address.fromBech32(devnetToolDeploy.customizationContractAddress.bech32),
                 marketplaceContract: Address.fromBech32("erd1qqqqqqqqqqqqqpgqffweul9250tqr4vuf04zxdcpjdy82yvpv4xq4uha83"),
+                nftStakingContract: Address.fromBech32("erd1qqqqqqqqqqqqqpgqdcjdvpvncw7s8ug56rehyvl8tehk3vl368mqxa7llg"),
+                nftStakingToken: "TEST-17e1db",
+                originalTokensAmountInStakingSc: 1000000 //Todo : Find a better way to calculate tokens generated
             };
     }
 }
 
 export const penguinsCollection = getNetworkInfos().penguinsIdentifier;
 export const itemsCollection = getNetworkInfos().itemsIdentifier;
+export const allCollections = [...penguinsCollection, ...Object.values(itemsCollection)];
 export const items = getNetworkInfos().items;
 export const gateway = getNetworkInfos().gateway;
 export const api = getNetworkInfos().api;
 export const customisationContract = getNetworkInfos().customisationContract;
 export const marketplaceContract = getNetworkInfos().marketplaceContract;
 export const penguinsCount = getNetworkInfos().penguinsCount;
+export const nftStakingContract = getNetworkInfos().nftStakingContract;
+export const nftStakingToken = getNetworkInfos().nftStakingToken;
+export const originalTokensAmountInStakingSc = getNetworkInfos().originalTokensAmountInStakingSc;
 
 export const itemsDatabaseJson = 'src/databases/items.json';
 export const ipfsGateway = "https://ipfs.io/ipfs/";

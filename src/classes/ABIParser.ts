@@ -1,6 +1,8 @@
 import { IOffer, IActivity, IMarketData } from "@apcolony/marketplace-api";
 import { Address } from "@elrondnetwork/erdjs/out";
 import { BigNumber } from "bignumber.js";
+import { penguinsCollection } from "../const";
+import { APCNetworkProvider } from "./APCNetworkProvider";
 /**
  * @params response: MultiValue2<u64, Auction>
  */
@@ -46,6 +48,24 @@ export function parseMarketData(response: any): IMarketData {
         totalListed: response.fieldsByName.get("total_listed").value.value,
         totalVolume: priceToBigNumber(response.fieldsByName.get("total_volume")).toString(),
     }
+}
+
+
+export async function parseStakedPenguins(response: any, proxyNetwork: APCNetworkProvider) {
+    
+    const nonces : Array<number> = response.items
+    .map((o: any) => {   
+        const penguinNonce = o.value.toNumber();
+        return penguinNonce;
+    });
+
+    const PenguinsInfo : any = [];
+    for await (const nonce of nonces) {
+        const PenguinInfo = await proxyNetwork.getPenguinFromNft(await proxyNetwork.getNft(penguinsCollection, nonce)); 
+        PenguinsInfo.push(PenguinInfo);
+    }   
+
+    return PenguinsInfo;
 }
 
 function priceToBigNumber(response: any): BigNumber {
