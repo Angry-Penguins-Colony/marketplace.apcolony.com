@@ -15,7 +15,8 @@
     "build": "tsc --build",
     "build:watch": "tsc --build --watch",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "clean": "del-cli node_modules && del-cli dist"
   },
   "keywords": [],
   "author": "",

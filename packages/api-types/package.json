@@ -11,7 +11,7 @@
     "build": "tsc --build",
     "test": "jest",
     "postversion": "git push && git push --tags",
-    "open": "start chrome /new-window https://www.npmjs.com/package/@apcolony/marketplace-api"
+    "clean": "del-cli out && del-cli node_modules"
   },
   "repository": {
     "type": "git",

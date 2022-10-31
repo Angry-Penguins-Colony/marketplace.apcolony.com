@@ -1,51 +1,57 @@
 import os;
+import argparse
 
-packages = [
-
-    {
-        "name": "api-types",
-        "install": True,
-        "build": True
-    }, 
-    {
-        "name": "package-renderer",
-        "install": True,
-        "build": True
-    },
-    {
-        "name": "api",
-        "install": True,
-        "build": False
-    },
-    {
-        "name": "dapp",
-        "install": True,
-        "build": False
-    },
-    {
-        "name": "push-render",
-        "install": True,
-        "build": False
-    }
+root_packages = [
+    "api",
+    "dapp",
+    "push-render"
 ]
 
+deps_packages = [
+    "api-types",
+    "database",
+    "penguins-renderer"
+]
 
 def main():
-    
-    for p in packages:    
-        print("Processing package: " + p["name"])
-        process_package(p)
+    def process_package(name, is_dep_package: bool):
+        
+        print("Processing package: " + name)
+
+        path = name
+        # add "packages/" to the path if is_dep_package is True
+        if is_dep_package == True:
+            path = "packages/" + path
+
+        if not os.path.isdir(path):
+            raise Exception("Package directory does not exist: " + path)
+
+        if (is_dep_package == True):
+            if (args.install_deps):
+                os.system("cd " + path + " && npm install")
+                os.system("cd " + path + " && npm run build")
+                print(" Installed " + name)
+            
+            elif (args.clean_deps == True and is_dep_package == True):
+                os.system("cd " + path + " && npm run clean")
+                print(" Cleaned " + name)
+            else:
+                print(" Ignored " + name)
+        else:
+            print(" Ignored " + name)
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--install-deps", help="install packages", action='store_true')
+    parser.add_argument('--clean-deps', help="remove node_modules and out directories", action='store_true')
+    args = parser.parse_args()
+
+    print(args)
+
+    for name in (root_packages + deps_packages):        
+        path = name
+        process_package(path, name in deps_packages)
 
     print("Setup finished")
-
-def process_package(p):
-    if not os.path.isdir(p["name"]):
-        raise Exception("Package directory does not exist: " + p["name"])
-
-    if p["install"]:
-        os.system("cd " + p["name"] + " && npm install")
-    if p["build"]:
-        os.system("cd " + p["name"] + " && npm run build")
 
 
 if __name__ == '__main__':

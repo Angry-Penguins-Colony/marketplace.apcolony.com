@@ -12,7 +12,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build",
+    "clean": "del-cli node_modules && del-cli out"
   },
   "dependencies": {
     "@apcolony/marketplace-api": "file:../api-types"
