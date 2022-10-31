@@ -16,10 +16,6 @@ export function useGetOwnedItems(options?: IOptions<IItem>): IItem[] | undefined
     return useGetOwned<IItem>('items', options);
 }
 
-export function useGetOwnedStakedPenguins(options?: IOptions<IPenguin>): IPenguin[] | undefined {
-    return useGetOwned<IPenguin>('staking', options);
-}
-
 interface IOptions<T> {
     onLoaded?: (penguins: T[]) => void;
     overrideAddress?: IAddress;

@@ -21,7 +21,6 @@ import StakePopup from 'components/Foreground/Popup/StakePopup/StakePopup';
 import { GenericItemExplorer } from 'components/Navigation/GenericItemExplorer';
 import { stakingContract } from 'config';
 import { buildRouteLinks } from 'routes';
-import { useGetOwnedPenguins, useGetOwnedStakedPenguins } from 'sdk/hooks/api/useGetOwned';
 import {useGetStakingClaimable, useGetPenguinsStaked, useGetTokensGenerated, useGetPenguinsUnstaked} from 'sdk/hooks/api/useGetStaking';
 import ClaimTransactioNBuilder from 'sdk/transactionsBuilders/staking/ClaimTransactionBuilder';
 import style from './index.module.scss';
