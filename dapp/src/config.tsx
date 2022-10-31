@@ -1,5 +1,5 @@
+import Devnet from '@apcolony/db-marketplace/out/devnet';
 import { Address } from '@elrondnetwork/erdjs/out';
-import { devnetToolDeploy } from 'devnet.tool-result';
 import APCLogger, { LogType } from 'logger';
 import Explorer from 'sdk/classes/Explorer';
 import 'dotenv/config';
@@ -52,11 +52,12 @@ function getNetworkInfos() {
       return {
         api: process.env.REACT_APP_DEVNET_API ?? 'https://apc-marketplace-api-devnet.herokuapp.com/',
         explorerUrl: 'https://devnet-explorer.elrond.com/',
-        customisationContractAddress: Address.fromBech32(devnetToolDeploy.customizationContractAddress.bech32),
-        penguinCollection: devnetToolDeploy.penguinsIdentifier,
+        customisationContractAddress: Address.fromBech32(Devnet.customisationContractAddress),
+        penguinCollection: Devnet.penguinsIdentifier,
         marketplaceContractAddress: Address.fromBech32('erd1qqqqqqqqqqqqqpgqffweul9250tqr4vuf04zxdcpjdy82yvpv4xq4uha83'),
-        items: devnetToolDeploy.items,
-        itemsCollections: devnetToolDeploy.itemsIdentifier,
+        items: Devnet.items,
+        itemsDatabase: Devnet.itemsDatabase,
+        itemsCollections: Devnet.itemsIdentifier,
         penguinsCount: 5555,
         stakingContractAddress: Address.fromBech32('erd1qqqqqqqqqqqqqpgqdcjdvpvncw7s8ug56rehyvl8tehk3vl368mqxa7llg'),
         stakingToken: 'TEST-17e1db',
@@ -79,3 +80,4 @@ export const penguinsCount = getNetworkInfos().penguinsCount;
 export const itemsCollections = getNetworkInfos().itemsCollections;
 export const stakingContract = getNetworkInfos().stakingContractAddress;
 export const stakingToken = getNetworkInfos().stakingToken;
+export const itemsDatabase = getNetworkInfos().itemsDatabase;

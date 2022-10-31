@@ -97,6 +97,10 @@ export default class ItemsDatabase {
         return item;
     }
 
+    public getItemFromIdentifier(identifier: string): Item | undefined {
+        return this._items.find(i => i.identifier == identifier);
+    }
+
     public getItemFromToken(collection: string, nonce: number) {
         const item = this._items.find(item => item.collection === collection && item.nonce === nonce);
         if (!item) {

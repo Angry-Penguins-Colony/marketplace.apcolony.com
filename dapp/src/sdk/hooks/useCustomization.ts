@@ -3,9 +3,8 @@ import { Attributes, IItem, IPenguin } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import BigNumber from 'bignumber.js';
-import { customisationContractAddress, penguinCollection } from 'config';
+import { customisationContractAddress, itemsDatabase, penguinCollection } from 'config';
 import { splitIdentifier } from 'sdk/conversion/tokenIdentifier';
-import { identifierToItem } from 'sdk/misc/dbHelper';
 import CustomizePayloadBuilder, { ItemToken } from 'sdk/transactionsBuilders/customize/CustomizePayloadBuilder';
 import calculeRenderGasFees from 'sdk/transactionsBuilders/render/calculateRenderGasFees';
 import { RenderPayloadBuilder } from 'sdk/transactionsBuilders/render/RenderPayloadBuilder';
@@ -18,6 +17,7 @@ import { CustomizeTransactionFilter } from './transactionsFilters/filters';
 import useGetOnNewPendingTransaction from './useGetOnTransactionPending';
 import useGetOnTransactionSuccesful from './useGetOnTransactionSuccesful';
 import usePrevious from './usePrevious';
+import ItemsDatabase from '@apcolony/db-marketplace/out/ItemsDatabase';
 
 const periodicRefreshMS = 10_000;
 
@@ -143,10 +143,13 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
             const identifier = itemsIdentifiers[slot];
 
             if (identifier) {
-                const item = identifierToItem(identifier);
+                const item = itemsDatabase.getItemFromIdentifier(identifier);
 
                 if (item) {
                     _attributes.set(slot, item.name);
+                }
+                else {
+                    console.error(`Could not find item with identifier ${identifier}`);
                 }
             }
         }
