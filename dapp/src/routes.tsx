@@ -10,6 +10,7 @@ import withPageTitle from './components/PageTitle';
 import Customize from './pages/Customize';
 import Home from './pages/Home';
 import Inventory from './pages/Inventory';
+import Staking from './pages/Staking';
 import Transaction from './pages/Transaction';
 
 interface ITitledRoute extends RouteType {
@@ -28,6 +29,7 @@ export const routeNames = {
   unlock: '/unlock',
   ledger: '/ledger',
   walletconnect: '/walletconnect',
+  staking: '/staking',
 };
 
 export const buildRouteLinks = {
@@ -91,6 +93,11 @@ const routes: Array<ITitledRoute> = [
     path: routeNames.itemsOffersNavigator,
     title: 'Items Offers',
     component: ItemsOffersNavigator
+  },
+  {
+    path: routeNames.staking,
+    title: 'Staking',
+    component: Staking
   }
 ];
 
