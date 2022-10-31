@@ -7,7 +7,7 @@
     "start": "node --optimize_for_size --max_old_space_size=320 dist/index.js",
     "start:dev": "ts-node src/index.ts",
     "start:dev:watch": "nodemon src/index.ts",
-    "postinstall": "cd ../api-types && npm install && npm run build && cd ../database && npm install",
+    "postinstall": "cd ../packages/api-types && npm install && npm run build && cd ../database && npm install",
     "test": "jest",
     "test:watch": "jest --watch",
     "build": "tsc --build",
@@ -43,7 +43,8 @@
     "ts-jest": "^28.0.7"
   },
   "dependencies": {
-    "@apcolony/marketplace-api": "file:../api-types",
+    "@apcolony/db-marketplace": "file:../packages/database",
+    "@apcolony/marketplace-api": "file:../packages/api-types",
     "@elrondnetwork/erdjs": "^10.2.7",
     "@elrondnetwork/erdjs-network-providers": "^0.1.7",
     "@elrondnetwork/erdjs-walletcore": "^1.0.0",

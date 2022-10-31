@@ -6,7 +6,8 @@
   "license": "GPL-3.0-or-later",
   "repository": "@apcolony/dapp-marketplace",
   "dependencies": {
-    "@apcolony/marketplace-api": "file:../api-types",
+    "@apcolony/db-marketplace": "file:../packages/database",
+    "@apcolony/marketplace-api": "file:../packages/api-types",
     "@elrondnetwork/dapp-core": "2.0.0-alpha.10",
     "@elrondnetwork/erdjs": "10.2.5",
     "@elrondnetwork/erdjs-network-providers": "0.1.5",

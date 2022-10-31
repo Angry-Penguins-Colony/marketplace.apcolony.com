@@ -15,7 +15,7 @@
     "log:remote": "heroku logs -a apc-devnet-push-render --tail",
     "test": "jest",
     "test:watch": "jest --watch",
-    "postinstall": "cd ../package-renderer && npm install && npm run build"
+    "postinstall": "cd ../packages/penguins-renderer && npm install && npm run build"
   },
   "repository": {
     "type": "git",
@@ -36,7 +36,8 @@
     "ts-jest": "^28.0.5"
   },
   "dependencies": {
-    "@apcolony/renderer": "file:../package-renderer",
+    "@apcolony/db-marketplace": "file:../packages/database",
+    "@apcolony/renderer": "file:../packages/penguins-renderer",
     "@aws-sdk/client-s3": "^3.193.0",
     "@elrondnetwork/erdjs": "^10.2.7",
     "@elrondnetwork/erdjs-network-providers": "^0.1.6",
