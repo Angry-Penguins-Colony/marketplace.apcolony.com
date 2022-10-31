@@ -33,6 +33,16 @@ describe("equals", () => {
         expect(new Attributes().equals(new Attributes())).toBeTruthy();
     });
 
+    it("is not equals with an empty and a filled attributes", () => {
+        const a = new Attributes({
+            "background": "Background 6",
+            "beak": "Beak Silver",
+        });
+        const b = new Attributes();
+
+        expect(a.equals(b)).toBeFalsy();
+    });
+
     test("equals (with a different order)", () => {
         const a = new Attributes({
             "background": "Background 6",
