@@ -1,6 +1,6 @@
 import Resize2DImage from "./classes/plugins/Resize2DImage/Resize2DImage";
 import ImageMIMEType from "./enums/ImageMIMEType";
-import items from "./databases/items.json";
+import items from "@apcolony/db-marketplace/out/json/items.json";
 import RenderConfig from "./classes/RenderConfig";
 
 const itemsCid = (() => {
