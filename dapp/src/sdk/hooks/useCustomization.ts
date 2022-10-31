@@ -148,9 +148,6 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
                 if (item) {
                     _attributes.set(slot, item.name);
                 }
-                else {
-                    console.error('Item not found for identifier', identifier);
-                }
             }
         }
 

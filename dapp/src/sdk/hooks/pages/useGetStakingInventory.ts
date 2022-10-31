@@ -1,37 +1,34 @@
 import React from 'react';
-import { IGenericElement } from '@apcolony/marketplace-api';
+import { IGenericElement, IPenguin } from '@apcolony/marketplace-api';
 import { Address } from '@elrondnetwork/erdjs/out';
-import { useGetOwnedPenguins, useGetOwnedStakedPenguins } from '../api/useGetOwned';
 import StakedType from 'sdk/types/StakedTypes';
+import { useGetOwnedPenguins, useGetOwnedStakedPenguins } from '../api/useGetOwned';
 
-function useGetStakingInventory(walletAddress: string) {
+function useGetStakingInventory(walletAddress: string, penguinsStakedArray:Array<IPenguin> | undefined, penguinsUnstakedArray:Array<IPenguin> | undefined) {
     const [inventoryElements, setElements] = React.useState<IGenericElement[] | undefined>(undefined);
     const [inventoryType, setInventoryType] = React.useState<StakedType>('unstaked');
 
-    const penguins = useGetOwnedPenguins({ overrideAddress: Address.fromBech32(walletAddress) });
-    const stakedPenguins = useGetOwnedStakedPenguins({ overrideAddress: Address.fromBech32(walletAddress) });
-
     React.useEffect(() => {
         updateInventory();
-    }, [penguins, stakedPenguins, inventoryType]);
+    }, [penguinsStakedArray, penguinsUnstakedArray, inventoryType]);
 
     return {
         inventoryElements,
         inventoryType,
-        penguinsCount: penguins?.length,
-        stakedPenguinsCount: stakedPenguins?.length,
+        penguinsCount: penguinsUnstakedArray?.length,
+        stakedPenguinsCount: penguinsStakedArray?.length,
         setInventoryType
     };
 
     function updateInventory() {
         switch (inventoryType) {
             case 'staked':
-                setElements(stakedPenguins);
+                setElements(penguinsStakedArray);
                 break;
 
             case 'unstaked':
             default:
-                setElements(penguins);
+                setElements(penguinsUnstakedArray);
                 break;
         }
     }

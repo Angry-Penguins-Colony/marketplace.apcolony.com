@@ -95,7 +95,7 @@
             
         }
         .claim{
-            margin-top: 170px;
+            margin-top: 160px;
             padding:90px 32px 17px;
             img{
                 width:400px;
@@ -247,30 +247,36 @@
                 width: 100%;
             }
         }
-        .counter{
-            font-family: "Config Rounded", sans-serif;
+        .content-container{
             position: absolute;
             top: 70%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: #090d26;
-            color: white;
-            border-radius: 10px;
-            padding: 30px 30px 30px 35px;
-            font-weight: 700;
-            font-size: 2.3rem;
-            letter-spacing: 11px;
-            box-sizing: content-box;
-            &::after{
-                content: '';
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: calc(100% + 17px);
-                height: calc(100% + 17px);
+            h2{
+                display: none;
+            }
+            .counter{
+                position: relative;
+                font-family: "Config Rounded", sans-serif;
+                background-color: #090d26;
+                color: white;
                 border-radius: 10px;
-                border: 2.5px solid #090d26;
+                padding: 30px 30px 30px 35px;
+                font-weight: 700;
+                font-size: 2.3rem;
+                letter-spacing: 11px;
+                box-sizing: content-box;
+                &::after{
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: calc(100% + 17px);
+                    height: calc(100% + 17px);
+                    border-radius: 10px;
+                    border: 2.5px solid #090d26;
+                }
             }
         }
     }
@@ -430,16 +436,35 @@
                     display: block;
                 }
             }
-            .counter{
-                top:76%;
-                padding: 35px 35px 35px 50px;
-                font-size: 3.4rem;
-                letter-spacing: 25px;
-                border-radius: 15px;
-                &::after{
-                    border-radius: 25px;
+            .content-container{
+                top:42%;
+                h2{
+                    display: block;
+                    font-family: "CHEDROS", sans-serif;
+                    font-weight: 900;
+                    text-transform: uppercase;
+                    text-align: center;
+                    color: #5078df;
+                    font-size: 5rem;
+                    line-height: 100%;
+                    letter-spacing: 1px;
+                    margin-bottom: 30px;
+                }
+                .counter{
+                    position: absolute;
+                    bottom: -112px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    padding: 35px 35px 35px 50px;
+                    font-size: 3.4rem;
+                    letter-spacing: 25px;
+                    border-radius: 15px;
+                    &::after{
+                        border-radius: 25px;
+                    }
                 }
             }
+
         }
     }
 }
