@@ -1,5 +1,5 @@
 {
-  "name": "@apcolony/db-marketplace",
+  "name": "database",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -15,6 +15,6 @@
     "clean": "del-cli node_modules && del-cli out"
   },
   "dependencies": {
-    "@apcolony/marketplace-api": "*"
+    "api-types": "*"
   }
 }

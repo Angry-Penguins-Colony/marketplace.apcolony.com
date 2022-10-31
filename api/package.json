@@ -1,5 +1,5 @@
 {
-  "name": "server-api-marketplace",
+  "name": "api",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -23,10 +23,6 @@
     "log:remote": "heroku logs -a apc-marketplace-api-devnet --tail",
     "clean": "del-cli node_modules && del-cli dist"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Angry-Penguins-Colony/server-api-marketplace.git"
-  },
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -43,8 +39,8 @@
     "ts-jest": "^28.0.7"
   },
   "dependencies": {
-    "@apcolony/db-marketplace": "*",
-    "@apcolony/marketplace-api": "*",
+    "database": "*",
+    "api-types": "*",
     "@elrondnetwork/erdjs": "^10.2.7",
     "@elrondnetwork/erdjs-network-providers": "^0.1.7",
     "@elrondnetwork/erdjs-walletcore": "^1.0.0",
