@@ -1,12 +1,6 @@
 import { Address } from '@elrondnetwork/erdjs/out';
 import { getNetworkType } from './env';
-import {
-    penguinsIdentifier as penguinsIdentifierDevnet,
-    customisationContractAddress as customisationContractAddressDevnet,
-    itemsDatabase as itemsDatabaseDevnet,
-    itemsIdentifier as itemsIdentifierDevnet,
-    items as itemsDevnet
-} from "@apcolony/db-marketplace/out/devnet";
+import devnetConfig from "@apcolony/db-marketplace/out/devnet";
 
 function getNetworkInfos() {
 
@@ -25,15 +19,15 @@ function getNetworkInfos() {
             return {
                 gateway: process.env.GATEWAY ?? "https://devnet-gateway.elrond.com",
                 api: "https://devnet-api.elrond.com",
-                penguinsIdentifier: penguinsIdentifierDevnet,
+                penguinsIdentifier: devnetConfig.penguinsIdentifier,
                 penguinsCount: 5555,
-                itemsIdentifier: itemsIdentifierDevnet,
-                customisationContract: Address.fromBech32(customisationContractAddressDevnet),
+                itemsIdentifier: devnetConfig.itemsIdentifier,
+                customisationContract: Address.fromBech32(devnetConfig.customisationContractAddress),
                 marketplaceContract: Address.fromBech32("erd1qqqqqqqqqqqqqpgqffweul9250tqr4vuf04zxdcpjdy82yvpv4xq4uha83"),
                 nftStakingContract: Address.fromBech32("erd1qqqqqqqqqqqqqpgqdcjdvpvncw7s8ug56rehyvl8tehk3vl368mqxa7llg"),
                 nftStakingToken: "TEST-17e1db",
                 originalTokensAmountInStakingSc: 1000000, //Todo : Find a better way to calculate tokens generated
-                itemsDatabase: itemsDatabaseDevnet,
+                itemsDatabase: devnetConfig.itemsDatabase,
             };
     }
 }

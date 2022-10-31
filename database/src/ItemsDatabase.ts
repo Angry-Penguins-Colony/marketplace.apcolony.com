@@ -28,7 +28,11 @@ type ItemInDatabase = {
 
 export default class ItemsDatabase {
 
-    constructor(private readonly items: Item[]) { }
+    public get items(): Item[] {
+        return Array.from(this._items);
+    }
+
+    constructor(private readonly _items: Item[]) { }
 
     public static fromJson(parsedItems: ItemInDatabase[], identifiers: DeployedItem[]) {
         const items: Item[] = parsedItems
@@ -74,11 +78,11 @@ export default class ItemsDatabase {
     }
 
     public idExist(id: string) {
-        return this.items.some(item => item.id == id);
+        return this._items.some(item => item.id == id);
     }
 
     public getItemFromId(id: string): Item {
-        const item = this.items.find(item => item.id == id);
+        const item = this._items.find(item => item.id == id);
         if (!item) {
             throw new Error(`Item ${id} not found`);
         }
@@ -86,7 +90,7 @@ export default class ItemsDatabase {
     }
 
     public getItemFromNameAndSlot(attributeName: string, slot: string): Item {
-        const item = this.items.find(item => item.attributeName == attributeName && item.slot == slot);
+        const item = this._items.find(item => item.attributeName == attributeName && item.slot == slot);
         if (!item) {
             throw new Error(`Unknown item ${name} for slot ${slot}`);
         }
@@ -94,7 +98,7 @@ export default class ItemsDatabase {
     }
 
     public getItemFromToken(collection: string, nonce: number) {
-        const item = this.items.find(item => item.collection === collection && item.nonce === nonce);
+        const item = this._items.find(item => item.collection === collection && item.nonce === nonce);
         if (!item) {
             throw new Error(`Unknown item with collection ${collection} and nonce ${nonce}`);
         }
@@ -102,7 +106,7 @@ export default class ItemsDatabase {
     }
 
     public getSlotFromIdentifier(identifier: string): string {
-        const item = this.items.find(item => item.identifier == identifier);
+        const item = this._items.find(item => item.identifier == identifier);
 
         if (!item) throw new Error(`No slot found for ${identifier}`);
 
@@ -111,19 +115,19 @@ export default class ItemsDatabase {
 
     public getItemFromAttributeName(name: string, slot: string) {
 
-        return this.items
+        return this._items
             .find(item => item.attributeName == name && item.slot.toLowerCase() == slot.toLowerCase());
     }
 
     public getRandomItem() {
-        const item = this.items[Math.floor(Math.random() * this.items.length)];
+        const item = this._items[Math.floor(Math.random() * this._items.length)];
 
         return item;
     }
 
 
     public getRandomItems(count: number) {
-        const _items = Array.from(this.items);
+        const _items = Array.from(this._items);
         const output = [];
 
         for (let i = 0; i < count; i++) {
@@ -136,7 +140,7 @@ export default class ItemsDatabase {
     }
 
     public getTokenFromItemID(id: string): { collection: string, nonce: number } {
-        const item = this.items.find(i => i.id == id);
+        const item = this._items.find(i => i.id == id);
 
         if (!item) throw new Error("Item not found");
         if (!item.identifier) throw new Error("Item has no identifier");
