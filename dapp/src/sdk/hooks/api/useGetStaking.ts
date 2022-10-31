@@ -1,4 +1,4 @@
-import { IPenguin } from '@apcolony/marketplace-api';
+import { IGenericElement, IPenguin } from '@apcolony/marketplace-api';
 import useGenericAPICall from './useGenericAPICall';
 
 export function useGetStakingClaimable(address: string) {   
@@ -6,7 +6,13 @@ export function useGetStakingClaimable(address: string) {
 }
 
 export function useGetPenguinsStaked(address: string) {
-    return useGenericAPICall(`/staking/owned/${address}`);
+    const raw = useGenericAPICall<IGenericElement>(`/staking/owned/${address}`);
+    return raw;
+}
+
+export function useGetPenguinsUnstaked(address: string) {
+    const raw = useGenericAPICall<IGenericElement>(`/penguins/owned/${address}`);
+    return raw;
 }
 
 export function useGetTokensGenerated() {

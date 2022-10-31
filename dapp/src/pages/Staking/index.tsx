@@ -1,7 +1,9 @@
-import React from 'react'
-import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import React, { useEffect } from 'react'
+import { IPenguin } from '@apcolony/marketplace-api';
+import { useGetAccountInfo, useGetPendingTransactions, useTrackTransactionStatus } from '@elrondnetwork/dapp-core/hooks';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
+import { Address } from '@elrondnetwork/erdjs/out';
 import AccessoryIconBronze from 'assets/img/accessory_icon_bronze.png';
 import AccessoryIconDiamond from 'assets/img/accessory_icon_diamond.png';
 import AccessoryIconGold from 'assets/img/accessory_icon_gold.png';
@@ -19,22 +21,51 @@ import StakePopup from 'components/Foreground/Popup/StakePopup/StakePopup';
 import { GenericItemExplorer } from 'components/Navigation/GenericItemExplorer';
 import { stakingContract } from 'config';
 import { buildRouteLinks } from 'routes';
-import useGetExploreItems from 'sdk/hooks/api/useGetExploreItems';
-import {useGetStakingClaimable, useGetPenguinsStaked, useGetTokensGenerated} from 'sdk/hooks/api/useGetStaking';
+import { useGetOwnedPenguins, useGetOwnedStakedPenguins } from 'sdk/hooks/api/useGetOwned';
+import {useGetStakingClaimable, useGetPenguinsStaked, useGetTokensGenerated, useGetPenguinsUnstaked} from 'sdk/hooks/api/useGetStaking';
 import ClaimTransactioNBuilder from 'sdk/transactionsBuilders/staking/ClaimTransactionBuilder';
 import style from './index.module.scss';
 
 
 export default function Staking() {
   const { address : connectedAddress } = useGetAccountInfo();
-  const exploreItems = useGetExploreItems();
   const [isStakePopupVisible, setIsStakePopupVisible] = React.useState(false);
-  const claimable : any = useGetStakingClaimable(connectedAddress).data; 
-  const penguinsStaked : any = useGetPenguinsStaked(connectedAddress).data;  
-  const penguinsStakedCount = penguinsStaked != undefined ? Object.keys(penguinsStaked).length : 0;
-  const tokensGeneratedByTheColony : any = useGetTokensGenerated().data;
-  const tokensGeneratedByTheColonyCount = tokensGeneratedByTheColony != undefined ? tokensGeneratedByTheColony.tokensGenerated : 0;
 
+  const {data: stakingClaimable, forceReload: reloadStakingClaimable } = useGetStakingClaimable(connectedAddress); 
+  const stakingClaimableData = stakingClaimable as any;
+
+  const {data: penguinsStaked, forceReload: reloadPenguinsStaked }  = useGetPenguinsStaked(connectedAddress);  
+  const {data : penguinsUnstaked, forceReload: reloadPenguinsUnstaked }  = useGetPenguinsUnstaked(connectedAddress);
+  const penguinsStakedArray = penguinsStaked as Array<IPenguin> | undefined;
+  const penguinsUnstakedArray = penguinsUnstaked as Array<IPenguin> | undefined;
+  
+  const penguinsStakedCount = penguinsStakedArray != undefined ? penguinsStakedArray.length : 0;
+  const {data: tokensGeneratedByTheColony, forceReload: reloadTokensGeneratedByTheColony } = useGetTokensGenerated();
+  const tokensGeneratedByTheColonyData = tokensGeneratedByTheColony as any;   
+  
+
+
+  const [transactionSessionId, setTransactionSessionId] = React.useState<string | null>(null);
+
+  const { pendingTransactionsArray, hasPendingTransactions } =
+  useGetPendingTransactions();
+
+  useEffect(() => { //Web wallet support for handling reloads after a transaction
+    if (hasPendingTransactions) {
+      setTransactionSessionId(pendingTransactionsArray[0][0]);
+    }
+  }, [hasPendingTransactions]);
+
+
+  const transactionStatus = useTrackTransactionStatus({
+    transactionId: transactionSessionId,
+    onSuccess: async () => {     
+      reloadPenguinsStaked();
+      reloadPenguinsUnstaked();
+      reloadStakingClaimable();
+      reloadTokensGeneratedByTheColony();
+    }
+  });
  
   const claimFunc = async () => {
     const claim = new ClaimTransactioNBuilder();
@@ -43,7 +74,7 @@ export default function Staking() {
 
     await refreshAccount();        
 
-    await sendTransactions({
+    const { sessionId } = await sendTransactions({
         transactions: transaction,
         transactionDisplayInfo: {
             processingMessage: 'Staking...',
@@ -52,6 +83,10 @@ export default function Staking() {
         },
         redirectAfterSign: false
     });
+
+    if (sessionId != null) {
+      setTransactionSessionId(sessionId);
+    }
 }
 
   return (
@@ -69,7 +104,7 @@ export default function Staking() {
         <div className={style['claim']} >
           <img src={apCoinRewardsImg} alt="APC coin" />
           <h2>REWARD TO CLAIM</h2>
-          <span>{claimable == undefined ? 0 : claimable.claimable } APC</span>
+          <span>{stakingClaimableData == undefined ? 0 : stakingClaimableData.claimable } APC</span>
           <Button className={style.button} type='primary' onClick={() => claimFunc()}>CLAIM REWARDS</Button>
           <a href="">More infos <span>i</span></a>
         </div>
@@ -82,12 +117,12 @@ export default function Staking() {
       </section>
 
       {
-        exploreItems && exploreItems.length > 0 && (
+        penguinsStakedArray && penguinsStakedArray.length > 0 && (
           <section className={style['stake-list']}>
-            <p>You have <span>{exploreItems.length}</span> angry penguins staked.</p>
+            <p>You have <span>{penguinsStakedArray.length}</span> angry penguins staked.</p>
             <div className={style.content}>
               {
-                exploreItems?.map(item => (
+                penguinsStakedArray.map((item : any) => (
                   <GenericItemExplorer
                     key={item.id}
                     thumbnail={item.thumbnailUrls.high}
@@ -124,12 +159,16 @@ export default function Staking() {
           <img className={style.mobile} src={tokenGeneratedMobile} alt="Token generated" />
           <img className={style.desktop} src={tokenGeneratedDesktop} alt="Token generated" />
         </div>
-        <div className={style.counter}>
-          {tokensGeneratedByTheColonyCount}
+        <div className={style['content-container']}>
+          <h2>TOKEN GENERATED <br /> BY THE COLONY</h2>
+          <div className={style.counter}>
+            {tokensGeneratedByTheColonyData === undefined ? 0 : tokensGeneratedByTheColonyData.tokensGenerated}
+          </div>
         </div>
+
       </section>
 
-      <StakePopup isVisible={isStakePopupVisible} closeModal={() => setIsStakePopupVisible(false)} />
+      <StakePopup isVisible={isStakePopupVisible} closeModal={() => setIsStakePopupVisible(false)} setTransactionSessionId={setTransactionSessionId} penguinsStakedArray={penguinsStakedArray} penguinsUnstakedArray={penguinsUnstakedArray}  />
     </div>
 
   )

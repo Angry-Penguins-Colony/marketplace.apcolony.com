@@ -10,6 +10,7 @@ import withPageTitle from './components/PageTitle';
 import Customize from './pages/Customize';
 import Home from './pages/Home';
 import Inventory from './pages/Inventory';
+import launchpad from './pages/Launchpad';
 import Staking from './pages/Staking';
 import Transaction from './pages/Transaction';
 
@@ -30,6 +31,7 @@ export const routeNames = {
   ledger: '/ledger',
   walletconnect: '/walletconnect',
   staking: '/staking',
+  launchpad: '/launchpad',
 };
 
 export const buildRouteLinks = {
@@ -83,6 +85,16 @@ const routes: Array<ITitledRoute> = [
     }
   },
   {
+    path: routeNames.staking,
+    title: 'Staking',
+    component: Staking
+  },
+  {
+    path: routeNames.launchpad,
+    title: 'Launchpad Vente',
+    component: launchpad
+  },
+  {
     path: routeNames.penguinsOffers,
     title: 'Penguins Offers',
     component: () => {
@@ -93,11 +105,6 @@ const routes: Array<ITitledRoute> = [
     path: routeNames.itemsOffersNavigator,
     title: 'Items Offers',
     component: ItemsOffersNavigator
-  },
-  {
-    path: routeNames.staking,
-    title: 'Staking',
-    component: Staking
   }
 ];
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import { IPenguin } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
@@ -15,10 +16,16 @@ import style from './StakePopup.module.scss'
 const StakePopup = (
     {
         isVisible,
-        closeModal
+        closeModal,
+        setTransactionSessionId,
+        penguinsStakedArray,
+        penguinsUnstakedArray
     }:{
         isVisible: boolean,
-        closeModal: () => void
+        closeModal: () => void,
+        setTransactionSessionId: (sessionId: string | null) => void,
+        penguinsStakedArray : Array<IPenguin> | undefined,
+        penguinsUnstakedArray : Array<IPenguin> | undefined
     }
 ) => {
     const { address: connectedAddress } = useGetAccountInfo();
@@ -30,7 +37,7 @@ const StakePopup = (
         penguinsCount,
         stakedPenguinsCount,
         setInventoryType
-    } = useGetStakingInventory(connectedAddress);
+    } = useGetStakingInventory(connectedAddress, penguinsStakedArray, penguinsUnstakedArray);
     
 
     const stake= new stakeTransactionBuilder();
@@ -43,7 +50,7 @@ const StakePopup = (
         
         await refreshAccount();        
 
-        await sendTransactions({
+        const { sessionId } = await sendTransactions({
             transactions: transaction,
             transactionDisplayInfo: {
                 processingMessage: 'Staking...',
@@ -52,6 +59,10 @@ const StakePopup = (
             },
             redirectAfterSign: false
         });
+
+        if (sessionId != null) {           
+            setTransactionSessionId(sessionId);
+        }
     }
 
  
