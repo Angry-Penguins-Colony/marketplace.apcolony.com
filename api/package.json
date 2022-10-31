@@ -21,7 +21,8 @@
     "try:offers:i": " curl http://localhost:5001/items/offers/hat",
     "try:offers:i:stats": " curl http://localhost:5001/items/offers/hat/stats",
     "spam": "autocannon -c 50 -d 100 http://localhost:5001/offers/erd1tzkvnkvhc45zmqza02gqkuktvsd7ryywgsx62l5gjuf34y9tlksq0tacy5",
-    "log:remote": "heroku logs -a apc-marketplace-api-devnet --tail"
+    "log:remote": "heroku logs -a apc-marketplace-api-devnet --tail",
+    "clean": "del-cli node_modules && del-cli dist"
   },
   "repository": {
     "type": "git",

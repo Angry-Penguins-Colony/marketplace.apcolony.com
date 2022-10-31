@@ -33,7 +33,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --ext js,ts,tsx src",
-    "postinstall": "cd ../packages/api-types && npm install && npm run build && cd ../database && npm install && npm run build"
+    "postinstall": "cd ../packages/api-types && npm install && npm run build && cd ../database && npm install && npm run build",
+    "clean": "del-cli node_modules && del-cli build"
   },
   "eslintConfig": {
     "extends": [
