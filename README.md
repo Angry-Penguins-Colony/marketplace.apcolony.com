@@ -11,3 +11,8 @@ Then, run it
 ```
 ./setup.py --install-deps
 ```
+
+
+# 💡 Improvements
+
+- Build dependency if it has been modified (https://dev.to/zirkelc/automatically-install-npm-dependencies-on-git-pull-bg0)
