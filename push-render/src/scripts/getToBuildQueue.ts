@@ -1,15 +1,15 @@
 import Bottleneck from "bottleneck";
 import ReadGateway from "../classes/ReadGateway";
 import config from "../config";
-import { devnetToolDeploy } from "../devnet.tool-result";
 import { renderConfig } from "@apcolony/renderer";
 import RenderAttributes from "@apcolony/renderer/dist/classes/RenderAttributes";
+import Devnet from "@apcolony/db-marketplace/out/devnet";
 
 main();
 
 
 async function main() {
-    const gateway = new ReadGateway(config.gatewayUrl, config.customisationContract, new Bottleneck());
+    const gateway = new ReadGateway(config.gatewayUrl, config.customisationContract, new Bottleneck(), Devnet.itemsDatabase);
     const queue: {
         renderAttribute: RenderAttributes;
         badgeNumber: number;
@@ -17,7 +17,7 @@ async function main() {
 
 
     for (const { renderAttribute, badgeNumber } of queue) {
-        console.log(badgeNumber, "=>", renderAttribute.toAttributes(devnetToolDeploy.items, renderConfig.slots));
+        console.log(badgeNumber, "=>", renderAttribute.toAttributes(Devnet.items, renderConfig.slots));
     }
     console.log("Found " + queue.length + " images in the queue");
 }
