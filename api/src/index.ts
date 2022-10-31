@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import cors from "cors";
 import getPenguins from './routes/penguins/owned';
 import getOwnedItems from './routes/items/owned';
-import { api, gateway, items, itemsDatabaseJson } from './const';
+import { api, gateway, itemsDatabase } from './const';
 import { getNetworkType } from './env';
 import throng from 'throng';
 import { APCNetworkProvider } from './classes/APCNetworkProvider';
@@ -21,7 +21,6 @@ import getPenguinsOffersStats from './routes/penguins/offersStats';
 import getExploreItems from './routes/root/exploreItems';
 import getOwnedAmount from './routes/root/ownedAmount';
 import { logErrorIfMissingItems } from './utils/dbHelper';
-import ItemsDatabase from './classes/ItemsDatabase';
 import getPenguinsStaked from './routes/staking/owned';
 import getStakingClaimable from './routes/staking/claim';
 import getGeneratedTokens from './routes/staking/generated';
@@ -51,12 +50,11 @@ function start(id: number) {
 
     app.use(limiter);
 
-    const itemsDatabase = ItemsDatabase.fromItemsDatabaseJSON(itemsDatabaseJson, items);
     const networkProvider = new APCNetworkProvider(gateway, api, itemsDatabase);
 
     logErrorIfMissingItems(networkProvider);
 
-    app.get("/owned/:bech32", async (req, res) => getOwnedAmount(req, res, networkProvider));
+    app.get("/owned/:bech32", async (req, res) => getOwnedAmount(req, res, networkProvider, itemsDatabase));
     app.get("/offers/:bech32", async (req, res) => getOffersOfAccount(req, res, networkProvider));
     app.get('/penguins/penguin/:id', (req, res) => getPenguin(req, res, networkProvider));
     app.get("/penguins/activity/:id", (req, res) => getActivity(req, res, "penguins", networkProvider));

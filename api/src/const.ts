@@ -1,6 +1,12 @@
 import { Address } from '@elrondnetwork/erdjs/out';
-import { devnetToolDeploy } from './devnet.tool-result';
 import { getNetworkType } from './env';
+import {
+    penguinsIdentifier as penguinsIdentifierDevnet,
+    customisationContractAddress as customisationContractAddressDevnet,
+    itemsDatabase as itemsDatabaseDevnet,
+    itemsIdentifier as itemsIdentifierDevnet,
+    items as itemsDevnet
+} from "@apcolony/db-marketplace/out/devnet";
 
 function getNetworkInfos() {
 
@@ -19,15 +25,15 @@ function getNetworkInfos() {
             return {
                 gateway: process.env.GATEWAY ?? "https://devnet-gateway.elrond.com",
                 api: "https://devnet-api.elrond.com",
-                penguinsIdentifier: devnetToolDeploy.penguinsIdentifier,
+                penguinsIdentifier: penguinsIdentifierDevnet,
                 penguinsCount: 5555,
-                itemsIdentifier: devnetToolDeploy.itemsIdentifier,
-                items: devnetToolDeploy.items,
-                customisationContract: Address.fromBech32(devnetToolDeploy.customizationContractAddress.bech32),
+                itemsIdentifier: itemsIdentifierDevnet,
+                customisationContract: Address.fromBech32(customisationContractAddressDevnet),
                 marketplaceContract: Address.fromBech32("erd1qqqqqqqqqqqqqpgqffweul9250tqr4vuf04zxdcpjdy82yvpv4xq4uha83"),
                 nftStakingContract: Address.fromBech32("erd1qqqqqqqqqqqqqpgqdcjdvpvncw7s8ug56rehyvl8tehk3vl368mqxa7llg"),
                 nftStakingToken: "TEST-17e1db",
-                originalTokensAmountInStakingSc: 1000000 //Todo : Find a better way to calculate tokens generated
+                originalTokensAmountInStakingSc: 1000000, //Todo : Find a better way to calculate tokens generated
+                itemsDatabase: itemsDatabaseDevnet,
             };
     }
 }
@@ -35,7 +41,6 @@ function getNetworkInfos() {
 export const penguinsCollection = getNetworkInfos().penguinsIdentifier;
 export const itemsCollection = getNetworkInfos().itemsIdentifier;
 export const allCollections = [...penguinsCollection, ...Object.values(itemsCollection)];
-export const items = getNetworkInfos().items;
 export const gateway = getNetworkInfos().gateway;
 export const api = getNetworkInfos().api;
 export const customisationContract = getNetworkInfos().customisationContract;
@@ -44,8 +49,8 @@ export const penguinsCount = getNetworkInfos().penguinsCount;
 export const nftStakingContract = getNetworkInfos().nftStakingContract;
 export const nftStakingToken = getNetworkInfos().nftStakingToken;
 export const originalTokensAmountInStakingSc = getNetworkInfos().originalTokensAmountInStakingSc;
+export const itemsDatabase = getNetworkInfos().itemsDatabase;
 
-export const itemsDatabaseJson = 'src/databases/items.json';
 export const ipfsGateway = "https://ipfs.io/ipfs/";
 
 export const getItemWebThumbnail = (id: string): string => {

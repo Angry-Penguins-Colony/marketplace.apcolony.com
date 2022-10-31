@@ -4,14 +4,14 @@ import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkPro
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { AbiRegistry, Address, AddressValue, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, StringValue, U64Value } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
-import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsCollection, items, getPenguinWebThumbnail, nftStakingContract, nftStakingToken, originalTokensAmountInStakingSc } from "../const";
-import { getItemFromAttributeName, getItemFromToken, getTokenFromItemID, isCollectionAnItem } from "../utils/dbHelper";
+import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsCollection, getPenguinWebThumbnail, nftStakingContract, nftStakingToken, originalTokensAmountInStakingSc } from "../const";
+import { isCollectionAnItem } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, getNameFromPenguinId, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
 import { BigNumber } from "bignumber.js";
 import { parseActivity, parseMarketData, parseMultiValueIdAuction, parseStakedPenguins } from "./ABIParser";
 import { toIdentifier } from "../utils/conversion";
-import ItemsDatabase from "./ItemsDatabase";
+import ItemsDatabase from "@apcolony/db-marketplace/out/ItemsDatabase";
 
 /**
  * We create this function because a lot of methods of ProxyNetworkProvider are not implemented yet.
@@ -211,11 +211,11 @@ export class APCNetworkProvider {
         }
 
         const tokens = offers
-            .map(offer => getItemFromToken(offer.collection, offer.nonce));
+            .map(offer => this.itemsDatabase.getItemFromToken(offer.collection, offer.nonce));
 
         const uniqueIds = [...new Set(tokens.map(token => token.id))];
         const uniqueTokens = uniqueIds
-            .map(id => getTokenFromItemID(id));
+            .map(id => this.itemsDatabase.getTokenFromItemID(id));
 
         const items = uniqueTokens
             .map(({ collection, nonce }) => this.itemsDatabase.getItemFromToken(collection, nonce));
@@ -315,7 +315,7 @@ export class APCNetworkProvider {
                 };
 
             case "items":
-                return getTokenFromItemID(id);
+                return this.itemsDatabase.getTokenFromItemID(id);
 
             default:
                 throw new Error("Invalid type");

@@ -1,55 +1,10 @@
+import ItemsDatabase from "@apcolony/db-marketplace/out/ItemsDatabase";
 import { IItem } from "@apcolony/marketplace-api";
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { APCNetworkProvider } from "../classes/APCNetworkProvider";
-import { items, itemsCollection, penguinsCollection, penguinsCount } from "../const";
+import { itemsCollection, itemsDatabase, penguinsCollection, penguinsCount } from "../const";
 import item from "../routes/items/item";
 import { parseAttributes, splitCollectionAndNonce } from "./string";
-
-export function getTokenFromItemID(id: string): { collection: string, nonce: number } {
-    const item = items.find(i => i.id == id);
-
-    if (!item) throw new Error("Item not found");
-
-    return splitCollectionAndNonce(item.identifier);
-}
-
-export function getItemFromToken(collection: string, nonce: number) {
-    const item = items.find(item => {
-
-        const { collection: itemCollection, nonce: itemNonce } = splitCollectionAndNonce(item.identifier);
-
-        return itemCollection == collection && itemNonce == nonce;
-    });
-
-    if (!item) throw new Error(`No item found for collection ${collection} and ${nonce}`);
-
-    return item;
-}
-
-export function getItemFromAttributeName(name: string, slot: string) {
-
-    return items
-        .find(item => item.attributeName == name && item.slot.toLowerCase() == slot.toLowerCase());
-}
-
-export function getRandomItem() {
-    const item = items[Math.floor(Math.random() * items.length)];
-
-    return item;
-}
-
-export function getRandomItems(count: number) {
-    const _items = Array.from(items);
-    const output = [];
-
-    for (let i = 0; i < count; i++) {
-        const index = Math.floor(Math.random() * _items.length);
-        output.push(_items[index]);
-        _items.splice(index, 1);
-    }
-
-    return output;
-}
 
 export function isCollectionAnItem(collection: string) {
 
@@ -78,7 +33,7 @@ export function getRandomsPenguinsIds(count: number): string[] {
 
 export async function logErrorIfMissingItems(networkProvider: APCNetworkProvider) {
 
-    const missingItems = await getMissingItems(networkProvider);
+    const missingItems = await getMissingItems(networkProvider, itemsDatabase);
 
     if (missingItems.size > 0) {
         let message = [];
@@ -99,7 +54,7 @@ export async function logErrorIfMissingItems(networkProvider: APCNetworkProvider
     }
 }
 
-async function getMissingItems(networkProvider: APCNetworkProvider) {
+async function getMissingItems(networkProvider: APCNetworkProvider, itemsDatabase: ItemsDatabase) {
     const nfts = await networkProvider.getNfts(penguinsCollection, {
         size: 10_000
     });
@@ -113,7 +68,7 @@ async function getMissingItems(networkProvider: APCNetworkProvider) {
         for (const { slot, itemName } of attributes) {
             if (itemName == "unequipped") continue;
 
-            const item = getItemFromAttributeName(itemName, slot);
+            const item = itemsDatabase.getItemFromAttributeName(itemName, slot);
 
             if (item == undefined) {
                 missingItems.set(

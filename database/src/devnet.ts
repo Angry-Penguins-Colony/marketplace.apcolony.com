@@ -9,4 +9,4 @@ export const itemsIdentifier = DeployDevnet.itemsIdentifier;
  * @deprecated please use ItemsDatabase instead
  */
 export const items = Items;
-export const customisationContractAddress = DeployDevnet.customizationContractAddress;
+export const customisationContractAddress = DeployDevnet.customizationContractAddress.bech32;

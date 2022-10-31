@@ -23,20 +23,7 @@ export function extractCIDFromIPFS(url: string): string {
     return url.substring(lastSlashIndex + 1);
 }
 
-export function removeNonceFromIdentifier(identifier: string): string {
-    const splited = identifier.split('-');
-
-    if (splited.length == 3) {
-        return splited[0] + '-' + splited[1];
-    }
-    else if (splited.length == 2) {
-        return identifier;
-    } else {
-        throw new Error(`Invalid identifier ${identifier}`);
-    }
-}
-
-
+// TODO: move to common utils (it has some tests)
 export function splitCollectionAndNonce(identifier: string) {
     const splited = identifier.split('-');
 

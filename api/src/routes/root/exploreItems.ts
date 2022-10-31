@@ -1,8 +1,8 @@
+import ItemsDatabase from '@apcolony/db-marketplace/out/ItemsDatabase';
 import { Request, Response } from 'express';
 import { APCNetworkProvider } from '../../classes/APCNetworkProvider';
-import ItemsDatabase from '../../classes/ItemsDatabase';
 import { penguinsCount } from '../../const';
-import { getRandomItems, getRandomsPenguinsIds } from '../../utils/dbHelper';
+import { getRandomsPenguinsIds } from '../../utils/dbHelper';
 import { sendSuccessfulJSON } from '../../utils/response';
 
 export default async function getExploreItems(req: Request, res: Response, networkProvider: APCNetworkProvider, itemsDatabase: ItemsDatabase) {
@@ -10,7 +10,7 @@ export default async function getExploreItems(req: Request, res: Response, netwo
     const RANDOM_ITEMS_COUNT = 5;
     const RANDOM_PENGUINS_COUNT = 5;
 
-    const items = await Promise.all(getRandomItems(RANDOM_ITEMS_COUNT)
+    const items = await Promise.all(itemsDatabase.getRandomItems(RANDOM_ITEMS_COUNT)
         .map(async ({ id }) => itemsDatabase.getItemFromId(id)));
 
     const penguins = await Promise.all(getRandomsPenguinsIds(penguinsCount >= RANDOM_PENGUINS_COUNT ? RANDOM_PENGUINS_COUNT : penguinsCount)

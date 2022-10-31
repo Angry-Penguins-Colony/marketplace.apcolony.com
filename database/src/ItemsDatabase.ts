@@ -100,4 +100,61 @@ export default class ItemsDatabase {
         }
         return item;
     }
+
+    public getSlotFromIdentifier(identifier: string): string {
+        const item = this.items.find(item => item.identifier == identifier);
+
+        if (!item) throw new Error(`No slot found for ${identifier}`);
+
+        return item.slot;
+    }
+
+    public getItemFromAttributeName(name: string, slot: string) {
+
+        return this.items
+            .find(item => item.attributeName == name && item.slot.toLowerCase() == slot.toLowerCase());
+    }
+
+    public getRandomItem() {
+        const item = this.items[Math.floor(Math.random() * this.items.length)];
+
+        return item;
+    }
+
+
+    public getRandomItems(count: number) {
+        const _items = Array.from(this.items);
+        const output = [];
+
+        for (let i = 0; i < count; i++) {
+            const index = Math.floor(Math.random() * _items.length);
+            output.push(_items[index]);
+            _items.splice(index, 1);
+        }
+
+        return output;
+    }
+
+    public getTokenFromItemID(id: string): { collection: string, nonce: number } {
+        const item = this.items.find(i => i.id == id);
+
+        if (!item) throw new Error("Item not found");
+        if (!item.identifier) throw new Error("Item has no identifier");
+
+        return splitCollectionAndNonce(item.identifier);
+    }
+}
+
+// TODO: move to 
+function splitCollectionAndNonce(identifier: string) {
+    const splited = identifier.split('-');
+
+    if (splited.length == 3) {
+        return {
+            collection: splited[0] + '-' + splited[1],
+            nonce: parseInt(splited[2], 16)
+        };
+    } else {
+        throw new Error(`Invalid identifier ${identifier}`);
+    }
 }
