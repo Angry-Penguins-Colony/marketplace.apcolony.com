@@ -26,6 +26,7 @@
   "homepage": "https://github.com/Angry-Penguins-Colony/sdk-marketplace-api#readme",
   "devDependencies": {
     "@types/jest": "^29.0.2",
+    "@types/mocha": "^10.0.0",
     "@types/node": "^18.11.7",
     "husky": "^8.0.1",
     "jest": "^28.1.3",
