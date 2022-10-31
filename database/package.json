@@ -1,0 +1,20 @@
+{
+  "name": "@apcolony/db-marketplace",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.26.0",
+    "typescript": "^4.8.4"
+  },
+  "scripts": {
+    "build": "tsc",
+    "postinstall": "npm run build"
+  },
+  "dependencies": {
+    "@apcolony/marketplace-api": "file:../api-types"
+  }
+}
