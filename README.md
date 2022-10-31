@@ -1,16 +1,11 @@
-# How to install ?
+# This repo use Lerna
 
-## 1. Install dependencies
-
-Install requirements for the setup tools:
+You can use this to show graph: 
 ```
-npm install --global del-cli
+npx nx graph
 ```
 
-Then, run it
-```
-./setup.py --install-deps
-```
+
 
 # Misc
 
