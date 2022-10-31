@@ -9,6 +9,9 @@
         "skipLibCheck": true,
         "declaration": true,
         "outDir": "out",
+        "types": [
+            "node"
+        ]
     },
     "includes": [
         "src/**/*"
