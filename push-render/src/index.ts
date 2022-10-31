@@ -37,8 +37,8 @@ async function main() {
         minTime: minTime
     });
 
-    const readGateway = new ReadGateway(config.gatewayUrl, config.customisationContract, gatewayLimiter);
-    const writeGateway = new WriteGateway(config.gatewayUrl, envVariables.senderAddress, envVariables.signer, gatewayLimiter);
+    const readGateway = new ReadGateway(config.gatewayUrl, config.customisationContract, gatewayLimiter, config.itemsDatabase);
+    const writeGateway = new WriteGateway(config.gatewayUrl, envVariables.senderAddress, envVariables.signer, gatewayLimiter, config.itemsDatabase);
     const customisationSC = new SmartContract({ address: config.customisationContract });
     const pinata = new PinataPin(envVariables.pinataApiKey, envVariables.pinataApiSecret, "pin_folder");
     const imagesDownloader = new ImagesDownloader();

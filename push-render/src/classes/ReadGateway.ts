@@ -4,24 +4,26 @@ import { IAddress, ISmartContract, SmartContract } from "@elrondnetwork/erdjs/ou
 import { ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import RenderAttributes from "@apcolony/renderer/dist/classes/RenderAttributes";
 import BigNumber from "bignumber.js";
-import { devnetToolDeploy } from "../devnet.tool-result";
-
+import ItemsDatabase from "@apcolony/db-marketplace/out/ItemsDatabase";
 
 export default class ReadGateway {
 
     private readonly _customisationContract: ISmartContract;
     private readonly _gateway: ProxyNetworkProvider;
     private readonly _requestLimiter: Bottleneck;
+    private readonly _itemsDatabase: ItemsDatabase;
 
 
     constructor(
         gatewayUrl: string,
         customisationContractAddress: IAddress,
-        requestLimiter: Bottleneck
+        requestLimiter: Bottleneck,
+        itemsDatabase: ItemsDatabase
     ) {
         this._gateway = new ProxyNetworkProvider(gatewayUrl);
         this._customisationContract = new SmartContract({ address: customisationContractAddress });
         this._requestLimiter = requestLimiter;
+        this._itemsDatabase = itemsDatabase;
     }
 
 
@@ -47,7 +49,7 @@ export default class ReadGateway {
             const name = Buffer.from(rawAttributes[i + 1], "base64").toString();
             const badgeNumber = parseInt(name.slice(name.lastIndexOf("#") + 1));
 
-            const renderAttribute = RenderAttributes.fromAttributes(attributes, badgeNumber, devnetToolDeploy.items)
+            const renderAttribute = RenderAttributes.fromAttributes(attributes, badgeNumber, this._itemsDatabase.items)
             renderAttributes.push(
                 {
                     renderAttribute,

@@ -8,8 +8,8 @@ import { UrisKvp } from "../structs/CIDKvp";
 import BigNumber from "bignumber.js";
 import colors from "colors";
 import Bottleneck from "bottleneck";
-import { devnetToolDeploy } from "../devnet.tool-result";
 import { renderConfig } from "@apcolony/renderer";
+import ItemsDatabase from "@apcolony/db-marketplace/out/ItemsDatabase";
 
 enum SyncState {
     Not,
@@ -28,6 +28,7 @@ export default class WriteGateway {
     private readonly _networkProvider: INetworkProvider
     private readonly _signer: ISigner;
     private readonly _requestLimiter: Bottleneck;
+    private readonly _itemsDatabase: ItemsDatabase;
 
     private get nonce(): number {
         if (!this._opt_nonce) {
@@ -49,13 +50,14 @@ export default class WriteGateway {
         return this._senderAddress;
     }
 
-    constructor(gatewayUrl: string, senderAddress: IAddress, signer: ISigner, requestLimiter: Bottleneck) {
+    constructor(gatewayUrl: string, senderAddress: IAddress, signer: ISigner, requestLimiter: Bottleneck, itemsDatabase: ItemsDatabase) {
         this._networkProvider = new ProxyNetworkProvider(gatewayUrl, {
             timeout: 60000
         });
         this._senderAddress = senderAddress;
         this._signer = signer;
         this._requestLimiter = requestLimiter;
+        this._itemsDatabase = itemsDatabase;
     }
 
     public async sync() {
@@ -105,7 +107,7 @@ export default class WriteGateway {
 
             const func = { name: "setUriOfAttributes" };
             const args = [
-                new StringValue(attributes.toAttributes(devnetToolDeploy.items, renderConfig.slots)),
+                new StringValue(attributes.toAttributes(this._itemsDatabase.items, renderConfig.slots)),
                 new U64Value(badgeNumber),
                 new StringValue(cid)
             ];
