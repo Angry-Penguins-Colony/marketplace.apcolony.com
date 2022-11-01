@@ -9,5 +9,10 @@
   },
   "dependencies": {
     "axios": "^0.18.0"
+  },
+  "scripts": {
+    "bootstrap": "npx lerna exec npm install",
+    "build": "npx lerna run build",
+    "clean": "npx lerna clean --yes"
   }
 }
