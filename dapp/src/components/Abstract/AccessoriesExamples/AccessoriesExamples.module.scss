@@ -1,8 +1,8 @@
 @import "./../../../assets/sass/var.scss";
 
 .accessories-examples{
+    height: 90vw;
     position: relative;
-    background-image: url("./../../../assets/img/bg_bronze.png");
     background-size: cover;
     background-position: center center;
     background-color: #090d26;
@@ -31,6 +31,31 @@
                 margin-top: 9px;
             }
         }
+    }
+    .reward{
+        position: absolute;
+        top:20px;
+        right:20px;
+        font-family: "Config Rounded", sans-serif;
+        color:white;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        p{
+            font-size: 1.3rem;
+            margin-top: 9px;
+        }
+        img{
+            width: 30px;
+            margin-left: 10px;
+        }
+    }
+    >img{
+        position: absolute;
+        width: 80%;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 60px;
     }
     .menu{
         position: absolute;
@@ -65,6 +90,7 @@
 // desktop
 @media (min-width: $desktop_min_width) {
     .accessories-examples{
+        height: 46vw;
         .info{
             top:60px;
             left:60px;
@@ -76,8 +102,21 @@
                 font-size: 2.8rem;
             }
         }
+        .reward{
+            top:92px;
+            right:60px;
+            p{
+                margin-top: 0;
+                font-size: 1.8rem;
+            }
+            img{
+                width: 33px;
+            }
+        }
+
         >img{
             padding-bottom: 0;
+            bottom: 140px;
         }
         .menu{
             padding-top: 5px;
