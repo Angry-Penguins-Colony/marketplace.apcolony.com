@@ -2,7 +2,6 @@ import Devnet from '@apcolony/db-marketplace/out/devnet';
 import { Address } from '@elrondnetwork/erdjs/out';
 import APCLogger, { LogType } from 'logger';
 import Explorer from 'sdk/classes/Explorer';
-import 'dotenv/config';
 
 const network = process.env.REACT_APP_DEVNET == '1' ? 'devnet' : 'mainnet';
 
