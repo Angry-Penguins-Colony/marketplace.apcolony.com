@@ -7,17 +7,24 @@ import { sendSuccessfulJSON } from '../../utils/response';
 
 export default async function getExploreItems(req: Request, res: Response, networkProvider: APCNetworkProvider, itemsDatabase: ItemsDatabase) {
 
-    const RANDOM_ITEMS_COUNT = 5;
-    const RANDOM_PENGUINS_COUNT = 5;
+    try {
 
-    const items = await Promise.all(itemsDatabase.getRandomItems(RANDOM_ITEMS_COUNT)
-        .map(async ({ id }) => itemsDatabase.getItemFromId(id)));
+        const RANDOM_ITEMS_COUNT = 5;
+        const RANDOM_PENGUINS_COUNT = 5;
 
-    const penguins = await Promise.all(getRandomsPenguinsIds(penguinsCount >= RANDOM_PENGUINS_COUNT ? RANDOM_PENGUINS_COUNT : penguinsCount)
-        .map(async (i) => networkProvider.getPenguinFromId(i)));
+        const items = await Promise.all(itemsDatabase.getRandomItems(RANDOM_ITEMS_COUNT)
+            .map(async ({ id }) => itemsDatabase.getItemFromId(id)));
 
-    sendSuccessfulJSON(res, {
-        items,
-        penguins
-    })
+        const penguins = await Promise.all(getRandomsPenguinsIds(penguinsCount >= RANDOM_PENGUINS_COUNT ? RANDOM_PENGUINS_COUNT : penguinsCount)
+            .map(async (i) => networkProvider.getPenguinFromId(i)));
+
+        sendSuccessfulJSON(res, {
+            items,
+            penguins
+        })
+    }
+    catch (e: any) {
+        console.trace(e);
+        res.status(500).send(e.toString())
+    }
 }

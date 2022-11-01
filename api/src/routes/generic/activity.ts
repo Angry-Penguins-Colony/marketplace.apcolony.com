@@ -15,6 +15,7 @@ export default async function getActivity(req: Request, res: Response, type: "it
         sendSuccessfulJSON(res, activities);
     }
     catch (e: any) {
-        res.status(400).send(e.toString())
+        console.trace(e);
+        res.status(500).send(e.toString())
     }
 }

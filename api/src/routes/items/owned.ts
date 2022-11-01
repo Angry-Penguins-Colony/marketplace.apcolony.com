@@ -5,7 +5,14 @@ import { sendSuccessfulJSON } from '../../utils/response';
 
 export default async function getOwnedItems(req: Request, res: Response, gatewayProvider: APCNetworkProvider) {
 
-    const address = new Address(req.params.bech32);
-    const items = await gatewayProvider.getItemsOfAccount(address);
-    sendSuccessfulJSON(res, items);
+    try {
+
+        const address = new Address(req.params.bech32);
+        const items = await gatewayProvider.getItemsOfAccount(address);
+        sendSuccessfulJSON(res, items);
+    }
+    catch (e: any) {
+        console.trace(e);
+        res.status(500).send(e.toString())
+    }
 }

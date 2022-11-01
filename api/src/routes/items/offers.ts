@@ -6,33 +6,40 @@ import ItemsDatabase from '@apcolony/db-marketplace/out/ItemsDatabase';
 
 export default async function getItemsOffers(req: Request, res: Response, networkProvider: APCNetworkProvider, itemsDatabase: ItemsDatabase) {
 
-    const collections = getCollections();
+    try {
 
-    if (!collections) return null;
+        const collections = getCollections();
 
-    const offers = (await networkProvider.getOffers(collections));
+        if (!collections) return null;
 
-    const response = {
-        offers: offers,
-        associatedItems: networkProvider.getItemsFromOffers(offers)
-    }
+        const offers = (await networkProvider.getOffers(collections));
 
-    sendSuccessfulJSON(res, response);
-
-    function getCollections(): string[] | null {
-        const cat = req.params.category;
-
-        if (!cat) {
-            return Object.values(itemsCollection).flat();
+        const response = {
+            offers: offers,
+            associatedItems: networkProvider.getItemsFromOffers(offers)
         }
-        else {
-            if (Object.keys(itemsCollection).includes(cat) == false) {
-                res.status(400).send("Invalid category");
-                return null;
+
+        sendSuccessfulJSON(res, response);
+
+        function getCollections(): string[] | null {
+            const cat = req.params.category;
+
+            if (!cat) {
+                return Object.values(itemsCollection).flat();
             }
+            else {
+                if (Object.keys(itemsCollection).includes(cat) == false) {
+                    res.status(400).send("Invalid category");
+                    return null;
+                }
 
-            return itemsCollection[cat as keyof typeof itemsCollection];
+                return itemsCollection[cat as keyof typeof itemsCollection];
+            }
         }
+    }
+    catch (e: any) {
+        console.trace(e);
+        res.status(500).send(e.toString())
     }
 }
 

@@ -5,10 +5,10 @@ import { sendSuccessfulJSON } from "../../utils/response";
 import { getIdFromPenguinName } from '../../utils/string';
 
 export default async function getStakingClaimable(req: Request, res: Response, proxyNetwork: APCNetworkProvider) {
-    
+
     proxyNetwork.getNftsNumberAndRewardsAvailableForStaker(req.params.bech32).then((data) => {
         sendSuccessfulJSON(res, {
-            claimable : data.value
+            claimable: data.value
         });
     }).catch((err) => {
         // console.log(err);

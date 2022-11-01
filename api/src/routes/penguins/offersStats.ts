@@ -5,7 +5,14 @@ import { sendSuccessfulJSON } from '../../utils/response';
 
 export default async function getPenguinsOffersStats(req: Request, res: Response, networkProvider: APCNetworkProvider) {
 
-    const marketData = (await networkProvider.getMarketData([penguinsCollection]));
+    try {
 
-    sendSuccessfulJSON(res, marketData);
+        const marketData = (await networkProvider.getMarketData([penguinsCollection]));
+
+        sendSuccessfulJSON(res, marketData);
+    }
+    catch (e: any) {
+        console.trace(e);
+        res.status(500).send(e.toString())
+    }
 }
