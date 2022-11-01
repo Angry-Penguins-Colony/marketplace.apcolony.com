@@ -21,12 +21,12 @@ export const renderConfig = new RenderConfig(
         itemsCID: itemsCid,
         layersOrder: [
             "background",
-            "weapon",
             "skin",
+            "eyes",
+            "weapon",
             "clothes",
             "beak",
             "hat",
-            "eyes",
         ],
         defaultLayers: {
             "background": "default-background",
