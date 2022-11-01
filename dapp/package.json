@@ -54,6 +54,9 @@
       "last 1 safari version"
     ]
   },
+  "resolutions": {
+    "@types/react": "18.0.10"
+  },
   "devDependencies": {
     "@testing-library/jest-dom": "5.16.2",
     "@testing-library/react": "12.1.2",
