@@ -17,7 +17,7 @@ type DeployedItem = {
 type ItemInDatabase = {
     id: string;
     descriptionCID?: string;
-    renderCID: string;
+    renderUrl: string;
     thumbnailCID?: string;
     name: string;
     stakePoints?: number;
@@ -37,7 +37,7 @@ export default class ItemsDatabase {
     public static fromJson(parsedItems: ItemInDatabase[], identifiers: DeployedItem[]) {
         const items: Item[] = parsedItems
             .filter(({ name }) => name != "Default")
-            .map(({ id, name, renderCID, thumbnailCID, slot, supply, attributeName }): Item => {
+            .map(({ id, name, renderUrl, thumbnailCID, slot, supply, attributeName }): Item => {
 
                 if (!id) {
                     throw new Error(`Item ${name} has no id`);
@@ -67,7 +67,7 @@ export default class ItemsDatabase {
                     slot,
                     description: "", // TODO:
                     renderUrls: {
-                        ipfs: ipfsGateway + renderCID,
+                        ipfs: renderUrl,
                         high: getRenderWebThumbnail(id),
                     },
                     supply: supply ?? -1

@@ -2,7 +2,6 @@ import Devnet from '@apcolony/db-marketplace/out/devnet';
 import { Address } from '@elrondnetwork/erdjs/out';
 import APCLogger, { LogType } from 'logger';
 import Explorer from 'sdk/classes/Explorer';
-import 'dotenv/config';
 
 const network = process.env.REACT_APP_DEVNET == '1' ? 'devnet' : 'mainnet';
 
@@ -50,7 +49,7 @@ function getNetworkInfos() {
   switch (network) {
     case 'devnet':
       return {
-        api: process.env.REACT_APP_DEVNET_API ?? 'https://apc-marketplace-api-devnet.herokuapp.com/',
+        api: process.env.REACT_APP_DEVNET_API ?? 'https://marketplace-api-devnet.onrender.com/',
         explorerUrl: 'https://devnet-explorer.elrond.com/',
         customisationContractAddress: Address.fromBech32(Devnet.customisationContractAddress),
         penguinCollection: Devnet.penguinsIdentifier,
