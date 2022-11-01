@@ -2,10 +2,7 @@
   "name": "root",
   "private": true,
   "workspaces": [
-    "packages/*",
-    "api",
-    "dapp",
-    "push-render"
+    "packages/*"
   ],
   "devDependencies": {
     "lerna": "^6.0.1"
