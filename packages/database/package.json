@@ -15,6 +15,6 @@
     "clean": "del-cli node_modules && del-cli out"
   },
   "dependencies": {
-    "api-types": "*"
+    "api-types": "file:../api-types",
   }
 }

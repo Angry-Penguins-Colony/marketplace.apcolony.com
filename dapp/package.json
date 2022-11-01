@@ -5,8 +5,8 @@
   "author": "ElrondNetwork",
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "database": "*",
-    "api-types": "*",
+    "database": "../packages/database",
+    "api-types": "../packages/dapp",
     "@elrondnetwork/dapp-core": "2.0.0-alpha.10",
     "@elrondnetwork/erdjs": "10.2.5",
     "@elrondnetwork/erdjs-network-providers": "0.1.5",
