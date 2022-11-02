@@ -54,30 +54,30 @@ function start(id: number) {
 
     logErrorIfMissingItems(networkProvider);
 
-    app.get("/owned/:bech32", async (req, res) => getOwnedAmount(req, res, networkProvider, itemsDatabase));
-    app.get("/offers/:bech32", async (req, res) => getOffersOfAccount(req, res, networkProvider));
-    app.get('/penguins/penguin/:id', (req, res) => getPenguin(req, res, networkProvider));
-    app.get("/penguins/activity/:id", (req, res) => getActivity(req, res, "penguins", networkProvider));
-    app.get("/penguins/offers", (req, res) => getPenguinsOffers(req, res, networkProvider));
-    app.get("/penguins/offers/stats", (req, res) => getPenguinsOffersStats(req, res, networkProvider));
-    app.get("/penguins/offer/:id", (req, res) => getOffer(req, res, "penguins", networkProvider));
-    app.get('/penguins/owned/:bech32', (req, res) => getPenguins(req, res, networkProvider));
+    app.get("/owned/:bech32", async (req: any, res: any) => getOwnedAmount(req, res, networkProvider, itemsDatabase));
+    app.get("/offers/:bech32", async (req: any, res: any) => getOffersOfAccount(req, res, networkProvider));
+    app.get('/penguins/penguin/:id', (req: any, res: any) => getPenguin(req, res, networkProvider));
+    app.get("/penguins/activity/:id", (req: any, res: any) => getActivity(req, res, "penguins", networkProvider));
+    app.get("/penguins/offers", (req: any, res: any) => getPenguinsOffers(req, res, networkProvider));
+    app.get("/penguins/offers/stats", (req: any, res: any) => getPenguinsOffersStats(req, res, networkProvider));
+    app.get("/penguins/offer/:id", (req: any, res: any) => getOffer(req, res, "penguins", networkProvider));
+    app.get('/penguins/owned/:bech32', (req: any, res: any) => getPenguins(req, res, networkProvider));
 
-    app.get("/items/item/:id", (req, res) => getItem(req, res, itemsDatabase)); // don't need limiter
-    app.get("/items/activity/:id", (req, res) => getActivity(req, res, "items", networkProvider));
-    app.get("/items/offers/", (req, res) => getItemsOffers(req, res, networkProvider, itemsDatabase));
-    app.get("/items/offers/:category", (req, res) => getItemsOffers(req, res, networkProvider, itemsDatabase));
-    app.get("/items/offers/:category/stats", (req, res) => getItemOffersStats(req, res, networkProvider));
-    app.get("/items/offer/:id", (req, res) => getOffer(req, res, "items", networkProvider));
-    app.get('/items/owned/:bech32', (req, res) => getOwnedItems(req, res, networkProvider));
+    app.get("/items/item/:id", (req: any, res: any) => getItem(req, res, itemsDatabase)); // don't need limiter
+    app.get("/items/activity/:id", (req: any, res: any) => getActivity(req, res, "items", networkProvider));
+    app.get("/items/offers/", (req: any, res: any) => getItemsOffers(req, res, networkProvider, itemsDatabase));
+    app.get("/items/offers/:category", (req: any, res: any) => getItemsOffers(req, res, networkProvider, itemsDatabase));
+    app.get("/items/offers/:category/stats", (req: any, res: any) => getItemOffersStats(req, res, networkProvider));
+    app.get("/items/offer/:id", (req: any, res: any) => getOffer(req, res, "items", networkProvider));
+    app.get('/items/owned/:bech32', (req: any, res: any) => getOwnedItems(req, res, networkProvider));
 
-    app.get('/staking/owned/:bech32', (req, res) => getPenguinsStaked(req, res, networkProvider));
-    app.get('/staking/claimable/:bech32', (req, res) => getStakingClaimable(req, res, networkProvider));
-    app.get('/staking/tokensGenerated/', (req, res) => getGeneratedTokens(req, res, networkProvider));
+    app.get('/staking/owned/:bech32', (req: any, res: any) => getPenguinsStaked(req, res, networkProvider));
+    app.get('/staking/claimable/:bech32', (req: any, res: any) => getStakingClaimable(req, res, networkProvider));
+    app.get('/staking/tokensGenerated/', (req: any, res: any) => getGeneratedTokens(req, res, networkProvider));
 
 
-    app.get('/attributes/:penguinId', (req, res) => getAttributes(req, res, networkProvider));
-    app.get("/exploreItems", (req, res) => getExploreItems(req, res, networkProvider, itemsDatabase));
+    app.get('/attributes/:penguinId', (req: any, res: any) => getAttributes(req, res, networkProvider));
+    app.get("/exploreItems", (req: any, res: any) => getExploreItems(req, res, networkProvider, itemsDatabase));
 
 
     app.listen(port, () => {
