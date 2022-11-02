@@ -45,7 +45,7 @@ export default function AccessoriesExamples() {
                 setAccessoryBg(AccessoryIconDiamond)
                 setAccessoryName('Duck Buoy')
                 setAccessoryIcon(AccessoryIconDiamond)
-                setAccessoryPrice('4')
+                setAccessoryPrice('5')
                 break; 
         }     
         console.log(accessoryBg);
@@ -54,15 +54,20 @@ export default function AccessoriesExamples() {
 
   return (
     <div className={style['accessories-examples']} >
+
         <img src={accessoryImg} alt="accessory" />
-        <div className={style.info}>
-            <p>Clothing Items</p>
-            <p>{accessoryName}</p>
+
+        <div className={style.top}>
+            <div className={style.info}>
+                <p>Clothing Items</p>
+                <p>{accessoryName}</p>
+            </div>
+            <div className={style.reward}>
+                <p>{accessoryPrice} APC</p>
+                <img src={accessoryIcon} alt="APC icon" />
+            </div>
         </div>
-        <div className={style.reward}>
-            <p>{accessoryPrice} APC</p>
-            <img src={accessoryIcon} alt="APC icon" />
-        </div>
+
         <div className={style.menu}>
             <p>
             Choose items rarity

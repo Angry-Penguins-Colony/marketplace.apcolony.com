@@ -3,7 +3,6 @@ import { IPenguin } from '@apcolony/marketplace-api';
 import { useGetAccountInfo, useGetPendingTransactions, useTrackTransactionStatus } from '@elrondnetwork/dapp-core/hooks';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
-import { Address } from '@elrondnetwork/erdjs/out';
 import AccessoryIconBronze from 'assets/img/accessory_icon_bronze.png';
 import AccessoryIconDiamond from 'assets/img/accessory_icon_diamond.png';
 import AccessoryIconGold from 'assets/img/accessory_icon_gold.png';
@@ -137,12 +136,14 @@ export default function Staking() {
 
       <section className={style['accessories']}>
         <div className={style.grid}>
-          <h2><span>Each accessory</span> on your penguin <br /><span>generates</span> a <span>certain amount <br />of token per day</span> when it is deposited <br />in staking.</h2>
+          <div>
+            <h2><span>Each accessory</span> on your penguin <br /><span>generates</span> a <span>certain amount <br />of token per day</span> when it is deposited <br />in staking.</h2>
+          </div>
           <div className={style['accessories-list']}>
             <AccessoriesGeneration rarity='Bronze' tokenGenerated={1} img={AccessoryIconBronze} />
             <AccessoriesGeneration rarity='Silver' tokenGenerated={2} img={AccessoryIconSilver} />
             <AccessoriesGeneration rarity='Gold' tokenGenerated={3} img={AccessoryIconGold} />
-            <AccessoriesGeneration rarity='Diamond' tokenGenerated={4} img={AccessoryIconDiamond} />
+            <AccessoriesGeneration rarity='Diamond' tokenGenerated={5} img={AccessoryIconDiamond} />
           </div>
           <div className={style['img-container']}>
             <img src={penguinAndStack} alt="Penguin on APC stack" />
