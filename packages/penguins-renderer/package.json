@@ -12,11 +12,12 @@
     "start:dev": "ts-node src/index.ts",
     "start:dev:watch": "nodemon src/index.ts",
     "lint": "eslint . --ext .ts",
-    "build": "tsc --build",
+    "build": "npm run clean:dist && tsc --build",
     "build:watch": "tsc --build --watch",
     "test": "jest",
     "test:watch": "jest --watch",
-    "clean": "del-cli node_modules && del-cli dist"
+    "clean:dist": "del-cli dist",
+    "clean": "del-cli node_modules && npm run clean:dist"
   },
   "keywords": [],
   "author": "",

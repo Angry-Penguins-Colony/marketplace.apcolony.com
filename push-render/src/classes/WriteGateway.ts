@@ -107,7 +107,7 @@ export default class WriteGateway {
 
             const func = { name: "setUriOfAttributes" };
             const args = [
-                new StringValue(attributes.toAttributes(this._itemsDatabase.items, renderConfig.slots)),
+                new StringValue(attributes.toAttributes(this._itemsDatabase, renderConfig.slots)),
                 new StringValue("Penguin #" + badgeNumber),
                 new StringValue(cid)
             ];
