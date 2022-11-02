@@ -3,6 +3,7 @@ import { IPenguin } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
+import { LOADER } from 'components/Images/ReactImageAppear/constants';
 import ItemsInventory from 'components/Inventory/ItemsInventory/ItemsInventory';
 import NavigationStakedType from 'components/Inventory/NavigationType/NavigationStakingType';
 import { penguinCollection, stakingContract } from 'config';
@@ -65,28 +66,27 @@ const StakePopup = (
         }
     }
 
- 
+    console.log(inventoryElements);
+
 
     return <Popup haveCloseButton={true} isVisible={isVisible} onCloseClicked={closeModal}  >
-        <NavigationStakedType className={style['navigation-type']} onChangeType={setInventoryType} itemsType={inventoryType} stakedPenguinsCount={stakedPenguinsCount} unstakedPenguinsCount={penguinsCount} />
-        <table className="table">
-            <tbody> 
-                {/* <Button onClick={() => stakeFunc(203)}>Stake</Button> */}
-                {inventoryElements &&
+                {penguinsStakedArray && penguinsUnstakedArray ?  
+                <>
+                    <NavigationStakedType className={style['navigation-type']} onChangeType={setInventoryType} itemsType={inventoryType} stakedPenguinsCount={stakedPenguinsCount} unstakedPenguinsCount={penguinsCount} />
                     <ItemsInventory
-                        className={style['items-inventory']}
-                        items={inventoryElements}
-                        type='penguins'
-                        amountById={ownedAmount ? ownedAmount['penguins'] : {}}
-                        hasFilter={false}
-                        displayStakingStatus={true}
-                        isStaked={inventoryType === 'staked' ? true : false}
-                        stakingFunction={stakeFunc}
-                         />
-                }
-            </tbody>
-        </table>
-    </Popup>
+                            className={style['items-inventory']}
+                            items={inventoryElements}
+                            type='penguins'
+                            amountById={ownedAmount ? ownedAmount['penguins'] : {}}
+                            hasFilter={false}
+                            displayStakingStatus={true}
+                            isStaked={inventoryType === 'staked' ? true : false}
+                            stakingFunction={stakeFunc}
+                    /> 
+                </>     
+                : 
+                <img src={LOADER} alt="loader" className={style['loader']}  />}
+     </Popup>
 }
 
 export default StakePopup;
