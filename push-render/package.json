@@ -15,7 +15,7 @@
     "log:remote": "heroku logs -a apc-devnet-push-render --tail",
     "test": "jest",
     "test:watch": "jest --watch",
-    "postinstall": "npm i del-cli -g && npm run build:deps",
+    "postinstall": "npm run build:deps",
     "build:deps": "cd ../packages/api-types && npm install && npm run build && cd ../database && npm install && npm run build && cd ../penguins-renderer && npm install && npm run build",
     "clean": "del-cli node_modules && del-cli dist"
   },

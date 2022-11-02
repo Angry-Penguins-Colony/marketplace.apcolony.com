@@ -7,7 +7,7 @@
     "start": "node --optimize_for_size --max_old_space_size=320 dist/index.js",
     "start:dev": "ts-node src/index.ts",
     "start:dev:watch": "nodemon src/index.ts",
-    "postinstall": "npm i del-cli -g && cd ../packages/api-types && npm install && npm run build && cd ../database && npm install && npm run build",
+    "postinstall": "cd ../packages/api-types && npm install && npm run build && cd ../database && npm install && npm run build",
     "test": "jest",
     "test:watch": "jest --watch",
     "build": "tsc --build",
