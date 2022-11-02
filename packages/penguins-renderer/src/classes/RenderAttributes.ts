@@ -1,5 +1,4 @@
 import { capitalize, getOccurences } from "../utils/utils";
-import ItemsDatabase from "@apcolony/db-marketplace/out/ItemsDatabase";
 
 export const ERR_BAD_FORMAT = "Bad format. Cannot parse render attributes";
 export const ERR_EMPTY_SLOT_KEY = "Bad format. Slot key is empty";
@@ -108,7 +107,7 @@ export default class RenderAttributes {
     }
 
 
-    public toAttributes(itemsDatabase: ItemsDatabase, requiredSlots: string[] = []) {
+    public toAttributes(itemsDatabase: IItem[], requiredSlots: string[] = []) {
 
         const slots = [...new Set(this.slots.concat(requiredSlots))];
         const attributes = [];
@@ -119,15 +118,15 @@ export default class RenderAttributes {
             }
             else {
                 const databaseID = this.getId(slot);
-                const attributeName = itemsDatabase.getItemFromId(databaseID).attributeName;
-                if (!attributeName) throw new Error(`Missing name for id : "${databaseID}"`);
+                const itemName = itemsDatabase.find(i => i.id == databaseID)?.name;
+                if (!itemName) throw new Error(`Missing name for id : "${databaseID}"`);
 
-                attributes.push([slot, attributeName]);
+                attributes.push([slot, itemName]);
             }
         }
 
         return attributes
-            .map(([slot, attributeName]) => capitalize(slot) + ":" + attributeName)
+            .map(([slot, itemName]) => capitalize(slot) + ":" + itemName)
             .join(";");
     }
 
