@@ -76,7 +76,8 @@ export default class CustomizePayloadBuilder {
     }
 
     gesGasLimit(): number {
-        return 60_000_000 * (this.itemsToEquip.length + this.slotsToUnequip.length + 1);
+        // return 60_000_000 * (this.itemsToEquip.length + this.slotsToUnequip.length + 1);
+        return 600_000_000;
     }
 }
 
