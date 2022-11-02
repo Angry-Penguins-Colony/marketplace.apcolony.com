@@ -6,32 +6,38 @@ import { IAttributesStatus } from '@apcolony/marketplace-api';
 
 export default async function getAttributes(req: Request, res: Response, networkProvider: APCNetworkProvider) {
 
-    const attributes = parseAttributes(req);
-    const penguinName = "Penguin #" + req.params.penguinId;
+    try {
 
-    const uri = await networkProvider.getUriOf(attributes, penguinName);
+        const attributes = parseAttributes(req);
+        const penguinName = "Penguin #" + req.params.penguinId;
 
-    if (uri) {
-        sendResponse(res, {
-            renderStatus: "rendered",
-            cid: uri
-        })
-    }
-    else {
-        const imagesToRender = await networkProvider.getAttributesToRender();
+        const uri = await networkProvider.getUriOf(attributes, penguinName);
 
-        if (imagesToRender.find(a => a.equals(attributes)) != undefined) {
+        if (uri) {
             sendResponse(res, {
-                renderStatus: "rendering",
+                renderStatus: "rendered",
+                cid: uri
             })
         }
         else {
-            sendResponse(res, {
-                renderStatus: "none",
-            })
+            const imagesToRender = await networkProvider.getAttributesToRender();
+
+            if (imagesToRender.find(a => a.equals(attributes)) != undefined) {
+                sendResponse(res, {
+                    renderStatus: "rendering",
+                })
+            }
+            else {
+                sendResponse(res, {
+                    renderStatus: "none",
+                })
+            }
         }
     }
-
+    catch (e: any) {
+        console.trace(e);
+        res.status(500).send(e.toString())
+    }
 }
 
 function sendResponse(res: Response, data: IAttributesStatus) {

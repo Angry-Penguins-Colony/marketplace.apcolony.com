@@ -5,6 +5,7 @@
   "author": "ElrondNetwork",
   "license": "GPL-3.0-or-later",
   "repository": "@apcolony/dapp-marketplace",
+  "homepage": "/",
   "dependencies": {
     "@apcolony/db-marketplace": "file:../packages/database",
     "@apcolony/marketplace-api": "file:../packages/api-types",

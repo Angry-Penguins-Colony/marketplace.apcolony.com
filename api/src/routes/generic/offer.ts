@@ -16,7 +16,8 @@ export default async function getOffer(req: Request, res: Response, type: "pengu
         sendSuccessfulJSON(res, offer);
     }
     catch (e: any) {
-        res.status(400).send(e.toString())
+        console.trace(e);
+        res.status(500).send(e.toString())
     }
 
 }
@@ -38,6 +39,7 @@ export async function getOffersOfAccount(req: Request, res: Response, networkPro
         });
     }
     catch (e: any) {
-        res.status(400).send(e.toString());
+        console.trace(e);
+        res.status(500).send(e.toString());
     }
 }

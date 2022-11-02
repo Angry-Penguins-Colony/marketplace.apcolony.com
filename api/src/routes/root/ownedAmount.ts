@@ -9,27 +9,34 @@ import { getIdFromPenguinName } from '../../utils/string';
 
 export default async function getOwnedAmount(req: Request, res: Response, networkProvider: APCNetworkProvider, itemsDatabase: ItemsDatabase): Promise<void> {
 
-    const address = new Address(req.params.bech32);
+    try {
 
-    const nfts = await networkProvider.getNftsOfAccount(address);
+        const address = new Address(req.params.bech32);
 
-    const penguinsById: Record<string, string> = {};
-    const itemsById: Record<string, string> = {};
+        const nfts = await networkProvider.getNftsOfAccount(address);
 
-    for (const nft of nfts) {
+        const penguinsById: Record<string, string> = {};
+        const itemsById: Record<string, string> = {};
 
-        if (nft.collection == penguinsCollection) {
-            const id = getIdFromPenguinName(nft.name).toString();
-            penguinsById[id] = nft.supply.toString();
+        for (const nft of nfts) {
+
+            if (nft.collection == penguinsCollection) {
+                const id = getIdFromPenguinName(nft.name).toString();
+                penguinsById[id] = nft.supply.toString();
+            }
+            else if (isCollectionAnItem(nft.collection)) {
+                const id = itemsDatabase.getItemFromToken(nft.collection, nft.nonce).id;
+                itemsById[id] = nft.supply.toString();
+            }
         }
-        else if (isCollectionAnItem(nft.collection)) {
-            const id = itemsDatabase.getItemFromToken(nft.collection, nft.nonce).id;
-            itemsById[id] = nft.supply.toString();
-        }
+
+        sendSuccessfulJSON(res, {
+            penguins: penguinsById,
+            items: itemsById,
+        })
     }
-
-    sendSuccessfulJSON(res, {
-        penguins: penguinsById,
-        items: itemsById,
-    })
+    catch (e: any) {
+        console.trace(e);
+        res.status(500).send(e.toString())
+    }
 }

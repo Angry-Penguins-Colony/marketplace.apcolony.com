@@ -4,14 +4,21 @@ import { sendSuccessfulJSON } from '../../utils/response';
 
 export default async function getItem(req: Request, res: Response, itemsDatabase: ItemsDatabase) {
 
-    const id = req.params.id;
+    try {
 
-    if (itemsDatabase.idExist(id)) {
-        let item = itemsDatabase.getItemFromId(id);
+        const id = req.params.id;
 
-        sendSuccessfulJSON(res, item);
+        if (itemsDatabase.idExist(id)) {
+            let item = itemsDatabase.getItemFromId(id);
+
+            sendSuccessfulJSON(res, item);
+        }
+        else {
+            res.status(400).send("Invalid id");
+        }
     }
-    else {
-        res.status(400).send("Invalid id");
+    catch (e: any) {
+        console.trace(e);
+        res.status(500).send(e.toString())
     }
 }

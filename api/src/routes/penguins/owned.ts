@@ -7,9 +7,16 @@ import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 
 export default async function getPenguins(req: Request, res: Response, proxyNetwork: APCNetworkProvider) {
 
-    const address = new Address(req.params.bech32);
+    try {
 
-    const penguins = await proxyNetwork.getPenguinsOfAccount(address);
+        const address = new Address(req.params.bech32);
 
-    sendSuccessfulJSON(res, penguins);
+        const penguins = await proxyNetwork.getPenguinsOfAccount(address);
+
+        sendSuccessfulJSON(res, penguins);
+    }
+    catch (e: any) {
+        console.trace(e);
+        res.status(500).send(e.toString())
+    }
 }
