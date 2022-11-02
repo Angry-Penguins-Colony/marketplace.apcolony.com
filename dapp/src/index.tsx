@@ -8,3 +8,7 @@ import './assets/sass/theme.scss';
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container as HTMLElement);
 root.render(<App />);
+
+if (!process.env.REACT_APP_GTAG) {
+    console.warn('Missing REACT_APP_GTAG environment variable. Google Analytics will not be loaded.');
+}
