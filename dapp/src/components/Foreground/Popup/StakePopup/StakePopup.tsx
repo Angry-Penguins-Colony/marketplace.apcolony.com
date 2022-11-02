@@ -66,9 +66,6 @@ const StakePopup = (
         }
     }
 
-    console.log(inventoryElements);
-
-
     return <Popup haveCloseButton={true} isVisible={isVisible} onCloseClicked={closeModal}  >
                 {penguinsStakedArray && penguinsUnstakedArray ?  
                 <>
