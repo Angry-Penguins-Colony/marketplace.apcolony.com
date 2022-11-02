@@ -17,7 +17,6 @@ import { CustomizeTransactionFilter } from './transactionsFilters/filters';
 import useGetOnNewPendingTransaction from './useGetOnTransactionPending';
 import useGetOnTransactionSuccesful from './useGetOnTransactionSuccesful';
 import usePrevious from './usePrevious';
-import ItemsDatabase from '@apcolony/db-marketplace/out/ItemsDatabase';
 
 const periodicRefreshMS = 10_000;
 
@@ -146,7 +145,7 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
                 const item = itemsDatabase.getItemFromIdentifier(identifier);
 
                 if (item) {
-                    _attributes.set(slot, item.name);
+                    _attributes.set(slot, item.attributeName);
                 }
                 else {
                     console.error(`Could not find item with identifier ${identifier}`);
