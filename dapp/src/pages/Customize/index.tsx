@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IItem, IPenguin } from '@apcolony/marketplace-api';
+import { IItem } from '@apcolony/marketplace-api';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
 import { useParams } from 'react-router-dom';
@@ -10,10 +10,8 @@ import LoadingOverlay from 'components/Foreground/LoadingOverlay';
 import RefreshIcon from 'components/Icons/RefreshIcon';
 import PopupFromBottom from 'components/Inventory/PopupFromBottom/PopupFromBottom';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import GoToAnotherPenguin from 'components/Navigation/GoToAnotherPenguin/GoToAnotherPenguin';
+import PenguinCustomizeHeader from 'components/Navigation/GoToAnotherPenguin';
 import PenguinRender from 'components/PenguinRender/PenguinRender';
-import { buildRouteLinks } from 'routes';
-import { useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
 import useCustomization from 'sdk/hooks/useCustomization';
 import useCustomizationPersistence from 'sdk/hooks/useCustomizationPersistence';
 import useItemsSelection from 'sdk/hooks/useItemsSelection';
@@ -21,15 +19,7 @@ import { isIdValid } from 'sdk/misc/guards';
 import { PenguinItemsIdentifier } from 'sdk/types/PenguinItemsIdentifier';
 import style from './index.module.scss';
 
-/**
- * We only set ownedPenguins in props, because we already get it in the ErrorWrapper.
- * It is an optimization to reduce API calls.
- */
-interface ICustomizeProps {
-    ownedPenguins: IPenguin[]
-}
-
-const Customize = ({ ownedPenguins }: ICustomizeProps) => {
+const Customize = () => {
 
     const { id } = useParams();
 
@@ -91,10 +81,6 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
     React.useEffect(() => {
         document.body.classList.add('background-image');
     }, []);
-
-    if (doUserOwnSelectedPenguin == false) {
-        window.location.href = buildRouteLinks.customize(ownedPenguins[0].id);
-    }
 
     return (
         <div id={style['body-content']}>
@@ -165,6 +151,7 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
                         </div>
 
                         <CustomizeControls
+                            doUserOwnSelectedPenguin={doUserOwnSelectedPenguin}
                             hasSomeModifications={hasSomeModifications}
                             onCustomizeClick={sendCustomizationTx}
                             onRenderClick={sendRenderImageTx}
@@ -173,10 +160,10 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
                     </>
                 }
             </section >
-            {(ownedPenguins && selectedPenguin) &&
-                <GoToAnotherPenguin className={style['another-penguins']}
-                    currentId={selectedPenguin.id}
-                    penguins={ownedPenguins}
+            {
+                (selectedPenguin) &&
+                <PenguinCustomizeHeader className={style['another-penguins']}
+                    currentPenguin={selectedPenguin}
                     subTitle={selectedPenguin?.name ?? ''}
                 />
             }
@@ -315,8 +302,6 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
 const CustomizeErrorWrapper = () => {
 
     const { id } = useParams();
-    const ownedPenguins = useGetOwnedPenguins();
-
     if (!id) throw new Error('No id provided');
 
     if (isIdValid(id, 'penguins') == false) {
@@ -325,17 +310,8 @@ const CustomizeErrorWrapper = () => {
             description="Please, select another penguin."
         />
     }
-    else if (!ownedPenguins) {
-        return <></>;
-    }
-    else if (ownedPenguins.length == 0) {
-        return <ErrorPage
-            title='No penguin'
-            description="Sorry, you don't own any penguin :("
-        />;
-    }
     else {
-        return <Customize ownedPenguins={ownedPenguins} />
+        return <Customize />
     }
 }
 
