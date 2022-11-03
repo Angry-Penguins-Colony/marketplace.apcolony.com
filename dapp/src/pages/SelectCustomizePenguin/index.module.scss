@@ -23,7 +23,7 @@
     }
 
     .items-inventory {
-        top: 38px;
+        top: 2px;
 
         .items-inventory-content {
             justify-content: center;
@@ -53,6 +53,10 @@
             font-size: 1.8rem;
 
             text-align: center;
+        }
+
+        .items-inventory {
+            top: 0px;
         }
     }
 }
