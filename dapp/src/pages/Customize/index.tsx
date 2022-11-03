@@ -136,7 +136,7 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
                         }}>
                         {attributesStatus?.renderStatus == 'rendering' &&
                             <LoadingOverlay>
-                                <h2>Rendering in progress</h2>
+                                <h2>Rendering</h2>
                                 <br />
                                 <p>We are building your new penguin thumbnail on the blockchain</p>
                                 <p>Please, wait a minute</p>
@@ -144,7 +144,7 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
                         }
 
                         {
-                            isCustomizationPending &&
+                            true &&
                             <LoadingOverlay>
                                 <h2>Customisation in progress</h2>
                                 <br />
