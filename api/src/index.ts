@@ -19,7 +19,7 @@ import getOffer, { getOffersOfAccount } from './routes/generic/offer';
 import getItemOffersStats from './routes/items/offersStats';
 import getPenguinsOffersStats from './routes/penguins/offersStats';
 import getExploreItems from './routes/root/exploreItems';
-import getOwnedAmount from './routes/root/ownedAmount';
+import getOwnedItemsAndPenguins from './routes/root/owned';
 import { logErrorIfMissingItems } from './utils/dbHelper';
 import getPenguinsStaked from './routes/staking/owned';
 import getStakingClaimable from './routes/staking/claim';
@@ -54,7 +54,7 @@ function start(id: number) {
 
     logErrorIfMissingItems(networkProvider);
 
-    app.get("/owned/:bech32", async (req: any, res: any) => getOwnedAmount(req, res, networkProvider, itemsDatabase));
+    app.get("/owned/:bech32", async (req: any, res: any) => getOwnedItemsAndPenguins(req, res, networkProvider, itemsDatabase));
     app.get("/offers/:bech32", async (req: any, res: any) => getOffersOfAccount(req, res, networkProvider));
     app.get('/penguins/penguin/:id', (req: any, res: any) => getPenguin(req, res, networkProvider));
     app.get("/penguins/activity/:id", (req: any, res: any) => getActivity(req, res, "penguins", networkProvider));

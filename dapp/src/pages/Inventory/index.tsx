@@ -30,7 +30,6 @@ const Inventory = () => {
         inventoryType,
         inventoryElements,
         inventoryOffers,
-        ownedAmount,
         penguinsCount,
         itemsCount,
         setInventoryType
@@ -116,7 +115,6 @@ const Inventory = () => {
                             items={inventoryOffers}
                             title={'In sale'}
                             type={inventoryType}
-                            amountById={{}}
                             hasFilter={false}
                         />
                     }
@@ -125,7 +123,6 @@ const Inventory = () => {
                         items={inventoryElements}
                         title={'My ' + inventoryType}
                         type={inventoryType}
-                        amountById={ownedAmount ? ownedAmount[inventoryType] : {}}
                         hasFilter={typeWithFilter.includes(inventoryType)}
                         filters={filterData} />
                 </div>

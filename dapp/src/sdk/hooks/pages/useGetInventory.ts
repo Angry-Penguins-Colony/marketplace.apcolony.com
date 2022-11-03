@@ -3,20 +3,17 @@ import { IGenericElement } from '@apcolony/marketplace-api';
 import { Address } from '@elrondnetwork/erdjs/out';
 import CategoriesType from 'sdk/types/CategoriesType';
 import useGetOffersOfAccount from '../api/useGetOffersOfAccount';
-import { useGetOwnedItems, useGetOwnedPenguins } from '../api/useGetOwned';
 import useGetUserOwnedAmount from '../api/useGetUserOwnedAmount';
 
 function useGetInventory(walletAddress: string) {
-    const [inventoryElements, setElements] = React.useState<IGenericElement[] | undefined>(undefined);
+    const [inventoryElements, setInventoryElements] = React.useState<IGenericElement[] | undefined>(undefined);
     const [inventoryType, setInventoryType] = React.useState<CategoriesType>('penguins');
     const [inventoryOffers, setInventoryOffers] = React.useState<IGenericElement[] | undefined>(undefined);
 
-    const ownedAmount = useGetUserOwnedAmount();
-    const penguins = useGetOwnedPenguins({ overrideAddress: Address.fromBech32(walletAddress) });
-    const items = useGetOwnedItems({ overrideAddress: Address.fromBech32(walletAddress) });
+    const owned = useGetUserOwnedAmount();
+    const penguins = owned?.penguins;
+    const items = owned?.items;
     const { data: offersOfAccount } = useGetOffersOfAccount(Address.fromBech32(walletAddress));
-
-    console.log(offersOfAccount);
 
     React.useEffect(() => {
         updateInventory();
@@ -26,7 +23,6 @@ function useGetInventory(walletAddress: string) {
         inventoryElements,
         inventoryType,
         inventoryOffers,
-        ownedAmount,
         penguinsCount: penguins?.length,
         itemsCount: items?.length,
         setInventoryType
@@ -35,13 +31,13 @@ function useGetInventory(walletAddress: string) {
     function updateInventory() {
         switch (inventoryType) {
             case 'items':
-                setElements(items);
+                setInventoryElements(items);
                 setInventoryOffers(offersOfAccount?.associatedItems);
                 break;
 
             case 'penguins':
             default:
-                setElements(penguins);
+                setInventoryElements(penguins);
                 setInventoryOffers(offersOfAccount?.associatedPenguins);
                 break;
         }

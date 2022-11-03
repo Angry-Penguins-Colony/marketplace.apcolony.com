@@ -41,6 +41,10 @@ export interface IItem extends IGenericElement {
     supply: number;
 }
 
+export interface IOwnedItem extends IItem {
+    ownedAmount: number;
+}
+
 export interface IPenguin extends IGenericElement {
 
     equippedItems: { [key: string]: IItem; },

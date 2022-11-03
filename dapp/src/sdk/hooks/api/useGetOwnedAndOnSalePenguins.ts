@@ -5,6 +5,7 @@ import useGetOffersOfCategory from './useGetOffersOfCategory';
 import { useGetOwnedPenguins } from './useGetOwned';
 
 export function useGetOwnedAndOnSalePenguins(overrideAddress?: Address): IPenguin[] | undefined {
+    console.warn('deprecated use /owned/sales/:bech32 route instead');
     const ownedPenguins = useGetOwnedPenguins({
         overrideAddress: overrideAddress,
     });

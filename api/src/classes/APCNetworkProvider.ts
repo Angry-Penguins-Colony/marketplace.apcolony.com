@@ -1,10 +1,10 @@
-import { IActivity, IAddress, IItem, IMarketData, IOffer, IPenguin } from "@apcolony/marketplace-api";
+import { IActivity, IAddress, IItem, IMarketData, IOffer, IOwnedItem, IPenguin } from "@apcolony/marketplace-api";
 import { Attributes } from "@apcolony/marketplace-api/out/classes";
 import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { AbiRegistry, Address, AddressValue, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, StringValue, U64Value } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
-import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsCollection, getPenguinWebThumbnail, nftStakingContract, nftStakingToken, originalTokensAmountInStakingSc } from "../const";
+import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsCollection, getPenguinWebThumbnail, nftStakingContract, nftStakingToken, originalTokensAmountInStakingSc, allCollections } from "../const";
 import { isCollectionAnItem } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, getNameFromPenguinId, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
@@ -87,12 +87,43 @@ export class APCNetworkProvider {
 
         // set size as lower improve perf, so 1_000 (250 items, 750 penguins) is okay
         const size = 1_000;
+        const url = `accounts/${address.bech32()}/nfts?size=${size}&collections=${collections.join(",")}`;
+
         // we are using the api, while we would use the gateway, because the API handle when the account is empty (and so not founded by the gateway)
-        const response = await this.apiProvider.doGetGeneric(`accounts/${address.bech32()}/nfts?size=${size}&collections=${collections.join(",")}`);
+        const response = await this.apiProvider.doGetGeneric(url);
         this.apiRequestsMonitor.increment();
 
         return response
             .map((item: any) => APCNft.fromApiHttpResponse({ owner: address.bech32(), ...item }));
+    }
+
+    public async getOwnedItemsAndPenguins(address: IAddress) {
+        console.log(allCollections);
+        const nfts = await this.getNftsOfAccount(address, allCollections);
+
+        const penguins: IPenguin[] = [];
+        const items: IOwnedItem[] = [];
+
+        for (const nft of nfts) {
+
+            if (nft.collection == penguinsCollection) {
+                penguins.push(this.getPenguinFromNft(nft));
+            }
+            else {
+
+                const item: IOwnedItem = {
+                    ownedAmount: nft.supply.toNumber(),
+                    ...this.itemsDatabase.getItemFromToken(nft.collection, nft.nonce)
+                };
+
+                items.push(item);
+            }
+        }
+
+        return {
+            penguins,
+            items
+        }
     }
 
     public async getPenguinsOfAccount(address: IAddress): Promise<IPenguin[]> {

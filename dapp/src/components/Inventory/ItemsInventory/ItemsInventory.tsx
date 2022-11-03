@@ -9,18 +9,21 @@ import CategoriesType from 'sdk/types/CategoriesType';
 import Filters from '../../../sdk/types/Filters';
 import style from './ItemsInventory.module.scss';
 
+interface IGenericElementOwned extends IGenericElement {
+    ownedAmount?: number;
+}
+
 interface IProps {
     className?: string,
-    items?: IGenericElement[],
-    amountById: Record<string, number>,
+    items?: IGenericElementOwned[],
     type: CategoriesType,
     hasFilter: boolean,
     filters?: Filters,
     title?: string,
-    makeItemComponent?: (item: IGenericElement, key: React.Key) => JSX.Element,
+    makeItemComponent?: (item: IGenericElementOwned, key: React.Key) => JSX.Element,
     displayStakingStatus?: boolean,
     isStaked?: boolean,
-    stakingFunction?: (type:string, itemNonce: number) => void
+    stakingFunction?: (type: string, itemNonce: number) => void
 }
 
 const ItemsInventory = ({
@@ -29,16 +32,12 @@ const ItemsInventory = ({
     type,
     title,
     hasFilter,
-    amountById,
     makeItemComponent = (item, key) => {
         return (
             <div className={style['item-wrapper']} key={key}>
                 <Item
                     key={item.id}
-                    item={{
-                        amount: amountById[item.id],
-                        ...item
-                    }}
+                    item={item}
                     type={type} />
                 {displayStakingStatus && stakingFunction &&
                     <Button onClick={() => stakingFunction(isStaked ? 'unstake' : 'stake', item.nonce)}>
@@ -94,7 +93,7 @@ export default ItemsInventory;
 interface IItemProps {
     item: {
         name: string,
-        amount: number,
+        ownedAmount?: number,
         thumbnailUrls: {
             small: string;
         },
@@ -115,8 +114,8 @@ const Item = ({
             <div className={style.item}>
                 <ReactImageAppear src={item.thumbnailUrls.small} />
                 <div className={style.name}>{item.name}</div>
-                {(item.amount && type == 'items') &&
-                    <div className={style.count}>{item.amount}</div>
+                {(item.ownedAmount && type == 'items') &&
+                    <div className={style.count}>{item.ownedAmount}</div>
                 }
 
                 {children}
