@@ -19,6 +19,7 @@
         top:20px;
         left:0px;
         display: flex;
+        align-items: start;
         justify-content: space-between;
         width: 100%;
         padding: 0 20px;
@@ -46,7 +47,6 @@
             p{
                 white-space: nowrap;
                 font-size: 1.3rem;
-                margin-top: 9px;
             }
             img{
                 width: 30px;
@@ -112,6 +112,7 @@
                 }
             }
             .reward{
+                padding-top: 32px;
                 p{
                     margin-top: 0;
                     font-size: 1.8rem;
