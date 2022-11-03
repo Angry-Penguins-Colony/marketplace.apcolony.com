@@ -20,33 +20,33 @@ import StakePopup from 'components/Foreground/Popup/StakePopup/StakePopup';
 import { GenericItemExplorer } from 'components/Navigation/GenericItemExplorer';
 import { stakingContract } from 'config';
 import { buildRouteLinks } from 'routes';
-import {useGetStakingClaimable, useGetPenguinsStaked, useGetTokensGenerated, useGetPenguinsUnstaked} from 'sdk/hooks/api/useGetStaking';
+import { useGetStakingClaimable, useGetPenguinsStaked, useGetTokensGenerated, useGetPenguinsUnstaked } from 'sdk/hooks/api/useGetStaking';
 import ClaimTransactioNBuilder from 'sdk/transactionsBuilders/staking/ClaimTransactionBuilder';
 import style from './index.module.scss';
 
 
 export default function Staking() {
-  const { address : connectedAddress } = useGetAccountInfo();
+  const { address: connectedAddress } = useGetAccountInfo();
   const [isStakePopupVisible, setIsStakePopupVisible] = React.useState(false);
 
-  const {data: stakingClaimable, forceReload: reloadStakingClaimable } = useGetStakingClaimable(connectedAddress); 
+  const { data: stakingClaimable, forceReload: reloadStakingClaimable } = useGetStakingClaimable(connectedAddress);
   const stakingClaimableData = stakingClaimable as any;
 
-  const {data: penguinsStaked, forceReload: reloadPenguinsStaked }  = useGetPenguinsStaked(connectedAddress);  
-  const {data : penguinsUnstaked, forceReload: reloadPenguinsUnstaked }  = useGetPenguinsUnstaked(connectedAddress);
+  const { data: penguinsStaked, forceReload: reloadPenguinsStaked } = useGetPenguinsStaked(connectedAddress);
+  const { data: penguinsUnstaked, forceReload: reloadPenguinsUnstaked } = useGetPenguinsUnstaked(connectedAddress);
   const penguinsStakedArray = penguinsStaked as Array<IPenguin> | undefined;
   const penguinsUnstakedArray = penguinsUnstaked as Array<IPenguin> | undefined;
-  
+
   const penguinsStakedCount = penguinsStakedArray != undefined ? penguinsStakedArray.length : 0;
-  const {data: tokensGeneratedByTheColony, forceReload: reloadTokensGeneratedByTheColony } = useGetTokensGenerated();
-  const tokensGeneratedByTheColonyData = tokensGeneratedByTheColony as any;   
-  
+  const { data: tokensGeneratedByTheColony, forceReload: reloadTokensGeneratedByTheColony } = useGetTokensGenerated();
+  const tokensGeneratedByTheColonyData = tokensGeneratedByTheColony as any;
+
 
 
   const [transactionSessionId, setTransactionSessionId] = React.useState<string | null>(null);
 
   const { pendingTransactionsArray, hasPendingTransactions } =
-  useGetPendingTransactions();
+    useGetPendingTransactions();
 
   useEffect(() => { //Web wallet support for handling reloads after a transaction
     if (hasPendingTransactions) {
@@ -57,35 +57,35 @@ export default function Staking() {
 
   const transactionStatus = useTrackTransactionStatus({
     transactionId: transactionSessionId,
-    onSuccess: async () => {     
+    onSuccess: async () => {
       reloadPenguinsStaked();
       reloadPenguinsUnstaked();
       reloadStakingClaimable();
       reloadTokensGeneratedByTheColony();
     }
   });
- 
+
   const claimFunc = async () => {
     const claim = new ClaimTransactioNBuilder();
     claim.setStakingContract(stakingContract);
     const transaction = claim.build();
 
-    await refreshAccount();        
+    await refreshAccount();
 
     const { sessionId } = await sendTransactions({
-        transactions: transaction,
-        transactionDisplayInfo: {
-            processingMessage: 'Staking...',
-            errorMessage: 'An error has occured during staking.',
-            successMessage: 'Penguin staked successfully.',
-        },
-        redirectAfterSign: false
+      transactions: transaction,
+      transactionDisplayInfo: {
+        processingMessage: 'Staking...',
+        errorMessage: 'An error has occured during staking.',
+        successMessage: 'Penguin staked successfully.',
+      },
+      redirectAfterSign: false
     });
 
     if (sessionId != null) {
       setTransactionSessionId(sessionId);
     }
-}
+  }
 
   return (
     <div id={style.launchpadVente}>
@@ -102,7 +102,7 @@ export default function Staking() {
         <div className={style['claim']} >
           <img src={apCoinRewardsImg} alt="$ICE coin" />
           <h2>REWARD TO CLAIM</h2>
-          <span>{stakingClaimableData == undefined ? 0 : stakingClaimableData.claimable } $ICE</span>
+          <span>{stakingClaimableData == undefined ? 0 : stakingClaimableData.claimable} $ICE</span>
           <Button className={style.button} type='primary' onClick={() => claimFunc()}>CLAIM REWARDS</Button>
           <a href="">More infos <span>i</span></a>
         </div>
@@ -120,7 +120,7 @@ export default function Staking() {
             <p>You have <span>{penguinsStakedArray.length}</span> angry penguins staked.</p>
             <div className={style.content}>
               {
-                penguinsStakedArray.map((item : any) => (
+                penguinsStakedArray.map((item: any) => (
                   <GenericItemExplorer
                     key={item.id}
                     thumbnail={item.thumbnailUrls.high}
@@ -168,7 +168,7 @@ export default function Staking() {
 
       </section>
 
-      <StakePopup isVisible={isStakePopupVisible} closeModal={() => setIsStakePopupVisible(false)} setTransactionSessionId={setTransactionSessionId} penguinsStakedArray={penguinsStakedArray} penguinsUnstakedArray={penguinsUnstakedArray}  />
+      <StakePopup isVisible={isStakePopupVisible} closeModal={() => setIsStakePopupVisible(false)} setTransactionSessionId={setTransactionSessionId} penguinsStakedArray={penguinsStakedArray} penguinsUnstakedArray={penguinsUnstakedArray} />
     </div>
 
   )

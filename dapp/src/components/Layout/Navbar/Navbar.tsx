@@ -58,7 +58,7 @@ const Navbar = () => {
     },
     {
       name: 'Customize',
-      route: buildRouteLinks.customize(1),
+      route: routeNames.customizeInventory,
       icon: <LabIcon />,
       className: style.labIcon,
       visibleIfConnected: true,

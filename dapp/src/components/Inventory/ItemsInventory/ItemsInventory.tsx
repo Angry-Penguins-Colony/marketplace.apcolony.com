@@ -20,7 +20,10 @@ interface IProps {
     hasFilter: boolean,
     filters?: Filters,
     title?: string,
+    buildLink?: (item: IGenericElementOwned) => string,
     makeItemComponent?: (item: IGenericElementOwned, key: React.Key) => JSX.Element,
+
+
     displayStakingStatus?: boolean,
     isStaked?: boolean,
     stakingFunction?: (type: string, itemNonce: number) => void
@@ -38,7 +41,8 @@ const ItemsInventory = ({
                 <Item
                     key={item.id}
                     item={item}
-                    type={type} />
+                    type={type}
+                    link={buildLink(item)} />
                 {displayStakingStatus && stakingFunction &&
                     <Button onClick={() => stakingFunction(isStaked ? 'unstake' : 'stake', item.nonce)}>
                         {isStaked ? 'Unstake' : 'Stake'}
@@ -49,7 +53,8 @@ const ItemsInventory = ({
     },
     displayStakingStatus = false,
     isStaked,
-    stakingFunction
+    stakingFunction,
+    buildLink = (item) => buildRouteLinks.inspect(type, item.id)
 }: IProps) => {
     return (
         <div className={style['all-items'] + ' ' + className + ' ' + style[type] + (hasFilter ? ' ' + style['has-filter'] : '')}>
@@ -91,26 +96,22 @@ const ItemsInventory = ({
 export default ItemsInventory;
 
 interface IItemProps {
-    item: {
-        name: string,
-        ownedAmount?: number,
-        thumbnailUrls: {
-            small: string;
-        },
-        id: string
-    },
+    item: IGenericElementOwned,
     type: CategoriesType,
-    children?: React.ReactNode
+    children?: React.ReactNode,
+    link: string,
 }
 
 const Item = ({
     item,
     type,
-    children
+    children,
+    link
 }: IItemProps) => {
 
+
     return (
-        <Link to={buildRouteLinks.inspect(type, item.id)}>
+        <Link to={link}>
             <div className={style.item}>
                 <ReactImageAppear src={item.thumbnailUrls.small} />
                 <div className={style.name}>{item.name}</div>
