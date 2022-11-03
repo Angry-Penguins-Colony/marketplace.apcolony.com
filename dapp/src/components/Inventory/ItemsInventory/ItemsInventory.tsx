@@ -15,6 +15,7 @@ interface IGenericElementOwned extends IGenericElement {
 
 interface IProps {
     className?: string,
+    contentClassName?: string,
     items?: IGenericElementOwned[],
     type: CategoriesType,
     hasFilter: boolean,
@@ -31,6 +32,7 @@ interface IProps {
 
 const ItemsInventory = ({
     className = '',
+    contentClassName = '',
     items,
     type,
     title,
@@ -61,7 +63,7 @@ const ItemsInventory = ({
             {title &&
                 <h2>{title}</h2>
             }
-            <div className={style.content}>
+            <div className={style.content + ' ' + contentClassName}>
                 {fillContent()}
             </div>
         </div>

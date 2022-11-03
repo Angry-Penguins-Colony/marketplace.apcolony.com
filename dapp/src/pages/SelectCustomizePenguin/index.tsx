@@ -24,6 +24,7 @@ const SelectCustomizePenguin = () => {
 
             <ItemsInventory
                 className={style['items-inventory']}
+                contentClassName={style['items-inventory-content']}
                 items={penguins}
                 type='penguins'
                 hasFilter={false}

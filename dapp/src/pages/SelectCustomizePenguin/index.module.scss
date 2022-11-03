@@ -24,6 +24,10 @@
 
     .items-inventory {
         top: 38px;
+
+        .items-inventory-content {
+            justify-content: center;
+        }
     }
 }
 
