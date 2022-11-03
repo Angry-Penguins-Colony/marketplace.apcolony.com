@@ -83,10 +83,12 @@ export class APCNetworkProvider {
         return token;
     }
 
-    public async getNftsOfAccount(address: IAddress): Promise<APCNft[]> {
+    public async getNftsOfAccount(address: IAddress, collections: string[]): Promise<APCNft[]> {
 
+        // set size as lower improve perf, so 1_000 (250 items, 750 penguins) is okay
+        const size = 1_000;
         // we are using the api, while we would use the gateway, because the API handle when the account is empty (and so not founded by the gateway)
-        const response = await this.apiProvider.doGetGeneric(`accounts/${address.bech32()}/nfts?size=10000`);
+        const response = await this.apiProvider.doGetGeneric(`accounts/${address.bech32()}/nfts?size=${size}?collections=${collections.join(",")}`);
         this.apiRequestsMonitor.increment();
 
         return response
@@ -94,10 +96,10 @@ export class APCNetworkProvider {
     }
 
     public async getPenguinsOfAccount(address: IAddress): Promise<IPenguin[]> {
-        const accountsNfts = await this.getNftsOfAccount(address);
+        const accountsNfts = await this.getNftsOfAccount(address, [penguinsCollection]);
 
         const penguinsPromises = accountsNfts
-            .filter(nft => nft.collection === penguinsCollection && !!nft.owner)
+            .filter(nft => !!nft.owner)
             .map((nft) => this.getPenguinFromNft(nft));
 
         const penguinsNfts = (await Promise.all(penguinsPromises))
@@ -108,10 +110,10 @@ export class APCNetworkProvider {
     }
 
     public async getItemsOfAccount(address: IAddress): Promise<IItem[]> {
-        const accountsNfts = await this.getNftsOfAccount(address);
+        const itemsCollections = Object.values(itemsCollection).flat();
+        const accountsNfts = await this.getNftsOfAccount(address, itemsCollections);
 
         const items = accountsNfts
-            .filter(nft => isCollectionAnItem(nft.collection))
             .map(nft => this.itemsDatabase.getItemFromToken(nft.collection, nft.nonce));
 
         return items;

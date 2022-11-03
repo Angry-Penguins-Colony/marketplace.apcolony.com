@@ -2,7 +2,7 @@ import ItemsDatabase from '@apcolony/db-marketplace/out/ItemsDatabase';
 import { Address } from '@elrondnetwork/erdjs/out';
 import { Request, Response } from 'express';
 import { APCNetworkProvider } from '../../classes/APCNetworkProvider';
-import { penguinsCollection } from '../../const';
+import { allCollections, penguinsCollection } from '../../const';
 import { isCollectionAnItem } from '../../utils/dbHelper';
 import { sendSuccessfulJSON, withTryCatch } from '../../utils/response';
 import { getIdFromPenguinName } from '../../utils/string';
@@ -14,7 +14,7 @@ export default async function getOwnedAmount(req: Request, res: Response, networ
 
         const address = new Address(req.params.bech32);
 
-        const nfts = await networkProvider.getNftsOfAccount(address);
+        const nfts = await networkProvider.getNftsOfAccount(address, allCollections);
 
         const penguinsById: Record<string, string> = {};
         const itemsById: Record<string, string> = {};

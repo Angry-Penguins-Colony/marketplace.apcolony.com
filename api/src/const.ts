@@ -34,7 +34,7 @@ function getNetworkInfos() {
 
 export const penguinsCollection = getNetworkInfos().penguinsIdentifier;
 export const itemsCollection = getNetworkInfos().itemsIdentifier;
-export const allCollections = [...penguinsCollection, ...Object.values(itemsCollection)];
+export const allCollections = [...penguinsCollection, ...Object.values(itemsCollection).flat()];
 export const gateway = getNetworkInfos().gateway;
 export const api = getNetworkInfos().api;
 export const customisationContract = getNetworkInfos().customisationContract;
