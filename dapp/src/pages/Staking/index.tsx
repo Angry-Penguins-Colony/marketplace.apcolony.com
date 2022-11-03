@@ -94,22 +94,22 @@ export default function Staking() {
         <h1>Welcome to one of the most <br /> important places of the <br /> Angry Penguins colony…</h1>
         <div className={style['cta']}>
           <p>Here is the place where you can Stake <br />your Angry Penguins and receive the colony’s token!</p>
-          <Button onClick={() => setIsStakePopupVisible(true)} className={style.button} type='primary-outline'>STAKE</Button>
+          <Button onClick={() => setIsStakePopupVisible(true)} className={style.button} type='primary-outline'>STAKE / UNSTAKE</Button>
         </div>
       </section>
 
       <section className={style['rewards']}>
         <div className={style['claim']} >
-          <img src={apCoinRewardsImg} alt="APC coin" />
+          <img src={apCoinRewardsImg} alt="$ICE coin" />
           <h2>REWARD TO CLAIM</h2>
-          <span>{stakingClaimableData == undefined ? 0 : stakingClaimableData.claimable } APC</span>
+          <span>{stakingClaimableData == undefined ? 0 : stakingClaimableData.claimable } $ICE</span>
           <Button className={style.button} type='primary' onClick={() => claimFunc()}>CLAIM REWARDS</Button>
           <a href="">More infos <span>i</span></a>
         </div>
 
         <div className={style['staked']}>
-          <img src={apcStakedImg} alt="APC staked" />
-          <h2>APC STAKED</h2>
+          <img src={apcStakedImg} alt="$ICE staked" />
+          <h2>$ICE STAKED</h2>
           <span>{penguinsStakedCount}/5555</span>
         </div>
       </section>
