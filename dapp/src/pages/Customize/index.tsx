@@ -136,7 +136,7 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
                         }}>
                         {attributesStatus?.renderStatus == 'rendering' &&
                             <LoadingOverlay>
-                                <h2>Rendering</h2>
+                                <h2 className='mt-2'>Rendering</h2>
                                 <br />
                                 <p>We are building your new penguin thumbnail on the blockchain</p>
                                 <p>Please, wait a minute</p>
@@ -144,9 +144,9 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
                         }
 
                         {
-                            true &&
+                            isCustomizationPending &&
                             <LoadingOverlay>
-                                <h2>Customisation in progress</h2>
+                                <h2 className='mt-2'>Customisation in progress</h2>
                                 <br />
                                 <p>Please, wait a minute</p>
                             </LoadingOverlay>
@@ -159,7 +159,8 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
                         {createItemButton('background', 'Background')}
                     </div>
                 </div>
-                {(editingEnabled) &&
+                {
+                    (editingEnabled) &&
                     <>
                         <div className={style.reset}>
                             <Button icon={<RefreshIcon />} onClick={resetItems}>Unequip Items</Button>

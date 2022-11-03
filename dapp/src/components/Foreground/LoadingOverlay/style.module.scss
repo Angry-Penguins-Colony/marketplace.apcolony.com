@@ -9,6 +9,14 @@
 
     border-radius: 10px !important;
 
+    h2 {
+        font-size: min(100%, 28px);
+    }
+
+    p {
+        font-size: min(100%, 14px);
+    }
+
     > div {
         position: absolute;
         left: 50%;
