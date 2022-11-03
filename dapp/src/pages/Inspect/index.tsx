@@ -19,7 +19,6 @@ import { marketplaceContractAddress } from 'config';
 import { buildRouteLinks } from 'routes';
 import Price from 'sdk/classes/Price';
 import useGetOffers from 'sdk/hooks/api/useGetOffers';
-import useGetUserOwnedAmount from 'sdk/hooks/api/useGetUserOwnedAmount';
 import useInspect from 'sdk/hooks/useInspect';
 import { isCategoryValid, isIdValid } from 'sdk/misc/guards';
 import BuyOfferTransactionBuilder from 'sdk/transactionsBuilders/buy/BuyOfferTransactionBuilder';
@@ -63,16 +62,12 @@ const Inspect = () => {
     const [isMyOffersPopupOpen, showMyOffersPopup] = React.useState(false);
     const [isOffersPopupOpen, showOffersPopup] = React.useState(false);
 
-
-    const userInventory = useGetUserOwnedAmount();
-    const itemOwnedAmount = userInventory && (userInventory[category][id] ?? 0);
-
     const ownedByConnectedWallet = (() => {
 
-        if (item == undefined || itemOwnedAmount == undefined || ownedOffers == undefined) return undefined;
+        if (item == undefined || item.ownedAmount == undefined || ownedOffers == undefined) return undefined;
 
 
-        return itemOwnedAmount > 0 || isListedByConnected;
+        return item.ownedAmount > 0 || isListedByConnected;
     })();
 
     const canBuy = category == 'items' || (category == 'penguins' && ownedByConnectedWallet == false);
@@ -120,7 +115,7 @@ const Inspect = () => {
                 {ownedByConnectedWallet == true &&
                     <div className={style.actions}>
                         {
-                            (itemOwnedAmount != undefined && itemOwnedAmount > 0) &&
+                            (item && item.ownedAmount != undefined && item.ownedAmount > 0) &&
                             <div>
                                 <Button type='normal' onClick={() => { setIsSellPopupOpen(true) }}>
                                     Sell
@@ -246,7 +241,7 @@ const Inspect = () => {
                 return <PenguinSubProperties offer={offers ? offers[0] : undefined} penguin={item as IPenguin} />
 
             case 'items':
-                return <ItemSubProperties item={item as IItem} />
+                return <ItemSubProperties ownedAmount={item.ownedAmount} supply={(item as IItem).supply} />
 
             default:
                 throw new Error('Unknown type');

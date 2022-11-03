@@ -63,7 +63,7 @@ function start(id: number) {
     app.get("/penguins/offer/:id", (req: any, res: any) => getOffer(req, res, "penguins", networkProvider));
     app.get('/penguins/owned/:bech32', (req: any, res: any) => getPenguins(req, res, networkProvider));
 
-    app.get("/items/item/:id", (req: any, res: any) => getItem(req, res, itemsDatabase)); // don't need limiter
+    app.get("/items/item/:id", (req: any, res: any) => getItem(req, res, itemsDatabase, networkProvider));
     app.get("/items/activity/:id", (req: any, res: any) => getActivity(req, res, "items", networkProvider));
     app.get("/items/offers/", (req: any, res: any) => getItemsOffers(req, res, networkProvider, itemsDatabase));
     app.get("/items/offers/:category", (req: any, res: any) => getItemsOffers(req, res, networkProvider, itemsDatabase));

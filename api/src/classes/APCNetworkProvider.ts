@@ -20,7 +20,7 @@ import RequestsMonitor from "./RequestsMonitor";
 export class APCNetworkProvider {
 
     private readonly apiProvider: ApiNetworkProvider;
-    private readonly proxyProvider: ProxyNetworkProvider;
+    private readonly gatewayProvider: ProxyNetworkProvider;
     private readonly itemsDatabase: ItemsDatabase;
 
     private readonly apiRequestsMonitor: RequestsMonitor = new RequestsMonitor();
@@ -34,7 +34,7 @@ export class APCNetworkProvider {
     }
 
     constructor(gatewayUrl: string, apiUrl: string, itemsDatabase: ItemsDatabase) {
-        this.proxyProvider = new ProxyNetworkProvider(gatewayUrl, {
+        this.gatewayProvider = new ProxyNetworkProvider(gatewayUrl, {
             timeout: 15_000
         });
         this.apiProvider = new ApiNetworkProvider(apiUrl, {
@@ -139,6 +139,16 @@ export class APCNetworkProvider {
 
     }
 
+    public async getItemSupplyOfAccount(address: IAddress, id: string): Promise<number> {
+        const { identifier } = this.itemsDatabase.getItemFromId(id);
+
+        const url = `accounts/${address.bech32()}/nfts/${identifier}`;
+        const nft = await this.apiProvider.doGetGeneric(url);
+        this.apiRequestsMonitor.increment();
+
+        return nft.balance;
+    }
+
     public async getItemsOfAccount(address: IAddress): Promise<IItem[]> {
         const itemsCollections = Object.values(itemsCollection).flat();
         const accountsNfts = await this.getNftsOfAccount(address, itemsCollections);
@@ -159,7 +169,7 @@ export class APCNetworkProvider {
             args: [BytesValue.fromUTF8(collection), new U64Value(nonce)],
         });
 
-        const queryResponse = await this.proxyProvider.queryContract(query);
+        const queryResponse = await this.gatewayProvider.queryContract(query);
         this.gatewayRequestMonitor.increment();
         const endpointDefinition = contract.getEndpoint(contractViewName);
 
@@ -173,7 +183,7 @@ export class APCNetworkProvider {
 
     public async getUriOf(attributes: Attributes, name: string): Promise<string | undefined> {
 
-        const res = await this.proxyProvider.queryContract({
+        const res = await this.gatewayProvider.queryContract({
             address: customisationContract,
             func: "getUriOf",
             getEncodedArguments() {
@@ -194,7 +204,7 @@ export class APCNetworkProvider {
     }
 
     public async getAttributesToRender(): Promise<Attributes[]> {
-        const res = await this.proxyProvider.queryContract({
+        const res = await this.gatewayProvider.queryContract({
             address: customisationContract,
             func: "getImagesToRender",
             getEncodedArguments() {
@@ -217,7 +227,7 @@ export class APCNetworkProvider {
             args: collections.map(c => BytesValue.fromUTF8(c)),
         });
 
-        const queryResponse = await this.proxyProvider.queryContract(query);
+        const queryResponse = await this.gatewayProvider.queryContract(query);
         this.gatewayRequestMonitor.increment();
         const endpointDefinition = contract.getEndpoint(contractViewName);
         const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition);
@@ -284,7 +294,7 @@ export class APCNetworkProvider {
             args: collections.map(c => BytesValue.fromUTF8(c)),
         });
 
-        const queryResponse = await this.proxyProvider.queryContract(query);
+        const queryResponse = await this.gatewayProvider.queryContract(query);
         this.gatewayRequestMonitor.increment();
         const endpointDefinition = contract.getEndpoint(contractViewName);
         const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition);
@@ -383,7 +393,7 @@ export class APCNetworkProvider {
             args: [new AddressValue(new Address(address))],
         });
 
-        const queryResponse = await this.proxyProvider.queryContract(query);
+        const queryResponse = await this.gatewayProvider.queryContract(query);
         this.gatewayRequestMonitor.increment();
         const endpointDefinition = contract.getEndpoint(contractViewName);
         const { firstValue, returnCode }: any = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition); //TODO: Add type
@@ -404,7 +414,7 @@ export class APCNetworkProvider {
             args: [new AddressValue(new Address(address))],
         });
 
-        const queryResponse = await this.proxyProvider.queryContract(query);
+        const queryResponse = await this.gatewayProvider.queryContract(query);
         this.gatewayRequestMonitor.increment();
         const endpointDefinition = contract.getEndpoint(contractViewName);
         const { secondValue, returnCode }: any = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition); //TODO: Add type        
