@@ -98,7 +98,6 @@ export class APCNetworkProvider {
     }
 
     public async getOwnedItemsAndPenguins(address: IAddress) {
-        console.log(allCollections);
         const nfts = await this.getNftsOfAccount(address, allCollections);
 
         const penguins: IPenguin[] = [];
