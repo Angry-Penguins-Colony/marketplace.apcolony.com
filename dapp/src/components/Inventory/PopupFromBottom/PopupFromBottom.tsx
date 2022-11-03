@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IItem } from '@apcolony/marketplace-api';
+import { IItem, IOwnedItem } from '@apcolony/marketplace-api';
 import Button from 'components/Abstract/Button/Button';
 import RoundedList, { IRoundedItem } from 'components/Abstract/RoundedList/RoundedList';
 import defaultPenguinImg from './../../../assets/img/penguin_default.png';
@@ -11,7 +11,6 @@ const PopupFromBottom = (
         filterSlot,
         items,
         isOpen = false,
-        ownedItemsAmount,
         selectedItemsIdentifier: selectedItems,
         disableSelection = false,
         onItemClick = function () {
@@ -26,8 +25,7 @@ const PopupFromBottom = (
     }: {
         title: string;
         filterSlot?: string;
-        items: IItem[],
-        ownedItemsAmount: Record<string, number>,
+        items: IOwnedItem[],
         selectedItemsIdentifier: Record<string, string | undefined>,
         isOpen?: boolean;
         onItemClick?: (item: IItem) => void;
@@ -81,7 +79,7 @@ const PopupFromBottom = (
 
                             return (
                                 <SelectableItem
-                                    count={ownedItemsAmount[item.id] ?? 0}
+                                    count={item.ownedAmount}
                                     name={item.name}
                                     renderImageSrc={item.renderUrls.high}
                                     key={item.identifier}

@@ -55,7 +55,6 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
         attributesStatus,
         hasSomeModifications,
         selectedPenguin,
-        ownedItemsAmount,
         ownedAndEquippedItems,
         isCustomizationPending,
         doUserOwnSelectedPenguin
@@ -107,7 +106,6 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
                 items={ownedAndEquippedItems ?? []}
                 disableSelection={!editingEnabled}
                 selectedItemsIdentifier={selectedItemsInPopup}
-                ownedItemsAmount={ownedItemsAmount ?? {}}
                 onItemClick={onItemClick}
                 select={() => { setItemsPopupIsOpen(false); }}
                 changeType={(type) => {
