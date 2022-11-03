@@ -4,12 +4,13 @@ import { Request, Response } from 'express';
 import { APCNetworkProvider } from '../../classes/APCNetworkProvider';
 import { penguinsCollection } from '../../const';
 import { isCollectionAnItem } from '../../utils/dbHelper';
-import { sendSuccessfulJSON } from '../../utils/response';
+import { sendSuccessfulJSON, withTryCatch } from '../../utils/response';
 import { getIdFromPenguinName } from '../../utils/string';
 
 export default async function getOwnedAmount(req: Request, res: Response, networkProvider: APCNetworkProvider, itemsDatabase: ItemsDatabase): Promise<void> {
 
-    try {
+    withTryCatch(res, async () => {
+
 
         const address = new Address(req.params.bech32);
 
@@ -34,9 +35,5 @@ export default async function getOwnedAmount(req: Request, res: Response, networ
             penguins: penguinsById,
             items: itemsById,
         })
-    }
-    catch (e: any) {
-        console.trace(e);
-        res.status(500).send(e.toString())
-    }
+    });
 }

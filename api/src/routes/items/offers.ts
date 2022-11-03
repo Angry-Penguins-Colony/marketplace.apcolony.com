@@ -1,16 +1,16 @@
 import { Request, Response } from 'express';
 import { penguinsCollection, itemsCollection } from '../../const';
 import { APCNetworkProvider } from '../../classes/APCNetworkProvider';
-import { sendSuccessfulJSON } from '../../utils/response';
+import { sendSuccessfulJSON, withTryCatch } from '../../utils/response';
 import ItemsDatabase from '@apcolony/db-marketplace/out/ItemsDatabase';
 
 export default async function getItemsOffers(req: Request, res: Response, networkProvider: APCNetworkProvider, itemsDatabase: ItemsDatabase) {
 
-    try {
+    withTryCatch(res, async () => {
 
         const collections = getCollections();
 
-        if (!collections) return null;
+        if (!collections) return;
 
         const offers = (await networkProvider.getOffers(collections));
 
@@ -36,10 +36,6 @@ export default async function getItemsOffers(req: Request, res: Response, networ
                 return itemsCollection[cat as keyof typeof itemsCollection];
             }
         }
-    }
-    catch (e: any) {
-        console.trace(e);
-        res.status(500).send(e.toString())
-    }
+    });
 }
 

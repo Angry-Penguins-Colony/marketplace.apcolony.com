@@ -3,11 +3,12 @@ import { Request, Response } from 'express';
 import { APCNetworkProvider } from '../../classes/APCNetworkProvider';
 import { penguinsCount } from '../../const';
 import { getRandomsPenguinsIds } from '../../utils/dbHelper';
-import { sendSuccessfulJSON } from '../../utils/response';
+import { sendSuccessfulJSON, withTryCatch } from '../../utils/response';
 
 export default async function getExploreItems(req: Request, res: Response, networkProvider: APCNetworkProvider, itemsDatabase: ItemsDatabase) {
 
-    try {
+    withTryCatch(res, async () => {
+
 
         const RANDOM_ITEMS_COUNT = 5;
         const RANDOM_PENGUINS_COUNT = 5;
@@ -22,9 +23,5 @@ export default async function getExploreItems(req: Request, res: Response, netwo
             items,
             penguins
         })
-    }
-    catch (e: any) {
-        console.trace(e);
-        res.status(500).send(e.toString())
-    }
+    });
 }

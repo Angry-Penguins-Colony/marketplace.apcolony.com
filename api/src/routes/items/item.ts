@@ -1,10 +1,10 @@
 import ItemsDatabase from '@apcolony/db-marketplace/out/ItemsDatabase';
 import { Request, Response } from 'express';
-import { sendSuccessfulJSON } from '../../utils/response';
+import { sendSuccessfulJSON, withTryCatch } from '../../utils/response';
 
 export default async function getItem(req: Request, res: Response, itemsDatabase: ItemsDatabase) {
 
-    try {
+    withTryCatch(res, async () => {
 
         const id = req.params.id;
 
@@ -16,9 +16,5 @@ export default async function getItem(req: Request, res: Response, itemsDatabase
         else {
             res.status(400).send("Invalid id");
         }
-    }
-    catch (e: any) {
-        console.trace(e);
-        res.status(500).send(e.toString())
-    }
+    });
 }

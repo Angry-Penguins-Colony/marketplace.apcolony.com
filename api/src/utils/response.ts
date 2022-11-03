@@ -1,3 +1,4 @@
+import { FungibleTokenOfAccountOnNetwork } from '@elrondnetwork/erdjs-network-providers/out';
 import { Response } from 'express';
 
 export function sendSuccessfulJSON(response: Response, data: any) {
@@ -8,4 +9,15 @@ export function sendSuccessfulJSON(response: Response, data: any) {
             code: "successful",
             data: data
         });
+}
+
+export async function withTryCatch(response: Response, func: () => Promise<void>) {
+    try {
+        await func();
+    }
+    catch (e: any) {
+        console.trace(e);
+        response.status(500).send(e.toString())
+    }
+
 }
