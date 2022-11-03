@@ -1,22 +1,26 @@
 import React from 'react';
 import style from './style.module.scss';
 
+export type LoadingColor = 'text-dark' | 'text-light';
+
 interface IProps {
     children?: React.ReactNode;
     size?: 'normal' | 'large';
+    color?: LoadingColor;
 }
 
 const Loading = ({
     children,
-    size = 'normal'
+    size = 'normal',
+    color = 'text-dark'
 }: IProps) => {
 
     return <div className={style.loading}>
         <div>
-            <div className="spinner-border mb-2" style={getSize()} role="status">
+            <div className={'spinner-border mb-2 ' + color} style={getSize()} role="status">
                 <span className="sr-only">Loading...</span>
             </div>
-            <p>Loading...</p>
+            <p className={color}>Loading...</p>
             <br />
 
             <div>

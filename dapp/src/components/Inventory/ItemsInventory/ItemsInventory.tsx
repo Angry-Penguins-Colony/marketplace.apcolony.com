@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IGenericElement } from '@apcolony/marketplace-api';
 import { Link } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
-import Loading from 'components/Abstract/Loading';
+import Loading, { LoadingColor } from 'components/Abstract/Loading';
 import ReactImageAppear from 'components/Images/ReactImageAppear/ReactImageAppear';
 import { buildRouteLinks } from 'routes';
 import CategoriesType from 'sdk/types/CategoriesType';
@@ -23,6 +23,7 @@ interface IProps {
     title?: string,
     buildLink?: (item: IGenericElementOwned) => string,
     makeItemComponent?: (item: IGenericElementOwned, key: React.Key) => JSX.Element,
+    loadingColor?: LoadingColor,
 
 
     displayStakingStatus?: boolean,
@@ -53,6 +54,7 @@ const ItemsInventory = ({
             </div>
         )
     },
+    loadingColor,
     displayStakingStatus = false,
     isStaked,
     stakingFunction,
@@ -85,7 +87,7 @@ const ItemsInventory = ({
             }
         }
         else {
-            return <Loading size="large" />
+            return <Loading size="large" color={loadingColor} />
         }
     }
 

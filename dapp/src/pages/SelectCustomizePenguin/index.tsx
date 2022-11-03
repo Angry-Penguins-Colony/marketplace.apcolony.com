@@ -13,6 +13,7 @@ const SelectCustomizePenguin = () => {
         // add class to body element for no footer
         document.body.classList.add('no-footer');
         document.body.classList.add('no-scroll');
+        document.body.classList.add('background-image');
     }, []);
 
     return <>
@@ -29,6 +30,7 @@ const SelectCustomizePenguin = () => {
                 type='penguins'
                 hasFilter={false}
                 buildLink={(item) => buildRouteLinks.customize(item.id)}
+                loadingColor="text-light"
             />
         </div>
     </>
