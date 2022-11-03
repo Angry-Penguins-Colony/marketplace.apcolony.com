@@ -88,7 +88,7 @@ export class APCNetworkProvider {
         // set size as lower improve perf, so 1_000 (250 items, 750 penguins) is okay
         const size = 1_000;
         // we are using the api, while we would use the gateway, because the API handle when the account is empty (and so not founded by the gateway)
-        const response = await this.apiProvider.doGetGeneric(`accounts/${address.bech32()}/nfts?size=${size}?collections=${collections.join(",")}`);
+        const response = await this.apiProvider.doGetGeneric(`accounts/${address.bech32()}/nfts?size=${size}&collections=${collections.join(",")}`);
         this.apiRequestsMonitor.increment();
 
         return response
