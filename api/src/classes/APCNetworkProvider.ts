@@ -12,6 +12,7 @@ import { BigNumber } from "bignumber.js";
 import { parseActivity, parseMarketData, parseMultiValueIdAuction, parseStakedPenguins } from "./ABIParser";
 import { toIdentifier } from "../utils/conversion";
 import ItemsDatabase from "@apcolony/db-marketplace/out/ItemsDatabase";
+import RequestsMonitor from "./RequestsMonitor";
 
 /**
  * We create this function because a lot of methods of ProxyNetworkProvider are not implemented yet.
@@ -21,6 +22,16 @@ export class APCNetworkProvider {
     private readonly apiProvider: ApiNetworkProvider;
     private readonly proxyProvider: ProxyNetworkProvider;
     private readonly itemsDatabase: ItemsDatabase;
+
+    private readonly apiRequestsMonitor: RequestsMonitor = new RequestsMonitor();
+    private readonly gatewayRequestMonitor: RequestsMonitor = new RequestsMonitor();
+
+    get lastMinuteRequests() {
+        return {
+            api: this.apiRequestsMonitor.lastMinuteRequests,
+            gateway: this.gatewayRequestMonitor.lastMinuteRequests
+        };
+    }
 
     constructor(gatewayUrl: string, apiUrl: string, itemsDatabase: ItemsDatabase) {
         this.proxyProvider = new ProxyNetworkProvider(gatewayUrl, {
@@ -55,6 +66,7 @@ export class APCNetworkProvider {
         if (args.size) p.append("size", args.size.toString());
 
         const res = await this.apiProvider.doGetGeneric(`collections/${collection}/nfts?${p.toString()}`);
+        this.apiRequestsMonitor.increment();
 
         const nfts = Array.from(res)
             .map((raw: any) => APCNft.fromApiHttpResponse(raw));
@@ -65,6 +77,7 @@ export class APCNetworkProvider {
     public async getNft(collection: string, nonce: number): Promise<APCNft> {
         let nonceAsHex = new Nonce(nonce).hex();
         let response = await this.apiProvider.doGetGeneric(`nfts/${collection}-${nonceAsHex}`);
+        this.apiRequestsMonitor.increment();
         let token = APCNft.fromApiHttpResponse(response);
 
         return token;
@@ -74,6 +87,7 @@ export class APCNetworkProvider {
 
         // we are using the api, while we would use the gateway, because the API handle when the account is empty (and so not founded by the gateway)
         const response = await this.apiProvider.doGetGeneric(`accounts/${address.bech32()}/nfts?size=10000`);
+        this.apiRequestsMonitor.increment();
 
         return response
             .map((item: any) => APCNft.fromApiHttpResponse({ owner: address.bech32(), ...item }));
@@ -114,6 +128,7 @@ export class APCNetworkProvider {
         });
 
         const queryResponse = await this.proxyProvider.queryContract(query);
+        this.gatewayRequestMonitor.increment();
         const endpointDefinition = contract.getEndpoint(contractViewName);
 
         const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition);
@@ -136,6 +151,7 @@ export class APCNetworkProvider {
                 ]);
             },
         });
+        this.gatewayRequestMonitor.increment();
 
         if (res.returnCode == "user error") {
             return undefined;
@@ -153,6 +169,7 @@ export class APCNetworkProvider {
                 return []
             }
         });
+        this.gatewayRequestMonitor.increment();
 
         return res.returnData
             .map((b64: string) => Attributes.fromEndpointArgument(Buffer.from(b64, "base64").toString()));
@@ -169,6 +186,7 @@ export class APCNetworkProvider {
         });
 
         const queryResponse = await this.proxyProvider.queryContract(query);
+        this.gatewayRequestMonitor.increment();
         const endpointDefinition = contract.getEndpoint(contractViewName);
         const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition);
 
@@ -235,6 +253,7 @@ export class APCNetworkProvider {
         });
 
         const queryResponse = await this.proxyProvider.queryContract(query);
+        this.gatewayRequestMonitor.increment();
         const endpointDefinition = contract.getEndpoint(contractViewName);
         const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition);
 
@@ -333,6 +352,7 @@ export class APCNetworkProvider {
         });
 
         const queryResponse = await this.proxyProvider.queryContract(query);
+        this.gatewayRequestMonitor.increment();
         const endpointDefinition = contract.getEndpoint(contractViewName);
         const { firstValue, returnCode }: any = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition); //TODO: Add type
 
@@ -353,6 +373,7 @@ export class APCNetworkProvider {
         });
 
         const queryResponse = await this.proxyProvider.queryContract(query);
+        this.gatewayRequestMonitor.increment();
         const endpointDefinition = contract.getEndpoint(contractViewName);
         const { secondValue, returnCode }: any = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition); //TODO: Add type        
 

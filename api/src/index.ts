@@ -86,5 +86,20 @@ function start(id: number) {
         console.log(`   gateway: ${gateway}`)
     });
 
-    ProxyNetworkProvider
+    setInterval(() => logRequestsInfo(networkProvider), 1_000);
+
+}
+
+function logRequestsInfo(networkProvider: APCNetworkProvider) {
+
+    const { api, gateway } = networkProvider.lastMinuteRequests;
+
+    const message = `api [${api.averageRequestPerSeconds.toFixed(2)} req/s; ${api.lastMinuteRequests} reqs]`
+        + `- gateway [${gateway.averageRequestPerSeconds.toFixed(2)} req/s; ${gateway.lastMinuteRequests} reqs]`;
+
+    rewriteLine(message);
+}
+
+function rewriteLine(msg: string) {
+    process.stdout.write(msg + "\r");
 }
