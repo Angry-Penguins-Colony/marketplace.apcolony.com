@@ -166,6 +166,7 @@ const Inspect = () => {
             <ItemsAndActivities
                 items={(item != undefined && category == 'penguins') ? Object.values((item as IPenguin).equippedItems) : []}
                 activities={activities}
+                type={getTypeInText().singular.toLowerCase()}
                 className={style.activity} />
 
             {

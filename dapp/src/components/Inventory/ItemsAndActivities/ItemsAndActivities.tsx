@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { IActivity, IItem } from '@apcolony/marketplace-api';
-import lostPenguin from 'assets/img/lost_penguin.svg';
 import UnderlineNavElmt from 'components/Abstract/UnderlineNavElmt/UnderlineNavElmt';
 import RightArrowIcon from 'components/Icons/RightArrowIcon';
 import { explorer } from 'config';
@@ -10,11 +9,13 @@ import style from './ItemsAndActivities.module.scss';
 const ItemsAndActivities = ({
     items = [],
     activities,
-    className = ''
+    className = '',
+    type
 }: {
     items?: IItem[];
     activities?: IActivity[];
-    className?: string
+    className?: string,
+    type: string
 }) => {
     // change active tab
     enum Tab {
@@ -64,7 +65,7 @@ const ItemsAndActivities = ({
                             if (activities != undefined) {
                                 if (activities.length == 0) {
                                     return <p className="text-center">
-                                        This penguin has not been traded on this marketplace yet
+                                        This {type} has not been traded on this marketplace yet
                                     </p>
                                 }
                                 else {
