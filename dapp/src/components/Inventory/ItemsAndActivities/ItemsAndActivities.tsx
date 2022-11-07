@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { IActivity, IItem } from '@apcolony/marketplace-api';
+import lostPenguin from 'assets/img/lost_penguin.svg';
 import UnderlineNavElmt from 'components/Abstract/UnderlineNavElmt/UnderlineNavElmt';
 import RightArrowIcon from 'components/Icons/RightArrowIcon';
 import { explorer } from 'config';
@@ -62,8 +63,8 @@ const ItemsAndActivities = ({
 
                             if (activities != undefined) {
                                 if (activities.length == 0) {
-                                    return <p>
-                                        No activities
+                                    return <p className="text-center">
+                                        This penguin has not been traded on this marketplace
                                     </p>
                                 }
                                 else {
