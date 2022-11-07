@@ -41,10 +41,6 @@ const MobileMenu = (
             <footer>
                 <LoginLogoutButton type="normal" className={style.button} />
                 <hr />
-                <div className={style['privacy-policy']}>
-                    <a href='TODO: add terms'>Terms</a>
-                    <a href='TODO: add privacy'>Privacy Policy</a>
-                </div>
                 <div className={style['webdesign-by']}>
                     <span>WebDesign by</span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 153.842 8.754">
