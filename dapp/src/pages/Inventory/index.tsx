@@ -8,6 +8,7 @@ import NavigationType from 'components/Inventory/NavigationType/NavigationType';
 import NavInventory from 'components/Inventory/NavInventory/NavInventory';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import useGetInventory from 'sdk/hooks/pages/useGetInventory';
+import useAddBodyClassNames from 'sdk/hooks/useAddBodyClassNames';
 import useInventoryFilter from 'sdk/hooks/useInventoryFilter';
 import style from './index.module.scss';
 
@@ -20,11 +21,8 @@ const Inventory = () => {
 
     if (!walletAddress) throw new Error('Wallet address is required');
 
-    React.useEffect(() => {
-        // add class to body element for no footer
-        document.body.classList.add('no-footer');
-        document.body.classList.add('no-scroll');
-    }, []);
+
+    useAddBodyClassNames(['no-footer', 'no-scroll',]);
 
     const {
         inventoryType,

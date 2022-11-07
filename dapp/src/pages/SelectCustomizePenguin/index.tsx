@@ -3,18 +3,13 @@ import ItemsInventory from 'components/Inventory/ItemsInventory/ItemsInventory';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { buildRouteLinks } from 'routes';
 import { useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
+import useAddBodyClassNames from 'sdk/hooks/useAddBodyClassNames';
 import style from './index.module.scss';
 
 const SelectCustomizePenguin = () => {
 
     const penguins = useGetOwnedPenguins();
-
-    React.useEffect(() => {
-        // add class to body element for no footer
-        document.body.classList.add('no-footer');
-        document.body.classList.add('no-scroll');
-        document.body.classList.add('background-image');
-    }, []);
+    useAddBodyClassNames(['no-footer', 'no-scroll', 'background-image']);
 
     return <>
         <MobileHeader title="Select a penguin to customize" className={style['mobile-header']} />
