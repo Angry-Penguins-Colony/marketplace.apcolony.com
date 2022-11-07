@@ -10,11 +10,13 @@ const ItemsAndActivities = ({
     items = [],
     activities,
     className = '',
-    type
+    type,
+    disableActivityTab = false
 }: {
     items?: IItem[];
     activities?: IActivity[];
     className?: string,
+    disableActivityTab?: boolean
     type: string
 }) => {
     // change active tab
@@ -40,6 +42,13 @@ const ItemsAndActivities = ({
         }
     }, [items])
 
+    React.useEffect(() => {
+        if (disableActivityTab == true && activeTab == Tab.Activity) {
+            setActiveTab(Tab.Items);
+        }
+    }, [activeTab]);
+
+
     return (
         <div className={style['item-and-activity'] + ' ' + className}>
             <nav>
@@ -48,7 +57,11 @@ const ItemsAndActivities = ({
                         <UnderlineNavElmt name={'Items'} isActive={activeTab === Tab.Items} onClick={() => changeTab(Tab.Items)} />
                     )
                 }
-                <UnderlineNavElmt name={'Activity'} isActive={activeTab === Tab.Activity} onClick={() => changeTab(Tab.Activity)} />
+                {
+                    !disableActivityTab && (
+                        <UnderlineNavElmt name={'Activity'} isActive={activeTab === Tab.Activity} onClick={() => changeTab(Tab.Activity)} />
+                    )
+                }
             </nav>
             <div className={style.content}>
                 {(() => {

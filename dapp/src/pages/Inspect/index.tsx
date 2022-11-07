@@ -167,6 +167,7 @@ const Inspect = () => {
                 items={(item != undefined && category == 'penguins') ? Object.values((item as IPenguin).equippedItems) : []}
                 activities={activities}
                 type={getTypeInText().singular.toLowerCase()}
+                disableActivityTab={category == 'penguins'}
                 className={style.activity} />
 
             {
