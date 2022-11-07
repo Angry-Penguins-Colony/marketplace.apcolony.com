@@ -13,6 +13,7 @@ import { parseActivity, parseMarketData, parseMultiValueIdAuction, parseStakedPe
 import { toIdentifier } from "../utils/conversion";
 import ItemsDatabase from "@apcolony/db-marketplace/out/ItemsDatabase";
 import RequestsMonitor from "./RequestsMonitor";
+import { ErrNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out/errors";
 
 /**
  * We create this function because a lot of methods of ProxyNetworkProvider are not implemented yet.
@@ -143,7 +144,15 @@ export class APCNetworkProvider {
         const { identifier } = this.itemsDatabase.getItemFromId(id);
 
         const url = `accounts/${address.bech32()}/nfts/${identifier}`;
-        const nft = await this.apiProvider.doGetGeneric(url);
+        const nft = await this.apiProvider.doGetGeneric(url)
+            .catch((e: ErrNetworkProvider) => {
+                if (e.message.match("Token for given account not found")) {
+                    return 0;
+                }
+                else {
+                    throw e;
+                }
+            });
         this.apiRequestsMonitor.increment();
 
         return nft.balance;

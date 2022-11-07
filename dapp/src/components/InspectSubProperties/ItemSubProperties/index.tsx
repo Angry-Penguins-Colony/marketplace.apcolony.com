@@ -4,7 +4,7 @@ import SubProperties from '../SubProperties';
 
 interface Props {
     supply: number;
-    ownedAmount?: number;
+    ownedAmount: number;
 }
 
 const ItemSubProperties = ({ supply, ownedAmount }: Props) => {
@@ -16,7 +16,7 @@ const ItemSubProperties = ({ supply, ownedAmount }: Props) => {
     properties.push(`${supply} of total supply`);
 
     if (address) {
-        properties.push(`${ownedAmount ?? '--'} owned by you `);
+        properties.push(`${ownedAmount} owned by you `);
     }
 
     return <SubProperties properties={properties} />

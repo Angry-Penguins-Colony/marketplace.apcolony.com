@@ -243,7 +243,7 @@ const Inspect = () => {
                 return <PenguinSubProperties offer={offers ? offers[0] : undefined} penguin={item as IPenguin} />
 
             case 'items':
-                return <ItemSubProperties ownedAmount={item.ownedAmount} supply={(item as IItem).supply} />
+                return <ItemSubProperties ownedAmount={item.ownedAmount ?? 0} supply={(item as IItem).supply} />
 
             default:
                 throw new Error('Unknown type');
