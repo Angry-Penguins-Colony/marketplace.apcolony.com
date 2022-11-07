@@ -50,41 +50,43 @@ const ItemsAndActivities = ({
             </nav>
             <div className={style.content}>
                 {(() => {
-                    if (activeTab === Tab.Items) {
-                        return (
-                            items.map(item => (
-                                <Item key={item.id} item={item} />
-                            ))
-                        );
-                    } else if (activeTab === Tab.Activity) {
+                    switch (activeTab) {
+                        case Tab.Items:
+                            return (
+                                items.map(item => (
+                                    <Item key={item.id} item={item} />
+                                ))
+                            );
 
-                        if (activities != undefined) {
-                            if (activities.length == 0) {
-                                return <p>
-                                    No activities
-                                </p>
+                        case Tab.Activity:
+
+                            if (activities != undefined) {
+                                if (activities.length == 0) {
+                                    return <p>
+                                        No activities
+                                    </p>
+                                }
+                                else {
+                                    return (
+                                        <>
+                                            {activities.map(activity => (
+                                                <Activity key={activity.txHash} activity={activity} />
+                                            ))}
+                                        </>
+                                    );
+                                }
                             }
                             else {
-                                return (
-                                    <>
-                                        {activities.map(activity => (
-                                            <Activity key={activity.txHash} activity={activity} />
-                                        ))}
-                                    </>
-                                );
+                                return <div className="d-flex w-100 justify-content-center mt-2">
+                                    <div className="spinner-border" role="status">
+                                        <span className="sr-only">Loading...</span>
+                                    </div>
+                                </div>;
                             }
-                        }
-                        else {
-                            return <div className="d-flex w-100 justify-content-center mt-2">
-                                <div className="spinner-border" role="status">
-                                    <span className="sr-only">Loading...</span>
-                                </div>
-                            </div>;
-                        }
 
 
-                    } else {
-                        return (<></>);
+                        default:
+                            return (<></>);
                     }
                 })()}
             </div>
