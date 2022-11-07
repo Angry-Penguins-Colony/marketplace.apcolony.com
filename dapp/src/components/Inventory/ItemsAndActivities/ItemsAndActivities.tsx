@@ -64,7 +64,7 @@ const ItemsAndActivities = ({
                             if (activities != undefined) {
                                 if (activities.length == 0) {
                                     return <p className="text-center">
-                                        This penguin has not been traded on this marketplace
+                                        This penguin has not been traded on this marketplace yet
                                     </p>
                                 }
                                 else {
