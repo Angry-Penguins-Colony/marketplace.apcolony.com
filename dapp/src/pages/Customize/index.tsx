@@ -12,6 +12,7 @@ import PopupFromBottom from 'components/Inventory/PopupFromBottom/PopupFromBotto
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import PenguinCustomizeHeader from 'components/Navigation/GoToAnotherPenguin';
 import PenguinRender from 'components/PenguinRender/PenguinRender';
+import { itemsDatabase } from 'config';
 import useCustomization from 'sdk/hooks/useCustomization';
 import useCustomizationPersistence from 'sdk/hooks/useCustomizationPersistence';
 import useItemsSelection from 'sdk/hooks/useItemsSelection';
@@ -30,7 +31,7 @@ const Customize = () => {
     const {
         load,
         save
-    } = useCustomizationPersistence(id);
+    } = useCustomizationPersistence(id, itemsDatabase);
 
     const initialAttributes = load();
 
