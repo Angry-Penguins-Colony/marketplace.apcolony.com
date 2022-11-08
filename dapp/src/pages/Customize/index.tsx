@@ -85,7 +85,7 @@ const Customize = () => {
 
     return (
         <div id={style['body-content']}>
-            <MobileHeader title="Customize" subTitle={selectedPenguin?.name ?? ''} className={style['mobile-header']} />
+            <MobileHeader title="Customize" subTitle={selectedPenguin?.displayName ?? ''} className={style['mobile-header']} />
             <PopupFromBottom
                 title={itemsPopupTitle}
                 filterSlot={filterSlot}
@@ -165,7 +165,7 @@ const Customize = () => {
                 (selectedPenguin) &&
                 <PenguinCustomizeHeader className={style['another-penguins']}
                     currentPenguin={selectedPenguin}
-                    subTitle={selectedPenguin?.name ?? ''}
+                    subTitle={selectedPenguin?.displayName ?? ''}
                 />
             }
         </div >
@@ -195,7 +195,7 @@ const Customize = () => {
 
         const selectedItem = getSelectedItemInSlot(slot);
 
-        console.log('selected item for slot', slot, 'is', selectedItem?.name ?? undefined);
+        console.log('selected item for slot', slot, 'is', selectedItem?.displayName ?? undefined);
 
         if (selectedItem != undefined) {
             equipItem(slot, selectedItem);
@@ -289,7 +289,7 @@ const Customize = () => {
 
         if (item != undefined) {
 
-            if (!item.renderUrls.high) throw new Error(`Item ${item.name} in slot ${slot} has no renderCID.`);
+            if (!item.renderUrls.high) throw new Error(`Item ${item.displayName} in slot ${slot} has no renderCID.`);
 
             return item.renderUrls.high;
         }

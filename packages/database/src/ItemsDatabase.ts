@@ -32,7 +32,7 @@ export default class ItemsDatabase {
     public static fromJson(parsedItems: ItemInDatabase[], identifiers: DeployedItem[]) {
         const items: IItem[] = parsedItems
             .filter(({ name }) => name != "Default")
-            .map(({ id, renderUrl, thumbnailCID, slot, supply, attributeName }): IItem => {
+            .map(({ name, id, renderUrl, thumbnailCID, slot, supply, attributeName }): IItem => {
 
                 if (!id) {
                     throw new Error(`Item ${name} has no id`);
@@ -47,7 +47,8 @@ export default class ItemsDatabase {
                 return {
                     id,
                     type: "items",
-                    name: attributeName,
+                    displayName: name,
+                    attributeName: attributeName,
 
                     thumbnailUrls: {
                         ipfs: ipfsGateway + thumbnailCID,
@@ -83,10 +84,10 @@ export default class ItemsDatabase {
         return item;
     }
 
-    public getItemFromNameAndSlot(name: string, slot: string): IItem {
-        const item = this._items.find(item => item.name == name && item.slot == slot);
+    public getItemFromAttributeName(attributeName: string, slot: string): IItem {
+        const item = this._items.find(item => item.attributeName == attributeName && item.slot == slot);
         if (!item) {
-            throw new Error(`Unknown item ${name} for slot ${slot}`);
+            throw new Error(`Unknown item with attributeName ${attributeName} for slot ${slot}`);
         }
         return item;
     }

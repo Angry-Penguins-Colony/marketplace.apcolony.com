@@ -10,7 +10,7 @@ export const Item = ({
     }
 }: {
     item: {
-        name: string,
+        displayName: string,
         id: string,
         thumbnailUrls: {
             high: string;
@@ -23,7 +23,7 @@ export const Item = ({
     return (
         <div className={style.item + ' ' + className} onClick={onClick}>
             <div className={style.infos}>
-                <p className={style.name}>{item.name}</p>
+                <p className={style.name}>{item.displayName}</p>
                 {
                     displayId &&
                     <p className={style.id}>#{item.id}</p>
@@ -31,7 +31,7 @@ export const Item = ({
                 {/* <p className={style.rarity}>Rarity: {item.rarity}%</p> */}
             </div>
             <div className={style.thumbnail}>
-                <img src={item.thumbnailUrls.high} alt={item.name} />
+                <img src={item.thumbnailUrls.high} alt={item.displayName} />
             </div>
         </div>
     );

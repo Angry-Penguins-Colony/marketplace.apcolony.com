@@ -342,7 +342,7 @@ export class APCNetworkProvider {
         return {
             id: getIdFromPenguinName(nft.name).toString(),
             type: "penguins",
-            name: nft.name,
+            displayName: nft.name,
 
             identifier: toIdentifier(nft.collection, nft.nonce),
             collection: nft.collection,
@@ -366,7 +366,7 @@ export class APCNetworkProvider {
         for (const { slot, itemName } of attributes) {
             if (itemName == "unequipped") continue;
 
-            equippedItems[slot] = this.itemsDatabase.getItemFromNameAndSlot(itemName, slot);
+            equippedItems[slot] = this.itemsDatabase.getItemFromAttributeName(itemName, slot);
         }
 
         return equippedItems;

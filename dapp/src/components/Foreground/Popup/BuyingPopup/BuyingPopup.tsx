@@ -48,11 +48,11 @@ const BuyingPopup = (
                                 <CrossIcon className={style.icon} />
                             </div>
                                 <h2>Sell item</h2>
-                                <img src={item.thumbnailUrls.high} alt={item.name} />
+                                <img src={item.thumbnailUrls.high} alt={item.displayName} />
                                 <div className={style.infos}>
                                     <div className={style.line}>
                                         <div className={style.label}>Item</div>
-                                        <div className={style.value}>{item.name}</div>
+                                        <div className={style.value}>{item.displayName}</div>
                                     </div>
                                 </div>
                                 <SetPrice floorPrice={floorPrice} price={price} setPrice={setPrice} className={style['set-price']} />
@@ -64,7 +64,7 @@ const BuyingPopup = (
                                 <CrossIcon className={style.icon} />
                             </div>
                                 <h2>Sell</h2>
-                                <img src={item.thumbnailUrls.high} alt={item.name} />
+                                <img src={item.thumbnailUrls.high} alt={item.displayName} />
                                 <div className={style['items-attached']}>
                                     <h3>Items attached to the penguin</h3>
                                     <div className={style.content}>

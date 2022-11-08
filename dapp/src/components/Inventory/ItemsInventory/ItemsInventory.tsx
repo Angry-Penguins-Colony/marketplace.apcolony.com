@@ -123,7 +123,7 @@ const Item = ({
         <Link to={link}>
             <div className={style.item}>
                 <ReactImageAppear src={item.thumbnailUrls.small} />
-                <div className={style.name}>{item.name}</div>
+                <div className={style.name}>{item.displayName}</div>
                 {(item.ownedAmount && type == 'items') &&
                     <div className={style.count}>{item.ownedAmount}</div>
                 }

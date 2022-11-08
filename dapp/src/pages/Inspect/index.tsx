@@ -77,14 +77,14 @@ const Inspect = () => {
         <div id={style['item-in-inventory']}>
             <MobileHeader title={typeInText.plural} type='light' />
             <div className={style.thumbnail}>
-                <img src={item ? (item.thumbnailUrls.high) : ''} alt={item?.name ?? 'loading item'} />
+                <img src={item ? (item.thumbnailUrls.high) : ''} alt={item?.displayName ?? 'loading item'} />
             </div>
             <div className={style.infos}>
-                <p className={style.name}>{item?.name ?? '---'}</p>
+                <p className={style.name}>{item?.displayName ?? '---'}</p>
                 <div className={style.share} onClick={() => {
                     if (!item) return;
                     window.navigator.share({
-                        title: item.name,
+                        title: item.displayName,
                         text: 'Check out this item Angry Penguin Marketplace',
                         url: window.location.href,
                     })

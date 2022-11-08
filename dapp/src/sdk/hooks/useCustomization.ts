@@ -143,7 +143,7 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
                 const item = itemsDatabase.getItemFromIdentifier(identifier);
 
                 if (item) {
-                    _attributes.set(slot, item.name);
+                    _attributes.set(slot, item.attributeName);
                 }
                 else {
                     console.error(`Could not find item with identifier ${identifier}`);
@@ -188,7 +188,7 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
 
         const payload = new RenderPayloadBuilder()
             .setAttributes(equippedItems)
-            .setName(selectedPenguin.name)
+            .setName(selectedPenguin.displayName)
             .build();
 
         const transaction: SimpleTransactionType = {

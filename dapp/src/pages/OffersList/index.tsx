@@ -67,7 +67,7 @@ const OffersList = ({
                                 <img src={defaultPenguinImg} alt="default background of any penguin" className={style.background} />
                                 <img src={item.thumbnailUrls.high} alt="" className={style.item} />
                                 <div className={style.infos}>
-                                    <div className={style.name}>{item.name}</div>
+                                    <div className={style.name}>{item.displayName}</div>
                                     <div className={style.price}>
                                         {price} EGLD
                                     </div>

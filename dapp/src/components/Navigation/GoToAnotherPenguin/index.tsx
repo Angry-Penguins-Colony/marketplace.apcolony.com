@@ -25,7 +25,7 @@ const PenguinCustomizeHeader = (
                 <div className={style.penguins}>
 
                     <div className={style.penguin + ' ' + style.current}>
-                        <img src={currentPenguin.thumbnailUrls.small} alt={currentPenguin.name} />
+                        <img src={currentPenguin.thumbnailUrls.small} alt={currentPenguin.displayName} />
                     </div>
 
                 </div>
