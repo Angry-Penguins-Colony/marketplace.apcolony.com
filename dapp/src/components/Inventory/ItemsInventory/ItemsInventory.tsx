@@ -80,6 +80,7 @@ const ItemsInventory = ({
 
             if (matchedItems.length > 0) {
                 return matchedItems
+                    .sort(compareItems)
                     .map(item => makeItemComponent(item, item.id));
             }
             else {
@@ -98,6 +99,10 @@ const ItemsInventory = ({
 };
 
 export default ItemsInventory;
+
+function compareItems(a: IGenericElementOwned, b: IGenericElementOwned) {
+    return parseInt(a.id) - parseInt(b.id);
+}
 
 interface IItemProps {
     item: IGenericElementOwned,
