@@ -13,6 +13,7 @@ import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import PenguinCustomizeHeader from 'components/Navigation/GoToAnotherPenguin';
 import PenguinRender from 'components/PenguinRender/PenguinRender';
 import { itemsDatabase } from 'config';
+import useAddBodyClassNames from 'sdk/hooks/useAddBodyClassNames';
 import useCustomization from 'sdk/hooks/useCustomization';
 import useCustomizationPersistence from 'sdk/hooks/useCustomizationPersistence';
 import useItemsSelection from 'sdk/hooks/useItemsSelection';
@@ -78,10 +79,7 @@ const Customize = () => {
         setSelectedItemsInPopup(equippedItemsIdentifier);
     }, [equippedItemsIdentifier])
 
-    // add root class for background style
-    React.useEffect(() => {
-        document.body.classList.add('background-image');
-    }, []);
+    useAddBodyClassNames(['background-image']);
 
     return (
         <div id={style['body-content']}>
