@@ -15,7 +15,7 @@ Then, run it
 
 # 💡 Improvements
 
-- Build dependency if it has been modified (https://dev.to/zirkelc/automatically-install-npm-dependencies-on-git-pull-bg0)
+- Use /src folder instead of /out for packages (avoid building each modification)
 - The conversion from multirepo to mono was late. 
     - Thus, a lot of things can be moved to a common packages (like utils folder)
     - We aren't using lerna yet
