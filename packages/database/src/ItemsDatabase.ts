@@ -2,11 +2,6 @@ import { IItem } from "@apcolony/marketplace-api";
 import fs from "fs";
 import { getItemWebThumbnail, getRenderWebThumbnail, ipfsGateway } from "./uris";
 
-
-interface Item extends IItem {
-    attributeName: string
-}
-
 type DeployedItem = {
     id: string;
     collection: string;
@@ -28,16 +23,16 @@ type ItemInDatabase = {
 
 export default class ItemsDatabase {
 
-    public get items(): Item[] {
+    public get items(): IItem[] {
         return Array.from(this._items);
     }
 
-    constructor(private readonly _items: Item[]) { }
+    constructor(private readonly _items: IItem[]) { }
 
     public static fromJson(parsedItems: ItemInDatabase[], identifiers: DeployedItem[]) {
-        const items: Item[] = parsedItems
+        const items: IItem[] = parsedItems
             .filter(({ name }) => name != "Default")
-            .map(({ id, name, renderUrl, thumbnailCID, slot, supply, attributeName }): Item => {
+            .map(({ id, renderUrl, thumbnailCID, slot, supply, attributeName }): IItem => {
 
                 if (!id) {
                     throw new Error(`Item ${name} has no id`);
@@ -52,8 +47,7 @@ export default class ItemsDatabase {
                 return {
                     id,
                     type: "items",
-                    name,
-                    attributeName,
+                    name: attributeName,
 
                     thumbnailUrls: {
                         ipfs: ipfsGateway + thumbnailCID,
@@ -81,7 +75,7 @@ export default class ItemsDatabase {
         return this._items.some(item => item.id == id);
     }
 
-    public getItemFromId(id: string): Item {
+    public getItemFromId(id: string): IItem {
         const item = this._items.find(item => item.id == id);
         if (!item) {
             throw new Error(`Item ${id} not found`);
@@ -89,15 +83,15 @@ export default class ItemsDatabase {
         return item;
     }
 
-    public getItemFromNameAndSlot(attributeName: string, slot: string): Item {
-        const item = this._items.find(item => item.attributeName == attributeName && item.slot == slot);
+    public getItemFromNameAndSlot(name: string, slot: string): IItem {
+        const item = this._items.find(item => item.name == name && item.slot == slot);
         if (!item) {
             throw new Error(`Unknown item ${name} for slot ${slot}`);
         }
         return item;
     }
 
-    public getItemFromIdentifier(identifier: string): Item | undefined {
+    public getItemFromIdentifier(identifier: string): IItem | undefined {
         return this._items.find(i => i.identifier == identifier);
     }
 
@@ -115,12 +109,6 @@ export default class ItemsDatabase {
         if (!item) throw new Error(`No slot found for ${identifier}`);
 
         return item.slot;
-    }
-
-    public getItemFromAttributeName(name: string, slot: string) {
-
-        return this._items
-            .find(item => item.attributeName == name && item.slot.toLowerCase() == slot.toLowerCase());
     }
 
     public getRandomItem() {

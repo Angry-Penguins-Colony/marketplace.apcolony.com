@@ -68,7 +68,7 @@ async function getMissingItems(networkProvider: APCNetworkProvider, itemsDatabas
         for (const { slot, itemName } of attributes) {
             if (itemName == "unequipped") continue;
 
-            const item = itemsDatabase.getItemFromAttributeName(itemName, slot);
+            const item = itemsDatabase.getItemFromNameAndSlot(itemName, slot);
 
             if (item == undefined) {
                 missingItems.set(
