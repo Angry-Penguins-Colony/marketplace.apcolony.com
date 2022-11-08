@@ -7,7 +7,7 @@ import { RenderTransactionFilter } from '../transactionsFilters/filters';
 import useGetOnNewPendingTransaction from '../useGetOnTransactionPending';
 import usePrevious from '../usePrevious';
 
-const periodicRefreshMS = 3_000;
+const periodicRefreshMS = 10_000;
 
 function useGetAttributesStatus(attributes: Attributes, penguinId: string) {
 
