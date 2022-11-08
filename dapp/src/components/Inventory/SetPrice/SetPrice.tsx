@@ -1,4 +1,5 @@
 import * as React from 'react';
+import BigNumber from 'bignumber.js';
 import Price from 'sdk/classes/Price';
 import style from './SetPrice.module.scss';
 
@@ -49,18 +50,23 @@ const SetPrice = ({
 
     function decrement() {
         console.log('decrement');
-        let newPrice = parseFloat(price) - 1;
+        const newPrice = (new BigNumber(price).minus(1));
 
-        if (newPrice < 0) {
-            newPrice = 0;
+        if (newPrice.isLessThanOrEqualTo(0) == true) {
+            setPrice('0');
+        }
+        else {
+            setPrice(newPrice.toString());
         }
 
-        setPrice(newPrice.toString());
     }
 
     function increment() {
         console.log('increment');
-        setPrice((parseFloat(price) + 1).toString());
+
+
+        const newPrice = (new BigNumber(price).plus(1)).toString()
+        setPrice(newPrice);
     }
 }
 
