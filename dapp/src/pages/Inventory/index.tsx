@@ -108,30 +108,32 @@ const Inventory = () => {
 
                 <div className={style['items-inventory']}>
 
-                    {inventoryOffers && inventoryOffers.length > 0 &&
-                        <ItemsInventory
-                            className={style['items-inventory-container']}
-                            contentClassName={style['items-inventory-content']}
-                            items={inventoryOffers}
-                            title={'In sale'}
-                            type={inventoryType}
-                            hasFilter={false}
-                        />
-                    }
 
-                    {
-                        inventoryElements &&
-                        <ItemsInventory
-                            className={style['items-inventory-container']}
-                            contentClassName={style['items-inventory-content']}
-                            items={inventoryElements}
-                            title={'My ' + inventoryType}
-                            type={inventoryType}
-                            hasFilter={typeWithFilter.includes(inventoryType)}
-                            filters={filterData} />
-                    }
 
-                    {!inventoryElements && !inventoryOffers &&
+                    {(inventoryElements && inventoryOffers) ?
+                        <>
+                            {inventoryOffers && inventoryOffers.length > 0 &&
+                                <ItemsInventory
+                                    className={style['items-inventory-container']}
+                                    contentClassName={style['items-inventory-content']}
+                                    items={inventoryOffers}
+                                    title={'In sale'}
+                                    type={inventoryType}
+                                    hasFilter={false}
+                                />
+                            }
+
+                            {inventoryElements &&
+                                <ItemsInventory
+                                    className={style['items-inventory-container']}
+                                    contentClassName={style['items-inventory-content']}
+                                    items={inventoryElements}
+                                    title={'My ' + inventoryType}
+                                    type={inventoryType}
+                                    hasFilter={typeWithFilter.includes(inventoryType)}
+                                    filters={filterData} />
+                            }</>
+                        :
                         <Loading />
                     }
                 </div>
