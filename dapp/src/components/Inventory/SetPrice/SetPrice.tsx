@@ -49,16 +49,16 @@ const SetPrice = ({
 
     function onChange(): React.ChangeEventHandler<HTMLInputElement> | undefined {
         return (event) => {
-            let tmpPrice = event.target.value || '0';
-            if (tmpPrice[0] == '0' && tmpPrice.length != 1) {
-                tmpPrice = tmpPrice.substring(1);
+
+            console.log('onChange', event.target.value);
+
+            let newPrice = event.target.value || '0';
+
+            if (newPrice.length > maxCharacters) {
+                newPrice = newPrice.slice(0, maxCharacters);
             }
 
-            if (tmpPrice.length > maxCharacters) {
-                tmpPrice = tmpPrice.slice(0, maxCharacters);
-            }
-
-            setPrice(tmpPrice);
+            setPrice(newPrice);
         };
     }
 
