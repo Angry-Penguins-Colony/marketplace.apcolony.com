@@ -20,6 +20,8 @@ Then, run it
     - Thus, a lot of things can be moved to a common packages (like utils folder)
     - We aren't using lerna yet
 - Move the smart contract here, so that the dApp code evolve as well as the SC
+    - customization SC
+    - marketplace SC
 - We are using a monorepo exclusively for the marketplace. We could set all our projects in a monorepo (tools, apcolony.com, others SC, etc...)
 - Retake architectures like so
     /packages
