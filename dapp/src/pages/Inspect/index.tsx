@@ -55,6 +55,7 @@ const Inspect = () => {
         offers,
         lowestBuyableOffer,
         priceListedByUser,
+        buyableOffers,
         ownedOffers,
         isListedByConnected
     } = useGetOffers(category, id);
@@ -96,6 +97,7 @@ const Inspect = () => {
                 {canBuy &&
                     <BuyPriceContainer
                         price={lowestBuyableOffer ? Price.fromEgld(lowestBuyableOffer.price) : undefined}
+                        buyableOffersCount={buyableOffers?.length}
                         onBuy={() => {
                             if (!lowestBuyableOffer) throw new Error('No offer to buy');
                             sendBuyOfferTransaction(lowestBuyableOffer)
