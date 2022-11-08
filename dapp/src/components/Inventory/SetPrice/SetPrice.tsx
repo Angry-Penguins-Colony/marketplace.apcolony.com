@@ -23,12 +23,6 @@ const SetPrice = ({
 
     price = formatPrice(price, maxCharacters);
 
-    // price input
-    const priceInputRef = React.useRef<HTMLInputElement>(null);
-
-    React.useEffect(() => {
-        updatePriceInputWidth();
-    }, [price])
 
     return (
         <div className={style['set-price'] + ' ' + className}>
@@ -36,7 +30,7 @@ const SetPrice = ({
             <div className={style['input-price']}>
                 <div className={style.control + ' ' + style.minus} onClick={() => decrement()}><span>-</span></div>
                 <div className={style.input}>
-                    <input type="number" value={price} onChange={onChange()} lang="en" ref={priceInputRef} />
+                    <input type="number" value={price} onChange={onChange()} lang="en" />
                     <span className={style.currency}>EGLD</span>
                 </div>
                 <div className={style.control + ' ' + style.plus} onClick={() => increment()}><span>+</span></div>
@@ -75,16 +69,6 @@ const SetPrice = ({
 
         const newPrice = (new BigNumber(price).plus(step)).toString()
         setPrice(newPrice);
-    }
-
-    function updatePriceInputWidth() {
-        if (priceInputRef.current == undefined) return;
-
-        const priceLength = Math.max(price.toString().length, 2);
-
-        console.log(priceLength);
-
-        priceInputRef.current.style.width = (priceLength * 0.88) + 'rem';
     }
 }
 
