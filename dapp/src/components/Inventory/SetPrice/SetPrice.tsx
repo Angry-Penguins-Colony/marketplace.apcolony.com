@@ -1,7 +1,7 @@
 import * as React from 'react';
 import BigNumber from 'bignumber.js';
 import Price from 'sdk/classes/Price';
-import { formatPrice } from './price';
+import { formatPrice, stringIsFloat } from './price';
 import style from './SetPrice.module.scss';
 
 const step = 0.1;
@@ -23,6 +23,8 @@ const SetPrice = ({
 
     price = formatPrice(price, maxCharacters);
 
+    console.log(price);
+
 
     return (
         <div className={style['set-price'] + ' ' + className}>
@@ -30,7 +32,7 @@ const SetPrice = ({
             <div className={style['input-price']}>
                 <div className={style.control + ' ' + style.minus} onClick={() => decrement()}><span>-</span></div>
                 <div className={style.input}>
-                    <input type="number" value={price} onChange={onChange()} lang="en" />
+                    <input type="text" value={price} onChange={onChange()} onInput={(e) => console.log(e.currentTarget.value)} />
                     <span className={style.currency}>EGLD</span>
                 </div>
                 <div className={style.control + ' ' + style.plus} onClick={() => increment()}><span>+</span></div>
@@ -44,8 +46,13 @@ const SetPrice = ({
 
             console.log('onChange', event.target.value);
 
-            const newPrice = formatPrice(event.target.value || '0', maxCharacters);
-            setPrice(newPrice);
+            const rawPrice = event.target.value || '0';
+            const newPrice = formatPrice(rawPrice, maxCharacters);
+
+            if (stringIsFloat(newPrice)) {
+                console.log('setPrice', newPrice);
+                setPrice(newPrice);
+            }
         };
     }
 

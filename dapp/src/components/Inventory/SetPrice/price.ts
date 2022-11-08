@@ -20,3 +20,21 @@ export function formatPrice(price: string, maxCharacters: number): string {
     return price;
 }
 
+export function stringIsFloat(str: string): boolean {
+
+    const separators = [',', '.']
+
+    // get separators in str
+    const strSeparators = str.split('').filter(char => separators.includes(char));
+
+    if (strSeparators.length > 1) {
+        return false;
+    }
+
+    if (str.endsWith('.') || str.endsWith(',')) {
+        str = str.slice(0, -1);
+    }
+
+    const regex = /^\d+([\,]\d+)*([\.]\d+)?$/;
+    return regex.test(str);
+}
