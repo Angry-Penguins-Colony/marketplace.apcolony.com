@@ -1,4 +1,4 @@
-import { IOffer } from '@apcolony/marketplace-api';
+import { IOffer, IPenguin } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import { marketplaceContractAddress } from 'config';
@@ -14,12 +14,29 @@ function useInspect(category: CategoriesType, id: string, onWrongId: () => void 
     const { data: item } = useGetGenericItem(category, id, { onGetError: onWrongId });
     const { data: activities } = useGetActivity(category, id, { onGetError: onWrongId });
 
+    const isOwnedByConnected = (() => {
+
+        if (!item) return undefined;
+
+        switch (category) {
+            case 'items':
+                return item.ownedAmount != undefined ? item.ownedAmount > 0 : undefined;
+
+            case 'penguins':
+                return (item as IPenguin).owner == connectedAddress;
+
+            default:
+                throw new Error(`Unknown category ${category}`);
+        }
+    })();
+
 
     return {
         item,
         activities,
         getSellTransaction,
-        getRetireTransaction
+        getRetireTransaction,
+        isOwnedByConnected
     }
 
     function getSellTransaction(price: Price): SimpleTransactionType {

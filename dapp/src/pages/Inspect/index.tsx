@@ -47,7 +47,8 @@ const Inspect = () => {
         item,
         activities,
         getSellTransaction,
-        getRetireTransaction
+        getRetireTransaction,
+        isOwnedByConnected
     } = useInspect(category, id);
 
     const {
@@ -61,17 +62,12 @@ const Inspect = () => {
     const [isSellPopupOpen, setIsSellPopupOpen] = React.useState(false);
     const [isMyOffersPopupOpen, showMyOffersPopup] = React.useState(false);
     const [isOffersPopupOpen, showOffersPopup] = React.useState(false);
-
-    const ownedByConnectedWallet = (() => {
-
-        if (item == undefined || item.ownedAmount == undefined || ownedOffers == undefined) return undefined;
-
-
-        return item.ownedAmount > 0 || isListedByConnected;
-    })();
+    const ownedByConnectedWallet = isOwnedByConnected || isListedByConnected;
 
     const canBuy = category == 'items' || (category == 'penguins' && ownedByConnectedWallet == false);
     const typeInText = getTypeInText();
+
+    console.log('ownedOffers', ownedOffers);
 
     return (
         <div id={style['item-in-inventory']}>
@@ -115,7 +111,7 @@ const Inspect = () => {
                 {ownedByConnectedWallet == true &&
                     <div className={style.actions}>
                         {
-                            (item && item.ownedAmount != undefined && item.ownedAmount > 0) &&
+                            (isOwnedByConnected) &&
                             <div>
                                 <Button type='normal' onClick={() => { setIsSellPopupOpen(true) }}>
                                     Sell
