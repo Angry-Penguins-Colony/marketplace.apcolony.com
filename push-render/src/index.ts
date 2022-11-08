@@ -70,7 +70,6 @@ async function main() {
             })
 
         if (queue.length > 0) {
-            console.log(`\nProcessing ${queue.length} elements from the rendering queue...`)
 
             const itemsPromises = queue
                 .map(async (item) => {
@@ -90,12 +89,9 @@ async function main() {
                     }
                 });
 
-            const skippedElements = itemsPromises.length - items.length;
-            if (skippedElements > 0) {
-                console.log(`Skipped ${skippedElements} items because they were already processed.`.grey);
-            }
 
             if (items.length > 0) {
+                console.log(`\nProcessing ${items.length} elements from the rendering queue...`)
 
                 await claimIfNeeded(readGateway, writeGateway, customisationSC, config.claimThreshold);
 
