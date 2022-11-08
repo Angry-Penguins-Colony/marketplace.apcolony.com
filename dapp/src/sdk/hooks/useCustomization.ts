@@ -4,6 +4,7 @@ import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import BigNumber from 'bignumber.js';
 import { customisationContractAddress, itemsDatabase, penguinCollection } from 'config';
+import { capitalize } from 'sdk/conversion/string';
 import { splitIdentifier } from 'sdk/conversion/tokenIdentifier';
 import CustomizePayloadBuilder, { ItemToken } from 'sdk/transactionsBuilders/customize/CustomizePayloadBuilder';
 import calculeRenderGasFees from 'sdk/transactionsBuilders/render/calculateRenderGasFees';
@@ -217,7 +218,7 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
 
             if (itemIdentifier != blockchainCurrentlyEquippedItem) {
                 if (itemIdentifier == undefined) {
-                    slotsToUnequip.push(slot);
+                    slotsToUnequip.push(capitalize(slot));
                 }
                 else {
                     const { collection, nonce } = splitIdentifier(itemIdentifier);
