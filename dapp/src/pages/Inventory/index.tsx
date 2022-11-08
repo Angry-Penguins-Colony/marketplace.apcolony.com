@@ -22,7 +22,7 @@ const Inventory = () => {
     if (!walletAddress) throw new Error('Wallet address is required');
 
 
-    useAddBodyClassNames(['no-footer', 'no-scroll',]);
+    useAddBodyClassNames(['no-footer', 'no-scroll', 'background-image']);
 
     const {
         inventoryType,
