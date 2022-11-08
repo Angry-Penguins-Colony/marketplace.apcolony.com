@@ -53,7 +53,7 @@ function getNetworkInfos() {
         explorerUrl: 'https://devnet-explorer.elrond.com/',
         customisationContractAddress: Address.fromBech32(Devnet.customisationContractAddress),
         penguinCollection: Devnet.penguinsIdentifier,
-        marketplaceContractAddress: Address.fromBech32('erd1qqqqqqqqqqqqqpgqffweul9250tqr4vuf04zxdcpjdy82yvpv4xq4uha83'),
+        marketplaceContractAddress: Address.fromBech32('erd1qqqqqqqqqqqqqpgqxygtu607umpgtnp3xwkskeqsyhc26ej0v4xqyglrkj'),
         items: Devnet.items,
         itemsDatabase: Devnet.itemsDatabase,
         itemsCollections: Devnet.itemsIdentifier,

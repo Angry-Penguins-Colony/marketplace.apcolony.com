@@ -1,4 +1,5 @@
-import { AddressValue, ArgSerializer, BigIntValue, BooleanValue, BytesValue, IAddress, OptionType, OptionValue, TransactionPayload, U64Type, U64Value } from '@elrondnetwork/erdjs/out';
+
+import { AddressValue, ArgSerializer, BigIntValue, BytesValue, IAddress, TransactionPayload, U64Value } from '@elrondnetwork/erdjs/out';
 
 export class SellPayloadBuilder {
 
@@ -35,11 +36,6 @@ export class SellPayloadBuilder {
             new AddressValue(this.marketplaceSc),
             BytesValue.fromUTF8('auctionToken'),
             new BigIntValue(this.price),
-            new BigIntValue(this.price),
-            new U64Value(3_000_000_000), // deadline
-            BytesValue.fromUTF8('EGLD'), // accepted payment token
-            new OptionValue(new OptionType(new U64Type())), // opt_min_bid_diff
-            new BooleanValue(true), // opt_sft_max_one_per_payment
         ];
 
         const { argumentsString } = new ArgSerializer().valuesToString(args);
