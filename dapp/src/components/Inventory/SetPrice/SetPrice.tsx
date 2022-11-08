@@ -1,6 +1,7 @@
 import * as React from 'react';
 import BigNumber from 'bignumber.js';
 import Price from 'sdk/classes/Price';
+import { formatPrice } from './price';
 import style from './SetPrice.module.scss';
 
 const step = 0.1;
@@ -20,10 +21,7 @@ const SetPrice = ({
     className?: string;
 }) => {
 
-    if (price.length > maxCharacters) {
-        console.warn('Price is too long');
-        price = price.slice(0, maxCharacters);
-    }
+    price = formatPrice(price, maxCharacters);
 
     // price input
     const priceInputRef = React.useRef<HTMLInputElement>(null);
@@ -38,7 +36,7 @@ const SetPrice = ({
             <div className={style['input-price']}>
                 <div className={style.control + ' ' + style.minus} onClick={() => decrement()}><span>-</span></div>
                 <div className={style.input}>
-                    <input type="number" value={price} onChange={onChange()} ref={priceInputRef} />
+                    <input type="number" value={price} onChange={onChange()} lang="en" ref={priceInputRef} />
                     <span className={style.currency}>EGLD</span>
                 </div>
                 <div className={style.control + ' ' + style.plus} onClick={() => increment()}><span>+</span></div>
@@ -52,12 +50,7 @@ const SetPrice = ({
 
             console.log('onChange', event.target.value);
 
-            let newPrice = event.target.value || '0';
-
-            if (newPrice.length > maxCharacters) {
-                newPrice = newPrice.slice(0, maxCharacters);
-            }
-
+            const newPrice = formatPrice(event.target.value || '0', maxCharacters);
             setPrice(newPrice);
         };
     }
@@ -65,6 +58,7 @@ const SetPrice = ({
     function decrement() {
         console.log('decrement');
         const newPrice = (new BigNumber(price).minus(step));
+
 
         if (newPrice.isLessThanOrEqualTo(0) == true) {
             setPrice('0');
@@ -95,3 +89,4 @@ const SetPrice = ({
 }
 
 export default SetPrice;
+
