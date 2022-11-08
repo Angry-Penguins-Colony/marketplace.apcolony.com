@@ -25,7 +25,7 @@
     flex-direction: column;
     gap: 20px;
 
-    height: calc(100vh - 176px + 40px);
+    height: calc(100vh - 176px + 38px);
 
     > header {
         display: flex;
@@ -142,6 +142,14 @@
 
     .items-inventory {
         @extend .custom-scrollbar;
+        position: relative;
+        flex: 1 1 auto;
+        height: auto;
+        overflow: auto;
+
+        .items-inventory-container {
+            height: auto;
+        }
     }
 }
 
@@ -282,8 +290,6 @@
         .items-inventory {
             grid-area: inventory;
             padding: 0;
-            height: auto;
-            overflow: auto;
         }
     }
 }

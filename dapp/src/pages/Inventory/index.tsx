@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { useParams } from 'react-router-dom';
+import Loading from 'components/Abstract/Loading';
 import AddressWrapper from 'components/AddressWrapper';
 import ShareIcon from 'components/Icons/ShareIcon';
 import ItemsInventory from 'components/Inventory/ItemsInventory/ItemsInventory';
@@ -109,7 +110,8 @@ const Inventory = () => {
 
                     {inventoryOffers && inventoryOffers.length > 0 &&
                         <ItemsInventory
-
+                            className={style['items-inventory-container']}
+                            contentClassName={style['items-inventory-content']}
                             items={inventoryOffers}
                             title={'In sale'}
                             type={inventoryType}
@@ -117,12 +119,21 @@ const Inventory = () => {
                         />
                     }
 
-                    <ItemsInventory
-                        items={inventoryElements}
-                        title={'My ' + inventoryType}
-                        type={inventoryType}
-                        hasFilter={typeWithFilter.includes(inventoryType)}
-                        filters={filterData} />
+                    {
+                        inventoryElements &&
+                        <ItemsInventory
+                            className={style['items-inventory-container']}
+                            contentClassName={style['items-inventory-content']}
+                            items={inventoryElements}
+                            title={'My ' + inventoryType}
+                            type={inventoryType}
+                            hasFilter={typeWithFilter.includes(inventoryType)}
+                            filters={filterData} />
+                    }
+
+                    {!inventoryElements && !inventoryOffers &&
+                        <Loading />
+                    }
                 </div>
             </div>
         </>
