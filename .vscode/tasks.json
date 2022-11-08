@@ -1,0 +1,50 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run all",
+            "dependsOrder": "parallel",
+            "dependsOn": [
+                "run-dapp",
+                "run-api",
+                "run-push-render"
+            ],
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        },
+        {
+            "label": "run-dapp",
+            "type": "shell",
+            "windows": {
+                "command": "cd dapp; npm run start",
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "run-api",
+            "type": "shell",
+            "windows": {
+                "command": "cd api; npm run start:dev:watch",
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "run-push-render",
+            "type": "shell",
+            "windows": {
+                "command": "cd push-render; npm run start:dev:watch",
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        }
+    ]
+}
