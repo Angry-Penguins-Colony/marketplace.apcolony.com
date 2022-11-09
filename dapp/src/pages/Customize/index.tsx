@@ -79,7 +79,7 @@ const Customize = () => {
         setSelectedItemsInPopup(equippedItemsIdentifier);
     }, [equippedItemsIdentifier])
 
-    useAddBodyClassNames(['background-image']);
+    useAddBodyClassNames(['background-image', 'no-footer']);
 
     return (
         <div id={style['body-content']}>
@@ -146,7 +146,9 @@ const Customize = () => {
                     (editingEnabled) &&
                     <>
                         <div className={style.reset}>
-                            <Button icon={<RefreshIcon />} onClick={resetItems}>Unequip Items</Button>
+                            <Button icon={<RefreshIcon />} onClick={resetItems}>
+                                Reset
+                            </Button>
                         </div>
 
                         <CustomizeControls

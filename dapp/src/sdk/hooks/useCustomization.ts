@@ -67,17 +67,7 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
     }, [selectedPenguin, previousSelectedPenguin])
 
     React.useEffect(() => {
-
-        if (initialItemsIdentifier) return;
-        if (!selectedPenguin) return;
-
-        const equippedItemsIdentifierFromFetchedData = Object.values(selectedPenguin.equippedItems)
-            .reduce((acc, item) => {
-                acc[item.slot] = item.identifier;
-                return acc;
-            }, {} as PenguinItemsIdentifier);
-
-        setEquippedItemsIdentifier(equippedItemsIdentifierFromFetchedData);
+        resetItems();
 
     }, [selectedPenguin]);
 
@@ -88,7 +78,7 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
 
     const doUserOwnSelectedPenguin = selectedPenguin && selectedPenguin.owner == connectedAddress;
     return {
-        resetItems,
+        resetItems: resetItems,
         equipItem,
         unequipItem,
         getCustomizeTransaction,
@@ -152,10 +142,6 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
         }
 
         return _attributes;
-    }
-
-    function resetItems() {
-        setEquippedItemsIdentifier({});
     }
 
     function equipItem(slot: string, item: IItem) {
@@ -250,6 +236,18 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
         return transaction;
     }
 
+    function resetItems() {
+        if (initialItemsIdentifier) return;
+        if (!selectedPenguin) return;
+
+        const equippedItemsIdentifierFromFetchedData = Object.values(selectedPenguin.equippedItems)
+            .reduce((acc, item) => {
+                acc[item.slot] = item.identifier;
+                return acc;
+            }, {} as PenguinItemsIdentifier);
+
+        setEquippedItemsIdentifier(equippedItemsIdentifierFromFetchedData);
+    }
 }
 
 export default useCustomization;

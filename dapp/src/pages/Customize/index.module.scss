@@ -1,7 +1,7 @@
 @import "assets/sass/var.scss";
 
 .customize {
-    margin-bottom: 50px;
+    margin-bottom: $mobile_nav_height;
 
     .content {
         display: flex;
