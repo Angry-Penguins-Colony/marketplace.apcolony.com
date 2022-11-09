@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { IActivity, IItem } from '@apcolony/marketplace-api';
+import moment from 'moment';
 import UnderlineNavElmt from 'components/Abstract/UnderlineNavElmt/UnderlineNavElmt';
+import AddressWrapper from 'components/AddressWrapper';
 import RightArrowIcon from 'components/Icons/RightArrowIcon';
 import { explorer } from 'config';
 import { Item } from '../Item/Item';
@@ -117,21 +119,23 @@ const Activity = ({
     activity: IActivity
 }) => {
 
-    function goToExplorer() {
-
-        window.open(explorer.getTransaction(activity.txHash), '_blank');
-    }
 
     return (
-        <div className={style.activity} onClick={goToExplorer}>
+        <div className={style.activity}>
             <div className={style.controls}>
                 <RightArrowIcon className={style['arrow-icon']} />
             </div>
             <p className={style['main-info']}>
-                {activity.buyer.slice(0, 6) + '...' + activity.buyer.slice(-6)} brought for {activity.price} EGLD
+                {activity.price} EGLD
             </p>
-            <p className={style.since}>{new Date(activity.date * 1000).toISOString().slice(0, 10)}</p>
-            <p className={style['see-it']}>See it now</p>
+            <p className={style.since}>
+                {moment(new Date(activity.date * 1000)).fromNow()}
+            </p>
+            <div className={style['details']}>
+
+                <p><span className={style.prefix}>From</span> <AddressWrapper bech32={activity.seller} /></p>
+                <p><span className={style.prefix}>To</span> <AddressWrapper bech32={activity.buyer} /></p>
+            </div>
         </div >
     );
 }

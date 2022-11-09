@@ -59,14 +59,25 @@
 
             .since {
                 font-family: "Config Rounded", sans-serif;
-                font-size: 1.4rem;
+                font-size: 1rem;
                 color: #080d2680;
+
+                // set to bottom right
+                position: absolute;
+                right: 1rem;
+                bottom: 1rem;
             }
 
             .see-it {
                 margin-top: 1rem;
                 font-family: "Config Rounded", sans-serif;
                 font-size: 1.2rem;
+            }
+
+            .details {
+                margin-top: 15px;
+                font-family: "Config Rounded", sans-serif;
+                color: #080d2680;
             }
 
             .controls {
