@@ -1,9 +1,10 @@
+import { IOwnedItem, IPenguin } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import useGenericAPICall from './useGenericAPICall';
 
 interface Output {
-    penguins: Record<string, number>;
-    items: Record<string, number>;
+    penguins: IPenguin[];
+    items: IOwnedItem[];
 }
 
 function useGetUserOwnedAmount(): Output | undefined {

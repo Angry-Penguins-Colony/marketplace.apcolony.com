@@ -5,6 +5,7 @@ import { dAppName } from 'config';
 import Inspect from 'pages/Inspect';
 import ItemsOffersNavigator from 'pages/ItemsOffersNavigator';
 import CategoriesOffers from 'pages/OffersList';
+import SelectCustomizePenguin from 'pages/SelectCustomizePenguin';
 import CategoriesType from 'sdk/types/CategoriesType';
 import withPageTitle from './components/PageTitle';
 import Customize from './pages/Customize';
@@ -23,6 +24,7 @@ export const routeNames = {
   transaction: '/transaction',
   inventory: '/inventory/:address',
   inspect: '/inspect/:type/:id',
+  customizeInventory: '/customize',
   customize: '/customize/:id',
   penguinsOffers: '/offers/penguins/',
   itemsOffers: '/offers/items/:slot',
@@ -66,6 +68,16 @@ const routes: Array<ITitledRoute> = [
     path: routeNames.inspect,
     title: 'Inspect',
     component: Inspect
+  },
+  {
+    path: routeNames.customizeInventory,
+    title: 'Select a penguin',
+    component: () => {
+      return <AuthentificatedPatternRouteWrapper unlockRoute={routeNames.unlock}>
+        <SelectCustomizePenguin />
+      </AuthentificatedPatternRouteWrapper>;
+    },
+    authenticatedRoute: true,
   },
   {
     path: routeNames.customize,

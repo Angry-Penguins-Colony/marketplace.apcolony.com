@@ -36,6 +36,7 @@
             flex-grow: 0;
             flex-shrink: 0;
             cursor: pointer;
+            @extend .noselect;
 
             &:hover {
                 background-color: $primary;
@@ -51,7 +52,7 @@
 
         .input {
             font-family: "Config Rounded", sans-serif;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: bold;
             background-color: white;
             border-radius: 999px;
@@ -64,12 +65,13 @@
 
             input {
                 font-family: "Config Rounded", sans-serif;
-                font-size: 1.4rem;
                 font-weight: bold;
                 color: $primary;
                 border: none;
                 background-color: transparent;
-                width: 1.68rem;
+                width: 100%;
+                text-align: center;
+                padding-right: 5px;
 
                 &:focus-visible {
                     outline: none;
@@ -83,7 +85,7 @@
                 }
 
                 /* Firefox */
-                &[type=number] {
+                &[type="number"] {
                     -moz-appearance: textfield;
                 }
             }
@@ -94,4 +96,15 @@
         font-family: "Config Rounded", sans-serif;
         color: #080d26b0;
     }
+}
+
+// source: https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
 }

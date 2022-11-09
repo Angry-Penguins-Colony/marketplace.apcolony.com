@@ -81,11 +81,6 @@
             padding-right: var(--padding-section);
             padding-left: var(--padding-section);
             padding-bottom: 15px;
-            @extend .custom-scrollbar;
-
-            &::-webkit-scrollbar-track {
-                margin: var(--padding-section);
-            }
         }
 
         .items h2 {

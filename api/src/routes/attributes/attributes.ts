@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import { Attributes } from "@apcolony/marketplace-api/out/classes"
 import { APCNetworkProvider } from '../../classes/APCNetworkProvider';
-import { sendSuccessfulJSON } from '../../utils/response';
+import { sendSuccessfulJSON, withTryCatch } from '../../utils/response';
 import { IAttributesStatus } from '@apcolony/marketplace-api';
 
 export default async function getAttributes(req: Request, res: Response, networkProvider: APCNetworkProvider) {
 
-    try {
+    withTryCatch(res, async () => {
 
         const attributes = parseAttributes(req);
         const penguinName = "Penguin #" + req.params.penguinId;
@@ -33,11 +33,8 @@ export default async function getAttributes(req: Request, res: Response, network
                 })
             }
         }
-    }
-    catch (e: any) {
-        console.trace(e);
-        res.status(500).send(e.toString())
-    }
+
+    })
 }
 
 function sendResponse(res: Response, data: IAttributesStatus) {

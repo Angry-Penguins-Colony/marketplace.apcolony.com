@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IItem, IPenguin } from '@apcolony/marketplace-api';
+import { IItem } from '@apcolony/marketplace-api';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
 import { useParams } from 'react-router-dom';
@@ -10,10 +10,10 @@ import LoadingOverlay from 'components/Foreground/LoadingOverlay';
 import RefreshIcon from 'components/Icons/RefreshIcon';
 import PopupFromBottom from 'components/Inventory/PopupFromBottom/PopupFromBottom';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import GoToAnotherPenguin from 'components/Navigation/GoToAnotherPenguin/GoToAnotherPenguin';
+import PenguinCustomizeHeader from 'components/Navigation/GoToAnotherPenguin';
 import PenguinRender from 'components/PenguinRender/PenguinRender';
-import { buildRouteLinks } from 'routes';
-import { useGetOwnedPenguins } from 'sdk/hooks/api/useGetOwned';
+import { itemsDatabase } from 'config';
+import useAddBodyClassNames from 'sdk/hooks/useAddBodyClassNames';
 import useCustomization from 'sdk/hooks/useCustomization';
 import useCustomizationPersistence from 'sdk/hooks/useCustomizationPersistence';
 import useItemsSelection from 'sdk/hooks/useItemsSelection';
@@ -21,15 +21,7 @@ import { isIdValid } from 'sdk/misc/guards';
 import { PenguinItemsIdentifier } from 'sdk/types/PenguinItemsIdentifier';
 import style from './index.module.scss';
 
-/**
- * We only set ownedPenguins in props, because we already get it in the ErrorWrapper.
- * It is an optimization to reduce API calls.
- */
-interface ICustomizeProps {
-    ownedPenguins: IPenguin[]
-}
-
-const Customize = ({ ownedPenguins }: ICustomizeProps) => {
+const Customize = () => {
 
     const { id } = useParams();
 
@@ -40,7 +32,7 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
     const {
         load,
         save
-    } = useCustomizationPersistence(id);
+    } = useCustomizationPersistence(id, itemsDatabase);
 
     const initialAttributes = load();
 
@@ -55,7 +47,6 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
         attributesStatus,
         hasSomeModifications,
         selectedPenguin,
-        ownedItemsAmount,
         ownedAndEquippedItems,
         isCustomizationPending,
         doUserOwnSelectedPenguin
@@ -88,18 +79,11 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
         setSelectedItemsInPopup(equippedItemsIdentifier);
     }, [equippedItemsIdentifier])
 
-    // add root class for background style
-    React.useEffect(() => {
-        document.body.classList.add('background-image');
-    }, []);
-
-    if (doUserOwnSelectedPenguin == false) {
-        window.location.href = buildRouteLinks.customize(ownedPenguins[0].id);
-    }
+    useAddBodyClassNames(['background-image', 'no-footer']);
 
     return (
         <div id={style['body-content']}>
-            <MobileHeader title="Customize" subTitle={selectedPenguin?.name ?? ''} className={style['mobile-header']} />
+            <MobileHeader title="Customize" subTitle={selectedPenguin?.displayName ?? ''} className={style['mobile-header']} />
             <PopupFromBottom
                 title={itemsPopupTitle}
                 filterSlot={filterSlot}
@@ -107,7 +91,6 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
                 items={ownedAndEquippedItems ?? []}
                 disableSelection={!editingEnabled}
                 selectedItemsIdentifier={selectedItemsInPopup}
-                ownedItemsAmount={ownedItemsAmount ?? {}}
                 onItemClick={onItemClick}
                 select={() => { setItemsPopupIsOpen(false); }}
                 changeType={(type) => {
@@ -136,7 +119,7 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
                         }}>
                         {attributesStatus?.renderStatus == 'rendering' &&
                             <LoadingOverlay>
-                                <h2>Rendering in progress</h2>
+                                <h2 className='mt-2'>Rendering</h2>
                                 <br />
                                 <p>We are building your new penguin thumbnail on the blockchain</p>
                                 <p>Please, wait a minute</p>
@@ -146,7 +129,7 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
                         {
                             isCustomizationPending &&
                             <LoadingOverlay>
-                                <h2>Customisation in progress</h2>
+                                <h2 className='mt-2'>Customisation in progress</h2>
                                 <br />
                                 <p>Please, wait a minute</p>
                             </LoadingOverlay>
@@ -159,13 +142,17 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
                         {createItemButton('background', 'Background')}
                     </div>
                 </div>
-                {(editingEnabled) &&
+                {
+                    (editingEnabled) &&
                     <>
                         <div className={style.reset}>
-                            <Button icon={<RefreshIcon />} onClick={resetItems}>Unequip Items</Button>
+                            <Button icon={<RefreshIcon />} onClick={resetItems}>
+                                Reset
+                            </Button>
                         </div>
 
                         <CustomizeControls
+                            doUserOwnSelectedPenguin={doUserOwnSelectedPenguin}
                             hasSomeModifications={hasSomeModifications}
                             onCustomizeClick={sendCustomizationTx}
                             onRenderClick={sendRenderImageTx}
@@ -174,11 +161,11 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
                     </>
                 }
             </section >
-            {(ownedPenguins && selectedPenguin) &&
-                <GoToAnotherPenguin className={style['another-penguins']}
-                    currentId={selectedPenguin.id}
-                    penguins={ownedPenguins}
-                    subTitle={selectedPenguin?.name ?? ''}
+            {
+                (selectedPenguin) &&
+                <PenguinCustomizeHeader className={style['another-penguins']}
+                    currentPenguin={selectedPenguin}
+                    subTitle={selectedPenguin?.displayName ?? ''}
                 />
             }
         </div >
@@ -208,7 +195,7 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
 
         const selectedItem = getSelectedItemInSlot(slot);
 
-        console.log('selected item for slot', slot, 'is', selectedItem?.name ?? undefined);
+        console.log('selected item for slot', slot, 'is', selectedItem?.displayName ?? undefined);
 
         if (selectedItem != undefined) {
             equipItem(slot, selectedItem);
@@ -302,7 +289,7 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
 
         if (item != undefined) {
 
-            if (!item.renderUrls.high) throw new Error(`Item ${item.name} in slot ${slot} has no renderCID.`);
+            if (!item.renderUrls.high) throw new Error(`Item ${item.displayName} in slot ${slot} has no renderCID.`);
 
             return item.renderUrls.high;
         }
@@ -316,8 +303,6 @@ const Customize = ({ ownedPenguins }: ICustomizeProps) => {
 const CustomizeErrorWrapper = () => {
 
     const { id } = useParams();
-    const ownedPenguins = useGetOwnedPenguins();
-
     if (!id) throw new Error('No id provided');
 
     if (isIdValid(id, 'penguins') == false) {
@@ -326,17 +311,8 @@ const CustomizeErrorWrapper = () => {
             description="Please, select another penguin."
         />
     }
-    else if (!ownedPenguins) {
-        return <></>;
-    }
-    else if (ownedPenguins.length == 0) {
-        return <ErrorPage
-            title='No penguin'
-            description="Sorry, you don't own any penguin :("
-        />;
-    }
     else {
-        return <Customize ownedPenguins={ownedPenguins} />
+        return <Customize />
     }
 }
 

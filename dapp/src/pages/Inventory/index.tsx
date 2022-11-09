@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { useParams } from 'react-router-dom';
+import Loading from 'components/Abstract/Loading';
 import AddressWrapper from 'components/AddressWrapper';
 import ShareIcon from 'components/Icons/ShareIcon';
 import ItemsInventory from 'components/Inventory/ItemsInventory/ItemsInventory';
@@ -8,6 +9,7 @@ import NavigationType from 'components/Inventory/NavigationType/NavigationType';
 import NavInventory from 'components/Inventory/NavInventory/NavInventory';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import useGetInventory from 'sdk/hooks/pages/useGetInventory';
+import useAddBodyClassNames from 'sdk/hooks/useAddBodyClassNames';
 import useInventoryFilter from 'sdk/hooks/useInventoryFilter';
 import style from './index.module.scss';
 
@@ -20,17 +22,13 @@ const Inventory = () => {
 
     if (!walletAddress) throw new Error('Wallet address is required');
 
-    React.useEffect(() => {
-        // add class to body element for no footer
-        document.body.classList.add('no-footer');
-        document.body.classList.add('no-scroll');
-    }, []);
+
+    useAddBodyClassNames(['no-footer', 'no-scroll', 'background-image']);
 
     const {
         inventoryType,
         inventoryElements,
         inventoryOffers,
-        ownedAmount,
         penguinsCount,
         itemsCount,
         setInventoryType
@@ -110,24 +108,34 @@ const Inventory = () => {
 
                 <div className={style['items-inventory']}>
 
-                    {inventoryOffers && inventoryOffers.length > 0 &&
-                        <ItemsInventory
 
-                            items={inventoryOffers}
-                            title={'In sale'}
-                            type={inventoryType}
-                            amountById={{}}
-                            hasFilter={false}
-                        />
+
+                    {(inventoryElements && inventoryOffers) ?
+                        <>
+                            {inventoryOffers && inventoryOffers.length > 0 &&
+                                <ItemsInventory
+                                    className={style['items-inventory-container']}
+                                    contentClassName={style['items-inventory-content']}
+                                    items={inventoryOffers}
+                                    title={'In sale'}
+                                    type={inventoryType}
+                                    hasFilter={false}
+                                />
+                            }
+
+                            {inventoryElements &&
+                                <ItemsInventory
+                                    className={style['items-inventory-container']}
+                                    contentClassName={style['items-inventory-content']}
+                                    items={inventoryElements}
+                                    title={'My ' + inventoryType}
+                                    type={inventoryType}
+                                    hasFilter={typeWithFilter.includes(inventoryType)}
+                                    filters={filterData} />
+                            }</>
+                        :
+                        <Loading />
                     }
-
-                    <ItemsInventory
-                        items={inventoryElements}
-                        title={'My ' + inventoryType}
-                        type={inventoryType}
-                        amountById={ownedAmount ? ownedAmount[inventoryType] : {}}
-                        hasFilter={typeWithFilter.includes(inventoryType)}
-                        filters={filterData} />
                 </div>
             </div>
         </>

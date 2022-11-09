@@ -1,6 +1,11 @@
 import * as React from 'react';
+import BigNumber from 'bignumber.js';
 import Price from 'sdk/classes/Price';
+import { formatPrice, stringIsFloat } from './price';
 import style from './SetPrice.module.scss';
+
+const step = 0.1;
+const maxCharacters = 6;
 
 const SetPrice = ({
     floorPrice = new Price(0, 1),
@@ -16,8 +21,13 @@ const SetPrice = ({
     className?: string;
 }) => {
 
-    // price input
+    price = formatPrice(price, maxCharacters);
+
     const priceInputRef = React.useRef<HTMLInputElement>(null);
+
+    React.useEffect(() => {
+        updatePriceInputWidth();
+    }, [price])
 
     return (
         <div className={style['set-price'] + ' ' + className}>
@@ -25,7 +35,7 @@ const SetPrice = ({
             <div className={style['input-price']}>
                 <div className={style.control + ' ' + style.minus} onClick={() => decrement()}><span>-</span></div>
                 <div className={style.input}>
-                    <input type="number" value={price} onChange={onChange()} ref={priceInputRef} />
+                    <input type="text" value={price} onChange={onChange()} ref={priceInputRef} />
                     <span className={style.currency}>EGLD</span>
                 </div>
                 <div className={style.control + ' ' + style.plus} onClick={() => increment()}><span>+</span></div>
@@ -36,32 +46,51 @@ const SetPrice = ({
 
     function onChange(): React.ChangeEventHandler<HTMLInputElement> | undefined {
         return (event) => {
-            let tmpPrice = event.target.value || '0';
-            if (tmpPrice[0] == '0' && tmpPrice.length != 1) {
-                tmpPrice = tmpPrice.substring(1);
+
+            console.log('onChange', event.target.value);
+
+            const rawPrice = event.target.value || '0';
+            const newPrice = formatPrice(rawPrice, maxCharacters);
+
+            if (stringIsFloat(newPrice)) {
+                console.log('setPrice', newPrice);
+                setPrice(newPrice);
             }
-            if (priceInputRef.current) {
-                priceInputRef.current.style.width = (((tmpPrice.length < 1 ? 1 : tmpPrice.length) + 1) * 0.84) + 'rem';
-            }
-            setPrice(tmpPrice);
         };
     }
 
     function decrement() {
         console.log('decrement');
-        let newPrice = parseFloat(price) - 1;
+        const newPrice = (new BigNumber(price).minus(step));
 
-        if (newPrice < 0) {
-            newPrice = 0;
+
+        if (newPrice.isLessThanOrEqualTo(0) == true) {
+            setPrice('0');
+        }
+        else {
+            setPrice(newPrice.toString());
         }
 
-        setPrice(newPrice.toString());
     }
 
     function increment() {
         console.log('increment');
-        setPrice((parseFloat(price) + 1).toString());
+
+
+        const newPrice = (new BigNumber(price).plus(step)).toString()
+        setPrice(newPrice);
+    }
+
+    function updatePriceInputWidth() {
+        if (priceInputRef.current == undefined) return;
+
+        const priceLength = Math.max(price.toString().length, 2);
+
+        priceInputRef.current.style.width = (priceLength * 1) + 'rem';
     }
 }
 
 export default SetPrice;
+
+
+

@@ -1,4 +1,4 @@
-import { IOffer } from '@apcolony/marketplace-api';
+import { IOffer, IPenguin } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import { marketplaceContractAddress } from 'config';
@@ -8,18 +8,56 @@ import { SellPayloadBuilder } from 'sdk/transactionsBuilders/sell/SellPayloadBui
 import CategoriesType from 'sdk/types/CategoriesType';
 import useGetActivity from './api/useGetActivity';
 import { useGetGenericItem } from './api/useGetGenericItem';
+import useGetOffers from './api/useGetOffers';
+import { RetireTransactionFilter, SellTransactionFilter } from './transactionsFilters/filters';
+import useGetOnTransactionSuccesful from './useGetOnTransactionSuccesful';
 
 function useInspect(category: CategoriesType, id: string, onWrongId: () => void = () => { }) {
     const { address: connectedAddress } = useGetAccountInfo();
-    const { data: item } = useGetGenericItem(category, id, { onGetError: onWrongId });
+    const { data: item, forceReload: forceReloadItem } = useGetGenericItem(category, id, { onGetError: onWrongId });
     const { data: activities } = useGetActivity(category, id, { onGetError: onWrongId });
 
+    const offers = useGetOffers(category, id);
+
+
+    const isOwnedByConnected = (() => {
+
+        if (!item) return undefined;
+
+        switch (category) {
+            case 'items':
+                return item.ownedAmount != undefined ? item.ownedAmount > 0 : undefined;
+
+            case 'penguins':
+                return (item as IPenguin).owner == connectedAddress;
+
+            default:
+                throw new Error(`Unknown category ${category}`);
+        }
+    })();
+
+    const ownedOrListedByConnectedWallet = isOwnedByConnected || offers.isListedByConnected;
+    const canBuy = category == 'items' || (category == 'penguins' && ownedOrListedByConnectedWallet == false);
+
+    useGetOnTransactionSuccesful(
+        () => forceReloadItem(),
+        new SellTransactionFilter()
+    );
+
+    useGetOnTransactionSuccesful(
+        () => forceReloadItem(),
+        new RetireTransactionFilter()
+    );
 
     return {
         item,
         activities,
         getSellTransaction,
-        getRetireTransaction
+        getRetireTransaction,
+        ownedOrListedByConnectedWallet,
+        canBuy,
+        isOwnedByConnected,
+        ...offers
     }
 
     function getSellTransaction(price: Price): SimpleTransactionType {

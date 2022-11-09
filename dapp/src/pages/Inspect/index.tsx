@@ -18,8 +18,6 @@ import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { marketplaceContractAddress } from 'config';
 import { buildRouteLinks } from 'routes';
 import Price from 'sdk/classes/Price';
-import useGetOffers from 'sdk/hooks/api/useGetOffers';
-import useGetUserOwnedAmount from 'sdk/hooks/api/useGetUserOwnedAmount';
 import useInspect from 'sdk/hooks/useInspect';
 import { isCategoryValid, isIdValid } from 'sdk/misc/guards';
 import BuyOfferTransactionBuilder from 'sdk/transactionsBuilders/buy/BuyOfferTransactionBuilder';
@@ -48,48 +46,39 @@ const Inspect = () => {
         item,
         activities,
         getSellTransaction,
-        getRetireTransaction
-    } = useInspect(category, id);
-
-    const {
+        getRetireTransaction,
+        ownedOrListedByConnectedWallet,
+        canBuy,
         offers,
         lowestBuyableOffer,
         priceListedByUser,
+        buyableOffers,
         ownedOffers,
+        isOwnedByConnected,
         isListedByConnected
-    } = useGetOffers(category, id);
+    } = useInspect(category, id);
+
 
     const [isSellPopupOpen, setIsSellPopupOpen] = React.useState(false);
     const [isMyOffersPopupOpen, showMyOffersPopup] = React.useState(false);
     const [isOffersPopupOpen, showOffersPopup] = React.useState(false);
 
 
-    const userInventory = useGetUserOwnedAmount();
-    const itemOwnedAmount = userInventory && (userInventory[category][id] ?? 0);
 
-    const ownedByConnectedWallet = (() => {
-
-        if (item == undefined || itemOwnedAmount == undefined || ownedOffers == undefined) return undefined;
-
-
-        return itemOwnedAmount > 0 || isListedByConnected;
-    })();
-
-    const canBuy = category == 'items' || (category == 'penguins' && ownedByConnectedWallet == false);
     const typeInText = getTypeInText();
 
     return (
         <div id={style['item-in-inventory']}>
             <MobileHeader title={typeInText.plural} type='light' />
             <div className={style.thumbnail}>
-                <img src={item ? (item.thumbnailUrls.high) : ''} alt={item?.name ?? 'loading item'} />
+                <img src={item ? (item.thumbnailUrls.high) : ''} alt={item?.displayName ?? 'loading item'} />
             </div>
             <div className={style.infos}>
-                <p className={style.name}>{item?.name ?? '---'}</p>
+                <p className={style.name}>{item?.displayName ?? '---'}</p>
                 <div className={style.share} onClick={() => {
                     if (!item) return;
                     window.navigator.share({
-                        title: item.name,
+                        title: item.displayName,
                         text: 'Check out this item Angry Penguin Marketplace',
                         url: window.location.href,
                     })
@@ -105,6 +94,7 @@ const Inspect = () => {
                 {canBuy &&
                     <BuyPriceContainer
                         price={lowestBuyableOffer ? Price.fromEgld(lowestBuyableOffer.price) : undefined}
+                        buyableOffersCount={buyableOffers?.length}
                         onBuy={() => {
                             if (!lowestBuyableOffer) throw new Error('No offer to buy');
                             sendBuyOfferTransaction(lowestBuyableOffer)
@@ -117,10 +107,10 @@ const Inspect = () => {
 
 
 
-                {ownedByConnectedWallet == true &&
+                {ownedOrListedByConnectedWallet == true &&
                     <div className={style.actions}>
                         {
-                            (itemOwnedAmount != undefined && itemOwnedAmount > 0) &&
+                            (isOwnedByConnected) &&
                             <div>
                                 <Button type='normal' onClick={() => { setIsSellPopupOpen(true) }}>
                                     Sell
@@ -171,6 +161,8 @@ const Inspect = () => {
             <ItemsAndActivities
                 items={(item != undefined && category == 'penguins') ? Object.values((item as IPenguin).equippedItems) : []}
                 activities={activities}
+                type={getTypeInText().singular.toLowerCase()}
+                disableActivityTab={category == 'penguins'}
                 className={style.activity} />
 
             {
@@ -246,7 +238,7 @@ const Inspect = () => {
                 return <PenguinSubProperties offer={offers ? offers[0] : undefined} penguin={item as IPenguin} />
 
             case 'items':
-                return <ItemSubProperties item={item as IItem} />
+                return <ItemSubProperties ownedAmount={item.ownedAmount ?? 0} supply={(item as IItem).supply} />
 
             default:
                 throw new Error('Unknown type');

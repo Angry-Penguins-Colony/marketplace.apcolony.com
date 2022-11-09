@@ -60,7 +60,7 @@ const Home = () => {
                 <GenericItemExplorer
                   key={item.id}
                   thumbnail={item.thumbnailUrls.high}
-                  name={item.name}
+                  name={item.displayName}
                   link={buildRouteLinks.inspect(item.type, item.id)}
                 />
               ))
@@ -87,7 +87,7 @@ const Home = () => {
               <section>
                 <div className={style.info}>
                   <h2>Highlighted item</h2>
-                  <p className={style.name}>{highlightedItem?.name ?? '--'}</p>
+                  <p className={style.name}>{highlightedItem?.displayName ?? '--'}</p>
                   <p className={style.price}>
                     {
                       (() => {
@@ -102,7 +102,7 @@ const Home = () => {
                     }
                   </p>
                 </div>
-                <img className="w-100" src={highlightedItem.renderUrls.high} alt={highlightedItem.name} />
+                <img className="w-100" src={highlightedItem.renderUrls.high} alt={highlightedItem.displayName} />
               </section>
             </Link>
           )

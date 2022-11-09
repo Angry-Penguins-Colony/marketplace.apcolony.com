@@ -1,8 +1,10 @@
 import React from 'react';
 import Button from 'components/Abstract/Button/Button';
+import { routeNames } from 'routes';
 import style from './index.module.scss';
 
 interface IProps {
+    doUserOwnSelectedPenguin?: boolean;
     renderStatus?: string;
     hasSomeModifications: boolean;
     onRenderClick: () => void;
@@ -12,11 +14,27 @@ interface IProps {
 type Step = 'modify' | 'render' | 'customize';
 
 const CustomizeControls = ({
+    doUserOwnSelectedPenguin,
     renderStatus,
     hasSomeModifications,
     onRenderClick,
     onCustomizeClick
 }: IProps) => {
+
+    if (doUserOwnSelectedPenguin == false) {
+        return withWrapper(
+            <Control
+                title="You don't own this penguin."
+                current={true}
+            >
+                <Button
+                    type='primary'
+                    link={routeNames.customizeInventory}>
+                    Inventory
+                </Button>
+            </Control >
+        );
+    }
 
     const currentStep = ((): Step => {
 
@@ -31,9 +49,8 @@ const CustomizeControls = ({
         }
     })();
 
-    return <div className={style.controls}>
-        <div className={style.content}>
-
+    return withWrapper(
+        <>
             <div className={style.control + ' ' + (currentStep == 'modify' ? style.current : '')}>
                 <p className='ml-2'>Step 1. Make some modifications</p>
                 <input type="checkbox" checked={hasSomeModifications} readOnly />
@@ -63,12 +80,20 @@ const CustomizeControls = ({
                     Customize
                 </Button>
             </Control>
-        </div>
-    </div >;
+        </>
+    );
 
 }
 
 export default CustomizeControls;
+
+function withWrapper(element: JSX.Element | JSX.Element[]) {
+    return <div className={style.controls}>
+        <div className={style.content}>
+            {element}
+        </div>
+    </div>;
+}
 
 const Control = (
     { children, title, current: current }: { children?: JSX.Element, title: string, current: boolean }) => {

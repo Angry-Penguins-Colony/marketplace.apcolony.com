@@ -2,44 +2,50 @@ import * as React from 'react';
 import { IGenericElement } from '@apcolony/marketplace-api';
 import { Link } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
-import Loading from 'components/Abstract/Loading';
+import Loading, { LoadingColor } from 'components/Abstract/Loading';
 import ReactImageAppear from 'components/Images/ReactImageAppear/ReactImageAppear';
 import { buildRouteLinks } from 'routes';
 import CategoriesType from 'sdk/types/CategoriesType';
 import Filters from '../../../sdk/types/Filters';
 import style from './ItemsInventory.module.scss';
 
+interface IGenericElementOwned extends IGenericElement {
+    ownedAmount?: number;
+}
+
 interface IProps {
     className?: string,
-    items?: IGenericElement[],
-    amountById: Record<string, number>,
+    contentClassName?: string,
+    items?: IGenericElementOwned[],
     type: CategoriesType,
     hasFilter: boolean,
     filters?: Filters,
     title?: string,
-    makeItemComponent?: (item: IGenericElement, key: React.Key) => JSX.Element,
+    buildLink?: (item: IGenericElementOwned) => string,
+    makeItemComponent?: (item: IGenericElementOwned, key: React.Key) => JSX.Element,
+    loadingColor?: LoadingColor,
+
+
     displayStakingStatus?: boolean,
     isStaked?: boolean,
-    stakingFunction?: (type:string, itemNonce: number) => void
+    stakingFunction?: (type: string, itemNonce: number) => void
 }
 
 const ItemsInventory = ({
     className = '',
+    contentClassName = '',
     items,
     type,
     title,
     hasFilter,
-    amountById,
     makeItemComponent = (item, key) => {
         return (
             <div className={style['item-wrapper']} key={key}>
                 <Item
                     key={item.id}
-                    item={{
-                        amount: amountById[item.id],
-                        ...item
-                    }}
-                    type={type} />
+                    item={item}
+                    type={type}
+                    link={buildLink(item)} />
                 {displayStakingStatus && stakingFunction &&
                     <Button onClick={() => stakingFunction(isStaked ? 'unstake' : 'stake', item.nonce)}>
                         {isStaked ? 'Unstake' : 'Stake'}
@@ -48,16 +54,18 @@ const ItemsInventory = ({
             </div>
         )
     },
+    loadingColor,
     displayStakingStatus = false,
     isStaked,
-    stakingFunction
+    stakingFunction,
+    buildLink = (item) => buildRouteLinks.inspect(type, item.id)
 }: IProps) => {
     return (
         <div className={style['all-items'] + ' ' + className + ' ' + style[type] + (hasFilter ? ' ' + style['has-filter'] : '')}>
             {title &&
                 <h2>{title}</h2>
             }
-            <div className={style.content}>
+            <div className={style.content + ' ' + contentClassName}>
                 {fillContent()}
             </div>
         </div>
@@ -72,6 +80,7 @@ const ItemsInventory = ({
 
             if (matchedItems.length > 0) {
                 return matchedItems
+                    .sort(compareItems)
                     .map(item => makeItemComponent(item, item.id));
             }
             else {
@@ -79,7 +88,7 @@ const ItemsInventory = ({
             }
         }
         else {
-            return <Loading size="large" />
+            return <Loading size="large" color={loadingColor} />
         }
     }
 
@@ -91,32 +100,32 @@ const ItemsInventory = ({
 
 export default ItemsInventory;
 
+function compareItems(a: IGenericElementOwned, b: IGenericElementOwned) {
+    return parseInt(a.id) - parseInt(b.id);
+}
+
 interface IItemProps {
-    item: {
-        name: string,
-        amount: number,
-        thumbnailUrls: {
-            small: string;
-        },
-        id: string
-    },
+    item: IGenericElementOwned,
     type: CategoriesType,
-    children?: React.ReactNode
+    children?: React.ReactNode,
+    link: string,
 }
 
 const Item = ({
     item,
     type,
-    children
+    children,
+    link
 }: IItemProps) => {
 
+
     return (
-        <Link to={buildRouteLinks.inspect(type, item.id)}>
+        <Link to={link}>
             <div className={style.item}>
                 <ReactImageAppear src={item.thumbnailUrls.small} />
-                <div className={style.name}>{item.name}</div>
-                {(item.amount && type == 'items') &&
-                    <div className={style.count}>{item.amount}</div>
+                <div className={style.name}>{item.displayName}</div>
+                {(item.ownedAmount && type == 'items') &&
+                    <div className={style.count}>{item.ownedAmount}</div>
                 }
 
                 {children}

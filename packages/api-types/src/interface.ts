@@ -10,7 +10,7 @@ export interface IGenericElement {
     id: string;
     type: ElementType;
 
-    name: string;
+    displayName: string;
     thumbnailUrls: {
         ipfs: string;
         /**
@@ -39,6 +39,11 @@ export interface IItem extends IGenericElement {
         high: string;
     };
     supply: number;
+    attributeName: string
+}
+
+export interface IOwnedItem extends IItem {
+    ownedAmount: number;
 }
 
 export interface IPenguin extends IGenericElement {

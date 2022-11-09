@@ -11,11 +11,13 @@ const BuyPriceContainer = ({
     showOffersCount = false,
     offersCount,
     onBuy = () => { /* do nothing*/ },
-    onOffersCountClick
+    onOffersCountClick,
+    buyableOffersCount
 }: {
     className?: string,
     showOffersCount: boolean,
     offersCount: number | undefined,
+    buyableOffersCount: number | undefined,
     price?: Price,
     onBuy?: () => void
     onOffersCountClick?: () => void
@@ -29,7 +31,7 @@ const BuyPriceContainer = ({
             <h2>Price</h2>
 
             {
-                offersCount == undefined || offersCount > 0 ?
+                buyableOffersCount == undefined || buyableOffersCount > 0 ?
                     <>
                         <p className={style.price}>{price?.toDenomination() ?? '--'} EGLD</p>
 
@@ -61,7 +63,7 @@ const BuyPriceContainer = ({
                         }
                     </>
                     :
-                    <p>No offers</p>
+                    <p>No buyables offers</p>
             }
 
         </section>

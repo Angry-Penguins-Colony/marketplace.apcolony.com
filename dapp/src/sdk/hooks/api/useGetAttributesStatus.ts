@@ -5,20 +5,25 @@ import axios from 'axios';
 import { apcLogger, marketplaceApi } from 'config';
 import { RenderTransactionFilter } from '../transactionsFilters/filters';
 import useGetOnNewPendingTransaction from '../useGetOnTransactionPending';
+import useGetOnTransactionSuccesful from '../useGetOnTransactionSuccesful';
 import usePrevious from '../usePrevious';
 
-const periodicRefreshMS = 3_000;
+const periodicRefreshMS = 10_000;
 
 function useGetAttributesStatus(attributes: Attributes, penguinId: string) {
 
     const [attributesStatus, setAttributesStatus] = React.useState<IAttributesStatus | undefined>(undefined);
     const [forcePendingStatus, setForcePendingStatus] = React.useState<boolean>(false);
+    const [forceRefresh, setForceRefresh] = React.useState<boolean>(false);
     const previousStatus = usePrevious(attributes);
 
     useGetOnNewPendingTransaction(() => {
         setForcePendingStatus(true)
-    },
-        new RenderTransactionFilter(attributes));
+    }, new RenderTransactionFilter(attributes));
+
+    useGetOnTransactionSuccesful(() => {
+        setForceRefresh(true);
+    }, new RenderTransactionFilter(attributes));
 
     React.useEffect(() => {
         if (attributes && previousStatus && attributes.equals(previousStatus)) return;
@@ -28,7 +33,7 @@ function useGetAttributesStatus(attributes: Attributes, penguinId: string) {
 
     // when we are in pending status, we need to refresh the status periodically
     React.useEffect(() => {
-        if (forcePendingStatus || (attributesStatus && attributesStatus.renderStatus == 'rendering')) {
+        if (forceRefresh || (attributesStatus && attributesStatus.renderStatus == 'rendering')) {
             const interval = setInterval(() => {
                 console.log('check')
                 forceUpdate();
@@ -36,13 +41,14 @@ function useGetAttributesStatus(attributes: Attributes, penguinId: string) {
 
             return () => clearInterval(interval);
         }
-    }, [forcePendingStatus, attributesStatus]);
+    }, [forceRefresh, attributesStatus]);
 
     // stop pending status when we have a new status
     React.useEffect(() => {
 
-        if (forcePendingStatus && attributesStatus?.renderStatus == 'rendered') {
+        if (attributesStatus && attributesStatus.renderStatus == 'rendered') {
             setForcePendingStatus(false);
+            setForceRefresh(false);
         }
     }, [attributesStatus])
 

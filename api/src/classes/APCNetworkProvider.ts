@@ -1,10 +1,10 @@
-import { IActivity, IAddress, IItem, IMarketData, IOffer, IPenguin } from "@apcolony/marketplace-api";
+import { IActivity, IAddress, IItem, IMarketData, IOffer, IOwnedItem, IPenguin } from "@apcolony/marketplace-api";
 import { Attributes } from "@apcolony/marketplace-api/out/classes";
 import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { AbiRegistry, Address, AddressValue, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, StringValue, U64Value } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
-import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsCollection, getPenguinWebThumbnail, nftStakingContract, nftStakingToken, originalTokensAmountInStakingSc } from "../const";
+import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsCollection, getPenguinWebThumbnail, nftStakingContract, nftStakingToken, originalTokensAmountInStakingSc, allCollections } from "../const";
 import { isCollectionAnItem } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, getNameFromPenguinId, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
@@ -12,6 +12,8 @@ import { BigNumber } from "bignumber.js";
 import { parseActivity, parseMarketData, parseMultiValueIdAuction, parseStakedPenguins } from "./ABIParser";
 import { toIdentifier } from "../utils/conversion";
 import ItemsDatabase from "@apcolony/db-marketplace/out/ItemsDatabase";
+import RequestsMonitor from "./RequestsMonitor";
+import { ErrNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out/errors";
 
 /**
  * We create this function because a lot of methods of ProxyNetworkProvider are not implemented yet.
@@ -19,11 +21,21 @@ import ItemsDatabase from "@apcolony/db-marketplace/out/ItemsDatabase";
 export class APCNetworkProvider {
 
     private readonly apiProvider: ApiNetworkProvider;
-    private readonly proxyProvider: ProxyNetworkProvider;
+    private readonly gatewayProvider: ProxyNetworkProvider;
     private readonly itemsDatabase: ItemsDatabase;
 
+    private readonly apiRequestsMonitor: RequestsMonitor = new RequestsMonitor();
+    private readonly gatewayRequestMonitor: RequestsMonitor = new RequestsMonitor();
+
+    get lastMinuteRequests() {
+        return {
+            api: this.apiRequestsMonitor.lastMinuteRequests,
+            gateway: this.gatewayRequestMonitor.lastMinuteRequests
+        };
+    }
+
     constructor(gatewayUrl: string, apiUrl: string, itemsDatabase: ItemsDatabase) {
-        this.proxyProvider = new ProxyNetworkProvider(gatewayUrl, {
+        this.gatewayProvider = new ProxyNetworkProvider(gatewayUrl, {
             timeout: 15_000
         });
         this.apiProvider = new ApiNetworkProvider(apiUrl, {
@@ -55,6 +67,7 @@ export class APCNetworkProvider {
         if (args.size) p.append("size", args.size.toString());
 
         const res = await this.apiProvider.doGetGeneric(`collections/${collection}/nfts?${p.toString()}`);
+        this.apiRequestsMonitor.increment();
 
         const nfts = Array.from(res)
             .map((raw: any) => APCNft.fromApiHttpResponse(raw));
@@ -65,25 +78,59 @@ export class APCNetworkProvider {
     public async getNft(collection: string, nonce: number): Promise<APCNft> {
         let nonceAsHex = new Nonce(nonce).hex();
         let response = await this.apiProvider.doGetGeneric(`nfts/${collection}-${nonceAsHex}`);
+        this.apiRequestsMonitor.increment();
         let token = APCNft.fromApiHttpResponse(response);
 
         return token;
     }
 
-    public async getNftsOfAccount(address: IAddress): Promise<APCNft[]> {
+    public async getNftsOfAccount(address: IAddress, collections: string[]): Promise<APCNft[]> {
+
+        // set size as lower improve perf, so 1_000 (250 items, 750 penguins) is okay
+        const size = 1_000;
+        const url = `accounts/${address.bech32()}/nfts?size=${size}&collections=${collections.join(",")}`;
 
         // we are using the api, while we would use the gateway, because the API handle when the account is empty (and so not founded by the gateway)
-        const response = await this.apiProvider.doGetGeneric(`accounts/${address.bech32()}/nfts?size=10000`);
+        const response = await this.apiProvider.doGetGeneric(url);
+        this.apiRequestsMonitor.increment();
 
         return response
             .map((item: any) => APCNft.fromApiHttpResponse({ owner: address.bech32(), ...item }));
     }
 
+    public async getOwnedItemsAndPenguins(address: IAddress) {
+        const nfts = await this.getNftsOfAccount(address, allCollections);
+
+        const penguins: IPenguin[] = [];
+        const items: IOwnedItem[] = [];
+
+        for (const nft of nfts) {
+
+            if (nft.collection == penguinsCollection) {
+                penguins.push(this.getPenguinFromNft(nft));
+            }
+            else {
+
+                const item: IOwnedItem = {
+                    ownedAmount: nft.supply.toNumber(),
+                    ...this.itemsDatabase.getItemFromToken(nft.collection, nft.nonce)
+                };
+
+                items.push(item);
+            }
+        }
+
+        return {
+            penguins,
+            items
+        }
+    }
+
     public async getPenguinsOfAccount(address: IAddress): Promise<IPenguin[]> {
-        const accountsNfts = await this.getNftsOfAccount(address);
+        const accountsNfts = await this.getNftsOfAccount(address, [penguinsCollection]);
 
         const penguinsPromises = accountsNfts
-            .filter(nft => nft.collection === penguinsCollection && !!nft.owner)
+            .filter(nft => !!nft.owner)
             .map((nft) => this.getPenguinFromNft(nft));
 
         const penguinsNfts = (await Promise.all(penguinsPromises))
@@ -93,11 +140,29 @@ export class APCNetworkProvider {
 
     }
 
+    public async getItemSupplyOfAccount(address: IAddress, id: string): Promise<number> {
+        const { identifier } = this.itemsDatabase.getItemFromId(id);
+
+        const url = `accounts/${address.bech32()}/nfts/${identifier}`;
+        const nft = await this.apiProvider.doGetGeneric(url)
+            .catch((e: ErrNetworkProvider) => {
+                if (e.message.match("Token for given account not found")) {
+                    return 0;
+                }
+                else {
+                    throw e;
+                }
+            });
+        this.apiRequestsMonitor.increment();
+
+        return nft.balance;
+    }
+
     public async getItemsOfAccount(address: IAddress): Promise<IItem[]> {
-        const accountsNfts = await this.getNftsOfAccount(address);
+        const itemsCollections = Object.values(itemsCollection).flat();
+        const accountsNfts = await this.getNftsOfAccount(address, itemsCollections);
 
         const items = accountsNfts
-            .filter(nft => isCollectionAnItem(nft.collection))
             .map(nft => this.itemsDatabase.getItemFromToken(nft.collection, nft.nonce));
 
         return items;
@@ -113,7 +178,8 @@ export class APCNetworkProvider {
             args: [BytesValue.fromUTF8(collection), new U64Value(nonce)],
         });
 
-        const queryResponse = await this.proxyProvider.queryContract(query);
+        const queryResponse = await this.gatewayProvider.queryContract(query);
+        this.gatewayRequestMonitor.increment();
         const endpointDefinition = contract.getEndpoint(contractViewName);
 
         const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition);
@@ -126,7 +192,7 @@ export class APCNetworkProvider {
 
     public async getUriOf(attributes: Attributes, name: string): Promise<string | undefined> {
 
-        const res = await this.proxyProvider.queryContract({
+        const res = await this.gatewayProvider.queryContract({
             address: customisationContract,
             func: "getUriOf",
             getEncodedArguments() {
@@ -136,6 +202,7 @@ export class APCNetworkProvider {
                 ]);
             },
         });
+        this.gatewayRequestMonitor.increment();
 
         if (res.returnCode == "user error") {
             return undefined;
@@ -146,13 +213,14 @@ export class APCNetworkProvider {
     }
 
     public async getAttributesToRender(): Promise<Attributes[]> {
-        const res = await this.proxyProvider.queryContract({
+        const res = await this.gatewayProvider.queryContract({
             address: customisationContract,
             func: "getImagesToRender",
             getEncodedArguments() {
                 return []
             }
         });
+        this.gatewayRequestMonitor.increment();
 
         return res.returnData
             .map((b64: string) => Attributes.fromEndpointArgument(Buffer.from(b64, "base64").toString()));
@@ -168,7 +236,8 @@ export class APCNetworkProvider {
             args: collections.map(c => BytesValue.fromUTF8(c)),
         });
 
-        const queryResponse = await this.proxyProvider.queryContract(query);
+        const queryResponse = await this.gatewayProvider.queryContract(query);
+        this.gatewayRequestMonitor.increment();
         const endpointDefinition = contract.getEndpoint(contractViewName);
         const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition);
 
@@ -234,7 +303,8 @@ export class APCNetworkProvider {
             args: collections.map(c => BytesValue.fromUTF8(c)),
         });
 
-        const queryResponse = await this.proxyProvider.queryContract(query);
+        const queryResponse = await this.gatewayProvider.queryContract(query);
+        this.gatewayRequestMonitor.increment();
         const endpointDefinition = contract.getEndpoint(contractViewName);
         const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition);
 
@@ -272,7 +342,7 @@ export class APCNetworkProvider {
         return {
             id: getIdFromPenguinName(nft.name).toString(),
             type: "penguins",
-            name: nft.name,
+            displayName: nft.name,
 
             identifier: toIdentifier(nft.collection, nft.nonce),
             collection: nft.collection,
@@ -296,7 +366,7 @@ export class APCNetworkProvider {
         for (const { slot, itemName } of attributes) {
             if (itemName == "unequipped") continue;
 
-            equippedItems[slot] = this.itemsDatabase.getItemFromNameAndSlot(itemName, slot);
+            equippedItems[slot] = this.itemsDatabase.getItemFromAttributeName(itemName, slot);
         }
 
         return equippedItems;
@@ -332,7 +402,8 @@ export class APCNetworkProvider {
             args: [new AddressValue(new Address(address))],
         });
 
-        const queryResponse = await this.proxyProvider.queryContract(query);
+        const queryResponse = await this.gatewayProvider.queryContract(query);
+        this.gatewayRequestMonitor.increment();
         const endpointDefinition = contract.getEndpoint(contractViewName);
         const { firstValue, returnCode }: any = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition); //TODO: Add type
 
@@ -352,7 +423,8 @@ export class APCNetworkProvider {
             args: [new AddressValue(new Address(address))],
         });
 
-        const queryResponse = await this.proxyProvider.queryContract(query);
+        const queryResponse = await this.gatewayProvider.queryContract(query);
+        this.gatewayRequestMonitor.increment();
         const endpointDefinition = contract.getEndpoint(contractViewName);
         const { secondValue, returnCode }: any = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition); //TODO: Add type        
 

@@ -1,29 +1,24 @@
 import { APCNetworkProvider } from "../../classes/APCNetworkProvider";
 import { Request, Response } from 'express';
-import { sendSuccessfulJSON } from "../../utils/response";
+import { sendSuccessfulJSON, withTryCatch } from "../../utils/response";
 import { penguinsCollection } from "../../const";
 import { IOffer } from "@apcolony/marketplace-api";
 import { filterOffers } from "../../utils/filter";
 
 export default async function getOffer(req: Request, res: Response, type: "penguins" | "items", networkProvider: APCNetworkProvider) {
 
-    try {
-
+    withTryCatch(res, async () => {
         const { collection, nonce } = await networkProvider.getToken(type, req.params.id);
+
         const offer = (await networkProvider.getOffers([collection]))
             .filter(o => o.nonce == nonce);
 
         sendSuccessfulJSON(res, offer);
-    }
-    catch (e: any) {
-        console.trace(e);
-        res.status(500).send(e.toString())
-    }
-
+    });
 }
 
 export async function getOffersOfAccount(req: Request, res: Response, networkProvider: APCNetworkProvider) {
-    try {
+    withTryCatch(res, async () => {
         const account = req.params.bech32;
         const offersOfAccount = await networkProvider.getOffersOfAccount(account);
 
@@ -37,9 +32,6 @@ export async function getOffersOfAccount(req: Request, res: Response, networkPro
             associatedPenguins,
             associatedItems
         });
-    }
-    catch (e: any) {
-        console.trace(e);
-        res.status(500).send(e.toString());
-    }
+
+    });
 }

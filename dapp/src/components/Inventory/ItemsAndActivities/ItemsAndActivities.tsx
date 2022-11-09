@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { IActivity, IItem } from '@apcolony/marketplace-api';
+import moment from 'moment';
 import UnderlineNavElmt from 'components/Abstract/UnderlineNavElmt/UnderlineNavElmt';
+import AddressWrapper from 'components/AddressWrapper';
 import RightArrowIcon from 'components/Icons/RightArrowIcon';
 import { explorer } from 'config';
 import { Item } from '../Item/Item';
@@ -9,11 +11,15 @@ import style from './ItemsAndActivities.module.scss';
 const ItemsAndActivities = ({
     items = [],
     activities,
-    className = ''
+    className = '',
+    type,
+    disableActivityTab = false
 }: {
     items?: IItem[];
     activities?: IActivity[];
-    className?: string
+    className?: string,
+    disableActivityTab?: boolean
+    type: string
 }) => {
     // change active tab
     enum Tab {
@@ -38,6 +44,13 @@ const ItemsAndActivities = ({
         }
     }, [items])
 
+    React.useEffect(() => {
+        if (disableActivityTab == true && activeTab == Tab.Activity) {
+            setActiveTab(Tab.Items);
+        }
+    }, [activeTab]);
+
+
     return (
         <div className={style['item-and-activity'] + ' ' + className}>
             <nav>
@@ -46,45 +59,51 @@ const ItemsAndActivities = ({
                         <UnderlineNavElmt name={'Items'} isActive={activeTab === Tab.Items} onClick={() => changeTab(Tab.Items)} />
                     )
                 }
-                <UnderlineNavElmt name={'Activity'} isActive={activeTab === Tab.Activity} onClick={() => changeTab(Tab.Activity)} />
+                {
+                    !disableActivityTab && (
+                        <UnderlineNavElmt name={'Activity'} isActive={activeTab === Tab.Activity} onClick={() => changeTab(Tab.Activity)} />
+                    )
+                }
             </nav>
             <div className={style.content}>
                 {(() => {
-                    if (activeTab === Tab.Items) {
-                        return (
-                            items.map(item => (
-                                <Item key={item.id} item={item} />
-                            ))
-                        );
-                    } else if (activeTab === Tab.Activity) {
+                    switch (activeTab) {
+                        case Tab.Items:
+                            return (
+                                items.map(item => (
+                                    <Item key={item.id} item={item} />
+                                ))
+                            );
 
-                        if (activities != undefined) {
-                            if (activities.length == 0) {
-                                return <p>
-                                    No activities
-                                </p>
+                        case Tab.Activity:
+
+                            if (activities != undefined) {
+                                if (activities.length == 0) {
+                                    return <p className="text-center">
+                                        This {type} has not been traded on this marketplace yet
+                                    </p>
+                                }
+                                else {
+                                    return (
+                                        <>
+                                            {activities.map(activity => (
+                                                <Activity key={activity.txHash} activity={activity} />
+                                            ))}
+                                        </>
+                                    );
+                                }
                             }
                             else {
-                                return (
-                                    <>
-                                        {activities.map(activity => (
-                                            <Activity key={activity.txHash} activity={activity} />
-                                        ))}
-                                    </>
-                                );
+                                return <div className="d-flex w-100 justify-content-center mt-2">
+                                    <div className="spinner-border" role="status">
+                                        <span className="sr-only">Loading...</span>
+                                    </div>
+                                </div>;
                             }
-                        }
-                        else {
-                            return <div className="d-flex w-100 justify-content-center mt-2">
-                                <div className="spinner-border" role="status">
-                                    <span className="sr-only">Loading...</span>
-                                </div>
-                            </div>;
-                        }
 
 
-                    } else {
-                        return (<></>);
+                        default:
+                            return (<></>);
                     }
                 })()}
             </div>
@@ -100,21 +119,23 @@ const Activity = ({
     activity: IActivity
 }) => {
 
-    function goToExplorer() {
-
-        window.open(explorer.getTransaction(activity.txHash), '_blank');
-    }
 
     return (
-        <div className={style.activity} onClick={goToExplorer}>
+        <div className={style.activity}>
             <div className={style.controls}>
                 <RightArrowIcon className={style['arrow-icon']} />
             </div>
             <p className={style['main-info']}>
-                {activity.buyer.slice(0, 6) + '...' + activity.buyer.slice(-6)} brought for {activity.price} EGLD
+                {activity.price} EGLD
             </p>
-            <p className={style.since}>{new Date(activity.date * 1000).toISOString().slice(0, 10)}</p>
-            <p className={style['see-it']}>See it now</p>
+            <p className={style.since}>
+                {moment(new Date(activity.date * 1000)).fromNow()}
+            </p>
+            <div className={style['details']}>
+
+                <p><span className={style.prefix}>From</span> <AddressWrapper bech32={activity.seller} /></p>
+                <p><span className={style.prefix}>To</span> <AddressWrapper bech32={activity.buyer} /></p>
+            </div>
         </div >
     );
 }

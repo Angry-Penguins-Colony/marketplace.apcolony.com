@@ -19,7 +19,7 @@ import getOffer, { getOffersOfAccount } from './routes/generic/offer';
 import getItemOffersStats from './routes/items/offersStats';
 import getPenguinsOffersStats from './routes/penguins/offersStats';
 import getExploreItems from './routes/root/exploreItems';
-import getOwnedAmount from './routes/root/ownedAmount';
+import getOwnedItemsAndPenguins from './routes/root/owned';
 import { logErrorIfMissingItems } from './utils/dbHelper';
 import getPenguinsStaked from './routes/staking/owned';
 import getStakingClaimable from './routes/staking/claim';
@@ -54,7 +54,7 @@ function start(id: number) {
 
     logErrorIfMissingItems(networkProvider);
 
-    app.get("/owned/:bech32", async (req: any, res: any) => getOwnedAmount(req, res, networkProvider, itemsDatabase));
+    app.get("/owned/:bech32", async (req: any, res: any) => getOwnedItemsAndPenguins(req, res, networkProvider, itemsDatabase));
     app.get("/offers/:bech32", async (req: any, res: any) => getOffersOfAccount(req, res, networkProvider));
     app.get('/penguins/penguin/:id', (req: any, res: any) => getPenguin(req, res, networkProvider));
     app.get("/penguins/activity/:id", (req: any, res: any) => getActivity(req, res, "penguins", networkProvider));
@@ -63,7 +63,7 @@ function start(id: number) {
     app.get("/penguins/offer/:id", (req: any, res: any) => getOffer(req, res, "penguins", networkProvider));
     app.get('/penguins/owned/:bech32', (req: any, res: any) => getPenguins(req, res, networkProvider));
 
-    app.get("/items/item/:id", (req: any, res: any) => getItem(req, res, itemsDatabase)); // don't need limiter
+    app.get("/items/item/:id", (req: any, res: any) => getItem(req, res, itemsDatabase, networkProvider));
     app.get("/items/activity/:id", (req: any, res: any) => getActivity(req, res, "items", networkProvider));
     app.get("/items/offers/", (req: any, res: any) => getItemsOffers(req, res, networkProvider, itemsDatabase));
     app.get("/items/offers/:category", (req: any, res: any) => getItemsOffers(req, res, networkProvider, itemsDatabase));
@@ -86,5 +86,20 @@ function start(id: number) {
         console.log(`   gateway: ${gateway}`)
     });
 
-    ProxyNetworkProvider
+    setInterval(() => logRequestsInfo(networkProvider), 1_000);
+
+}
+
+function logRequestsInfo(networkProvider: APCNetworkProvider) {
+
+    const { api, gateway } = networkProvider.lastMinuteRequests;
+
+    const message = `api [${api.averageRequestPerSeconds.toFixed(2)} req/s; ${api.lastMinuteRequests} reqs]`
+        + `- gateway [${gateway.averageRequestPerSeconds.toFixed(2)} req/s; ${gateway.lastMinuteRequests} reqs]`;
+
+    rewriteLine(message);
+}
+
+function rewriteLine(msg: string) {
+    process.stdout.write(msg + "\r");
 }

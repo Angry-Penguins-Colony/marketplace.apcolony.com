@@ -5,6 +5,7 @@ import useGetOffersOfCategory from './useGetOffersOfCategory';
 import { useGetOwnedItems } from './useGetOwned';
 
 export function useGetOwnedAndOnSaleItems(overrideAddress?: Address): IItem[] | undefined {
+    console.warn('deprecated use /owned/sales/:bech32 route instead');
     const ownedItems = useGetOwnedItems({
         overrideAddress: overrideAddress,
     });

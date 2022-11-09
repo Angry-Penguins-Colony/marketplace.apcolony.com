@@ -24,8 +24,6 @@ const Footer = () => {
             <SocialButtons className={style.social} />
           </div>
           <div className={style['privacy-policy']}>
-            <a href='TODO: add terms'>Terms</a>
-            <a href='TODO: add privacy'>Privacy Policy</a>
           </div>
         </div>
       </div>

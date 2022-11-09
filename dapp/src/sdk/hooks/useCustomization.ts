@@ -1,9 +1,10 @@
 import React from 'react';
-import { Attributes, IItem, IPenguin } from '@apcolony/marketplace-api';
+import { Attributes, IItem, IOwnedItem, IPenguin } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import BigNumber from 'bignumber.js';
 import { customisationContractAddress, itemsDatabase, penguinCollection } from 'config';
+import { capitalize } from 'sdk/conversion/string';
 import { splitIdentifier } from 'sdk/conversion/tokenIdentifier';
 import CustomizePayloadBuilder, { ItemToken } from 'sdk/transactionsBuilders/customize/CustomizePayloadBuilder';
 import calculeRenderGasFees from 'sdk/transactionsBuilders/render/calculateRenderGasFees';
@@ -11,30 +12,28 @@ import { RenderPayloadBuilder } from 'sdk/transactionsBuilders/render/RenderPayl
 import { PenguinItemsIdentifier, Utils as PenguinItemsIdentifierUtils } from 'sdk/types/PenguinItemsIdentifier';
 import useGetAttributesStatus from './api/useGetAttributesStatus';
 import { useGetGenericItem } from './api/useGetGenericItem';
-import { useGetOwnedItems } from './api/useGetOwned';
 import useGetUserOwnedAmount from './api/useGetUserOwnedAmount';
 import { CustomizeTransactionFilter } from './transactionsFilters/filters';
 import useGetOnNewPendingTransaction from './useGetOnTransactionPending';
 import useGetOnTransactionSuccesful from './useGetOnTransactionSuccesful';
 import usePrevious from './usePrevious';
-import ItemsDatabase from '@apcolony/db-marketplace/out/ItemsDatabase';
 
 const periodicRefreshMS = 10_000;
 
 function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: PenguinItemsIdentifier) {
 
     const [equippedItemsIdentifier, setEquippedItemsIdentifier] = React.useState<PenguinItemsIdentifier>(initialItemsIdentifier ?? {});
-    const [ownedAndEquippedItems, setOwnedAndEquippedItems] = React.useState<IItem[] | undefined>(undefined);
+    const [ownedAndEquippedItems, setOwnedAndEquippedItems] = React.useState<IOwnedItem[] | undefined>(undefined);
     const [isCustomizationPending, setIsCustomizationPending] = React.useState(false);
 
     const { address: connectedAddress } = useGetAccountInfo();
 
-    const ownedItems = useGetOwnedItems();
+    const owned = useGetUserOwnedAmount();
+    const ownedItems = owned?.items;
     const { data, forceReload: reloadSelectedPenguin } = useGetGenericItem('penguins', selectedPenguinId);
     const selectedPenguin = data as IPenguin | undefined;
     const previousSelectedPenguin = usePrevious(data);
 
-    const ownedAmount = useGetUserOwnedAmount();
 
     const equippedItems = parseAttributes(equippedItemsIdentifier);
     const { attributesStatus } = useGetAttributesStatus(equippedItems, selectedPenguinId);
@@ -68,47 +67,18 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
     }, [selectedPenguin, previousSelectedPenguin])
 
     React.useEffect(() => {
-
-        if (initialItemsIdentifier) return;
-        if (!selectedPenguin) return;
-
-        const equippedItemsIdentifierFromFetchedData = Object.values(selectedPenguin.equippedItems)
-            .reduce((acc, item) => {
-                acc[item.slot] = item.identifier;
-                return acc;
-            }, {} as PenguinItemsIdentifier);
-
-        setEquippedItemsIdentifier(equippedItemsIdentifierFromFetchedData);
+        resetItems();
 
     }, [selectedPenguin]);
 
 
     React.useEffect(() => {
-
-        if (selectedPenguin && ownedItems) {
-
-            const uniqueIds = new Set(
-                [
-                    ...Object.values(selectedPenguin.equippedItems)
-                        .map(item => item.id),
-                    ...ownedItems
-                        .map(i => i.id)
-                ]);
-
-            const _ownedAndEquippedItems = Array.from(uniqueIds).map(id => {
-                return {
-                    ...ownedItems.find(i => i.id == id),
-                    ...Object.values(selectedPenguin.equippedItems).find(i => i.id == id),
-                };
-            }) as IItem[];
-
-            setOwnedAndEquippedItems(_ownedAndEquippedItems);
-        }
+        updateOwnedAndEquippedItems();
     }, [selectedPenguin, ownedItems]);
 
     const doUserOwnSelectedPenguin = selectedPenguin && selectedPenguin.owner == connectedAddress;
     return {
-        resetItems,
+        resetItems: resetItems,
         equipItem,
         unequipItem,
         getCustomizeTransaction,
@@ -120,9 +90,26 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
         attributesStatus,
         selectedPenguin,
         hasSomeModifications: isModified(),
-        ownedItemsAmount: ownedAmount?.items,
         ownedAndEquippedItems,
         doUserOwnSelectedPenguin
+    }
+
+    function updateOwnedAndEquippedItems() {
+        if (!selectedPenguin || !ownedItems) return;
+
+
+        const _ownedAndEquippedItems =
+            [
+                ...Object.values(selectedPenguin.equippedItems)
+                    .map(item => ({
+                        ...item,
+                        ownedAmount: 1
+                    })),
+                ...ownedItems
+            ]
+                .filter((item, index, self) => self.findIndex(i => i.id == item.id) == index); // remove duplicates
+
+        setOwnedAndEquippedItems(_ownedAndEquippedItems);
     }
 
     function isSlotModified(slot: string) {
@@ -146,7 +133,7 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
                 const item = itemsDatabase.getItemFromIdentifier(identifier);
 
                 if (item) {
-                    _attributes.set(slot, item.name);
+                    _attributes.set(slot, item.attributeName);
                 }
                 else {
                     console.error(`Could not find item with identifier ${identifier}`);
@@ -155,10 +142,6 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
         }
 
         return _attributes;
-    }
-
-    function resetItems() {
-        setEquippedItemsIdentifier({});
     }
 
     function equipItem(slot: string, item: IItem) {
@@ -191,7 +174,7 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
 
         const payload = new RenderPayloadBuilder()
             .setAttributes(equippedItems)
-            .setName(selectedPenguin.name)
+            .setName(selectedPenguin.displayName)
             .build();
 
         const transaction: SimpleTransactionType = {
@@ -221,7 +204,7 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
 
             if (itemIdentifier != blockchainCurrentlyEquippedItem) {
                 if (itemIdentifier == undefined) {
-                    slotsToUnequip.push(slot);
+                    slotsToUnequip.push(capitalize(slot));
                 }
                 else {
                     const { collection, nonce } = splitIdentifier(itemIdentifier);
@@ -253,6 +236,18 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
         return transaction;
     }
 
+    function resetItems() {
+        if (initialItemsIdentifier) return;
+        if (!selectedPenguin) return;
+
+        const equippedItemsIdentifierFromFetchedData = Object.values(selectedPenguin.equippedItems)
+            .reduce((acc, item) => {
+                acc[item.slot] = item.identifier;
+                return acc;
+            }, {} as PenguinItemsIdentifier);
+
+        setEquippedItemsIdentifier(equippedItemsIdentifierFromFetchedData);
+    }
 }
 
 export default useCustomization;

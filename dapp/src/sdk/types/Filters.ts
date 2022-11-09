@@ -35,7 +35,7 @@ export function matchFilter(filters: Filters, item: FilterableItem): boolean {
         if (!currentFilter) return false;
 
         const isCurrentAttributeSelected = currentFilter.attributes.find((attr) => {
-            return attr.name === currentAttribute.name && attr.isSelected === true;
+            return attr.name === currentAttribute.attributeName && attr.isSelected === true;
         });
 
         if (!isCurrentAttributeSelected) {

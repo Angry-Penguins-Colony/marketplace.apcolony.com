@@ -1,26 +1,22 @@
 import React from 'react';
-import { IItem } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
-import useGetUserOwnedAmount from 'sdk/hooks/api/useGetUserOwnedAmount';
 import SubProperties from '../SubProperties';
 
 interface Props {
-    item: IItem
+    supply: number;
+    ownedAmount: number;
 }
 
-const ItemSubProperties = ({ item }: Props) => {
+const ItemSubProperties = ({ supply, ownedAmount }: Props) => {
 
     const { address } = useGetAccountInfo();
-    const userInventory = useGetUserOwnedAmount();
-
-    const itemOwnedAmount = userInventory && (userInventory['items'][item.id] ?? 0);
 
     const properties = [];
 
-    properties.push(`${item.supply} of total supply`);
+    properties.push(`${supply} of total supply`);
 
     if (address) {
-        properties.push(`${itemOwnedAmount ?? '--'} owned by you `);
+        properties.push(`${ownedAmount} owned by you `);
     }
 
     return <SubProperties properties={properties} />

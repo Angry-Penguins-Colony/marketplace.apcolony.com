@@ -8,10 +8,11 @@
     "out/**/*"
   ],
   "scripts": {
-    "build": "tsc --build",
+    "build": "npm run clean:out && tsc --build",
     "test": "jest",
     "postversion": "git push && git push --tags",
-    "clean": "del-cli out && del-cli node_modules"
+    "clean:out": "del-cli out",
+    "clean": "npm run clean:out && del-cli node_modules"
   },
   "repository": {
     "type": "git",

@@ -1,7 +1,7 @@
-@import "./../../../assets/sass/var.scss";
+@import "assets/sass/var.scss";
 
-#go-to-another-penguin {
-    display: flex;
+.go-to-another-penguin {
+    display: none;
     flex-direction: column;
     align-items: center;
     gap: 10px;
@@ -120,7 +120,8 @@
 
 // desktop
 @media (min-width: $desktop_min_width) {
-    #go-to-another-penguin {
+    .go-to-another-penguin {
+        display: flex;
         grid-area: head;
         padding-bottom: 0;
 

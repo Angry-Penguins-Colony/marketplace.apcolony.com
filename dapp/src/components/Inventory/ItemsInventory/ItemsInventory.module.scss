@@ -2,11 +2,6 @@
 @import "assets/sass/theme.scss";
 
 .all-items {
-    position: absolute;
-    top: 160px;
-    bottom: -15px;
-    left: 0;
-    right: 0;
     padding: 15px;
     width: 100%;
     padding-bottom: 120px;
@@ -16,7 +11,6 @@
     }
 
     > h2 {
-        display: none;
         color: #080d26;
         font-family: "CHEDROS", sans-serif;
         font-weight: bold;
@@ -32,60 +26,62 @@
 
         @extend .custom-scrollbar;
 
-        .item {
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
+        .item-wrapper {
             flex-basis: calc(50% - 5px);
+            .item {
+                position: relative;
+                border-radius: 10px;
+                overflow: hidden;
 
-            img {
-                width: 100%;
-                z-index: 0;
-            }
+                img {
+                    width: 100%;
+                    z-index: 0;
+                }
 
-            .name {
-                position: absolute;
-                bottom: 6%;
-                left: 10%;
-                right: 0;
-                color: white;
-                font-family: "CHEDROS", sans-serif;
-                font-weight: bold;
-                font-size: 1.4rem;
-                z-index: 2;
-            }
+                .name {
+                    position: absolute;
+                    bottom: 6%;
+                    left: 10%;
+                    right: 0;
+                    color: white;
+                    font-family: "CHEDROS", sans-serif;
+                    font-weight: bold;
+                    font-size: 1.4rem;
+                    z-index: 2;
+                }
 
-            .count {
-                position: absolute;
-                top: 8px;
-                right: 8px;
-                color: white;
-                background-color: $primary;
-                border-radius: 99px;
-                width: 1.8rem;
-                height: 1.8rem;
-                display: flex;
-                justify-content: center;
-                align-items: center;
+                .count {
+                    position: absolute;
+                    top: 8px;
+                    right: 8px;
+                    color: white;
+                    background-color: $primary;
+                    border-radius: 99px;
+                    width: 1.8rem;
+                    height: 1.8rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
 
-                font-family: "Config Rounded", sans-serif;
-                font-size: 1.1rem;
-                font-weight: normal;
-            }
+                    font-family: "Config Rounded", sans-serif;
+                    font-size: 1.1rem;
+                    font-weight: normal;
+                }
 
-            &:hover {
-                cursor: pointer;
-            }
+                &:hover {
+                    cursor: pointer;
+                }
 
-            &::after {
-                content: "";
-                position: absolute;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                height: 30%;
-                background: linear-gradient(to top, #080d26ff 0%, #080d2600 100%);
-                z-index: 1;
+                &::after {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    height: 30%;
+                    background: linear-gradient(to top, #080d26ff 0%, #080d2600 100%);
+                    z-index: 1;
+                }
             }
         }
     }
@@ -162,7 +158,7 @@
             margin-top: 15px;
             gap: 15px;
 
-            .item {
+            .item-wrapper {
                 flex-basis: auto;
                 width: 250px;
                 height: 250px;
