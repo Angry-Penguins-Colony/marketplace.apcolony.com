@@ -6,7 +6,7 @@ const PenguinCustomizeHeader = (
     {
         currentPenguin,
         subTitle,
-        className
+        className = ' '
     }: {
         currentPenguin: IPenguin,
         subTitle: string,
@@ -15,8 +15,7 @@ const PenguinCustomizeHeader = (
 ) => {
 
     return (
-        <div id={style['go-to-another-penguin']} className={className}>
-            <h3>Select another penguin</h3>
+        <div className={className + ' ' + style['go-to-another-penguin']}>
             <div className={style.content}>
                 <div className={style['desktop-info']}>
                     <h2>Customize</h2>

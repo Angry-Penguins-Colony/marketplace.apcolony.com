@@ -38,10 +38,6 @@
                     background-color: transparent;
                 }
 
-                &.modified {
-                    // border: 3px solid $red !important;
-                }
-
                 &::before {
                     content: "";
                     position: absolute;
