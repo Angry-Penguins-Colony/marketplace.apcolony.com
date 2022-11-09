@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import BackIcon from 'components/Icons/BackIcon';
 import KebabIcon from 'components/Icons/KebabIcon';
 import style from './mobile-header.module.scss';
@@ -20,10 +21,13 @@ const Footer = ({
     onRightIconClick?: () => void,
     type?: 'transparent' | 'light',
 }) => {
+
+    const navigate = useNavigate();
+
     return (
         <div id={style['mobile-header']} className={className + ' ' + style[type]}>
             <div className={style.icon} onClick={() => {
-                window.history.back();
+                navigate(-1);
             }}>
                 <BackIcon className={style.icon} />
             </div>
