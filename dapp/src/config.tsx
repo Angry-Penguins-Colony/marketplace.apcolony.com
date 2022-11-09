@@ -53,13 +53,13 @@ function getNetworkInfos() {
         explorerUrl: 'https://devnet-explorer.elrond.com/',
         customisationContractAddress: Address.fromBech32(Devnet.customisationContractAddress),
         penguinCollection: Devnet.penguinsIdentifier,
-        marketplaceContractAddress: Address.fromBech32('erd1qqqqqqqqqqqqqpgqxygtu607umpgtnp3xwkskeqsyhc26ej0v4xqyglrkj'),
+        marketplaceContractAddress: Address.fromBech32(Devnet.sellingContract),
         items: Devnet.items,
         itemsDatabase: Devnet.itemsDatabase,
         itemsCollections: Devnet.itemsIdentifier,
-        penguinsCount: 5555,
-        stakingContractAddress: Address.fromBech32('erd1qqqqqqqqqqqqqpgqdcjdvpvncw7s8ug56rehyvl8tehk3vl368mqxa7llg'),
-        stakingToken: 'TEST-17e1db',
+        penguinsCount: Devnet.penguinsCount,
+        stakingContractAddress: Address.fromBech32(Devnet.stakingContract),
+        stakingToken: Devnet.nftStakingToken,
       }
     case 'mainnet':
       throw new Error('Mainnet not supported yet');

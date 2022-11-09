@@ -20,13 +20,13 @@ function getNetworkInfos() {
                 gateway: process.env.GATEWAY ?? "https://devnet-gateway.elrond.com",
                 api: "https://devnet-api.elrond.com",
                 penguinsIdentifier: devnetConfig.penguinsIdentifier,
-                penguinsCount: 5555,
+                penguinsCount: devnetConfig.penguinsCount,
                 itemsIdentifier: devnetConfig.itemsIdentifier,
                 customisationContract: Address.fromBech32(devnetConfig.customisationContractAddress),
-                marketplaceContract: Address.fromBech32("erd1qqqqqqqqqqqqqpgqffweul9250tqr4vuf04zxdcpjdy82yvpv4xq4uha83"),
-                nftStakingContract: Address.fromBech32("erd1qqqqqqqqqqqqqpgqdcjdvpvncw7s8ug56rehyvl8tehk3vl368mqxa7llg"),
-                nftStakingToken: "TEST-17e1db",
-                originalTokensAmountInStakingSc: 1000000, //Todo : Find a better way to calculate tokens generated
+                marketplaceContract: Address.fromBech32(devnetConfig.sellingContract),
+                nftStakingContract: Address.fromBech32(devnetConfig.stakingContract),
+                nftStakingToken: devnetConfig.nftStakingToken,
+                originalTokensAmountInStakingSc: devnetConfig.originalTokensAmountInStakingSc,
                 itemsDatabase: devnetConfig.itemsDatabase,
             };
     }
