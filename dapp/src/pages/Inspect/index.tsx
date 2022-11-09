@@ -18,7 +18,6 @@ import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { marketplaceContractAddress } from 'config';
 import { buildRouteLinks } from 'routes';
 import Price from 'sdk/classes/Price';
-import useGetOffers from 'sdk/hooks/api/useGetOffers';
 import useInspect from 'sdk/hooks/useInspect';
 import { isCategoryValid, isIdValid } from 'sdk/misc/guards';
 import BuyOfferTransactionBuilder from 'sdk/transactionsBuilders/buy/BuyOfferTransactionBuilder';
@@ -48,27 +47,25 @@ const Inspect = () => {
         activities,
         getSellTransaction,
         getRetireTransaction,
-        isOwnedByConnected
-    } = useInspect(category, id);
-
-    const {
+        ownedOrListedByConnectedWallet,
+        canBuy,
         offers,
         lowestBuyableOffer,
         priceListedByUser,
         buyableOffers,
         ownedOffers,
+        isOwnedByConnected,
         isListedByConnected
-    } = useGetOffers(category, id);
+    } = useInspect(category, id);
+
 
     const [isSellPopupOpen, setIsSellPopupOpen] = React.useState(false);
     const [isMyOffersPopupOpen, showMyOffersPopup] = React.useState(false);
     const [isOffersPopupOpen, showOffersPopup] = React.useState(false);
-    const ownedByConnectedWallet = isOwnedByConnected || isListedByConnected;
 
-    const canBuy = category == 'items' || (category == 'penguins' && ownedByConnectedWallet == false);
+
+
     const typeInText = getTypeInText();
-
-    console.log('ownedOffers', ownedOffers);
 
     return (
         <div id={style['item-in-inventory']}>
@@ -110,7 +107,7 @@ const Inspect = () => {
 
 
 
-                {ownedByConnectedWallet == true &&
+                {ownedOrListedByConnectedWallet == true &&
                     <div className={style.actions}>
                         {
                             (isOwnedByConnected) &&
