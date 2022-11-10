@@ -55,7 +55,8 @@ const Inspect = () => {
         buyableOffers,
         ownedOffers,
         isOwnedByConnected,
-        isListedByConnected
+        isListedByConnected,
+        floorPrice
     } = useInspect(category, id);
 
 
@@ -173,7 +174,7 @@ const Inspect = () => {
                     item={item}
                     type={category}
                     visible={isSellPopupOpen}
-                    floorPrice={Price.fromEgld(lowestBuyableOffer?.price ?? '0')}
+                    floorPrice={floorPrice ?? '0'}
                 />
             }
             {

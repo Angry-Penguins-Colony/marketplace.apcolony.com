@@ -9,6 +9,7 @@ import CategoriesType from 'sdk/types/CategoriesType';
 import useGetActivity from './api/useGetActivity';
 import { useGetGenericItem } from './api/useGetGenericItem';
 import useGetOffers from './api/useGetOffers';
+import useGetOffersOfCategory from './api/useGetOffersOfCategory';
 import { RetireTransactionFilter, SellTransactionFilter } from './transactionsFilters/filters';
 import useGetOnTransactionSuccesful from './useGetOnTransactionSuccesful';
 
@@ -18,6 +19,8 @@ function useInspect(category: CategoriesType, id: string, onWrongId: () => void 
     const { data: activities } = useGetActivity(category, id, { onGetError: onWrongId });
 
     const offers = useGetOffers(category, id);
+    // TODO: this useGetOffersOfCategory is only used by penguins. We must find a better way to remove this call when items.
+    const offersOfCategory = useGetOffersOfCategory(category)
 
 
     const isOwnedByConnected = (() => {
@@ -30,6 +33,20 @@ function useInspect(category: CategoriesType, id: string, onWrongId: () => void 
 
             case 'penguins':
                 return (item as IPenguin).owner == connectedAddress;
+
+            default:
+                throw new Error(`Unknown category ${category}`);
+        }
+    })();
+
+    const floorPrice = (() => {
+
+        switch (category) {
+            case 'items':
+                return Price.fromEgld(offers.lowestBuyableOffer?.price ?? '0');
+
+            case 'penguins':
+                return Price.fromEgld(offersOfCategory.floorOffer?.price ?? '0');
 
             default:
                 throw new Error(`Unknown category ${category}`);
@@ -57,6 +74,7 @@ function useInspect(category: CategoriesType, id: string, onWrongId: () => void 
         ownedOrListedByConnectedWallet,
         canBuy,
         isOwnedByConnected,
+        floorPrice,
         ...offers
     }
 
