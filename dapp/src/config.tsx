@@ -52,7 +52,7 @@ function getNetworkInfos() {
       }
     case 'MAINNET':
       return {
-        api: process.env.REACT_APP_MAINNET_API ?? 'https://marketplace-api.onrender.com/',
+        api: process.env.REACT_APP_MAINNET_API ?? 'https://api.marketplace.angrypenguinscolony.com',
         explorerUrl: 'https://explorer.elrond.com/',
         environment: 'mainnet',
         ...mainnetConfig
