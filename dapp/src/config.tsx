@@ -3,11 +3,6 @@ import { Address } from '@elrondnetwork/erdjs/out';
 import APCLogger, { LogType } from 'logger';
 import Explorer from 'sdk/classes/Explorer';
 
-const network = process.env.REACT_APP_DEVNET == '1' ? 'devnet' : 'mainnet';
-
-console.log(`Using ${network} network`);
-
-
 const logFlags = process.env.REACT_APP_MUTED_LOG?.split(' ') ?? [];
 console.log('Muted logs', logFlags);
 export const apcLogger = new APCLogger(logFlags as LogType[]);
@@ -46,8 +41,8 @@ export function getBadgeUri(id: number) {
 }
 
 function getNetworkInfos() {
-  switch (network) {
-    case 'devnet':
+  switch (process.env.REACT_APP_NETWORK_TYPE) {
+    case 'DEVNET':
       return {
         api: process.env.REACT_APP_DEVNET_API ?? 'https://marketplace-api-devnet.onrender.com/',
         explorerUrl: 'https://devnet-explorer.elrond.com/',
@@ -61,7 +56,7 @@ function getNetworkInfos() {
         stakingContractAddress: Address.fromBech32(Devnet.stakingContract),
         stakingToken: Devnet.nftStakingToken,
       }
-    case 'mainnet':
+    case 'MAINNET':
       throw new Error('Mainnet not supported yet');
 
     default:
