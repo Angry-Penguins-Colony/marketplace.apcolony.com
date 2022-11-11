@@ -52,7 +52,7 @@ function getNetworkInfos() {
       }
     case 'MAINNET':
       return {
-        api: process.env.REACT_APP_MAINNET_API ?? 'https://api.marketplace.angrypenguinscolony.com',
+        api: process.env.REACT_APP_MAINNET_API ?? 'https://api.marketplace.angrypenguinscolony.com/',
         explorerUrl: 'https://explorer.elrond.com/',
         environment: 'mainnet',
         ...mainnetConfig
@@ -76,3 +76,7 @@ export const stakingContract: Address = new Address(getNetworkInfos().stakingCon
 export const stakingToken = getNetworkInfos().nftStakingToken;
 export const itemsDatabase = getNetworkInfos().itemsDatabase;
 export const environment = getNetworkInfos().environment;
+
+if (marketplaceApi.endsWith('/') == false) {
+  throw new Error('Marketplace API should end with a slash');
+}
