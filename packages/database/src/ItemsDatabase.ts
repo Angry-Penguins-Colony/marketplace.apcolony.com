@@ -2,7 +2,7 @@ import { IItem } from "@apcolony/marketplace-api";
 import fs from "fs";
 import { getItemWebThumbnail, getRenderWebThumbnail, ipfsGateway } from "./uris";
 
-type DeployedItem = {
+export type DeployedItem = {
     id: string;
     collection: string;
     nonce: number;
@@ -29,7 +29,7 @@ export default class ItemsDatabase {
 
     constructor(private readonly _items: IItem[]) { }
 
-    public static fromJson(parsedItems: ItemInDatabase[], identifiers: DeployedItem[]) {
+    public static fromJson(parsedItems: ItemInDatabase[], deployedItems: DeployedItem[]) {
         const items: IItem[] = parsedItems
             .filter(({ name }) => name != "Default")
             .map(({ name, id, renderUrl, thumbnailCID, slot, supply, attributeName }): IItem => {
@@ -38,10 +38,10 @@ export default class ItemsDatabase {
                     throw new Error(`Item ${name} has no id`);
                 }
 
-                const item = identifiers.find(i => i.id == id);
+                const item = deployedItems.find(i => i.id == id);
 
                 if (!item) {
-                    console.warn(`Item ${name} (${id}) not found in identifiers`);
+                    console.warn(`Missing id ${id} for item ${name} in deploy json.`);
                 }
 
                 return {
@@ -143,7 +143,7 @@ export default class ItemsDatabase {
 }
 
 // TODO: move to 
-function splitCollectionAndNonce(identifier: string) {
+export function splitCollectionAndNonce(identifier: string) {
     const splited = identifier.split('-');
 
     if (splited.length == 3) {

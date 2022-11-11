@@ -29,7 +29,9 @@ async function main() {
     const minTime = requestsPerMinutesToMinTime(officialGatewayMaxRPS);
 
     console.log("Starting server-push-render");
+    console.log(`\t- Network: ${process.env.NETWORK_TYPE}`);
     console.log("\t- Customisation contract: ", config.customisationContract.bech32());
+    console.log(`\t- Sending from address: ${envVariables.senderAddress.bech32()}`);
     console.log(`\t- Waiting ${minTime}ms between checks`);
     console.log("\n");
 

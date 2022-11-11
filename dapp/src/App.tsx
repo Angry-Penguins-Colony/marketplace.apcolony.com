@@ -7,12 +7,11 @@ import {
 import { DappProvider } from '@elrondnetwork/dapp-core/wrappers';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import Layout from 'components/Layout';
+import { environment } from 'config';
 import Home from 'pages/Home';
 import PageNotFound from 'pages/PageNotFound';
 import UnlockModal from 'pages/UnlockModal';
 import routes, { routeNames } from 'routes';
-
-const environment = 'devnet';
 
 const App = () => {
   return <>

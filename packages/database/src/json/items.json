@@ -2058,6 +2058,7 @@
     },
     {
         "id": "215",
+        "descriptionCID": "QmZcJ7SFpjPz5B4YVUN4A8uk6TcewgUyt9jjQauNQMT6gf",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/215-render.png",
         "thumbnailCID": "QmZAjJ1CM1tWtPY2RrcFQkDQPNgx8LdW9TrVQrG46hMfzJ",
         "name": "Traditional Romanian",
@@ -2067,6 +2068,7 @@
     },
     {
         "id": "216",
+        "descriptionCID": "QmcoWLDv8A3E9SUaGxtcxAvhiYdPQ94REGQC9UnyYSpcBm",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/216-render.png",
         "thumbnailCID": "QmZiCXmct8zqTSwnCSNd5FKZoUiPMudJAZS29oZmkU1DcN",
         "name": "Traditional Romanian",
@@ -2083,7 +2085,8 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Hat Bucket Bronze",
-        "supply": 1023
+        "supply": 1023,
+        "identifier": "APCJEXHATS-3aef49-03"
     },
     {
         "id": "1002",
@@ -2094,7 +2097,8 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Hat Bucket Silver",
-        "supply": 347
+        "supply": 347,
+        "identifier": "APCJEXHATS-3aef49-02"
     },
     {
         "id": "1003",
@@ -2105,7 +2109,8 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Hat Bucket Gold",
-        "supply": 142
+        "supply": 142,
+        "identifier": "APCJEXHATS-3aef49-01"
     },
     {
         "id": "1005",
@@ -2116,7 +2121,8 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "APCxBunnyverseHoodie",
-        "supply": 397
+        "supply": 397,
+        "identifier": "APCBUNNYH-7175f1-01"
     },
     {
         "id": "1006",
@@ -2127,7 +2133,8 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Bottle Belt",
-        "supply": 241
+        "supply": 241,
+        "identifier": "APCWWWINEC-e210db-01"
     },
     {
         "id": "1007",
@@ -2138,7 +2145,8 @@
         "stakePoints": 3,
         "slot": "hat",
         "attributeName": "Aquaverse Tiara",
-        "supply": 1378
+        "supply": 1378,
+        "identifier": "APCXAQUAH-aac6a2-01"
     },
     {
         "id": "1008",
@@ -2148,7 +2156,8 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Barrel Hat",
-        "supply": 30
+        "supply": 30,
+        "identifier": "APCWWWINEH-a477b6-01"
     },
     {
         "id": "1009",
@@ -2159,7 +2168,8 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Hog Homies Mask",
-        "supply": 2
+        "supply": 2,
+        "identifier": "APCHIREZ-7762a7-01"
     },
     {
         "id": "1011",
@@ -2170,7 +2180,8 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Hoodie PICS",
-        "supply": 81
+        "supply": 81,
+        "identifier": "APCPICS-891137-01"
     },
     {
         "id": "1012",
@@ -2181,7 +2192,8 @@
         "stakePoints": 1,
         "slot": "skin",
         "attributeName": "Sponge Skin",
-        "supply": 544
+        "supply": 544,
+        "identifier": "APCXAQUAS-ee4b50-01"
     },
     {
         "id": "1013",
@@ -2192,7 +2204,8 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "OG Mask Gold",
-        "supply": 62
+        "supply": 62,
+        "identifier": "APCXSUBOG-1613fb-03"
     },
     {
         "id": "1014",
@@ -2203,7 +2216,8 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "OG Mask Silver",
-        "supply": 1736
+        "supply": 1736,
+        "identifier": "APCXSUBOG-1613fb-02"
     },
     {
         "id": "1015",
@@ -2214,7 +2228,8 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "OG Mask Bronze",
-        "supply": 2420
+        "supply": 2420,
+        "identifier": "APCXSUBOG-1613fb-01"
     },
     {
         "id": "1016",
@@ -2225,7 +2240,8 @@
         "stakePoints": 1,
         "slot": "weapon",
         "attributeName": "Aquaverse Trident",
-        "supply": 1067
+        "supply": 1067,
+        "identifier": "APCXAQUAW-c90c62-01"
     },
     {
         "id": "1017",
@@ -2236,7 +2252,8 @@
         "stakePoints": 1,
         "slot": "beak",
         "attributeName": "Corkscrew Beak",
-        "supply": 2732
+        "supply": 2732,
+        "identifier": "APCWWWINEB-2fd804-01"
     },
     {
         "id": "1018",
@@ -2247,7 +2264,8 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Emperor Chain",
-        "supply": 702
+        "supply": 702,
+        "identifier": "APCEMPCH-ad9cec-02"
     },
     {
         "id": "1019",
@@ -2258,7 +2276,8 @@
         "stakePoints": 3,
         "slot": "clothes",
         "attributeName": "Prime Emperor Chain",
-        "supply": 301
+        "supply": 301,
+        "identifier": "APCEMPCH-ad9cec-01"
     },
     {
         "id": "1020",
@@ -2269,7 +2288,8 @@
         "stakePoints": 3,
         "slot": "weapon",
         "attributeName": "Fishing Rod",
-        "supply": 56
+        "supply": 56,
+        "identifier": "APCWEAPON-81e915-01"
     },
     {
         "id": "1021",
@@ -2280,7 +2300,8 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "APC Silver Chain",
-        "supply": 64
+        "supply": 64,
+        "identifier": "APCCHAIN-048e55-03"
     },
     {
         "id": "1022",
@@ -2291,7 +2312,8 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "EGLD Gold Chain",
-        "supply": 59
+        "supply": 59,
+        "identifier": "APCCHAIN-048e55-02"
     },
     {
         "id": "1023",
@@ -2302,7 +2324,8 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Black EGLD Cap",
-        "supply": 271
+        "supply": 271,
+        "identifier": "APCHAT-109c14-02"
     },
     {
         "id": "1024",
@@ -2313,6 +2336,7 @@
         "stakePoints": 3,
         "slot": "skin",
         "attributeName": "Skin Inverted",
-        "supply": 69
+        "supply": 69,
+        "identifier": "APCSKIN-6429c4-01"
     }
 ]

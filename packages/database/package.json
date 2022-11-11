@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@apcolony/marketplace-api": "file:../api-types",
+    "@elrondnetwork/erdjs-network-providers": "^1.1.2",
     "del-cli": "^5.0.0"
   }
 }

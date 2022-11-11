@@ -14,6 +14,7 @@ import { toIdentifier } from "../utils/conversion";
 import ItemsDatabase from "@apcolony/db-marketplace/out/ItemsDatabase";
 import RequestsMonitor from "./RequestsMonitor";
 import { ErrNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out/errors";
+import { buffer } from "stream/consumers";
 
 /**
  * We create this function because a lot of methods of ProxyNetworkProvider are not implemented yet.
@@ -436,6 +437,39 @@ export class APCNetworkProvider {
         const res = await this.apiProvider.doGetGeneric(`accounts/${nftStakingContract}/tokens?${nftStakingToken}`);
 
         return originalTokensAmountInStakingSc - res[0].balance
+    }
+
+    public async getItemsList() {
+        interface MyItem {
+            slot: string;
+            name: string;
+            collection: string;
+            nonce: number;
+        }
+
+        const response = await this.gatewayProvider.queryContract({
+            address: customisationContract,
+            func: "getItems",
+            getEncodedArguments() {
+                return [];
+            },
+        })
+
+        const data = response.returnData
+            .map(d => Buffer.from(d, "base64").toString());
+
+
+        const output: MyItem[] = [];
+
+        for (var i = 0; i < data.length; i += 4) {
+            output.push({
+                slot: data[i],
+                name: data[i + 1],
+                collection: data[i + 2],
+                nonce: parseInt(data[i + 3]),
+            });
+        }
+        return output;
     }
 
 }
