@@ -1,11 +1,11 @@
-import { items, penguinsCount, slots } from 'config';
+import { itemsDatabase, penguinsCount, slots } from 'config';
 import CategoriesType, { categoriesTypeValues } from 'sdk/types/CategoriesType';
 
 export function isIdValid(rawId: string, category: CategoriesType): boolean {
 
     switch (category) {
         case 'items':
-            return items.some(item => item.id == rawId);
+            return itemsDatabase.idExist(rawId);
 
         case 'penguins':
             const id = parseInt(rawId);

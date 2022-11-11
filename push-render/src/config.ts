@@ -1,17 +1,41 @@
 import { Address } from "@elrondnetwork/erdjs/out";
 import BigNumber from "bignumber.js";
 import devnetConfig from "@apcolony/db-marketplace/out/devnet"
+import mainnetConfig from "@apcolony/db-marketplace/out/mainnet"
 import "dotenv/config";
 
-if (!process.env.ELROND_GATEWAY) throw new Error("ELROND_GATEWAY is not set");
+const CONSTANT_CONFIG = {
+    msBetweenUpdate: 1_500,
+    claimThreshold: new BigNumber("5e17"), // 0.5 EGLD
+};
+
+function getNetworkConfig() {
+
+    switch (process.env.NETWORK_TYPE) {
+        case "DEVNET":
+            return {
+                gatewayUrl: "https://devnet-gateway.elrond.com",
+                customisationContract: Address.fromBech32(devnetConfig.customisationContractAddress),
+                itemsDatabase: devnetConfig.itemsDatabase
+            };
+
+        case "MAINNET":
+            return {
+                gatewayUrl: "https://gateway.elrond.com",
+                customisationContract: Address.fromBech32(mainnetConfig.customisationContractAddress),
+                itemsDatabase: mainnetConfig.itemsDatabase
+            };
+
+        default:
+            throw new Error("Invalid network type");
+
+    }
+}
 
 const config = {
-    msBetweenUpdate: 500,
-    gatewayUrl: process.env.ELROND_GATEWAY,
-    customisationContract: Address.fromBech32(devnetConfig.customisationContractAddress),
-    claimThreshold: new BigNumber("1e18"), // 1 EGLD
-    itemsDatabase: devnetConfig.itemsDatabase
-};
+    ...getNetworkConfig(),
+    ...CONSTANT_CONFIG,
+}
 
 Object.freeze(config);
 

@@ -25,6 +25,7 @@ import getPenguinsStaked from './routes/staking/owned';
 import getStakingClaimable from './routes/staking/claim';
 import getGeneratedTokens from './routes/staking/generated';
 import rateLimit from 'express-rate-limit'
+import getItemsList from './routes/root/getItems';
 
 const workers = parseInt(process.env.WEB_CONCURRENCY || "1");
 const port = process.env.PORT || 5001;
@@ -78,6 +79,7 @@ function start(id: number) {
 
     app.get('/attributes/:penguinId', (req: any, res: any) => getAttributes(req, res, networkProvider));
     app.get("/exploreItems", (req: any, res: any) => getExploreItems(req, res, networkProvider, itemsDatabase));
+    app.get("/itemsList", (req: any, res: any) => getItemsList(req, res, networkProvider));
 
 
     app.listen(port, () => {

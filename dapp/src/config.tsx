@@ -1,12 +1,8 @@
-import Devnet from '@apcolony/db-marketplace/out/devnet';
+import devnetConfig from '@apcolony/db-marketplace/out/devnet';
+import mainnetConfig from '@apcolony/db-marketplace/out/mainnet';
 import { Address } from '@elrondnetwork/erdjs/out';
 import APCLogger, { LogType } from 'logger';
 import Explorer from 'sdk/classes/Explorer';
-
-const network = process.env.REACT_APP_DEVNET == '1' ? 'devnet' : 'mainnet';
-
-console.log(`Using ${network} network`);
-
 
 const logFlags = process.env.REACT_APP_MUTED_LOG?.split(' ') ?? [];
 console.log('Muted logs', logFlags);
@@ -46,37 +42,37 @@ export function getBadgeUri(id: number) {
 }
 
 function getNetworkInfos() {
-  switch (network) {
-    case 'devnet':
+  switch (process.env.REACT_APP_NETWORK_TYPE) {
+    case 'DEVNET':
       return {
         api: process.env.REACT_APP_DEVNET_API ?? 'https://marketplace-api-devnet.onrender.com/',
         explorerUrl: 'https://devnet-explorer.elrond.com/',
-        customisationContractAddress: Address.fromBech32(Devnet.customisationContractAddress),
-        penguinCollection: Devnet.penguinsIdentifier,
-        marketplaceContractAddress: Address.fromBech32(Devnet.sellingContract),
-        items: Devnet.items,
-        itemsDatabase: Devnet.itemsDatabase,
-        itemsCollections: Devnet.itemsIdentifier,
-        penguinsCount: Devnet.penguinsCount,
-        stakingContractAddress: Address.fromBech32(Devnet.stakingContract),
-        stakingToken: Devnet.nftStakingToken,
+        environment: 'devnet',
+        ...devnetConfig
       }
-    case 'mainnet':
-      throw new Error('Mainnet not supported yet');
+    case 'MAINNET':
+      return {
+        api: process.env.REACT_APP_MAINNET_API ?? 'https://api.marketplace.angrypenguinscolony.com',
+        explorerUrl: 'https://explorer.elrond.com/',
+        environment: 'mainnet',
+        ...mainnetConfig
+      }
 
     default:
       throw new Error('Unknown network');
   }
+
 }
 
+// TODO: remove this repetitive part of code
 export const marketplaceApi = getNetworkInfos().api;
-export const customisationContractAddress = getNetworkInfos().customisationContractAddress;
-export const penguinCollection = getNetworkInfos().penguinCollection;
-export const marketplaceContractAddress = getNetworkInfos().marketplaceContractAddress;
-export const items = getNetworkInfos().items;
+export const customisationContractAddress: Address = new Address(getNetworkInfos().customisationContractAddress);
+export const marketplaceContractAddress: Address = new Address(getNetworkInfos().sellingContract);
+export const penguinCollection = getNetworkInfos().penguinsCollection;
 export const explorer = new Explorer(getNetworkInfos().explorerUrl);
 export const penguinsCount = getNetworkInfos().penguinsCount;
 export const itemsCollections = getNetworkInfos().itemsCollections;
-export const stakingContract = getNetworkInfos().stakingContractAddress;
-export const stakingToken = getNetworkInfos().stakingToken;
+export const stakingContract: Address = new Address(getNetworkInfos().stakingContract);
+export const stakingToken = getNetworkInfos().nftStakingToken;
 export const itemsDatabase = getNetworkInfos().itemsDatabase;
+export const environment = getNetworkInfos().environment;

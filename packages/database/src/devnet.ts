@@ -1,18 +1,15 @@
 import ItemsDatabase from "./ItemsDatabase";
 import DeployDevnet from "./json/deploy.devnet.json";
 import Items from "./json/items.json";
+import { Config } from "./types/config";
 
-const devnetConfig = {
+const devnetConfig: Config = {
 
     itemsDatabase: ItemsDatabase.fromJson(Items, DeployDevnet.items),
-    penguinsIdentifier: DeployDevnet.penguinsIdentifier,
-    itemsIdentifier: DeployDevnet.itemsIdentifier,
-    /**
-     * @deprecated please use ItemsDatabase instead
-     */
-    items: Items,
-    customisationContractAddress: DeployDevnet.customizationContractAddress.bech32,
+    penguinsCollection: DeployDevnet.penguinsIdentifier,
+    itemsCollections: DeployDevnet.itemsIdentifier,
     penguinsCount: 5555,
+    customisationContractAddress: DeployDevnet.customizationContractAddress.bech32,
     sellingContract: "erd1qqqqqqqqqqqqqpgqxygtu607umpgtnp3xwkskeqsyhc26ej0v4xqyglrkj",
     stakingContract: "erd1qqqqqqqqqqqqqpgqdcjdvpvncw7s8ug56rehyvl8tehk3vl368mqxa7llg",
     nftStakingToken: "TEST-17e1db",

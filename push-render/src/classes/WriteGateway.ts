@@ -31,7 +31,7 @@ export default class WriteGateway {
     private readonly _itemsDatabase: ItemsDatabase;
 
     private get nonce(): number {
-        if (!this._opt_nonce) {
+        if (this._opt_nonce == undefined) {
             throw new Error("Nonce is not synced");
         }
 
@@ -68,9 +68,11 @@ export default class WriteGateway {
                     this._opt_networkConfig = await this._requestLimiter.schedule(this._networkProvider.getNetworkConfig.bind(this._networkProvider));
 
                     let senderOnNetwork = await this._requestLimiter.schedule(this._networkProvider.getAccount.bind(this._networkProvider), this._senderAddress);
+
                     this._opt_nonce = senderOnNetwork.nonce;
                 }
                 this._opt_syncState = SyncState.Synced;
+                console.log("Nonce synced. Nonce=", this.nonce);
                 break;
 
             case SyncState.Syncing:

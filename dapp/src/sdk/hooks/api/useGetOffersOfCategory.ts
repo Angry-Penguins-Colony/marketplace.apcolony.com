@@ -1,4 +1,5 @@
 import { IGenericElement, IOffer } from '@apcolony/marketplace-api';
+import BigNumber from 'bignumber.js';
 import useGenericAPICall from './useGenericAPICall';
 
 interface Output {
@@ -8,9 +9,16 @@ interface Output {
 
 function useGetOffersOfCategory(category: 'penguins' | string) {
 
-    const output = useGenericAPICall<Output>(`/${getType()}/offers/${getCat()}`);
+    const { data, forceReload } = useGenericAPICall<Output>(`/${getType()}/offers/${getCat()}`);
 
-    return output;
+    const floorOffer = data?.offers
+        .sort((a, b) => new BigNumber(a.price).comparedTo(b.price))[0];
+
+    return {
+        data: data,
+        forceReload: forceReload,
+        floorOffer: floorOffer
+    };
 
     function getType() {
         return category === 'penguins' ? 'penguins' : 'items';

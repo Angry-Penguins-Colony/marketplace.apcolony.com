@@ -1,6 +1,7 @@
-import { Address } from '@elrondnetwork/erdjs/out';
 import { getNetworkType } from './env';
 import devnetConfig from "@apcolony/db-marketplace/out/devnet";
+import mainnetConfig from "@apcolony/db-marketplace/out/mainnet";
+import { Address } from '@elrondnetwork/erdjs/out';
 
 function getNetworkInfos() {
 
@@ -13,34 +14,31 @@ function getNetworkInfos() {
 
     switch (getNetworkType()) {
         case "MAINNET":
-            throw new Error("Mainnet is not supported yet");
+            return {
+                gateway: process.env.GATEWAY ?? "https://gateway.elrond.com",
+                api: "https://api.elrond.com",
+                ...mainnetConfig
+            };
 
         case "DEVNET":
             return {
                 gateway: process.env.GATEWAY ?? "https://devnet-gateway.elrond.com",
                 api: "https://devnet-api.elrond.com",
-                penguinsIdentifier: devnetConfig.penguinsIdentifier,
-                penguinsCount: devnetConfig.penguinsCount,
-                itemsIdentifier: devnetConfig.itemsIdentifier,
-                customisationContract: Address.fromBech32(devnetConfig.customisationContractAddress),
-                marketplaceContract: Address.fromBech32(devnetConfig.sellingContract),
-                nftStakingContract: Address.fromBech32(devnetConfig.stakingContract),
-                nftStakingToken: devnetConfig.nftStakingToken,
-                originalTokensAmountInStakingSc: devnetConfig.originalTokensAmountInStakingSc,
-                itemsDatabase: devnetConfig.itemsDatabase,
+                ...devnetConfig
             };
     }
 }
 
-export const penguinsCollection = getNetworkInfos().penguinsIdentifier;
-export const itemsCollection = getNetworkInfos().itemsIdentifier;
+// TODO: remove this repetitive part of code
+export const penguinsCollection = getNetworkInfos().penguinsCollection;
+export const itemsCollection = getNetworkInfos().itemsCollections;
 export const allCollections = [penguinsCollection, ...Object.values(itemsCollection).flat()];
 export const gateway = getNetworkInfos().gateway;
 export const api = getNetworkInfos().api;
-export const customisationContract = getNetworkInfos().customisationContract;
-export const marketplaceContract = getNetworkInfos().marketplaceContract;
+export const customisationContract: Address = new Address(getNetworkInfos().customisationContractAddress);
+export const marketplaceContract: Address = new Address(getNetworkInfos().sellingContract);
 export const penguinsCount = getNetworkInfos().penguinsCount;
-export const nftStakingContract = getNetworkInfos().nftStakingContract;
+export const nftStakingContract: Address = new Address(getNetworkInfos().stakingContract);
 export const nftStakingToken = getNetworkInfos().nftStakingToken;
 export const originalTokensAmountInStakingSc = getNetworkInfos().originalTokensAmountInStakingSc;
 export const itemsDatabase = getNetworkInfos().itemsDatabase;
