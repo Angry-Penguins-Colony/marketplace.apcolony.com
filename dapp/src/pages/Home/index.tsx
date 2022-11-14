@@ -72,7 +72,7 @@ const Home = () => {
         <h2>Customize your<br />penguins !!!</h2>
         <p className={style.subtitle}>Make them unique with<br /> over a 100+ items</p>
         <img src={CustomizationIcon} alt="customization" />
-        <Button type='normal' link={buildRouteLinks.customize(1)} className={style.button}>Customize</Button>
+        <Button type='normal' link={routeNames.customizeInventory} className={style.button}>Customize</Button>
       </section>
       <div className={style['global-unique-style']}>
         <section className={style['give-unique-style']}>
