@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './assets/sass/theme.scss';
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container as HTMLElement);

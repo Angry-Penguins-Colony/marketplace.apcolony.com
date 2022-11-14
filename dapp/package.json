@@ -23,6 +23,7 @@
     "react": "18.1.0",
     "react-bootstrap": "2.1.2",
     "react-dom": "18.1.0",
+    "react-loading-skeleton": "^3.1.0",
     "react-router-dom": "6.2.1",
     "react-scripts": "^5.0.1",
     "sass": "1.32.1",
