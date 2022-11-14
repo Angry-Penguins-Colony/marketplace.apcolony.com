@@ -14,6 +14,7 @@ function useGetInventory(walletAddress: string) {
     const penguins = owned?.penguins;
     const items = owned?.items;
     const { data: offersOfAccount } = useGetOffersOfAccount(Address.fromBech32(walletAddress));
+    const totalOffersCount = offersOfAccount && offersOfAccount.offers.length;
 
     React.useEffect(() => {
         updateInventory();
@@ -25,6 +26,7 @@ function useGetInventory(walletAddress: string) {
         inventoryOffers,
         penguinsCount: penguins?.length,
         itemsCount: items?.length,
+        totalOffers: totalOffersCount,
         setInventoryType
     };
 

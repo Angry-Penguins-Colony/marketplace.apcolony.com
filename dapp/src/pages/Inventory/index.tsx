@@ -31,7 +31,8 @@ const Inventory = () => {
         inventoryOffers,
         penguinsCount,
         itemsCount,
-        setInventoryType
+        totalOffers,
+        setInventoryType,
     } = useGetInventory(walletAddress);
 
     const {
@@ -90,6 +91,10 @@ const Inventory = () => {
                             <p className={style.number}>{itemsCount ?? '-'}</p>
                             <p className={style.name}>Items</p>
                         </div>
+                        <div className={style.item}>
+                            <p className={style.number}>{totalOffers ?? '-'}</p>
+                            <p className={style.name}>Active offers</p>
+                        </div>
                     </div>
                     <div className={style.title}>
                         <h3>My {inventoryType.charAt(0).toUpperCase() + inventoryType.slice(1)}</h3>
@@ -112,7 +117,7 @@ const Inventory = () => {
 
                     {(inventoryElements && inventoryOffers) ?
                         <>
-                            {inventoryOffers && inventoryOffers.length > 0 &&
+                            {inventoryOffers.length > 0 &&
                                 <ItemsInventory
                                     className={style['items-inventory-container']}
                                     contentClassName={style['items-inventory-content']}
@@ -123,16 +128,15 @@ const Inventory = () => {
                                 />
                             }
 
-                            {inventoryElements &&
-                                <ItemsInventory
-                                    className={style['items-inventory-container']}
-                                    contentClassName={style['items-inventory-content']}
-                                    items={inventoryElements}
-                                    title={'My ' + inventoryType}
-                                    type={inventoryType}
-                                    hasFilter={typeWithFilter.includes(inventoryType)}
-                                    filters={filterData} />
-                            }</>
+                            <ItemsInventory
+                                className={style['items-inventory-container']}
+                                contentClassName={style['items-inventory-content']}
+                                items={inventoryElements}
+                                title={'My ' + inventoryType}
+                                type={inventoryType}
+                                hasFilter={typeWithFilter.includes(inventoryType)}
+                                filters={filterData} />
+                        </>
                         :
                         <Loading />
                     }
