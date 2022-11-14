@@ -10,8 +10,8 @@ export default async function getExploreItems(req: Request, res: Response, netwo
     withTryCatch(res, async () => {
 
 
-        const RANDOM_ITEMS_COUNT = 5;
-        const RANDOM_PENGUINS_COUNT = 5;
+        const RANDOM_ITEMS_COUNT = 10;
+        const RANDOM_PENGUINS_COUNT = 0;
 
         const items = await Promise.all(itemsDatabase.getRandomItems(RANDOM_ITEMS_COUNT)
             .map(async ({ id }) => itemsDatabase.getItemFromId(id)));

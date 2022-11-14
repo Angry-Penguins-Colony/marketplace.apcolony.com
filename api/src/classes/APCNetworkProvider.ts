@@ -487,6 +487,8 @@ export class APCNetworkProvider {
 
     public async getRandomPenguins(count: number): Promise<IPenguin[]> {
 
+        if (count == 0) return [];
+
         const penguins: IPenguin[] = [];
 
         for (const nft of this.nftsCache.values()) {
