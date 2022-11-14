@@ -5,7 +5,7 @@ import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { AbiRegistry, Address, AddressValue, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, StringValue, U64Value } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
 import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsCollection, getPenguinWebThumbnail, nftStakingContract, nftStakingToken, originalTokensAmountInStakingSc, allCollections } from "../const";
-import { isCollectionAnItem } from "../utils/dbHelper";
+import { getRandomsPenguinsIds, isCollectionAnItem } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, getNameFromPenguinId, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
 import { BigNumber } from "bignumber.js";
@@ -488,4 +488,8 @@ export class APCNetworkProvider {
         return output;
     }
 
+    public async getRandomPenguins(count: number): Promise<IPenguin[]> {
+        return await Promise.all(getRandomsPenguinsIds(count)
+            .map(async (i) => this.getPenguinFromId(i)));
+    }
 }

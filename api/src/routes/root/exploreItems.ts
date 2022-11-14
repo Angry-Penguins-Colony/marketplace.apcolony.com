@@ -16,8 +16,7 @@ export default async function getExploreItems(req: Request, res: Response, netwo
         const items = await Promise.all(itemsDatabase.getRandomItems(RANDOM_ITEMS_COUNT)
             .map(async ({ id }) => itemsDatabase.getItemFromId(id)));
 
-        const penguins = await Promise.all(getRandomsPenguinsIds(penguinsCount >= RANDOM_PENGUINS_COUNT ? RANDOM_PENGUINS_COUNT : penguinsCount)
-            .map(async (i) => networkProvider.getPenguinFromId(i)));
+        const penguins = await networkProvider.getRandomPenguins(RANDOM_PENGUINS_COUNT);
 
         sendSuccessfulJSON(res, {
             items,
