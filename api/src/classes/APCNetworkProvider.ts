@@ -15,6 +15,7 @@ import ItemsDatabase from "@apcolony/db-marketplace/out/ItemsDatabase";
 import RequestsMonitor from "./RequestsMonitor";
 import { ErrNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out/errors";
 import { buffer } from "stream/consumers";
+import { Cache } from "memory-cache";
 
 /**
  * We create this function because a lot of methods of ProxyNetworkProvider are not implemented yet.
@@ -29,6 +30,8 @@ export class APCNetworkProvider {
     private readonly gatewayRequestMonitor: RequestsMonitor = new RequestsMonitor();
 
     private readonly nftsCache: Map<string, APCNft> = new Map();
+
+    private readonly pendingRequests_getPenguinFromId = new Cache<string, Promise<IPenguin>>();
 
     get lastMinuteRequests() {
         return {
@@ -48,17 +51,36 @@ export class APCNetworkProvider {
     }
 
     public async getPenguinFromId(id: string): Promise<IPenguin> {
-        const nfts = await this.getNfts(penguinsCollection, {
-            name: id,
-            withOwner: true
-        });
+        // register new request
+        // if same request is already in progress, wait for it
 
-        nfts.forEach(nft => this.nftsCache.set(toIdentifier(nft.collection, nft.nonce), nft));
+        const pendingRequest = this.pendingRequests_getPenguinFromId.get(id);
 
-        if (nfts.length == 0) throw new Error(`Penguin ${id} not found`);
-        if (nfts.length > 1) throw new Error(`Found ${nfts.length} penguins with the name ${getNameFromPenguinId(id)}.`);
+        if (pendingRequest) {
+            return pendingRequest;
+        }
+        else {
 
-        return this.getPenguinFromNft(nfts[0]);
+            const sendRequest = async () => {
+                const nfts = await this.getNfts(penguinsCollection, {
+                    name: id,
+                    withOwner: true
+                });
+
+                nfts.forEach(nft => this.nftsCache.set(toIdentifier(nft.collection, nft.nonce), nft));
+
+                if (nfts.length == 0) throw new Error(`Penguin ${id} not found`);
+                if (nfts.length > 1) throw new Error(`Found ${nfts.length} penguins with the name ${getNameFromPenguinId(id)}.`);
+
+                return this.getPenguinFromNft(nfts[0]);
+            };
+
+
+            const request = sendRequest();
+            this.pendingRequests_getPenguinFromId.put(id, request, 3_000);
+
+            return request;
+        }
     }
 
     /**
