@@ -5,9 +5,9 @@ import { Address } from '@elrondnetwork/erdjs/out';
 
 function getNetworkInfos() {
 
-    if (process.env.GATEWAY) {
+    if (process.env.ELROND_GATEWAY) {
         // throw error if last character of gateway is a slash
-        if (process.env.GATEWAY[process.env.GATEWAY.length - 1] === '/') {
+        if (process.env.ELROND_GATEWAY[process.env.ELROND_GATEWAY.length - 1] === '/') {
             throw new Error(`Gateway should not end with a slash.`);
         }
     }
@@ -15,15 +15,15 @@ function getNetworkInfos() {
     switch (getNetworkType()) {
         case "MAINNET":
             return {
-                gateway: process.env.GATEWAY ?? "https://gateway.elrond.com",
-                api: "https://api.elrond.com",
+                gateway: process.env.ELROND_GATEWAY ?? "https://gateway.elrond.com",
+                api: process.env.ELROND_API ?? "https://api.elrond.com",
                 ...mainnetConfig
             };
 
         case "DEVNET":
             return {
-                gateway: process.env.GATEWAY ?? "https://devnet-gateway.elrond.com",
-                api: "https://devnet-api.elrond.com",
+                gateway: process.env.ELROND_GATEWAY ?? "https://devnet-gateway.elrond.com",
+                api: process.env.ELROND_API ?? "https://devnet-api.elrond.com",
                 ...devnetConfig
             };
     }

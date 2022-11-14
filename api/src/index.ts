@@ -86,6 +86,7 @@ function start(id: number) {
         console.log(`Thread #${id} listening on port ${port}.`);
         console.log(`   network: ${getNetworkType()}`)
         console.log(`   gateway: ${gateway}`)
+        console.log(`   api: ${api}`)
     });
 
     setInterval(() => logRequestsInfo(networkProvider), 1_000);
