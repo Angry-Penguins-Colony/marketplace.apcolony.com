@@ -30,7 +30,11 @@ import getItemsList from './routes/root/getItems';
 const workers = parseInt(process.env.WEB_CONCURRENCY || "1");
 const port = process.env.PORT || 5001;
 
-throng(workers, start);
+throng({
+    workers,
+    start,
+    master
+});
 
 function start(id: number) {
     const app = express();
@@ -55,8 +59,6 @@ function start(id: number) {
 
     networkProvider.cacheCollection(penguinsCollection)
         .then(() => console.log(`Worker ${id} - cached penguins collection`));
-
-    logErrorIfMissingItems(networkProvider);
 
     app.get("/owned/:bech32", async (req: any, res: any) => getOwnedItemsAndPenguins(req, res, networkProvider, itemsDatabase));
     app.get("/offers/:bech32", async (req: any, res: any) => getOffersOfAccount(req, res, networkProvider));
@@ -92,8 +94,14 @@ function start(id: number) {
         console.log(`   api: ${api}`)
     });
 
-    setInterval(() => logRequestsInfo(networkProvider), 1_000);
+    if (process.env.SHOW_STATS == "true") {
+        setInterval(() => logRequestsInfo(networkProvider), 1_000);
+    }
+}
 
+async function master() {
+    const networkProvider = new APCNetworkProvider(gateway, api, itemsDatabase);
+    logErrorIfMissingItems(networkProvider);
 }
 
 function logRequestsInfo(networkProvider: APCNetworkProvider) {
