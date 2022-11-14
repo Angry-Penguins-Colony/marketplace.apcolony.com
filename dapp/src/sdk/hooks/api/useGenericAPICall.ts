@@ -20,7 +20,7 @@ function useGenericAPICall<T>(url: string, options?: IGenericAPIOptions) {
 
     async function get() {
         try {
-
+            return;
             const res = await doGetGeneric(url)
             setData(res.data.data);
         }

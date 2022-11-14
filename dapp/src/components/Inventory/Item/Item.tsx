@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Skeleton from 'react-loading-skeleton';
 import style from './Item.module.scss';
 
 export const Item = ({
@@ -9,7 +10,7 @@ export const Item = ({
         // do nothing
     }
 }: {
-    item: {
+    item?: {
         displayName: string,
         id: string,
         thumbnailUrls: {
@@ -23,15 +24,27 @@ export const Item = ({
     return (
         <div className={style.item + ' ' + className} onClick={onClick}>
             <div className={style.infos}>
-                <p className={style.name}>{item.displayName}</p>
+                <p className={style.name}>
+                    {item?.displayName || <Skeleton />}
+                </p>
                 {
                     displayId &&
-                    <p className={style.id}>#{item.id}</p>
+                    <p className={style.id}>
+                        {
+                            item ?
+                                <>#{item.id}</>
+                                :
+                                <Skeleton />
+                        }
+                    </p>
                 }
-                {/* <p className={style.rarity}>Rarity: {item.rarity}%</p> */}
             </div>
             <div className={style.thumbnail}>
-                <img src={item.thumbnailUrls.high} alt={item.displayName} />
+                {
+                    item ?
+                        <img src={item.thumbnailUrls.high} alt={item.displayName} />
+                        : <Skeleton />
+                }
             </div>
         </div>
     );

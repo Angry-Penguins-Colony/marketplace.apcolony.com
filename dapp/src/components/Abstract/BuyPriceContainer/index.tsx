@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Skeleton from 'react-loading-skeleton';
 import ConnectWalletButton from 'components/Buttons/ConnectWalletButton';
 import Price from 'sdk/classes/Price';
 import useIsConnected from 'sdk/hooks/dapp-core-upgraded/useIsConnected';
@@ -33,7 +34,9 @@ const BuyPriceContainer = ({
             {
                 buyableOffersCount == undefined || buyableOffersCount > 0 ?
                     <>
-                        <p className={style.price}>{price?.toDenomination() ?? '--'} EGLD</p>
+                        <p className={style.price}>
+                            {price?.toDenomination() ?? <Skeleton />} EGLD
+                        </p>
 
                         {
                             isConnected ?
@@ -47,17 +50,22 @@ const BuyPriceContainer = ({
 
                         {showOffersCount &&
                             <span className="mt-1">
-                                {offersCount ?? '--'} offers
-
                                 {
-                                    onOffersCountClick &&
-                                    <span className={style.seeOffers + ' ' + 'ml-1'} onClick={() => {
-                                        if (onOffersCountClick) {
-                                            onOffersCountClick();
+                                    offersCount != undefined &&
+                                    <>
+                                        {offersCount} offers
+
+                                        {
+                                            onOffersCountClick &&
+                                            <span className={style.seeOffers + ' ' + 'ml-1'} onClick={() => {
+                                                if (onOffersCountClick) {
+                                                    onOffersCountClick();
+                                                }
+                                            }}>
+                                                (show list)
+                                            </span>
                                         }
-                                    }}>
-                                        (show list)
-                                    </span>
+                                    </>
                                 }
                             </span>
                         }

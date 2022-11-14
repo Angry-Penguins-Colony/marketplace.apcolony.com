@@ -3,6 +3,7 @@ import { IItem, IOffer, IPenguin } from '@apcolony/marketplace-api';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
+import Skeleton from 'react-loading-skeleton';
 import { useParams } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
 import BuyPriceContainer from 'components/Abstract/BuyPriceContainer';
@@ -72,10 +73,15 @@ const Inspect = () => {
         <div id={style['item-in-inventory']}>
             <MobileHeader title={typeInText.plural} type='light' />
             <div className={style.thumbnail}>
-                <img src={item ? (item.thumbnailUrls.high) : ''} alt={item?.displayName ?? 'loading item'} />
+                {
+                    item ?
+                        <img className={style.img} src={item.thumbnailUrls.high} alt={item.displayName} />
+                        :
+                        <Skeleton height={250} />
+                }
             </div>
             <div className={style.infos}>
-                <p className={style.name}>{item?.displayName ?? '---'}</p>
+                <p className={style.name}>{item?.displayName ?? <Skeleton />}</p>
                 <div className={style.share} onClick={() => {
                     if (!item) return;
                     window.navigator.share({
@@ -160,10 +166,11 @@ const Inspect = () => {
             </div>
             <hr />
             <ItemsAndActivities
-                items={(item != undefined && category == 'penguins') ? Object.values((item as IPenguin).equippedItems) : []}
+                items={getItems()}
                 activities={activities}
                 type={getTypeInText().singular.toLowerCase()}
                 disableActivityTab={category == 'penguins'}
+                disableItemsTab={category == 'items'}
                 className={style.activity} />
 
             {
@@ -195,6 +202,21 @@ const Inspect = () => {
             }
         </div >
     );
+
+    function getItems() {
+        if (!item) return undefined;
+
+        switch (category) {
+            case 'penguins':
+                return Object.values((item as IPenguin).equippedItems);
+
+            case 'items':
+                return [];
+
+            default:
+                throw new Error('Unknown category');
+        }
+    }
 
     async function sendRetireOfferTransaction(offer: IOffer) {
         const transaction: SimpleTransactionType = getRetireTransaction(offer);
@@ -232,7 +254,7 @@ const Inspect = () => {
 
     function getSubProperties() {
 
-        if (!item) return;
+        if (!item) return <Skeleton />;
 
         switch (category) {
             case 'penguins':

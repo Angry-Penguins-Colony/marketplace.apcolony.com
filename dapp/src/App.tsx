@@ -16,7 +16,7 @@ import routes, { routeNames } from 'routes';
 
 const App = () => {
   return <>
-    <SkeletonTheme baseColor="#d3d3d3" highlightColor="#ffffff">
+    <SkeletonTheme baseColor="#d3d3d3" highlightColor="#e9eef2">
 
 
       <Router>

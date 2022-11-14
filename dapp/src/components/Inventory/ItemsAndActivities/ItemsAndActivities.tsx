@@ -1,24 +1,26 @@
 import * as React from 'react';
 import { IActivity, IItem } from '@apcolony/marketplace-api';
 import moment from 'moment';
+import Skeleton from 'react-loading-skeleton';
 import UnderlineNavElmt from 'components/Abstract/UnderlineNavElmt/UnderlineNavElmt';
 import AddressWrapper from 'components/AddressWrapper';
 import RightArrowIcon from 'components/Icons/RightArrowIcon';
-import { explorer } from 'config';
 import { Item } from '../Item/Item';
 import style from './ItemsAndActivities.module.scss';
 
 const ItemsAndActivities = ({
-    items = [],
+    items,
     activities,
     className = '',
     type,
-    disableActivityTab = false
+    disableActivityTab = false,
+    disableItemsTab = false
 }: {
     items?: IItem[];
     activities?: IActivity[];
     className?: string,
     disableActivityTab?: boolean
+    disableItemsTab?: boolean
     type: string
 }) => {
     // change active tab
@@ -27,15 +29,17 @@ const ItemsAndActivities = ({
         Activity = 'activity'
     }
 
-    const [activeTab, setActiveTab] = React.useState<Tab>(
-        (items.length > 0 ? Tab.Items : Tab.Activity)
-    );
+    console.log('items', items);
+
+    const [activeTab, setActiveTab] = React.useState<Tab>(Tab.Items);
 
     function changeTab(tab: Tab) {
         setActiveTab(tab);
     }
 
     React.useEffect(() => {
+        if (!items) return;
+
         if (items.length === 0) {
             setActiveTab(Tab.Activity);
         }
@@ -48,17 +52,20 @@ const ItemsAndActivities = ({
         if (disableActivityTab == true && activeTab == Tab.Activity) {
             setActiveTab(Tab.Items);
         }
+
+        if (disableItemsTab == true && activeTab == Tab.Items) {
+            setActiveTab(Tab.Activity);
+        }
     }, [activeTab]);
 
 
     return (
         <div className={style['item-and-activity'] + ' ' + className}>
             <nav>
-                {
-                    items.length > 0 && (
-                        <UnderlineNavElmt name={'Items'} isActive={activeTab === Tab.Items} onClick={() => changeTab(Tab.Items)} />
-                    )
+                {!disableItemsTab &&
+                    <UnderlineNavElmt name={'Items'} isActive={activeTab === Tab.Items} onClick={() => changeTab(Tab.Items)} />
                 }
+
                 {
                     !disableActivityTab && (
                         <UnderlineNavElmt name={'Activity'} isActive={activeTab === Tab.Activity} onClick={() => changeTab(Tab.Activity)} />
@@ -66,49 +73,61 @@ const ItemsAndActivities = ({
                 }
             </nav>
             <div className={style.content}>
-                {(() => {
-                    switch (activeTab) {
-                        case Tab.Items:
-                            return (
-                                items.map(item => (
-                                    <Item key={item.id} item={item} />
-                                ))
-                            );
-
-                        case Tab.Activity:
-
-                            if (activities != undefined) {
-                                if (activities.length == 0) {
-                                    return <p className="text-center">
-                                        This {type} has not been traded on this marketplace yet
-                                    </p>
-                                }
-                                else {
-                                    return (
-                                        <>
-                                            {activities.map(activity => (
-                                                <Activity key={activity.txHash} activity={activity} />
-                                            ))}
-                                        </>
-                                    );
-                                }
-                            }
-                            else {
-                                return <div className="d-flex w-100 justify-content-center mt-2">
-                                    <div className="spinner-border" role="status">
-                                        <span className="sr-only">Loading...</span>
-                                    </div>
-                                </div>;
-                            }
-
-
-                        default:
-                            return (<></>);
-                    }
-                })()}
+                {getContent()}
             </div>
         </div>
     );
+
+    function getContent(): React.ReactNode {
+        switch (activeTab) {
+            case Tab.Items:
+                if (!items) {
+                    return <>
+                        <Skeleton height={80} />
+                        <Skeleton height={80} />
+                        <Skeleton height={80} />
+                        <Skeleton height={80} />
+                    </>;
+                }
+
+                return (
+                    items.map(item => (
+                        <Item key={item.id} item={item} />
+                    ))
+                );
+
+            case Tab.Activity:
+
+                if (activities != undefined) {
+                    if (activities.length == 0) {
+                        return <p className="text-center">
+                            This {type} has not been traded on this marketplace yet
+                        </p>;
+                    }
+                    else {
+                        return (
+                            <>
+                                {activities.map(activity => (
+                                    <Activity key={activity.txHash} activity={activity} />
+                                ))}
+                            </>
+                        );
+                    }
+                }
+                else {
+                    return <>
+                        <Skeleton height={80} />
+                        <Skeleton height={80} />
+                        <Skeleton height={80} />
+                        <Skeleton height={80} />
+                    </>;
+                }
+
+
+            default:
+                return (<></>);
+        }
+    }
 };
 
 export default ItemsAndActivities;

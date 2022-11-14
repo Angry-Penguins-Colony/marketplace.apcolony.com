@@ -18,6 +18,7 @@ const PenguinSubProperties = ({ penguin, offer }: Props) => {
     if (penguin.owner) {
         if (penguin.owner == marketplaceContractAddress.bech32()) {
 
+
             const address = offer ? <AddressWrapper bech32={offer.seller} /> : '--';
 
             properties.push(<>
