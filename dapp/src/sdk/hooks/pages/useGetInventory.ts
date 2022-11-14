@@ -18,7 +18,7 @@ function useGetInventory(walletAddress: string) {
 
     React.useEffect(() => {
         updateInventory();
-    }, [penguins, items, inventoryType]);
+    }, [penguins, items, offersOfAccount, inventoryType]);
 
     return {
         inventoryElements,
