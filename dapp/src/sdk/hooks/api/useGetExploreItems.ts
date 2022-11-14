@@ -1,5 +1,6 @@
 import React from 'react';
 import { IGenericElement, IItem, IPenguin } from '@apcolony/marketplace-api';
+import { shuffle } from 'lodash';
 import useGenericAPICall from './useGenericAPICall';
 
 interface ExploreItemsResponse {
@@ -16,7 +17,7 @@ function useGetExploreItems(): IGenericElement[] | undefined {
 
     React.useEffect(() => {
         if (exploreItems) {
-            setGenericItems([...exploreItems.penguins, ...exploreItems.items]);
+            setGenericItems(shuffle([...exploreItems.penguins, ...exploreItems.items]));
         }
 
     }, [exploreItems]);

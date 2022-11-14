@@ -53,6 +53,8 @@ export class APCNetworkProvider {
             withOwner: true
         });
 
+        nfts.forEach(nft => this.nftsCache.set(toIdentifier(nft.collection, nft.nonce), nft));
+
         if (nfts.length == 0) throw new Error(`Penguin ${id} not found`);
         if (nfts.length > 1) throw new Error(`Found ${nfts.length} penguins with the name ${getNameFromPenguinId(id)}.`);
 
@@ -94,11 +96,6 @@ export class APCNetworkProvider {
         this.nftsCache.set(identifier, token);
 
         return token;
-    }
-
-    public async cacheCollection(collection: string) {
-        const nfts = await this.getNfts(collection, { size: 10_000 });
-        nfts.forEach(nft => this.nftsCache.set(toIdentifier(collection, nft.nonce), nft));
     }
 
     public async getNftsOfAccount(address: IAddress, collections: string[]): Promise<APCNft[]> {
@@ -489,7 +486,31 @@ export class APCNetworkProvider {
     }
 
     public async getRandomPenguins(count: number): Promise<IPenguin[]> {
-        return await Promise.all(getRandomsPenguinsIds(count)
-            .map(async (i) => this.getPenguinFromId(i)));
+
+        const penguins: IPenguin[] = [];
+
+        for (const nft of this.nftsCache.values()) {
+            if (nft.collection != penguinsCollection) continue;
+
+            penguins.push(this.getPenguinFromNft(nft));
+
+            if (penguins.length >= count) break;
+        }
+
+        if (penguins.length < count) {
+            const remainingCount = count - penguins.length;
+            const networkPenguins = await this.getRandomPenguinsUnoptimized(remainingCount);
+            penguins.push(...networkPenguins);
+        }
+
+        return penguins;
+    }
+
+    /**
+     * Get random penguins without cache checking     
+     */
+    private async getRandomPenguinsUnoptimized(count: number): Promise<IPenguin[]> {
+        return Promise.all(getRandomsPenguinsIds(count)
+            .map(async (i) => this.getPenguinFromId(i)))
     }
 }

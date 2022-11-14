@@ -57,9 +57,6 @@ function start(id: number) {
 
     const networkProvider = new APCNetworkProvider(gateway, api, itemsDatabase);
 
-    networkProvider.cacheCollection(penguinsCollection)
-        .then(() => console.log(`Worker ${id} - cached penguins collection`));
-
     app.get("/owned/:bech32", async (req: any, res: any) => getOwnedItemsAndPenguins(req, res, networkProvider, itemsDatabase));
     app.get("/offers/:bech32", async (req: any, res: any) => getOffersOfAccount(req, res, networkProvider));
     app.get('/penguins/penguin/:id', (req: any, res: any) => getPenguin(req, res, networkProvider));
