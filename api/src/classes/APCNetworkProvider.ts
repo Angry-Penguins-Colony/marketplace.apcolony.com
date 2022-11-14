@@ -96,6 +96,11 @@ export class APCNetworkProvider {
         return token;
     }
 
+    public async cacheCollection(collection: string) {
+        const nfts = await this.getNfts(collection, { size: 10_000 });
+        nfts.forEach(nft => this.nftsCache.set(toIdentifier(collection, nft.nonce), nft));
+    }
+
     public async getNftsOfAccount(address: IAddress, collections: string[]): Promise<APCNft[]> {
 
         // set size as lower improve perf, so 1_000 (250 items, 750 penguins) is okay
