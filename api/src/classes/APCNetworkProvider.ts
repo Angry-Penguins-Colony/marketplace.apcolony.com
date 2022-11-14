@@ -28,6 +28,8 @@ export class APCNetworkProvider {
     private readonly apiRequestsMonitor: RequestsMonitor = new RequestsMonitor();
     private readonly gatewayRequestMonitor: RequestsMonitor = new RequestsMonitor();
 
+    private readonly nftsCache: Map<string, APCNft> = new Map();
+
     get lastMinuteRequests() {
         return {
             api: this.apiRequestsMonitor.lastMinuteRequests,
@@ -77,10 +79,19 @@ export class APCNetworkProvider {
     }
 
     public async getNft(collection: string, nonce: number): Promise<APCNft> {
+
+        const identifier = toIdentifier(collection, nonce);
+
+        const cacheHit = this.nftsCache.get(identifier);
+
+        if (cacheHit) return cacheHit;
+
         let nonceAsHex = new Nonce(nonce).hex();
         let response = await this.apiProvider.doGetGeneric(`nfts/${collection}-${nonceAsHex}`);
         this.apiRequestsMonitor.increment();
         let token = APCNft.fromApiHttpResponse(response);
+
+        this.nftsCache.set(identifier, token);
 
         return token;
     }
