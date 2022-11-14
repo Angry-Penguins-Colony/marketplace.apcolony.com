@@ -1,5 +1,4 @@
-import { IOwnedItem, IPenguin } from '@apcolony/marketplace-api';
-import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import { IAddress, IOwnedItem, IPenguin } from '@apcolony/marketplace-api';
 import useGenericAPICall from './useGenericAPICall';
 
 interface Output {
@@ -7,9 +6,8 @@ interface Output {
     items: IOwnedItem[];
 }
 
-function useGetUserOwnedAmount(): Output | undefined {
-    const { address } = useGetAccountInfo();
-    const { data } = useGenericAPICall<Output>('owned/' + address);
+function useGetUserOwnedAmount(address: IAddress): Output | undefined {
+    const { data } = useGenericAPICall<Output>('owned/' + address.bech32());
 
     return data;
 }

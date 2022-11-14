@@ -10,7 +10,7 @@ function useGetInventory(walletAddress: string) {
     const [inventoryType, setInventoryType] = React.useState<CategoriesType>('penguins');
     const [inventoryOffers, setInventoryOffers] = React.useState<IGenericElement[] | undefined>(undefined);
 
-    const owned = useGetUserOwnedAmount();
+    const owned = useGetUserOwnedAmount(Address.fromBech32(walletAddress));
     const penguins = owned?.penguins;
     const items = owned?.items;
     const { data: offersOfAccount } = useGetOffersOfAccount(Address.fromBech32(walletAddress));

@@ -2,6 +2,7 @@ import React from 'react';
 import { Attributes, IItem, IOwnedItem, IPenguin } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
+import { Address } from '@elrondnetwork/erdjs/out';
 import BigNumber from 'bignumber.js';
 import { customisationContractAddress, itemsDatabase, penguinCollection } from 'config';
 import { capitalize } from 'sdk/conversion/string';
@@ -28,7 +29,7 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
 
     const { address: connectedAddress } = useGetAccountInfo();
 
-    const owned = useGetUserOwnedAmount();
+    const owned = useGetUserOwnedAmount(Address.fromBech32(connectedAddress));
     const ownedItems = owned?.items;
     const { data, forceReload: reloadSelectedPenguin } = useGetGenericItem('penguins', selectedPenguinId);
     const selectedPenguin = data as IPenguin | undefined;

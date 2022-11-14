@@ -6,6 +6,7 @@ import Explorer from 'sdk/classes/Explorer';
 
 const logFlags = process.env.REACT_APP_MUTED_LOG?.split(' ') ?? [];
 console.log('Muted logs', logFlags);
+console.log('Using network', process.env.REACT_APP_NETWORK_TYPE);
 export const apcLogger = new APCLogger(logFlags as LogType[]);
 
 export const dAppName = 'Marketplace';
