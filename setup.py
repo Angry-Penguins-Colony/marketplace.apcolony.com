@@ -26,10 +26,13 @@ def main():
         if not os.path.isdir(path):
             raise Exception("Package directory does not exist: " + path)
 
-        if (args.install_deps and is_dep_package == True):
+        if (args.build_deps and is_dep_package == True):
             os.system("cd " + path + " && npm install")
             os.system("cd " + path + " && npm run build")
-            print(" Installed " + name)                            
+            print(" Installed " + name)                     
+        elif (args.install):       
+            os.system("cd " + path + " && npm install")
+            print(" Installed " + name)                  
         elif (args.clean == True):
             os.system("cd " + path + " && npm run clean")
             print(" Cleaned " + name)
@@ -37,7 +40,8 @@ def main():
             print(" Ignored " + name)
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--install-deps", help="install packages", action='store_true')
+    parser.add_argument("--build-deps", help="install packages", action='store_true')
+    parser.add_argument("--install", help="install", action='store_true')
     parser.add_argument('--clean', help="remove node_modules and out directories", action='store_true')
     args = parser.parse_args()
 

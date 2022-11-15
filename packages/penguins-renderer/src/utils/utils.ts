@@ -56,24 +56,6 @@ export function pad(num: number, size: number): string {
     return s;
 }
 
-export function sortImages(itemsBySlot: [string, string][], layerOrder: string[]) {
-
-    const array_kvp = itemsBySlot
-        .sort((a, b) => {
-            const a_index = layerOrder.indexOf(a[0]);
-            const b_index = layerOrder.indexOf(b[0]);
-
-            if (a_index == -1) throw new Error(`Cannot sort images. Missing slot ${a[0]} in layerOrder`);
-            if (b_index == -1) throw new Error(`Cannot sort images. Missing slot ${b[0]} in layerOrder`);
-
-            if (a_index < b_index) return -1;
-            if (a_index > b_index) return 1;
-            return 0;
-        });
-
-    return array_kvp;
-}
-
 export function isCID(cid: string): boolean {
     return cid.length == 46;
 }
@@ -125,34 +107,41 @@ export function getOccurences(string: string, subString: string, allowOverlappin
 }
 
 export async function toPaths(cidBySlot: { [key: string]: string }, ipfsCache: ImagesDownloader, renderConfig: RenderConfig, badgeNumber: number): Promise<string[]> {
-    const paths: [string, string][] = [];
 
-    for (const slot in cidBySlot) {
-        const cid = cidBySlot[slot];
+
+    const paths = [];
+
+    for (const layer of renderConfig.layersOrder) {
+
+        if (!(layer in cidBySlot)) continue;
+
+        const cid = cidBySlot[layer];
         const path = ipfsCache.toPath(cid);
-        paths.push([slot, path]);
+
+        paths.push(path);
+
+        if (shouldAddBadge(renderConfig, layer, cid)) {
+            const badgePath = await getBadgePath(badgeNumber, ipfsCache);
+            paths.push(badgePath);
+        }
     }
 
-    let sortedImages = sortImages(paths, renderConfig.layersOrder)
-        .map(kvp => kvp[1]);
-
-    // insert badge
-
-    if (renderConfig.defaultLayers && cidBySlot["skin"] == renderConfig.defaultLayers["skin"]) {
-        const paddedBadgeNumber = pad(badgeNumber, 5);
-
-        // TODO: (REFACTOR) this is tight coupled to s3 link
-        const url = `https://apc-items.s3.eu-west-3.amazonaws.com/badges_render/badges-${paddedBadgeNumber}-render.png`;
-        const badgePath = await ipfsCache.downloadImage(url, "badge/" + paddedBadgeNumber + ".png");
-
-
-        const insertIndex = sortedImages.indexOf(cidBySlot["skin"]);
-        sortedImages = insert(sortedImages, insertIndex, badgePath);
-    }
-
-    return sortedImages
+    return paths;
 
 }
+
+async function getBadgePath(badgeNumber: number, ipfsCache: ImagesDownloader) {
+    const paddedBadgeNumber = pad(badgeNumber, 5);
+
+    // TODO: (REFACTOR) this is tight coupled to s3 link
+    const url = `https://apc-items.s3.eu-west-3.amazonaws.com/badges_render/badges-${paddedBadgeNumber}-render.png`;
+    return await ipfsCache.downloadImage(url, "badge/" + paddedBadgeNumber + ".png");
+}
+
+function shouldAddBadge(renderConfig: RenderConfig, slot: string, cid: string) {
+    return renderConfig.defaultLayers && slot == "skin" && cid == renderConfig.defaultLayers["skin"];
+}
+
 
 export function toCidBySlot(renderAttributes: RenderAttributes, renderConfig: RenderConfig): { [key: string]: string } {
     const output: { [key: string]: string } = {};
@@ -176,12 +165,3 @@ export function addDefaultImages(cidBySlot: { [key: string]: string }, renderCon
 
     return cidBySlot;
 }
-
-const insert = <T>(arr: T[], index: number, newItem: T) => [
-    // part of the array before the specified index
-    ...arr.slice(0, index),
-    // inserted item
-    newItem,
-    // part of the array after the specified index
-    ...arr.slice(index)
-]
