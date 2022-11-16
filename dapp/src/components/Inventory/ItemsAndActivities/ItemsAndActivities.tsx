@@ -29,8 +29,6 @@ const ItemsAndActivities = ({
         Activity = 'activity'
     }
 
-    console.log('items', items);
-
     const [activeTab, setActiveTab] = React.useState<Tab>(Tab.Items);
 
     function changeTab(tab: Tab) {

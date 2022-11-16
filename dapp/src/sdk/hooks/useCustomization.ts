@@ -201,8 +201,6 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
             const itemIdentifier = equippedItemsIdentifier[slot];
             const blockchainCurrentlyEquippedItem = selectedPenguin.equippedItems[slot]?.identifier;
 
-            console.log(itemIdentifier, 'vs', blockchainCurrentlyEquippedItem);
-
             if (itemIdentifier != blockchainCurrentlyEquippedItem) {
                 if (itemIdentifier == undefined) {
                     slotsToUnequip.push(capitalize(slot));
