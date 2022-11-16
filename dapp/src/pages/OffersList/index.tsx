@@ -26,10 +26,8 @@ const OffersList = ({
     const { data: offers } = useGetOffersOfCategory(slot ?? category);
     const { data: marketData } = useGetMarketData(slot ?? category);
 
-    const icon = category == 'penguins' ? PenguinIcon : icons[slot as any].unicolor;
-
     return <OffersPageLayout
-        icon={icon}
+        icon={getIcon()}
         marketData={marketData}
         pageStyle={category}
         pageTitle={slot ?? category}
@@ -89,6 +87,20 @@ const OffersList = ({
                     <span className="sr-only">Loading...</span>
                 </div>
             </div>;
+        }
+    }
+
+    function getIcon() {
+        switch (category) {
+            case 'penguins':
+                return PenguinIcon;
+
+            case 'items':
+                return icons[slot as any].unicolor;
+
+            default:
+                console.warn('Unknown category', category);
+                return undefined;
         }
     }
 };

@@ -27,6 +27,7 @@ export const routeNames = {
   customizeInventory: '/customize',
   customize: '/customize/:id',
   penguinsOffers: '/offers/penguins/',
+  eggsOffers: '/offers/eggs/',
   itemsOffers: '/offers/items/:slot',
   itemsOffersNavigator: '/offers/items',
   unlock: '/unlock',
@@ -111,6 +112,13 @@ const routes: Array<ITitledRoute> = [
     title: 'Penguins Offers',
     component: () => {
       return <CategoriesOffers category='penguins' />
+    }
+  },
+  {
+    path: routeNames.eggsOffers,
+    title: 'Eggs Offers',
+    component: () => {
+      return <CategoriesOffers category='eggs' />
     }
   },
   {
