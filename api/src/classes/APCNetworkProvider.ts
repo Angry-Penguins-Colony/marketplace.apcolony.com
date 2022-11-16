@@ -1,10 +1,10 @@
-import { IActivity, IAddress, IItem, IMarketData, IOffer, IOwnedItem, IPenguin } from "@apcolony/marketplace-api";
+import { IActivity, IAddress, IEgg, IItem, IMarketData, IOffer, IOwnedItem, IPenguin } from "@apcolony/marketplace-api";
 import { Attributes } from "@apcolony/marketplace-api/out/classes";
 import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { AbiRegistry, Address, AddressValue, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, StringValue, U64Value } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
-import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsCollection, getPenguinWebThumbnail, nftStakingContract, nftStakingToken, originalTokensAmountInStakingSc, allCollections } from "../const";
+import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsCollection, getPenguinWebThumbnail, nftStakingContract, nftStakingToken, originalTokensAmountInStakingSc, allCollections, eggsCollection } from "../const";
 import { getRandomsPenguinsIds, isCollectionAnItem } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, getNameFromPenguinId, parseAttributes, splitCollectionAndNonce } from "../utils/string";
 import APCNft from "./APCNft";
@@ -16,6 +16,8 @@ import RequestsMonitor from "./RequestsMonitor";
 import { ErrNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out/errors";
 import { buffer } from "stream/consumers";
 import { Cache, CacheClass } from "memory-cache";
+import { EggsDatabase } from "@apcolony/db-marketplace/out/eggs";
+import { IOwnedEgg } from "@apcolony/marketplace-api";
 
 /**
  * We create this function because a lot of methods of ProxyNetworkProvider are not implemented yet.
@@ -25,6 +27,7 @@ export class APCNetworkProvider {
     private readonly apiProvider: ApiNetworkProvider;
     private readonly gatewayProvider: ProxyNetworkProvider;
     private readonly itemsDatabase: ItemsDatabase;
+    private readonly eggsDatabase: EggsDatabase;
 
     private readonly apiRequestsMonitor: RequestsMonitor = new RequestsMonitor();
     private readonly gatewayRequestMonitor: RequestsMonitor = new RequestsMonitor();
@@ -40,7 +43,7 @@ export class APCNetworkProvider {
         };
     }
 
-    constructor(gatewayUrl: string, apiUrl: string, itemsDatabase: ItemsDatabase) {
+    constructor(gatewayUrl: string, apiUrl: string, itemsDatabase: ItemsDatabase, eggsDatabase: EggsDatabase) {
         this.gatewayProvider = new ProxyNetworkProvider(gatewayUrl, {
             timeout: 15_000
         });
@@ -48,6 +51,7 @@ export class APCNetworkProvider {
             timeout: 15_000
         })
         this.itemsDatabase = itemsDatabase;
+        this.eggsDatabase = eggsDatabase;
     }
 
     public async getPenguinFromId(id: string): Promise<IPenguin> {
@@ -123,31 +127,44 @@ export class APCNetworkProvider {
             .map((item: any) => APCNft.fromApiHttpResponse({ owner: address.bech32(), ...item }));
     }
 
-    public async getOwnedItemsAndPenguins(address: IAddress) {
+    public async getInventory(address: IAddress) {
         const nfts = await this.getNftsOfAccount(address, allCollections);
 
         const penguins: IPenguin[] = [];
         const items: IOwnedItem[] = [];
+        const eggs: IOwnedEgg[] = [];
 
         for (const nft of nfts) {
+            switch (nft.collection) {
+                case penguinsCollection:
+                    penguins.push(this.getPenguinFromNft(nft, true));
+                    break;
 
-            if (nft.collection == penguinsCollection) {
-                penguins.push(this.getPenguinFromNft(nft, true));
-            }
-            else {
+                case eggsCollection:
 
-                const item: IOwnedItem = {
-                    ownedAmount: nft.supply.toNumber(),
-                    ...this.itemsDatabase.getItemFromToken(nft.collection, nft.nonce)
-                };
+                    const egg: IOwnedEgg = {
+                        ownedAmount: nft.supply.toNumber(),
+                        ...this.getEggsFromNft(nft)
+                    };
 
-                items.push(item);
+                    eggs.push(egg);
+                    break;
+
+                default:
+                    const item: IOwnedItem = {
+                        ownedAmount: nft.supply.toNumber(),
+                        ...this.itemsDatabase.getItemFromToken(nft.collection, nft.nonce)
+                    };
+
+                    items.push(item);
+                    break;
             }
         }
 
         return {
             penguins,
-            items
+            items,
+            eggs
         }
     }
 
@@ -276,8 +293,6 @@ export class APCNetworkProvider {
     }
 
     public async getOffersOfAccount(account: string): Promise<IOffer[]> {
-        const allCollections = [...Object.values(itemsCollection).flat(), penguinsCollection];
-
         const offers = await this.getOffers(allCollections);
 
         return offers.filter(o => o.seller == account);
@@ -286,7 +301,7 @@ export class APCNetworkProvider {
     public async getPenguinsFromOffers(offers: IOffer[]): Promise<IPenguin[]> {
 
         if (offers.find(o => o.collection != penguinsCollection)) {
-            throw new Error("getPenguinsFromOffers contains items");
+            throw new Error("getPenguinsFromOffers must contains only penguins");
         }
 
         const penguinsPromises = offers
@@ -299,21 +314,31 @@ export class APCNetworkProvider {
 
     public getItemsFromOffers(offers: IOffer[]): IItem[] {
 
-        if (offers.find(o => o.collection == penguinsCollection)) {
-            throw new Error("getItemsFromOffers contains penguins");
+        if (offers.find(o => !isCollectionAnItem(o.collection))) {
+            throw new Error("getItemsFromOffers contains only items");
         }
 
         const tokens = offers
             .map(offer => this.itemsDatabase.getItemFromToken(offer.collection, offer.nonce));
 
         const uniqueIds = [...new Set(tokens.map(token => token.id))];
-        const uniqueTokens = uniqueIds
-            .map(id => this.itemsDatabase.getTokenFromItemID(id));
-
-        const items = uniqueTokens
-            .map(({ collection, nonce }) => this.itemsDatabase.getItemFromToken(collection, nonce));
+        const items = uniqueIds
+            .map(id => this.itemsDatabase.getItemFromId(id));
 
         return items;
+    }
+
+    public getEggsFromOffers(offers: IOffer[]): IEgg[] {
+        if (offers.find(o => o.collection != eggsCollection)) {
+            throw new Error("getPenguinsFromOffers must contains only eggs");
+        }
+
+        const uniqueNonces = [...new Set(offers.map(o => o.nonce))];
+
+        const eggs = uniqueNonces
+            .map(nonce => this.eggsDatabase.getEggFromNonce(nonce));
+
+        return eggs;
     }
 
     public async getMarketData(collections: string[]): Promise<IMarketData> {
@@ -524,6 +549,12 @@ export class APCNetworkProvider {
     private async getRandomPenguinsUnoptimized(count: number): Promise<IPenguin[]> {
         return Promise.all(getRandomsPenguinsIds(count)
             .map(async (i) => this.getPenguinFromId(i)))
+    }
+
+    public getEggsFromNft(nft: APCNft) {
+        if (nft.collection != eggsCollection) throw new Error("Invalid collection");
+
+        return this.eggsDatabase.getEggFromNonce(nft.nonce);
     }
 }
 

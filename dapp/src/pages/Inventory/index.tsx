@@ -30,6 +30,7 @@ const Inventory = () => {
         inventoryElements,
         inventoryOffers,
         penguinsCount,
+        eggsCount,
         itemsCount,
         totalOffers,
         setInventoryType,
@@ -94,6 +95,10 @@ const Inventory = () => {
                         <div className={style.item}>
                             <p className={style.number}>{totalOffers ?? '-'}</p>
                             <p className={style.name}>Active offers</p>
+                        </div>
+                        <div className={style.item}>
+                            <p className={style.number}>{eggsCount ?? '-'}</p>
+                            <p className={style.name}>Eggs</p>
                         </div>
                     </div>
                     <div className={style.title}>

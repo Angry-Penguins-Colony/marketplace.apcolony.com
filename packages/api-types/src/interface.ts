@@ -1,4 +1,4 @@
-import { ElementType, RenderStatus } from './type';
+import { EggTier, ElementType, RenderStatus } from './type';
 
 type Price = string;
 
@@ -52,10 +52,12 @@ export interface IPenguin extends IGenericElement {
     owner?: string,
 }
 
-export interface IEgg {
-    tier: "silver" | "gold" | "diamond",
-    name: string,
-    thumbnailCID: string,
+export interface IEgg extends IGenericElement {
+    tier: EggTier,
+}
+
+export interface IOwnedEgg extends IEgg {
+    ownedAmount: number;
 }
 
 export interface IAddress {

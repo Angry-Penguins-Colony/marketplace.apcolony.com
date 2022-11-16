@@ -1,11 +1,12 @@
 import { IOffer } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import CategoriesType from 'sdk/types/CategoriesType';
 import { RetireTransactionFilter, SellTransactionFilter } from '../transactionsFilters/filters';
 import useGetOnTransactionSuccesful from '../useGetOnTransactionSuccesful';
 import useGenericAPICall from './useGenericAPICall';
 
 
-function useGetOffers(category: 'penguins' | 'items', id: string) {
+function useGetOffers(category: CategoriesType, id: string) {
 
     const { address: connectedAddress } = useGetAccountInfo();
 

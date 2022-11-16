@@ -1,9 +1,10 @@
-import { IAddress, IOwnedItem, IPenguin } from '@apcolony/marketplace-api';
+import { IAddress, IEgg, IOwnedItem, IPenguin } from '@apcolony/marketplace-api';
 import useGenericAPICall from './useGenericAPICall';
 
 interface Output {
     penguins: IPenguin[];
     items: IOwnedItem[];
+    eggs: IEgg[];
 }
 
 function useGetUserOwnedAmount(address: IAddress): Output | undefined {

@@ -1,8 +1,9 @@
-type CategoriesType = 'penguins' | 'items';
+type CategoriesType = 'penguins' | 'items' | 'eggs';
 
 export const categoriesTypeValues = [
     'penguins',
-    'items'
+    'items',
+    'eggs'
 ]
 
 export default CategoriesType;

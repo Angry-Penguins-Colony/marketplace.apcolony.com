@@ -61,7 +61,7 @@ const ItemsInventory = ({
     buildLink = (item) => buildRouteLinks.inspect(type, item.id)
 }: IProps) => {
     return (
-        <div className={style['all-items'] + ' ' + className + ' ' + style[type] + (hasFilter ? ' ' + style['has-filter'] : '')}>
+        <div className={style['all-items'] + ' ' + className + ' ' + style['penguins'] + (hasFilter ? ' ' + style['has-filter'] : '')}>
             {title &&
                 <h2>{title}</h2>
             }
@@ -124,7 +124,7 @@ const Item = ({
             <div className={style.item}>
                 <ReactImageAppear src={item.thumbnailUrls.small} />
                 <div className={style.name}>{item.displayName}</div>
-                {(item.ownedAmount && type == 'items') &&
+                {(type != 'penguins') &&
                     <div className={style.count}>{item.ownedAmount}</div>
                 }
 

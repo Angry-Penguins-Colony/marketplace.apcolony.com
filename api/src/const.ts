@@ -32,7 +32,8 @@ function getNetworkInfos() {
 // TODO: remove this repetitive part of code
 export const penguinsCollection = getNetworkInfos().penguinsCollection;
 export const itemsCollection = getNetworkInfos().itemsCollections;
-export const allCollections = [penguinsCollection, ...Object.values(itemsCollection).flat()];
+export const eggsCollection = getNetworkInfos().eggsCollection;
+export const allCollections = [penguinsCollection, ...Object.values(itemsCollection).flat(), eggsCollection];
 export const gateway = getNetworkInfos().gateway;
 export const api = getNetworkInfos().api;
 export const customisationContract: Address = new Address(getNetworkInfos().customisationContractAddress);
@@ -42,6 +43,7 @@ export const nftStakingContract: Address = new Address(getNetworkInfos().staking
 export const nftStakingToken = getNetworkInfos().nftStakingToken;
 export const originalTokensAmountInStakingSc = getNetworkInfos().originalTokensAmountInStakingSc;
 export const itemsDatabase = getNetworkInfos().itemsDatabase;
+export const eggsDatabase = getNetworkInfos().eggsDatabase;
 
 export const ipfsGateway = "https://ipfs.io/ipfs/";
 

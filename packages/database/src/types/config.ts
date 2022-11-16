@@ -1,10 +1,15 @@
+import { EggsDatabase } from "../eggs";
 import ItemsDatabase from "../ItemsDatabase";
 
 export interface Config {
     itemsDatabase: ItemsDatabase;
+    eggsDatabase: EggsDatabase;
+
+
     penguinsCollection: string;
     itemsCollections: ItemsCollections;
     eggsCollection: string;
+
     penguinsCount: number;
     nftStakingToken: string;
     originalTokensAmountInStakingSc: number;

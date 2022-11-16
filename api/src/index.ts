@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import cors from "cors";
 import getPenguins from './routes/penguins/owned';
 import getOwnedItems from './routes/items/owned';
-import { api, gateway, itemsDatabase, penguinsCollection } from './const';
+import { api, eggsDatabase, gateway, itemsDatabase, penguinsCollection } from './const';
 import { getNetworkType } from './env';
 import throng from 'throng';
 import { APCNetworkProvider } from './classes/APCNetworkProvider';
@@ -55,7 +55,7 @@ function start(id: number) {
 
     app.use(limiter);
 
-    const networkProvider = new APCNetworkProvider(gateway, api, itemsDatabase);
+    const networkProvider = new APCNetworkProvider(gateway, api, itemsDatabase, eggsDatabase);
 
     networkProvider.cacheCollection(penguinsCollection)
         .then(() => console.log("Penguins collection cached"))
@@ -102,7 +102,7 @@ function start(id: number) {
 }
 
 async function master() {
-    const networkProvider = new APCNetworkProvider(gateway, api, itemsDatabase);
+    const networkProvider = new APCNetworkProvider(gateway, api, itemsDatabase, eggsDatabase);
     logErrorIfMissingItems(networkProvider);
 }
 

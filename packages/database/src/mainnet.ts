@@ -1,18 +1,23 @@
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
+import { EggsDatabase } from "./eggs";
 import ItemsDatabase, { DeployedItem, splitCollectionAndNonce } from "./ItemsDatabase";
 import DeployMainnet from "./json/deploy.mainnet.json";
 import Items from "./json/items.json";
 import { Config, ItemsCollections } from "./types/config";
 
 
+const eggsCollection = "EGGS-502867";
 const mainnetConfig: Config = {
 
     itemsDatabase: ItemsDatabase.fromJson(Items, toDeployedItems()),
+    eggsDatabase: new EggsDatabase(eggsCollection),
+
     penguinsCollection: "APC-928458",
+    eggsCollection: eggsCollection,
     itemsCollections: getItemsIdentifiers(),
+
     customisationContractAddress: "erd1qqqqqqqqqqqqqpgqfpwpevmk6k8lqv7kp7m3tguql49sxjpnsc2s7lgkgn",
     penguinsCount: 5555,
-    eggsCollection: "EGGS-502867",
     sellingContract: "erd1qqqqqqqqqqqqqpgqd42nhklsaf3pyfqs8je7pmmk8qs8gjwusc2s5hvhkj",
     /**
      * THE STAKING CONTRACT IS NOT YET DEPLOYED ON MAINNET

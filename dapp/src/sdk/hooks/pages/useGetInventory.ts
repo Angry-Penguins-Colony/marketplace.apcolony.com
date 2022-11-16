@@ -11,38 +11,27 @@ function useGetInventory(walletAddress: string) {
     const [inventoryOffers, setInventoryOffers] = React.useState<IGenericElement[] | undefined>(undefined);
 
     const owned = useGetUserOwnedAmount(Address.fromBech32(walletAddress));
-    const penguins = owned?.penguins;
-    const items = owned?.items;
     const { data: offersOfAccount } = useGetOffersOfAccount(Address.fromBech32(walletAddress));
     const totalOffersCount = offersOfAccount && offersOfAccount.offers.length;
 
     React.useEffect(() => {
         updateInventory();
-    }, [penguins, items, offersOfAccount, inventoryType]);
+    }, [owned, offersOfAccount, inventoryType]);
 
     return {
         inventoryElements,
         inventoryType,
         inventoryOffers,
-        penguinsCount: penguins?.length,
-        itemsCount: items?.length,
+        penguinsCount: owned?.penguins.length,
+        itemsCount: owned?.items.length,
+        eggsCount: owned?.eggs.length,
         totalOffers: totalOffersCount,
         setInventoryType
     };
 
     function updateInventory() {
-        switch (inventoryType) {
-            case 'items':
-                setInventoryElements(items);
-                setInventoryOffers(offersOfAccount?.associatedItems);
-                break;
-
-            case 'penguins':
-            default:
-                setInventoryElements(penguins);
-                setInventoryOffers(offersOfAccount?.associatedPenguins);
-                break;
-        }
+        setInventoryElements(owned && owned[inventoryType]);
+        setInventoryOffers(offersOfAccount && offersOfAccount.associated[inventoryType]);
     }
 }
 

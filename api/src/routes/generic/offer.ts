@@ -22,15 +22,16 @@ export async function getOffersOfAccount(req: Request, res: Response, networkPro
         const account = req.params.bech32;
         const offersOfAccount = await networkProvider.getOffersOfAccount(account);
 
-        const { penguinsOffers, itemsOffers } = filterOffers(offersOfAccount);
-
-        const associatedPenguins = await networkProvider.getPenguinsFromOffers(penguinsOffers);
-        const associatedItems = networkProvider.getItemsFromOffers(itemsOffers);
+        const { penguinsOffers, itemsOffers, eggsOffers } = filterOffers(offersOfAccount);
 
         sendSuccessfulJSON(res, {
             offers: offersOfAccount,
-            associatedPenguins,
-            associatedItems
+            associated: {
+                "penguins": await networkProvider.getPenguinsFromOffers(penguinsOffers),
+                "items": networkProvider.getItemsFromOffers(itemsOffers),
+                "eggs": networkProvider.getEggsFromOffers(eggsOffers)
+
+            }
         });
 
     });

@@ -9,6 +9,6 @@ export default async function getOwnedItemsAndPenguins(req: Request, res: Respon
     withTryCatch(res, async () => {
         const address = new Address(req.params.bech32);
 
-        sendSuccessfulJSON(res, await networkProvider.getOwnedItemsAndPenguins(address));
+        sendSuccessfulJSON(res, await networkProvider.getInventory(address));
     });
 }
