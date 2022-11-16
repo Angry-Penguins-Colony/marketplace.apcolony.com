@@ -1,7 +1,6 @@
 import React from 'react';
 import { IAttributesStatus } from '@apcolony/marketplace-api';
 import { Attributes } from '@apcolony/marketplace-api/out/classes';
-import { marketplaceApi } from 'config';
 import doGetGeneric from 'sdk/api/doGetGeneric';
 import { RenderTransactionFilter } from '../transactionsFilters/filters';
 import useGetOnNewPendingTransaction from '../useGetOnTransactionPending';
@@ -60,7 +59,7 @@ function useGetAttributesStatus(attributes: Attributes, penguinId: string) {
     async function forceUpdate() {
         if (attributes == undefined) return;
 
-        const url = `${marketplaceApi}attributes/${penguinId}/?${attributes.toApiParameters()}`;
+        const url = `attributes/${penguinId}/?${attributes.toApiParameters()}`;
 
         const res = await doGetGeneric(url);
 
