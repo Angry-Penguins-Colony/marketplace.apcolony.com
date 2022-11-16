@@ -29,6 +29,7 @@ function useInspect(category: CategoriesType, id: string, onWrongId: () => void 
 
         switch (category) {
             case 'items':
+            case 'eggs':
                 return item.ownedAmount != undefined ? item.ownedAmount > 0 : undefined;
 
             case 'penguins':
@@ -43,6 +44,7 @@ function useInspect(category: CategoriesType, id: string, onWrongId: () => void 
 
         switch (category) {
             case 'items':
+            case 'eggs':
                 return Price.fromEgld(offers.lowestBuyableOffer?.price ?? '0');
 
             case 'penguins':

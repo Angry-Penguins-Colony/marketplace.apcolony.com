@@ -298,6 +298,12 @@ const Inspect = () => {
                     plural: 'Items'
                 };
 
+            case 'eggs':
+                return {
+                    singular: 'Egg',
+                    plural: 'Eggs'
+                }
+
             default:
                 throw new Error('Unknown type');
         }

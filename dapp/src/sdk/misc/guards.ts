@@ -11,8 +11,12 @@ export function isIdValid(rawId: string, category: CategoriesType): boolean {
             const id = parseInt(rawId);
             return isNaN(id) == false && id > 0 && id <= penguinsCount;
 
+        case 'eggs':
+            return rawId == 'silver' || rawId == 'gold' || rawId == 'diamond';
+
         default:
-            throw new Error('Unknown type');
+            console.warn(`Unknown type "${category}"`);
+            return false;
     }
 }
 
