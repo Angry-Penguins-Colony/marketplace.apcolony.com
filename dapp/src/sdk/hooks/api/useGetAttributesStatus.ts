@@ -1,8 +1,8 @@
 import React from 'react';
 import { IAttributesStatus } from '@apcolony/marketplace-api';
 import { Attributes } from '@apcolony/marketplace-api/out/classes';
-import axios from 'axios';
-import { apcLogger, marketplaceApi } from 'config';
+import { marketplaceApi } from 'config';
+import doGetGeneric from 'sdk/api/doGetGeneric';
 import { RenderTransactionFilter } from '../transactionsFilters/filters';
 import useGetOnNewPendingTransaction from '../useGetOnTransactionPending';
 import useGetOnTransactionSuccesful from '../useGetOnTransactionSuccesful';
@@ -61,9 +61,8 @@ function useGetAttributesStatus(attributes: Attributes, penguinId: string) {
         if (attributes == undefined) return;
 
         const url = `${marketplaceApi}attributes/${penguinId}/?${attributes.toApiParameters()}`;
-        apcLogger.apiCall(url);
 
-        const res = await axios.get(url);
+        const res = await doGetGeneric(url);
 
         setAttributesStatus(res.data.data)
     }

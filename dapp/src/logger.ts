@@ -6,10 +6,10 @@ export default class APCLogger {
 
     }
 
-    public apiCall(url: string) {
+    public apiCall(url: string, durationMs: number) {
 
         if (this.hideLogs.includes('api')) return;
 
-        console.log(`%c[API] ${url} `, 'color: grey');
+        console.log(`%c[API] (${durationMs}ms) ${url} `, 'color: grey');
     }
 }

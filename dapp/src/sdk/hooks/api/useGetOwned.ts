@@ -1,8 +1,7 @@
 import React from 'react';
 import { IAddress, IPenguin, IEgg, IItem } from '@apcolony/marketplace-api/out';
 import useGetAccountInfo from '@elrondnetwork/dapp-core/hooks/account/useGetAccountInfo';
-import axios from 'axios';
-import { apcLogger, marketplaceApi } from 'config';
+import doGetGeneric from 'sdk/api/doGetGeneric';
 
 export function useGetOwnedPenguins(options?: IOptions<IPenguin>): IPenguin[] | undefined {
     return useGetOwned<IPenguin>('penguins', options);
@@ -41,7 +40,8 @@ function useGetOwned<T>(type: string, { overrideAddress, onLoaded }: IOptions<T>
 
     React.useEffect(() => {
         async function get() {
-            const res = await doGetGeneric(type + '/owned/' + (overrideAddress ?? userAddress));
+            const url = type + '/owned/' + (overrideAddress ?? userAddress)
+            const res = await doGetGeneric(url);
 
             const loadedPenguins = res.data.data;
             setOwned(loadedPenguins);
@@ -55,14 +55,4 @@ function useGetOwned<T>(type: string, { overrideAddress, onLoaded }: IOptions<T>
     }, []);
 
     return owned;
-}
-
-function doGetGeneric(urlSuffix: string) {
-    const url = marketplaceApi
-        + (process.env.REACT_APP_USE_PLACEHOLDERS_CALL === '1' ? 'placeholder/' : '')
-        + urlSuffix;
-
-    apcLogger.apiCall(url);
-
-    return axios.get(url);
 }
