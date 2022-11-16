@@ -149,7 +149,7 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
 
         if (equippedItemsIdentifier[slot] == item.identifier) return;
 
-        console.log('Equipped', item, 'at', slot);
+        console.log('Equipped', item.displayName, 'at', slot);
 
         setEquippedItemsIdentifier({
             ...equippedItemsIdentifier,
