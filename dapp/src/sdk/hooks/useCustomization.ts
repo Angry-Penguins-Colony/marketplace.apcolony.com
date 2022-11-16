@@ -230,8 +230,6 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
             gasLimit: payloadBuilder.gesGasLimit()
         };
 
-        console.log(`Found ${itemsToEquip.length} items to equip and ${slotsToUnequip.length} slots to unequip.`);
-
         return transaction;
     }
 

@@ -11,7 +11,6 @@ function useCustomizationPersistence(penguinId: string, itemsDatabase: ItemsData
     }
 
     function load(): PenguinItemsIdentifier | undefined {
-        console.log(`Loading penguin with nonce ${penguinId}.`);
         const saved = localStorage.getItem(storageKey);
 
         if (saved) {

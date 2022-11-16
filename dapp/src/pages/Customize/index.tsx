@@ -61,7 +61,6 @@ const Customize = () => {
         onSelectionChange: () => {
 
             for (const slot in selectedItemsInPopup) {
-                console.log(slot);
                 equipIfSelectedOrUnequip(slot);
             }
         }
@@ -194,8 +193,6 @@ const Customize = () => {
         if (!editingEnabled) return;
 
         const selectedItem = getSelectedItemInSlot(slot);
-
-        console.log('selected item for slot', slot, 'is', selectedItem?.displayName ?? undefined);
 
         if (selectedItem != undefined) {
             equipItem(slot, selectedItem);
