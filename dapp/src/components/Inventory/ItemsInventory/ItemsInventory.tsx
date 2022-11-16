@@ -124,7 +124,7 @@ const Item = ({
             <div className={style.item}>
                 <ReactImageAppear src={item.thumbnailUrls.small} />
                 <div className={style.name}>{item.displayName}</div>
-                {(type != 'penguins') &&
+                {(item.ownedAmount) &&
                     <div className={style.count}>{item.ownedAmount}</div>
                 }
 
