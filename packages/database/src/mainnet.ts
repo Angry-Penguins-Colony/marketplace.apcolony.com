@@ -12,6 +12,7 @@ const mainnetConfig: Config = {
     itemsCollections: getItemsIdentifiers(),
     customisationContractAddress: "erd1qqqqqqqqqqqqqpgqfpwpevmk6k8lqv7kp7m3tguql49sxjpnsc2s7lgkgn",
     penguinsCount: 5555,
+    eggsCollection: "EGGS-502867",
     sellingContract: "erd1qqqqqqqqqqqqqpgqd42nhklsaf3pyfqs8je7pmmk8qs8gjwusc2s5hvhkj",
     /**
      * THE STAKING CONTRACT IS NOT YET DEPLOYED ON MAINNET

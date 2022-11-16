@@ -9,6 +9,7 @@ const devnetConfig: Config = {
     penguinsCollection: DeployDevnet.penguinsIdentifier,
     itemsCollections: DeployDevnet.itemsIdentifier,
     penguinsCount: 5555,
+    eggsCollection: "EGGS-e93d67",
     customisationContractAddress: DeployDevnet.customizationContractAddress.bech32,
     sellingContract: "erd1qqqqqqqqqqqqqpgqxygtu607umpgtnp3xwkskeqsyhc26ej0v4xqyglrkj",
     stakingContract: "erd1qqqqqqqqqqqqqpgqdcjdvpvncw7s8ug56rehyvl8tehk3vl368mqxa7llg",

@@ -4,6 +4,7 @@ export interface Config {
     itemsDatabase: ItemsDatabase;
     penguinsCollection: string;
     itemsCollections: ItemsCollections;
+    eggsCollection: string;
     penguinsCount: number;
     nftStakingToken: string;
     originalTokensAmountInStakingSc: number;
