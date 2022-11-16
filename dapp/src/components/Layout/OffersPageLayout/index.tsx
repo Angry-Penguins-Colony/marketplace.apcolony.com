@@ -14,6 +14,7 @@ interface IProps {
     marketData?: IMarketData;
     children?: React.ReactNode;
     iconClassName?: string;
+    iconNoBorder?: boolean
 }
 
 const OffersPageLayout = ({
@@ -22,13 +23,14 @@ const OffersPageLayout = ({
     children,
     pageStyle,
     pageTitle,
+    iconNoBorder = false,
     iconClassName: anotherIconClassName = ''
 }: IProps) => {
 
 
     const iconClassName = [
         style.icon,
-        pageStyle == 'penguins' ? (' ' + style.penguins) : '',
+        iconNoBorder ? (' ' + style.iconNoBorder) : '',
         anotherIconClassName
     ].join(' ');
     const backgroundHeaderClassName = style[pageStyle];

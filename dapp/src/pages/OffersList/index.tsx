@@ -1,6 +1,7 @@
 import * as React from 'react';
 import BigNumber from 'bignumber.js';
 import { Link, useParams } from 'react-router-dom';
+import EggsIcon from 'assets/img/icons/eggs-icon.png';
 import PenguinIcon from 'assets/img/icons/penguin-icon.jpg';
 import ErrorPage from 'components/ErrorPage';
 import { Item } from 'components/Inventory/Item/Item';
@@ -31,6 +32,7 @@ const OffersList = ({
         marketData={marketData}
         pageStyle={category}
         pageTitle={slot ?? category}
+        iconNoBorder={slot == undefined}
     >
         <div className={style.items}>
             {getItems()}
@@ -97,6 +99,9 @@ const OffersList = ({
 
             case 'items':
                 return icons[slot as any].unicolor;
+
+            case 'eggs':
+                return EggsIcon;
 
             default:
                 console.warn('Unknown category', category);

@@ -69,6 +69,10 @@
             &.items {
                 background-image: url("/assets/img/background/header-items.jpg");
             }
+
+            &.eggs {
+                background-image: url("/assets/img/background/header-eggs.png");
+            }
         }
 
         > .icon {
@@ -86,7 +90,7 @@
 
             overflow: hidden;
 
-            &.penguins {
+            &.iconNoBorder {
                 padding: 0;
 
                 img {

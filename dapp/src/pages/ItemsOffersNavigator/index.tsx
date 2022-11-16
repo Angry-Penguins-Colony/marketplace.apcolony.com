@@ -24,6 +24,7 @@ const ItemsOffersNavigator = () => {
         iconClassName="p-0"
         pageStyle='items'
         pageTitle='Items'
+        iconNoBorder={true}
     >
         <div className={style.itemsContainer}>
             {items.map(item => <ItemSlotCard key={item.title} className={style.item} {...item} />)}
