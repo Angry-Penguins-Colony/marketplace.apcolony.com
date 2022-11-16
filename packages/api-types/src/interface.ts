@@ -49,7 +49,7 @@ export interface IOwnedItem extends IItem {
 export interface IPenguin extends IGenericElement {
 
     equippedItems: { [key: string]: IItem; },
-    owner: string,
+    owner?: string,
 }
 
 export interface IEgg {

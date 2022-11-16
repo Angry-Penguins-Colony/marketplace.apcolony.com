@@ -72,7 +72,7 @@ export class APCNetworkProvider {
                 if (nfts.length == 0) throw new Error(`Penguin ${id} not found`);
                 if (nfts.length > 1) throw new Error(`Found ${nfts.length} penguins with the name ${getNameFromPenguinId(id)}.`);
 
-                return this.getPenguinFromNft(nfts[0]);
+                return this.getPenguinFromNft(nfts[0], true);
             };
 
 
@@ -83,10 +83,15 @@ export class APCNetworkProvider {
         }
     }
 
+    public async cacheCollection(collection: string) {
+        const nfts = await this.getNfts(collection, { size: 10_000 });
+        nfts.forEach(nft => this.nftsCache.set(toIdentifier(nft.collection, nft.nonce), nft));
+    }
+
     /**
      * The API doesn't return owner
      */
-    public async getNfts(collection: string, args: { name?: string, withOwner?: boolean, size?: number } = {}): Promise<APCNft[]> {
+    public async getNfts(collection: string, args: { name?: string, withOwner?: boolean, size?: number } = { size: 10_000 }): Promise<APCNft[]> {
 
         const p = new URLSearchParams();
         if (args.name) p.append("name", args.name);
@@ -143,7 +148,7 @@ export class APCNetworkProvider {
         for (const nft of nfts) {
 
             if (nft.collection == penguinsCollection) {
-                penguins.push(this.getPenguinFromNft(nft));
+                penguins.push(this.getPenguinFromNft(nft, true));
             }
             else {
 
@@ -167,7 +172,7 @@ export class APCNetworkProvider {
 
         const penguinsPromises = accountsNfts
             .filter(nft => !!nft.owner)
-            .map((nft) => this.getPenguinFromNft(nft));
+            .map((nft) => this.getPenguinFromNft(nft, true));
 
         const penguinsNfts = (await Promise.all(penguinsPromises))
             .sort((a, b) => a.nonce - b.nonce);
@@ -305,8 +310,7 @@ export class APCNetworkProvider {
         const nfts = await Promise.all(penguinsPromises);
 
         return nfts
-            .filter(nft => !!nft.owner)
-            .map(nft => this.getPenguinFromNft(nft));
+            .map(nft => this.getPenguinFromNft(nft, false));
     }
 
     public getItemsFromOffers(offers: IOffer[]): IItem[] {
@@ -368,10 +372,10 @@ export class APCNetworkProvider {
         return contract;
     }
 
-    public getPenguinFromNft(nft: APCNft): IPenguin {
+    public getPenguinFromNft(nft: APCNft, needOwner: boolean): IPenguin {
 
         if (nft.assets[0] == undefined) throw new Error(`No CID linked to the nft ${nft.identifier}`);
-        if (!nft.owner) throw new Error("Missing owner on NFT");
+        if (needOwner && !nft.owner) throw new Error("Missing owner on NFT");
 
 
 
@@ -516,7 +520,7 @@ export class APCNetworkProvider {
         for (const nft of this.nftsCache.values()) {
             if (nft.collection != penguinsCollection) continue;
 
-            penguins.push(this.getPenguinFromNft(nft));
+            penguins.push(this.getPenguinFromNft(nft, true));
 
             if (penguins.length >= count) break;
         }

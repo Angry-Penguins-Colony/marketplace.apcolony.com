@@ -52,18 +52,18 @@ export function parseMarketData(response: any): IMarketData {
 
 
 export async function parseStakedPenguins(response: any, proxyNetwork: APCNetworkProvider) {
-    
-    const nonces : Array<number> = response.items
-    .map((o: any) => {   
-        const penguinNonce = o.value.toNumber();
-        return penguinNonce;
-    });
 
-    const PenguinsInfo : any = [];
+    const nonces: Array<number> = response.items
+        .map((o: any) => {
+            const penguinNonce = o.value.toNumber();
+            return penguinNonce;
+        });
+
+    const PenguinsInfo: any = [];
     for await (const nonce of nonces) {
-        const PenguinInfo = await proxyNetwork.getPenguinFromNft(await proxyNetwork.getNft(penguinsCollection, nonce)); 
+        const PenguinInfo = proxyNetwork.getPenguinFromNft(await proxyNetwork.getNft(penguinsCollection, nonce), true);
         PenguinsInfo.push(PenguinInfo);
-    }   
+    }
 
     return PenguinsInfo;
 }
