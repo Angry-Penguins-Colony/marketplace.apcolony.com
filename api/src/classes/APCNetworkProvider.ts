@@ -15,7 +15,7 @@ import ItemsDatabase from "@apcolony/db-marketplace/out/ItemsDatabase";
 import RequestsMonitor from "./RequestsMonitor";
 import { ErrNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out/errors";
 import { buffer } from "stream/consumers";
-import { Cache } from "memory-cache";
+import { Cache, CacheClass } from "memory-cache";
 
 /**
  * We create this function because a lot of methods of ProxyNetworkProvider are not implemented yet.
@@ -51,36 +51,20 @@ export class APCNetworkProvider {
     }
 
     public async getPenguinFromId(id: string): Promise<IPenguin> {
-        // register new request
-        // if same request is already in progress, wait for it
 
-        const pendingRequest = this.pendingRequests_getPenguinFromId.get(id);
+        return withCache(this.pendingRequests_getPenguinFromId, id, async () => {
+            const nfts = await this.getNfts(penguinsCollection, {
+                name: id,
+                withOwner: true
+            });
 
-        if (pendingRequest) {
-            return pendingRequest;
-        }
-        else {
+            nfts.forEach(nft => this.nftsCache.set(toIdentifier(nft.collection, nft.nonce), nft));
 
-            const sendRequest = async () => {
-                const nfts = await this.getNfts(penguinsCollection, {
-                    name: id,
-                    withOwner: true
-                });
+            if (nfts.length == 0) throw new Error(`Penguin ${id} not found`);
+            if (nfts.length > 1) throw new Error(`Found ${nfts.length} penguins with the name ${getNameFromPenguinId(id)}.`);
 
-                nfts.forEach(nft => this.nftsCache.set(toIdentifier(nft.collection, nft.nonce), nft));
-
-                if (nfts.length == 0) throw new Error(`Penguin ${id} not found`);
-                if (nfts.length > 1) throw new Error(`Found ${nfts.length} penguins with the name ${getNameFromPenguinId(id)}.`);
-
-                return this.getPenguinFromNft(nfts[0], true);
-            };
-
-
-            const request = sendRequest();
-            this.pendingRequests_getPenguinFromId.put(id, request, 3_000);
-
-            return request;
-        }
+            return this.getPenguinFromNft(nfts[0], true);
+        });
     }
 
     public async cacheCollection(collection: string) {
@@ -540,5 +524,20 @@ export class APCNetworkProvider {
     private async getRandomPenguinsUnoptimized(count: number): Promise<IPenguin[]> {
         return Promise.all(getRandomsPenguinsIds(count)
             .map(async (i) => this.getPenguinFromId(i)))
+    }
+}
+
+async function withCache<K, V>(cache: CacheClass<K, V>, key: K, fetchValue: () => V): Promise<V> {
+    const pendingRequest = cache.get(key);
+
+    if (pendingRequest) {
+        return pendingRequest;
+    }
+    else {
+
+        const request = fetchValue();
+        cache.put(key, request, 3_000);
+
+        return request;
     }
 }
