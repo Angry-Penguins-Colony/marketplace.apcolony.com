@@ -57,7 +57,7 @@ const OffersList = ({
                         const price = lowestOffer.price;
 
 
-                        const link = buildRouteLinks.inspect((category == 'penguins' ? 'penguins' : 'items'), item.id)
+                        const link = buildRouteLinks.inspect(category, item.id)
 
                         const component = <Link className={style.itemRoot} to={link} key={item.id}>
                             <Item item={item} displayId={false} className={style.mobile} />
