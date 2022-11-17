@@ -1,4 +1,4 @@
-import { IGenericElement, IOffer } from '@apcolony/marketplace-api';
+import { ElementType, IGenericElement, IOffer } from '@apcolony/marketplace-api';
 import BigNumber from 'bignumber.js';
 import useGenericAPICall from './useGenericAPICall';
 
@@ -7,9 +7,10 @@ interface Output {
     associatedItems: IGenericElement[];
 }
 
-function useGetOffersOfCategory(category: 'penguins' | string) {
+function useGetOffersOfCategory(category: ElementType, slot?: string) {
 
-    const { data, forceReload } = useGenericAPICall<Output>(`/offers/${getType()}/${getCat()}`);
+    const url = `/offers/${category}/${slot || ''}`;
+    const { data, forceReload } = useGenericAPICall<Output>(url);
 
     const floorOffer = data?.offers
         .sort((a, b) => new BigNumber(a.price).comparedTo(b.price))[0];
@@ -19,14 +20,6 @@ function useGetOffersOfCategory(category: 'penguins' | string) {
         forceReload: forceReload,
         floorOffer: floorOffer
     };
-
-    function getType() {
-        return category === 'penguins' ? 'penguins' : 'items';
-    }
-
-    function getCat() {
-        return category === 'penguins' || category == 'items' ? '' : category;
-    }
 }
 
 export default useGetOffersOfCategory;

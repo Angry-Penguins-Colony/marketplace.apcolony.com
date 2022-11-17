@@ -1,3 +1,5 @@
+import { ElementType } from "@apcolony/marketplace-api";
+
 export function parseAttributes(attributes: string) {
     return attributes
         .split(";")
@@ -54,4 +56,15 @@ export function getIdFromPenguinName(name: string): number {
 
 export function getNameFromPenguinId(id: string | number): string {
     return `Penguin #${id}`;
+}
+
+export function isElementType(str: string): boolean {
+
+    const validTypes: ElementType[] = [
+        "penguins",
+        "items",
+        "eggs"
+    ]
+
+    return (validTypes as string[]).includes(str);
 }

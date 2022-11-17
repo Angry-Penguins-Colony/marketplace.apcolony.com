@@ -1,13 +1,17 @@
-import { IMarketData } from '@apcolony/marketplace-api';
+import { ElementType, IMarketData } from '@apcolony/marketplace-api';
 import useGenericAPICall from './useGenericAPICall';
 
-function useGetMarketData(category: 'penguins' | string) {
+function useGetMarketData(category: ElementType, slot?: string) {
 
-    const url = category == 'penguins' ?
-        '/offers/penguins/stats' :
-        `/offers/items/${category}/stats`;
+    return useGenericAPICall<IMarketData>(getUrl());
 
-    return useGenericAPICall<IMarketData>(url);
+    function getUrl() {
+        if (slot) {
+            return `/offers/${category}/${slot}/stats`;
+        } else {
+            return `/offers/${category}/stats`;
+        }
+    }
 }
 
 export default useGetMarketData;

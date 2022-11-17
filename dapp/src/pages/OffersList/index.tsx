@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { ElementType } from '@apcolony/marketplace-api';
 import BigNumber from 'bignumber.js';
 import { Link, useParams } from 'react-router-dom';
 import EggsIcon from 'assets/img/icons/eggs-icon.png';
@@ -11,12 +12,11 @@ import { buildRouteLinks } from 'routes';
 import useGetMarketData from 'sdk/hooks/api/useGetMarketData';
 import useGetOffersOfCategory from 'sdk/hooks/api/useGetOffersOfCategory';
 import { isSlot } from 'sdk/misc/guards';
-import CategoriesType from 'sdk/types/CategoriesType';
 import defaultPenguinImg from './../../assets/img/penguin_default.png';
 import style from './index.module.scss';
 
 interface IProps {
-    category: CategoriesType
+    category: ElementType
 }
 
 const OffersList = ({
@@ -24,8 +24,8 @@ const OffersList = ({
 }: IProps) => {
     const { slot } = useParams();
 
-    const { data: offers } = useGetOffersOfCategory(slot ?? category);
-    const { data: marketData } = useGetMarketData(slot ?? category);
+    const { data: offers } = useGetOffersOfCategory(category, slot);
+    const { data: marketData } = useGetMarketData(category, slot);
 
     return <OffersPageLayout
         icon={getIcon()}

@@ -13,6 +13,8 @@ import getItem from "./routes/items/item";
 import getAttributes from "./routes/misc/attributes";
 import getExploreItems from "./routes/misc/exploreItems";
 import getItemsList from "./routes/misc/getItems";
+import getEggs from "./routes/offers/eggs/offers";
+import getEggsOffersStats from "./routes/offers/eggs/offersStats";
 import getItemsOffers from "./routes/offers/items/offers";
 import getItemOffersStats from "./routes/offers/items/offersStats";
 import getOffer from "./routes/offers/offer";
@@ -68,8 +70,11 @@ function start(id: number) {
     app.get('/penguins/penguin/:id', (req: any, res: any) => getPenguin(req, res, networkProvider));
     app.get("/items/item/:id", (req: any, res: any) => getItem(req, res, itemsDatabase, networkProvider));
 
-    app.get("/activities/penguins/:id", (req: any, res: any) => getActivity(req, res, "penguins", networkProvider));
-    app.get("/activities/items/:id", (req: any, res: any) => getActivity(req, res, "items", networkProvider));
+    app.get("/activities/:type/:id", (req: any, res: any) => getActivity(req, res, networkProvider));
+
+    app.get("/offers/eggs", (req: any, res: any) => getEggs(req, res, networkProvider));
+    app.get("/offers/eggs/stats", (req: any, res: any) => getEggsOffersStats(req, res, networkProvider));
+
 
     app.get("/offers/penguins", (req: any, res: any) => getPenguinsOffers(req, res, networkProvider));
     app.get("/offers/penguins/stats", (req: any, res: any) => getPenguinsOffersStats(req, res, networkProvider));

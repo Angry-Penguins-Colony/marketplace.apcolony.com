@@ -1,4 +1,4 @@
-import { IActivity, IAddress, IEgg, IItem, IMarketData, IOffer, IOwnedItem, IPenguin } from "@apcolony/marketplace-api";
+import { EggTier, ElementType, IActivity, IAddress, IEgg, IItem, IMarketData, IOffer, IOwnedItem, IPenguin } from "@apcolony/marketplace-api";
 import { Attributes } from "@apcolony/marketplace-api/out/classes";
 import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
@@ -421,7 +421,7 @@ export class APCNetworkProvider {
         return equippedItems;
     }
 
-    public async getToken(type: "penguins" | "items", id: string) {
+    public async getToken(type: ElementType, id: string) {
         switch (type) {
             case "penguins":
                 const penguin = await this.getPenguinFromId(id)
@@ -435,6 +435,9 @@ export class APCNetworkProvider {
 
             case "items":
                 return this.itemsDatabase.getTokenFromItemID(id);
+
+            case "eggs":
+                return this.eggsDatabase.getEggFromTier(id as EggTier);
 
             default:
                 throw new Error("Invalid type");
