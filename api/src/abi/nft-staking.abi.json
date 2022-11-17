@@ -131,6 +131,17 @@
             ]
         },
         {
+            "name": "getAddedAttributes",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "variadic<bytes>",
+                    "multi_result": true
+                }
+            ]
+        },
+        {
             "name": "getNftsNumberAndRewardsAvailableForStaker",
             "mutability": "readonly",
             "inputs": [
@@ -173,7 +184,7 @@
             "outputs": []
         },
         {
-            "name": "addAttributes",
+            "name": "addAttribute",
             "mutability": "mutable",
             "inputs": [
                 {
@@ -183,6 +194,32 @@
                 {
                     "name": "points",
                     "type": "u8"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "updateAttribute",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "name",
+                    "type": "bytes"
+                },
+                {
+                    "name": "points",
+                    "type": "u8"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "removeAttribute",
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "name",
+                    "type": "bytes"
                 }
             ],
             "outputs": []
