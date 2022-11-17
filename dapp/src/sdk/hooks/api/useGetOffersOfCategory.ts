@@ -9,7 +9,7 @@ interface Output {
 
 function useGetOffersOfCategory(category: 'penguins' | string) {
 
-    const { data, forceReload } = useGenericAPICall<Output>(`/${getType()}/offers/${getCat()}`);
+    const { data, forceReload } = useGenericAPICall<Output>(`/offers/${getType()}/${getCat()}`);
 
     const floorOffer = data?.offers
         .sort((a, b) => new BigNumber(a.price).comparedTo(b.price))[0];

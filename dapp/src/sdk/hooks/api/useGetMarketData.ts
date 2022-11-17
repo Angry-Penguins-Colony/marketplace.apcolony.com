@@ -4,8 +4,8 @@ import useGenericAPICall from './useGenericAPICall';
 function useGetMarketData(category: 'penguins' | string) {
 
     const url = category == 'penguins' ?
-        '/penguins/offers/stats' :
-        `/items/offers/${category}/stats`;
+        '/offers/penguins/stats' :
+        `/offers/items/${category}/stats`;
 
     return useGenericAPICall<IMarketData>(url);
 }

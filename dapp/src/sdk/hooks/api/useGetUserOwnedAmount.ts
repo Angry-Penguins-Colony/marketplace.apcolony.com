@@ -8,7 +8,7 @@ interface Output {
 }
 
 function useGetUserOwnedAmount(address: IAddress): Output | undefined {
-    const { data } = useGenericAPICall<Output>('owned/' + address.bech32());
+    const { data } = useGenericAPICall<Output>('accounts/' + address.bech32() + '/owned');
 
     return data;
 }

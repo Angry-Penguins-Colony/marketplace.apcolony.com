@@ -13,7 +13,7 @@ interface Output {
 
 function useGetOffersOfAccount(address: IAddress) {
 
-    return useGenericAPICall<Output>(`/offers/${address.bech32()}`);
+    return useGenericAPICall<Output>(`/accounts/${address.bech32()}/offers`);
 }
 
 export default useGetOffersOfAccount;

@@ -10,7 +10,7 @@ function useGetOffers(category: CategoriesType, id: string) {
 
     const { address: connectedAddress } = useGetAccountInfo();
 
-    const { data: offers, forceReload: forceUpdate } = useGenericAPICall<IOffer[]>(`/${category}/offer/${id}`);
+    const { data: offers, forceReload: forceUpdate } = useGenericAPICall<IOffer[]>(`/offers/${category}/offer/${id}`);
 
     const ownedOffers = offers && offers.filter((offer) => offer.seller == connectedAddress);
     const buyableOffers = offers && offers.filter((offer) => offer.seller != connectedAddress);

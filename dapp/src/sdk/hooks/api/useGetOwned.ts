@@ -40,7 +40,7 @@ function useGetOwned<T>(type: string, { overrideAddress, onLoaded }: IOptions<T>
 
     React.useEffect(() => {
         async function get() {
-            const url = type + '/owned/' + (overrideAddress ?? userAddress)
+            const url = 'accounts/' + (overrideAddress ?? userAddress) + '/owned/' + type;
             const res = await doGetGeneric(url);
 
             const loadedPenguins = res.data.data;

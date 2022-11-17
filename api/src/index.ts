@@ -62,22 +62,25 @@ function start(id: number) {
         .catch((e) => console.log("Penguins collection cache failed", e));
 
 
-    app.get("/owned/:bech32", async (req: any, res: any) => getOwnedItemsAndPenguins(req, res, networkProvider, itemsDatabase));
-    app.get("/offers/:bech32", async (req: any, res: any) => getOffersOfAccount(req, res, networkProvider));
-    app.get('/penguins/penguin/:id', (req: any, res: any) => getPenguin(req, res, networkProvider));
-    app.get("/penguins/activity/:id", (req: any, res: any) => getActivity(req, res, "penguins", networkProvider));
-    app.get("/penguins/offers", (req: any, res: any) => getPenguinsOffers(req, res, networkProvider));
-    app.get("/penguins/offers/stats", (req: any, res: any) => getPenguinsOffersStats(req, res, networkProvider));
-    app.get("/penguins/offer/:id", (req: any, res: any) => getOffer(req, res, "penguins", networkProvider));
-    app.get('/penguins/owned/:bech32', (req: any, res: any) => getPenguins(req, res, networkProvider));
+    app.get("/accounts/:bech32/owned", async (req: any, res: any) => getOwnedItemsAndPenguins(req, res, networkProvider, itemsDatabase));
+    app.get("/accounts/:bech32/offers", async (req: any, res: any) => getOffersOfAccount(req, res, networkProvider));
+    app.get('/accounts/:bech32/owned/penguins', (req: any, res: any) => getPenguins(req, res, networkProvider));
+    app.get('/accounts/:bech32/owned/items', (req: any, res: any) => getOwnedItems(req, res, networkProvider));
 
+    app.get('/penguins/penguin/:id', (req: any, res: any) => getPenguin(req, res, networkProvider));
     app.get("/items/item/:id", (req: any, res: any) => getItem(req, res, itemsDatabase, networkProvider));
-    app.get("/items/activity/:id", (req: any, res: any) => getActivity(req, res, "items", networkProvider));
-    app.get("/items/offers/", (req: any, res: any) => getItemsOffers(req, res, networkProvider, itemsDatabase));
-    app.get("/items/offers/:category", (req: any, res: any) => getItemsOffers(req, res, networkProvider, itemsDatabase));
-    app.get("/items/offers/:category/stats", (req: any, res: any) => getItemOffersStats(req, res, networkProvider));
-    app.get("/items/offer/:id", (req: any, res: any) => getOffer(req, res, "items", networkProvider));
-    app.get('/items/owned/:bech32', (req: any, res: any) => getOwnedItems(req, res, networkProvider));
+
+    app.get("/activities/penguins/:id", (req: any, res: any) => getActivity(req, res, "penguins", networkProvider));
+    app.get("/activities/items/:id", (req: any, res: any) => getActivity(req, res, "items", networkProvider));
+
+    app.get("/offers/penguins", (req: any, res: any) => getPenguinsOffers(req, res, networkProvider));
+    app.get("/offers/penguins/stats", (req: any, res: any) => getPenguinsOffersStats(req, res, networkProvider));
+    app.get("/offers/penguins/offer/:id", (req: any, res: any) => getOffer(req, res, "penguins", networkProvider));
+
+    app.get("/offers/items/", (req: any, res: any) => getItemsOffers(req, res, networkProvider, itemsDatabase));
+    app.get("/offers/items/:category", (req: any, res: any) => getItemsOffers(req, res, networkProvider, itemsDatabase));
+    app.get("/offers/items/:category/stats", (req: any, res: any) => getItemOffersStats(req, res, networkProvider));
+    app.get("/offers/items/offer/:id", (req: any, res: any) => getOffer(req, res, "items", networkProvider));
 
     app.get('/staking/owned/:bech32', (req: any, res: any) => getPenguinsStaked(req, res, networkProvider));
     app.get('/staking/claimable/:bech32', (req: any, res: any) => getStakingClaimable(req, res, networkProvider));
