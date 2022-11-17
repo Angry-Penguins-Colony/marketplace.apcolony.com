@@ -12,7 +12,6 @@ import { buildRouteLinks } from 'routes';
 import useGetMarketData from 'sdk/hooks/api/useGetMarketData';
 import useGetOffersOfCategory from 'sdk/hooks/api/useGetOffersOfCategory';
 import { isSlot } from 'sdk/misc/guards';
-import defaultPenguinImg from './../../assets/img/penguin_default.png';
 import style from './index.module.scss';
 
 interface IProps {
@@ -64,7 +63,6 @@ const OffersList = ({
                             <Item item={item} displayId={false} className={style.mobile} />
 
                             <div className={style.desktop}>
-                                <img src={defaultPenguinImg} alt="default background of any penguin" className={style.background} />
                                 <img src={item.thumbnailUrls.high} alt="" className={style.item} />
                                 <div className={style.infos}>
                                     <div className={style.name}>{item.displayName}</div>
