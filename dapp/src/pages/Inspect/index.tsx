@@ -16,7 +16,7 @@ import ItemSubProperties from 'components/InspectSubProperties/ItemSubProperties
 import PenguinSubProperties from 'components/InspectSubProperties/PenguinSubProperties';
 import ItemsAndActivities from 'components/Inventory/ItemsAndActivities/ItemsAndActivities';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import { marketplaceContractAddress } from 'config';
+import { hatchLink, marketplaceContractAddress } from 'config';
 import { buildRouteLinks } from 'routes';
 import Price from 'sdk/classes/Price';
 import useInspect from 'sdk/hooks/useInspect';
@@ -128,7 +128,7 @@ const Inspect = () => {
                         {
                             (isOwnedByConnected && category == 'eggs') &&
                             <div>
-                                <a href='https://angrypenguinscolony.com/hatch' target="_blank" rel="noopener noreferrer">
+                                <a href={hatchLink} target="_blank" rel="noopener noreferrer">
 
                                     <Button type='normal'>
                                         Hatch

@@ -81,3 +81,5 @@ export const environment = getNetworkInfos().environment;
 if (marketplaceApi.endsWith('/') == false) {
   throw new Error('Marketplace API should end with a slash');
 }
+
+export const hatchLink = 'https://angrypenguinscolony.com/hatch';
