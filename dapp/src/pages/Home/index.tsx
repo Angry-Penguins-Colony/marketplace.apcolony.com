@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { Link } from 'react-router-dom';
 import APCLogoWhite from 'assets/img/apc-logo/white.png';
+import EggsCover from 'assets/img/background/header-eggs.png';
 import ItemsCover from 'assets/img/background/header-items.jpg';
 import PenguinsCover from 'assets/img/background/header-penguins.jpg';
 import CustomizationIcon from 'assets/img/customization.png';
@@ -47,7 +48,8 @@ const Home = () => {
         <h2>Categories</h2>
         <div className={style.content}>
           <BigCategory title="Penguins" backgroundImg={PenguinsCover} link={routeNames.penguinsOffers} />
-          <BigCategory className={style.items} title="Items" backgroundImg={ItemsCover} link={routeNames.itemsOffersNavigator} />
+          <BigCategory title="Items" className={style.items} backgroundImg={ItemsCover} link={routeNames.itemsOffersNavigator} />
+          <BigCategory title="Eggs" className={style.items} backgroundImg={EggsCover} link={routeNames.eggsOffers} />
         </div>
       </section>
       {
