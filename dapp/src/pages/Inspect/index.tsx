@@ -126,6 +126,18 @@ const Inspect = () => {
                         }
 
                         {
+                            (isOwnedByConnected && category == 'eggs') &&
+                            <div>
+                                <a href='https://angrypenguinscolony.com/hatch' target="_blank" rel="noopener noreferrer">
+
+                                    <Button type='normal'>
+                                        Hatch
+                                    </Button>
+                                </a>
+                            </div>
+                        }
+
+                        {
                             (category === 'penguins' && !isListedByConnected) &&
                             <Button type='primary' link={buildRouteLinks.customize(id)}>
                                 Customize
