@@ -8,6 +8,7 @@ import HomeIcon from 'components/Icons/HomeIcon';
 import LabIcon from 'components/Icons/LabIcon';
 import MenuIcon from 'components/Icons/MenuIcon';
 import ProfileIcon from 'components/Icons/ProfileIcon';
+import { hatchLink } from 'config';
 import { buildRouteLinks, routeNames } from 'routes';
 import MobileMenu from '../MobileMenu/MobileMenu';
 import style from './navbar.module.scss';
@@ -21,6 +22,7 @@ interface NavItem {
   mobileType?: 'nav-bar' | 'menu' | 'none';
   nestedItems?: NavItem[];
   onClick?: () => void;
+  openInNewTab?: boolean;
 }
 
 const Navbar = () => {
@@ -68,6 +70,12 @@ const Navbar = () => {
       className: style.labIcon,
       visibleIfConnected: true,
     },
+    {
+      name: 'Hatch',
+      route: hatchLink,
+      mobileType: 'menu',
+      openInNewTab: true,
+    }
   ];
 
   const visibleNavItems = navItems
@@ -125,9 +133,16 @@ const DesktopHeaderItem = ({ item }: { item: NavItem }) => {
     </div >
   }
   else {
-    return <Link to={item.route ?? routeNames.home} className={style.item}>
-      {item.name}
-    </Link>;
+    if (item.openInNewTab) {
+      return <a href={item.route ?? routeNames.home} className={style.item} target="_blank" rel="noopener noreferrer">
+        {item.name}
+      </a>
+    }
+    else {
+      return <Link to={item.route ?? routeNames.home} className={style.item}>
+        {item.name}
+      </Link>;
+    }
   }
 }
 
@@ -192,4 +207,5 @@ const MobileNavBarItem = ({ item }: { item: NavItem }) => {
     <p>{item.name}</p>
   </div>
 }
+
 

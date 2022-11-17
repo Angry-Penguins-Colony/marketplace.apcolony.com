@@ -12,6 +12,7 @@ interface MenuLink {
     route?: string;
     name: string;
     nestedItems?: MenuLink[];
+    openInNewTab?: boolean;
 }
 
 const MobileMenu = (
@@ -68,7 +69,12 @@ const Item = ({ item, onClose, className = '' }: { item: MenuLink, onClose: () =
             onClose();
         }
         if (item.route) {
-            navigate(item.route);
+            if (item.openInNewTab) {
+                openInNewTab(item.route);
+            }
+            else {
+                navigate(item.route);
+            }
             onClose();
         }
     };
@@ -84,4 +90,8 @@ const Item = ({ item, onClose, className = '' }: { item: MenuLink, onClose: () =
             item.nestedItems.map(((i, index) => <Item className="ml-3" onClose={onClose} item={i} key={index} />))
         }
     </>
+}
+
+function openInNewTab(url: string) {
+    window.open(url, '_blank')?.focus();
 }
