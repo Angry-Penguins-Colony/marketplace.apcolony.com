@@ -47,6 +47,11 @@ const Navbar = () => {
           name: 'Items',
           route: routeNames.itemsOffersNavigator,
           mobileType: 'menu',
+        },
+        {
+          name: 'Eggs',
+          route: routeNames.eggsOffers,
+          mobileType: 'menu',
         }
       ]
     },
