@@ -54,6 +54,7 @@ export interface IPenguin extends IGenericElement {
 
 export interface IEgg extends IGenericElement {
     tier: EggTier,
+    supply: number
 }
 
 export interface IOwnedEgg extends IEgg {

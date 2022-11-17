@@ -19,7 +19,8 @@ export class EggsDatabase {
             id: "silver",
             identifier: collection + "-01",
             nonce: 1,
-            type: "eggs"
+            type: "eggs",
+            supply: 615
         };
 
         this.goldEgg = {
@@ -34,7 +35,8 @@ export class EggsDatabase {
             id: "gold",
             identifier: collection + "-02",
             nonce: 2,
-            type: "eggs"
+            type: "eggs",
+            supply: 2085
         }
 
         this.diamondEgg = {
@@ -49,7 +51,8 @@ export class EggsDatabase {
             id: "diamond",
             identifier: collection + "-03",
             nonce: 3,
-            type: "eggs"
+            type: "eggs",
+            supply: 7300
         }
     }
 
