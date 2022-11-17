@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { itemsCollection } from '../../const';
-import { APCNetworkProvider } from '../../classes/APCNetworkProvider';
-import { sendSuccessfulJSON, withTryCatch } from '../../utils/response';
+import { APCNetworkProvider } from '../../../classes/APCNetworkProvider';
+import { itemsCollection } from '../../../const';
+import { withTryCatch, sendSuccessfulJSON } from '../../../utils/response';
 
 export default async function getItemOffersStats(req: Request, res: Response, networkProvider: APCNetworkProvider) {
 

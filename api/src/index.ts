@@ -1,31 +1,29 @@
-import express from 'express';
-import 'dotenv/config'
-import helmet from 'helmet';
 import cors from "cors";
-import getPenguins from './routes/penguins/owned';
-import getOwnedItems from './routes/items/owned';
-import { api, eggsDatabase, gateway, itemsDatabase, penguinsCollection } from './const';
-import { getNetworkType } from './env';
-import throng from 'throng';
-import { APCNetworkProvider } from './classes/APCNetworkProvider';
-import { ProxyNetworkProvider } from '@elrondnetwork/erdjs-network-providers/out';
-import getAttributes from './routes/attributes/attributes';
-import getPenguin from './routes/penguins/penguin';
-import getItem from './routes/items/item';
-import getItemsOffers from './routes/items/offers';
-import getActivity from './routes/generic/activity';
-import getPenguinsOffers from './routes/penguins/offers';
-import getOffer, { getOffersOfAccount } from './routes/generic/offer';
-import getItemOffersStats from './routes/items/offersStats';
-import getPenguinsOffersStats from './routes/penguins/offersStats';
-import getExploreItems from './routes/root/exploreItems';
-import getOwnedItemsAndPenguins from './routes/root/owned';
-import { logErrorIfMissingItems } from './utils/dbHelper';
-import getPenguinsStaked from './routes/staking/owned';
-import getStakingClaimable from './routes/staking/claim';
-import getGeneratedTokens from './routes/staking/generated';
-import rateLimit from 'express-rate-limit'
-import getItemsList from './routes/root/getItems';
+import express from "express";
+import rateLimit from "express-rate-limit";
+import helmet from "helmet";
+import throng from "throng";
+import { APCNetworkProvider } from "./classes/APCNetworkProvider";
+import { gateway, api, itemsDatabase, eggsDatabase, penguinsCollection } from "./const";
+import { getNetworkType } from "./env";
+import { getOffersOfAccount } from "./routes/accounts/offers";
+import { getInventoryOfAccount, getItemsOfAccount, getPenguinsOfAccount } from "./routes/accounts/owned";
+import getActivity from "./routes/activities/activity";
+import getItem from "./routes/items/item";
+import getAttributes from "./routes/misc/attributes";
+import getExploreItems from "./routes/misc/exploreItems";
+import getItemsList from "./routes/misc/getItems";
+import getItemsOffers from "./routes/offers/items/offers";
+import getItemOffersStats from "./routes/offers/items/offersStats";
+import getOffer from "./routes/offers/offer";
+import getPenguinsOffers from "./routes/offers/penguins/offers";
+import getPenguinsOffersStats from "./routes/offers/penguins/offersStats";
+import getPenguin from "./routes/penguins/penguin";
+import getStakingClaimable from "./routes/staking/claim";
+import getGeneratedTokens from "./routes/staking/generated";
+import getPenguinsStaked from "./routes/staking/owned";
+import { logErrorIfMissingItems } from "./utils/dbHelper";
+
 
 const workers = parseInt(process.env.WEB_CONCURRENCY || "1");
 const port = process.env.PORT || 5001;
@@ -62,10 +60,10 @@ function start(id: number) {
         .catch((e) => console.log("Penguins collection cache failed", e));
 
 
-    app.get("/accounts/:bech32/owned", async (req: any, res: any) => getOwnedItemsAndPenguins(req, res, networkProvider, itemsDatabase));
+    app.get("/accounts/:bech32/owned", async (req: any, res: any) => getInventoryOfAccount(req, res, networkProvider, itemsDatabase));
     app.get("/accounts/:bech32/offers", async (req: any, res: any) => getOffersOfAccount(req, res, networkProvider));
-    app.get('/accounts/:bech32/owned/penguins', (req: any, res: any) => getPenguins(req, res, networkProvider));
-    app.get('/accounts/:bech32/owned/items', (req: any, res: any) => getOwnedItems(req, res, networkProvider));
+    app.get('/accounts/:bech32/owned/penguins', (req: any, res: any) => getPenguinsOfAccount(req, res, networkProvider));
+    app.get('/accounts/:bech32/owned/items', (req: any, res: any) => getItemsOfAccount(req, res, networkProvider));
 
     app.get('/penguins/penguin/:id', (req: any, res: any) => getPenguin(req, res, networkProvider));
     app.get("/items/item/:id", (req: any, res: any) => getItem(req, res, itemsDatabase, networkProvider));

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { penguinsCollection, itemsCollection } from '../../const';
-import { APCNetworkProvider } from '../../classes/APCNetworkProvider';
-import { sendSuccessfulJSON, withTryCatch } from '../../utils/response';
+import { itemsCollection } from '../../../const';
+import { APCNetworkProvider } from '../../../classes/APCNetworkProvider';
+import { sendSuccessfulJSON, withTryCatch } from '../../../utils/response';
 import ItemsDatabase from '@apcolony/db-marketplace/out/ItemsDatabase';
 
 export default async function getItemsOffers(req: Request, res: Response, networkProvider: APCNetworkProvider, itemsDatabase: ItemsDatabase) {
