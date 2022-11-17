@@ -14,6 +14,7 @@ function useGetOffers(category: CategoriesType, id: string) {
 
     const ownedOffers = offers && offers.filter((offer) => offer.seller == connectedAddress);
     const buyableOffers = offers && offers.filter((offer) => offer.seller != connectedAddress);
+    const floorPriceOffer = offers && offers.reduce((prev, current) => (prev.price < current.price ? prev : current));
     const lowestBuyableOffer = (() => {
 
         if (!offers && !buyableOffers) return undefined;
@@ -41,6 +42,7 @@ function useGetOffers(category: CategoriesType, id: string) {
         ownedOffers,
         buyableOffers,
         lowestBuyableOffer,
+        floorPriceOffer,
         priceListedByUser,
         isListedByConnected
     }

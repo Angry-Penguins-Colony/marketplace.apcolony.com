@@ -45,7 +45,7 @@ function useInspect(category: CategoriesType, id: string, onWrongId: () => void 
         switch (category) {
             case 'items':
             case 'eggs':
-                return Price.fromEgld(offers.lowestBuyableOffer?.price ?? '0');
+                return Price.fromEgld(offers.floorPriceOffer?.price ?? '0');
 
             case 'penguins':
                 return Price.fromEgld(offersOfCategory.floorOffer?.price ?? '0');
