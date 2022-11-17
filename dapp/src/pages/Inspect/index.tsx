@@ -170,7 +170,7 @@ const Inspect = () => {
                 activities={activities}
                 type={getTypeInText().singular.toLowerCase()}
                 disableActivityTab={category == 'penguins'}
-                disableItemsTab={category == 'items'}
+                disableItemsTab={category != 'penguins'}
                 className={style.activity} />
 
             {
