@@ -16,7 +16,7 @@ import RequestsMonitor from "./RequestsMonitor";
 import { ErrNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out/errors";
 import { buffer } from "stream/consumers";
 import { Cache, CacheClass } from "memory-cache";
-import { EggsDatabase } from "@apcolony/db-marketplace/out/eggs";
+import { EggsDatabase } from "@apcolony/db-marketplace/out/EggsDatabase";
 import { IOwnedEgg } from "@apcolony/marketplace-api";
 
 /**
@@ -184,6 +184,11 @@ export class APCNetworkProvider {
 
     public async getItemSupplyOfAccount(address: IAddress, id: string): Promise<number> {
         const { identifier } = this.itemsDatabase.getItemFromId(id);
+
+        return this.getSupply(address, identifier);
+    }
+
+    public async getSupply(address: IAddress, identifier: string) {
 
         const url = `accounts/${address.bech32()}/nfts/${identifier}`;
         const nft = await this.apiProvider.doGetGeneric(url)

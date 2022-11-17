@@ -245,13 +245,11 @@
                     }
                 }
             }
-
-            &:last-of-type {
-                .set-price {
-                    margin-bottom: 30px;
-                }
-            }
         }
+    }
+
+    .set-price {
+        margin-bottom: 30px;
     }
 
     .items-attached {

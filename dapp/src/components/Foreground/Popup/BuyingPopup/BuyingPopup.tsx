@@ -40,54 +40,51 @@ const BuyingPopup = (
                 <CrossIcon className={style.icon} />
             </div>
 
-            {item &&
-                <>
-                    {type === 'items' ? (
-                        <>
-                            <section> <div className={style.close} onClick={onClose}>
-                                <CrossIcon className={style.icon} />
-                            </div>
-                                <h2>Sell item</h2>
-                                <img src={item.thumbnailUrls.high} alt={item.displayName} />
-                                <div className={style.infos}>
-                                    <div className={style.line}>
-                                        <div className={style.label}>Item</div>
-                                        <div className={style.value}>{item.displayName}</div>
-                                    </div>
-                                </div>
-                                <SetPrice floorPrice={floorPrice} price={price} setPrice={setPrice} className={style['set-price']} />
-                            </section>
-                        </>
-                    ) : (
-                        <>
-                            <section> <div className={style.close} onClick={onClose}>
-                                <CrossIcon className={style.icon} />
-                            </div>
-                                <h2>Sell</h2>
-                                <img src={item.thumbnailUrls.high} alt={item.displayName} />
-                                <div className={style['items-attached']}>
-                                    <h3>Items attached to the penguin</h3>
-                                    <div className={style.content}>
-                                        {Object.values((item as IPenguin).equippedItems).map((aItem: any) => {
-                                            return (
-                                                <Item key={aItem.id} item={aItem} />
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                            </section>
-                        </>
-                    )}
-                </>}
             <section>
-                {
-                    type === 'penguins' &&
-                    <SetPrice floorPrice={floorPrice} price={price} setPrice={setPrice} className={style['set-price']} />
-                }
-                <Button className={style.button} onClick={() => onSell(Price.fromEgld(price))}>Place on the market</Button>
+                <div className={style.close} onClick={onClose}>
+                    <CrossIcon className={style.icon} />
+                </div>
+
+                <h2>Sell {item.displayName}</h2>
+
+                <img src={item.thumbnailUrls.high} alt={item.displayName} />
+
+                {getProperties()}
+            </section>
+            <section>
+                <SetPrice floorPrice={floorPrice} price={price} setPrice={setPrice} className={style['set-price']} />
+
+                <Button className={style.button} onClick={() => onSell(Price.fromEgld(price))}>
+                    Place on the market
+                </Button>
             </section>
         </div>
     </div>
+
+    function getProperties() {
+        switch (type) {
+            case 'items':
+            case 'eggs':
+                return <div className={style.infos}>
+                    <div className={style.line}>
+                        <div className={style.label}>Item</div>
+                        <div className={style.value}>{item.displayName}</div>
+                    </div>
+                </div>;
+
+            case 'penguins':
+                return <div className={style['items-attached']}>
+                    <h3>Items attached to the penguin</h3>
+                    <div className={style.content}>
+                        {Object.values((item as IPenguin).equippedItems).map((aItem: any) => {
+                            return (
+                                <Item key={aItem.id} item={aItem} />
+                            );
+                        })}
+                    </div>
+                </div>
+        }
+    }
 };
 
 export default BuyingPopup;

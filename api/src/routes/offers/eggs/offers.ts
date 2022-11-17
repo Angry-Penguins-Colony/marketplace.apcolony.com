@@ -3,7 +3,7 @@ import { eggsCollection, penguinsCollection } from '../../../const';
 import { APCNetworkProvider } from '../../../classes/APCNetworkProvider';
 import { sendSuccessfulJSON, withTryCatch } from '../../../utils/response';
 
-export default async function getEggs(req: Request, res: Response, networkProvider: APCNetworkProvider) {
+export default async function getEggsOffers(req: Request, res: Response, networkProvider: APCNetworkProvider) {
     withTryCatch(res, async () => {
         const offers = (await networkProvider.getOffers([eggsCollection]));
 

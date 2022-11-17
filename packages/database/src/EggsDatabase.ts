@@ -73,6 +73,18 @@ export class EggsDatabase {
         }
     }
 
+    public isTierValid(tier: string): boolean {
+        switch (tier) {
+            case "silver":
+            case "gold":
+            case "diamond":
+                return true;
+
+            default:
+                return false;
+        }
+    }
+
     public getEggFromTier(tier: EggTier): IEgg {
         switch (tier) {
             case "silver":

@@ -9,11 +9,12 @@ import { getNetworkType } from "./env";
 import { getOffersOfAccount } from "./routes/accounts/offers";
 import { getInventoryOfAccount, getItemsOfAccount, getPenguinsOfAccount } from "./routes/accounts/owned";
 import getActivity from "./routes/activities/activity";
+import getEggs from "./routes/eggs/getEggs";
 import getItem from "./routes/items/item";
 import getAttributes from "./routes/misc/attributes";
 import getExploreItems from "./routes/misc/exploreItems";
 import getItemsList from "./routes/misc/getItems";
-import getEggs from "./routes/offers/eggs/offers";
+import getEggsOffers from "./routes/offers/eggs/offers";
 import getEggsOffersStats from "./routes/offers/eggs/offersStats";
 import getItemsOffers from "./routes/offers/items/offers";
 import getItemOffersStats from "./routes/offers/items/offersStats";
@@ -69,21 +70,20 @@ function start(id: number) {
 
     app.get('/penguins/penguin/:id', (req: any, res: any) => getPenguin(req, res, networkProvider));
     app.get("/items/item/:id", (req: any, res: any) => getItem(req, res, itemsDatabase, networkProvider));
+    app.get("/eggs/egg/:id", (req: any, res: any) => getEggs(req, res, eggsDatabase, networkProvider));
 
     app.get("/activities/:type/:id", (req: any, res: any) => getActivity(req, res, networkProvider));
+    app.get("/offers/:type/offer/:id", (req: any, res: any) => getOffer(req, res, networkProvider));
 
-    app.get("/offers/eggs", (req: any, res: any) => getEggs(req, res, networkProvider));
+    app.get("/offers/eggs", (req: any, res: any) => getEggsOffers(req, res, networkProvider));
     app.get("/offers/eggs/stats", (req: any, res: any) => getEggsOffersStats(req, res, networkProvider));
-
 
     app.get("/offers/penguins", (req: any, res: any) => getPenguinsOffers(req, res, networkProvider));
     app.get("/offers/penguins/stats", (req: any, res: any) => getPenguinsOffersStats(req, res, networkProvider));
-    app.get("/offers/penguins/offer/:id", (req: any, res: any) => getOffer(req, res, "penguins", networkProvider));
 
     app.get("/offers/items/", (req: any, res: any) => getItemsOffers(req, res, networkProvider, itemsDatabase));
     app.get("/offers/items/:category", (req: any, res: any) => getItemsOffers(req, res, networkProvider, itemsDatabase));
     app.get("/offers/items/:category/stats", (req: any, res: any) => getItemOffersStats(req, res, networkProvider));
-    app.get("/offers/items/offer/:id", (req: any, res: any) => getOffer(req, res, "items", networkProvider));
 
     app.get('/staking/owned/:bech32', (req: any, res: any) => getPenguinsStaked(req, res, networkProvider));
     app.get('/staking/claimable/:bech32', (req: any, res: any) => getStakingClaimable(req, res, networkProvider));

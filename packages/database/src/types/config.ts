@@ -1,4 +1,4 @@
-import { EggsDatabase } from "../eggs";
+import { EggsDatabase } from "../EggsDatabase";
 import ItemsDatabase from "../ItemsDatabase";
 
 export interface Config {

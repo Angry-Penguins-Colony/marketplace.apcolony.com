@@ -211,6 +211,7 @@ const Inspect = () => {
                 return Object.values((item as IPenguin).equippedItems);
 
             case 'items':
+            case 'eggs':
                 return [];
 
             default:
@@ -261,6 +262,7 @@ const Inspect = () => {
                 return <PenguinSubProperties offer={offers ? offers[0] : undefined} penguin={item as IPenguin} />
 
             case 'items':
+            case 'eggs':
                 return <ItemSubProperties ownedAmount={item.ownedAmount ?? 0} supply={(item as IItem).supply} />
 
             default:

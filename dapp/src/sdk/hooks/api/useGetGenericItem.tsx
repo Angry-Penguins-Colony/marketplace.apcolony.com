@@ -11,8 +11,24 @@ export function useGetGenericItem(type: CategoriesType, id: string, options?: IG
 
     const { address } = useGetAccountInfo();
 
-    const singularType = type == 'penguins' ? 'penguin' : 'item';
-    const raw = useGenericAPICall<IGenericElementOwned>(`${type}/${singularType}/${id}` + (address != '' ? `?owner=${address}` : ''), options);
+    const url = `${type}/${getSingular()}/${id}` + (address != '' ? `?owner=${address}` : '');
+    const raw = useGenericAPICall<IGenericElementOwned>(url, options);
 
     return raw;
+
+    function getSingular() {
+        switch (type) {
+            case 'penguins':
+                return 'penguin';
+
+            case 'items':
+                return 'item';
+
+            case 'eggs':
+                return 'egg';
+
+            default:
+                throw new Error('Invalid type');
+        }
+    }
 }

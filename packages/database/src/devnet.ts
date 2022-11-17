@@ -1,4 +1,4 @@
-import { EggsDatabase } from "./eggs";
+import { EggsDatabase } from "./EggsDatabase";
 import ItemsDatabase from "./ItemsDatabase";
 import DeployDevnet from "./json/deploy.devnet.json";
 import Items from "./json/items.json";

@@ -56,7 +56,7 @@ function useInspect(category: CategoriesType, id: string, onWrongId: () => void 
     })();
 
     const ownedOrListedByConnectedWallet = isOwnedByConnected || offers.isListedByConnected;
-    const canBuy = category == 'items' || (category == 'penguins' && ownedOrListedByConnectedWallet == false);
+    const canBuy = (category == 'penguins' && ownedOrListedByConnectedWallet == false) || category != 'penguins';
 
     useGetOnTransactionSuccesful(
         () => forceReloadItem(),

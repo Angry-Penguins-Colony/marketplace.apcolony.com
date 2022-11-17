@@ -1,5 +1,5 @@
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
-import { EggsDatabase } from "./eggs";
+import { EggsDatabase } from "./EggsDatabase";
 import ItemsDatabase, { DeployedItem, splitCollectionAndNonce } from "./ItemsDatabase";
 import DeployMainnet from "./json/deploy.mainnet.json";
 import Items from "./json/items.json";
