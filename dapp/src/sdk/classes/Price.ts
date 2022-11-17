@@ -26,4 +26,10 @@ export default class Price {
     static zero() {
         return new Price('0', 0);
     }
+
+    equals(other: Price) {
+        if (this.decimals != other.decimals) throw new Error('Cannot compare prices with different decimals');
+
+        return this.completePrice.isEqualTo(other.completePrice);
+    }
 }

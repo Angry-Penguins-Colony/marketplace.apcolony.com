@@ -21,7 +21,7 @@ const BuyingPopup = (
         onClose: () => void;
         onSell: (price: Price) => void;
         item: IGenericElement;
-        floorPrice: Price;
+        floorPrice?: Price;
         type: CategoriesType;
     }
 ) => {

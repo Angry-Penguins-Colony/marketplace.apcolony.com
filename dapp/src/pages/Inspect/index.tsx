@@ -193,7 +193,7 @@ const Inspect = () => {
                     item={item}
                     type={category}
                     visible={isSellPopupOpen}
-                    floorPrice={floorPrice ?? '0'}
+                    floorPrice={floorPrice}
                 />
             }
             {

@@ -8,14 +8,14 @@ const step = 0.1;
 const maxCharacters = 6;
 
 const SetPrice = ({
-    floorPrice = new Price(0, 1),
-    price = '0',
+    floorPrice,
+    price,
     setPrice = () => {
         // do nothing
     },
     className = '',
 }: {
-    floorPrice: Price;
+    floorPrice?: Price;
     price: string;
     setPrice: (price: string) => void;
     className?: string;
@@ -40,7 +40,18 @@ const SetPrice = ({
                 </div>
                 <div className={style.control + ' ' + style.plus} onClick={() => increment()}><span>+</span></div>
             </div>
-            <p className={style['floor-price']}>Floor price {floorPrice.toDenomination()} EGLD</p>
+            <p className={style['floor-price']}>
+                {
+                    floorPrice ?
+                        <>
+                            Floor price {floorPrice.toDenomination()} EGLD
+                        </>
+                        :
+                        <>
+                            No items listed. Be the first!
+                        </>
+                }
+            </p>
         </div>
     );
 

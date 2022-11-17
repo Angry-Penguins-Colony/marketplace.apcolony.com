@@ -45,10 +45,10 @@ function useInspect(category: CategoriesType, id: string, onWrongId: () => void 
         switch (category) {
             case 'items':
             case 'eggs':
-                return Price.fromEgld(offers.floorPriceOffer?.price ?? '0');
+                return offers.floorPriceOffer ? Price.fromEgld(offers.floorPriceOffer.price) : undefined;
 
             case 'penguins':
-                return Price.fromEgld(offersOfCategory.floorOffer?.price ?? '0');
+                return offersOfCategory.floorOffer ? Price.fromEgld(offersOfCategory.floorOffer.price) : undefined;
 
             default:
                 throw new Error(`Unknown category ${category}`);
