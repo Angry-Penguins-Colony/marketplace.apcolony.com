@@ -9,7 +9,7 @@ import style from './index.module.scss';
 const SelectCustomizePenguin = () => {
 
     const penguins = useGetOwnedPenguins();
-    useAddBodyClassNames(['no-footer', 'no-scroll', 'background-image']);
+    useAddBodyClassNames(['no-footer', 'background-image']);
 
     return <>
         <MobileHeader title="Select a penguin to customize" className={style['mobile-header']} />
