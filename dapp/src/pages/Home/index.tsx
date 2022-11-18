@@ -73,7 +73,7 @@ const Home = () => {
       <section className={style['customize-your-penguins']}>
         <h2>Customize your<br />penguins !!!</h2>
         <p className={style.subtitle}>Make them unique with<br /> over a 100+ items</p>
-        <img src={CustomizationIcon} alt="customization" />
+        <img src={CustomizationIcon} alt="customization" loading="lazy" />
         <Button type='normal' link={routeNames.customizeInventory} className={style.button}>Customize</Button>
       </section>
       <div className={style['global-unique-style']}>
@@ -104,7 +104,7 @@ const Home = () => {
                     }
                   </p>
                 </div>
-                <img className="w-100" src={highlightedItem.renderUrls.high} alt={highlightedItem.displayName} />
+                <img className="w-100" src={highlightedItem.renderUrls.high} alt={highlightedItem.displayName} loading="lazy" />
               </section>
             </Link>
           )
@@ -113,7 +113,7 @@ const Home = () => {
       <section className={style['sell-items']}>
         <h2>Sell items you earned<br />and buy new ones</h2>
         <p className={style.subtitle}>Buy and sell rare items on the marketplace<br />with the angry penguins community</p>
-        <img src={SellAndBuyPenguinExample} alt="customization" className="penguin-example" />
+        <img src={SellAndBuyPenguinExample} alt="customization" className="penguin-example" loading="lazy" />
       </section>
     </div>
   );

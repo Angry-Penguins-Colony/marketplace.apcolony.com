@@ -28,7 +28,7 @@ export const GenericItemExplorer = (
                 // )
             }
             <div className={style.thumbnail}>
-                <img src={thumbnail} alt={'thumbnail of ' + name} />
+                <img src={thumbnail} alt={'thumbnail of ' + name} loading="lazy" />
             </div>
             <div className={style.info}>
                 <h3 className={style.name}>{name}</h3>

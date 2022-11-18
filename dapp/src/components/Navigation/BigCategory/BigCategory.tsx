@@ -17,7 +17,7 @@ export const BigCategory = ({
     return (
         <Link to={link} className={style['big-category'] + ' w-100 ' + className}>
             <div >
-                <img src={backgroundImg} alt={title} />
+                <img src={backgroundImg} alt={title} loading="lazy" />
                 <h2>{title}</h2>
                 <Button type='normal' className={style.button}>View all</Button>
             </div>
