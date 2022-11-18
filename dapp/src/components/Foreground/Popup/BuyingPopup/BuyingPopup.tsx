@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IGenericElement, IPenguin } from '@apcolony/marketplace-api';
+import { IGenericElement, IItem, IPenguin } from '@apcolony/marketplace-api';
 import Button from 'components/Abstract/Button/Button';
 import CrossIcon from 'components/Icons/CrossIcon';
 import { Item } from 'components/Inventory/Item/Item';
@@ -76,7 +76,7 @@ const BuyingPopup = (
                 return <div className={style['items-attached']}>
                     <h3>Items attached to the penguin</h3>
                     <div className={style.content}>
-                        {Object.values((item as IPenguin).equippedItems).map((aItem: any) => {
+                        {Object.values((item as IPenguin).equippedItems).map((aItem: IItem) => {
                             return (
                                 <Item key={aItem.id} item={aItem} />
                             );
