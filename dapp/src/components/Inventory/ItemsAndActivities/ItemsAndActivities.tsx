@@ -70,7 +70,7 @@ const ItemsAndActivities = ({
                     )
                 }
             </nav>
-            <div className={style.content}>
+            <div className={style.content + ' ' + getTabClassName()}>
                 {getContent()}
             </div>
         </div>
@@ -125,6 +125,10 @@ const ItemsAndActivities = ({
             default:
                 return (<></>);
         }
+    }
+
+    function getTabClassName() {
+        return style[`${activeTab}Tab`];
     }
 };
 

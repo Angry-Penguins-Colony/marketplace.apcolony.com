@@ -1,4 +1,4 @@
-@import "./../../../assets/sass/var.scss";
+@import "assets/sass/theme.scss";
 
 .item-and-activity {
     nav {
@@ -35,6 +35,16 @@
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(252px, auto));
         grid-gap: 10px;
+
+        &.activityTab {
+            max-height: 300px;
+            display: flex;
+            gap: 10px;
+            flex-direction: column;
+            overflow: auto;
+
+            @extend .custom-scrollbar;
+        }
 
         .activity {
             background-color: white;
