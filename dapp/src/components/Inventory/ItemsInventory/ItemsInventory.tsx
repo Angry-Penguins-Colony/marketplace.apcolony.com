@@ -3,7 +3,6 @@ import { IGenericElement } from '@apcolony/marketplace-api';
 import { Link } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
 import Loading, { LoadingColor } from 'components/Abstract/Loading';
-import ReactImageAppear from 'components/Images/ReactImageAppear/ReactImageAppear';
 import { buildRouteLinks } from 'routes';
 import CategoriesType from 'sdk/types/CategoriesType';
 import Filters from '../../../sdk/types/Filters';
