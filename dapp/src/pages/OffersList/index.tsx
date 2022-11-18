@@ -60,7 +60,7 @@ const OffersList = ({
                         const link = buildRouteLinks.inspect(category, item.id)
 
                         const component = <Link className={style.itemRoot} to={link} key={item.id}>
-                            <Item item={item} displayId={false} className={style.mobile} />
+                            <Item item={item} subProperty={price + ' EGLD'} className={style.mobile} />
 
                             <div className={style.desktop}>
                                 <img loading="lazy" src={item.thumbnailUrls.high} alt="" className={style.item} />

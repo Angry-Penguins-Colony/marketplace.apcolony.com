@@ -4,7 +4,7 @@ import style from './Item.module.scss';
 export const Item = ({
     item,
     className = '',
-    displayId = true,
+    subProperty,
     onClick = () => {
         // do nothing
     }
@@ -17,7 +17,7 @@ export const Item = ({
         }
     },
     className?: string;
-    displayId?: boolean;
+    subProperty?: JSX.Element | string;
     onClick?: () => void;
 }) => {
     return (
@@ -26,12 +26,10 @@ export const Item = ({
                 <p className={style.name}>
                     {item.displayName}
                 </p>
-                {
-                    displayId &&
-                    <p className={style.id}>
-                        #{item.id}
-                    </p>
-                }
+                {subProperty &&
+                    <p className={style.subProperty}>
+                        {subProperty}
+                    </p>}
             </div>
             <div className={style.thumbnail}>
                 <img src={item.thumbnailUrls.high} alt={item.displayName} />

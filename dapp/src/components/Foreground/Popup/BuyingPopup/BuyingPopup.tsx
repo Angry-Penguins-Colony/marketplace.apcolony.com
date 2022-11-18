@@ -78,7 +78,7 @@ const BuyingPopup = (
                     <div className={style.content}>
                         {Object.values((item as IPenguin).equippedItems).map((aItem: IItem) => {
                             return (
-                                <Item key={aItem.id} item={aItem} />
+                                <Item key={aItem.id} item={aItem} subProperty={'#' + item.id} />
                             );
                         })}
                     </div>
