@@ -26,7 +26,7 @@ const Footer = ({
 
     return (
         <div id={style['mobile-header']} className={className + ' ' + style[type]}>
-            <div className={style.icon} onClick={() => {
+            <div className={style.icon + ' ' + 'float-left'} onClick={() => {
                 navigate(-1);
             }}>
                 <BackIcon className={style.icon} />
@@ -39,13 +39,13 @@ const Footer = ({
                 }
             </div>
             <div className={style.icon} onClick={onRightIconClick}>
-                {
+                {/* {
                     rightIcon ? (
                         rightIcon
                     ) : (
                         <KebabIcon />
                     )
-                }
+                } */}
             </div>
         </div>
     );
