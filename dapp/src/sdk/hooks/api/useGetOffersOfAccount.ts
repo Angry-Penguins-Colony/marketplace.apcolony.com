@@ -1,13 +1,13 @@
-import { IAddress, IEgg, IItem, IOffer, IPenguin } from '@apcolony/marketplace-api';
+import { IAddress, IOffer, IOwnedEgg, IOwnedItem, IPenguin } from '@apcolony/marketplace-api';
 import useGenericAPICall from './useGenericAPICall';
 
 interface Output {
     offers: IOffer[],
     associated: {
 
-        items: IItem[]
+        items: IOwnedItem[]
         penguins: IPenguin[]
-        eggs: IEgg[]
+        eggs: IOwnedEgg[]
     }
 }
 

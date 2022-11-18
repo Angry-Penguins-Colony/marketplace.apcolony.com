@@ -23,8 +23,8 @@ function useGetInventory(walletAddress: string) {
         inventoryType,
         inventoryOffers,
         penguinsCount: owned?.penguins.length,
-        itemsCount: owned?.items.length,
-        eggsCount: owned?.eggs.length,
+        itemsCount: owned && owned.items.reduce((acc, item) => acc + item.ownedAmount, 0),
+        eggsCount: owned && owned.eggs.reduce((acc, egg) => acc + egg.ownedAmount, 0),
         totalOffers: totalOffersCount,
         setInventoryType
     };
