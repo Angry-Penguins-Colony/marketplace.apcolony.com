@@ -9,7 +9,7 @@ import { getNetworkType } from "./env";
 import { getOffersOfAccount } from "./routes/accounts/offers";
 import { getInventoryOfAccount, getItemsOfAccount, getPenguinsOfAccount } from "./routes/accounts/owned";
 import getActivity from "./routes/activities/activity";
-import getEggs from "./routes/eggs/getEggs";
+import getEgg from "./routes/eggs/getEggs";
 import getItem from "./routes/items/item";
 import getAttributes from "./routes/misc/attributes";
 import getExploreItems from "./routes/misc/exploreItems";
@@ -70,7 +70,7 @@ function start(id: number) {
 
     app.get('/penguins/penguin/:id', (req: any, res: any) => getPenguin(req, res, networkProvider));
     app.get("/items/item/:id", (req: any, res: any) => getItem(req, res, itemsDatabase, networkProvider));
-    app.get("/eggs/egg/:id", (req: any, res: any) => getEggs(req, res, eggsDatabase, networkProvider));
+    app.get("/eggs/egg/:id", (req: any, res: any) => getEgg(req, res, eggsDatabase, networkProvider));
 
     app.get("/activities/:type/:id", (req: any, res: any) => getActivity(req, res, networkProvider));
     app.get("/offers/:type/offer/:id", (req: any, res: any) => getOffer(req, res, networkProvider));
