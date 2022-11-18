@@ -26,18 +26,18 @@ const Footer = ({
 
     return (
         <div id={style['mobile-header']} className={className + ' ' + style[type]}>
-            <div className={style.icon + ' ' + 'float-left'} onClick={() => {
-                navigate(-1);
-            }}>
-                <BackIcon className={style.icon} />
-            </div>
+
             <div className={style.titles}>
-                <h1>{title}</h1>
+                <h1>
+                    <BackIcon className={style.icon + ' ' + 'float-left'} onClick={navigateBack} />
+                    {title}
+                </h1>
                 {
                     subTitle &&
                     <h2>{subTitle}</h2>
                 }
             </div>
+
             <div className={style.icon} onClick={onRightIconClick}>
                 {/* {
                     rightIcon ? (
@@ -49,6 +49,11 @@ const Footer = ({
             </div>
         </div>
     );
+
+    function navigateBack() {
+        console.log('go back');
+        navigate(-1);
+    }
 };
 
 export default Footer;

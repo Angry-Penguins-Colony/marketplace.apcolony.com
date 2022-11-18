@@ -6,7 +6,7 @@
     // align-items: flex-start;
     padding: 60px 30px 30px 30px;
 
-    .icon > svg {
+    .icon {
         height: 25px;
     }
 
@@ -34,7 +34,7 @@
         padding-bottom: 80px;
         color: white;
 
-        .icon > svg {
+        .icon {
             fill: white;
         }
     }
@@ -44,7 +44,7 @@
         background-color: $background;
         color: $dark;
 
-        .icon > svg {
+        .icon {
             fill: $dark;
         }
     }
