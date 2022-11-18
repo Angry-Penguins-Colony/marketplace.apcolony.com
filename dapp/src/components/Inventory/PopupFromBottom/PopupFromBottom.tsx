@@ -149,7 +149,7 @@ const SelectableItem = (
     return (
         <div className={className} onClick={onClick}>
             <img className={style.model} src={defaultPenguinImg} alt="Model" />
-            <img src={renderImageSrc} className={style.thumbnail} alt={name} />
+            <img src={renderImageSrc} className={style.thumbnail} alt={name} loading="lazy" />
 
             <div className={style.count}>{count}</div>
             <div className={style['back-name']}></div>

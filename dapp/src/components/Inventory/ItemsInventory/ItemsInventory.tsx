@@ -122,7 +122,7 @@ const Item = ({
     return (
         <Link to={link}>
             <div className={style.item}>
-                <ReactImageAppear src={item.thumbnailUrls.small} />
+                <img src={item.thumbnailUrls.small} loading="lazy" />
                 <div className={style.name}>{item.displayName}</div>
                 {(item.ownedAmount) &&
                     <div className={style.count}>{item.ownedAmount}</div>

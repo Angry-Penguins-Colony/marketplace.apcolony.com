@@ -63,7 +63,7 @@ const OffersList = ({
                             <Item item={item} displayId={false} className={style.mobile} />
 
                             <div className={style.desktop}>
-                                <img src={item.thumbnailUrls.high} alt="" className={style.item} />
+                                <img loading="lazy" src={item.thumbnailUrls.high} alt="" className={style.item} />
                                 <div className={style.infos}>
                                     <div className={style.name}>{item.displayName}</div>
                                     <div className={style.price}>
