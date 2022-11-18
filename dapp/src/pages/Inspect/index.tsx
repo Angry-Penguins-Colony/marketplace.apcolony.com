@@ -175,8 +175,8 @@ const Inspect = () => {
                         }
                     </div>
                 }
+                <hr />
             </div>
-            <hr />
             <ItemsAndActivities
                 items={getItems()}
                 activities={activities}
