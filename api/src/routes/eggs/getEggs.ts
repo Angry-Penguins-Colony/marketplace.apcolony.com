@@ -6,7 +6,7 @@ import { Request, Response } from 'express';
 import { APCNetworkProvider } from '../../classes/APCNetworkProvider';
 import { sendSuccessfulJSON, withTryCatch } from '../../utils/response';
 
-export default async function getEggs(
+export default async function getEgg(
     req: Request,
     res: Response,
     eggsDatabase: EggsDatabase,
