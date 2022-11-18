@@ -30,16 +30,13 @@
         }
 
         .share {
+            display: none;
             height: 1.2rem;
 
             > svg {
                 height: 100%;
                 fill: $primary;
             }
-        }
-
-        .rank {
-            display: none;
         }
     }
 
