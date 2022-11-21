@@ -1,7 +1,7 @@
 
 import nodemailer from "nodemailer";
 
-function reportError(errormessage: Error) {
+export function reportErrorToMail(error: any) {
 
     const sender = "apc.errors@gmail.com";
     const receiver = sender;
@@ -20,10 +20,13 @@ function reportError(errormessage: Error) {
         to: receiver,
         subject: `Error Message - ${subjectSuffix}`,
         text: `
-        Timestamp = ${Date.now()} | ${new Date().toISOString()} 
-        ${errormessage.stack}
+Timestamp = ${Date.now()} | ${new Date().toISOString()} 
+
+${error}
+${JSON.stringify(error, null, 4)}    
         `,
     };
+
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log(error);
@@ -43,3 +46,9 @@ export function enableReporting() {
         reportError(exception);
     });
 }
+
+var getStackTrace = function (): string {
+    var obj: any = {};
+    Error.captureStackTrace(obj, getStackTrace);
+    return obj.stack;
+};

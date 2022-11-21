@@ -21,7 +21,7 @@ import ImagesDownloader from '@apcolony/renderer/dist/classes/ImagesDownloader';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 const Hash = require('ipfs-only-hash')
 import sharp from "sharp";
-import { enableReporting } from './classes/ErrorsReporter';
+import { enableReporting, reportErrorToMail } from './classes/ErrorsReporter';
 
 enableReporting();
 
@@ -58,8 +58,10 @@ async function main() {
         });
 
     await Promise.all([
-        pinata.testAuthentication(),
-        writeGateway.sync(),
+        pinata.testAuthentication()
+            .catch(() => console.error("⚠️ Pinata authentication failed.")),
+        writeGateway.sync()
+            .catch((e) => reportErrorToMail(e)),
         imagesDownloader.downloadCIDs(renderConfig.allCIDs),
     ]);
 
