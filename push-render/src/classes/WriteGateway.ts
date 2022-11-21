@@ -118,7 +118,7 @@ export default class WriteGateway {
                 func: func,
                 args: args,
                 value: "",
-                gasLimit: 35_000_000 + 10_000_000 * uris.length,
+                gasLimit: 50_000_000,
                 gasPrice: this.networkConfig.MinGasPrice,
                 chainID: this.networkConfig.ChainID,
             });
