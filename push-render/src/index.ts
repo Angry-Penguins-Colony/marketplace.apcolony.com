@@ -25,7 +25,7 @@ import { enableReporting, reportErrorToMail } from './classes/ErrorsReporter';
 
 enableReporting();
 
-throng(1, main);
+main();
 
 async function main() {
 
