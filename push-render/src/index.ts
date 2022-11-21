@@ -21,6 +21,9 @@ import ImagesDownloader from '@apcolony/renderer/dist/classes/ImagesDownloader';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 const Hash = require('ipfs-only-hash')
 import sharp from "sharp";
+import { enableReporting } from './classes/ErrorsReporter';
+
+enableReporting();
 
 throng(1, main);
 
@@ -177,3 +180,5 @@ async function claimIfNeeded(readGateway: ReadGateway, writeGateway: WriteGatewa
         }
     }
 }
+
+
