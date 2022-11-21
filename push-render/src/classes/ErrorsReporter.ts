@@ -43,7 +43,7 @@ export function enableReporting() {
     }
 
     process.on('uncaughtException', function (exception) {
-        reportError(exception);
+        reportErrorToMail(exception);
     });
 }
 
