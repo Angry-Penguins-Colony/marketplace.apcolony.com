@@ -17,7 +17,7 @@ async function main() {
 
 
     for (const { renderAttribute, badgeNumber } of queue) {
-        console.log(badgeNumber, "=>", renderAttribute.toAttributes(Devnet.items, renderConfig.slots));
+        console.log(badgeNumber, "=>", renderAttribute.toAttributes(Devnet.itemsDatabase.items));
     }
     console.log("Found " + queue.length + " images in the queue");
 }
