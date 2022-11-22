@@ -1,14 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import BackIcon from 'components/Icons/BackIcon';
-import KebabIcon from 'components/Icons/KebabIcon';
 import style from './mobile-header.module.scss';
 
 const Footer = ({
     title,
     subTitle = undefined,
     className = '',
-    rightIcon = undefined,
     onRightIconClick = () => {
         // do nothing
     },

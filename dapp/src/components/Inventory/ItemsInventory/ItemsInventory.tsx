@@ -112,7 +112,6 @@ interface IItemProps {
 
 const Item = ({
     item,
-    type,
     children,
     link
 }: IItemProps) => {

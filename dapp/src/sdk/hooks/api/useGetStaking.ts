@@ -1,7 +1,7 @@
-import { IGenericElement, IPenguin } from '@apcolony/marketplace-api';
+import { IGenericElement } from '@apcolony/marketplace-api';
 import useGenericAPICall from './useGenericAPICall';
 
-export function useGetStakingClaimable(address: string) {   
+export function useGetStakingClaimable(address: string) {
     return useGenericAPICall(`/staking/claimable/${address}`);
 }
 

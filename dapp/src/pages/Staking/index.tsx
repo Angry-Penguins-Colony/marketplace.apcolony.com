@@ -55,7 +55,7 @@ export default function Staking() {
   }, [hasPendingTransactions]);
 
 
-  const transactionStatus = useTrackTransactionStatus({
+  useTrackTransactionStatus({
     transactionId: transactionSessionId,
     onSuccess: async () => {
       reloadPenguinsStaked();

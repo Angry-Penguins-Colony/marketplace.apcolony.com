@@ -1,4 +1,4 @@
-import { Address, ArgSerializer, StringValue } from '@elrondnetwork/erdjs/out';
+import { Address } from '@elrondnetwork/erdjs/out';
 import Price from 'sdk/classes/Price';
 
 export default class ClaimTransactioNBuilder {
@@ -26,7 +26,7 @@ export default class ClaimTransactioNBuilder {
 
     private getData() {
         if (this.stakingContract === undefined) throw new Error('stakingContract is undefined');
-      
+
         return 'claimRewards';
     }
 }
