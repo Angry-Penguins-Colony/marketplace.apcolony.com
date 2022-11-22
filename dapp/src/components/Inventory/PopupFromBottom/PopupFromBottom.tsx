@@ -81,7 +81,7 @@ const PopupFromBottom = (
                                 <SelectableItem
                                     count={item.ownedAmount}
                                     name={item.displayName}
-                                    renderImageSrc={item.renderUrls.high}
+                                    renderImageSrc={item.thumbnailUrls.high}
                                     key={item.identifier}
                                     isSelected={isSelected}
                                     isDisabled={disableSelection}
