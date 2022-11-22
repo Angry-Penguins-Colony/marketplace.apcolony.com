@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import EggsIcon from 'assets/img/icons/eggs-icon.png';
 import PenguinIcon from 'assets/img/icons/penguin-icon.jpg';
 import ErrorPage from 'components/ErrorPage';
-import { Item } from 'components/Inventory/Item/Item';
+import { HorizontalItem } from 'components/Inventory/HorizontalItem';
 import OffersPageLayout from 'components/Layout/OffersPageLayout';
 import { icons } from 'icons';
 import { buildRouteLinks } from 'routes';
@@ -60,7 +60,7 @@ const OffersList = ({
                         const link = buildRouteLinks.inspect(category, item.id)
 
                         const component = <Link className={style.itemRoot} to={link} key={item.id}>
-                            <Item item={item} subProperty={price + ' EGLD'} className={style.mobile} />
+                            <HorizontalItem item={item} subProperty={price + ' EGLD'} className={style.mobile} />
 
                             <div className={style.desktop}>
                                 <img loading="lazy" src={item.thumbnailUrls.high} alt="" className={style.item} />

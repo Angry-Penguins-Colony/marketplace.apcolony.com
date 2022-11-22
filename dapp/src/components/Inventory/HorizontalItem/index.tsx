@@ -1,7 +1,7 @@
 import * as React from 'react';
-import style from './Item.module.scss';
+import style from './index.module.scss';
 
-export const Item = ({
+export const HorizontalItem = ({
     item,
     className = '',
     subProperty,

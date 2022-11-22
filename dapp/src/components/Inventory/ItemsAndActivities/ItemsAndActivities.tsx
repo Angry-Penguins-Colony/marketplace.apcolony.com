@@ -5,7 +5,7 @@ import Skeleton from 'react-loading-skeleton';
 import UnderlineNavElmt from 'components/Abstract/UnderlineNavElmt/UnderlineNavElmt';
 import AddressWrapper from 'components/AddressWrapper';
 import RightArrowIcon from 'components/Icons/RightArrowIcon';
-import { Item } from '../Item/Item';
+import { HorizontalItem } from '../HorizontalItem';
 import style from './ItemsAndActivities.module.scss';
 
 const ItemsAndActivities = ({
@@ -90,7 +90,7 @@ const ItemsAndActivities = ({
 
                 return (
                     items.map(item => (
-                        <Item key={item.id} item={item} subProperty={'#' + item.id} />
+                        <HorizontalItem key={item.id} item={item} subProperty={'#' + item.id} />
                     ))
                 );
 

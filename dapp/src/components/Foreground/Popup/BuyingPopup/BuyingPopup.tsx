@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IGenericElement, IItem, IPenguin } from '@apcolony/marketplace-api';
 import Button from 'components/Abstract/Button/Button';
 import CrossIcon from 'components/Icons/CrossIcon';
-import { Item } from 'components/Inventory/Item/Item';
+import { HorizontalItem } from 'components/Inventory/HorizontalItem';
 import SetPrice from 'components/Inventory/SetPrice/SetPrice';
 import Price from 'sdk/classes/Price';
 import CategoriesType from 'sdk/types/CategoriesType';
@@ -78,7 +78,7 @@ const BuyingPopup = (
                     <div className={style.content}>
                         {Object.values((item as IPenguin).equippedItems).map((aItem: IItem) => {
                             return (
-                                <Item key={aItem.id} item={aItem} subProperty={'#' + item.id} />
+                                <HorizontalItem key={aItem.id} item={aItem} subProperty={'#' + item.id} />
                             );
                         })}
                     </div>
