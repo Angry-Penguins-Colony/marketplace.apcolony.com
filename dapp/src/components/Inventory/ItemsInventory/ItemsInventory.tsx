@@ -1,16 +1,13 @@
 import * as React from 'react';
 import { IGenericElement } from '@apcolony/marketplace-api';
-import { Link } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
 import Loading, { LoadingColor } from 'components/Abstract/Loading';
+import { SquaredItem } from 'components/SquaredItem';
 import { buildRouteLinks } from 'routes';
 import CategoriesType from 'sdk/types/CategoriesType';
 import Filters from '../../../sdk/types/Filters';
+import { IGenericElementOwned } from './IGenericElementOwned';
 import style from './ItemsInventory.module.scss';
-
-interface IGenericElementOwned extends IGenericElement {
-    ownedAmount?: number;
-}
 
 interface IProps {
     className?: string,
@@ -40,10 +37,9 @@ const ItemsInventory = ({
     makeItemComponent = (item, key) => {
         return (
             <div className={style['item-wrapper']} key={key}>
-                <Item
+                <SquaredItem
                     key={item.id}
                     item={item}
-                    type={type}
                     link={buildLink(item)} />
                 {displayStakingStatus && stakingFunction &&
                     <Button onClick={() => stakingFunction(isStaked ? 'unstake' : 'stake', item.nonce)}>
@@ -103,31 +99,3 @@ function compareItems(a: IGenericElementOwned, b: IGenericElementOwned) {
     return parseInt(a.id) - parseInt(b.id);
 }
 
-interface IItemProps {
-    item: IGenericElementOwned,
-    type: CategoriesType,
-    children?: React.ReactNode,
-    link: string,
-}
-
-const Item = ({
-    item,
-    children,
-    link
-}: IItemProps) => {
-
-
-    return (
-        <Link to={link}>
-            <div className={style.item}>
-                <img src={item.thumbnailUrls.small} loading="lazy" />
-                <div className={style.name}>{item.displayName}</div>
-                {(item.ownedAmount) &&
-                    <div className={style.count}>{item.ownedAmount}</div>
-                }
-
-                {children}
-            </div>
-        </Link>
-    );
-}
