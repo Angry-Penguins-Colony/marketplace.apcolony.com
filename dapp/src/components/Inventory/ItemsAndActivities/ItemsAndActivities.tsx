@@ -105,9 +105,11 @@ const ItemsAndActivities = ({
                     else {
                         return (
                             <>
-                                {activities.map(activity => (
-                                    <Activity key={activity.txHash} activity={activity} />
-                                ))}
+                                {activities
+                                    .sort((a, b) => a.date > b.date ? -1 : 1)
+                                    .map(activity => (
+                                        <Activity key={activity.txHash} activity={activity} />
+                                    ))}
                             </>
                         );
                     }
