@@ -1,6 +1,6 @@
 import RenderAttributes from "@apcolony/renderer/dist/classes/RenderAttributes";
 import { UserSigner } from "@elrondnetwork/erdjs-walletcore/out";
-import { Address, SmartContract, StringValue, TransactionPayload } from "@elrondnetwork/erdjs/out";
+import { Address, SmartContract, StringValue, TransactionPayload, U64Value } from "@elrondnetwork/erdjs/out";
 import WriteGateway from "../../classes/WriteGateway";
 import config from "../../config";
 import "dotenv/config";
@@ -13,7 +13,8 @@ export async function sendRenderImage(attributes: RenderAttributes, writeGateway
     const tx = smartContract.call({
         func: { name: "renderImage" },
         args: [
-            new StringValue(attributes.toAttributes(config.itemsDatabase.items, renderConfig.slots))
+            new StringValue(attributes.toAttributes(config.itemsDatabase.items, renderConfig.slots)),
+            new U64Value(attributes.badgeNumber)
         ],
         value: 1_000_000_000_000_000, // 0.001 EGLD
         gasLimit: 600_000_000,
