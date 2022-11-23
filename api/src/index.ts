@@ -22,6 +22,7 @@ import getOffer from "./routes/offers/offer";
 import getPenguinsOffers from "./routes/offers/penguins/offers";
 import getPenguinsOffersStats from "./routes/offers/penguins/offersStats";
 import getPenguin from "./routes/penguins/penguin";
+import getPenguinsRanks from "./routes/penguins/ranks";
 import getStakingClaimable from "./routes/staking/claim";
 import getGeneratedTokens from "./routes/staking/generated";
 import getPenguinsStaked from "./routes/staking/owned";
@@ -69,6 +70,7 @@ function start(id: number) {
     app.get('/accounts/:bech32/owned/items', (req: any, res: any) => getItemsOfAccount(req, res, networkProvider));
 
     app.get('/penguins/penguin/:id', (req: any, res: any) => getPenguin(req, res, networkProvider));
+    app.get('/penguins/ranks', (req: any, res: any) => getPenguinsRanks(req, res, networkProvider));
     app.get("/items/item/:id", (req: any, res: any) => getItem(req, res, itemsDatabase, networkProvider));
     app.get("/eggs/egg/:id", (req: any, res: any) => getEgg(req, res, eggsDatabase, networkProvider));
 
