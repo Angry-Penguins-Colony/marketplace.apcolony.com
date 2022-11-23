@@ -4,7 +4,7 @@ import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { APCNetworkProvider } from "../classes/APCNetworkProvider";
 import { itemsCollection, itemsDatabase, penguinsCollection, penguinsCount } from "../const";
 import item from "../routes/items/item";
-import { parseAttributes, splitCollectionAndNonce } from "./string";
+import { parseAttributes } from "./string";
 
 export function isCollectionAnItem(collection: string) {
 
@@ -36,7 +36,7 @@ export async function logErrorIfMissingItems(networkProvider: APCNetworkProvider
     const missingItems = await getMissingItems(networkProvider, itemsDatabase);
 
     if (missingItems.size > 0) {
-        let message = [];
+        const message = [];
 
         for (const [item, value] of missingItems) {
             message.push({
