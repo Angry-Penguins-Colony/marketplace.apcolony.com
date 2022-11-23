@@ -49,6 +49,8 @@ export default class ReadGateway {
             const name = Buffer.from(rawAttributes[i + 1], "base64").toString();
             const badgeNumber = parseInt(name.slice(name.lastIndexOf("#") + 1));
 
+            if (!isBadgeNumberValid(badgeNumber)) continue;
+
             const renderAttribute = RenderAttributes.fromAttributes(attributes, badgeNumber, this._itemsDatabase.items)
             renderAttributes.push(
                 {
@@ -65,4 +67,8 @@ export default class ReadGateway {
         let account = await this._requestLimiter.schedule(this._gateway.getAccount.bind(this._gateway), address);
         return account.balance;
     }
+}
+
+function isBadgeNumberValid(badgeNumber: number) {
+    return isNaN(badgeNumber) == false && badgeNumber > 0 && badgeNumber <= 5555;
 }
