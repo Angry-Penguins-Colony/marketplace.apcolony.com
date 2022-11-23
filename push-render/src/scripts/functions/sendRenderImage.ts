@@ -14,7 +14,7 @@ export async function sendRenderImage(attributes: RenderAttributes, writeGateway
         func: { name: "renderImage" },
         args: [
             new StringValue(attributes.toAttributes(config.itemsDatabase.items, renderConfig.slots)),
-            new U64Value(attributes.badgeNumber)
+            new StringValue("Penguin #" + attributes.badgeNumber)
         ],
         value: 1_000_000_000_000_000, // 0.001 EGLD
         gasLimit: 600_000_000,
