@@ -49,7 +49,6 @@ async function main() {
     const alreadyProcessedAttributes: RenderAttributes[] = [];
 
     while (true) {
-        await claimIfNeeded(readGateway, writeGateway, customisationSc, config.claimThreshold);
 
         let queue = await readGateway.getToBuildQueue()
             .catch((e) => {
@@ -64,6 +63,8 @@ async function main() {
 
 
         if (queue.length > 0) {
+            await claimIfNeeded(readGateway, writeGateway, customisationSc, config.claimThreshold);
+
             for (const item of queue) {
                 await itemProcessor.processItem(item);
 
