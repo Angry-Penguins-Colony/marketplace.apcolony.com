@@ -42,7 +42,7 @@ export default class ReadGateway {
         });
 
         const rawAttributes = output.returnData;
-        const renderAttributes = [];
+        const renderAttributes: RenderAttributes[] = [];
 
         for (var i = 0; i < rawAttributes.length; i += 2) {
             const attributes = Buffer.from(rawAttributes[i], "base64").toString();
@@ -51,13 +51,8 @@ export default class ReadGateway {
 
             if (!isBadgeNumberValid(badgeNumber)) continue;
 
-            const renderAttribute = RenderAttributes.fromAttributes(attributes, badgeNumber, this._itemsDatabase.items)
-            renderAttributes.push(
-                {
-                    renderAttribute,
-                    badgeNumber
-                }
-            );
+            const renderAttribute = RenderAttributes.fromAttributes(attributes, badgeNumber, this._itemsDatabase.items);
+            renderAttributes.push(renderAttribute);
         }
 
         return renderAttributes;

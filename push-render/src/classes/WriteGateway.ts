@@ -105,12 +105,12 @@ export default class WriteGateway {
     public async setUris(uris: UrisKvp[], customisationContract: ISmartContract) {
         if (uris.length == 0) throw new Error("No CID to send");
 
-        const txPromises = uris.map(({ uri: cid, badgeNumber, attributes }) => {
+        const txPromises = uris.map(({ uri: cid, attributes }) => {
 
             const func = { name: "setUriOfAttributes" };
             const args = [
                 new StringValue(attributes.toAttributes(this._itemsDatabase.items, renderConfig.slots)),
-                new StringValue("Penguin #" + badgeNumber),
+                new StringValue("Penguin #" + attributes.badgeNumber),
                 new StringValue(cid)
             ];
 

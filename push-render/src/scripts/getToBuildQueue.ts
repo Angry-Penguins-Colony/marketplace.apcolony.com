@@ -10,14 +10,11 @@ main();
 
 async function main() {
     const gateway = new ReadGateway(config.gatewayUrl, config.customisationContract, new Bottleneck(), Devnet.itemsDatabase);
-    const queue: {
-        renderAttribute: RenderAttributes;
-        badgeNumber: number;
-    }[] = await gateway.getToBuildQueue();
+    const queue = await gateway.getToBuildQueue();
 
 
-    for (const { renderAttribute, badgeNumber } of queue) {
-        console.log(badgeNumber, "=>", renderAttribute.toAttributes(Devnet.itemsDatabase.items));
+    for (const renderAttribute of queue) {
+        console.log(renderAttribute.badgeNumber, "=>", renderAttribute.toAttributes(Devnet.itemsDatabase.items));
     }
     console.log("Found " + queue.length + " images in the queue");
 }

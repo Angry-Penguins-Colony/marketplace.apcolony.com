@@ -9,7 +9,7 @@ import { PinataPin } from './classes/PinataPin';
 import colors from "colors";
 import { IItemToProcess } from './interfaces/IItemToProcess';
 import BigNumber from "bignumber.js";
-import { officialGatewayMaxRPS } from './const';
+import { minTimeOfficialGateway, officialGatewayMaxRPS } from './const';
 import Bottleneck from 'bottleneck';
 import { renderConfig } from '@apcolony/renderer';
 import RenderAttributes from '@apcolony/renderer/dist/classes/RenderAttributes';
@@ -19,59 +19,36 @@ import { UrisKvp } from './structs/CIDKvp';
 import throng from 'throng';
 import ImagesDownloader from '@apcolony/renderer/dist/classes/ImagesDownloader';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
-const Hash = require('ipfs-only-hash')
 import sharp from "sharp";
 import { enableReporting, reportErrorToMail } from './classes/ErrorsReporter';
+import { ItemProcessor } from './classes/ItemProcessor';
 
 enableReporting();
 
 if (process.env.LOG_RSS == "true") {
-    setInterval(logRss, 1_000);
+    setInterval(logRss, 300);
 }
 
 main();
 
 async function main() {
 
-    const minTime = requestsPerMinutesToMinTime(officialGatewayMaxRPS);
 
     console.log("Starting server-push-render");
     console.log(`\t- Network: ${process.env.NETWORK_TYPE}`);
     console.log("\t- Customisation contract: ", config.customisationContract.bech32());
     console.log(`\t- Sending from address: ${envVariables.senderAddress.bech32()}`);
-    console.log(`\t- Waiting ${minTime}ms between checks`);
+    console.log(`\t- Waiting ${minTimeOfficialGateway}ms between checks`);
     console.log("\n");
 
-    const gatewayLimiter = new Bottleneck({
-        minTime: minTime
-    });
+    const { readGateway, writeGateway, customisationSc, pinata, imagesDownloader, itemProcessor } = newFromConfig();
 
-    const readGateway = new ReadGateway(config.gatewayUrl, config.customisationContract, gatewayLimiter, config.itemsDatabase);
-    const writeGateway = new WriteGateway(config.gatewayUrl, envVariables.senderAddress, envVariables.signer, gatewayLimiter, config.itemsDatabase);
-    const customisationSC = new SmartContract({ address: config.customisationContract });
-    const pinata = new PinataPin(envVariables.pinataApiKey, envVariables.pinataApiSecret, "pin_folder");
-    const imagesDownloader = new ImagesDownloader();
-    const imageRenderer = new ImageRenderer(renderConfig, imagesDownloader);
-    const client = new S3Client(
-        {
-            region: "eu-west-3",
-            credentials: {
-                accessKeyId: envVariables.awsAccessKeyId,
-                secretAccessKey: envVariables.awsSecretAccessKey
-            }
-        });
+    await init();
 
-    await Promise.all([
-        pinata.testAuthentication()
-            .catch(() => console.error("⚠️ Pinata authentication failed.")),
-        writeGateway.sync()
-            .catch((e) => reportErrorToMail(e)),
-        imagesDownloader.downloadCIDs(renderConfig.allCIDs),
-    ]);
-
-    const alreadyProcessedCID: string[] = [];
+    const alreadyProcessedCID: RenderAttributes[] = [];
 
     while (true) {
+        await claimIfNeeded(readGateway, writeGateway, customisationSc, config.claimThreshold);
 
         const queue = await readGateway.getToBuildQueue()
             .catch((e) => {
@@ -80,90 +57,28 @@ async function main() {
                 return [];
             })
 
-        if (queue.length > 0) {
+        for (const item of queue) {
+            if (alreadyProcessedCID.includes(item)) continue;
 
-            const itemsPromises = queue
-                .map(async (item) => {
-                    const rendering = await renderAdvanced(item.renderAttribute, imageRenderer);
-                    return {
-                        badgeNumber: item.badgeNumber,
-                        ...rendering
-                    }
-                });
-
-            const items = (await Promise.all(itemsPromises))
-                .filter((item) => item != undefined && item.cid != undefined && alreadyProcessedCID.includes(item.cid) == false)
-                .map((item: any) => {
-                    return {
-                        uri: "https://ipfs.io/ipfs/" + item.cid,
-                        ...item
-                    }
-                });
-
-
-            if (items.length > 0) {
-                console.log(`\nProcessing ${items.length} elements from the rendering queue...`)
-
-                await claimIfNeeded(readGateway, writeGateway, customisationSC, config.claimThreshold);
-
-                async function uploadToS3({ cid, imageBuffer }: IItemToProcess) {
-
-                    // convert buffer to 
-                    const jpegBuffer = await sharp(imageBuffer)
-                        .resize(1024, 1024)
-                        .jpeg()
-                        .toBuffer();
-
-                    const filename = cid + "-web.jpg";
-
-                    const params = {
-                        Bucket: "apc-penguins",
-                        Key: filename,
-                        Body: jpegBuffer,
-                        ContentType: "image/jpeg",
-                        ACL: "public-read",
-                    };
-
-                    console.log(`Uploading ${filename} to S3`);
-
-                    return client.send(new PutObjectCommand(params));
-                }
-
-                await Promise.all([
-                    pinata.multiplePin(items),
-                    writeGateway.setUris(items, customisationSC),
-                    items.map(i => uploadToS3(i))
-                ])
-
-                for (const item of items) {
-                    alreadyProcessedCID.push(item.cid);
-                }
-            }
+            await itemProcessor.processItem(item);
+            alreadyProcessedCID.push(item);
         }
 
         await sleep(requestsPerMinutesToMinTime(officialGatewayMaxRPS) + 10)
     }
-}
 
-async function renderAdvanced(item: RenderAttributes, imageRenderer: ImageRenderer) {
-
-    try {
-
-        const imageBuffer = await imageRenderer.render(item, imageRenderer.config.plugins);
-        const cid: string = await Hash.of(imageBuffer);
-
-        return {
-            cid: cid,
-            attributes: item,
-            imageBuffer: imageBuffer
-        };
-    }
-    catch (e: any) {
-        console.error(`${"[Error]".red} ${e.toString().red} => Skipping item ${[...item.idsBySlot.entries()].toString().grey} `);
-        console.log(e);
-        return undefined;
+    async function init() {
+        await Promise.all([
+            pinata.testAuthentication()
+                .catch(() => console.error("⚠️ Pinata authentication failed.")),
+            writeGateway.sync()
+                .catch((e) => reportErrorToMail(e)),
+            imagesDownloader.downloadCIDs(renderConfig.allCIDs),
+        ]);
     }
 }
+
+
 
 async function claimIfNeeded(readGateway: ReadGateway, writeGateway: WriteGateway, customisationSC: SmartContract, claimThreshold: BigNumber) {
 
@@ -192,5 +107,40 @@ function logRss() {
 
     const { rss } = process.memoryUsage();
 
-    console.log("RSS:" + formatMemory(rss));
+    process.stdout.clearLine(0);
+    process.stdout.cursorTo(0);
+    process.stdout.write("RSS:" + formatMemory(rss));
+}
+
+function newFromConfig() {
+
+    const gatewayLimiter = new Bottleneck({
+        minTime: minTimeOfficialGateway
+    });
+
+    const readGateway = new ReadGateway(config.gatewayUrl, config.customisationContract, gatewayLimiter, config.itemsDatabase);
+    const writeGateway = new WriteGateway(config.gatewayUrl, envVariables.senderAddress, envVariables.signer, gatewayLimiter, config.itemsDatabase);
+    const customisationSc = new SmartContract({ address: config.customisationContract });
+    const imagesDownloader = new ImagesDownloader();
+    const pinata = new PinataPin(envVariables.pinataApiKey, envVariables.pinataApiSecret, "pin_folder");
+    const imageRenderer = new ImageRenderer(renderConfig, imagesDownloader);
+    const s3Client = new S3Client(
+        {
+            region: "eu-west-3",
+            credentials: {
+                accessKeyId: envVariables.awsAccessKeyId,
+                secretAccessKey: envVariables.awsSecretAccessKey
+            }
+        });
+
+    const itemProcessor = new ItemProcessor(imageRenderer, pinata, writeGateway, customisationSc, s3Client);
+
+    return {
+        readGateway,
+        writeGateway,
+        customisationSc,
+        itemProcessor,
+        pinata,
+        imagesDownloader
+    }
 }
