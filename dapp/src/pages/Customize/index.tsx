@@ -8,6 +8,7 @@ import CustomizeControls from 'components/Customize/Controls';
 import ErrorPage from 'components/ErrorPage';
 import LoadingOverlay from 'components/Foreground/LoadingOverlay';
 import RefreshIcon from 'components/Icons/RefreshIcon';
+import TrashIcon from 'components/Icons/TrashIcon';
 import PopupFromBottom from 'components/Inventory/PopupFromBottom/PopupFromBottom';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import PenguinCustomizeHeader from 'components/Navigation/GoToAnotherPenguin';
@@ -38,6 +39,7 @@ const Customize = () => {
 
     const {
         resetItems,
+        unequipAllItems,
         equipItem,
         unequipItem,
         getCustomizeTransaction,
@@ -144,9 +146,13 @@ const Customize = () => {
                 {
                     (editingEnabled) &&
                     <>
-                        <div className={style.reset}>
+                        <div className={style.utilsBtn}>
                             <Button icon={<RefreshIcon />} onClick={resetItems}>
                                 Reset
+                            </Button>
+
+                            <Button icon={<TrashIcon />} onClick={unequipAllItems}>
+                                Unequip All
                             </Button>
                         </div>
 

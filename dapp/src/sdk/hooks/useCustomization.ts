@@ -86,6 +86,7 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
         getRenderTransaction,
         isSlotModified,
         setEquippedItemsIdentifier,
+        unequipAllItems,
         isCustomizationPending,
         equippedItemsIdentifier,
         attributesStatus,
@@ -231,6 +232,10 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
         };
 
         return transaction;
+    }
+
+    function unequipAllItems() {
+        setEquippedItemsIdentifier({});
     }
 
     function resetItems() {
