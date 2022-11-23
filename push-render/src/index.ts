@@ -22,11 +22,12 @@ import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import sharp from "sharp";
 import { enableReporting, reportErrorToMail } from './classes/ErrorsReporter';
 import { ItemProcessor } from './classes/ItemProcessor';
+import { MemoryTracker } from './classes/MemoryTracker';
 
 enableReporting();
 
 if (process.env.LOG_RSS == "true") {
-    setInterval(logRss, 300);
+    new MemoryTracker(300).start();
 }
 
 main();
@@ -65,6 +66,10 @@ async function main() {
         }
 
         await sleep(requestsPerMinutesToMinTime(officialGatewayMaxRPS) + 10)
+
+        if (queue.length > 0) {
+            console.log(`${queue.length} items processed.`);
+        }
     }
 
     async function init() {
@@ -100,16 +105,6 @@ async function claimIfNeeded(readGateway: ReadGateway, writeGateway: WriteGatewa
             console.warn("⚠️ The sender balance is below the threshold but the contract has no balance.".yellow);
         }
     }
-}
-
-function logRss() {
-    const formatMemory = (memory: number) => Math.round(memory / 1024 / 1024 * 100) / 100 + " MB";
-
-    const { rss } = process.memoryUsage();
-
-    process.stdout.clearLine(0);
-    process.stdout.cursorTo(0);
-    process.stdout.write("RSS:" + formatMemory(rss));
 }
 
 function newFromConfig() {
