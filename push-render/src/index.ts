@@ -55,7 +55,7 @@ async function main() {
             .catch((e) => {
                 console.error("Error while fetching the queue. Retrying in 5s");
                 console.trace(e);
-                return [];
+                return [] as RenderAttributes[];
             });
 
         // remove alreadyProcessedAttributes
@@ -63,16 +63,21 @@ async function main() {
             .filter((attr1) => alreadyProcessedAttributes.find((attr2) => attr1.equals(attr2)) == undefined);
 
 
-        for (const item of queue) {
-            await itemProcessor.processItem(item);
-            alreadyProcessedAttributes.push(item);
+        if (queue.length > 0) {
+            for (const item of queue) {
+                await itemProcessor.processItem(item);
+
+                // server is hosted in low memory environment, 
+                // force GC after manipulation of big buffers
+                forceGC();
+
+                alreadyProcessedAttributes.push(item);
+            }
+
+            console.log(`${queue.length} items processed.`);
         }
 
         await sleep(requestsPerMinutesToMinTime(officialGatewayMaxRPS) + 10)
-
-        if (queue.length > 0) {
-            console.log(`${queue.length} items processed.`);
-        }
     }
 
     async function init() {
@@ -138,5 +143,13 @@ function newFromConfig() {
         itemProcessor,
         pinata,
         imagesDownloader
+    }
+}
+
+function forceGC() {
+    if (global.gc) {
+        global.gc();
+    } else {
+        console.warn('No GC hook! Start your program as `node --expose-gc file.js`.');
     }
 }
