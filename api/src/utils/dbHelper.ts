@@ -1,9 +1,6 @@
 import ItemsDatabase from "@apcolony/db-marketplace/out/ItemsDatabase";
-import { IItem } from "@apcolony/marketplace-api";
-import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { APCNetworkProvider } from "../classes/APCNetworkProvider";
 import { itemsCollection, itemsDatabase, penguinsCollection, penguinsCount } from "../const";
-import item from "../routes/items/item";
 import { parseAttributes } from "./string";
 
 export function isCollectionAnItem(collection: string) {
@@ -82,15 +79,4 @@ async function getMissingItems(networkProvider: APCNetworkProvider, itemsDatabas
     }
 
     return missingItems;
-
-    function parseItemNameFromError(e: any) {
-        const line: string = e.toString().split("\n")[0];
-
-        const item = line
-            .substring(0, line.indexOf(" at slot "))
-            .replace("Error: No item found for ", "")
-            .trim();
-
-        return item;
-    }
 }

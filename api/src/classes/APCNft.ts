@@ -7,7 +7,7 @@ export default class APCNft extends NonFungibleTokenOfAccountOnNetwork {
     public owner?: string | undefined;
 
     public static fromApiHttpResponse(payload: any): APCNft {
-        let token = NonFungibleTokenOfAccountOnNetwork.fromApiHttpResponse(payload) as APCNft;
+        const token = NonFungibleTokenOfAccountOnNetwork.fromApiHttpResponse(payload) as APCNft;
 
         token.owner = payload.owner;
 
@@ -20,7 +20,7 @@ export default class APCNft extends NonFungibleTokenOfAccountOnNetwork {
 
     public static fromProxyHttpResponse(payload: any): APCNft {
 
-        let token = NonFungibleTokenOfAccountOnNetwork.fromProxyHttpResponse(payload) as APCNft;
+        const token = NonFungibleTokenOfAccountOnNetwork.fromProxyHttpResponse(payload) as APCNft;
         token.assets = urisFromHttpResponse(payload.uris);
         token.owner = payload.owner;
 

@@ -1,6 +1,4 @@
-import { penguinsCollection } from "../../const";
 import { Request, Response } from 'express';
-import { ErrNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out/errors";
 import { APCNetworkProvider } from "../../classes/APCNetworkProvider";
 import { sendSuccessfulJSON, withTryCatch } from "../../utils/response";
 import { isPenguinIdValid } from "../../utils/isPenguinIdValid";

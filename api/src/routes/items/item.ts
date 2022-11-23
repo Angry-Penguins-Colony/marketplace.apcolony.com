@@ -17,7 +17,7 @@ export default async function getItem(
         const owner = req.query.owner;
 
         if (itemsDatabase.idExist(id)) {
-            let item = itemsDatabase.getItemFromId(id);
+            const item = itemsDatabase.getItemFromId(id);
 
             if (owner && typeof owner == "string") {
                 const supply = await networkProvider.getItemSupplyOfAccount(Address.fromBech32(owner), id);

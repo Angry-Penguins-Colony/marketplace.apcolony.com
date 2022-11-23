@@ -17,8 +17,8 @@ export default class RequestsMonitor {
      */
     private get lastMinuteDuration() {
 
-        let deltaMS = Date.now() - this._startTimestamp;
-        let delta = deltaMS / 1000;
+        const deltaMS = Date.now() - this._startTimestamp;
+        const delta = deltaMS / 1000;
 
         return Math.min(delta, 60);
     }

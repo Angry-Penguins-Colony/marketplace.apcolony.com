@@ -1,20 +1,18 @@
 import { EggTier, ElementType, IActivity, IAddress, IEgg, IItem, IMarketData, IOffer, IOwnedItem, IPenguin } from "@apcolony/marketplace-api";
 import { Attributes } from "@apcolony/marketplace-api/out/classes";
-import { ApiNetworkProvider, NonFungibleTokenOfAccountOnNetwork, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
+import { ApiNetworkProvider, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
-import { AbiRegistry, Address, AddressValue, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, StringValue, U64Value } from "@elrondnetwork/erdjs/out";
+import { AbiRegistry, Address, AddressValue, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, U64Value } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
-import { customisationContract, penguinsCollection, gateway, marketplaceContract, itemsCollection, getPenguinWebThumbnail, nftStakingContract, nftStakingToken, originalTokensAmountInStakingSc, allCollections, eggsCollection } from "../const";
+import { customisationContract, penguinsCollection, marketplaceContract, itemsCollection, getPenguinWebThumbnail, nftStakingContract, nftStakingToken, originalTokensAmountInStakingSc, allCollections, eggsCollection } from "../const";
 import { getRandomsPenguinsIds, isCollectionAnItem } from "../utils/dbHelper";
-import { extractCIDFromIPFS, getIdFromPenguinName, getNameFromPenguinId, parseAttributes, splitCollectionAndNonce } from "../utils/string";
+import { extractCIDFromIPFS, getIdFromPenguinName, getNameFromPenguinId, parseAttributes } from "../utils/string";
 import APCNft from "./APCNft";
-import { BigNumber } from "bignumber.js";
 import { parseActivity, parseMarketData, parseMultiValueIdAuction, parseStakedPenguins } from "./ABIParser";
 import { toIdentifier } from "../utils/conversion";
 import ItemsDatabase from "@apcolony/db-marketplace/out/ItemsDatabase";
 import RequestsMonitor from "./RequestsMonitor";
 import { ErrNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out/errors";
-import { buffer } from "stream/consumers";
 import { Cache, CacheClass } from "memory-cache";
 import { EggsDatabase } from "@apcolony/db-marketplace/out/EggsDatabase";
 import { IOwnedEgg } from "@apcolony/marketplace-api";
@@ -103,10 +101,10 @@ export class APCNetworkProvider {
 
         if (cacheHit) return cacheHit;
 
-        let nonceAsHex = new Nonce(nonce).hex();
-        let response = await this.apiProvider.doGetGeneric(`nfts/${collection}-${nonceAsHex}`);
+        const nonceAsHex = new Nonce(nonce).hex();
+        const response = await this.apiProvider.doGetGeneric(`nfts/${collection}-${nonceAsHex}`);
         this.apiRequestsMonitor.increment();
-        let token = APCNft.fromApiHttpResponse(response);
+        const token = APCNft.fromApiHttpResponse(response);
 
         this.nftsCache.set(identifier, token);
 
@@ -140,7 +138,7 @@ export class APCNetworkProvider {
                     penguins.push(this.getPenguinFromNft(nft, true));
                     break;
 
-                case eggsCollection:
+                case eggsCollection: {
                     console.log(nft.nonce);
                     const egg: IOwnedEgg = {
                         ownedAmount: nft.supply.toNumber(),
@@ -149,6 +147,7 @@ export class APCNetworkProvider {
 
                     eggs.push(egg);
                     break;
+                }
 
                 default:
                     const item: IOwnedItem = {
@@ -367,22 +366,22 @@ export class APCNetworkProvider {
 
 
     private async getMarketplaceSmartContract() {
-        let jsonContent: string = await promises.readFile("src/abi/esdt-nft-marketplace.abi.json", { encoding: "utf8" });
-        let json = JSON.parse(jsonContent);
-        let abiRegistry = AbiRegistry.create(json);
-        let abi = new SmartContractAbi(abiRegistry, ["EsdtNftMarketplace"]);
+        const jsonContent: string = await promises.readFile("src/abi/esdt-nft-marketplace.abi.json", { encoding: "utf8" });
+        const json = JSON.parse(jsonContent);
+        const abiRegistry = AbiRegistry.create(json);
+        const abi = new SmartContractAbi(abiRegistry, ["EsdtNftMarketplace"]);
 
-        let contract = new SmartContract({ address: marketplaceContract, abi: abi });
+        const contract = new SmartContract({ address: marketplaceContract, abi: abi });
         return contract;
     }
 
     private async getStakingSmartContract() {
-        let jsonContent: string = await promises.readFile("src/abi/nft-staking.abi.json", { encoding: "utf8" });
-        let json = JSON.parse(jsonContent);
-        let abiRegistry = AbiRegistry.create(json);
-        let abi = new SmartContractAbi(abiRegistry, ["nftStaking"]);
+        const jsonContent: string = await promises.readFile("src/abi/nft-staking.abi.json", { encoding: "utf8" });
+        const json = JSON.parse(jsonContent);
+        const abiRegistry = AbiRegistry.create(json);
+        const abi = new SmartContractAbi(abiRegistry, ["nftStaking"]);
 
-        let contract = new SmartContract({ address: nftStakingContract, abi: abi });
+        const contract = new SmartContract({ address: nftStakingContract, abi: abi });
         return contract;
     }
 
@@ -517,7 +516,7 @@ export class APCNetworkProvider {
 
         const output: MyItem[] = [];
 
-        for (var i = 0; i < data.length; i += 4) {
+        for (let i = 0; i < data.length; i += 4) {
             output.push({
                 slot: data[i],
                 name: data[i + 1],

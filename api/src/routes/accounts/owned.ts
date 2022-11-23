@@ -1,10 +1,9 @@
-import ItemsDatabase from '@apcolony/db-marketplace/out/ItemsDatabase';
 import { Address } from '@elrondnetwork/erdjs/out';
 import { Request, Response } from 'express';
 import { APCNetworkProvider } from '../../classes/APCNetworkProvider';
 import { sendSuccessfulJSON, withTryCatch } from '../../utils/response';
 
-export async function getInventoryOfAccount(req: Request, res: Response, networkProvider: APCNetworkProvider, itemsDatabase: ItemsDatabase): Promise<void> {
+export async function getInventoryOfAccount(req: Request, res: Response, networkProvider: APCNetworkProvider): Promise<void> {
 
     withTryCatch(res, async () => {
         const address = new Address(req.params.bech32);

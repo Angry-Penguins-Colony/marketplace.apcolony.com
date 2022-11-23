@@ -1,4 +1,3 @@
-import { FungibleTokenOfAccountOnNetwork } from '@elrondnetwork/erdjs-network-providers/out';
 import { Response } from 'express';
 
 export function sendSuccessfulJSON(response: Response, data: any) {

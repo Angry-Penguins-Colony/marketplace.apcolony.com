@@ -1,5 +1,4 @@
 import { EggsDatabase } from '@apcolony/db-marketplace/out/EggsDatabase';
-import ItemsDatabase from '@apcolony/db-marketplace/out/ItemsDatabase';
 import { EggTier } from '@apcolony/marketplace-api';
 import { Address } from '@elrondnetwork/erdjs/out';
 import { Request, Response } from 'express';
