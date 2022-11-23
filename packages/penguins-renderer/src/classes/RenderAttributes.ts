@@ -135,4 +135,24 @@ export default class RenderAttributes {
             .map(entry => entry[0] + "_" + entry[1])
             .join("+");
     }
+
+    public equals(other: RenderAttributes): boolean {
+
+        if (this.badgeNumber != other.badgeNumber) return false;
+
+        const map1 = this._idsBySlot;
+        const map2 = other._idsBySlot;
+
+        const uniqueSlots = new Set([...map1.keys(), ...map2.keys()]);
+
+        for (const slot of uniqueSlots) {
+            const value1 = map1.get(slot) == "unequipped" ? undefined : map1.get(slot);
+            const value2 = map2.get(slot) == "unequipped" ? undefined : map2.get(slot);
+
+            if (value1 != value2) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

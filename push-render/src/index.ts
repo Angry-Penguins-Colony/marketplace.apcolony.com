@@ -46,23 +46,26 @@ async function main() {
 
     await init();
 
-    const alreadyProcessedCID: RenderAttributes[] = [];
+    const alreadyProcessedAttributes: RenderAttributes[] = [];
 
     while (true) {
         await claimIfNeeded(readGateway, writeGateway, customisationSc, config.claimThreshold);
 
-        const queue = await readGateway.getToBuildQueue()
+        let queue = await readGateway.getToBuildQueue()
             .catch((e) => {
                 console.error("Error while fetching the queue. Retrying in 5s");
                 console.trace(e);
                 return [];
-            })
+            });
+
+        // remove alreadyProcessedAttributes
+        queue = queue
+            .filter((attr1) => alreadyProcessedAttributes.find((attr2) => attr1.equals(attr2)) == undefined);
+
 
         for (const item of queue) {
-            if (alreadyProcessedCID.includes(item)) continue;
-
             await itemProcessor.processItem(item);
-            alreadyProcessedCID.push(item);
+            alreadyProcessedAttributes.push(item);
         }
 
         await sleep(requestsPerMinutesToMinTime(officialGatewayMaxRPS) + 10)
@@ -82,8 +85,6 @@ async function main() {
         ]);
     }
 }
-
-
 
 async function claimIfNeeded(readGateway: ReadGateway, writeGateway: WriteGateway, customisationSC: SmartContract, claimThreshold: BigNumber) {
 
