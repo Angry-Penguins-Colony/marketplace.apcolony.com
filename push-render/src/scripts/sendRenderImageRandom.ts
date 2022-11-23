@@ -26,7 +26,7 @@ async function main() {
     const defaultLayersIds = Object.values(renderConfig.defaultLayers ?? {});
 
     for (let i = 0; i < imagesToSend; i++) {
-        const attributes = new RenderAttributes(getRandomAttributes(renderConfig.itemsCID, defaultLayersIds).entries(), Math.round(Math.random() * 10_000));
+        const attributes = new RenderAttributes(getRandomAttributes(renderConfig.itemsCID, defaultLayersIds).entries(), Math.round(Math.random() * 5_000));
 
         const { hash } = await sendRenderImage(attributes, gateway);
 

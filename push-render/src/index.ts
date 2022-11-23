@@ -25,6 +25,10 @@ import { enableReporting, reportErrorToMail } from './classes/ErrorsReporter';
 
 enableReporting();
 
+if (process.env.LOG_RSS == "true") {
+    setInterval(logRss, 1_000);
+}
+
 main();
 
 async function main() {
@@ -183,4 +187,10 @@ async function claimIfNeeded(readGateway: ReadGateway, writeGateway: WriteGatewa
     }
 }
 
+function logRss() {
+    const formatMemory = (memory: number) => Math.round(memory / 1024 / 1024 * 100) / 100 + " MB";
 
+    const { rss } = process.memoryUsage();
+
+    console.log("RSS:" + formatMemory(rss));
+}
