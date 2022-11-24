@@ -1,7 +1,7 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
 import { Link } from 'react-router-dom';
-import { HorizontalItem } from 'components/Inventory/HorizontalItem';
+import { ResponsiveElementThumbnail } from 'components/ResponsiveElementThumbnail';
 import { buildRouteLinks } from 'routes';
 import useGetOffersOfCategory from 'sdk/hooks/api/useGetOffersOfCategory';
 import CategoriesType from 'sdk/types/CategoriesType';
@@ -46,19 +46,13 @@ export const OffersList = ({
 
                         const link = buildRouteLinks.inspect(category, item.id)
 
-                        const component = <Link className={style.itemRoot} to={link} key={item.id}>
-                            <HorizontalItem item={item} subProperty={price + ' EGLD'} className={style.mobile} />
 
-                            <div className={style.desktop}>
-                                <img loading="lazy" src={item.thumbnailUrls.high} alt="" className={style.item} />
-                                <div className={style.infos}>
-                                    <div className={style.name}>{item.displayName}</div>
-                                    <div className={style.price}>
-                                        {price} EGLD
-                                    </div>
-                                </div>
-                            </div>
+                        const component = <Link className={style.itemRoot} to={link} key={item.id}>
+                            <ResponsiveElementThumbnail
+                                element={item}
+                                subProperty={price + ' EGLD'} />
                         </Link>;
+
                         return {
                             component,
                             price
