@@ -4,12 +4,22 @@ import { APCNetworkProvider } from "../../classes/APCNetworkProvider";
 import { itemsDatabase } from '../../const';
 import { sendSuccessfulJSON, withTryCatch } from '../../utils/response';
 
-interface RankedPenguin extends IPenguin {
+interface OutputPenguin {
+    displayName: string;
     rank: number;
+    thumbnailUrls: {
+        /**
+         * 1024x1204px
+         */
+        high: string;
+        /**
+         * 512x512px
+         */
+        small: string;
+    };
 }
 
-// TODO: reduce size of response (19 MB)
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// TODO: reduce size of response (1.6 MB)
 export default async function getPenguinsRanks(req: Request, res: Response, proxyNetwork: APCNetworkProvider) {
 
     withTryCatch(res, async () => {
@@ -17,10 +27,19 @@ export default async function getPenguinsRanks(req: Request, res: Response, prox
         const penguins = await proxyNetwork.getAllPenguins();
 
         // TODO: optimize this (there is a lot of iterations)
-        const penguinsRanks: RankedPenguin[] = penguins
+        const penguinsRanks: OutputPenguin[] = penguins
             .map(penguin => ({ ...penguin, score: calculateScore(penguin) }))
             .sort((a, b) => b.score - a.score)
-            .map((penguin, index) => ({ ...penguin, rank: index + 1 }));
+            .map((penguin, index) => (
+                {
+                    displayName: penguin.displayName,
+                    thumbnailUrls: {
+                        high: penguin.thumbnailUrls.high,
+                        small: penguin.thumbnailUrls.small
+                    },
+                    rank: index + 1
+                }
+            ));
 
         sendSuccessfulJSON(res, penguinsRanks);
     });
