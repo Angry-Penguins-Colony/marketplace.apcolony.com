@@ -8,9 +8,11 @@ import { DappProvider } from '@elrondnetwork/dapp-core/wrappers';
 import { SkeletonTheme } from 'react-loading-skeleton';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import Layout from 'components/Layout';
+import { OffersList } from 'components/OffersList';
 import { environment } from 'config';
 import Home from 'pages/Home';
 import PageNotFound from 'pages/PageNotFound';
+import { PenguinsOffersListPage } from 'pages/PenguinsOffersListPage';
 import UnlockModal from 'pages/UnlockModal';
 import routes, { routeNames } from 'routes';
 
@@ -39,6 +41,12 @@ const App = () => {
                   </>
                   }
                 />
+
+
+                <Route path={routeNames.penguinsOffers} element={<PenguinsOffersListPage />}>
+                  <Route index element={<OffersList category="penguins" />} />
+                </Route>
+
                 {routes.map((route: any, index: number) => (
                   <Route
                     path={route.path}

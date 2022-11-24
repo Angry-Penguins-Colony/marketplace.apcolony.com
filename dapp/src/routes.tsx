@@ -5,7 +5,6 @@ import { dAppName } from 'config';
 import CategoriesOffers from 'pages/GenericOfferListPage';
 import Inspect from 'pages/Inspect';
 import ItemsOffersNavigator from 'pages/ItemsOffersNavigator';
-import { PenguinsOffersListPage } from 'pages/PenguinsOffersListPage';
 import SelectCustomizePenguin from 'pages/SelectCustomizePenguin';
 import CategoriesType from 'sdk/types/CategoriesType';
 import withPageTitle from './components/PageTitle';
@@ -107,11 +106,6 @@ const routes: Array<ITitledRoute> = [
     path: routeNames.launchpad,
     title: 'Launchpad Vente',
     component: launchpad
-  },
-  {
-    path: routeNames.penguinsOffers,
-    title: 'Penguins Offers',
-    component: PenguinsOffersListPage
   },
   {
     path: routeNames.eggsOffers,
