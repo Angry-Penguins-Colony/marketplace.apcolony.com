@@ -67,10 +67,9 @@ const OffersPageLayout = ({
             <p className={style.description}></p>
             <div className={style.labels}>
                 {
-                    tabs.map((tab, index) => (
-                        <Link to={tab.path}>
+                    tabs.map((tab) => (
+                        <Link to={tab.path} key={tab.path}>
                             <UnderlineNavElmt
-                                key={index}
                                 name={tab.name}
                                 isActive={activeTab === tab.path}
                             />
