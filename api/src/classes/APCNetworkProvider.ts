@@ -37,6 +37,7 @@ export class APCNetworkProvider {
     private readonly nftsCache: Map<string, APCNft> = new Map();
 
     private readonly pendingRequests_getPenguinFromId = new Cache<string, Promise<IPenguin>>();
+    private readonly pendingRequests_getRankedPenguins = new Cache<string, Promise<IRankedPenguin[]>>();
 
     get lastMinuteRequests() {
         return {
@@ -70,7 +71,7 @@ export class APCNetworkProvider {
             if (nfts.length > 1) throw new Error(`Found ${nfts.length} penguins with the name ${getNameFromPenguinId(id)}.`);
 
             return this.getPenguinFromNft(nfts[0], true);
-        });
+        }, 3_000);
     }
 
     public async cacheCollection(collection: string) {
@@ -106,20 +107,22 @@ export class APCNetworkProvider {
 
     public async getRankedPenguins(): Promise<IRankedPenguin[]> {
 
-        const penguins = await this.getAllPenguins();
+        return withCache(this.pendingRequests_getRankedPenguins, "", async () => {
+            const penguins = await this.getAllPenguins();
 
-        // TODO: optimize this (there is a lot of iterations)
-        const penguinsRanks: IRankedPenguin[] = penguins
-            .map(penguin => ({ ...penguin, score: this.itemsDatabase.calculatePenguinsScore(penguin) }))
-            .sort((a, b) => b.score - a.score)
-            .map((penguin, index) => (
-                {
-                    ...penguin,
-                    rank: index + 1
-                }
-            ));
+            // TODO: optimize this (there is a lot of iterations)
+            const penguinsRanks: IRankedPenguin[] = penguins
+                .map(penguin => ({ ...penguin, score: this.itemsDatabase.calculatePenguinsScore(penguin) }))
+                .sort((a, b) => b.score - a.score)
+                .map((penguin, index) => (
+                    {
+                        ...penguin,
+                        rank: index + 1
+                    }
+                ));
 
-        return penguinsRanks;
+            return penguinsRanks;
+        }, 60_000);
     }
 
     public async getNft(collection: string, nonce: number): Promise<APCNft> {
@@ -593,7 +596,7 @@ export class APCNetworkProvider {
     }
 }
 
-async function withCache<K, V>(cache: CacheClass<K, V>, key: K, fetchValue: () => V): Promise<V> {
+async function withCache<K, V>(cache: CacheClass<K, V>, key: K, fetchValue: () => V, time?: number): Promise<V> {
     const pendingRequest = cache.get(key);
 
     if (pendingRequest) {
@@ -602,7 +605,7 @@ async function withCache<K, V>(cache: CacheClass<K, V>, key: K, fetchValue: () =
     else {
 
         const request = fetchValue();
-        cache.put(key, request, 3_000);
+        cache.put(key, request, time);
 
         return request;
     }
