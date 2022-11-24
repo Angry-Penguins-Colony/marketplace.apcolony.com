@@ -2,9 +2,10 @@ import React from 'react';
 import { RouteType } from '@elrondnetwork/dapp-core/types';
 import AuthentificatedPatternRouteWrapper from 'components/Abstract/AuthentificatedPatternRouteWrapper';
 import { dAppName } from 'config';
+import CategoriesOffers from 'pages/GenericOfferListPage';
 import Inspect from 'pages/Inspect';
 import ItemsOffersNavigator from 'pages/ItemsOffersNavigator';
-import CategoriesOffers from 'pages/GenericOfferListPage';
+import { PenguinsOffersListPage } from 'pages/PenguinsOffersListPage';
 import SelectCustomizePenguin from 'pages/SelectCustomizePenguin';
 import CategoriesType from 'sdk/types/CategoriesType';
 import withPageTitle from './components/PageTitle';
@@ -110,9 +111,7 @@ const routes: Array<ITitledRoute> = [
   {
     path: routeNames.penguinsOffers,
     title: 'Penguins Offers',
-    component: () => {
-      return <CategoriesOffers category='penguins' />
-    }
+    component: PenguinsOffersListPage
   },
   {
     path: routeNames.eggsOffers,
