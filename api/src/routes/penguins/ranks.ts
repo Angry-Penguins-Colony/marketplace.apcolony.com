@@ -24,7 +24,6 @@ const DEFAULT_START = 0;
 const DEFAULT_SIZE = 10;
 const MAX_SIZE_ALLOWED = 100;
 
-// TODO: reduce size of response (1.6 MB)
 export default async function getPenguinsRanks(req: Request, res: Response, proxyNetwork: APCNetworkProvider) {
 
     withTryCatch(res, async () => {
