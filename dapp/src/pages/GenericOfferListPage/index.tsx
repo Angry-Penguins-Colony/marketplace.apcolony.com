@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { ElementType } from '@apcolony/marketplace-api';
-import { useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import EggsIcon from 'assets/img/icons/eggs-icon.png';
 import PenguinIcon from 'assets/img/icons/penguin-icon.jpg';
 import ErrorPage from 'components/ErrorPage';
 import OffersPageLayout from 'components/Layout/OffersPageLayout';
-import { OffersList } from 'components/OffersList';
 import { icons } from 'icons';
 import useGetMarketData from 'sdk/hooks/api/useGetMarketData';
 import { isSlot } from 'sdk/misc/guards';
@@ -28,8 +27,9 @@ const GenericOfferListPage = ({
         pageStyle={category}
         pageTitle={slot ?? category}
         iconNoBorder={slot == undefined}
+        tabs={[{ name: 'Offers', path: 'offers' }]}
     >
-        <OffersList category={category} slot={slot} />
+        <Outlet />
     </OffersPageLayout>
 
 

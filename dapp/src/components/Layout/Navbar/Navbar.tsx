@@ -42,17 +42,17 @@ const Navbar = () => {
       nestedItems: [
         {
           name: 'Penguins',
-          route: routeNames.penguinsOffers,
+          route: routeNames.penguinsHome,
           mobileType: 'menu',
         },
         {
           name: 'Items',
-          route: routeNames.itemsOffersNavigator,
+          route: routeNames.allItemsHome,
           mobileType: 'menu',
         },
         {
           name: 'Eggs',
-          route: routeNames.eggsOffers,
+          route: routeNames.eggsHome,
           mobileType: 'menu',
         }
       ]

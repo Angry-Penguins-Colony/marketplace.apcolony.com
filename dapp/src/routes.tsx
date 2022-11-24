@@ -19,6 +19,8 @@ interface ITitledRoute extends RouteType {
   title?: string,
 }
 
+const listPrefix = 'l';
+
 export const routeNames = {
   home: '/',
   transaction: '/transaction',
@@ -26,10 +28,10 @@ export const routeNames = {
   inspect: '/inspect/:type/:id',
   customizeInventory: '/customize',
   customize: '/customize/:id',
-  penguinsOffers: '/offers/penguins/',
-  eggsOffers: '/offers/eggs/',
-  itemsOffers: '/offers/items/:slot',
-  itemsOffersNavigator: '/offers/items',
+  penguinsHome: `/${listPrefix}/penguins/`,
+  eggsHome: `/${listPrefix}/eggs/`,
+  allItemsHome: `/${listPrefix}/items`,
+  itemsSlotHome: `/${listPrefix}/items/:slot`,
   unlock: '/unlock',
   ledger: '/ledger',
   walletconnect: '/walletconnect',
@@ -45,7 +47,7 @@ export const buildRouteLinks = {
     .replace(':id', id),
   inventory: (address: string) => routeNames.inventory
     .replace(':address', address),
-  itemsOffers: (slot: string) => routeNames.itemsOffers
+  itemsOffers: (slot: string) => routeNames.itemsSlotHome
     .replace(':slot', slot),
 }
 
@@ -91,13 +93,6 @@ const routes: Array<ITitledRoute> = [
     authenticatedRoute: true,
   },
   {
-    path: routeNames.itemsOffers,
-    title: 'Items Offers',
-    component: () => {
-      return <CategoriesOffers category='items' />
-    }
-  },
-  {
     path: routeNames.staking,
     title: 'Staking',
     component: Staking
@@ -108,14 +103,14 @@ const routes: Array<ITitledRoute> = [
     component: launchpad
   },
   {
-    path: routeNames.eggsOffers,
+    path: routeNames.eggsHome,
     title: 'Eggs Offers',
     component: () => {
       return <CategoriesOffers category='eggs' />
     }
   },
   {
-    path: routeNames.itemsOffersNavigator,
+    path: routeNames.allItemsHome,
     title: 'Items Offers',
     component: ItemsOffersNavigator
   }

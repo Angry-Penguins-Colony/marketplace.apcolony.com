@@ -1,11 +1,18 @@
 import React from 'react';
 import { IMarketData } from '@apcolony/marketplace-api';
+import { Link, useLocation } from 'react-router-dom';
 import UnderlineNavElmt from 'components/Abstract/UnderlineNavElmt/UnderlineNavElmt';
 import SearchIcon from 'components/Icons/SearchIcon';
 import MarketData from 'components/Inventory/MarketData';
 import CategoriesType from 'sdk/types/CategoriesType';
 import MobileHeader from '../MobileHeader/MobileHeader';
 import style from './index.module.scss';
+
+
+interface ITab {
+    name: string;
+    path: string;
+}
 
 interface IProps {
     icon?: string;
@@ -14,7 +21,8 @@ interface IProps {
     marketData?: IMarketData;
     children?: React.ReactNode;
     iconClassName?: string;
-    iconNoBorder?: boolean
+    iconNoBorder?: boolean;
+    tabs?: ITab[];
 }
 
 const OffersPageLayout = ({
@@ -24,9 +32,12 @@ const OffersPageLayout = ({
     pageStyle,
     pageTitle,
     iconNoBorder = false,
-    iconClassName: anotherIconClassName = ''
+    iconClassName: anotherIconClassName = '',
+    tabs = []
 }: IProps) => {
 
+
+    const activeTab = useActiveTab();
 
     const iconClassName = [
         style.icon,
@@ -55,7 +66,17 @@ const OffersPageLayout = ({
             }
             <p className={style.description}></p>
             <div className={style.labels}>
-                <UnderlineNavElmt name={'Offers'} isActive={true} />
+                {
+                    tabs.map((tab, index) => (
+                        <Link to={tab.path}>
+                            <UnderlineNavElmt
+                                key={index}
+                                name={tab.name}
+                                isActive={activeTab === tab.path}
+                            />
+                        </Link>
+                    ))
+                }
             </div>
             {/* TODO: add filters */}
             <div className={style.items}>
@@ -66,3 +87,10 @@ const OffersPageLayout = ({
 };
 
 export default OffersPageLayout;
+
+const useActiveTab = () => {
+    const location = useLocation();
+    const lastRoute = location.pathname.split('/').pop();
+
+    return lastRoute;
+};

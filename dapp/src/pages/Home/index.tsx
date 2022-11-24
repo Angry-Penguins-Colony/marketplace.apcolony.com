@@ -47,9 +47,9 @@ const Home = () => {
       <section className={style['chose-category']}>
         <h2>Categories</h2>
         <div className={style.content}>
-          <BigCategory title="Penguins" backgroundImg={PenguinsCover} link={routeNames.penguinsOffers} />
-          <BigCategory title="Items" className={style.items} backgroundImg={ItemsCover} link={routeNames.itemsOffersNavigator} />
-          <BigCategory title="Eggs" className={style.items} backgroundImg={EggsCover} link={routeNames.eggsOffers} />
+          <BigCategory title="Penguins" backgroundImg={PenguinsCover} link={routeNames.penguinsHome} />
+          <BigCategory title="Items" className={style.items} backgroundImg={ItemsCover} link={routeNames.allItemsHome} />
+          <BigCategory title="Eggs" className={style.items} backgroundImg={EggsCover} link={routeNames.eggsHome} />
         </div>
       </section>
       {

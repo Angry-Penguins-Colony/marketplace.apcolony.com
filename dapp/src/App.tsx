@@ -6,10 +6,12 @@ import {
 } from '@elrondnetwork/dapp-core/UI';
 import { DappProvider } from '@elrondnetwork/dapp-core/wrappers';
 import { SkeletonTheme } from 'react-loading-skeleton';
-import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
+import { Route, Routes, BrowserRouter as Router, Navigate } from 'react-router-dom';
 import Layout from 'components/Layout';
 import { OffersList } from 'components/OffersList';
+import { RanksList } from 'components/RanksList';
 import { environment } from 'config';
+import CategoriesOffers from 'pages/GenericOfferListPage';
 import Home from 'pages/Home';
 import PageNotFound from 'pages/PageNotFound';
 import { PenguinsOffersListPage } from 'pages/PenguinsOffersListPage';
@@ -43,8 +45,20 @@ const App = () => {
                 />
 
 
-                <Route path={routeNames.penguinsOffers} element={<PenguinsOffersListPage />}>
-                  <Route index element={<OffersList category="penguins" />} />
+                <Route path={routeNames.penguinsHome} element={<PenguinsOffersListPage />}>
+                  <Route index element={<Navigate to="offers" replace />} />
+                  <Route path="offers" element={<OffersList category="penguins" />} />
+                  <Route path="ranks" element={<RanksList category="penguins" />} />
+                </Route>
+
+                <Route path={routeNames.itemsSlotHome} element={<CategoriesOffers category='items' />}>
+                  <Route index element={<Navigate to="offers" replace />} />
+                  <Route path="offers" element={<OffersList category="items" />} />
+                </Route>
+
+                <Route path={routeNames.eggsHome} element={<CategoriesOffers category='eggs' />}>
+                  <Route index element={<Navigate to="offers" replace />} />
+                  <Route path="offers" element={<OffersList category="eggs" />} />
                 </Route>
 
                 {routes.map((route: any, index: number) => (

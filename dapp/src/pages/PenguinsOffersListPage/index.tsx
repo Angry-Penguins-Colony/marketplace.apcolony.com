@@ -14,6 +14,16 @@ export const PenguinsOffersListPage = () => {
         pageStyle="penguins"
         pageTitle="penguins"
         iconNoBorder={true}
+        tabs={[
+            {
+                name: 'Offers',
+                path: 'offers'
+            },
+            {
+                name: 'Ranks',
+                path: 'ranks'
+            }
+        ]}
     >
         <Outlet />
     </OffersPageLayout>;
