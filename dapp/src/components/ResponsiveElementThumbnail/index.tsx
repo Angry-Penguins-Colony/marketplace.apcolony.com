@@ -1,11 +1,15 @@
 import React from 'react';
-import { IGenericElement } from '@apcolony/marketplace-api';
 import { HorizontalItem } from 'components/Inventory/HorizontalItem';
 import style from './index.module.scss'
 
 interface Props {
-    element: IGenericElement;
-    subProperty: string;
+    element: {
+        displayName: string,
+        thumbnailUrls: {
+            high: string;
+        }
+    },
+    subProperty: React.ReactNode;
 }
 
 

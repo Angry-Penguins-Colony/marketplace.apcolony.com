@@ -1,0 +1,17 @@
+@import "assets/sass/var.scss";
+
+.items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+// desktop
+@media (min-width: $desktop_min_width) {
+    .items {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}

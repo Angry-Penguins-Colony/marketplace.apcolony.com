@@ -11,13 +11,12 @@ export const HorizontalItem = ({
 }: {
     item: {
         displayName: string,
-        id: string,
         thumbnailUrls: {
             high: string;
         }
     },
     className?: string;
-    subProperty?: JSX.Element | string;
+    subProperty?: React.ReactNode;
     onClick?: () => void;
 }) => {
     return (
