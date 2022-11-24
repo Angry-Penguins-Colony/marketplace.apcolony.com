@@ -20,6 +20,10 @@ interface OutputPenguin {
     };
 }
 
+const DEFAULT_START = 0;
+const DEFAULT_SIZE = 10;
+const MAX_SIZE_ALLOWED = 100;
+
 // TODO: reduce size of response (1.6 MB)
 export default async function getPenguinsRanks(req: Request, res: Response, proxyNetwork: APCNetworkProvider) {
 
@@ -43,7 +47,12 @@ export default async function getPenguinsRanks(req: Request, res: Response, prox
                 }
             ));
 
-        sendSuccessfulJSON(res, penguinsRanks);
+        const start = parseInt(req.params.start || DEFAULT_START.toString());
+        const size = Math.min(parseInt(req.params.size || DEFAULT_SIZE.toString()), MAX_SIZE_ALLOWED);
+
+        const penguinsRanksSlice = penguinsRanks.slice(start, start + size);
+
+        sendSuccessfulJSON(res, penguinsRanksSlice);
     });
 }
 

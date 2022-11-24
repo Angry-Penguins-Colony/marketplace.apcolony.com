@@ -18,9 +18,9 @@ interface OutputPenguin {
     };
 }
 
-export function useGetRanks(category: ElementType) {
+export function useGetRanks(category: ElementType, start: number, size: number) {
     if (category != 'penguins')
         throw new Error('Only penguins are supported');
 
-    return useGenericAPICall<OutputPenguin[]>('/penguins/ranks');
+    return useGenericAPICall<OutputPenguin[]>(`/penguins/ranks?start=${start}&size=${size}`);
 }

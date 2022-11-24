@@ -1,6 +1,6 @@
 import React from 'react';
 import { ElementType } from '@apcolony/marketplace-api';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { ResponsiveElementThumbnail } from 'components/ResponsiveElementThumbnail';
 import { buildRouteLinks } from 'routes';
 import { useGetRanks } from 'sdk/hooks/api/useGetRanks';
@@ -12,7 +12,10 @@ interface Props {
 
 export const RanksList = ({ category }: Props) => {
 
-    const ranks = useGetRanks(category);
+    const PAGE_SIZE = 10;
+    const [page] = useGetPage();
+
+    const ranks = useGetRanks(category, page * PAGE_SIZE, PAGE_SIZE);
 
     if (ranks.data == undefined) {
         return <div className="d-flex w-100 justify-content-center mt-2">
@@ -34,4 +37,13 @@ export const RanksList = ({ category }: Props) => {
             }
         </div>;
     }
+}
+
+const useGetPage = (): [number, (p: number) => void] => {
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    return [
+        parseInt(searchParams.get('page') || '1'),
+        (page: number) => setSearchParams({ page: page.toString() })
+    ];
 }
