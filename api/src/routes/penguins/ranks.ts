@@ -20,9 +20,6 @@ interface OutputPenguin {
     };
 }
 
-const DEFAULT_START = 0;
-const DEFAULT_SIZE = 10;
-const MAX_SIZE_ALLOWED = 100;
 
 export default async function getPenguinsRanks(req: Request, res: Response, proxyNetwork: APCNetworkProvider) {
 
@@ -46,13 +43,36 @@ export default async function getPenguinsRanks(req: Request, res: Response, prox
                 }
             ));
 
-        const start = parseInt(req.params.start || DEFAULT_START.toString());
-        const size = Math.min(parseInt(req.params.size || DEFAULT_SIZE.toString()), MAX_SIZE_ALLOWED);
+        const { start, size } = getPaginationsParams(req);
 
         const penguinsRanksSlice = penguinsRanks.slice(start, start + size);
 
         sendSuccessfulJSON(res, penguinsRanksSlice);
     });
+}
+
+function getPaginationsParams(req: Request) {
+    const DEFAULT_START = 0;
+    const DEFAULT_SIZE = 10;
+    const MAX_SIZE_ALLOWED = 100;
+
+    let start = DEFAULT_START;
+    let size = DEFAULT_SIZE;
+
+    if (req.query.start) {
+        start = parseInt(req.query.start as string);
+    }
+
+    if (req.query.size) {
+
+        size = parseInt(req.query.size as string);
+
+        if (size > MAX_SIZE_ALLOWED) {
+            throw new Error(`Size is too big. Max allowed is ${MAX_SIZE_ALLOWED}`);
+        }
+    }
+
+    return { start, size };
 }
 
 function calculateScore(penguin: IPenguin): number {

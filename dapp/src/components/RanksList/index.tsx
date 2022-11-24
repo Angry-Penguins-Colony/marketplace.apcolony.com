@@ -12,10 +12,10 @@ interface Props {
 
 export const RanksList = ({ category }: Props) => {
 
-    const PAGE_SIZE = 10;
+    const PAGE_SIZE = 30;
     const [page] = useGetPage();
 
-    const ranks = useGetRanks(category, page * PAGE_SIZE, PAGE_SIZE);
+    const ranks = useGetRanks(category, (page - 1) * PAGE_SIZE, PAGE_SIZE);
 
     if (ranks.data == undefined) {
         return <div className="d-flex w-100 justify-content-center mt-2">
