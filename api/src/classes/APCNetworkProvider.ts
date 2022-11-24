@@ -146,7 +146,6 @@ export class APCNetworkProvider {
                     break;
 
                 case eggsCollection: {
-                    console.log(nft.nonce);
                     const egg: IOwnedEgg = {
                         ownedAmount: nft.supply.toNumber(),
                         ...this.getEggsFromNft(nft)
