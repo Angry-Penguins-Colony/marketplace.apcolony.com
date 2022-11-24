@@ -17,6 +17,10 @@ import { Cache, CacheClass } from "memory-cache";
 import { EggsDatabase } from "@apcolony/db-marketplace/out/EggsDatabase";
 import { IOwnedEgg } from "@apcolony/marketplace-api";
 
+interface IRankedPenguin extends IPenguin {
+    rank: number;
+}
+
 /**
  * We create this function because a lot of methods of ProxyNetworkProvider are not implemented yet.
  */
@@ -98,6 +102,24 @@ export class APCNetworkProvider {
 
         return penguins
             .map(p => this.getPenguinFromNft(p, false));
+    }
+
+    public async getRankedPenguins(): Promise<IRankedPenguin[]> {
+
+        const penguins = await this.getAllPenguins();
+
+        // TODO: optimize this (there is a lot of iterations)
+        const penguinsRanks: IRankedPenguin[] = penguins
+            .map(penguin => ({ ...penguin, score: this.itemsDatabase.calculatePenguinsScore(penguin) }))
+            .sort((a, b) => b.score - a.score)
+            .map((penguin, index) => (
+                {
+                    ...penguin,
+                    rank: index + 1
+                }
+            ));
+
+        return penguinsRanks;
     }
 
     public async getNft(collection: string, nonce: number): Promise<APCNft> {

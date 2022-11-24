@@ -1,4 +1,4 @@
-import { IItem } from "@apcolony/marketplace-api";
+import { IItem, IPenguin } from "@apcolony/marketplace-api";
 import fs from "fs";
 import { getItemWebThumbnail, getRenderWebThumbnail, ipfsGateway } from "./uris";
 
@@ -76,6 +76,19 @@ export default class ItemsDatabase {
 
     public calculateItemScore(item: IItem) {
         return 1 / (item.supply / this.getSupplyOfSlot(item.slot));
+    }
+
+    public calculatePenguinsScore(penguin: IPenguin): number {
+
+        let score = 0;
+
+        for (const slot in penguin.equippedItems) {
+            const item = penguin.equippedItems[slot];
+
+            score += this.calculateItemScore(item);
+        }
+
+        return score;
     }
 
     public getSupplyOfSlot(slot: string): number {
