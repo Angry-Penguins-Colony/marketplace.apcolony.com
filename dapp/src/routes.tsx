@@ -4,7 +4,7 @@ import AuthentificatedPatternRouteWrapper from 'components/Abstract/Authentifica
 import { dAppName } from 'config';
 import Inspect from 'pages/Inspect';
 import ItemsOffersNavigator from 'pages/ItemsOffersNavigator';
-import CategoriesOffers from 'pages/OffersList';
+import CategoriesOffers from 'pages/GenericOfferListPage';
 import SelectCustomizePenguin from 'pages/SelectCustomizePenguin';
 import CategoriesType from 'sdk/types/CategoriesType';
 import withPageTitle from './components/PageTitle';

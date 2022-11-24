@@ -1,42 +1,29 @@
-import * as React from 'react';
-import { ElementType } from '@apcolony/marketplace-api';
+import React from 'react';
 import BigNumber from 'bignumber.js';
-import { Link, useParams } from 'react-router-dom';
-import EggsIcon from 'assets/img/icons/eggs-icon.png';
-import PenguinIcon from 'assets/img/icons/penguin-icon.jpg';
-import ErrorPage from 'components/ErrorPage';
+import { Link } from 'react-router-dom';
 import { HorizontalItem } from 'components/Inventory/HorizontalItem';
-import OffersPageLayout from 'components/Layout/OffersPageLayout';
-import { icons } from 'icons';
 import { buildRouteLinks } from 'routes';
-import useGetMarketData from 'sdk/hooks/api/useGetMarketData';
 import useGetOffersOfCategory from 'sdk/hooks/api/useGetOffersOfCategory';
-import { isSlot } from 'sdk/misc/guards';
+import CategoriesType from 'sdk/types/CategoriesType';
 import style from './index.module.scss';
 
+
 interface IProps {
-    category: ElementType
+    category: CategoriesType;
+    slot?: string;
 }
 
-const OffersList = ({
-    category
+export const OffersList = ({
+    category,
+    slot
 }: IProps) => {
-    const { slot } = useParams();
 
     const { data: offers } = useGetOffersOfCategory(category, slot);
-    const { data: marketData } = useGetMarketData(category, slot);
 
-    return <OffersPageLayout
-        icon={getIcon()}
-        marketData={marketData}
-        pageStyle={category}
-        pageTitle={slot ?? category}
-        iconNoBorder={slot == undefined}
-    >
+    return (
         <div className={style.items}>
             {getItems()}
-        </div>
-    </OffersPageLayout>
+        </div>);
 
     function getItems() {
 
@@ -90,37 +77,4 @@ const OffersList = ({
         }
     }
 
-    function getIcon() {
-        switch (category) {
-            case 'penguins':
-                return PenguinIcon;
-
-            case 'items':
-                return icons[slot as any].unicolor;
-
-            case 'eggs':
-                return EggsIcon;
-
-            default:
-                console.warn('Unknown category', category);
-                return undefined;
-        }
-    }
-};
-
-const ErrorWrapper = (props: IProps) => {
-    const { slot } = useParams();
-
-    if (slot && isSlot(slot) == false) {
-        return <ErrorPage
-            title="Invalid slot"
-            description="The slot you are looking for does not exist."
-        />
-    }
-    else {
-        return <OffersList {...props} />
-    }
 }
-
-export default ErrorWrapper;
-
