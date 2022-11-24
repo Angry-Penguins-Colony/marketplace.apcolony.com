@@ -31,7 +31,7 @@ export const HorizontalItem = ({
                     </p>}
             </div>
             <div className={style.thumbnail}>
-                <img src={item.thumbnailUrls.high} alt={item.displayName} />
+                <img src={item.thumbnailUrls.high} alt={item.displayName} loading="lazy" />
             </div>
         </div>
     );
