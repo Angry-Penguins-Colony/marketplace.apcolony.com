@@ -1,6 +1,8 @@
 import React from 'react';
 import { ElementType } from '@apcolony/marketplace-api';
+import { Link } from 'react-router-dom';
 import { ResponsiveElementThumbnail } from 'components/ResponsiveElementThumbnail';
+import { buildRouteLinks } from 'routes';
 import { useGetRanks } from 'sdk/hooks/api/useGetRanks';
 import style from './index.module.scss';
 
@@ -22,10 +24,13 @@ export const RanksList = ({ category }: Props) => {
     else {
         return <div className={style.items}>
             {
-                ranks.data.map(element => <ResponsiveElementThumbnail
-                    key={element.rank}
-                    element={element}
-                    subProperty={'Rank ' + element.rank} />)
+                ranks.data.map(element =>
+                    <Link to={buildRouteLinks.inspect(category, element.id)} key={element.id}>
+                        <ResponsiveElementThumbnail
+                            key={element.rank}
+                            element={element}
+                            subProperty={'Rank ' + element.rank} />
+                    </Link>)
             }
         </div>;
     }

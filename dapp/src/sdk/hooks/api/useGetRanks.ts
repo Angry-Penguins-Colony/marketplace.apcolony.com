@@ -3,6 +3,7 @@ import useGenericAPICall from './useGenericAPICall';
 
 
 interface OutputPenguin {
+    id: string;
     displayName: string;
     rank: number;
     thumbnailUrls: {

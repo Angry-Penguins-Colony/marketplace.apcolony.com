@@ -6,6 +6,7 @@ import { sendSuccessfulJSON, withTryCatch } from '../../utils/response';
 
 interface OutputPenguin {
     displayName: string;
+    id: string;
     rank: number;
     thumbnailUrls: {
         /**
@@ -32,6 +33,7 @@ export default async function getPenguinsRanks(req: Request, res: Response, prox
             .sort((a, b) => b.score - a.score)
             .map((penguin, index) => (
                 {
+                    id: penguin.id,
                     displayName: penguin.displayName,
                     thumbnailUrls: {
                         high: penguin.thumbnailUrls.high,
