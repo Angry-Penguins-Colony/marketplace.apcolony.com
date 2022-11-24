@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IItem } from '@apcolony/marketplace-api';
+import { IItem, IOwnedItem } from '@apcolony/marketplace-api';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
 import { useParams } from 'react-router-dom';
@@ -248,13 +248,15 @@ const Customize = () => {
         }
     }
 
-    function getItem(identifier: string | undefined) {
+    function getItem(identifier: string | undefined): IOwnedItem | undefined {
         if (!identifier) return undefined;
         if (!ownedAndEquippedItems) return undefined;
 
         const item = ownedAndEquippedItems.find(i => i.identifier === identifier);
 
-        if (!item) throw new Error(`Item ${identifier} not found in owned items.`);
+        if (!item) {
+            console.warn(`Item ${identifier} not found in owned items.`);
+        }
 
         return item;
     }
