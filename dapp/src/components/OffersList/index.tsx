@@ -47,7 +47,7 @@ export const OffersList = ({
                         const link = buildRouteLinks.inspect(category, item.id)
 
 
-                        const component = <Link className={style.itemRoot} to={link} key={item.id}>
+                        const component = <Link to={link} key={item.id}>
                             <ResponsiveElementThumbnail
                                 element={item}
                                 subProperty={price + ' EGLD'} />
