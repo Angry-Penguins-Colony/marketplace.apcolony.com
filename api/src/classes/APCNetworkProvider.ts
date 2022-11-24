@@ -93,6 +93,13 @@ export class APCNetworkProvider {
         return nfts;
     }
 
+    public async getAllPenguins(): Promise<IPenguin[]> {
+        const penguins = await this.getNfts(penguinsCollection, { size: 10_000 });
+
+        return penguins
+            .map(p => this.getPenguinFromNft(p, false));
+    }
+
     public async getNft(collection: string, nonce: number): Promise<APCNft> {
 
         const identifier = toIdentifier(collection, nonce);

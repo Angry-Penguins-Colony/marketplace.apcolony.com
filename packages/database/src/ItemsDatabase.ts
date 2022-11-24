@@ -23,6 +23,8 @@ type ItemInDatabase = {
 
 export default class ItemsDatabase {
 
+    private readonly _cachedSlotSupply = new Map<string, number>();
+
     public get items(): IItem[] {
         return Array.from(this._items);
     }
@@ -72,6 +74,26 @@ export default class ItemsDatabase {
         return new ItemsDatabase(items);
     }
 
+    public calculateItemScore(item: IItem) {
+        return 1 / (item.supply / this.getSupplyOfSlot(item.slot));
+    }
+
+    public getSupplyOfSlot(slot: string): number {
+        const cacheHit = this._cachedSlotSupply.get(slot);
+
+        if (cacheHit != undefined) {
+            return cacheHit;
+        }
+
+
+        const items = this._items.filter(i => i.slot == slot);
+        const supply = items.reduce((acc, item) => acc + item.supply, 0);
+
+        this._cachedSlotSupply.set(slot, supply);
+
+        return supply;
+    }
+
     public idExist(id: string) {
         return this._items.some(item => item.id == id);
     }
@@ -117,7 +139,6 @@ export default class ItemsDatabase {
 
         return item;
     }
-
 
     public getRandomItems(count: number) {
         const _items = Array.from(this._items);
