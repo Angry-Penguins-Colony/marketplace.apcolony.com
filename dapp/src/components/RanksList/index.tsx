@@ -21,7 +21,12 @@ export const RanksList = ({ category }: Props) => {
     }
     else {
         return <div className={style.items}>
-            {ranks.data.map(rank => <ResponsiveElementThumbnail key={rank.rank} element={rank} subProperty={rank.rank} />)}
+            {
+                ranks.data.map(element => <ResponsiveElementThumbnail
+                    key={element.rank}
+                    element={element}
+                    subProperty={'Rank ' + element.rank} />)
+            }
         </div>;
     }
 }
