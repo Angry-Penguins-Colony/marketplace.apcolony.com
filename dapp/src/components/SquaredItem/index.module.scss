@@ -5,7 +5,7 @@
     border-radius: 10px;
     overflow: hidden;
 
-    img {
+    .thumbnail {
         width: 100%;
         z-index: 0;
         aspect-ratio: 1/1;
@@ -45,7 +45,7 @@
         cursor: pointer;
     }
 
-    &::after {
+    &.loaded::after {
         content: "";
         position: absolute;
         left: 0;

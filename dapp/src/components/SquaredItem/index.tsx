@@ -1,11 +1,12 @@
+import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
 import { IGenericElementOwned } from 'components/Inventory/ItemsInventory/IGenericElementOwned';
 import style from './index.module.scss';
 
 interface IItemProps {
-    item: IGenericElementOwned,
+    item?: IGenericElementOwned,
     children?: React.ReactNode,
-    link: string,
+    link?: string,
 }
 
 export const SquaredItem = ({
@@ -14,18 +15,35 @@ export const SquaredItem = ({
     link
 }: IItemProps) => {
 
+    const classNames = [
+        style.item,
+        item ? style.loaded : ''
+    ].join(' ');
 
-    return (
-        <Link to={link}>
-            <div className={style.item}>
-                <img src={item.thumbnailUrls.small} loading="lazy" />
-                <div className={style.name}>{item.displayName}</div>
-                {(item.ownedAmount) &&
-                    <div className={style.count}>{item.ownedAmount}</div>
-                }
+    return withLinkOrNot(
+        <div className={classNames}>
+            {
+                item ?
+                    <img src={item.thumbnailUrls.small} className={style.thumbnail} loading="lazy" />
+                    :
+                    <Skeleton className={style.thumbnail} />
+            }
+            <div className={style.name}>{item?.displayName}</div>
 
-                {children}
-            </div>
-        </Link>
+            {item?.ownedAmount &&
+                <div className={style.count}>{item.ownedAmount}</div>
+            }
+
+            {children}
+        </div>
     );
+
+    function withLinkOrNot(component: JSX.Element): JSX.Element {
+        if (link) {
+            return <Link to={link}>{component}</Link>
+        }
+        else {
+            return component;
+        }
+    }
 }
