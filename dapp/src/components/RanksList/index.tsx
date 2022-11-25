@@ -48,7 +48,7 @@ export const RanksList = ({ category }: Props) => {
     if (ranks.data == undefined) {
 
         return wrapItems(
-            Array.from({ length: 10 }, (_, i) => <ResponsiveElementThumbnail key={i} />)
+            Array.from({ length: PAGE_SIZE }, (_, i) => <ResponsiveElementThumbnail key={i} />)
         );
     }
     else {
