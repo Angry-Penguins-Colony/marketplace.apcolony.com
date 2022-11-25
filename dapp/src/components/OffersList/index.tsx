@@ -72,11 +72,7 @@ export const OffersList = ({
             }
         }
         else {
-            return <div className="d-flex w-100 justify-content-center mt-2">
-                <div className="spinner-border" role="status">
-                    <span className="sr-only">Loading...</span>
-                </div>
-            </div>;
+            return Array.from({ length: 10 }).map((_, i) => <ResponsiveElementThumbnail key={i} />);
         }
     }
 
