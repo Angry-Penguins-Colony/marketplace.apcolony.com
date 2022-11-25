@@ -12,6 +12,7 @@
     .infos {
         margin: 1rem;
         color: $primary;
+        flex-grow: 1;
 
         .name {
             font-family: "CHEDROS", sans-serif;
@@ -36,6 +37,7 @@
         .img {
             height: 5.9rem;
             border-radius: 8px;
+            aspect-ratio: 1/1;
         }
     }
 }

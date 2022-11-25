@@ -28,10 +28,9 @@ export const HorizontalItem = ({
                         item ? item.displayName : <Skeleton />
                     }
                 </p>
-                {subProperty &&
-                    <p className={style.subProperty}>
-                        {subProperty}
-                    </p>}
+                <p className={style.subProperty}>
+                    {item ? subProperty : <Skeleton className='mt-2' />}
+                </p>
             </div>
             <div className={style.thumbnail}>
                 {
