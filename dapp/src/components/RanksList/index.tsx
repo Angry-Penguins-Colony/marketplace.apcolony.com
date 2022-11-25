@@ -93,7 +93,7 @@ export const RanksList = ({ category }: Props) => {
 
             <div className={style.content}>
                 <div className={style.header}>
-                    <SearchBox className={style.searchBox} onSearch={(s) => setSearch(s)} />
+                    <SearchBox className={style.searchBox} onSearch={(s) => setSearch(s)} showButton />
                     {pagination}
                 </div>
 
