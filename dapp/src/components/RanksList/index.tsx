@@ -26,6 +26,7 @@ export const RanksList = ({ category }: Props) => {
         previousLabel="<"
         nextLabel=">"
         initialPage={page - 1}
+        forcePage={page - 1}
         onPageChange={handlePageChange}
         pageRangeDisplayed={2}
         marginPagesDisplayed={1}
