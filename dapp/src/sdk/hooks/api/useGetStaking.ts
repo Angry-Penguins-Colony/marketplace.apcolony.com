@@ -11,7 +11,9 @@ export function useGetPenguinsStaked(address: string) {
 }
 
 export function useGetPenguinsUnstaked(address: string) {
-    const raw = useGenericAPICall<IGenericElement>(`/penguins/owned/${address}`);
+
+    // FIX: repetive with useGetOwnedPenguins hook
+    const raw = useGenericAPICall<IGenericElement>(`/accounts/${address}/owned/penguins`);
     return raw;
 }
 
