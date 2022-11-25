@@ -125,6 +125,11 @@ export class APCNetworkProvider {
         }, 60_000);
     }
 
+    public async getRankedPenguin(id: string) {
+        const penguins = await this.getRankedPenguins();
+        return penguins.find(p => p.id == id);
+    }
+
     public async getNft(collection: string, nonce: number): Promise<APCNft> {
 
         const identifier = toIdentifier(collection, nonce);

@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet';
 import ReactPaginate from 'react-paginate';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ResponsiveElementThumbnail } from 'components/ResponsiveElementThumbnail';
+import { SearchBox } from 'components/SearchBox';
 import { penguinsCount } from 'config';
 import { buildRouteLinks } from 'routes';
 import { useGetRanks } from 'sdk/hooks/api/useGetRanks';
@@ -18,8 +19,9 @@ export const RanksList = ({ category }: Props) => {
 
     const PAGE_SIZE = 20;
     const [page, setPage] = useGetPage();
+    const [search, setSearch] = React.useState('');
 
-    const ranks = useGetRanks(category, (page - 1) * PAGE_SIZE, PAGE_SIZE);
+    const ranks = useGetRanks(category, (page - 1) * PAGE_SIZE, PAGE_SIZE, search);
 
     const pagination = <ReactPaginate
         breakLabel="..."
@@ -45,11 +47,14 @@ export const RanksList = ({ category }: Props) => {
     />;
 
 
+    const noResultFounds = search && ranks.data && ranks.data.length == 0;
+
+
 
     if (ranks.data == undefined) {
 
         return wrapItems(
-            Array.from({ length: PAGE_SIZE }, (_, i) => <ResponsiveElementThumbnail key={i} />)
+            Array.from({ length: search ? 1 : PAGE_SIZE }, (_, i) => <ResponsiveElementThumbnail key={i} />)
         );
     }
     else {
@@ -63,6 +68,13 @@ export const RanksList = ({ category }: Props) => {
                                 element={element}
                                 subProperty={'Rank ' + element.rank} />
                         </Link>)
+                }
+
+                {
+                    noResultFounds &&
+                    <div className={style.noResults}>
+                        No results found
+                    </div>
                 }
             </div>
         );
@@ -81,7 +93,8 @@ export const RanksList = ({ category }: Props) => {
             </Helmet>
 
             <div className={style.content}>
-                <div className="d-flex justify-content-center">
+                <div className={style.header}>
+                    <SearchBox className={style.searchBox} onSearch={(s) => setSearch(s)} />
                     {pagination}
                 </div>
 
@@ -89,9 +102,11 @@ export const RanksList = ({ category }: Props) => {
                     {items}
                 </div>
 
-                <div className="d-flex justify-content-center">
-                    {pagination}
-                </div>
+                {ranks.data && ranks.data.length > 4 &&
+                    <div className="d-flex justify-content-center">
+                        {pagination}
+                    </div>
+                }
             </div>
         </>;
     }

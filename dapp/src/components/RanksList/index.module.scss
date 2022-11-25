@@ -12,6 +12,15 @@
     gap: 25px;
 }
 
+.header {
+    display: flex;
+    justify-content: space-between;
+
+    .searchBox {
+        max-width: 100px;
+    }
+}
+
 // desktop
 @media (min-width: $desktop_min_width) {
     .items {

@@ -22,24 +22,34 @@ interface OutputPenguin {
 export default async function getPenguinsRanks(req: Request, res: Response, proxyNetwork: APCNetworkProvider) {
 
     withTryCatch(res, async () => {
-        const penguinsRanks: OutputPenguin[] = (await proxyNetwork.getRankedPenguins())
-            .map((penguin, index) => (
-                {
-                    id: penguin.id,
-                    displayName: penguin.displayName,
-                    thumbnailUrls: {
-                        high: penguin.thumbnailUrls.high,
-                        small: penguin.thumbnailUrls.small
-                    },
-                    rank: index + 1
-                }
-            ));
 
-        const { start, size } = getPaginationsParams(req);
 
-        const penguinsRanksSlice = penguinsRanks.slice(start, start + size);
+        const search = req.query.search as string;
 
-        sendSuccessfulJSON(res, penguinsRanksSlice);
+        if (search) {
+            const match = await proxyNetwork.getRankedPenguin(search);
+
+            sendSuccessfulJSON(res, match ? [match] : []);
+        }
+        else {
+            const penguinsRanks: OutputPenguin[] = (await proxyNetwork.getRankedPenguins())
+                .map((penguin, index) => (
+                    {
+                        id: penguin.id,
+                        displayName: penguin.displayName,
+                        thumbnailUrls: {
+                            high: penguin.thumbnailUrls.high,
+                            small: penguin.thumbnailUrls.small
+                        },
+                        rank: index + 1
+                    }
+                ));
+
+            const { start, size } = getPaginationsParams(req);
+            const penguinsRanksSlice = penguinsRanks.slice(start, start + size);
+
+            sendSuccessfulJSON(res, penguinsRanksSlice);
+        }
     });
 }
 
@@ -65,4 +75,4 @@ function getPaginationsParams(req: Request) {
     }
 
     return { start, size };
-}
+} 
