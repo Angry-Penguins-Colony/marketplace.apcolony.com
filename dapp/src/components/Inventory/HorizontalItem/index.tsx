@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Skeleton from 'react-loading-skeleton';
 import style from './index.module.scss';
 
 export const HorizontalItem = ({
@@ -9,7 +10,7 @@ export const HorizontalItem = ({
         // do nothing
     }
 }: {
-    item: {
+    item?: {
         displayName: string,
         thumbnailUrls: {
             high: string;
@@ -23,7 +24,9 @@ export const HorizontalItem = ({
         <div className={style.item + ' ' + className} onClick={onClick}>
             <div className={style.infos}>
                 <p className={style.name}>
-                    {item.displayName}
+                    {
+                        item ? item.displayName : <Skeleton />
+                    }
                 </p>
                 {subProperty &&
                     <p className={style.subProperty}>
@@ -31,7 +34,12 @@ export const HorizontalItem = ({
                     </p>}
             </div>
             <div className={style.thumbnail}>
-                <img src={item.thumbnailUrls.high} alt={item.displayName} loading="lazy" />
+                {
+                    item ?
+                        <img className={style.img} src={item.thumbnailUrls.high} alt={item.displayName} loading="lazy" />
+                        :
+                        <Skeleton className={style.img} />
+                }
             </div>
         </div>
     );

@@ -9,9 +9,15 @@ function useGenericAPICall<T>(url: string, options?: IGenericAPIOptions) {
     const [data, setData] = React.useState<T | undefined>(undefined);
 
     React.useEffect(() => {
-
         get();
     }, []);
+
+    React.useEffect(() => {
+        if (data != undefined) {
+            setData(undefined);
+        }
+        get();
+    }, [url])
 
     return {
         data,
