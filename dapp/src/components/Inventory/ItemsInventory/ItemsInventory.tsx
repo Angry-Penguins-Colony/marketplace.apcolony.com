@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IGenericElement } from '@apcolony/marketplace-api';
 import Button from 'components/Abstract/Button/Button';
-import Loading, { LoadingColor } from 'components/Abstract/Loading';
+import { LoadingColor } from 'components/Abstract/Loading';
 import { SquaredItem } from 'components/SquaredItem';
 import { buildRouteLinks } from 'routes';
 import CategoriesType from 'sdk/types/CategoriesType';
@@ -18,7 +18,7 @@ interface IProps {
     filters?: Filters,
     title?: string,
     buildLink?: (item: IGenericElementOwned) => string,
-    makeItemComponent?: (item: IGenericElementOwned, key: React.Key) => JSX.Element,
+    makeItemComponent?: (item: IGenericElementOwned | undefined, key: React.Key) => JSX.Element,
     loadingColor?: LoadingColor,
 
 
@@ -38,10 +38,9 @@ const ItemsInventory = ({
         return (
             <div className={style['item-wrapper']} key={key}>
                 <SquaredItem
-                    key={item.id}
                     item={item}
-                    link={buildLink(item)} />
-                {displayStakingStatus && stakingFunction &&
+                    link={item ? buildLink(item) : undefined} />
+                {displayStakingStatus && stakingFunction && item &&
                     <Button onClick={() => stakingFunction(isStaked ? 'unstake' : 'stake', item.nonce)}>
                         {isStaked ? 'Unstake' : 'Stake'}
                     </Button>
@@ -49,7 +48,6 @@ const ItemsInventory = ({
             </div>
         )
     },
-    loadingColor,
     displayStakingStatus = false,
     isStaked,
     stakingFunction,
@@ -83,7 +81,7 @@ const ItemsInventory = ({
             }
         }
         else {
-            return <Loading size="large" color={loadingColor} />
+            return Array.from({ length: 10 }).map((_, i) => makeItemComponent(undefined, i));
         }
     }
 
