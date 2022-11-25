@@ -117,9 +117,7 @@ const routes: Array<ITitledRoute> = [
 ];
 
 const mappedRoutes: ITitledRoute[] = routes.map((route) => {
-  const title = route.title
-    ? `${route.title} • ${dAppName}`
-    : `${dAppName}`;
+  const title = route.title ?? dAppName;
 
   const requiresAuth = Boolean(route.authenticatedRoute);
   const wrappedComponent = withPageTitle(title, route.component);

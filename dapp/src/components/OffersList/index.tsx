@@ -1,5 +1,7 @@
 import React from 'react';
 import BigNumber from 'bignumber.js';
+import { capitalize } from 'lodash';
+import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { ResponsiveElementThumbnail } from 'components/ResponsiveElementThumbnail';
 import { buildRouteLinks } from 'routes';
@@ -21,9 +23,16 @@ export const OffersList = ({
     const { data: offers } = useGetOffersOfCategory(category, slot);
 
     return (
-        <div className={style.items}>
-            {getItems()}
-        </div>);
+        <>
+            <Helmet>
+                <title>Buy {capitalize(category)}</title>
+            </Helmet>
+
+            <div className={style.items}>
+                {getItems()}
+            </div>
+        </>
+    );
 
     function getItems() {
 

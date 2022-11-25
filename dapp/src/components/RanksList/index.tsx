@@ -1,5 +1,7 @@
 import React from 'react';
 import { ElementType } from '@apcolony/marketplace-api';
+import { capitalize } from 'lodash';
+import { Helmet } from 'react-helmet';
 import ReactPaginate from 'react-paginate';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ResponsiveElementThumbnail } from 'components/ResponsiveElementThumbnail';
@@ -72,19 +74,25 @@ export const RanksList = ({ category }: Props) => {
     }
 
     function wrapItems(items: React.ReactNode) {
-        return <div className={style.content}>
-            <div className="d-flex justify-content-center">
-                {pagination}
-            </div>
+        return <>
+            <Helmet>
+                <title>{capitalize(category)} Ranks</title>
+            </Helmet>
 
-            <div className={style.items}>
-                {items}
-            </div>
+            <div className={style.content}>
+                <div className="d-flex justify-content-center">
+                    {pagination}
+                </div>
 
-            <div className="d-flex justify-content-center">
-                {pagination}
+                <div className={style.items}>
+                    {items}
+                </div>
+
+                <div className="d-flex justify-content-center">
+                    {pagination}
+                </div>
             </div>
-        </div>;
+        </>;
     }
 }
 
