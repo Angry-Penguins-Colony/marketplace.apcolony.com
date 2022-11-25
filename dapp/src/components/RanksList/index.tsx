@@ -14,19 +14,20 @@ interface Props {
 
 export const RanksList = ({ category }: Props) => {
 
-    const PAGE_SIZE = 30;
+    const PAGE_SIZE = 20;
     const [page, setPage] = useGetPage();
 
     const ranks = useGetRanks(category, (page - 1) * PAGE_SIZE, PAGE_SIZE);
 
     const pagination = <ReactPaginate
         breakLabel="..."
-        nextLabel="next >"
+        previousLabel="<"
+        nextLabel=">"
         initialPage={page - 1}
         onPageChange={handlePageChange}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={2}
+        marginPagesDisplayed={1}
         pageCount={Math.ceil(penguinsCount / PAGE_SIZE)}
-        previousLabel="< previous"
 
         pageClassName="page-item"
         pageLinkClassName="page-link"
@@ -71,19 +72,17 @@ export const RanksList = ({ category }: Props) => {
     }
 
     function wrapItems(items: React.ReactNode) {
-        return <div>
-            <div className="d-flex justify-content-between mb-5">
-                <div>
-                    SEARCH
-                </div>
-
-                <div>
-                    {pagination}
-                </div>
+        return <div className={style.content}>
+            <div className="d-flex justify-content-center">
+                {pagination}
             </div>
 
             <div className={style.items}>
                 {items}
+            </div>
+
+            <div className="d-flex justify-content-center">
+                {pagination}
             </div>
         </div>;
     }

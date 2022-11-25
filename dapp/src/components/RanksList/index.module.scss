@@ -6,6 +6,12 @@
     gap: 10px;
 }
 
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
 // desktop
 @media (min-width: $desktop_min_width) {
     .items {
