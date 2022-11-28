@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ElementType } from '@apcolony/marketplace-api';
+import { ElementType, Slot, slotToPlural } from '@apcolony/marketplace-api';
 import { Outlet, useParams } from 'react-router-dom';
 import EggsIcon from 'assets/img/icons/eggs-icon.png';
 import PenguinIcon from 'assets/img/icons/penguin-icon.jpg';
@@ -58,7 +58,7 @@ const GenericOfferListPage = ({
             case 'items':
                 return [
                     { name: 'Offers', path: 'offers' },
-                    { name: 'All items', path: 'list' },
+                    { name: 'All ' + slotToPlural(slot as Slot), path: 'list' },
                 ];
 
             case 'eggs':
