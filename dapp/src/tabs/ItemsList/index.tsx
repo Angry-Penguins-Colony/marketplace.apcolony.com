@@ -1,5 +1,5 @@
 import React from 'react';
-import { IItem } from '@apcolony/marketplace-api';
+import { IItem, Slot, slotToPlural } from '@apcolony/marketplace-api';
 import { Helmet } from 'react-helmet';
 import { Link, useParams } from 'react-router-dom';
 import { ResponsiveElementThumbnail } from 'components/ResponsiveElementThumbnail';
@@ -19,7 +19,7 @@ export const ItemsList = () => {
 
     return <>
         <Helmet>
-            <title>All {slot} items</title>
+            <title>All {slotToPlural(slot as Slot)} items</title>
         </Helmet>
 
         <div className={style.items}>

@@ -1,8 +1,10 @@
 import React from 'react';
+import { Slot, slotToPlural } from '@apcolony/marketplace-api';
 import BigNumber from 'bignumber.js';
 import { capitalize } from 'lodash';
 import { Helmet } from 'react-helmet';
 import { Link, useParams } from 'react-router-dom';
+import { ItemsFiltersPopup } from 'components/Foreground/Popup/ItemsFiltersPopup';
 import { ResponsiveElementThumbnail } from 'components/ResponsiveElementThumbnail';
 import { buildRouteLinks } from 'routes';
 import useGetOffersOfCategory from 'sdk/hooks/api/useGetOffersOfCategory';
@@ -24,8 +26,10 @@ export const OffersList = ({
     return (
         <>
             <Helmet>
-                <title>{capitalize(slot ?? category)} offers</title>
+                <title>{capitalize(slot ? slotToPlural(slot as Slot) : category)} offers</title>
             </Helmet>
+
+            <ItemsFiltersPopup />
 
             <div className={style.items}>
                 {getItems()}
