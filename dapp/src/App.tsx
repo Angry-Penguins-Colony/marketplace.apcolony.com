@@ -7,10 +7,7 @@ import {
 import { DappProvider } from '@elrondnetwork/dapp-core/wrappers';
 import { SkeletonTheme } from 'react-loading-skeleton';
 import { Route, Routes, BrowserRouter as Router, Navigate } from 'react-router-dom';
-import { ItemsList } from 'components/Inventory/ItemsList';
 import Layout from 'components/Layout';
-import { OffersList } from 'components/OffersList';
-import { RanksList } from 'components/RanksList';
 import { environment } from 'config';
 import CategoriesOffers from 'pages/GenericOfferListPage';
 import Home from 'pages/Home';
@@ -18,6 +15,9 @@ import PageNotFound from 'pages/PageNotFound';
 import { PenguinsOffersListPage } from 'pages/PenguinsOffersListPage';
 import UnlockModal from 'pages/UnlockModal';
 import routes, { routeNames } from 'routes';
+import { ItemsList } from 'tabs/ItemsList';
+import { OffersList } from 'tabs/OffersList';
+import { RanksList } from 'tabs/RanksList';
 
 const App = () => {
   return <>
