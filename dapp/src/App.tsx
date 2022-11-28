@@ -7,6 +7,7 @@ import {
 import { DappProvider } from '@elrondnetwork/dapp-core/wrappers';
 import { SkeletonTheme } from 'react-loading-skeleton';
 import { Route, Routes, BrowserRouter as Router, Navigate } from 'react-router-dom';
+import { ItemsList } from 'components/Inventory/ItemsList';
 import Layout from 'components/Layout';
 import { OffersList } from 'components/OffersList';
 import { RanksList } from 'components/RanksList';
@@ -54,6 +55,7 @@ const App = () => {
                 <Route path={routeNames.itemsSlotHome} element={<CategoriesOffers category='items' />}>
                   <Route index element={<Navigate to="offers" replace />} />
                   <Route path="offers" element={<OffersList category="items" />} />
+                  <Route path="list" element={<ItemsList />} />
                 </Route>
 
                 <Route path={routeNames.eggsHome} element={<CategoriesOffers category='eggs' />}>

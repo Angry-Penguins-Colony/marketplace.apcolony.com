@@ -119,6 +119,10 @@ export default class ItemsDatabase {
         return item;
     }
 
+    public getItemsOfSlot(slot: string) {
+        return this._items.filter(item => item.slot == slot);
+    }
+
     public getItemFromAttributeName(attributeName: string, slot: string): IItem {
         const item = this._items.find(item => item.attributeName == attributeName && item.slot == slot);
         if (!item) {

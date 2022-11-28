@@ -27,7 +27,7 @@ const GenericOfferListPage = ({
         pageStyle={category}
         pageTitle={slot ?? category}
         iconNoBorder={slot == undefined}
-        tabs={[{ name: 'Offers', path: 'offers' }]}
+        tabs={getTabs()}
     >
         <Outlet />
     </OffersPageLayout>
@@ -47,6 +47,26 @@ const GenericOfferListPage = ({
             default:
                 console.warn('Unknown category', category);
                 return undefined;
+        }
+    }
+
+    function getTabs() {
+        switch (category) {
+            case 'penguins':
+                throw new Error('Please use PenguinsOfferListPage instead');
+
+            case 'items':
+                return [
+                    { name: 'Offers', path: 'offers' },
+                    { name: 'List', path: 'list' },
+                ];
+
+            case 'eggs':
+                return [{ name: 'Offers', path: 'offers' }];
+
+            default:
+                console.warn('Unknown category', category);
+                return [];
         }
     }
 };

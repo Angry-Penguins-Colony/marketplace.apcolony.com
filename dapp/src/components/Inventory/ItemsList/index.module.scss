@@ -1,0 +1,41 @@
+@import "assets/sass/var.scss";
+
+.items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 20px;
+
+    .searchBox {
+        max-width: 150px;
+    }
+}
+
+// desktop
+@media (min-width: $desktop_min_width) {
+    .items {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .header {
+        justify-content: space-between;
+        flex-direction: row;
+    }
+}
