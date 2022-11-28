@@ -9,6 +9,7 @@ export interface IPopupProps {
     children?: React.ReactNode;
     topIcon?: React.ReactNode;
     className?: string;
+    contentClassName?: string;
 }
 
 const Popup = (
@@ -21,11 +22,12 @@ const Popup = (
         children,
         topIcon,
         className = '',
+        contentClassName = ''
     }: IPopupProps
 ) => {
     return (
         <div className={style.popup + ' ' + (isVisible ? style.visible : '') + ' ' + className}>
-            <div className={style.content}>
+            <div className={style.content + ' ' + contentClassName}>
                 {
                     haveCloseButton && (
                         <div className={style.close} onClick={onCloseClicked}>

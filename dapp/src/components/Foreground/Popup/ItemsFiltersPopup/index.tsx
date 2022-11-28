@@ -27,10 +27,12 @@ export const ItemsFiltersPopup = ({
         <Popup
             isVisible={filterOpen}
             onCloseClicked={() => setFilterOpen(false)}
+            contentClassName={style.popup}
         >
+            <h2>Filters</h2>
             <ItemsTier onTierSelected={handleTierSelected} items={items} />
 
-            <Button onClick={() => setFilterOpen(false)}>
+            <Button onClick={() => setFilterOpen(false)} className="w-100">
                 Ok
             </Button>
         </Popup >
@@ -95,11 +97,11 @@ const ItemsTier = (props: {
         props.onTierSelected(selectedTiers);
     }, [selectedTiers]);
 
-    return <>
-        <h3>Items tier</h3>
+    return <div className={style.itemsTier}>
+        <h4>Items rarity</h4>
         {
             tiers.map(tier =>
-                <FormGroup key={tier}>
+                <FormGroup key={tier} className={style.form}>
                     <FormCheckInput name={tier} onChange={handleChange} />
                     <FormCheckLabel>
                         {tier} <span className="text-muted">({getTierCount(tier)})</span>
@@ -107,7 +109,7 @@ const ItemsTier = (props: {
                 </FormGroup>
             )
         }
-    </>
+    </div>
 
     function getTierCount(tier: string) {
         return props.items.filter(item => stakePointsToTier(item.stakePoints) == tier).length;
