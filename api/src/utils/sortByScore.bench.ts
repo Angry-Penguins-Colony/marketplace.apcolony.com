@@ -1,22 +1,22 @@
 import { IItem, IPenguin } from "@apcolony/marketplace-api";
-import Benchmark from "benchmark";
 import { itemsDatabase } from "../const";
 import { sortByScore } from "./sortByScore";
 
-const suite = new Benchmark.Suite;
 const penguins = generateRandomsPenguins(5_555);
 
-suite
-    .add('sortByScore', () => {
-        sortByScore(penguins, itemsDatabase)
-    })
-    // add listeners
-    .on('cycle', function (event: any) {
-        console.log(String(event.target));
-    })
-    // run async
-    .run({ 'async': true });
+runTest("Sort By Score", () => sortByScore(penguins, itemsDatabase))
 
+function runTest(title: string, fn: () => void) {
+    console.log(` ${title}  `);
+
+    const start = Date.now();
+    for (let i = 0; i < 100; i++) {
+        fn();
+    }
+    const end = Date.now();
+
+    console.log(` ${end - start}ms `);
+}
 
 function generateRandomsPenguins(count: number) {
     const penguins: IPenguin[] = [];
