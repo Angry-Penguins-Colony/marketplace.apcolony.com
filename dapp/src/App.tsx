@@ -54,7 +54,7 @@ const App = () => {
 
                 <Route path={routeNames.itemsSlotHome} element={<CategoriesOffers category='items' />}>
                   <Route index element={<Navigate to="offers" replace />} />
-                  <Route path="offers" element={<OffersList category="items" />} />
+                  <Route path="offers" element={<OffersList category="items" showItemsFilter />} />
                   <Route path="list" element={<ItemsList />} />
                 </Route>
 

@@ -14,10 +14,12 @@ import style from './index.module.scss';
 
 interface IProps {
     category: CategoriesType;
+    showItemsFilter?: boolean;
 }
 
 export const OffersList = ({
-    category
+    category,
+    showItemsFilter = false
 }: IProps) => {
 
     const { slot } = useParams();
@@ -36,7 +38,7 @@ export const OffersList = ({
                 <title>{capitalize(slot ? slotToPlural(slot as Slot) : category)} offers</title>
             </Helmet>
 
-            {offers &&
+            {showItemsFilter && offers &&
                 <ItemsFiltersPopup
                     items={offers?.associatedItems as IItem[] || []}
 
