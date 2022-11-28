@@ -1,33 +1,52 @@
 import React from 'react';
 import { IItem } from '@apcolony/marketplace-api';
-import { Button, FormGroup } from 'react-bootstrap';
+import { faFilter } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FormGroup } from 'react-bootstrap';
 import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
 import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
-import Popup, { IPopupProps } from '../Generic/Popup';
+import Button from 'components/Abstract/Button/Button';
+import Popup from '../Generic/Popup';
 
-interface Props extends IPopupProps {
+interface Props {
     items: IItem[];
     onFilterChanged?: (filter: IItem[]) => void;
 }
 
-export const ItemsFiltersPopup = (props: Props) => {
+export const ItemsFiltersPopup = ({
+    items,
+    onFilterChanged = () => { }
+}: Props) => {
 
-    const {
-        onCloseClicked = () => { },
-        onFilterChanged = () => { }
-    } = props;
 
-    return <Popup {...props}>
-        <ItemsTier onTierSelected={handleTierSelected} />
+    const [filterOpen, setFilterOpen] = React.useState(false);
 
-        <Button onClick={onCloseClicked}>
-            Ok
-        </Button>
-    </Popup >;
+    return <>
+        <Popup
+            isVisible={filterOpen}
+            onCloseClicked={() => setFilterOpen(false)}
+        >
+            <ItemsTier onTierSelected={handleTierSelected} items={items} />
+
+            <Button onClick={() => setFilterOpen(false)}>
+                Ok
+            </Button>
+        </Popup >
+
+        <div className="mb-3">
+
+            <Button onClick={() => setFilterOpen(true)}>
+                <FontAwesomeIcon icon={faFilter} />
+                <span className='ml-2'>
+                    Filters
+                </span>
+            </Button>
+        </div>
+    </>;
 
     function handleTierSelected(tiers: string[]) {
 
-        const filteredItems = props.items
+        const filteredItems = items
             .filter(item => {
 
                 if (tiers.length == 0) {
@@ -45,6 +64,7 @@ export const ItemsFiltersPopup = (props: Props) => {
 }
 
 const ItemsTier = (props: {
+    items: IItem[],
     onTierSelected: (tiers: string[]) => void
 }) => {
 
@@ -68,12 +88,16 @@ const ItemsTier = (props: {
                 <FormGroup key={tier}>
                     <FormCheckInput name={tier} onChange={handleChange} />
                     <FormCheckLabel>
-                        {tier}
+                        {tier} <span className="text-muted">({getTierCount(tier)})</span>
                     </FormCheckLabel>
                 </FormGroup>
             )
         }
     </>
+
+    function getTierCount(tier: string) {
+        return props.items.filter(item => stakePointsToTier(item.stakePoints) == tier).length;
+    }
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         const { name, checked } = e.target;

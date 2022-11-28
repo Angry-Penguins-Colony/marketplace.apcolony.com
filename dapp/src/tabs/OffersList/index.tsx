@@ -1,9 +1,10 @@
 import React from 'react';
-import { Slot, slotToPlural } from '@apcolony/marketplace-api';
+import { IItem, Slot, slotToPlural } from '@apcolony/marketplace-api';
 import BigNumber from 'bignumber.js';
 import { capitalize } from 'lodash';
 import { Helmet } from 'react-helmet';
 import { Link, useParams } from 'react-router-dom';
+import { ItemsFiltersPopup } from 'components/Foreground/Popup/ItemsFiltersPopup';
 import { ResponsiveElementThumbnail } from 'components/ResponsiveElementThumbnail';
 import { buildRouteLinks } from 'routes';
 import useGetOffersOfCategory from 'sdk/hooks/api/useGetOffersOfCategory';
@@ -22,11 +23,28 @@ export const OffersList = ({
     const { slot } = useParams();
     const { data: offers } = useGetOffersOfCategory(category, slot);
 
+    const [visibleItems, setVisibleItems] = React.useState(offers?.associatedItems);
+
+
+    React.useEffect(() => {
+        setVisibleItems(offers?.associatedItems || []);
+    }, [offers]);
+
     return (
         <>
             <Helmet>
                 <title>{capitalize(slot ? slotToPlural(slot as Slot) : category)} offers</title>
             </Helmet>
+
+            {offers &&
+                <ItemsFiltersPopup
+                    items={offers?.associatedItems as IItem[] || []}
+
+                    onFilterChanged={(filteredItems) => setVisibleItems(filteredItems)}
+                />
+            }
+
+
 
             <div className={style.items}>
                 {getItems()}
@@ -38,12 +56,12 @@ export const OffersList = ({
 
         if (!category) throw new Error('Missing category');
 
-        if (offers) {
-            if (offers.associatedItems.length == 0) {
+        if (offers && visibleItems) {
+            if (visibleItems.length == 0) {
                 return <div>No offers yet.</div>
             }
             else {
-                return offers.associatedItems
+                return visibleItems
                     .map(item => {
 
                         const lowestOffer = offers.offers
