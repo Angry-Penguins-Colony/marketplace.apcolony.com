@@ -58,7 +58,7 @@ const GenericOfferListPage = ({
             case 'items':
                 return [
                     { name: 'Offers', path: 'offers' },
-                    { name: 'List', path: 'list' },
+                    { name: 'All items', path: 'list' },
                 ];
 
             case 'eggs':
