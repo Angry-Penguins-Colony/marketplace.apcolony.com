@@ -24,7 +24,7 @@ export const OffersList = ({
     return (
         <>
             <Helmet>
-                <title>Buy {capitalize(category)}</title>
+                <title>{capitalize(slot ?? category)} offers</title>
             </Helmet>
 
             <div className={style.items}>

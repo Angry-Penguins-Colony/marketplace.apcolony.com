@@ -1,5 +1,6 @@
 import React from 'react';
 import { IItem } from '@apcolony/marketplace-api';
+import { Helmet } from 'react-helmet';
 import { Link, useParams } from 'react-router-dom';
 import { ResponsiveElementThumbnail } from 'components/ResponsiveElementThumbnail';
 import { itemsDatabase } from 'config';
@@ -16,19 +17,25 @@ export const ItemsList = () => {
 
     const items = useGetItems(slot);
 
-    return <div className={style.items}>
-        {
-            items
-                .map(element =>
-                    <Link to={buildRouteLinks.inspect('items', element.id)} key={element.id}>
-                        <ResponsiveElementThumbnail
-                            key={element.id}
-                            element={element}
-                            subProperty={'#' + element.id} />
-                    </Link>
-                )
-        }
-    </div>
+    return <>
+        <Helmet>
+            <title>All {slot} items</title>
+        </Helmet>
+
+        <div className={style.items}>
+            {
+                items
+                    .map(element =>
+                        <Link to={buildRouteLinks.inspect('items', element.id)} key={element.id}>
+                            <ResponsiveElementThumbnail
+                                key={element.id}
+                                element={element}
+                                subProperty={'#' + element.id} />
+                        </Link>
+                    )
+            }
+        </div>
+    </>;
 
 };
 
