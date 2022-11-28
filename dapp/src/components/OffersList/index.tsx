@@ -2,7 +2,7 @@ import React from 'react';
 import BigNumber from 'bignumber.js';
 import { capitalize } from 'lodash';
 import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { ResponsiveElementThumbnail } from 'components/ResponsiveElementThumbnail';
 import { buildRouteLinks } from 'routes';
 import useGetOffersOfCategory from 'sdk/hooks/api/useGetOffersOfCategory';
@@ -12,14 +12,13 @@ import style from './index.module.scss';
 
 interface IProps {
     category: CategoriesType;
-    slot?: string;
 }
 
 export const OffersList = ({
-    category,
-    slot
+    category
 }: IProps) => {
 
+    const { slot } = useParams();
     const { data: offers } = useGetOffersOfCategory(category, slot);
 
     return (
