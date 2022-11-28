@@ -15,7 +15,7 @@ type ItemInDatabase = {
     renderUrl: string;
     thumbnailCID?: string;
     name: string;
-    stakePoints?: number;
+    stakePoints: number;
     slot: string;
     attributeName: string;
     supply?: number;
@@ -34,7 +34,7 @@ export default class ItemsDatabase {
     public static fromJson(parsedItems: ItemInDatabase[], deployedItems: DeployedItem[]) {
         const items: IItem[] = parsedItems
             .filter(({ name }) => name != "Default")
-            .map(({ name, id, renderUrl, thumbnailCID, slot, supply, attributeName }): IItem => {
+            .map(({ name, id, renderUrl, thumbnailCID, slot, supply, attributeName, stakePoints }): IItem => {
 
                 if (!id) {
                     throw new Error(`Item ${name} has no id`);
@@ -67,7 +67,8 @@ export default class ItemsDatabase {
                         ipfs: renderUrl,
                         high: getRenderWebThumbnail(id),
                     },
-                    supply: supply ?? -1
+                    supply: supply ?? -1,
+                    stakePoints: stakePoints
                 }
             });
 

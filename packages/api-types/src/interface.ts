@@ -40,6 +40,7 @@ export interface IItem extends IGenericElement {
     };
     supply: number;
     attributeName: string
+    stakePoints: number;
 }
 
 export interface IOwnedItem extends IItem {

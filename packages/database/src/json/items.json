@@ -2062,6 +2062,7 @@
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/215-render.png",
         "thumbnailCID": "QmZAjJ1CM1tWtPY2RrcFQkDQPNgx8LdW9TrVQrG46hMfzJ",
         "name": "Traditional Romanian",
+        "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Traditional Romanian",
         "supply": 95
@@ -2072,6 +2073,7 @@
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/216-render.png",
         "thumbnailCID": "QmZiCXmct8zqTSwnCSNd5FKZoUiPMudJAZS29oZmkU1DcN",
         "name": "Traditional Romanian",
+        "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Traditional Romanian",
         "supply": 41
