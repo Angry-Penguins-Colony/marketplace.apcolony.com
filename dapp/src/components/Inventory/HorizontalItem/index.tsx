@@ -1,5 +1,7 @@
 import * as React from 'react';
 import Skeleton from 'react-loading-skeleton';
+import { Link } from 'react-router-dom';
+import { buildRouteLinks } from 'routes';
 import style from './index.module.scss';
 
 export const HorizontalItem = ({
@@ -8,9 +10,11 @@ export const HorizontalItem = ({
     subProperty,
     onClick = () => {
         // do nothing
-    }
+    },
+    navigate = false,
 }: {
     item?: {
+        id: string;
         displayName: string,
         thumbnailUrls: {
             high: string;
@@ -19,8 +23,9 @@ export const HorizontalItem = ({
     className?: string;
     subProperty?: React.ReactNode;
     onClick?: () => void;
+    navigate?: boolean;
 }) => {
-    return (
+    return withLink(
         <div className={style.item + ' ' + className} onClick={onClick}>
             <div className={style.infos}>
                 <p className={style.name}>
@@ -42,4 +47,18 @@ export const HorizontalItem = ({
             </div>
         </div>
     );
+
+    function withLink(child: JSX.Element) {
+        if (navigate && item) {
+            return (
+                <Link to={buildRouteLinks.inspect('items', item.id)}>
+                    {child}
+                </Link>
+            );
+        }
+        else {
+            return child;
+        }
+
+    }
 };

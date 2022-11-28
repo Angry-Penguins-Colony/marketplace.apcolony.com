@@ -90,7 +90,7 @@ const ItemsAndActivities = ({
 
                 return (
                     items.map(item => (
-                        <HorizontalItem key={item.id} item={item} subProperty={'#' + item.id} />
+                        <HorizontalItem key={item.id} item={item} subProperty={'#' + item.id} navigate />
                     ))
                 );
 

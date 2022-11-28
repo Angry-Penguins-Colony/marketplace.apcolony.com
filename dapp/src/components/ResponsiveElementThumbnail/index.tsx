@@ -5,6 +5,7 @@ import style from './index.module.scss'
 
 interface Props {
     element?: {
+        id: string;
         displayName: string,
         thumbnailUrls: {
             high: string;
