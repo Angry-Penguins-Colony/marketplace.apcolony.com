@@ -32,7 +32,12 @@ export default async function getPenguinsRanks(req: Request, res: Response, prox
             sendSuccessfulJSON(res, match ? [match] : []);
         }
         else {
-            const penguinsRanks: OutputPenguin[] = (await proxyNetwork.getRankedPenguins())
+            const penguinsRanks = await proxyNetwork.getRankedPenguins();
+
+            const { start, size } = getPaginationsParams(req);
+
+            const penguinsRanksSlice: OutputPenguin[] = penguinsRanks
+                .slice(start, start + size)
                 .map((penguin, index) => (
                     {
                         id: penguin.id,
@@ -41,12 +46,9 @@ export default async function getPenguinsRanks(req: Request, res: Response, prox
                             high: penguin.thumbnailUrls.high,
                             small: penguin.thumbnailUrls.small
                         },
-                        rank: index + 1
+                        rank: start + index + 1
                     }
                 ));
-
-            const { start, size } = getPaginationsParams(req);
-            const penguinsRanksSlice = penguinsRanks.slice(start, start + size);
 
             sendSuccessfulJSON(res, penguinsRanksSlice);
         }

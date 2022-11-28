@@ -16,10 +16,7 @@ import { ErrNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out/e
 import { Cache, CacheClass } from "memory-cache";
 import { EggsDatabase } from "@apcolony/db-marketplace/out/EggsDatabase";
 import { IOwnedEgg } from "@apcolony/marketplace-api";
-
-interface IRankedPenguin extends IPenguin {
-    rank: number;
-}
+import { sortByScore } from "../utils/sortByScore";
 
 /**
  * We create this function because a lot of methods of ProxyNetworkProvider are not implemented yet.
@@ -37,7 +34,7 @@ export class APCNetworkProvider {
     private readonly nftsCache: Map<string, APCNft> = new Map();
 
     private readonly pendingRequests_getPenguinFromId = new Cache<string, Promise<IPenguin>>();
-    private readonly pendingRequests_getRankedPenguins = new Cache<string, Promise<IRankedPenguin[]>>();
+    private readonly pendingRequests_getRankedPenguins = new Cache<string, Promise<IPenguin[]>>();
 
     get lastMinuteRequests() {
         return {
@@ -105,23 +102,12 @@ export class APCNetworkProvider {
             .map(p => this.getPenguinFromNft(p, false));
     }
 
-    public async getRankedPenguins(): Promise<IRankedPenguin[]> {
+    public async getRankedPenguins(): Promise<IPenguin[]> {
 
         return withCache(this.pendingRequests_getRankedPenguins, "", async () => {
             const penguins = await this.getAllPenguins();
 
-            // TODO: optimize this (there is a lot of iterations)
-            const penguinsRanks: IRankedPenguin[] = penguins
-                .map(penguin => ({ ...penguin, score: this.itemsDatabase.calculatePenguinsScore(penguin) }))
-                .sort((a, b) => b.score - a.score)
-                .map((penguin, index) => (
-                    {
-                        ...penguin,
-                        rank: index + 1
-                    }
-                ));
-
-            return penguinsRanks;
+            return sortByScore(penguins, this.itemsDatabase);
         }, 60_000);
     }
 
