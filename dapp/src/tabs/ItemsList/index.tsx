@@ -1,5 +1,7 @@
 import React from 'react';
 import { IItem, Slot, slotToPlural } from '@apcolony/marketplace-api';
+import { faFilter } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Helmet } from 'react-helmet';
 import { Link, useParams } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
@@ -35,13 +37,16 @@ export const ItemsList = () => {
             onFilterChanged={(filteredItems) => {
                 console.log('esti');
                 setVisibleItems(filteredItems)
-            }
-            }
+            }}
         />
 
 
-        <Button onClick={() => setFilterOpen(true)}>
-            Open filter
+
+        <Button className="mb-3" onClick={() => setFilterOpen(true)}>
+            <FontAwesomeIcon icon={faFilter} />
+            <span className='ml-2'>
+                Filters
+            </span>
         </Button>
 
         <div className={style.items}>
@@ -62,5 +67,6 @@ export const ItemsList = () => {
 };
 
 function useGetItems(slot: string): IItem[] {
-    return itemsDatabase.getItemsOfSlot(slot);
+    return itemsDatabase.getItemsOfSlot(slot)
+        .sort((a, b) => a.stakePoints - b.stakePoints);
 }
