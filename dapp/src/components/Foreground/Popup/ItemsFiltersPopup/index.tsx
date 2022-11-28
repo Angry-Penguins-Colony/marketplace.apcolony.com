@@ -2,11 +2,12 @@ import React from 'react';
 import { IItem } from '@apcolony/marketplace-api';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FormGroup } from 'react-bootstrap';
+import { Badge, FormGroup } from 'react-bootstrap';
 import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
 import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
 import Button from 'components/Abstract/Button/Button';
 import Popup from '../Generic/Popup';
+import style from './index.module.scss';
 
 interface Props {
     items: IItem[];
@@ -20,6 +21,7 @@ export const ItemsFiltersPopup = ({
 
 
     const [filterOpen, setFilterOpen] = React.useState(false);
+    const [selectedTiers, setSelectedTiers] = React.useState<string[]>([]);
 
     return <>
         <Popup
@@ -33,7 +35,7 @@ export const ItemsFiltersPopup = ({
             </Button>
         </Popup >
 
-        <div className="mb-3">
+        <div className="mb-3 d-flex align-items-center">
 
             <Button onClick={() => setFilterOpen(true)}>
                 <FontAwesomeIcon icon={faFilter} />
@@ -41,10 +43,22 @@ export const ItemsFiltersPopup = ({
                     Filters
                 </span>
             </Button>
+
+
+            <div className={'ml-2' + ' ' + style.selectedTiers}>
+
+                {
+                    selectedTiers
+                        .map(tier => <Badge key={tier} bg="secondary" text="white" pill>{tier}</Badge>)
+                }
+            </div>
+
         </div>
     </>;
 
     function handleTierSelected(tiers: string[]) {
+
+        setSelectedTiers(tiers);
 
         const filteredItems = items
             .filter(item => {
