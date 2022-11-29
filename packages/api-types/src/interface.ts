@@ -12,7 +12,6 @@ export interface IGenericElement {
 
     displayName: string;
     thumbnailUrls: {
-        ipfs: string;
         /**
          * 1024x1204px
          */

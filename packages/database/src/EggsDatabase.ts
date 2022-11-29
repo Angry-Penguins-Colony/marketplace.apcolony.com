@@ -11,7 +11,6 @@ export class EggsDatabase {
             id: "diamond",
             displayName: "Diamond Egg",
             thumbnailUrls: {
-                ipfs: "https://ipfs.io/ipfs/Qmf3PVzoxPXXiHon12XNKYRwbKPFHnZGQPNxZNGU17SaWt",
                 high: "https://apc-eggs.s3.eu-west-3.amazonaws.com/eggs/diamond.png",
                 small: "https://apc-eggs.s3.eu-west-3.amazonaws.com/eggs/diamond.png",
             },
@@ -27,7 +26,6 @@ export class EggsDatabase {
             id: "gold",
             displayName: "Gold Egg",
             thumbnailUrls: {
-                ipfs: "https://ipfs.io/ipfs/QmYmsCjRY72nEC1kxVA2rhcUSYSo8iQWE6JkpP5QgeNEX9",
                 high: "https://apc-eggs.s3.eu-west-3.amazonaws.com/eggs/gold.png",
                 small: "https://apc-eggs.s3.eu-west-3.amazonaws.com/eggs/gold.png",
             },
@@ -43,7 +41,6 @@ export class EggsDatabase {
             displayName: "Silver Egg",
             id: "silver",
             thumbnailUrls: {
-                ipfs: "https://ipfs.io/ipfs/QmQTXxFA1xYCe3QHrAtnmCjaV1ELjhozNtSKAVUGvmrLBR",
                 high: "https://apc-eggs.s3.eu-west-3.amazonaws.com/eggs/silver.png",
                 small: "https://apc-eggs.s3.eu-west-3.amazonaws.com/eggs/silver.png",
             },

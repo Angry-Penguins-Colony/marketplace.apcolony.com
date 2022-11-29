@@ -53,7 +53,6 @@ export default class ItemsDatabase {
                     attributeName: attributeName,
 
                     thumbnailUrls: {
-                        ipfs: ipfsGateway + thumbnailCID,
                         high: getItemWebThumbnail(id),
                         small: getItemWebThumbnail(id), // TODO: use a small thumbnail
                     },
