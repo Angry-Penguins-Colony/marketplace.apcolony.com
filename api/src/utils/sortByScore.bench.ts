@@ -36,7 +36,7 @@ function generateRandomsPenguins(count: number) {
             id: i.toString(),
             type: "penguins",
             thumbnailUrls: {
-                ipfs: "",
+                high: "",
                 small: "",
             },
             collection: `Collection ${i}`,
