@@ -1,9 +1,7 @@
 [
     {
         "id": "1",
-        "descriptionCID": "QmTEsnj6ke5vP8VTLXLQNFk2PZmqFnvKsYFCH9AAQR9ck7",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1-render.png",
-        "thumbnailCID": "QmasaaTYGqaLhuhqMTxr2FzbgTY2cr9azafhQiJHrQ6usy",
         "name": "Turquoise",
         "stakePoints": 1,
         "slot": "background",
@@ -12,9 +10,7 @@
     },
     {
         "id": "2",
-        "descriptionCID": "QmdPB28vmv7Ho1FeEFoSeU3BJFnZwPqwMu6rwzbKTM848G",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/2-render.png",
-        "thumbnailCID": "QmZyZ6LmiN5hm6HNDZbwBkCDibMZBoAmw5c84y2he5tSTU",
         "name": "Dark Blue",
         "stakePoints": 1,
         "slot": "background",
@@ -23,9 +19,7 @@
     },
     {
         "id": "3",
-        "descriptionCID": "Qmf8xK18SCeneLyZStvopG7cTBEiukijw68qfYgmfdxxGj",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/3-render.png",
-        "thumbnailCID": "QmeK9oC4fxW4m2ogg64Qf5WxeppnyTScZMncqtyeD9U6eK",
         "name": "Red",
         "stakePoints": 2,
         "slot": "background",
@@ -34,9 +28,7 @@
     },
     {
         "id": "4",
-        "descriptionCID": "QmWNgu7yisX7V4Ye1y9HGCN1BMLRJzQ7CBxutPL4RUejya",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/4-render.png",
-        "thumbnailCID": "QmTgrqNQurCrLPY1pTprTiVWY4sPrUxdfn5prvrmeJdKmB",
         "name": "Green",
         "stakePoints": 1,
         "slot": "background",
@@ -45,9 +37,7 @@
     },
     {
         "id": "5",
-        "descriptionCID": "QmdKdNRm2149s1bRbdiDrpUjiEPKsSSqKsUXYBgPk7FmPv",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/5-render.png",
-        "thumbnailCID": "QmQkD7X4ggZse6Vrnt9WLtKnZMaeWcziAQLhG6rkDU2F3n",
         "name": "Purple",
         "stakePoints": 2,
         "slot": "background",
@@ -56,9 +46,7 @@
     },
     {
         "id": "6",
-        "descriptionCID": "Qmcpr8WcfB32FvzoVGvuRgfr735bHQoq49tteb1HhhX6Na",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/6-render.png",
-        "thumbnailCID": "QmYdvgoRdm2tB83R1cuAKPnnZTigMnYh25si44ecL1FZiT",
         "name": "Shallow Waters",
         "stakePoints": 5,
         "slot": "background",
@@ -67,9 +55,7 @@
     },
     {
         "id": "7",
-        "descriptionCID": "QmcH8cAaZVxTX8uuAQsBE3uYiMFxo7iC2xoc61oKmrdGrP",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/7-render.png",
-        "thumbnailCID": "QmPNZo4QmzeUb5xydV3V9fxk31LHvWj1Tv5aJq8Att7VGn",
         "name": "Oceanic Trench",
         "stakePoints": 5,
         "slot": "background",
@@ -78,9 +64,7 @@
     },
     {
         "id": "8",
-        "descriptionCID": "QmcUNjLF3KnqLLm8ucM41Lmw4zgZvbnQmJkusupGo4NwTu",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/8-render.png",
-        "thumbnailCID": "QmSaCMXBEHNf38SnFze8Nx92MZtCXUTsDFjXUBRPomSb4M",
         "name": "Coral Reef",
         "stakePoints": 5,
         "slot": "background",
@@ -89,9 +73,7 @@
     },
     {
         "id": "9",
-        "descriptionCID": "QmYcxUe8kcz9m2RHM4PuxokdjP7hR4UhygQy2UH2qHb6PW",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/9-render.png",
-        "thumbnailCID": "QmR4seovfkLMc9Mx16kxk7mLxavnu8mxoQFzpgH4DDeWot",
         "name": "Green Gradient",
         "stakePoints": 3,
         "slot": "background",
@@ -100,9 +82,7 @@
     },
     {
         "id": "10",
-        "descriptionCID": "QmdJZSybjnw9wKzdYrQ8ikQ4Eq8BfiB8TbgR4CPys9Eu9b",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/10-render.png",
-        "thumbnailCID": "QmVi2YhcCUn5F9TSRg57ebvo2BFGnRBqBtdrLz42L58bcZ",
         "name": "Blue Gradient",
         "stakePoints": 3,
         "slot": "background",
@@ -111,9 +91,7 @@
     },
     {
         "id": "11",
-        "descriptionCID": "QmVCFst2DFXg2uLVsDggMD276uY8rAeBmCkTDN8CfZz3b8",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/11-render.png",
-        "thumbnailCID": "QmPqeDUV7d8976Xr2a6U6azHRXz5hKdkF7XwboZqgaHXee",
         "name": "Bandana",
         "stakePoints": 2,
         "slot": "beak",
@@ -122,9 +100,7 @@
     },
     {
         "id": "12",
-        "descriptionCID": "QmcTa7utKzCK6qwPKT6zi4vBmynq486XeaGJDmomrggqRN",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/12-render.png",
-        "thumbnailCID": "QmPnUJ8n1iWHDicoEcXpzwQtrGEuzEPGARqx7dLNwRHDbK",
         "name": "Bitcoin",
         "stakePoints": 3,
         "slot": "beak",
@@ -133,9 +109,7 @@
     },
     {
         "id": "13",
-        "descriptionCID": "QmW7PUPgTbk6jRicqfa3CehesFbom9LU69oQcqHy7QpMZg",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/13-render.png",
-        "thumbnailCID": "QmNpFPjm3ipVExTwrjy2o9LPuLGf9SbSSUye9uqPdcsPKa",
         "name": "Blue Meth",
         "stakePoints": 2,
         "slot": "beak",
@@ -144,9 +118,7 @@
     },
     {
         "id": "14",
-        "descriptionCID": "QmTdoKkUC9MY9dcL2QyvWRh1v4vKMVj8LBEzja8YRBNauQ",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/14-render.png",
-        "thumbnailCID": "QmdYKx8LvWe53Ggqe36L8RH6BM9LCQb1QV8J4e2arvyV35",
         "name": "Bronze",
         "stakePoints": 1,
         "slot": "beak",
@@ -155,9 +127,7 @@
     },
     {
         "id": "15",
-        "descriptionCID": "QmQTe5FhXxBLisH3zo5eNzcj4f4SrkKSLSSZvv9XNruWjY",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/15-render.png",
-        "thumbnailCID": "QmQKMaU1Q9rjoa6NQ6hcuhquDXj4DX2uyyeYKcnnVza7BA",
         "name": "Chewing Gum",
         "stakePoints": 1,
         "slot": "beak",
@@ -166,9 +136,7 @@
     },
     {
         "id": "16",
-        "descriptionCID": "QmQzFmu2foo19bYNto8rxKTf9V6FDnuuudMrcqTij89kEp",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/16-render.png",
-        "thumbnailCID": "QmckAEkwJuLv2FEvoXjpvpjtBaMxDxv2YT3CTTSYhwp2WS",
         "name": "Cigar",
         "stakePoints": 1,
         "slot": "beak",
@@ -177,9 +145,7 @@
     },
     {
         "id": "17",
-        "descriptionCID": "QmQFDnoHA3epkLvUBRLtmVPZ2Zprh64aeG1XhytKMnAxuf",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/17-render.png",
-        "thumbnailCID": "QmZfT4XyxetSP9vo6Ru9Tf3i4JgjqQgj5vRpwyZZoJ2vEa",
         "name": "Cigarette",
         "stakePoints": 1,
         "slot": "beak",
@@ -188,9 +154,7 @@
     },
     {
         "id": "19",
-        "descriptionCID": "QmbCeoeQwop1xySLM4k4R5hfkV5vTFpLB5y1pCtxuWFWqN",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/19-render.png",
-        "thumbnailCID": "QmRNp4c9gaA9bLsezBmbtfDnF2kFZG5oSt9dGdXwfFug8x",
         "name": "Yellow",
         "stakePoints": 1,
         "slot": "beak",
@@ -199,9 +163,7 @@
     },
     {
         "id": "20",
-        "descriptionCID": "QmZ9NtZ2BC5NEhWC65A81mrd1QAARryQZYi5UDSx4Koiri",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/20-render.png",
-        "thumbnailCID": "QmZaFyj13PF1BBwzLbYuQPQez6kok9EmmvEyPQ8essM2Q1",
         "name": "Dagger",
         "stakePoints": 2,
         "slot": "beak",
@@ -210,9 +172,7 @@
     },
     {
         "id": "21",
-        "descriptionCID": "QmSKgT4nEp3oqS3TZfWW3NUzgNMCL1z526bBguekJnTLk4",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/21-render.png",
-        "thumbnailCID": "QmPQFpEXX3gTrFkuVp1PGXeZY5EuFeLY4ZkMKzCxz9n6W3",
         "name": "Diamond",
         "stakePoints": 5,
         "slot": "beak",
@@ -221,9 +181,7 @@
     },
     {
         "id": "22",
-        "descriptionCID": "Qme5jo8jBPVku4nCoTd2zf5kZkTMPBWQnwr3d43PkrYbPu",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/22-render.png",
-        "thumbnailCID": "QmYRazy1rwxnq9GweVNHLXsEHnN4KFS5Mg8TnJuDp33wGF",
         "name": "Eel",
         "stakePoints": 1,
         "slot": "beak",
@@ -232,9 +190,7 @@
     },
     {
         "id": "23",
-        "descriptionCID": "QmUojLoXVe52uEPzMBcWAAkkAsj6XUT1arAD8g6L5DpasN",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/23-render.png",
-        "thumbnailCID": "QmQK5UKcM4C5RhmALt4gxRSusEArDnPbnS2V1R189S5CUW",
         "name": "EGLD Coin",
         "stakePoints": 3,
         "slot": "beak",
@@ -243,9 +199,7 @@
     },
     {
         "id": "24",
-        "descriptionCID": "QmSptoaeUxULD3MwpnAR2Gk94nYc5ZEWqvegmnpY9Un6zP",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/24-render.png",
-        "thumbnailCID": "QmRka5HgBdomtyvsVtBKuHJq69MB3Z5DytDQGWawGhwLgw",
         "name": "Flower",
         "stakePoints": 1,
         "slot": "beak",
@@ -254,9 +208,7 @@
     },
     {
         "id": "25",
-        "descriptionCID": "QmbQhph6fyWNqq3bdWV7Z2f5n2tGXXpbNY1iaQDVf9MFto",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/25-render.png",
-        "thumbnailCID": "QmRBusNvRvnMWCmVz9d278xa426ejaL8CKwHpjJj7qqvaY",
         "name": "Golden",
         "stakePoints": 3,
         "slot": "beak",
@@ -265,9 +217,7 @@
     },
     {
         "id": "26",
-        "descriptionCID": "QmcY1ypWJbjhR6SUMTbW838wudvDM13qXJFHgR2MYa9Kf5",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/26-render.png",
-        "thumbnailCID": "QmYg5GfZMcb6mZchjCKZYr9g3VMYkLt1d4imNR5he9FmmA",
         "name": "Hook",
         "stakePoints": 1,
         "slot": "beak",
@@ -276,9 +226,7 @@
     },
     {
         "id": "27",
-        "descriptionCID": "QmSTTSNRcZBTBfmPviUVvnqP1uVFRXyuiSdymiskQewDoL",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/27-render.png",
-        "thumbnailCID": "QmW4yc935XVcbM1Sf1VcC95PNPBBAHBFZHFp85LANs41XS",
         "name": "Party Horn",
         "stakePoints": 2,
         "slot": "beak",
@@ -287,9 +235,7 @@
     },
     {
         "id": "28",
-        "descriptionCID": "QmQ6Ad8R3C2T1aqCZMEzDLvqXiLdVxSKKkdr8yr1qdWQbT",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/28-render.png",
-        "thumbnailCID": "QmT2CqAWc9Q5JwGqDSXjzzv1emdpfuKbBD9ZqzW69CFKf9",
         "name": "Pipe",
         "stakePoints": 1,
         "slot": "beak",
@@ -298,9 +244,7 @@
     },
     {
         "id": "29",
-        "descriptionCID": "Qmcu5s4DmvXU7vGJiH6Vth2GyVdJAdeKSjtv6D3yqiGRTd",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/29-render.png",
-        "thumbnailCID": "QmZnLr1nLgbLm9yp6tvNav2CVmPbTNbCb9Rk2BmFF3pi1g",
         "name": "Pixel",
         "stakePoints": 5,
         "slot": "beak",
@@ -309,9 +253,7 @@
     },
     {
         "id": "30",
-        "descriptionCID": "QmUffBiNbJPiTbmnjVaztQSVJ74njw529xnxVy9JZgMfxp",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/30-render.png",
-        "thumbnailCID": "QmTf8ZXByVoqnYoqHT8Nw26vSj6x3KdadR9uVrop3kXEvB",
         "name": "Pizza",
         "stakePoints": 1,
         "slot": "beak",
@@ -320,9 +262,7 @@
     },
     {
         "id": "31",
-        "descriptionCID": "QmNjwcbH3cDETvGUw6YrT5b6XmtbyBBafmEG1LbPdNRxg3",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/31-render.png",
-        "thumbnailCID": "QmVWwpUfFT56dRNh1o4MKqKxGaoiQyusRMUd8qsCbLRdCm",
         "name": "Silver",
         "stakePoints": 2,
         "slot": "beak",
@@ -331,9 +271,7 @@
     },
     {
         "id": "32",
-        "descriptionCID": "Qmf3Xu5zsiDCVLPszKUy2qCET7ReunwBkdEmX1hpPJihZd",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/32-render.png",
-        "thumbnailCID": "QmNbeVsynnxm3cg1AKtZqxqAUSPyYrRtQimvoPfa3RPzBH",
         "name": "Straw",
         "stakePoints": 1,
         "slot": "beak",
@@ -342,9 +280,7 @@
     },
     {
         "id": "33",
-        "descriptionCID": "QmdPFsSDj88GK9kvoBspJwtHxWLxYNCFbg6xq8F3ig9nGz",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/33-render.png",
-        "thumbnailCID": "Qme11vH3YRwpUMnumbMensWphAkmfiNdkMUa6dQ1hhsgJm",
         "name": "Teeth",
         "stakePoints": 3,
         "slot": "beak",
@@ -353,9 +289,7 @@
     },
     {
         "id": "34",
-        "descriptionCID": "QmfKFf7eb6nxrcGsrKL6GnjotFmSrjN74jn7uGKsVCLLyy",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/34-render.png",
-        "thumbnailCID": "QmXi7Ze96QyJW2fjjKoS7ht7PC3Hr6e1kumkatoaZ34ita",
         "name": "Toothpick",
         "stakePoints": 2,
         "slot": "beak",
@@ -364,9 +298,7 @@
     },
     {
         "id": "39",
-        "descriptionCID": "QmfVyBKwMNcWqSS4EPGrJvp8d29bLubdZcEkLtC6fJ72Zd",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/39-render.png",
-        "thumbnailCID": "QmZvmxtbPqnXf4kwPbMbhz9xktnmwyeaCRf8gswfT1WEfH",
         "name": "Silver 42 Chain",
         "stakePoints": 2,
         "slot": "clothes",
@@ -375,9 +307,7 @@
     },
     {
         "id": "40",
-        "descriptionCID": "QmNsdYgNhJfApKL5aTpsQtQ1bNs7vfxNvrAPXtVcA9CY21",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/40-render.png",
-        "thumbnailCID": "QmbaJ4YvqSCK7BBc4mCsA8d8MVSGTC4wcNVPuBvDUCAscs",
         "name": "Chain Silver Anarchist",
         "stakePoints": 2,
         "slot": "clothes",
@@ -386,9 +316,7 @@
     },
     {
         "id": "41",
-        "descriptionCID": "QmPQUYFyMeWpW6VQVZd9VM1nzDqs2w21kXbAuyt6BPkWAU",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/41-render.png",
-        "thumbnailCID": "QmSGAhjj2YUFUk56QwTaGSUCQYyfRQxFidFmc9v9c8yoJc",
         "name": "Golden APC Logo Chain",
         "stakePoints": 3,
         "slot": "clothes",
@@ -397,9 +325,7 @@
     },
     {
         "id": "43",
-        "descriptionCID": "QmUdTY1kZB2bKivofgHmYjbMJdNLEvXnQnjot25dWu3Uo7",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/43-render.png",
-        "thumbnailCID": "QmQGThdKDRXgitd2gV5Yt7Z7HUQNpn6ocDnT3pM6Zo13cZ",
         "name": "Golden Bitcoin Chain",
         "stakePoints": 5,
         "slot": "clothes",
@@ -408,9 +334,7 @@
     },
     {
         "id": "44",
-        "descriptionCID": "QmdsCCYyzfghWEVMTZNTHT6ynd7kKn3cwaLVU7aFDx9j78",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/44-render.png",
-        "thumbnailCID": "QmccWmnVHZhLhky179k2w71CbZWkSCPQ6Jqrvr7URGrTe3",
         "name": "Silver Bitcoin Chain",
         "stakePoints": 2,
         "slot": "clothes",
@@ -419,9 +343,7 @@
     },
     {
         "id": "45",
-        "descriptionCID": "QmeaxMFVm7cBjfHSRjSNurzRTTnfv8PfGri6VovMUFDtBe",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/45-render.png",
-        "thumbnailCID": "QmQdgxQ9zteX7QXdwvSEn5Dur6dmB65YQegsgRh65uTYQ9",
         "name": "Black Panther Chain",
         "stakePoints": 2,
         "slot": "clothes",
@@ -430,9 +352,7 @@
     },
     {
         "id": "46",
-        "descriptionCID": "QmYuSeNuDk34tCF6PmcZQzxfr6kBwSWMtLmZh62VqTH21m",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/46-render.png",
-        "thumbnailCID": "QmQdWc74Dq9yXfmQ3zah2b2nDttah414XoSGGvAuQRfSDQ",
         "name": "Golden Eggs Chain",
         "stakePoints": 3,
         "slot": "clothes",
@@ -441,9 +361,7 @@
     },
     {
         "id": "47",
-        "descriptionCID": "QmVkLKJRAc2zNGtmvLDjZbSBANMXKuBixRuGohg8eQp1u5",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/47-render.png",
-        "thumbnailCID": "QmYTN8hd8naZH5D8GEqKnJujLKTfCjH7TmjQTdKvZ8bYeU",
         "name": "Silver Eggs Chain",
         "stakePoints": 1,
         "slot": "clothes",
@@ -452,9 +370,7 @@
     },
     {
         "id": "49",
-        "descriptionCID": "QmcqY8LWecuxyKcxLz13CLCg51uoiPvemRMcGsnQSLMNGj",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/49-render.png",
-        "thumbnailCID": "QmPMD3sd9pxR4s2XUJGktn9mRSEPLzoYYWa8r495jc29zf",
         "name": "Silver EGLD Coin Chain",
         "stakePoints": 2,
         "slot": "clothes",
@@ -463,9 +379,7 @@
     },
     {
         "id": "51",
-        "descriptionCID": "Qmb1QMRhMrhJjE8JJueeDiyo4ePBiFLY8RFj1YboTs7N7B",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/51-render.png",
-        "thumbnailCID": "QmQeqq9iPk1VGXzkgbt9wYfRAUZZeivkx8VfZCA5KnnSZE",
         "name": "Silver Fish Chain",
         "stakePoints": 1,
         "slot": "clothes",
@@ -474,9 +388,7 @@
     },
     {
         "id": "52",
-        "descriptionCID": "QmeKdRrwQDzvJGMNTjf7g8soDzn4Fe5nCxc9CdBk3cvCAR",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/52-render.png",
-        "thumbnailCID": "QmUH4yhhz7LcZZda4iXL2h3MiyZYWpVNsxBkHR1voou1fa",
         "name": "Silver Fish Bone Chain",
         "stakePoints": 2,
         "slot": "clothes",
@@ -485,9 +397,7 @@
     },
     {
         "id": "53",
-        "descriptionCID": "QmehszVkHr2Un8itCcLxAcBYHkzmZradqfXdRBJBXD2zCt",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/53-render.png",
-        "thumbnailCID": "QmbmuxzdG7SyExhc3GDh4UkbcrBwFpfvLfUbAPPrG7Di1S",
         "name": "Blue Flowers Chain",
         "stakePoints": 1,
         "slot": "clothes",
@@ -496,9 +406,7 @@
     },
     {
         "id": "54",
-        "descriptionCID": "Qmdcv5QpuumUCJTAwh2eFTWbUguQ1zpt4WN6LqzNBV34T5",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/54-render.png",
-        "thumbnailCID": "QmX4rcP88XRWbuUxH4L8XdcpaQPDM2LkufFpAeyDocuXog",
         "name": "Pink Flowers Chain",
         "stakePoints": 1,
         "slot": "clothes",
@@ -507,9 +415,7 @@
     },
     {
         "id": "55",
-        "descriptionCID": "QmYbBSq3zSgrTp1dNintTNMPtsHZ4KYC5HWFrR9FHEgXse",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/55-render.png",
-        "thumbnailCID": "QmcfDdMVvoH4ex4b7K5j5cemUYqHZAsUtDrnQbHCiM5aV9",
         "name": "Yellow Flowers Chain",
         "stakePoints": 1,
         "slot": "clothes",
@@ -518,9 +424,7 @@
     },
     {
         "id": "56",
-        "descriptionCID": "QmR7zKYB1nPGWxEjxfbRT9REHN4nV4CRDK41SDWQrCiTtz",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/56-render.png",
-        "thumbnailCID": "QmTMMrPJgiq3T8Uh3mvpu6XXn9a7Tw7evT1LEDfXZuR1Yg",
         "name": "Golden Chain",
         "stakePoints": 3,
         "slot": "clothes",
@@ -529,9 +433,7 @@
     },
     {
         "id": "57",
-        "descriptionCID": "QmPJuRnGhDsvahufr6QoUpm3CZSiMoh95eMY692LwTYdJZ",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/57-render.png",
-        "thumbnailCID": "QmXczD2Y3Mccqpu4yHVWoEKYsS96mrugQkhtuidwx3MHxT",
         "name": "Silver Ice Cream Chain",
         "stakePoints": 1,
         "slot": "clothes",
@@ -540,9 +442,7 @@
     },
     {
         "id": "58",
-        "descriptionCID": "Qmda91UxgADejdkzzAzML5FKSPfn24XAetPYB7Q4uPZxq4",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/58-render.png",
-        "thumbnailCID": "QmeLnES1HeeYGJVzQNPoAG4zBRnmHdybsuqeajeGC5eAzg",
         "name": "Lord of the Ring Chain",
         "stakePoints": 5,
         "slot": "clothes",
@@ -551,9 +451,7 @@
     },
     {
         "id": "59",
-        "descriptionCID": "Qmd6fnMGShtVWsQTvkqKdJ2khA8KjqRNWbhFjaLaBfJ2SP",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/59-render.png",
-        "thumbnailCID": "QmWGYe8xdgJqcQ3HhyhMwZDXD4NV26g9xR8f5sCezvmmjv",
         "name": "Pearl Chain",
         "stakePoints": 2,
         "slot": "clothes",
@@ -562,9 +460,7 @@
     },
     {
         "id": "60",
-        "descriptionCID": "QmVN1t2JbZ563whNzeZbn1monsnUirfGPZM6z4DZZxbv8d",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/60-render.png",
-        "thumbnailCID": "QmQ4xeDgFNQFpWubRA1aR6AWsaWyP4WS2zevn2YWn1sZkF",
         "name": "Golden Penguin Chain",
         "stakePoints": 3,
         "slot": "clothes",
@@ -573,9 +469,7 @@
     },
     {
         "id": "61",
-        "descriptionCID": "QmdwRbixVzypAjT2fSz5x2ZaU7WyevWCYjuMjb4fvVgNHS",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/61-render.png",
-        "thumbnailCID": "QmcAUYBgadANQPm6H8PQKdRTjUKzr55CUSXiHn3tiwyTUf",
         "name": "Silver Penguin Chain",
         "stakePoints": 1,
         "slot": "clothes",
@@ -584,9 +478,7 @@
     },
     {
         "id": "62",
-        "descriptionCID": "QmWK7sxyVuuydev3QkvVGeYwFmPQfYPDvNC3mRVL15G83q",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/62-render.png",
-        "thumbnailCID": "QmPuazEwDiNR1xLHsVHjqUkvVgkg2XVPvZgTrVogQpUvsZ",
         "name": "Plastic Bag Chain",
         "stakePoints": 2,
         "slot": "clothes",
@@ -595,9 +487,7 @@
     },
     {
         "id": "63",
-        "descriptionCID": "QmSMhpWPqcVpFFWQZtrDAS2Y93vdMY42PpYQU9GmLqDe2z",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/63-render.png",
-        "thumbnailCID": "Qmf1pSiXBLT4uYBTdDUdNcjVvwy87uH4HXoFkLc7G7sQYH",
         "name": "Plastic Packaging Chain",
         "stakePoints": 2,
         "slot": "clothes",
@@ -606,9 +496,7 @@
     },
     {
         "id": "65",
-        "descriptionCID": "QmRjTo3Np1pnTbsiR26Bj8MuQM3WAc7suB8GHbEZrrHhqt",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/65-render.png",
-        "thumbnailCID": "QmcQzjqy7LyN6EEtTG9ekBEbD3zzBYM9z3XQJ4AAfu345t",
         "name": "Silver Chain",
         "stakePoints": 1,
         "slot": "clothes",
@@ -617,9 +505,7 @@
     },
     {
         "id": "66",
-        "descriptionCID": "Qmb3yxF2rZmnUkwxPFrdXTnjnbiwQRyDdP9r1Mi8KTzhLu",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/66-render.png",
-        "thumbnailCID": "QmYCqeqvKSVGkaRKD8WxqA1UUvRUDsZsg5f3pSHFjk26JB",
         "name": "Golden Straw Chain",
         "stakePoints": 3,
         "slot": "clothes",
@@ -628,9 +514,7 @@
     },
     {
         "id": "67",
-        "descriptionCID": "QmbfykXabGfuMLBqpfg2akqaNF4pdsFg3WMApVRwPB9og3",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/67-render.png",
-        "thumbnailCID": "QmW2kVf26NoyeoA1Wpqi9rz3a6xefpDcsj4zePV17iQ5kP",
         "name": "Silver Straw Chain",
         "stakePoints": 1,
         "slot": "clothes",
@@ -639,9 +523,7 @@
     },
     {
         "id": "68",
-        "descriptionCID": "QmXmUtNGmPUoFpTpb12TesfrjkTvwABovjjF1W3y3qDxff",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/68-render.png",
-        "thumbnailCID": "QmdmzBZmRVYzCDYWcvftCf1fNmHD2Uh7vbQN9K4WydqcSn",
         "name": "Silver Weed Chain",
         "stakePoints": 1,
         "slot": "clothes",
@@ -650,9 +532,7 @@
     },
     {
         "id": "69",
-        "descriptionCID": "Qme1orVZJ1G9mbn6bmkWhWu68vFwByCG12kob6cQXSQBCq",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/69-render.png",
-        "thumbnailCID": "QmbzyXfAg5KsyVAdjFQYJHDdg8ed7idZwWbmjZnE49Acw5",
         "name": "Red Basketball Jersey",
         "stakePoints": 1,
         "slot": "clothes",
@@ -661,9 +541,7 @@
     },
     {
         "id": "70",
-        "descriptionCID": "QmNuDLHiY3n44NhQhgMfe42exoMzjH8iqysAy8cNr6vtMX",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/70-render.png",
-        "thumbnailCID": "QmSTFFj6xy2MKoGepKJVLHsaHwCBpY4dVdxhExZvzvbHjn",
         "name": "Yellow Basketball Jersey",
         "stakePoints": 1,
         "slot": "clothes",
@@ -672,9 +550,7 @@
     },
     {
         "id": "71",
-        "descriptionCID": "QmWncU3dWkJhyBW43ozueYZaPihf8dhHQVTPVnRbathdWy",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/71-render.png",
-        "thumbnailCID": "QmUBAHP5YrgPS4nPyUuBBrdMfsgVmVztLrp1d45pWrDH1F",
         "name": "Bikini",
         "stakePoints": 2,
         "slot": "clothes",
@@ -683,9 +559,7 @@
     },
     {
         "id": "72",
-        "descriptionCID": "QmfFohfDPT4y3hs16nFCy5y2RjmRsgAgDCDmkNpayT7s3p",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/72-render.png",
-        "thumbnailCID": "QmW8zibaERZ9zAJDjr8uhzgNU1BkrqdNdB6bjx1jmLrWr4",
         "name": "Bulletproof Vest",
         "stakePoints": 1,
         "slot": "clothes",
@@ -694,9 +568,7 @@
     },
     {
         "id": "73",
-        "descriptionCID": "QmSyvfcWrX183yDdzsS5T8K67i2GX95prvREto8GHafgeW",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/73-render.png",
-        "thumbnailCID": "QmZn8EAqScqDpGbr4rG637YpNWaoh7dDGYs3ftPns8T6MY",
         "name": "Bulletproof Vest With Harpoon",
         "stakePoints": 5,
         "slot": "clothes",
@@ -705,9 +577,7 @@
     },
     {
         "id": "74",
-        "descriptionCID": "QmQ9GjHU7YCTWpcpFGYR15CredSdDEvRqz3mQ9yD3Mgj6k",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/74-render.png",
-        "thumbnailCID": "QmdZ2bdrLFvQD1Jpq57Qw6AiVYgmnGTHqs54tArGXYmWHB",
         "name": "Bulletproof Vest With Bullet Holes",
         "stakePoints": 2,
         "slot": "clothes",
@@ -716,9 +586,7 @@
     },
     {
         "id": "75",
-        "descriptionCID": "QmRNXSSJhf22SUTYVmvJD6UULazCGNycFNfqdcu3YycGCY",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/75-render.png",
-        "thumbnailCID": "QmbLYupx1jYmSHPLDp82UUW6a7ZsBvvjD7hjF3oNEL9syC",
         "name": "Coat With Black Fur",
         "stakePoints": 1,
         "slot": "clothes",
@@ -727,9 +595,7 @@
     },
     {
         "id": "76",
-        "descriptionCID": "QmYqEcz1mYpmJoQrYBC9YVB9FsUUjsGpWRwD6VeVnzXWTf",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/76-render.png",
-        "thumbnailCID": "QmQLbcMPfSrGw8VYihQNbM82RxqnAdoBd1veoHZwsEWCBg",
         "name": "Coat With Blue Fur",
         "stakePoints": 2,
         "slot": "clothes",
@@ -738,9 +604,7 @@
     },
     {
         "id": "77",
-        "descriptionCID": "QmfU1W4csm8EYsCQoa9kFYQxAQr2k2RrbHW2un1DJrZRp9",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/77-render.png",
-        "thumbnailCID": "QmeoRwUajh5JaX2WLk9UjXDCxajTiBAzrnT7qhVuAQCGw4",
         "name": "Coat With Brown Fur",
         "stakePoints": 1,
         "slot": "clothes",
@@ -749,9 +613,7 @@
     },
     {
         "id": "78",
-        "descriptionCID": "QmQ9M9f1AYs6hweaAtiRgKavA214xg25EaJwSCMSZtaVRU",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/78-render.png",
-        "thumbnailCID": "QmPdb8gxv6GaMghvnm94Zmqg4TGjoLzdMBspvMKzdBFRZP",
         "name": "Coat With Red Fur",
         "stakePoints": 1,
         "slot": "clothes",
@@ -760,9 +622,7 @@
     },
     {
         "id": "79",
-        "descriptionCID": "QmNUYC3JbYGRuuduySTKX2ssZFZcL9d8WYksbAdgpkpwJM",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/79-render.png",
-        "thumbnailCID": "QmZSc5DwifPrpjLwHJy5Yczp25bhmdVVhcBQtBGVGkYUo8",
         "name": "Coat With White Fur",
         "stakePoints": 3,
         "slot": "clothes",
@@ -771,9 +631,7 @@
     },
     {
         "id": "80",
-        "descriptionCID": "QmWkteHcrfNVg2AKXbh1K1dnmKencqrQKntq2kVASAnZTF",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/80-render.png",
-        "thumbnailCID": "QmP9KAmYHNoGNuSG6x8Z3sJx6mg46g9X7fh2rTbbkeqZPH",
         "name": "Diving Suit",
         "stakePoints": 2,
         "slot": "clothes",
@@ -782,9 +640,7 @@
     },
     {
         "id": "81",
-        "descriptionCID": "QmQqrxzwnsqiYn8Voa6bYF1HLJG5UK8JwMUhpMfLEPv2pw",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/81-render.png",
-        "thumbnailCID": "QmPYVhNz2XmbKvjaUMcnneUCeDbhVHmax19q9YV84XKh9u",
         "name": "Duck Buoy",
         "stakePoints": 5,
         "slot": "clothes",
@@ -793,9 +649,7 @@
     },
     {
         "id": "82",
-        "descriptionCID": "QmQxitRFPbcmZEcdYqPVXCiMc5j9R8drD4hxrbuMQwJeXp",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/82-render.png",
-        "thumbnailCID": "QmXZCxWeLnD7DGV55V33yMaCgjfNEPcdPJHzQxCmypD3A9",
         "name": "Fisherman Vest",
         "stakePoints": 2,
         "slot": "clothes",
@@ -804,9 +658,7 @@
     },
     {
         "id": "83",
-        "descriptionCID": "QmW6etf1toW5g9CH7ybTgYXabZzSVhDqvmXiLZygU9DPfZ",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/83-render.png",
-        "thumbnailCID": "QmevuDfoKNLwdDfgFJdadqQ7jt6E1FRuM1KYLEXuUjqY7i",
         "name": "Fishing Net",
         "stakePoints": 1,
         "slot": "clothes",
@@ -815,9 +667,7 @@
     },
     {
         "id": "84",
-        "descriptionCID": "QmUZSTtDgWWpuypvzDv7HpGJtFNGdtJMDG8WvZ246G1q8H",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/84-render.png",
-        "thumbnailCID": "QmRupGBDnAsdr9RE3sbJLntiC6oKVZDwuw3WknYnqLAsTx",
         "name": "Fishing Net With Fishes",
         "stakePoints": 2,
         "slot": "clothes",
@@ -826,9 +676,7 @@
     },
     {
         "id": "85",
-        "descriptionCID": "QmVZW4egQLGVRufQKVQKHnTn6svcAUCqdciWPPi6r8hKN4",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/85-render.png",
-        "thumbnailCID": "QmTUGahXcAe5eRemVZjkEYdhsHhMLv3gJXDoVzdP9U3zja",
         "name": "Blue Hawaiian Shirt",
         "stakePoints": 1,
         "slot": "clothes",
@@ -837,9 +685,7 @@
     },
     {
         "id": "86",
-        "descriptionCID": "QmZGc6Ykx9JxemRnmAxoQ269pau4oDMfGAdfWgwex2Em12",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/86-render.png",
-        "thumbnailCID": "QmSi8sgyU2w7D4BWeSTSZYWyanMuPPnLPqVZZkZWN7pXA7",
         "name": "Red Hawaiian Shirt",
         "stakePoints": 1,
         "slot": "clothes",
@@ -848,9 +694,7 @@
     },
     {
         "id": "87",
-        "descriptionCID": "QmbpGzKTcW8evRguVjLSYCVzhBpqW3ondwNWMR7Bnokqn7",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/87-render.png",
-        "thumbnailCID": "QmRqq4LFfezg94ueWsC8onQgEhtaP2e22MeTRvwa97xzke",
         "name": "Yellow Hawaiian Shirt",
         "stakePoints": 2,
         "slot": "clothes",
@@ -859,9 +703,7 @@
     },
     {
         "id": "88",
-        "descriptionCID": "QmWjd2Fwh5yoyBRDWC1PwRBjU5a9bEhH6DwNkRMepkVWL6",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/88-render.png",
-        "thumbnailCID": "QmaRGJa3xtN1T7cJDHgc73wv6goeCvLLCGuUJyqE2jyX6M",
         "name": "Black APC Hoodie",
         "stakePoints": 1,
         "slot": "clothes",
@@ -870,9 +712,7 @@
     },
     {
         "id": "89",
-        "descriptionCID": "QmNhX5W2BGhkXSAenggNj7DktvEGNVZ7FWPAbgrnmn1zb4",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/89-render.png",
-        "thumbnailCID": "Qmadm3tSY23E5WnBfUkRx8sFYPvkA47xvAFBsREDNsLzdS",
         "name": "Black Bitcoin Hoodie",
         "stakePoints": 3,
         "slot": "clothes",
@@ -881,9 +721,7 @@
     },
     {
         "id": "91",
-        "descriptionCID": "QmdaYc2EsjEckW4JCpRXqB1E5yvdtmFMBzqqEM2eGqLvgy",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/91-render.png",
-        "thumbnailCID": "QmWkvfMbb2pUDmSbxpj9XxTJ76iQiDE3AkNiNtADVU2beu",
         "name": "Black EGLD Hoodie",
         "stakePoints": 2,
         "slot": "clothes",
@@ -892,9 +730,7 @@
     },
     {
         "id": "92",
-        "descriptionCID": "QmZXbDeXW9AHJvuPwW5AzGrY389D3mcv5gGVicTpVwy5mZ",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/92-render.png",
-        "thumbnailCID": "QmYopkCE8oaZGz2pcDHUSokDRrRVGmQvCQQUvFJciL6JP2",
         "name": "Joker Vest",
         "stakePoints": 3,
         "slot": "clothes",
@@ -903,9 +739,7 @@
     },
     {
         "id": "93",
-        "descriptionCID": "QmTFdd6sSovqn4F6CExwqj9abVLLn93T5FxSNucmRsyd3x",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/93-render.png",
-        "thumbnailCID": "QmRmUaXKgjTeNpk7DZCbcHkDL71NcqcYC1SHASx619DaxR",
         "name": "Kimono With Black Belt",
         "stakePoints": 3,
         "slot": "clothes",
@@ -914,9 +748,7 @@
     },
     {
         "id": "94",
-        "descriptionCID": "Qmb7hyh3s4pM9DFYjyK3EqVnhdvg2T5jjNhVPSgBRybMtF",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/94-render.png",
-        "thumbnailCID": "QmWxBSNz3FrPaPQsELxd7hm5hgvidcTz2wZSgVcb6QVSz8",
         "name": "Kimono With Red Belt",
         "stakePoints": 2,
         "slot": "clothes",
@@ -925,9 +757,7 @@
     },
     {
         "id": "95",
-        "descriptionCID": "QmaU2gDuj8mhkGT5SmpSP7QMYG9KwLiNMJW4fuX4Z8Rrmy",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/95-render.png",
-        "thumbnailCID": "Qmf4spvUBkWYWaS8kMxta25gh5y1Vs9aa9Bi64XMfjK9jX",
         "name": "Lifebuoy",
         "stakePoints": 2,
         "slot": "clothes",
@@ -936,9 +766,7 @@
     },
     {
         "id": "96",
-        "descriptionCID": "Qmf6sfz7dHspMp2rD9vnyDy4KQ2yA6E6GJepcVVg98e9QY",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/96-render.png",
-        "thumbnailCID": "QmR3rbMc9vZbupPWHjFWB92CkNewu9xj5ejn8fC4KVjH4C",
         "name": "Lifeguard T-shirt",
         "stakePoints": 1,
         "slot": "clothes",
@@ -947,9 +775,7 @@
     },
     {
         "id": "97",
-        "descriptionCID": "QmRGDYSekWrcyeGpAfCqvAF8hBnnSc97mkBPk7g9eiBCaC",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/97-render.png",
-        "thumbnailCID": "QmfAWEmKXJSLPCJo77YighKk5v8gBVSdpKYrXSXovkNZri",
         "name": "Red Lifejacket",
         "stakePoints": 2,
         "slot": "clothes",
@@ -958,9 +784,7 @@
     },
     {
         "id": "98",
-        "descriptionCID": "QmSZM3WggLj6f2SmcWp6Wj5CjqvtyoTrbGzQgMtp6BNjHE",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/98-render.png",
-        "thumbnailCID": "QmcFZPqhBGki7uRDsZjS19xTbpzXVyEEXLH3a8kGn3PAE1",
         "name": "Yellow Lifejacket",
         "stakePoints": 1,
         "slot": "clothes",
@@ -969,9 +793,7 @@
     },
     {
         "id": "99",
-        "descriptionCID": "Qme7fVCWkxcJnkv9ntW3SzewjiHj9Ac74NFv9xhHWFfKzS",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/99-render.png",
-        "thumbnailCID": "QmcgXjHk1BFJU7cCsdJCQSyLtMaVi2AWhPmYaFotvd6MLH",
         "name": "Black Sailor Jacket",
         "stakePoints": 1,
         "slot": "clothes",
@@ -980,9 +802,7 @@
     },
     {
         "id": "100",
-        "descriptionCID": "QmSHkfeMY6PJkfK9RHgdsTS6GCFZJG6gm5jutnkKLNJekr",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/100-render.png",
-        "thumbnailCID": "QmPiXVpnLuQ6gebRq2VfUXTs9vFcPKuzQ2nysGfyTzxfZK",
         "name": "Blue Sailor Jacket",
         "stakePoints": 2,
         "slot": "clothes",
@@ -991,9 +811,7 @@
     },
     {
         "id": "101",
-        "descriptionCID": "QmW8QvZ4icVgLkdpTwirDUCb9PM5TFazi2ZoWDmd4nTTmg",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/101-render.png",
-        "thumbnailCID": "QmQbUZ6CLp33XcWMzxYXG7q2ZKnACQbcsnoxC1FN5MiPLZ",
         "name": "Green Sailor Jacket",
         "stakePoints": 1,
         "slot": "clothes",
@@ -1002,9 +820,7 @@
     },
     {
         "id": "102",
-        "descriptionCID": "QmVcgtkb4hVpD7PqM81jX9YJgtHeeWuEeNz5Zj96D1fG95",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/102-render.png",
-        "thumbnailCID": "QmXiyBa9sXsfM1YVzQZR8QxkQAw9H5SVwoLMu3Zt79cczG",
         "name": "Red Sailor Jacket",
         "stakePoints": 1,
         "slot": "clothes",
@@ -1013,9 +829,7 @@
     },
     {
         "id": "103",
-        "descriptionCID": "QmP4pQEYfNPZHHYVgmriwqBHaa9wdfUngySGbRoiXux3GA",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/103-render.png",
-        "thumbnailCID": "QmXWyKYdsRPNdZHcEmqS2B3ytk7JWsgXDg8fYf9JQ29Eyk",
         "name": "Yellow Sailor Jacket",
         "stakePoints": 3,
         "slot": "clothes",
@@ -1024,9 +838,7 @@
     },
     {
         "id": "104",
-        "descriptionCID": "Qmamzt2YsYmNdCX4orHuwAfzAsvqmF4TFzWe6yDp1F2W5u",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/104-render.png",
-        "thumbnailCID": "Qmd3ijui88XM6Jc12MPmn13hAnDdkfFrFRGxkrPK6xmXiL",
         "name": "Black APC T-shirt",
         "stakePoints": 1,
         "slot": "clothes",
@@ -1035,9 +847,7 @@
     },
     {
         "id": "105",
-        "descriptionCID": "QmZq4ZMTCWsR9eecsPwnBXV8FW4ihgcmbUYCAYZzCYLk9C",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/105-render.png",
-        "thumbnailCID": "QmZZCTrxUA8C4GYXphFyZbvyT9D1TB72sHkHbVV3zWbrzK",
         "name": "Black Bitcoin T-shirt",
         "stakePoints": 1,
         "slot": "clothes",
@@ -1046,9 +856,7 @@
     },
     {
         "id": "106",
-        "descriptionCID": "QmaHuVdTomy1LLnxjCcVtUqGcvTjssWvs1f8qZoCc4rCmk",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/106-render.png",
-        "thumbnailCID": "QmP3YdgobCdCMPbA1Ygsk3T6yQQ3XhC2ZJCCptiru2bwiB",
         "name": "Black EGLD T-shirt",
         "stakePoints": 1,
         "slot": "clothes",
@@ -1057,9 +865,7 @@
     },
     {
         "id": "109",
-        "descriptionCID": "QmUvn6qeZwJ6kHrAmvgVVmgvdMqrwhK9x5RKn1Qwe6oKLk",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/109-render.png",
-        "thumbnailCID": "QmV59ymjyuPZUawsja6qHFLeRM6ZMWfxHotHeLTH6zrpdr",
         "name": "Bitcoin",
         "stakePoints": 5,
         "slot": "eyes",
@@ -1068,9 +874,7 @@
     },
     {
         "id": "110",
-        "descriptionCID": "QmWNrpS8YGtETzCowmbGPkVpgJsifdDqKvkHYfZgGN4KXZ",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/110-render.png",
-        "thumbnailCID": "QmaF7ApbEo4qRTWXKjKEeTdZQ3gHqyaUf6axs3msP6gNLf",
         "name": "Black",
         "stakePoints": 1,
         "slot": "eyes",
@@ -1079,9 +883,7 @@
     },
     {
         "id": "111",
-        "descriptionCID": "QmY7aSNg6gu4CtQ8VgNho7PaJ7vdiUaBhFoBa9Ubznxrv8",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/111-render.png",
-        "thumbnailCID": "QmPD8oWzmFpmJxtPy16YmHqKVJzRzP3puKXeQeqH8mfnxs",
         "name": "Blue",
         "stakePoints": 1,
         "slot": "eyes",
@@ -1090,9 +892,7 @@
     },
     {
         "id": "113",
-        "descriptionCID": "QmZFxqCgoNu7jJieds58wZw6k6ybBiMtrHsdf7pf3JVS2M",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/113-render.png",
-        "thumbnailCID": "QmXehmq8QxUdACZFKW5zNnHu1F5nyfvNq52oSRguibK9Tv",
         "name": "Crying",
         "stakePoints": 1,
         "slot": "eyes",
@@ -1101,9 +901,7 @@
     },
     {
         "id": "114",
-        "descriptionCID": "QmQyWdpFBnHD6YwVgMcNDoBmDCwvhWY8bXh4hxACpSdfNm",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/114-render.png",
-        "thumbnailCID": "QmNZvRuaA1rSopnNk2D8wsi7aqcRMLuAatnVXQE2ggFP8s",
         "name": "EGLD",
         "stakePoints": 3,
         "slot": "eyes",
@@ -1112,9 +910,7 @@
     },
     {
         "id": "115",
-        "descriptionCID": "QmbdotsJfZb7npFDyrs4RLZQwinYUPFq7quPMk52hJxfGg",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/115-render.png",
-        "thumbnailCID": "QmSkrHY8AfPqoEuj524CWSQgWGidGgQL8EBfSX8TfKfaXp",
         "name": "Glassy",
         "stakePoints": 2,
         "slot": "eyes",
@@ -1123,9 +919,7 @@
     },
     {
         "id": "116",
-        "descriptionCID": "QmRWTDgWRhF1WWf8DdMiymsedTzHBRxtJc1iJhpqBEjWcU",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/116-render.png",
-        "thumbnailCID": "QmQEoH7grb1G6q4HPajRvciQtpCeV7o2AE9u2GXU4hMHob",
         "name": "Green",
         "stakePoints": 1,
         "slot": "eyes",
@@ -1134,9 +928,7 @@
     },
     {
         "id": "118",
-        "descriptionCID": "QmPTteBEznVyNrtM7C2o5b37VEoLLrRmnxbQdCzoak4bSs",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/118-render.png",
-        "thumbnailCID": "QmYMRXyY5Z9WeRYHdNPZbDWsnPJsSYjR3X1veTRcQi9gU7",
         "name": "Green Headband",
         "stakePoints": 1,
         "slot": "eyes",
@@ -1145,9 +937,7 @@
     },
     {
         "id": "119",
-        "descriptionCID": "QmZTrUeWowmf9vNTQf6fxTJXw3nyA9icLxaTdi5dMTFe2L",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/119-render.png",
-        "thumbnailCID": "QmTpdE1e3A9eBLgHH9NCGJzoHdYMsNDMz8uiucgZAc2zjy",
         "name": "Orange Headband",
         "stakePoints": 1,
         "slot": "eyes",
@@ -1156,9 +946,7 @@
     },
     {
         "id": "120",
-        "descriptionCID": "QmTB8mDdjAXtUp1BiHhCu9ruQu21k9QGjShQ524YaGiy7D",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/120-render.png",
-        "thumbnailCID": "QmdTvJCY7UHv2hH225WG1gdBmRun8Nowtr9LBz2WiNJwr8",
         "name": "Purple Headband",
         "stakePoints": 1,
         "slot": "eyes",
@@ -1167,9 +955,7 @@
     },
     {
         "id": "121",
-        "descriptionCID": "QmWzGayyHhrQtpD6YmrWgf9SnnAy5GvhcV6UV822R2uFHT",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/121-render.png",
-        "thumbnailCID": "QmdKwGXTy4FvueKkNK9bzM3nWbMQaCefqg19gZUoKVgUsF",
         "name": "Red Headband",
         "stakePoints": 2,
         "slot": "eyes",
@@ -1178,9 +964,7 @@
     },
     {
         "id": "122",
-        "descriptionCID": "QmbLQ3RzCi2Cr48vkUJpdS9dv943tKTg3vb5AxW78mRZ9A",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/122-render.png",
-        "thumbnailCID": "QmeMBotRNGccqzuZC8N4sRok5bTBaxQQnBeqn7cCovnquN",
         "name": "Wounded",
         "stakePoints": 1,
         "slot": "eyes",
@@ -1189,9 +973,7 @@
     },
     {
         "id": "123",
-        "descriptionCID": "QmVX9kHmW2DTwdpQsTiaBVoV8iAgPMQXZQmdRVy81z6Sxw",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/123-render.png",
-        "thumbnailCID": "QmeAGt1vQaXTqyxD3YVAPH47aP1F6bLs65nsEcRQU9zhfA",
         "name": "Red",
         "stakePoints": 2,
         "slot": "eyes",
@@ -1200,9 +982,7 @@
     },
     {
         "id": "124",
-        "descriptionCID": "Qmanc22jRcQmFoztxqR5sVLHeRQevcn4GHU9VKNvJpddgi",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/124-render.png",
-        "thumbnailCID": "QmaUNTF8fTU4kKwBV8kysRec2CttgxE3UYRcx9crSeR7CP",
         "name": "Snake",
         "stakePoints": 3,
         "slot": "eyes",
@@ -1211,9 +991,7 @@
     },
     {
         "id": "125",
-        "descriptionCID": "QmY5CvNKijicBk59TY69s8SaAPuQegZkLrrTLKBMMSK73E",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/125-render.png",
-        "thumbnailCID": "QmRvJxd82W78rxf4JHcGNKDM3tmAoLfAT7Xj3pfLrL5ZU6",
         "name": "Strabismus",
         "stakePoints": 1,
         "slot": "eyes",
@@ -1222,9 +1000,7 @@
     },
     {
         "id": "126",
-        "descriptionCID": "QmXk2m6dauUpxRN3LbSG76fDwwYT6kFXyhzzPAD6GKfqhb",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/126-render.png",
-        "thumbnailCID": "QmQv3P4TRBDLLoHfs3kfjBGb8KtgcXFpSbBRr3McurwDiH",
         "name": "White",
         "stakePoints": 2,
         "slot": "eyes",
@@ -1233,9 +1009,7 @@
     },
     {
         "id": "127",
-        "descriptionCID": "QmRhyz88AR76g1hWHDjrmr4AvBetbLszvAovRkTXkPdsJA",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/127-render.png",
-        "thumbnailCID": "Qma1yNYbSfSaZv7d1YTxKMxrj9YzZWEY5zHXnSuLgy1Thx",
         "name": "Brown Algae",
         "stakePoints": 1,
         "slot": "hat",
@@ -1244,9 +1018,7 @@
     },
     {
         "id": "128",
-        "descriptionCID": "QmbwioDjxWMjFtBwZDfZyySurCxNcKELyFTfaF9Tu9i57b",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/128-render.png",
-        "thumbnailCID": "QmQV2MMRbUED92di35m3eQu2XBbLvjG9dKhN3ZaafskFaC",
         "name": "Green Algae",
         "stakePoints": 2,
         "slot": "hat",
@@ -1255,9 +1027,7 @@
     },
     {
         "id": "129",
-        "descriptionCID": "QmXTiRDwkpsDxa2mMptoDRF5YjRWTM4NzUKEKPSZ5oGTFg",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/129-render.png",
-        "thumbnailCID": "QmR31DPumY1CZauCLgYW5oQp92xggaRyUyR89akziY7uoo",
         "name": "Neon Algae",
         "stakePoints": 1,
         "slot": "hat",
@@ -1266,9 +1036,7 @@
     },
     {
         "id": "130",
-        "descriptionCID": "QmQR7S5X6eBcDKX4bSjrackFmZbcM5MdEDtsJEqQUMRcXj",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/130-render.png",
-        "thumbnailCID": "QmTt6QHv6Tm4ueD6g6dy1tGcii55urZtiAvPMf3cAGSgKe",
         "name": "Anchor",
         "stakePoints": 3,
         "slot": "hat",
@@ -1277,9 +1045,7 @@
     },
     {
         "id": "131",
-        "descriptionCID": "QmNeQoJ19AHsYRJCvYrU84MZcN5MApJF3ei85urCJMZpbQ",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/131-render.png",
-        "thumbnailCID": "QmYHMY8Yn9cS9SLmh6nw8BaybnmF58oNbeB9W1rbKVQdnb",
         "name": "Beret",
         "stakePoints": 1,
         "slot": "hat",
@@ -1288,9 +1054,7 @@
     },
     {
         "id": "132",
-        "descriptionCID": "QmPqdJWhtqhyBckTfue6hGuhkyXX181rAnwGXzqtEH2Fgf",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/132-render.png",
-        "thumbnailCID": "QmVBvDUDLhMdrqZSQcQvjpXwoj99oMpyuo9NpQM8E4yWV1",
         "name": "Horns",
         "stakePoints": 5,
         "slot": "hat",
@@ -1299,9 +1063,7 @@
     },
     {
         "id": "133",
-        "descriptionCID": "QmZL8cYER5pL7kBPU4f1QswYsYxyAKgZqPYebZgs8cN5AR",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/133-render.png",
-        "thumbnailCID": "QmYEpcKtN3epgXyaSec9ET9KMy9G1qcbPqdoWTT9NUD7BB",
         "name": "Black APC Cap",
         "stakePoints": 1,
         "slot": "hat",
@@ -1310,9 +1072,7 @@
     },
     {
         "id": "134",
-        "descriptionCID": "QmZL8cYER5pL7kBPU4f1QswYsYxyAKgZqPYebZgs8cN5AR",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/134-render.png",
-        "thumbnailCID": "Qmdmz8v912WJGq5GQMHRmmJUZMiH5JFEagxZTd5XjrNvUX",
         "name": "Blue APC Cap",
         "stakePoints": 1,
         "slot": "hat",
@@ -1321,9 +1081,7 @@
     },
     {
         "id": "135",
-        "descriptionCID": "QmZL8cYER5pL7kBPU4f1QswYsYxyAKgZqPYebZgs8cN5AR",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/135-render.png",
-        "thumbnailCID": "QmQaPU5jXtrEX1tQqz8Ri1XTPN4inDoFSq1wnhQu1skXfG",
         "name": "Red APC Cap",
         "stakePoints": 1,
         "slot": "hat",
@@ -1332,9 +1090,7 @@
     },
     {
         "id": "136",
-        "descriptionCID": "QmZL8cYER5pL7kBPU4f1QswYsYxyAKgZqPYebZgs8cN5AR",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/136-render.png",
-        "thumbnailCID": "QmcoKiGPEC1RdJo7YsXM7heBC9QcQ446KmvQpKVcXoapuh",
         "name": "White APC Cap",
         "stakePoints": 3,
         "slot": "hat",
@@ -1343,9 +1099,7 @@
     },
     {
         "id": "137",
-        "descriptionCID": "Qmaqf933zpwkaboQ8JhQgNeB1e9WD879Uejrt2GjqixFRz",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/137-render.png",
-        "thumbnailCID": "QmP6AyTwUp4NnQGjqhwnXXaSjLEME99XhTCX3eSmW4CeSA",
         "name": "Beer Tank Cap",
         "stakePoints": 2,
         "slot": "hat",
@@ -1354,9 +1108,7 @@
     },
     {
         "id": "138",
-        "descriptionCID": "Qme8EYkLfHt8LAHdNUW6oo62HyzJAGZWQYPwW5XgA3B9dV",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/138-render.png",
-        "thumbnailCID": "QmaoVZ2jnxLeHNpQ9mxzwvBU5aXEZWZXcxnosiBmgAgwY7",
         "name": "Black Bitcoin Cap",
         "stakePoints": 1,
         "slot": "hat",
@@ -1365,9 +1117,7 @@
     },
     {
         "id": "139",
-        "descriptionCID": "Qme8EYkLfHt8LAHdNUW6oo62HyzJAGZWQYPwW5XgA3B9dV",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/139-render.png",
-        "thumbnailCID": "QmdCnaXnhDKKfyp2mPG8HRPhogWeTYX8kNSN1AggtEXBtR",
         "name": "Blue Bitcoin Cap",
         "stakePoints": 1,
         "slot": "hat",
@@ -1376,9 +1126,7 @@
     },
     {
         "id": "140",
-        "descriptionCID": "QmepgxBbhTBRm7ggZV1JM2c6Yp7c7wQWEGYpr5pr73nDVz",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/140-render.png",
-        "thumbnailCID": "QmPedYjytKYzCvU1rte4YE6ya3Hrt6PEuffg6bsNBt1Dr2",
         "name": "Red Bitcoin Cap",
         "stakePoints": 1,
         "slot": "hat",
@@ -1387,9 +1135,7 @@
     },
     {
         "id": "141",
-        "descriptionCID": "Qme8EYkLfHt8LAHdNUW6oo62HyzJAGZWQYPwW5XgA3B9dV",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/141-render.png",
-        "thumbnailCID": "QmXenG5AyR8gjZJwVDfYGh814Q25kcvCcE1WoVTUTVejnk",
         "name": "White Bitcoin Cap",
         "stakePoints": 2,
         "slot": "hat",
@@ -1398,9 +1144,7 @@
     },
     {
         "id": "142",
-        "descriptionCID": "QmRQEUayf28jgZETDAMopabQ5DcsqBCD7ezXso6Gc3qB3T",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/142-render.png",
-        "thumbnailCID": "QmaqQnS8KkwLm3kGexHHSeg5972avXLeXQXdwwMwRJB3vK",
         "name": "Simple Tiara",
         "stakePoints": 3,
         "slot": "hat",
@@ -1409,9 +1153,7 @@
     },
     {
         "id": "143",
-        "descriptionCID": "QmTMXS5CArFXCEnFkXuKYYBTa3K9CkRFFyqCBHm4h1Memb",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/143-render.png",
-        "thumbnailCID": "Qmd96GMFm9UzFtwjpoQ5ZBAJYZd4KFQz3hQcJ3N9C2GFJQ",
         "name": "Blue EGLD Cap",
         "stakePoints": 1,
         "slot": "hat",
@@ -1420,9 +1162,7 @@
     },
     {
         "id": "144",
-        "descriptionCID": "QmTMXS5CArFXCEnFkXuKYYBTa3K9CkRFFyqCBHm4h1Memb",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/144-render.png",
-        "thumbnailCID": "Qme1jry7e93QUTvapQjYR6YuWVniU4h7ogq1HX4BicKeib",
         "name": "Red EGLD Cap",
         "stakePoints": 1,
         "slot": "hat",
@@ -1431,9 +1171,7 @@
     },
     {
         "id": "145",
-        "descriptionCID": "QmepgxBbhTBRm7ggZV1JM2c6Yp7c7wQWEGYpr5pr73nDVz",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/145-render.png",
-        "thumbnailCID": "Qme2PJvxLexMfpQZU2rxnsidiCby1n7YJYq656cLpcb7au",
         "name": "White EGLD Cap",
         "stakePoints": 1,
         "slot": "hat",
@@ -1442,9 +1180,7 @@
     },
     {
         "id": "146",
-        "descriptionCID": "QmdpE7SZeHiE4a9bj6Wae7sr2XneCT9iVfNMAp5n1QipSF",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/146-render.png",
-        "thumbnailCID": "QmSvLk2UUxmVfj1ztoSZ4FH4issq6QtgEZ8eEDATk8m1R9",
         "name": "Propeller Cap",
         "stakePoints": 1,
         "slot": "hat",
@@ -1453,9 +1189,7 @@
     },
     {
         "id": "147",
-        "descriptionCID": "QmSdj6FEYZ5ZSwzAZsq1pKy2Npbc67fu4McrUj76vwz5au",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/147-render.png",
-        "thumbnailCID": "QmXWgGiuJrQmny1DPuwqqGyhewK2nDz1V5MUvVyJsBy2Vd",
         "name": "Black Captain",
         "stakePoints": 3,
         "slot": "hat",
@@ -1464,9 +1198,7 @@
     },
     {
         "id": "148",
-        "descriptionCID": "QmW5LkZrSbz5ySALK3ktwajfCuNK9n8SWa1dF8KSfXnyii",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/148-render.png",
-        "thumbnailCID": "QmTzCufPq9Aem3t14YLppf1Cqqu272ghaycQBdHrjG7Qog",
         "name": "Golden Captain",
         "stakePoints": 3,
         "slot": "hat",
@@ -1475,9 +1207,7 @@
     },
     {
         "id": "149",
-        "descriptionCID": "QmSdj6FEYZ5ZSwzAZsq1pKy2Npbc67fu4McrUj76vwz5au",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/149-render.png",
-        "thumbnailCID": "QmPwfAA9goM3p5pbRpq38a7riv2BzsamEmPBPiCRG5aJgg",
         "name": "Silver Captain",
         "stakePoints": 2,
         "slot": "hat",
@@ -1486,9 +1216,7 @@
     },
     {
         "id": "150",
-        "descriptionCID": "QmRedXqPmXyvYa2KDg3qwCta6vX1FuMSRhYCzLusrgs7BZ",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/150-render.png",
-        "thumbnailCID": "QmRF5zS6nXZm1gvTgLk5U3mqhQ7nn1SgUfkTKFMSuXbQSd",
         "name": "Chapka",
         "stakePoints": 1,
         "slot": "hat",
@@ -1497,9 +1225,7 @@
     },
     {
         "id": "151",
-        "descriptionCID": "QmNV39T4kfy1mntSj8jsBjCeQLm1MTYaZhPhyFgySB8Ykz",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/151-render.png",
-        "thumbnailCID": "Qmbv63XEB8gteamXBAAat2wSJtYMkRQuK6oW9KfaGjTA7M",
         "name": "Cowboy",
         "stakePoints": 1,
         "slot": "hat",
@@ -1508,9 +1234,7 @@
     },
     {
         "id": "152",
-        "descriptionCID": "Qme1vStby54WQPAupJSkptvsHZsgGpfpq2pRK8RvfKKnxz",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/152-render.png",
-        "thumbnailCID": "QmTi2cGMTfH8e8y6i5GrJSb6ppMfqmp1i6bAUvtzSfC7fU",
         "name": "Crown",
         "stakePoints": 2,
         "slot": "hat",
@@ -1519,9 +1243,7 @@
     },
     {
         "id": "153",
-        "descriptionCID": "QmUgE124WS9RAN4po5LtY13uJqzoWFPuChQZ4sWgfarB6g",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/153-render.png",
-        "thumbnailCID": "QmcHZWYj2M9ve131evoJrAHgtYTS6dNbpBuPiz7YKc5YYk",
         "name": "APC Pirate Headscarf",
         "stakePoints": 1,
         "slot": "hat",
@@ -1530,9 +1252,7 @@
     },
     {
         "id": "154",
-        "descriptionCID": "QmVpr3yNMn3BPkFrnJjWP2oppQE8BQbcs17Xxjej6UuVaD",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/154-render.png",
-        "thumbnailCID": "QmcCSQQDct4xq2RD4X8jsN3T3q7ftdUUrfybjTU3XKijXy",
         "name": "Bitcoin Headscarf",
         "stakePoints": 3,
         "slot": "hat",
@@ -1541,9 +1261,7 @@
     },
     {
         "id": "155",
-        "descriptionCID": "QmZnZyC3fbEXCkNcoGuDBh52LRvE3Wg6bvQrFQDT1EWdUR",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/155-render.png",
-        "thumbnailCID": "QmYhToGUY6vxbpohetUgbJPj7wvAsruamV8MMTRYqpXhvA",
         "name": "EGLD Headscarf",
         "stakePoints": 1,
         "slot": "hat",
@@ -1552,9 +1270,7 @@
     },
     {
         "id": "156",
-        "descriptionCID": "QmU4RdFEPPCZYKi11MCB7nkAQy9636FG6HDme1EGu9pbT9",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/156-render.png",
-        "thumbnailCID": "QmT65Gp4DReA1kNXrCy4HijDJTh1sTkJpKNM23NKi3Nbp2",
         "name": "Heisenberg",
         "stakePoints": 2,
         "slot": "hat",
@@ -1563,9 +1279,7 @@
     },
     {
         "id": "157",
-        "descriptionCID": "QmPthfeWR4GQr35wFvXBaGf42ghfskd7djcgef4o1pyrvU",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/157-render.png",
-        "thumbnailCID": "QmYQn8hn1rYUSjFE1HeJ8q733LvnDQh9v6qmmgZ9abkiMz",
         "name": "Igloo",
         "stakePoints": 2,
         "slot": "hat",
@@ -1574,9 +1288,7 @@
     },
     {
         "id": "158",
-        "descriptionCID": "QmSN7g3TeGGsqD2d84VjZzwKgVZn2sbuEysE7tWGYZsWVT",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/158-render.png",
-        "thumbnailCID": "Qmdip2n154CbnER5Gvvft3eJkmkBWuwR1UrRj5rv7knu8U",
         "name": "Joker",
         "stakePoints": 2,
         "slot": "hat",
@@ -1585,9 +1297,7 @@
     },
     {
         "id": "159",
-        "descriptionCID": "QmbpnEEn8jDHv6wCqRpP5u7ygMReEqVERBt8mAxKt1yLjB",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/159-render.png",
-        "thumbnailCID": "QmRBPDF5qktsuV3t2jK8Ay4hj3xTK9hKtTagStDKfxSzzp",
         "name": "Golden Laurels",
         "stakePoints": 5,
         "slot": "hat",
@@ -1596,9 +1306,7 @@
     },
     {
         "id": "160",
-        "descriptionCID": "QmdmVLtfpbj5sTsCzZ4f83rthZGLXukJUb792Kx8seDi1r",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/160-render.png",
-        "thumbnailCID": "QmVm5NaYP8kcdwFRfGKiz6vGLAPKdnmLipQBvLpA34np5x",
         "name": "Nest",
         "stakePoints": 2,
         "slot": "hat",
@@ -1607,9 +1315,7 @@
     },
     {
         "id": "161",
-        "descriptionCID": "QmQ5kKyL3ziaQB2V8ieGBjhdJMrRc6aBSY2xt9jFshnhe3",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/161-render.png",
-        "thumbnailCID": "QmRvH4NWrSvDf1Xmep8eKwFzSsCuW5BczPEWpaNiChf8BE",
         "name": "Octopus",
         "stakePoints": 5,
         "slot": "hat",
@@ -1618,9 +1324,7 @@
     },
     {
         "id": "163",
-        "descriptionCID": "QmTMUWGSaKCdopmKJEh5iH8UpfexHaPouwTfMng7wAkqc6",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/163-render.png",
-        "thumbnailCID": "QmdHnZsPbC9ywh8SuSkdX2Gy9qMB9UKHm5EnRFaWht9HXZ",
         "name": "Plastic Bag",
         "stakePoints": 1,
         "slot": "hat",
@@ -1629,9 +1333,7 @@
     },
     {
         "id": "164",
-        "descriptionCID": "QmeZrxNsNmFUR1qHFrnggrqZLWufk7nPug5P1KkJZNaGRs",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/164-render.png",
-        "thumbnailCID": "QmR4mHNcFhLQFwc4iLjZsWXyHEye7JLBCp97JnuwA4MJUz",
         "name": "Punk Hair",
         "stakePoints": 2,
         "slot": "hat",
@@ -1640,9 +1342,7 @@
     },
     {
         "id": "165",
-        "descriptionCID": "QmUFgMNniLreQo12yN2jpzM9RokhCRRGpdeVvBRgGMMZDo",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/165-render.png",
-        "thumbnailCID": "QmbVDHuW6tPwu1HMfzseEiHjUXPfTN5Ev8aPYp66oCkZ2u",
         "name": "Sombrero",
         "stakePoints": 1,
         "slot": "hat",
@@ -1651,9 +1351,7 @@
     },
     {
         "id": "170",
-        "descriptionCID": "Qmbc4kphdsgVTwK2VEyKkkEutTj7H4EvmdY2BY6XQ33nnK",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/170-render.png",
-        "thumbnailCID": "QmdisrDPAcqvce3wq9BiktPws5oKaE9LrQjci3yVAK3suZ",
         "name": "Albino",
         "stakePoints": 2,
         "slot": "skin",
@@ -1662,9 +1360,7 @@
     },
     {
         "id": "172",
-        "descriptionCID": "QmerxqhQF9mr6GVB1AoLW5SCuUp5pWN4uGuScXVgCeprh7",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/172-render.png",
-        "thumbnailCID": "QmdsqCHfY2xgDnR8nMtXrpqWdB5avWUuD24HVRjRZKcf9A",
         "name": "Black",
         "stakePoints": 1,
         "slot": "skin",
@@ -1673,9 +1369,7 @@
     },
     {
         "id": "173",
-        "descriptionCID": "QmTiPvQ2y4zDyfRZ3mQf7sj87GV8GKVAcPeMGcF7sKE1Bc",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/173-render.png",
-        "thumbnailCID": "Qman5sAhfiJkKj4e2FjmqLgmV7iVmCr2iMnZ1x8pJo5aeZ",
         "name": "Bronze",
         "stakePoints": 1,
         "slot": "skin",
@@ -1684,9 +1378,7 @@
     },
     {
         "id": "174",
-        "descriptionCID": "QmbgP5r1gtjrNVTzZRHGfMDr7AKJ2LeLLYVfFwC4B5zKj9",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/174-render.png",
-        "thumbnailCID": "Qmf8XY1uKaEnjTwjUZ1y2JUD4zRGkVodrpd4d443DHkzQw",
         "name": "Crocodile",
         "stakePoints": 2,
         "slot": "skin",
@@ -1695,9 +1387,7 @@
     },
     {
         "id": "175",
-        "descriptionCID": "QmRk5NT36EFXXwqxTuyzStd9gN3ERNXCpij1SqGejAKsGj",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/175-render.png",
-        "thumbnailCID": "QmY61fhsrjcNpkSpc8JSU2Pp2e7Ck9CPUM32q46WJ274gQ",
         "name": "Diamond",
         "stakePoints": 5,
         "slot": "skin",
@@ -1706,9 +1396,7 @@
     },
     {
         "id": "176",
-        "descriptionCID": "QmNdHy8m7gpwtzH23CcVApd4n81oAdmQsC77KuanWNaHNt",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/176-render.png",
-        "thumbnailCID": "QmeSrNV8wDNY39622ow5MX2pjxBGX27g3qoRRCXbmQ7rSq",
         "name": "Dark Frozen",
         "stakePoints": 3,
         "slot": "skin",
@@ -1717,9 +1405,7 @@
     },
     {
         "id": "177",
-        "descriptionCID": "QmRHu4AwBUtYzniPUXu3mRr6EchFx2zaNURtbkG4QoToeW",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/177-render.png",
-        "thumbnailCID": "QmUapjMpZ3vYV6rePa3vVSV6zB3NVcebyC5GbdSNNnzTfZ",
         "name": "Light Frozen",
         "stakePoints": 1,
         "slot": "skin",
@@ -1728,9 +1414,7 @@
     },
     {
         "id": "178",
-        "descriptionCID": "QmUffBiNbJPiTbmnjVaztQSVJ74njw529xnxVy9JZgMfxp",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/178-render.png",
-        "thumbnailCID": "QmetRVuhKCfznX8SrxPnYnT7kQ2ddDEtGzvq41qFvw4m3R",
         "name": "Gold",
         "stakePoints": 3,
         "slot": "skin",
@@ -1739,9 +1423,7 @@
     },
     {
         "id": "179",
-        "descriptionCID": "QmThRDdSCVQ6iPNF778YZ1AkdArLz61xwdhykA2PsA2X8s",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/179-render.png",
-        "thumbnailCID": "QmP6wN4MqoSaySLAZCrdLMYSM5yELbeBDL3LNAmnbNFsnG",
         "name": "Leopard",
         "stakePoints": 1,
         "slot": "skin",
@@ -1750,9 +1432,7 @@
     },
     {
         "id": "180",
-        "descriptionCID": "QmStmyR7vaM3G7uimBprvxTmdHTTDf5y4ue7aK5Q3VKuRU",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/180-render.png",
-        "thumbnailCID": "QmPairdfpyMVCZFMgXwbTtZYhvfKUzBPuVtkPsoiWWaWN4",
         "name": "Oil Spill",
         "stakePoints": 1,
         "slot": "skin",
@@ -1761,9 +1441,7 @@
     },
     {
         "id": "182",
-        "descriptionCID": "QmRGKUpsupySZJRRPJgVtsRrFvHdeaban7k9WEg4sGEQEk",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/182-render.png",
-        "thumbnailCID": "Qmeyf195inNLPcfukYKPk6nfDSCwLFM5wNo1281EvJ4aS5",
         "name": "Parrot",
         "stakePoints": 2,
         "slot": "skin",
@@ -1772,9 +1450,7 @@
     },
     {
         "id": "183",
-        "descriptionCID": "QmThRDdSCVQ6iPNF778YZ1AkdArLz61xwdhykA2PsA2X8s",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/183-render.png",
-        "thumbnailCID": "QmVvhptwyzEF2F6YoSpHCxgFcZC3qt6vpNffrLqr8jBKG8",
         "name": "Pink",
         "stakePoints": 1,
         "slot": "skin",
@@ -1783,9 +1459,7 @@
     },
     {
         "id": "184",
-        "descriptionCID": "QmTvS452kbXALUXHtz8Apn2z9wzWcBFWhKpY3dyGaAQ7E4",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/184-render.png",
-        "thumbnailCID": "QmQ6nW9hzymwcA6ydpJTgwj8fvakpbHWX1T4gFpLDH1Pap",
         "name": "Pixel",
         "stakePoints": 5,
         "slot": "skin",
@@ -1794,9 +1468,7 @@
     },
     {
         "id": "186",
-        "descriptionCID": "QmYeQtH235AHMw1jsdUnrbyxzi9fV2V6MgxVS3KoL5t3r7",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/186-render.png",
-        "thumbnailCID": "QmW9T7yEn61424TKjhZmkKPiiJYHnvdp6vnEGTpCGokAoJ",
         "name": "Robot",
         "stakePoints": 1,
         "slot": "skin",
@@ -1805,9 +1477,7 @@
     },
     {
         "id": "187",
-        "descriptionCID": "Qma3tsJUDqFfTitCCoTKGF3onx7A59Hf4zHyeszJuDHWtW",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/187-render.png",
-        "thumbnailCID": "QmdXBbKgX78WmGqJs1TkPXpeYkBCtQEHYjkKsHjPZnYz5s",
         "name": "Silver",
         "stakePoints": 2,
         "slot": "skin",
@@ -1816,9 +1486,7 @@
     },
     {
         "id": "188",
-        "descriptionCID": "QmQqSF8BaFsBv3dVhUpUUHunCe4zt1d2xZsYpYDUCjcbci",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/188-render.png",
-        "thumbnailCID": "QmQYYZp7GjJciPNGwHKyrShvr59fS9W5FLN1KTSqN76h8f",
         "name": "Tiger",
         "stakePoints": 2,
         "slot": "skin",
@@ -1827,9 +1495,7 @@
     },
     {
         "id": "189",
-        "descriptionCID": "QmXAy7QAbkfTxGPSeixAieALGkcXwjCawx1JJznw1KyyFS",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/189-render.png",
-        "thumbnailCID": "QmYeBhEjPR9J1EpJz5WYAD3YFUFWg8g833kEww91e1M18A",
         "name": "Second Degree Burn",
         "stakePoints": 3,
         "slot": "skin",
@@ -1838,9 +1504,7 @@
     },
     {
         "id": "190",
-        "descriptionCID": "QmTaqNt2maLQwSueeZMMzzcx96BoL1umRFJJ3mBuyz7MtY",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/190-render.png",
-        "thumbnailCID": "QmV9sXrNH8FaVhivT4qioSjgy3fFBFNRFhpJazoCXkfyHp",
         "name": "Claw Marks",
         "stakePoints": 1,
         "slot": "skin",
@@ -1849,9 +1513,7 @@
     },
     {
         "id": "191",
-        "descriptionCID": "QmTgCjNE2JBhFEJ2CZN6UqsqQYZy4MT68JKSyUfCoU89KX",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/191-render.png",
-        "thumbnailCID": "QmV1Wb8UtjWEjN31xgDH7Gckag7iAXNdcLjawhJwUUPvue",
         "name": "Fighting Scars",
         "stakePoints": 2,
         "slot": "skin",
@@ -1860,9 +1522,7 @@
     },
     {
         "id": "192",
-        "descriptionCID": "QmcM5EKEbzkUnF5AhsqwHG3hua68kEMbBM7gyGFtg7MoKc",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/192-render.png",
-        "thumbnailCID": "Qmc8zuWfx6nnp2NTGShJituifZMXxAsmqQeVzft4YZqcyJ",
         "name": "Yellow Feathers",
         "stakePoints": 1,
         "slot": "skin",
@@ -1871,9 +1531,7 @@
     },
     {
         "id": "193",
-        "descriptionCID": "QmcTpeK8hFso1cPZKwtgp6dVggDSAjy3zGRkhj2WNUWY79",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/193-render.png",
-        "thumbnailCID": "QmQn8EZGbCdYgXa6E7a2p7ShVU98gku7p6wy42GS5xNCer",
         "name": "Zebra",
         "stakePoints": 1,
         "slot": "skin",
@@ -1882,9 +1540,7 @@
     },
     {
         "id": "198",
-        "descriptionCID": "QmYaUgdH5kCmNA8r1Uc6MJC6544hZgHn3LhQXumwW55JkN",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/198-render.png",
-        "thumbnailCID": "QmRv5UYxDHLgQANRkmFHX1MJgEB6y2mS1uDmiwTCZ1tZDx",
         "name": "Axe",
         "stakePoints": 1,
         "slot": "weapon",
@@ -1893,9 +1549,7 @@
     },
     {
         "id": "199",
-        "descriptionCID": "QmWm5yrCRibWDq1K6GS23bbWdCYA1GWZspbj9bLVfwQkZS",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/199-render.png",
-        "thumbnailCID": "Qmbo2DY6bDhZfh1SALi1t3t3k9GsPVhiiiskf73wfch2JH",
         "name": "Bazooka",
         "stakePoints": 2,
         "slot": "weapon",
@@ -1904,9 +1558,7 @@
     },
     {
         "id": "200",
-        "descriptionCID": "QmSxGVrQP66HoDHBUmDs9F6sxtGFYnuFEQZbRrVjzrwgW5",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/200-render.png",
-        "thumbnailCID": "QmRfjNYTRx81T8cRoWN2q6x3rDnvoU2NCGNhempewfAQUz",
         "name": "Bow",
         "stakePoints": 1,
         "slot": "weapon",
@@ -1915,9 +1567,7 @@
     },
     {
         "id": "201",
-        "descriptionCID": "QmZKueTnQ3nTgdF9VJYUxx1vDoXTmmFkP65kjJyQJ56ptX",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/201-render.png",
-        "thumbnailCID": "QmS2qfKmecmsQDS4KwpXiMEoqLSA5LDjbtoVzTjGGRW6kQ",
         "name": "Crossbow",
         "stakePoints": 1,
         "slot": "weapon",
@@ -1926,9 +1576,7 @@
     },
     {
         "id": "202",
-        "descriptionCID": "Qma1s4vhopz5RP9ANp4gBzL3gfnvsXb7Z7XVNruLQsQoUX",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/202-render.png",
-        "thumbnailCID": "QmenrrNSAkxnPy6mXqTGBnV9fxL6NrqAB2ysAYkuKgY4iM",
         "name": "Fishing Rifle",
         "stakePoints": 1,
         "slot": "weapon",
@@ -1937,9 +1585,7 @@
     },
     {
         "id": "204",
-        "descriptionCID": "Qme1733HXnTRmEdcJwKY1SJRdxCQDuMXYsy43Ac3Ytb21b",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/204-render.png",
-        "thumbnailCID": "QmRTkzxi7E6e442NQTgoWrRpRbe3LPsK3f7rPnSe5a219u",
         "name": "Flamethrower",
         "stakePoints": 3,
         "slot": "weapon",
@@ -1948,9 +1594,7 @@
     },
     {
         "id": "205",
-        "descriptionCID": "QmPjNYVko4XfqwqHkEXRzRC6QWHxw4PKhihvQYCtuHbMu6",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/205-render.png",
-        "thumbnailCID": "QmRZG4Ajc595P1vU71Vn1AYhkX7BPf7b2FB5h73GhupGbh",
         "name": "Flashlight",
         "stakePoints": 2,
         "slot": "weapon",
@@ -1959,9 +1603,7 @@
     },
     {
         "id": "206",
-        "descriptionCID": "QmXTpYcChDb2Gtsrpu5B9cDGx5cuWzFA3F618HamhYqd4p",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/206-render.png",
-        "thumbnailCID": "QmatTt2tNfqTaiVFo7h6euZm5aun9dXFfPJdM1Hue4ReP2",
         "name": "Machine Gun",
         "stakePoints": 2,
         "slot": "weapon",
@@ -1970,9 +1612,7 @@
     },
     {
         "id": "207",
-        "descriptionCID": "QmQB6NPG55kSFibELzMQR5v5ngx6XESetp6xhEZdmLEM8e",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/207-render.png",
-        "thumbnailCID": "QmPxa86k76tebnNVRSfYeV5jH2CLEu6YJbpeYBSTbViNSg",
         "name": "Oxygen Tank",
         "stakePoints": 1,
         "slot": "weapon",
@@ -1981,9 +1621,7 @@
     },
     {
         "id": "208",
-        "descriptionCID": "QmeJuz3JEdaA4ovM3CHjJn6eK2FY6RerNW5zbDisueUKsp",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/208-render.png",
-        "thumbnailCID": "QmX6GNVgeU3dUpgWdAUd31MDivHExQD28HoKEJpU2irLHe",
         "name": "Sea Shepherd Gaff",
         "stakePoints": 1,
         "slot": "weapon",
@@ -1992,9 +1630,7 @@
     },
     {
         "id": "209",
-        "descriptionCID": "QmUkc78Jw9Z48gdmEtFguXqN7C5oSBpcRaccobHTgNQoXF",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/209-render.png",
-        "thumbnailCID": "QmV4SxCUH9wHuDDmcUE5AEVZDLsTyGBdw58xqB6uingCoB",
         "name": "Snowboard",
         "stakePoints": 3,
         "slot": "weapon",
@@ -2003,9 +1639,7 @@
     },
     {
         "id": "210",
-        "descriptionCID": "QmWzQXbfGgfbhqYBB6i5ERrHy1BXvCUFGgiDvNZpT6aLmQ",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/210-render.png",
-        "thumbnailCID": "QmVHpZU8mrWKm5G92tU8T1j7KhkqUVUj8gtofGAJbZTuMy",
         "name": "Spear",
         "stakePoints": 1,
         "slot": "weapon",
@@ -2014,9 +1648,7 @@
     },
     {
         "id": "211",
-        "descriptionCID": "QmYbtxRfKvcQ5zbnf4ptsPMTWHq6w7kUvVQfYuWwAi4qQE",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/211-render.png",
-        "thumbnailCID": "QmVxAaqgb3zE9jey7mAsX2sXywzcgMrY7FqaWFnHDRV9RK",
         "name": "Ice Spear",
         "stakePoints": 5,
         "slot": "weapon",
@@ -2025,9 +1657,7 @@
     },
     {
         "id": "212",
-        "descriptionCID": "QmUxdvWS2VLXk61VGW2EVdRc1nuuLC3LXgjaN1dtTTx5MC",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/212-render.png",
-        "thumbnailCID": "QmNYZJ65HAQC8EndoDSDK4Ntfs2kKSG95cihfkrLjEcDmk",
         "name": "Surfboard",
         "stakePoints": 1,
         "slot": "weapon",
@@ -2036,9 +1666,7 @@
     },
     {
         "id": "213",
-        "descriptionCID": "QmNw7kWPeGBbkryepAXUVrSJBPj1PLZp76dL5KeZ825P4K",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/213-render.png",
-        "thumbnailCID": "QmQuCWZhwCMMG9HoNT39tvqkrMvLM4X6mtCuVgs4B4U9qQ",
         "name": "Tomahawk",
         "stakePoints": 2,
         "slot": "weapon",
@@ -2047,9 +1675,7 @@
     },
     {
         "id": "214",
-        "descriptionCID": "Qmb2rpPuccBaUke9LQkxLgCaSXxb9hioWDzZtyo6BNEPYy",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/214-render.png",
-        "thumbnailCID": "QmYV4wXFMPaFj2wvNubTSn4yoS8bZbEZpCHqbMohG5hfT8",
         "name": "Poseidon Trident",
         "stakePoints": 2,
         "slot": "weapon",
@@ -2058,9 +1684,7 @@
     },
     {
         "id": "215",
-        "descriptionCID": "QmZcJ7SFpjPz5B4YVUN4A8uk6TcewgUyt9jjQauNQMT6gf",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/215-render.png",
-        "thumbnailCID": "QmZAjJ1CM1tWtPY2RrcFQkDQPNgx8LdW9TrVQrG46hMfzJ",
         "name": "Traditional Romanian",
         "stakePoints": 2,
         "slot": "clothes",
@@ -2069,9 +1693,7 @@
     },
     {
         "id": "216",
-        "descriptionCID": "QmcoWLDv8A3E9SUaGxtcxAvhiYdPQ94REGQC9UnyYSpcBm",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/216-render.png",
-        "thumbnailCID": "QmZiCXmct8zqTSwnCSNd5FKZoUiPMudJAZS29oZmkU1DcN",
         "name": "Traditional Romanian",
         "stakePoints": 1,
         "slot": "hat",
@@ -2080,9 +1702,7 @@
     },
     {
         "id": "1001",
-        "descriptionCID": "QmYHT97wY5tSMfHzFTo46TPh8GqytFDasPAUyNTjeistt9",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1001-render.png",
-        "thumbnailCID": "QmNTcRJnEoQ4ADqpiyU8mJmvp6rZHgkTz1b2THVJhDmb15",
         "name": "Hat Bucket Bronze",
         "stakePoints": 1,
         "slot": "hat",
@@ -2092,9 +1712,7 @@
     },
     {
         "id": "1002",
-        "descriptionCID": "QmYHT97wY5tSMfHzFTo46TPh8GqytFDasPAUyNTjeistt9",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1002-render.png",
-        "thumbnailCID": "QmNYHvsT1vFR8seYSMPQEjdjmkmU1kwqZ6rsuPuygfdn9w",
         "name": "Hat Bucket Silver",
         "stakePoints": 1,
         "slot": "hat",
@@ -2104,9 +1722,7 @@
     },
     {
         "id": "1003",
-        "descriptionCID": "QmYHT97wY5tSMfHzFTo46TPh8GqytFDasPAUyNTjeistt9",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1003-render.png",
-        "thumbnailCID": "Qme9JAewLgGKMwF5DAz3e6jsht5FXDahcFcivsjULnp5tH",
         "name": "Hat Bucket Gold",
         "stakePoints": 1,
         "slot": "hat",
@@ -2116,9 +1732,7 @@
     },
     {
         "id": "1005",
-        "descriptionCID": "QmTR9BZQVdpHRYAppW49EDGczTo3zXvumrA7uYrBhFPrDB",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1005-render.png",
-        "thumbnailCID": "QmPASjGY4GpmRqdXVMzvCRctNaiTfvebmxY5Vd2YGuoTfJ",
         "name": "APCxBunnyverseHoodie",
         "stakePoints": 1,
         "slot": "clothes",
@@ -2128,9 +1742,7 @@
     },
     {
         "id": "1006",
-        "descriptionCID": "Qmf9CTAu3a34AURrnkmC8dNqtJXNrLs9zjw5Lpcjtg4RK7",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1006-render.png",
-        "thumbnailCID": "QmUsuYZhcx4va3seXJH1CB54RHyuSYXefmihFuAjiQHVJG",
         "name": "Bottle Belt",
         "stakePoints": 1,
         "slot": "clothes",
@@ -2140,11 +1752,9 @@
     },
     {
         "id": "1007",
-        "descriptionCID": "QmSHqDDWBsuA4bYrgkudETgPGA2Rdb1zbMwo7yYKmGMozE",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1007-render.png",
-        "thumbnailCID": "QmdKDNJn8zMoXqJyGz97YXuNJ3Z4dq54asQycHN5CuNa4Y",
         "name": "Tiara",
-        "stakePoints": 3,
+        "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Aquaverse Tiara",
         "supply": 1378,
@@ -2153,7 +1763,6 @@
     {
         "id": "1008",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1008-render.png",
-        "thumbnailCID": "QmRBndnipYJrKp8R3TSaQDE2UjxMwh8S7AA9t6w63mtBFN",
         "name": "Barrel Hat",
         "stakePoints": 1,
         "slot": "hat",
@@ -2163,9 +1772,7 @@
     },
     {
         "id": "1009",
-        "descriptionCID": "QmY4CsYGcUm7j4URCheUAzYLkwALSXwJKWhJWqzb848vwc",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1009-render.png",
-        "thumbnailCID": "QmaaSQhun4EPNSAZ352mRVgUYGkHG3uqhA9wLNktzMwCiX",
         "name": "Hog Homies Mask",
         "stakePoints": 1,
         "slot": "hat",
@@ -2175,9 +1782,7 @@
     },
     {
         "id": "1011",
-        "descriptionCID": "QmfX5QLekz28dkGaRYQKakfQYus7X1jvoTYDw8LdfFAND8",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1011-render.png",
-        "thumbnailCID": "QmVox2Ne3aGdPDvUHUu7bYr1hrQZPJng2PZJGpcN9xLAPw",
         "name": "Hoodie PICS",
         "stakePoints": 1,
         "slot": "clothes",
@@ -2187,9 +1792,7 @@
     },
     {
         "id": "1012",
-        "descriptionCID": "QmWPVmceaHSczzVLTvj4MmJhXyq3aX3kfuRYQgAgMK8BG6",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1012-render.png",
-        "thumbnailCID": "QmTU3fm3mbr9bipD9LE42xjLmj6i3ns7TPvUWri3XRRAuR",
         "name": "Sponge Skin",
         "stakePoints": 1,
         "slot": "skin",
@@ -2199,9 +1802,7 @@
     },
     {
         "id": "1013",
-        "descriptionCID": "QmVguwYLUN9HLvea5dHuixzy3FCMpHSR4F7zdjEfMYEkuB",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1013-render.png",
-        "thumbnailCID": "QmXDD9qtp542dcsVDqDKuHhsvLmokqUewUYvBWVAKmgRaR",
         "name": "OG Mask Gold",
         "stakePoints": 1,
         "slot": "hat",
@@ -2211,9 +1812,7 @@
     },
     {
         "id": "1014",
-        "descriptionCID": "QmVguwYLUN9HLvea5dHuixzy3FCMpHSR4F7zdjEfMYEkuB",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1014-render.png",
-        "thumbnailCID": "QmcxgtaEtt33abRTG3jeUHNkC8WMcMBaKg7riUzcpSzR1z",
         "name": "OG Mask Silver",
         "stakePoints": 1,
         "slot": "hat",
@@ -2223,9 +1822,7 @@
     },
     {
         "id": "1015",
-        "descriptionCID": "QmVguwYLUN9HLvea5dHuixzy3FCMpHSR4F7zdjEfMYEkuB",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1015-render.png",
-        "thumbnailCID": "QmRABo2jCQJNnv7n494JYhwzV7Xui9wJM1mM6MW5UUWjsV",
         "name": "OG Mask Bronze",
         "stakePoints": 1,
         "slot": "hat",
@@ -2235,9 +1832,7 @@
     },
     {
         "id": "1016",
-        "descriptionCID": "QmfKvVA5yMVNXfmiLwfRJXG6qFqdQvhk89zR7GfatAm88m",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1016-render.png",
-        "thumbnailCID": "QmRvjD8kZExhFAeUmuYyqp8MmMPeFrovnZcPTTsTaLA5iH",
         "name": "Trident",
         "stakePoints": 1,
         "slot": "weapon",
@@ -2247,9 +1842,7 @@
     },
     {
         "id": "1017",
-        "descriptionCID": "QmfWiCu6xTs3rZF7jeNFBa2Htc41R6ew45yFFW2XxTcgjo",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1017-render.png",
-        "thumbnailCID": "QmUczPrTehMtDpNN4uuSFvRW7VDtV8gCU41KzHbV4RF8SP",
         "name": "Corkscrew Beak",
         "stakePoints": 1,
         "slot": "beak",
@@ -2259,9 +1852,7 @@
     },
     {
         "id": "1018",
-        "descriptionCID": "QmWJUDVjSfGhw4RiPQoVyKD55Fw9GY4gtQnk3feCWpxjWT",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1018-render.png",
-        "thumbnailCID": "Qmd5YRJCxqHmYBPcDimXYPTJ1Kyb8u1qkU28LsniqLyW2E",
         "name": "Emperor Chain",
         "stakePoints": 2,
         "slot": "clothes",
@@ -2271,9 +1862,7 @@
     },
     {
         "id": "1019",
-        "descriptionCID": "QmWJUDVjSfGhw4RiPQoVyKD55Fw9GY4gtQnk3feCWpxjWT",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1019-render.png",
-        "thumbnailCID": "QmVLkTJTB6E4CjpanqmYcR5GsKts2nUBscbcqoSRnWRZtN",
         "name": "Prime Emperor Chain",
         "stakePoints": 3,
         "slot": "clothes",
@@ -2283,9 +1872,7 @@
     },
     {
         "id": "1020",
-        "descriptionCID": "QmbwnoFN4SVe1F3afsu51SaEjBCgpskThVWNAMN5FKqbKg",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1020-render.png",
-        "thumbnailCID": "QmcPeNW7vjPHTkLpgnS8ey91RmcTfP9tA2douXiLzwnHBn",
         "name": "Fishing Rod",
         "stakePoints": 3,
         "slot": "weapon",
@@ -2295,9 +1882,7 @@
     },
     {
         "id": "1021",
-        "descriptionCID": "QmfL4h26pVggK5LYejbSuNpHrkYXJ5NemxpvGBg1fGcTqj",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1021-render.png",
-        "thumbnailCID": "Qmeuk6DUy3rhR1JbSCraFbsuFWPX3unte8JPWWDaWPYi7M",
         "name": "APC Silver Chain",
         "stakePoints": 2,
         "slot": "clothes",
@@ -2307,9 +1892,7 @@
     },
     {
         "id": "1022",
-        "descriptionCID": "QmTyfBD1YbmuxpUvtM19n5Ee73eqo6aQHSu67KUocWsLXW",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1022-render.png",
-        "thumbnailCID": "Qme5TwYyidhiCgvR5vhrS1z5jzDeyMMqytgoGsrY9ProAu",
         "name": "EGLD Gold Chain",
         "stakePoints": 2,
         "slot": "clothes",
@@ -2319,9 +1902,7 @@
     },
     {
         "id": "1023",
-        "descriptionCID": "Qmeq7akTHumiMcP1DNvkPGYbfoJfV7QXBPU7J8faK6AsKR",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1023-render.png",
-        "thumbnailCID": "QmYpSRM8vd6DUGFNmMa8e4EGJRdDcsTTRojebNZ9qfuAJL",
         "name": "Black EGLD Cap",
         "stakePoints": 1,
         "slot": "hat",
@@ -2331,14 +1912,22 @@
     },
     {
         "id": "1024",
-        "descriptionCID": "QmPyk3p2wodivyvy7rE8HuAA9bH2YC1JrvaXrSCE19B9yU",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/1024-render.png",
-        "thumbnailCID": "Qmak489znT99ZQ2cJE29FwYUfrwqQ59JT3wNP8YzutBMB1 ",
         "name": "Skin Inverted",
         "stakePoints": 3,
         "slot": "skin",
         "attributeName": "Skin Inverted",
         "supply": 69,
         "identifier": "APCSKIN-6429c4-01"
+    },
+    {
+        "id": "2000",
+        "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/2000-render.png",
+        "name": "Happy BearMarket 2022",
+        "stakePoints": 1,
+        "slot": "clothes",
+        "attributeName": "Happy BearMarket 2022",
+        "supply": 100,
+        "identifier": "APCITEMS-65bd55-02"
     }
 ]
