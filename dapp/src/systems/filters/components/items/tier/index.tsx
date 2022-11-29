@@ -5,7 +5,6 @@ import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
 import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
 import { stakePointsToTier } from 'sdk/utils';
 import { GenericFilterProps } from 'systems/filters/popup/GenericFiltersPopup';
-import { IFilter } from 'systems/filters/types/interface';
 import style from './index.module.scss';
 
 type Props = GenericFilterProps<IItem>
