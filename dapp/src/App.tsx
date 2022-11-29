@@ -48,13 +48,13 @@ const App = () => {
 
                 <Route path={routeNames.penguinsHome} element={<PenguinsOffersListPage />}>
                   <Route index element={<Navigate to="offers" replace />} />
-                  <Route path="offers" element={<OffersList category="penguins" showFilter />} />
+                  <Route path="offers" element={<OffersList category="penguins" />} />
                   <Route path="ranks" element={<RanksList category="penguins" />} />
                 </Route>
 
                 <Route path={routeNames.itemsSlotHome} element={<CategoriesOffers category='items' />}>
                   <Route index element={<Navigate to="offers" replace />} />
-                  <Route path="offers" element={<OffersList category="items" showFilter />} />
+                  <Route path="offers" element={<OffersList category="items" />} />
                   <Route path="list" element={<ItemsList />} />
                 </Route>
 
