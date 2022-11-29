@@ -1,3 +1,5 @@
+import { IItem, IPenguin } from '@apcolony/marketplace-api';
+
 export function stakePointsToTier(stakePoints: number): string {
     switch (stakePoints) {
         case 1:
@@ -16,4 +18,9 @@ export function stakePointsToTier(stakePoints: number): string {
             console.error('Invalid stake points' + stakePoints);
             return '';
     }
+}
+
+export function getStakePointsSum(penguin: IPenguin) {
+    return Object.values(penguin.equippedItems)
+        .reduce((acc: number, item: IItem) => acc + item.stakePoints, 0);
 }

@@ -1,7 +1,8 @@
 import React from 'react';
-import { IItem, IPenguin } from '@apcolony/marketplace-api';
+import { IPenguin } from '@apcolony/marketplace-api';
 import { FormGroup, FormLabel, FormControl } from 'react-bootstrap'
 import { stakeTokenName } from 'config';
+import { getStakePointsSum } from 'sdk/utils';
 import { GenericFilterProps } from 'systems/filters/popup/GenericFiltersPopup';
 
 type Props = GenericFilterProps<IPenguin>
@@ -32,8 +33,7 @@ export const StakePointsFilter = ({
                 else {
                     return penguins.filter(penguin => {
 
-                        const penguinStakePoints = Object.values(penguin.equippedItems)
-                            .reduce((acc: number, item: IItem) => acc + item.stakePoints, 0);
+                        const penguinStakePoints = getStakePointsSum(penguin);
 
                         if (stakePoints.min && stakePoints.max) {
                             return penguinStakePoints >= stakePoints.min && penguinStakePoints <= stakePoints.max;
