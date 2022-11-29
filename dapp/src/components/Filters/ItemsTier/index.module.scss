@@ -1,0 +1,10 @@
+
+    .itemsTier {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .form {
+            padding-left: 20px;
+        }
+    }

@@ -10,14 +10,4 @@
     padding-left: $padding !important;
     padding-right: $padding !important;
     padding-top: 20px !important;
-
-    .itemsTier {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-
-        .form {
-            padding-left: 20px;
-        }
-    }
 }
