@@ -4,12 +4,12 @@ import BigNumber from 'bignumber.js';
 import { capitalize } from 'lodash';
 import { Helmet } from 'react-helmet';
 import { Link, useParams } from 'react-router-dom';
-import { ItemsFiltersPopup } from 'components/Foreground/Popup/ItemsFiltersPopup';
-import { PenguinsFiltersPopup } from 'components/Foreground/Popup/PenguinsFiltersPopup';
 import { ResponsiveElementThumbnail } from 'components/ResponsiveElementThumbnail';
 import { buildRouteLinks } from 'routes';
 import useGetOffersOfCategory from 'sdk/hooks/api/useGetOffersOfCategory';
 import CategoriesType from 'sdk/types/CategoriesType';
+import { ItemsFiltersPopup } from 'systems/filters/popup/ItemsFiltersPopup';
+import { PenguinsFiltersPopup } from 'systems/filters/popup/PenguinsFiltersPopup';
 import style from './index.module.scss';
 
 

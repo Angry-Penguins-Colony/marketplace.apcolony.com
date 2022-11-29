@@ -4,7 +4,7 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormControl, FormGroup, FormLabel } from 'react-bootstrap';
 import Button from 'components/Abstract/Button/Button';
-import Popup from '../Generic/Popup';
+import Popup from 'components/Foreground/Popup/Generic/Popup';
 import style from './index.module.scss';
 
 interface Props {

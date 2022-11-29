@@ -4,13 +4,14 @@ import { FormGroup } from 'react-bootstrap';
 import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
 import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
 import { stakePointsToTier } from 'sdk/utils';
-import { IFilter } from '../interface';
+import { IFilter } from 'systems/filters/types/interface';
 import style from './index.module.scss';
 
 interface Props {
     items: IItem[];
     onFilterUpdate: (newFilter: IFilter<IItem>) => void;
 }
+
 
 export const ItemsTier = ({
     items,
