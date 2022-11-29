@@ -1,10 +1,11 @@
 import React from 'react';
-import { IItem, Slot, slotToPlural } from '@apcolony/marketplace-api';
+import { IItem, IPenguin, Slot, slotToPlural } from '@apcolony/marketplace-api';
 import BigNumber from 'bignumber.js';
 import { capitalize } from 'lodash';
 import { Helmet } from 'react-helmet';
 import { Link, useParams } from 'react-router-dom';
 import { ItemsFiltersPopup } from 'components/Foreground/Popup/ItemsFiltersPopup';
+import { PenguinsFiltersPopup } from 'components/Foreground/Popup/PenguinsFiltersPopup';
 import { ResponsiveElementThumbnail } from 'components/ResponsiveElementThumbnail';
 import { buildRouteLinks } from 'routes';
 import useGetOffersOfCategory from 'sdk/hooks/api/useGetOffersOfCategory';
@@ -14,12 +15,12 @@ import style from './index.module.scss';
 
 interface IProps {
     category: CategoriesType;
-    showItemsFilter?: boolean;
+    showFilter?: boolean;
 }
 
 export const OffersList = ({
     category,
-    showItemsFilter = false
+    showFilter = false
 }: IProps) => {
 
     const { slot } = useParams();
@@ -38,15 +39,7 @@ export const OffersList = ({
                 <title>{capitalize(slot ? slotToPlural(slot as Slot) : category)} offers</title>
             </Helmet>
 
-            {showItemsFilter && offers &&
-                <ItemsFiltersPopup
-                    items={offers?.associatedItems as IItem[] || []}
-
-                    onFilterChanged={(filteredItems) => setVisibleItems(filteredItems)}
-                />
-            }
-
-
+            {showFilter && getFilterElement()}
 
             <div className={style.items}>
                 {getItems()}
@@ -96,4 +89,23 @@ export const OffersList = ({
         }
     }
 
+    function getFilterElement(): JSX.Element {
+        switch (category) {
+            case 'eggs':
+                throw new Error('Not implemented');
+
+            case 'penguins':
+                return <PenguinsFiltersPopup
+                    penguins={offers?.associatedItems as IPenguin[]}
+                    onFilterChanged={setVisibleItems}
+                />
+
+            case 'items':
+                return <ItemsFiltersPopup
+                    items={offers?.associatedItems as IItem[] || []}
+
+                    onFilterChanged={(filteredItems) => setVisibleItems(filteredItems)}
+                />
+        }
+    }
 }
