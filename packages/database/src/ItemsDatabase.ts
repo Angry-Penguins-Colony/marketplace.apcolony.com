@@ -1,6 +1,7 @@
 import { IItem, IPenguin } from "@apcolony/marketplace-api";
 import fs from "fs";
 import { getItemWebThumbnail, getRenderWebThumbnail, ipfsGateway } from "./uris";
+import { toIdentifier } from "./utils";
 
 export type DeployedItem = {
     id: string;
@@ -19,6 +20,8 @@ type ItemInDatabase = {
     slot: string;
     attributeName: string;
     supply?: number;
+    collection: string;
+    nonce: number;
 };
 
 export default class ItemsDatabase {
@@ -31,22 +34,16 @@ export default class ItemsDatabase {
 
     constructor(private readonly _items: IItem[]) { }
 
-    public static fromJson(parsedItems: ItemInDatabase[], deployedItems: DeployedItem[]) {
+    public static fromJson(parsedItems: ItemInDatabase[], forceIdentifier?: DeployedItem[]) {
         const items: IItem[] = parsedItems
             .filter(({ name }) => name != "Default")
-            .map(({ name, id, renderUrl, thumbnailCID, slot, supply, attributeName, stakePoints }): IItem => {
+            .map(({ name, id, renderUrl, slot, supply, attributeName, stakePoints, collection, nonce }): IItem => {
 
                 if (!id) {
                     throw new Error(`Item ${name} has no id`);
                 }
 
-                const item = deployedItems.find(i => i.id == id);
-
-                if (!item) {
-                    console.warn(`Missing id ${id} for item ${name} in deploy json.`);
-                }
-
-                return {
+                const item: IItem = {
                     id,
                     type: "items",
                     displayName: name,
@@ -56,9 +53,9 @@ export default class ItemsDatabase {
                         high: getItemWebThumbnail(id),
                         small: getItemWebThumbnail(id), // TODO: use a small thumbnail
                     },
-                    identifier: item?.identifier ?? "",
-                    collection: item?.collection ?? "",
-                    nonce: item?.nonce ?? 0,
+                    collection: collection,
+                    nonce: nonce,
+                    identifier: toIdentifier(collection, nonce),
 
                     slot,
                     description: "", // TODO:
@@ -69,6 +66,18 @@ export default class ItemsDatabase {
                     supply: supply ?? -1,
                     stakePoints: stakePoints
                 }
+
+                if (forceIdentifier) {
+                    const forcedData = forceIdentifier.find(i => i.id == id);
+
+                    if (forcedData) {
+                        item.identifier = toIdentifier(forcedData.collection, forcedData.nonce);
+                        item.collection = forcedData.collection;
+                        item.nonce = forcedData.nonce;
+                    }
+                }
+
+                return item;
             });
 
         return new ItemsDatabase(items);

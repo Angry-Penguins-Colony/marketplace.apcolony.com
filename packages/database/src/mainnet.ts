@@ -1,7 +1,6 @@
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { EggsDatabase } from "./EggsDatabase";
-import ItemsDatabase, { DeployedItem, splitCollectionAndNonce } from "./ItemsDatabase";
-import DeployMainnet from "./json/deploy.mainnet.json";
+import ItemsDatabase, { splitCollectionAndNonce } from "./ItemsDatabase";
 import Items from "./json/items.json";
 import { Config, ItemsCollections } from "./types/config";
 
@@ -9,7 +8,7 @@ import { Config, ItemsCollections } from "./types/config";
 const eggsCollection = "EGGS-502867";
 const mainnetConfig: Config = {
 
-    itemsDatabase: ItemsDatabase.fromJson(Items, toDeployedItems()),
+    itemsDatabase: ItemsDatabase.fromJson(Items),
     eggsDatabase: new EggsDatabase(eggsCollection),
 
     penguinsCollection: "APC-928458",
@@ -44,21 +43,8 @@ function getItemsIdentifiers(): ItemsCollections {
         "weapon": [],
     };
 
-    // add our own collections
-    for (const id in DeployMainnet) {
-        const item = DeployMainnet[id as keyof typeof DeployMainnet];
-        const slot = Items.find((i) => i.id === id)?.slot;
-
-        if (slot) {
-            addCollection(slot, item.collection);
-        }
-    }
-
     for (const item of Items) {
-        if (item.identifier) {
-            const { collection } = splitCollectionAndNonce(item.identifier);
-            addCollection(item.slot, collection);
-        }
+        addCollection(item.slot, item.collection);
     }
 
     return identifiers;
@@ -74,35 +60,4 @@ function getItemsIdentifiers(): ItemsCollections {
 
         identifiers[slot as keyof typeof identifiers] = currentArray;
     }
-}
-
-function toDeployedItems(): DeployedItem[] {
-
-    const deployedItems = Object.keys(DeployMainnet).map((id) => {
-        const { collection, nonce } = DeployMainnet[id as keyof typeof DeployMainnet];
-
-        return {
-            id,
-            collection,
-            nonce,
-            identifier: `${collection}-${new Nonce(nonce).hex()}`
-        };
-    });
-
-    const collabItems = Items
-        .filter(({ id }) => parseInt(id) >= 1000)
-        .map((item) => {
-            if (!item.identifier) throw new Error(`Collab item ${item.id} has no identifier`);
-
-            const { collection, nonce } = splitCollectionAndNonce(item.identifier);
-
-            return {
-                id: item.id,
-                collection,
-                nonce,
-                identifier: item.identifier,
-            };
-        });
-
-    return [...deployedItems, ...collabItems];
 }

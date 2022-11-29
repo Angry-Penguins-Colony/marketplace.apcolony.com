@@ -6,7 +6,9 @@
         "stakePoints": 1,
         "slot": "background",
         "attributeName": "Turquoise",
-        "supply": 1182
+        "supply": 1182,
+        "collection": "APCBG-8ebc86",
+        "nonce": 1
     },
     {
         "id": "2",
@@ -15,7 +17,9 @@
         "stakePoints": 1,
         "slot": "background",
         "attributeName": "Dark Blue",
-        "supply": 1056
+        "supply": 1056,
+        "collection": "APCBG-8ebc86",
+        "nonce": 2
     },
     {
         "id": "3",
@@ -24,7 +28,9 @@
         "stakePoints": 2,
         "slot": "background",
         "attributeName": "Red",
-        "supply": 561
+        "supply": 561,
+        "collection": "APCBG-8ebc86",
+        "nonce": 3
     },
     {
         "id": "4",
@@ -33,7 +39,9 @@
         "stakePoints": 1,
         "slot": "background",
         "attributeName": "Green",
-        "supply": 1078
+        "supply": 1078,
+        "collection": "APCBG-8ebc86",
+        "nonce": 4
     },
     {
         "id": "5",
@@ -42,7 +50,9 @@
         "stakePoints": 2,
         "slot": "background",
         "attributeName": "Purple",
-        "supply": 550
+        "supply": 550,
+        "collection": "APCBG-8ebc86",
+        "nonce": 5
     },
     {
         "id": "6",
@@ -51,7 +61,9 @@
         "stakePoints": 5,
         "slot": "background",
         "attributeName": "Shallow Waters",
-        "supply": 136
+        "supply": 136,
+        "collection": "APCBG-8ebc86",
+        "nonce": 6
     },
     {
         "id": "7",
@@ -60,7 +72,9 @@
         "stakePoints": 5,
         "slot": "background",
         "attributeName": "Oceanic Trench",
-        "supply": 145
+        "supply": 145,
+        "collection": "APCBG-8ebc86",
+        "nonce": 7
     },
     {
         "id": "8",
@@ -69,7 +83,9 @@
         "stakePoints": 5,
         "slot": "background",
         "attributeName": "Coral Reef",
-        "supply": 108
+        "supply": 108,
+        "collection": "APCBG-8ebc86",
+        "nonce": 8
     },
     {
         "id": "9",
@@ -78,7 +94,9 @@
         "stakePoints": 3,
         "slot": "background",
         "attributeName": "Green Gradient",
-        "supply": 371
+        "supply": 371,
+        "collection": "APCBG-8ebc86",
+        "nonce": 9
     },
     {
         "id": "10",
@@ -87,7 +105,9 @@
         "stakePoints": 3,
         "slot": "background",
         "attributeName": "Blue Gradient",
-        "supply": 368
+        "supply": 368,
+        "collection": "APCBG-8ebc86",
+        "nonce": 10
     },
     {
         "id": "11",
@@ -96,7 +116,9 @@
         "stakePoints": 2,
         "slot": "beak",
         "attributeName": "Bandana",
-        "supply": 83
+        "supply": 83,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 1
     },
     {
         "id": "12",
@@ -105,7 +127,9 @@
         "stakePoints": 3,
         "slot": "beak",
         "attributeName": "Bitcoin",
-        "supply": 5
+        "supply": 5,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 2
     },
     {
         "id": "13",
@@ -114,7 +138,9 @@
         "stakePoints": 2,
         "slot": "beak",
         "attributeName": "Blue Meth",
-        "supply": 98
+        "supply": 98,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 3
     },
     {
         "id": "14",
@@ -123,7 +149,9 @@
         "stakePoints": 1,
         "slot": "beak",
         "attributeName": "Bronze",
-        "supply": 228
+        "supply": 228,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 4
     },
     {
         "id": "15",
@@ -132,7 +160,9 @@
         "stakePoints": 1,
         "slot": "beak",
         "attributeName": "Chewing Gum",
-        "supply": 189
+        "supply": 189,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 5
     },
     {
         "id": "16",
@@ -141,7 +171,9 @@
         "stakePoints": 1,
         "slot": "beak",
         "attributeName": "Cigar",
-        "supply": 134
+        "supply": 134,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 6
     },
     {
         "id": "17",
@@ -150,7 +182,9 @@
         "stakePoints": 1,
         "slot": "beak",
         "attributeName": "Cigarette",
-        "supply": 241
+        "supply": 241,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 7
     },
     {
         "id": "19",
@@ -159,7 +193,9 @@
         "stakePoints": 1,
         "slot": "beak",
         "attributeName": "Yellow",
-        "supply": 651
+        "supply": 651,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 8
     },
     {
         "id": "20",
@@ -168,7 +204,9 @@
         "stakePoints": 2,
         "slot": "beak",
         "attributeName": "Dagger",
-        "supply": 103
+        "supply": 103,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 9
     },
     {
         "id": "21",
@@ -177,7 +215,9 @@
         "stakePoints": 5,
         "slot": "beak",
         "attributeName": "Diamond",
-        "supply": 2
+        "supply": 2,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 10
     },
     {
         "id": "22",
@@ -186,7 +226,9 @@
         "stakePoints": 1,
         "slot": "beak",
         "attributeName": "Eel",
-        "supply": 113
+        "supply": 113,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 11
     },
     {
         "id": "23",
@@ -195,7 +237,9 @@
         "stakePoints": 3,
         "slot": "beak",
         "attributeName": "EGLD Coin",
-        "supply": 44
+        "supply": 44,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 12
     },
     {
         "id": "24",
@@ -204,7 +248,9 @@
         "stakePoints": 1,
         "slot": "beak",
         "attributeName": "Flower",
-        "supply": 173
+        "supply": 173,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 13
     },
     {
         "id": "25",
@@ -213,7 +259,9 @@
         "stakePoints": 3,
         "slot": "beak",
         "attributeName": "Golden",
-        "supply": 53
+        "supply": 53,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 14
     },
     {
         "id": "26",
@@ -222,7 +270,9 @@
         "stakePoints": 1,
         "slot": "beak",
         "attributeName": "Hook",
-        "supply": 322
+        "supply": 322,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 15
     },
     {
         "id": "27",
@@ -231,7 +281,9 @@
         "stakePoints": 2,
         "slot": "beak",
         "attributeName": "Party Horn",
-        "supply": 116
+        "supply": 116,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 16
     },
     {
         "id": "28",
@@ -240,7 +292,9 @@
         "stakePoints": 1,
         "slot": "beak",
         "attributeName": "Pipe",
-        "supply": 202
+        "supply": 202,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 17
     },
     {
         "id": "29",
@@ -249,7 +303,9 @@
         "stakePoints": 5,
         "slot": "beak",
         "attributeName": "Pixel",
-        "supply": 1
+        "supply": 1,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 18
     },
     {
         "id": "30",
@@ -258,7 +314,9 @@
         "stakePoints": 1,
         "slot": "beak",
         "attributeName": "Pizza",
-        "supply": 168
+        "supply": 168,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 19
     },
     {
         "id": "31",
@@ -267,7 +325,9 @@
         "stakePoints": 2,
         "slot": "beak",
         "attributeName": "Silver",
-        "supply": 89
+        "supply": 89,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 20
     },
     {
         "id": "32",
@@ -276,7 +336,9 @@
         "stakePoints": 1,
         "slot": "beak",
         "attributeName": "Straw",
-        "supply": 247
+        "supply": 247,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 21
     },
     {
         "id": "33",
@@ -285,7 +347,9 @@
         "stakePoints": 3,
         "slot": "beak",
         "attributeName": "Teeth",
-        "supply": 34
+        "supply": 34,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 22
     },
     {
         "id": "34",
@@ -294,7 +358,9 @@
         "stakePoints": 2,
         "slot": "beak",
         "attributeName": "Toothpick",
-        "supply": 92
+        "supply": 92,
+        "collection": "APCBEAK-85a9cd",
+        "nonce": 23
     },
     {
         "id": "39",
@@ -303,7 +369,9 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Silver 42 Chain",
-        "supply": 16
+        "supply": 16,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 1
     },
     {
         "id": "40",
@@ -312,7 +380,9 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Chain Silver Anarchist",
-        "supply": 35
+        "supply": 35,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 2
     },
     {
         "id": "41",
@@ -321,7 +391,9 @@
         "stakePoints": 3,
         "slot": "clothes",
         "attributeName": "Golden APC Logo Chain",
-        "supply": 8
+        "supply": 8,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 3
     },
     {
         "id": "43",
@@ -330,7 +402,9 @@
         "stakePoints": 5,
         "slot": "clothes",
         "attributeName": "Golden Bitcoin Chain",
-        "supply": 6
+        "supply": 6,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 4
     },
     {
         "id": "44",
@@ -339,7 +413,9 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Silver Bitcoin Chain",
-        "supply": 21
+        "supply": 21,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 5
     },
     {
         "id": "45",
@@ -348,7 +424,9 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Black Panther Chain",
-        "supply": 37
+        "supply": 37,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 6
     },
     {
         "id": "46",
@@ -357,7 +435,9 @@
         "stakePoints": 3,
         "slot": "clothes",
         "attributeName": "Golden Eggs Chain",
-        "supply": 10
+        "supply": 10,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 7
     },
     {
         "id": "47",
@@ -366,7 +446,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Silver Eggs Chain",
-        "supply": 64
+        "supply": 64,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 8
     },
     {
         "id": "49",
@@ -375,7 +457,9 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Silver EGLD Chain",
-        "supply": 25
+        "supply": 25,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 9
     },
     {
         "id": "51",
@@ -384,7 +468,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Silver Fish Chain",
-        "supply": 65
+        "supply": 65,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 10
     },
     {
         "id": "52",
@@ -393,7 +479,9 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Silver Fish Bone Chain",
-        "supply": 32
+        "supply": 32,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 11
     },
     {
         "id": "53",
@@ -402,7 +490,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Blue Flowers Chain",
-        "supply": 84
+        "supply": 84,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 12
     },
     {
         "id": "54",
@@ -411,7 +501,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Pink Flowers Chain",
-        "supply": 65
+        "supply": 65,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 13
     },
     {
         "id": "55",
@@ -420,7 +512,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Yellow Flowers Chain",
-        "supply": 58
+        "supply": 58,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 14
     },
     {
         "id": "56",
@@ -429,7 +523,9 @@
         "stakePoints": 3,
         "slot": "clothes",
         "attributeName": "Golden Chain",
-        "supply": 12
+        "supply": 12,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 15
     },
     {
         "id": "57",
@@ -438,7 +534,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Silver Ice Cream Chain",
-        "supply": 49
+        "supply": 49,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 16
     },
     {
         "id": "58",
@@ -447,7 +545,9 @@
         "stakePoints": 5,
         "slot": "clothes",
         "attributeName": "Lord of the Ring Chain",
-        "supply": 2
+        "supply": 2,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 17
     },
     {
         "id": "59",
@@ -456,7 +556,9 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Pearl Chain",
-        "supply": 17
+        "supply": 17,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 18
     },
     {
         "id": "60",
@@ -465,7 +567,9 @@
         "stakePoints": 3,
         "slot": "clothes",
         "attributeName": "Golden Penguin Chain",
-        "supply": 8
+        "supply": 8,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 19
     },
     {
         "id": "61",
@@ -474,7 +578,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Silver Penguin Chain",
-        "supply": 51
+        "supply": 51,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 20
     },
     {
         "id": "62",
@@ -483,7 +589,9 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Plastic Bag Chain",
-        "supply": 36
+        "supply": 36,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 21
     },
     {
         "id": "63",
@@ -492,7 +600,9 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Plastic Packaging Chain",
-        "supply": 37
+        "supply": 37,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 22
     },
     {
         "id": "65",
@@ -501,7 +611,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Silver Chain",
-        "supply": 114
+        "supply": 114,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 23
     },
     {
         "id": "66",
@@ -510,7 +622,9 @@
         "stakePoints": 3,
         "slot": "clothes",
         "attributeName": "Golden Straw Chain",
-        "supply": 10
+        "supply": 10,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 24
     },
     {
         "id": "67",
@@ -519,7 +633,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Silver Straw Chain",
-        "supply": 65
+        "supply": 65,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 25
     },
     {
         "id": "68",
@@ -528,7 +644,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Silver Weed Chain",
-        "supply": 55
+        "supply": 55,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 26
     },
     {
         "id": "69",
@@ -537,7 +655,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Red Basketball Jersey",
-        "supply": 77
+        "supply": 77,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 27
     },
     {
         "id": "70",
@@ -546,7 +666,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Yellow Basketball Jersey",
-        "supply": 80
+        "supply": 80,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 28
     },
     {
         "id": "71",
@@ -555,7 +677,9 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Bikini",
-        "supply": 29
+        "supply": 29,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 29
     },
     {
         "id": "72",
@@ -564,7 +688,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Bulletproof Vest",
-        "supply": 61
+        "supply": 61,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 30
     },
     {
         "id": "73",
@@ -573,7 +699,9 @@
         "stakePoints": 5,
         "slot": "clothes",
         "attributeName": "Bulletproof Vest With Harpoon",
-        "supply": 8
+        "supply": 8,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 31
     },
     {
         "id": "74",
@@ -582,7 +710,9 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Bulletproof Vest With Bullet Holes",
-        "supply": 53
+        "supply": 53,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 32
     },
     {
         "id": "75",
@@ -591,7 +721,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Coat With Black Fur",
-        "supply": 151
+        "supply": 151,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 33
     },
     {
         "id": "76",
@@ -600,7 +732,9 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Coat with Blue Fur",
-        "supply": 35
+        "supply": 35,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 34
     },
     {
         "id": "77",
@@ -609,7 +743,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Coat With Brown Fur",
-        "supply": 110
+        "supply": 110,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 35
     },
     {
         "id": "78",
@@ -618,7 +754,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Coat With Red Fur",
-        "supply": 92
+        "supply": 92,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 36
     },
     {
         "id": "79",
@@ -627,7 +765,9 @@
         "stakePoints": 3,
         "slot": "clothes",
         "attributeName": "Coat with White Fur",
-        "supply": 19
+        "supply": 19,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 37
     },
     {
         "id": "80",
@@ -636,7 +776,9 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Diving Suit",
-        "supply": 46
+        "supply": 46,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 38
     },
     {
         "id": "81",
@@ -645,7 +787,9 @@
         "stakePoints": 5,
         "slot": "clothes",
         "attributeName": "Duck Buoy",
-        "supply": 9
+        "supply": 9,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 39
     },
     {
         "id": "82",
@@ -654,7 +798,9 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Fisherman Vest",
-        "supply": 29
+        "supply": 29,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 40
     },
     {
         "id": "83",
@@ -663,7 +809,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Fishing Net",
-        "supply": 100
+        "supply": 100,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 41
     },
     {
         "id": "84",
@@ -672,7 +820,9 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Fishing Net With Fishes",
-        "supply": 38
+        "supply": 38,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 42
     },
     {
         "id": "85",
@@ -681,7 +831,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Blue Hawaiian Shirt",
-        "supply": 140
+        "supply": 140,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 43
     },
     {
         "id": "86",
@@ -690,7 +842,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Red Hawaiian Shirt",
-        "supply": 66
+        "supply": 66,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 44
     },
     {
         "id": "87",
@@ -699,7 +853,9 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Yellow Hawaiian Shirt",
-        "supply": 46
+        "supply": 46,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 45
     },
     {
         "id": "88",
@@ -708,7 +864,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Black APC Hoodie",
-        "supply": 114
+        "supply": 114,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 46
     },
     {
         "id": "89",
@@ -717,7 +875,9 @@
         "stakePoints": 3,
         "slot": "clothes",
         "attributeName": "Black Bitcoin Hoodie",
-        "supply": 21
+        "supply": 21,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 47
     },
     {
         "id": "91",
@@ -726,7 +886,9 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Black EGLD Hoodie",
-        "supply": 40
+        "supply": 40,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 48
     },
     {
         "id": "92",
@@ -735,7 +897,9 @@
         "stakePoints": 3,
         "slot": "clothes",
         "attributeName": "Joker Vest",
-        "supply": 20
+        "supply": 20,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 49
     },
     {
         "id": "93",
@@ -744,7 +908,9 @@
         "stakePoints": 3,
         "slot": "clothes",
         "attributeName": "Kimono With Black Belt",
-        "supply": 19
+        "supply": 19,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 50
     },
     {
         "id": "94",
@@ -753,7 +919,9 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Kimono With Red Belt",
-        "supply": 51
+        "supply": 51,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 51
     },
     {
         "id": "95",
@@ -762,7 +930,9 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Lifebuoy",
-        "supply": 58
+        "supply": 58,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 52
     },
     {
         "id": "96",
@@ -771,7 +941,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Lifeguard T-shirt",
-        "supply": 109
+        "supply": 109,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 53
     },
     {
         "id": "97",
@@ -780,7 +952,9 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Red Lifejacket",
-        "supply": 56
+        "supply": 56,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 54
     },
     {
         "id": "98",
@@ -789,7 +963,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Yellow Lifejacket",
-        "supply": 65
+        "supply": 65,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 55
     },
     {
         "id": "99",
@@ -798,7 +974,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Black Sailor Jacket",
-        "supply": 100
+        "supply": 100,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 56
     },
     {
         "id": "100",
@@ -807,7 +985,9 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Blue Sailor Jacket",
-        "supply": 52
+        "supply": 52,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 57
     },
     {
         "id": "101",
@@ -816,7 +996,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Green Sailor Jacket",
-        "supply": 52
+        "supply": 52,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 58
     },
     {
         "id": "102",
@@ -825,7 +1007,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Red Sailor Jacket",
-        "supply": 55
+        "supply": 55,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 59
     },
     {
         "id": "103",
@@ -834,7 +1018,9 @@
         "stakePoints": 3,
         "slot": "clothes",
         "attributeName": "Yellow Sailor Jacket",
-        "supply": 16
+        "supply": 16,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 60
     },
     {
         "id": "104",
@@ -843,7 +1029,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Black APC T-shirt",
-        "supply": 174
+        "supply": 174,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 61
     },
     {
         "id": "105",
@@ -852,7 +1040,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Black Bitcoin T-shirt",
-        "supply": 93
+        "supply": 93,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 62
     },
     {
         "id": "106",
@@ -861,7 +1051,9 @@
         "stakePoints": 1,
         "slot": "clothes",
         "attributeName": "Black EGLD T-shirt",
-        "supply": 83
+        "supply": 83,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 63
     },
     {
         "id": "109",
@@ -870,7 +1062,9 @@
         "stakePoints": 5,
         "slot": "eyes",
         "attributeName": "Bitcoin",
-        "supply": 6
+        "supply": 6,
+        "collection": "APCEYES-3ab167",
+        "nonce": 1
     },
     {
         "id": "110",
@@ -879,7 +1073,9 @@
         "stakePoints": 1,
         "slot": "eyes",
         "attributeName": "Black",
-        "supply": 259
+        "supply": 259,
+        "collection": "APCEYES-3ab167",
+        "nonce": 2
     },
     {
         "id": "111",
@@ -888,7 +1084,9 @@
         "stakePoints": 1,
         "slot": "eyes",
         "attributeName": "Blue",
-        "supply": 362
+        "supply": 362,
+        "collection": "APCEYES-3ab167",
+        "nonce": 3
     },
     {
         "id": "113",
@@ -897,7 +1095,9 @@
         "stakePoints": 1,
         "slot": "eyes",
         "attributeName": "Crying",
-        "supply": 423
+        "supply": 423,
+        "collection": "APCEYES-3ab167",
+        "nonce": 4
     },
     {
         "id": "114",
@@ -906,7 +1106,9 @@
         "stakePoints": 3,
         "slot": "eyes",
         "attributeName": "EGLD",
-        "supply": 85
+        "supply": 85,
+        "collection": "APCEYES-3ab167",
+        "nonce": 5
     },
     {
         "id": "115",
@@ -915,7 +1117,9 @@
         "stakePoints": 2,
         "slot": "eyes",
         "attributeName": "Glassy",
-        "supply": 109
+        "supply": 109,
+        "collection": "APCEYES-3ab167",
+        "nonce": 6
     },
     {
         "id": "116",
@@ -924,7 +1128,9 @@
         "stakePoints": 1,
         "slot": "eyes",
         "attributeName": "Green",
-        "supply": 325
+        "supply": 325,
+        "collection": "APCEYES-3ab167",
+        "nonce": 7
     },
     {
         "id": "118",
@@ -933,7 +1139,9 @@
         "stakePoints": 1,
         "slot": "eyes",
         "attributeName": "Green Headband",
-        "supply": 270
+        "supply": 270,
+        "collection": "APCEYES-3ab167",
+        "nonce": 8
     },
     {
         "id": "119",
@@ -942,7 +1150,9 @@
         "stakePoints": 1,
         "slot": "eyes",
         "attributeName": "Orange Headband",
-        "supply": 207
+        "supply": 207,
+        "collection": "APCEYES-3ab167",
+        "nonce": 9
     },
     {
         "id": "120",
@@ -951,7 +1161,9 @@
         "stakePoints": 1,
         "slot": "eyes",
         "attributeName": "Purple Headband",
-        "supply": 223
+        "supply": 223,
+        "collection": "APCEYES-3ab167",
+        "nonce": 10
     },
     {
         "id": "121",
@@ -960,7 +1172,9 @@
         "stakePoints": 2,
         "slot": "eyes",
         "attributeName": "Red Headband",
-        "supply": 93
+        "supply": 93,
+        "collection": "APCEYES-3ab167",
+        "nonce": 11
     },
     {
         "id": "122",
@@ -969,7 +1183,9 @@
         "stakePoints": 1,
         "slot": "eyes",
         "attributeName": "Wounded",
-        "supply": 472
+        "supply": 472,
+        "collection": "APCEYES-3ab167",
+        "nonce": 12
     },
     {
         "id": "123",
@@ -978,7 +1194,9 @@
         "stakePoints": 2,
         "slot": "eyes",
         "attributeName": "Red",
-        "supply": 135
+        "supply": 135,
+        "collection": "APCEYES-3ab167",
+        "nonce": 13
     },
     {
         "id": "124",
@@ -987,7 +1205,9 @@
         "stakePoints": 3,
         "slot": "eyes",
         "attributeName": "Snake",
-        "supply": 58
+        "supply": 58,
+        "collection": "APCEYES-3ab167",
+        "nonce": 14
     },
     {
         "id": "125",
@@ -996,7 +1216,9 @@
         "stakePoints": 1,
         "slot": "eyes",
         "attributeName": "Strabismus",
-        "supply": 262
+        "supply": 262,
+        "collection": "APCEYES-3ab167",
+        "nonce": 15
     },
     {
         "id": "126",
@@ -1005,7 +1227,9 @@
         "stakePoints": 2,
         "slot": "eyes",
         "attributeName": "White",
-        "supply": 187
+        "supply": 187,
+        "collection": "APCEYES-3ab167",
+        "nonce": 16
     },
     {
         "id": "127",
@@ -1014,7 +1238,9 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Brown Algae",
-        "supply": 98
+        "supply": 98,
+        "collection": "APCHAT-109c14",
+        "nonce": 3
     },
     {
         "id": "128",
@@ -1023,7 +1249,9 @@
         "stakePoints": 2,
         "slot": "hat",
         "attributeName": "Green Algae",
-        "supply": 94
+        "supply": 94,
+        "collection": "APCHAT-109c14",
+        "nonce": 4
     },
     {
         "id": "129",
@@ -1032,7 +1260,9 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Neon Algae",
-        "supply": 227
+        "supply": 227,
+        "collection": "APCHAT-109c14",
+        "nonce": 5
     },
     {
         "id": "130",
@@ -1041,7 +1271,9 @@
         "stakePoints": 3,
         "slot": "hat",
         "attributeName": "Anchor",
-        "supply": 28
+        "supply": 28,
+        "collection": "APCHAT-109c14",
+        "nonce": 6
     },
     {
         "id": "131",
@@ -1050,7 +1282,9 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Beret",
-        "supply": 119
+        "supply": 119,
+        "collection": "APCHAT-109c14",
+        "nonce": 7
     },
     {
         "id": "132",
@@ -1059,7 +1293,9 @@
         "stakePoints": 5,
         "slot": "hat",
         "attributeName": "Horns",
-        "supply": 28
+        "supply": 28,
+        "collection": "APCHAT-109c14",
+        "nonce": 8
     },
     {
         "id": "133",
@@ -1068,7 +1304,9 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Black APC Cap",
-        "supply": 125
+        "supply": 125,
+        "collection": "APCHAT-109c14",
+        "nonce": 9
     },
     {
         "id": "134",
@@ -1077,7 +1315,9 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Blue APC Cap",
-        "supply": 111
+        "supply": 111,
+        "collection": "APCHAT-109c14",
+        "nonce": 10
     },
     {
         "id": "135",
@@ -1086,7 +1326,9 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Red APC Cap",
-        "supply": 148
+        "supply": 148,
+        "collection": "APCHAT-109c14",
+        "nonce": 11
     },
     {
         "id": "136",
@@ -1095,7 +1337,9 @@
         "stakePoints": 3,
         "slot": "hat",
         "attributeName": "White APC Cap",
-        "supply": 35
+        "supply": 35,
+        "collection": "APCHAT-109c14",
+        "nonce": 12
     },
     {
         "id": "137",
@@ -1104,7 +1348,9 @@
         "stakePoints": 2,
         "slot": "hat",
         "attributeName": "Beer Tank Cap",
-        "supply": 77
+        "supply": 77,
+        "collection": "APCHAT-109c14",
+        "nonce": 13
     },
     {
         "id": "138",
@@ -1113,7 +1359,9 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Black Bitcoin Cap",
-        "supply": 121
+        "supply": 121,
+        "collection": "APCHAT-109c14",
+        "nonce": 14
     },
     {
         "id": "139",
@@ -1122,7 +1370,9 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Blue Bitcoin Cap",
-        "supply": 79
+        "supply": 79,
+        "collection": "APCHAT-109c14",
+        "nonce": 15
     },
     {
         "id": "140",
@@ -1131,7 +1381,9 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Red Bitcoin Cap",
-        "supply": 104
+        "supply": 104,
+        "collection": "APCHAT-109c14",
+        "nonce": 16
     },
     {
         "id": "141",
@@ -1140,7 +1392,9 @@
         "stakePoints": 2,
         "slot": "hat",
         "attributeName": "White Bitcoin Cap",
-        "supply": 41
+        "supply": 41,
+        "collection": "APCHAT-109c14",
+        "nonce": 17
     },
     {
         "id": "142",
@@ -1149,7 +1403,9 @@
         "stakePoints": 3,
         "slot": "hat",
         "attributeName": "Tiara",
-        "supply": 42
+        "supply": 42,
+        "collection": "APCHAT-109c14",
+        "nonce": 18
     },
     {
         "id": "143",
@@ -1158,7 +1414,9 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Blue EGLD Cap",
-        "supply": 124
+        "supply": 124,
+        "collection": "APCHAT-109c14",
+        "nonce": 19
     },
     {
         "id": "144",
@@ -1167,7 +1425,9 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Red EGLD Cap",
-        "supply": 118
+        "supply": 118,
+        "collection": "APCHAT-109c14",
+        "nonce": 20
     },
     {
         "id": "145",
@@ -1176,7 +1436,9 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "White EGLD Cap",
-        "supply": 127
+        "supply": 127,
+        "collection": "APCHAT-109c14",
+        "nonce": 21
     },
     {
         "id": "146",
@@ -1185,7 +1447,9 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Propeller Cap",
-        "supply": 117
+        "supply": 117,
+        "collection": "APCHAT-109c14",
+        "nonce": 22
     },
     {
         "id": "147",
@@ -1194,7 +1458,9 @@
         "stakePoints": 3,
         "slot": "hat",
         "attributeName": "Black Captain",
-        "supply": 41
+        "supply": 41,
+        "collection": "APCHAT-109c14",
+        "nonce": 23
     },
     {
         "id": "148",
@@ -1203,7 +1469,9 @@
         "stakePoints": 3,
         "slot": "hat",
         "attributeName": "Golden Captain",
-        "supply": 36
+        "supply": 36,
+        "collection": "APCHAT-109c14",
+        "nonce": 24
     },
     {
         "id": "149",
@@ -1212,7 +1480,9 @@
         "stakePoints": 2,
         "slot": "hat",
         "attributeName": "Silver Captain",
-        "supply": 56
+        "supply": 56,
+        "collection": "APCHAT-109c14",
+        "nonce": 25
     },
     {
         "id": "150",
@@ -1221,7 +1491,9 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Chapka",
-        "supply": 124
+        "supply": 124,
+        "collection": "APCHAT-109c14",
+        "nonce": 26
     },
     {
         "id": "151",
@@ -1230,7 +1502,9 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Cowboy",
-        "supply": 107
+        "supply": 107,
+        "collection": "APCHAT-109c14",
+        "nonce": 27
     },
     {
         "id": "152",
@@ -1239,7 +1513,9 @@
         "stakePoints": 2,
         "slot": "hat",
         "attributeName": "Crown",
-        "supply": 89
+        "supply": 89,
+        "collection": "APCHAT-109c14",
+        "nonce": 28
     },
     {
         "id": "153",
@@ -1248,7 +1524,9 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "APC Pirate Headscarf",
-        "supply": 202
+        "supply": 202,
+        "collection": "APCHAT-109c14",
+        "nonce": 29
     },
     {
         "id": "154",
@@ -1257,7 +1535,9 @@
         "stakePoints": 3,
         "slot": "hat",
         "attributeName": "Bitcoin Headscarf",
-        "supply": 39
+        "supply": 39,
+        "collection": "APCHAT-109c14",
+        "nonce": 30
     },
     {
         "id": "155",
@@ -1266,7 +1546,9 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "EGLD Headscarf",
-        "supply": 126
+        "supply": 126,
+        "collection": "APCHAT-109c14",
+        "nonce": 31
     },
     {
         "id": "156",
@@ -1275,7 +1557,9 @@
         "stakePoints": 2,
         "slot": "hat",
         "attributeName": "Heisenberg",
-        "supply": 79
+        "supply": 79,
+        "collection": "APCHAT-109c14",
+        "nonce": 32
     },
     {
         "id": "157",
@@ -1284,7 +1568,9 @@
         "stakePoints": 2,
         "slot": "hat",
         "attributeName": "Igloo",
-        "supply": 63
+        "supply": 63,
+        "collection": "APCHAT-109c14",
+        "nonce": 33
     },
     {
         "id": "158",
@@ -1293,7 +1579,9 @@
         "stakePoints": 2,
         "slot": "hat",
         "attributeName": "Joker",
-        "supply": 86
+        "supply": 86,
+        "collection": "APCHAT-109c14",
+        "nonce": 34
     },
     {
         "id": "159",
@@ -1302,7 +1590,9 @@
         "stakePoints": 5,
         "slot": "hat",
         "attributeName": "Golden Laurels",
-        "supply": 27
+        "supply": 27,
+        "collection": "APCHAT-109c14",
+        "nonce": 35
     },
     {
         "id": "160",
@@ -1311,7 +1601,9 @@
         "stakePoints": 2,
         "slot": "hat",
         "attributeName": "Nest",
-        "supply": 71
+        "supply": 71,
+        "collection": "APCHAT-109c14",
+        "nonce": 36
     },
     {
         "id": "161",
@@ -1320,7 +1612,9 @@
         "stakePoints": 5,
         "slot": "hat",
         "attributeName": "Octopus",
-        "supply": 4
+        "supply": 4,
+        "collection": "APCHAT-109c14",
+        "nonce": 37
     },
     {
         "id": "163",
@@ -1329,7 +1623,9 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Plastic Bag",
-        "supply": 78
+        "supply": 78,
+        "collection": "APCHAT-109c14",
+        "nonce": 38
     },
     {
         "id": "164",
@@ -1338,7 +1634,9 @@
         "stakePoints": 2,
         "slot": "hat",
         "attributeName": "Punk Hair",
-        "supply": 70
+        "supply": 70,
+        "collection": "APCHAT-109c14",
+        "nonce": 39
     },
     {
         "id": "165",
@@ -1347,7 +1645,9 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Sombrero",
-        "supply": 130
+        "supply": 130,
+        "collection": "APCHAT-109c14",
+        "nonce": 40
     },
     {
         "id": "170",
@@ -1356,7 +1656,9 @@
         "stakePoints": 2,
         "slot": "skin",
         "attributeName": "Albino",
-        "supply": 86
+        "supply": 86,
+        "collection": "APCSKIN-6429c4",
+        "nonce": 2
     },
     {
         "id": "172",
@@ -1365,7 +1667,9 @@
         "stakePoints": 1,
         "slot": "skin",
         "attributeName": "Black",
-        "supply": 320
+        "supply": 320,
+        "collection": "APCSKIN-6429c4",
+        "nonce": 3
     },
     {
         "id": "173",
@@ -1374,7 +1678,9 @@
         "stakePoints": 1,
         "slot": "skin",
         "attributeName": "Bronze",
-        "supply": 253
+        "supply": 253,
+        "collection": "APCSKIN-6429c4",
+        "nonce": 4
     },
     {
         "id": "174",
@@ -1383,7 +1689,9 @@
         "stakePoints": 2,
         "slot": "skin",
         "attributeName": "Crocodile",
-        "supply": 115
+        "supply": 115,
+        "collection": "APCSKIN-6429c4",
+        "nonce": 5
     },
     {
         "id": "175",
@@ -1392,7 +1700,9 @@
         "stakePoints": 5,
         "slot": "skin",
         "attributeName": "Diamond",
-        "supply": 6
+        "supply": 6,
+        "collection": "APCSKIN-6429c4",
+        "nonce": 6
     },
     {
         "id": "176",
@@ -1401,7 +1711,9 @@
         "stakePoints": 3,
         "slot": "skin",
         "attributeName": "Dark Frozen",
-        "supply": 40
+        "supply": 40,
+        "collection": "APCSKIN-6429c4",
+        "nonce": 7
     },
     {
         "id": "177",
@@ -1410,7 +1722,9 @@
         "stakePoints": 1,
         "slot": "skin",
         "attributeName": "Light Frozen",
-        "supply": 161
+        "supply": 161,
+        "collection": "APCSKIN-6429c4",
+        "nonce": 8
     },
     {
         "id": "178",
@@ -1419,7 +1733,9 @@
         "stakePoints": 3,
         "slot": "skin",
         "attributeName": "Gold",
-        "supply": 41
+        "supply": 41,
+        "collection": "APCSKIN-6429c4",
+        "nonce": 9
     },
     {
         "id": "179",
@@ -1428,7 +1744,9 @@
         "stakePoints": 1,
         "slot": "skin",
         "attributeName": "Leopard",
-        "supply": 172
+        "supply": 172,
+        "collection": "APCSKIN-6429c4",
+        "nonce": 10
     },
     {
         "id": "180",
@@ -1437,7 +1755,9 @@
         "stakePoints": 1,
         "slot": "skin",
         "attributeName": "Oil Spill",
-        "supply": 220
+        "supply": 220,
+        "collection": "APCSKIN-6429c4",
+        "nonce": 11
     },
     {
         "id": "182",
@@ -1446,7 +1766,9 @@
         "stakePoints": 2,
         "slot": "skin",
         "attributeName": "Parrot",
-        "supply": 73
+        "supply": 73,
+        "collection": "APCSKIN-6429c4",
+        "nonce": 12
     },
     {
         "id": "183",
@@ -1455,7 +1777,9 @@
         "stakePoints": 1,
         "slot": "skin",
         "attributeName": "Pink",
-        "supply": 275
+        "supply": 275,
+        "collection": "APCSKIN-6429c4",
+        "nonce": 13
     },
     {
         "id": "184",
@@ -1464,7 +1788,9 @@
         "stakePoints": 5,
         "slot": "skin",
         "attributeName": "Pixel",
-        "supply": 7
+        "supply": 7,
+        "collection": "APCSKIN-6429c4",
+        "nonce": 14
     },
     {
         "id": "186",
@@ -1473,7 +1799,9 @@
         "stakePoints": 1,
         "slot": "skin",
         "attributeName": "Robot",
-        "supply": 310
+        "supply": 310,
+        "collection": "APCSKIN-6429c4",
+        "nonce": 15
     },
     {
         "id": "187",
@@ -1482,7 +1810,9 @@
         "stakePoints": 2,
         "slot": "skin",
         "attributeName": "Silver",
-        "supply": 138
+        "supply": 138,
+        "collection": "APCSKIN-6429c4",
+        "nonce": 16
     },
     {
         "id": "188",
@@ -1491,7 +1821,9 @@
         "stakePoints": 2,
         "slot": "skin",
         "attributeName": "Tiger",
-        "supply": 153
+        "supply": 153,
+        "collection": "APCSKIN-6429c4",
+        "nonce": 17
     },
     {
         "id": "189",
@@ -1500,7 +1832,9 @@
         "stakePoints": 3,
         "slot": "skin",
         "attributeName": "Second Degree Burn",
-        "supply": 42
+        "supply": 42,
+        "collection": "APCSKIN-6429c4",
+        "nonce": 18
     },
     {
         "id": "190",
@@ -1509,7 +1843,9 @@
         "stakePoints": 1,
         "slot": "skin",
         "attributeName": "Claw Marks",
-        "supply": 318
+        "supply": 318,
+        "collection": "APCSKIN-6429c4",
+        "nonce": 19
     },
     {
         "id": "191",
@@ -1518,7 +1854,9 @@
         "stakePoints": 2,
         "slot": "skin",
         "attributeName": "Fighting Scars",
-        "supply": 103
+        "supply": 103,
+        "collection": "APCSKIN-6429c4",
+        "nonce": 20
     },
     {
         "id": "192",
@@ -1527,7 +1865,9 @@
         "stakePoints": 1,
         "slot": "skin",
         "attributeName": "Yellow Feathers",
-        "supply": 423
+        "supply": 423,
+        "collection": "APCSKIN-6429c4",
+        "nonce": 21
     },
     {
         "id": "193",
@@ -1536,7 +1876,9 @@
         "stakePoints": 1,
         "slot": "skin",
         "attributeName": "Zebra",
-        "supply": 202
+        "supply": 202,
+        "collection": "APCSKIN-6429c4",
+        "nonce": 22
     },
     {
         "id": "198",
@@ -1545,7 +1887,9 @@
         "stakePoints": 1,
         "slot": "weapon",
         "attributeName": "Axe",
-        "supply": 733
+        "supply": 733,
+        "collection": "APCWEAPON-81e915",
+        "nonce": 2
     },
     {
         "id": "199",
@@ -1554,7 +1898,9 @@
         "stakePoints": 2,
         "slot": "weapon",
         "attributeName": "Bazooka",
-        "supply": 78
+        "supply": 78,
+        "collection": "APCWEAPON-81e915",
+        "nonce": 3
     },
     {
         "id": "200",
@@ -1563,7 +1909,9 @@
         "stakePoints": 1,
         "slot": "weapon",
         "attributeName": "Bow",
-        "supply": 205
+        "supply": 205,
+        "collection": "APCWEAPON-81e915",
+        "nonce": 4
     },
     {
         "id": "201",
@@ -1572,7 +1920,9 @@
         "stakePoints": 1,
         "slot": "weapon",
         "attributeName": "Crossbow",
-        "supply": 163
+        "supply": 163,
+        "collection": "APCWEAPON-81e915",
+        "nonce": 5
     },
     {
         "id": "202",
@@ -1581,7 +1931,9 @@
         "stakePoints": 1,
         "slot": "weapon",
         "attributeName": "Fishing Rifle",
-        "supply": 399
+        "supply": 399,
+        "collection": "APCWEAPON-81e915",
+        "nonce": 6
     },
     {
         "id": "204",
@@ -1590,7 +1942,9 @@
         "stakePoints": 3,
         "slot": "weapon",
         "attributeName": "Flamethrower",
-        "supply": 50
+        "supply": 50,
+        "collection": "APCWEAPON-81e915",
+        "nonce": 7
     },
     {
         "id": "205",
@@ -1599,7 +1953,9 @@
         "stakePoints": 2,
         "slot": "weapon",
         "attributeName": "Flashlight",
-        "supply": 106
+        "supply": 106,
+        "collection": "APCWEAPON-81e915",
+        "nonce": 8
     },
     {
         "id": "206",
@@ -1608,7 +1964,9 @@
         "stakePoints": 2,
         "slot": "weapon",
         "attributeName": "Machine Gun",
-        "supply": 98
+        "supply": 98,
+        "collection": "APCWEAPON-81e915",
+        "nonce": 9
     },
     {
         "id": "207",
@@ -1617,7 +1975,9 @@
         "stakePoints": 1,
         "slot": "weapon",
         "attributeName": "Oxygen Tank",
-        "supply": 304
+        "supply": 304,
+        "collection": "APCWEAPON-81e915",
+        "nonce": 10
     },
     {
         "id": "208",
@@ -1626,7 +1986,9 @@
         "stakePoints": 1,
         "slot": "weapon",
         "attributeName": "Sea Shepherd Gaff",
-        "supply": 332
+        "supply": 332,
+        "collection": "APCWEAPON-81e915",
+        "nonce": 11
     },
     {
         "id": "209",
@@ -1635,7 +1997,9 @@
         "stakePoints": 3,
         "slot": "weapon",
         "attributeName": "Snowboard",
-        "supply": 57
+        "supply": 57,
+        "collection": "APCWEAPON-81e915",
+        "nonce": 12
     },
     {
         "id": "210",
@@ -1644,7 +2008,9 @@
         "stakePoints": 1,
         "slot": "weapon",
         "attributeName": "Spear",
-        "supply": 175
+        "supply": 175,
+        "collection": "APCWEAPON-81e915",
+        "nonce": 13
     },
     {
         "id": "211",
@@ -1653,7 +2019,9 @@
         "stakePoints": 5,
         "slot": "weapon",
         "attributeName": "Ice spear",
-        "supply": 8
+        "supply": 8,
+        "collection": "APCWEAPON-81e915",
+        "nonce": 14
     },
     {
         "id": "212",
@@ -1662,7 +2030,9 @@
         "stakePoints": 1,
         "slot": "weapon",
         "attributeName": "Surboard",
-        "supply": 568
+        "supply": 568,
+        "collection": "APCWEAPON-81e915",
+        "nonce": 15
     },
     {
         "id": "213",
@@ -1671,7 +2041,9 @@
         "stakePoints": 2,
         "slot": "weapon",
         "attributeName": "Tomahawk",
-        "supply": 75
+        "supply": 75,
+        "collection": "APCWEAPON-81e915",
+        "nonce": 16
     },
     {
         "id": "214",
@@ -1680,7 +2052,9 @@
         "stakePoints": 2,
         "slot": "weapon",
         "attributeName": "Trident",
-        "supply": 75
+        "supply": 75,
+        "collection": "APCWEAPON-81e915",
+        "nonce": 17
     },
     {
         "id": "215",
@@ -1689,7 +2063,9 @@
         "stakePoints": 2,
         "slot": "clothes",
         "attributeName": "Traditional Romanian",
-        "supply": 95
+        "supply": 95,
+        "collection": "APCCLOTHES-971468",
+        "nonce": 64
     },
     {
         "id": "216",
@@ -1698,7 +2074,9 @@
         "stakePoints": 1,
         "slot": "hat",
         "attributeName": "Traditional Romanian",
-        "supply": 41
+        "supply": 41,
+        "collection": "APCHAT-109c14",
+        "nonce": 41
     },
     {
         "id": "1001",
@@ -1708,7 +2086,8 @@
         "slot": "hat",
         "attributeName": "Hat Bucket Bronze",
         "supply": 1023,
-        "identifier": "APCJEXHATS-3aef49-03"
+        "collection": "APCJEXHATS-3aef49",
+        "nonce": 3
     },
     {
         "id": "1002",
@@ -1718,7 +2097,8 @@
         "slot": "hat",
         "attributeName": "Hat Bucket Silver",
         "supply": 347,
-        "identifier": "APCJEXHATS-3aef49-02"
+        "collection": "APCJEXHATS-3aef49",
+        "nonce": 2
     },
     {
         "id": "1003",
@@ -1728,7 +2108,8 @@
         "slot": "hat",
         "attributeName": "Hat Bucket Gold",
         "supply": 142,
-        "identifier": "APCJEXHATS-3aef49-01"
+        "collection": "APCJEXHATS-3aef49",
+        "nonce": 1
     },
     {
         "id": "1005",
@@ -1738,7 +2119,8 @@
         "slot": "clothes",
         "attributeName": "APCxBunnyverseHoodie",
         "supply": 397,
-        "identifier": "APCBUNNYH-7175f1-01"
+        "collection": "APCBUNNYH-7175f1",
+        "nonce": 1
     },
     {
         "id": "1006",
@@ -1748,7 +2130,8 @@
         "slot": "clothes",
         "attributeName": "Bottle Belt",
         "supply": 241,
-        "identifier": "APCWWWINEC-e210db-01"
+        "collection": "APCWWWINEC-e210db",
+        "nonce": 1
     },
     {
         "id": "1007",
@@ -1758,7 +2141,8 @@
         "slot": "hat",
         "attributeName": "Aquaverse Tiara",
         "supply": 1378,
-        "identifier": "APCXAQUAH-aac6a2-01"
+        "collection": "APCXAQUAH-aac6a2",
+        "nonce": 1
     },
     {
         "id": "1008",
@@ -1768,7 +2152,8 @@
         "slot": "hat",
         "attributeName": "Barrel Hat",
         "supply": 30,
-        "identifier": "APCWWWINEH-a477b6-01"
+        "collection": "APCWWWINEH-a477b6",
+        "nonce": 1
     },
     {
         "id": "1009",
@@ -1778,7 +2163,8 @@
         "slot": "hat",
         "attributeName": "Hog Homies Mask",
         "supply": 2,
-        "identifier": "APCHIREZ-7762a7-01"
+        "collection": "APCHIREZ-7762a7",
+        "nonce": 1
     },
     {
         "id": "1011",
@@ -1788,7 +2174,8 @@
         "slot": "clothes",
         "attributeName": "Hoodie PICS",
         "supply": 81,
-        "identifier": "APCPICS-891137-01"
+        "collection": "APCPICS-891137",
+        "nonce": 1
     },
     {
         "id": "1012",
@@ -1798,7 +2185,8 @@
         "slot": "skin",
         "attributeName": "Sponge Skin",
         "supply": 544,
-        "identifier": "APCXAQUAS-ee4b50-01"
+        "collection": "APCXAQUAS-ee4b50",
+        "nonce": 1
     },
     {
         "id": "1013",
@@ -1808,7 +2196,8 @@
         "slot": "hat",
         "attributeName": "OG Mask Gold",
         "supply": 62,
-        "identifier": "APCXSUBOG-1613fb-03"
+        "collection": "APCXSUBOG-1613fb",
+        "nonce": 3
     },
     {
         "id": "1014",
@@ -1818,7 +2207,8 @@
         "slot": "hat",
         "attributeName": "OG Mask Silver",
         "supply": 1736,
-        "identifier": "APCXSUBOG-1613fb-02"
+        "collection": "APCXSUBOG-1613fb",
+        "nonce": 2
     },
     {
         "id": "1015",
@@ -1828,7 +2218,8 @@
         "slot": "hat",
         "attributeName": "OG Mask Bronze",
         "supply": 2420,
-        "identifier": "APCXSUBOG-1613fb-01"
+        "collection": "APCXSUBOG-1613fb",
+        "nonce": 1
     },
     {
         "id": "1016",
@@ -1838,7 +2229,8 @@
         "slot": "weapon",
         "attributeName": "Aquaverse Trident",
         "supply": 1067,
-        "identifier": "APCXAQUAW-c90c62-01"
+        "collection": "APCXAQUAW-c90c62",
+        "nonce": 1
     },
     {
         "id": "1017",
@@ -1848,7 +2240,8 @@
         "slot": "beak",
         "attributeName": "Corkscrew Beak",
         "supply": 2732,
-        "identifier": "APCWWWINEB-2fd804-01"
+        "collection": "APCWWWINEB-2fd804",
+        "nonce": 1
     },
     {
         "id": "1018",
@@ -1858,7 +2251,8 @@
         "slot": "clothes",
         "attributeName": "Emperor Chain",
         "supply": 702,
-        "identifier": "APCEMPCH-ad9cec-02"
+        "collection": "APCEMPCH-ad9cec",
+        "nonce": 2
     },
     {
         "id": "1019",
@@ -1868,7 +2262,8 @@
         "slot": "clothes",
         "attributeName": "Prime Emperor Chain",
         "supply": 301,
-        "identifier": "APCEMPCH-ad9cec-01"
+        "collection": "APCEMPCH-ad9cec",
+        "nonce": 1
     },
     {
         "id": "1020",
@@ -1878,7 +2273,8 @@
         "slot": "weapon",
         "attributeName": "Fishing Rod",
         "supply": 56,
-        "identifier": "APCWEAPON-81e915-01"
+        "collection": "APCWEAPON-81e915",
+        "nonce": 1
     },
     {
         "id": "1021",
@@ -1888,7 +2284,8 @@
         "slot": "clothes",
         "attributeName": "APC Silver Chain",
         "supply": 64,
-        "identifier": "APCCHAIN-048e55-03"
+        "collection": "APCCHAIN-048e55",
+        "nonce": 3
     },
     {
         "id": "1022",
@@ -1898,7 +2295,8 @@
         "slot": "clothes",
         "attributeName": "EGLD Gold Chain",
         "supply": 59,
-        "identifier": "APCCHAIN-048e55-02"
+        "collection": "APCCHAIN-048e55",
+        "nonce": 2
     },
     {
         "id": "1023",
@@ -1908,7 +2306,8 @@
         "slot": "hat",
         "attributeName": "Black EGLD Cap",
         "supply": 271,
-        "identifier": "APCHAT-109c14-02"
+        "collection": "APCHAT-109c14",
+        "nonce": 2
     },
     {
         "id": "1024",
@@ -1918,7 +2317,8 @@
         "slot": "skin",
         "attributeName": "Skin Inverted",
         "supply": 69,
-        "identifier": "APCSKIN-6429c4-01"
+        "collection": "APCSKIN-6429c4",
+        "nonce": 1
     },
     {
         "id": "2000",
@@ -1928,6 +2328,7 @@
         "slot": "clothes",
         "attributeName": "Happy BearMarket 2022",
         "supply": 100,
-        "identifier": "APCITEMS-65bd55-02"
+        "collection": "APCITEMS-65bd55",
+        "nonce": 2
     }
 ]

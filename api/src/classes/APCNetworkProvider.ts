@@ -424,7 +424,6 @@ export class APCNetworkProvider {
             nonce: nft.nonce,
 
             thumbnailUrls: {
-                ipfs: nft.assets[0],
                 high: getPenguinWebThumbnail(extractCIDFromIPFS(nft.assets[0])),
                 small: getPenguinWebThumbnail(extractCIDFromIPFS(nft.assets[0])),
             },
