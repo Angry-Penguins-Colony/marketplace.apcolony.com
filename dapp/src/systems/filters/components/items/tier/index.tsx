@@ -4,13 +4,11 @@ import { FormGroup } from 'react-bootstrap';
 import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
 import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
 import { stakePointsToTier } from 'sdk/utils';
+import { GenericFilterProps } from 'systems/filters/popup/GenericFiltersPopup';
 import { IFilter } from 'systems/filters/types/interface';
 import style from './index.module.scss';
 
-interface Props {
-    items: IItem[];
-    onFilterUpdate: (newFilter: IFilter<IItem>) => void;
-}
+type Props = GenericFilterProps<IItem>
 
 
 export const ItemsTier = ({

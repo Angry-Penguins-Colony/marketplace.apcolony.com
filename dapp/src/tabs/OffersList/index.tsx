@@ -102,8 +102,7 @@ export const OffersList = ({
 
             case 'items':
                 return <ItemsFiltersPopup
-                    items={offers?.associatedItems as IItem[] || []}
-
+                    elements={offers?.associatedItems as IItem[] || []}
                     onFilterChanged={(filteredItems) => setVisibleItems(filteredItems)}
                 />
         }
