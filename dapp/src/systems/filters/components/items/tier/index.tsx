@@ -11,7 +11,7 @@ type Props = GenericFilterProps<IItem>
 
 
 export const ItemsTier = ({
-    items,
+    elements: items,
     onFilterUpdate
 }: Props) => {
 

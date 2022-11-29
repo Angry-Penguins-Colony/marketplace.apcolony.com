@@ -8,7 +8,7 @@ import { IFilter } from 'systems/filters/types/interface';
 import style from './index.module.scss';
 
 export interface GenericFilterProps<T> {
-    items: T[];
+    elements: T[];
     onFilterUpdate: (newFilter: IFilter<T>) => void;
 }
 
@@ -42,7 +42,7 @@ export const GenericFiltersPopup = <T extends unknown>({
             contentClassName={style.popup}
         >
             <h2>Filters</h2>
-            {filters.map(f => f({ items: elements, onFilterUpdate: setActiveFilter }))}
+            {filters.map(f => f({ elements: elements, onFilterUpdate: setActiveFilter }))}
 
             <Button onClick={() => setFilterOpen(false)} className="w-100">
                 Ok
