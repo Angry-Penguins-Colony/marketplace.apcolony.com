@@ -96,7 +96,7 @@ export const OffersList = ({
 
             case 'penguins':
                 return <PenguinsFiltersPopup
-                    penguins={offers?.associatedItems as IPenguin[]}
+                    elements={offers?.associatedItems as IPenguin[]}
                     onFilterChanged={setVisibleItems}
                 />
 
