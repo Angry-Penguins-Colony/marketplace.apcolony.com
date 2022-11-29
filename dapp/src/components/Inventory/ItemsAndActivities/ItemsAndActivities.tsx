@@ -5,6 +5,7 @@ import Skeleton from 'react-loading-skeleton';
 import UnderlineNavElmt from 'components/Abstract/UnderlineNavElmt/UnderlineNavElmt';
 import AddressWrapper from 'components/AddressWrapper';
 import RightArrowIcon from 'components/Icons/RightArrowIcon';
+import { stakeTokenName } from 'config';
 import { HorizontalItem } from '../HorizontalItem';
 import style from './ItemsAndActivities.module.scss';
 
@@ -90,7 +91,7 @@ const ItemsAndActivities = ({
 
                 return (
                     items.map(item => (
-                        <HorizontalItem key={item.id} item={item} subProperty={'#' + item.id} navigate />
+                        <HorizontalItem key={item.id} item={item} subProperty={item.stakePoints + ' ' + stakeTokenName} navigate />
                     ))
                 );
 
