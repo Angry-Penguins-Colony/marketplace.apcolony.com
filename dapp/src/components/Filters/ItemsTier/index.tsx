@@ -4,12 +4,18 @@ import { FormGroup } from 'react-bootstrap';
 import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
 import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
 import { stakePointsToTier } from 'sdk/utils';
+import { IFilter } from '../interface';
 import style from './index.module.scss';
 
-export const ItemsTier = (props: {
-    items: IItem[],
-    onTierSelected: (tiers: string[]) => void
-}) => {
+interface Props {
+    items: IItem[];
+    onFilterUpdate: (newFilter: IFilter<IItem>) => void;
+}
+
+export const ItemsTier = ({
+    items,
+    onFilterUpdate
+}: Props) => {
 
     const tiers = [
         'Bronze',
@@ -21,7 +27,23 @@ export const ItemsTier = (props: {
     const [selectedTiers, setSelectedTiers] = React.useState<string[]>([]);
 
     React.useEffect(() => {
-        props.onTierSelected(selectedTiers);
+
+        onFilterUpdate({
+            badgePillLabel: selectedTiers,
+            applyFilter: (_items: IItem[]) => {
+                return _items
+                    .filter(item => {
+                        if (selectedTiers.length == 0) {
+                            return true;
+                        }
+                        else {
+                            const tier = stakePointsToTier(item.stakePoints);
+
+                            return selectedTiers.includes(tier);
+                        }
+                    })
+            }
+        })
     }, [selectedTiers]);
 
     return <div className={style.itemsTier}>
@@ -39,7 +61,7 @@ export const ItemsTier = (props: {
     </div>
 
     function getTierCount(tier: string) {
-        return props.items.filter(item => stakePointsToTier(item.stakePoints) == tier).length;
+        return items.filter(item => stakePointsToTier(item.stakePoints) == tier).length;
     }
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
