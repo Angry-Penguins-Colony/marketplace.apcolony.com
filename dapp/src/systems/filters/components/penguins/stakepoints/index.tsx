@@ -1,6 +1,7 @@
 import React from 'react';
 import { IItem, IPenguin } from '@apcolony/marketplace-api';
 import { FormGroup, FormLabel, FormControl } from 'react-bootstrap'
+import { stakeTokenName } from 'config';
 import { GenericFilterProps } from 'systems/filters/popup/GenericFiltersPopup';
 
 type Props = GenericFilterProps<IPenguin>
@@ -22,7 +23,7 @@ export const StakePointsFilter = ({
         const rawPillLabel = getBadgePillLabel()
 
         onFilterUpdate({
-            badgePillLabel: rawPillLabel ? ['Stake points ' + rawPillLabel] : [],
+            badgePillLabel: rawPillLabel ? [stakeTokenName + ' ' + rawPillLabel] : [],
             applyFilter: () => {
 
                 if (stakePoints.min == undefined && stakePoints.max == undefined) {
@@ -66,7 +67,7 @@ export const StakePointsFilter = ({
     }, [stakePoints]);
 
     return <FormGroup>
-        <FormLabel>Stake Points</FormLabel>
+        <FormLabel>{stakeTokenName} Generated</FormLabel>
         <div>
             <FormControl
                 type="number"
