@@ -1,9 +1,3 @@
-.selectedTiers {
-    gap: 3px;
-    display: flex;
-    flex-direction: row;
-}
-
 .popup {
     align-items: flex-start !important;
     $padding: 40px;
@@ -11,13 +5,14 @@
     padding-right: $padding !important;
     padding-top: 20px !important;
 
-    .itemsTier {
+    .filters {
         display: flex;
         flex-direction: column;
         gap: 8px;
 
-        .form {
-            padding-left: 20px;
+        .sideBySide {
+            display: flex;
+            gap: 16px;
         }
     }
 }

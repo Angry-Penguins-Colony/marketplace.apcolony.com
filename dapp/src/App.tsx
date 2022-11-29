@@ -48,7 +48,7 @@ const App = () => {
 
                 <Route path={routeNames.penguinsHome} element={<PenguinsOffersListPage />}>
                   <Route index element={<Navigate to="offers" replace />} />
-                  <Route path="offers" element={<OffersList category="penguins" />} />
+                  <Route path="offers" element={<OffersList category="penguins" showFilter />} />
                   <Route path="ranks" element={<RanksList category="penguins" />} />
                 </Route>
 
