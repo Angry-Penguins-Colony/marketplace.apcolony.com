@@ -275,7 +275,7 @@ const Inspect = () => {
 
             case 'items':
             case 'eggs':
-                return <ItemSubProperties ownedAmount={item.ownedAmount ?? 0} supply={(item as IItem).supply} />
+                return <ItemSubProperties ice={(item as IItem).stakePoints} ownedAmount={item.ownedAmount ?? 0} supply={(item as IItem).supply} />
 
             default:
                 throw new Error('Unknown type');

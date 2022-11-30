@@ -1,23 +1,21 @@
 import React from 'react';
-import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import { stakeTokenName } from 'config';
 import SubProperties from '../SubProperties';
 
 interface Props {
     supply: number;
     ownedAmount: number;
+    ice: number;
 }
 
-const ItemSubProperties = ({ supply, ownedAmount }: Props) => {
-
-    const { address } = useGetAccountInfo();
+const ItemSubProperties = ({ supply, ownedAmount, ice }: Props) => {
 
     const properties = [];
 
-    properties.push(`${supply} of total supply`);
+    properties.push(`${ownedAmount} owned out of ${supply} edition`);
+    properties.push(`${ice} ${stakeTokenName}`);
 
-    if (address) {
-        properties.push(`${ownedAmount} owned by you `);
-    }
+
 
     return <SubProperties properties={properties} />
 }
