@@ -37,11 +37,11 @@ export const SlotItemsSelector = ({
             {capitalize(slot)}
             <FontAwesomeIcon icon={open ? faChevronUp : faChevronDown} />
         </div>
-        <Collapse in={open} className={style.collapse + ' ' + 'w-100 h-100'}>
-            <div id={collapseId} className="w-100 h-100">
+        <Collapse in={open} >
+            <div id={collapseId} className={style.collapseContainer}>
                 {
                     items.map(item => {
-                        return <FormGroup key={item.name} className="w-100 h-100" >
+                        return <FormGroup key={item.name} className={style.collapse} >
                             <input className="float-right" type="checkbox" name={item.name} onChange={handleChange} />
                             <FormCheckLabel>
                                 {item.name} <span className="text-muted">({item.amount})</span>
