@@ -40,7 +40,7 @@ export const SlotItemsSelector = ({
             <div id="example-collapse-text">
                 {
                     items.map(item => {
-                        return <FormGroup key={item.name} className="w-100" >
+                        return <FormGroup key={item.name} className="w-100 h-100" >
                             <FormCheckLabel>
                                 {item.name} <span className="text-muted">({item.amount})</span>
                             </FormCheckLabel>

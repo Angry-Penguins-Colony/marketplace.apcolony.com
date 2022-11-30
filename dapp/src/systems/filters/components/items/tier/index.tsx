@@ -47,7 +47,7 @@ export const ItemsTier = ({
         <h4>Items rarity</h4>
         {
             tiers.map(tier =>
-                <FormGroup key={tier} className={style.form}>
+                <FormGroup key={tier} className={style.form + ' ' + 'w-100 h-100'}>
                     <input type="checkbox" className="float-right" name={tier} onChange={handleChange} />
                     <FormCheckLabel>
                         {tier} <span className="text-muted">({getTierCount(tier)})</span>
