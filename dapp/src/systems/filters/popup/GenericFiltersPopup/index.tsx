@@ -43,7 +43,13 @@ export const GenericFiltersPopup = <T extends unknown>({
         >
             <h2>Filters</h2>
 
-            {filters.map(f => f({ elements: elements, onFilterUpdate: setActiveFilter }))}
+            {
+                filters.map((f, index) =>
+                    <div key={index}>
+                        {f({ elements: elements, onFilterUpdate: setActiveFilter })}
+                    </div>
+                )
+            }
 
 
             <Button onClick={() => setFilterOpen(false)} className="w-100">
