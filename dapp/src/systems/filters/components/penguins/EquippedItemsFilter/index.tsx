@@ -19,7 +19,17 @@ export const EquippedItemsFilter = ({
     React.useEffect(() => {
         onFilterUpdate({
             applyFilter: (items: IPenguin[]) => {
-                return items;
+                return items
+                    .filter(penguin => {
+                        return Object.keys(selectedItems).every(slot => {
+
+                            if (selectedItems[slot].length === 0) return true;
+                            if (!penguin.equippedItems[slot]) return false;
+
+                            return selectedItems[slot]
+                                .includes(penguin.equippedItems[slot].displayName);
+                        })
+                    });
             },
             badgePillLabel: getBadgePillLabels()
 
@@ -31,6 +41,8 @@ export const EquippedItemsFilter = ({
             const badges = [];
 
             for (const slot in selectedItems) {
+
+                if (selectedItems[slot].length === 0) continue;
 
                 badges.push(`${capitalize(slot)}: ${selectedItems[slot].join(' or ')}`);
             }
