@@ -2,6 +2,7 @@ import React from 'react';
 import { IPenguin } from '@apcolony/marketplace-api';
 import { capitalize } from 'lodash';
 import { GenericFilterProps } from 'systems/filters/popup/GenericFiltersPopup';
+import style from './index.module.scss';
 import { SlotItemsSelector } from './subcomponents/SlotItemsSelector';
 
 type Props = GenericFilterProps<IPenguin>
@@ -50,7 +51,7 @@ export const EquippedItemsFilter = ({
 
     }, [selectedItems]);
 
-    return <div className="d-flex flex-column w-100">
+    return <div className={style.selectorContainer}>
         {
             Object.keys(equippedItems).map((slot) => {
                 return <SlotItemsSelector

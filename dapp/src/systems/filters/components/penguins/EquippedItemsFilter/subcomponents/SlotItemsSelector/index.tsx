@@ -5,6 +5,7 @@ import { capitalize } from 'lodash';
 import { Collapse, FormGroup } from 'react-bootstrap';
 import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
 import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
+import style from './index.module.scss';
 
 export const SlotItemsSelector = ({
     items,
@@ -28,7 +29,7 @@ export const SlotItemsSelector = ({
             onClick={() => setOpen(!open)}
             aria-controls="example-collapse-text"
             aria-expanded={open}
-            className="d-flex align-items-center justify-content-between"
+            className={style.collapseHeader}
         >
             {capitalize(slot)}
             <FontAwesomeIcon icon={faChevronDown} />
