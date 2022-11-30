@@ -64,7 +64,7 @@ export const GenericFiltersPopup = <T extends unknown>({
 
         <div className="mb-3 d-flex align-items-center">
 
-            <Button onClick={() => setFilterOpen(true)}>
+            <Button className="flex-shrink-0" onClick={() => setFilterOpen(true)}>
                 <FontAwesomeIcon icon={faFilter} />
                 <span className='ml-2'>
                     Filters
@@ -72,7 +72,7 @@ export const GenericFiltersPopup = <T extends unknown>({
             </Button>
 
 
-            <div className={'ml-2' + ' ' + style.selectedTiers}>
+            <div className={'ml-2' + ' ' + style.badgesContainer}>
 
                 {
                     activeFilter && activeFilter.badgePillLabel

@@ -1,7 +1,12 @@
-.selectedTiers {
+@import "assets/sass/theme.scss";
+
+.badgesContainer {
     gap: 3px;
     display: flex;
     flex-direction: row;
+    overflow: auto;
+
+    @extend .custom-scrollbar;
 }
 
 .popup {
