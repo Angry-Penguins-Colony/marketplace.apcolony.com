@@ -19,6 +19,10 @@
 
     @extend .custom-scrollbar;
 
+    &::-webkit-scrollbar-track {
+        margin: 20px;
+    }
+
     button {
         flex-shrink: 0;
     }
