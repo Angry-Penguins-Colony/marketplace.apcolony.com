@@ -45,7 +45,7 @@ export const GenericFiltersPopup = <T extends unknown>({
 
             {
                 filters.map((f, index) =>
-                    <div key={index}>
+                    <div key={index} className="w-100">
                         {f({ elements: elements, onFilterUpdate: setActiveFilter })}
                     </div>
                 )

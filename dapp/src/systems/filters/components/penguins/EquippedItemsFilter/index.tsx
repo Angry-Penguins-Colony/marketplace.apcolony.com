@@ -1,10 +1,8 @@
 import React from 'react';
 import { IPenguin } from '@apcolony/marketplace-api';
 import { capitalize } from 'lodash';
-import { FormGroup, Collapse, Button } from 'react-bootstrap'
-import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
-import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
 import { GenericFilterProps } from 'systems/filters/popup/GenericFiltersPopup';
+import { SlotItemsSelector } from './subcomponents/SlotItemsSelector';
 
 type Props = GenericFilterProps<IPenguin>
 
@@ -52,7 +50,7 @@ export const EquippedItemsFilter = ({
 
     }, [selectedItems]);
 
-    return <div className="d-flex flex-column">
+    return <div className="d-flex flex-column w-100">
         {
             Object.keys(equippedItems).map((slot) => {
                 return <SlotItemsSelector
@@ -72,57 +70,7 @@ export const EquippedItemsFilter = ({
 }
 
 
-const SlotItemsSelector = ({
-    items,
-    slot,
-    onSelectionUpdate
-}: {
-    items: string[],
-    slot: string,
-    onSelectionUpdate: (selected: string[]) => void
-}) => {
 
-    const [open, setOpen] = React.useState(false);
-    const [selected, setSelected] = React.useState<string[]>([]);
-
-    React.useEffect(() => {
-        onSelectionUpdate(selected);
-    }, [selected])
-
-    return <>
-        <Button
-            onClick={() => setOpen(!open)}
-            aria-controls="example-collapse-text"
-            aria-expanded={open}
-        >
-            {slot}
-        </Button>
-        <Collapse in={open}>
-            <div id="example-collapse-text">
-                {
-                    items.map(item => {
-                        return <FormGroup key={item} >
-                            <FormCheckInput name={item} onChange={handleChange} />
-                            <FormCheckLabel>
-                                {item}
-                            </FormCheckLabel>
-                        </FormGroup>
-                    })
-                }
-            </div>
-        </Collapse>
-    </>
-
-    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const { name, checked } = e.target;
-
-        if (checked) {
-            setSelected([...selected, name]);
-        } else {
-            setSelected(selected.filter(tier => tier !== name));
-        }
-    }
-}
 
 function getEquipedItems(penguins: IPenguin[]): { [slot: string]: string[] } {
 
