@@ -42,7 +42,9 @@ export const GenericFiltersPopup = <T extends unknown>({
             contentClassName={style.popup}
         >
             <h2>Filters</h2>
+
             {filters.map(f => f({ elements: elements, onFilterUpdate: setActiveFilter }))}
+
 
             <Button onClick={() => setFilterOpen(false)} className="w-100">
                 Ok
