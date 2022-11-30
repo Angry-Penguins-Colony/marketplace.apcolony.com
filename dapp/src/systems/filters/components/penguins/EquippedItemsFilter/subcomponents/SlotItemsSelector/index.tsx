@@ -26,10 +26,11 @@ export const SlotItemsSelector = ({
         onSelectionUpdate(selected);
     }, [selected])
 
+    const collapseId = 'collapse' + slot;
     return <>
         <div
             onClick={() => setOpen(!open)}
-            aria-controls="example-collapse-text"
+            aria-controls={collapseId}
             aria-expanded={open}
             className={style.collapseHeader}
         >
@@ -37,7 +38,7 @@ export const SlotItemsSelector = ({
             <FontAwesomeIcon icon={open ? faChevronUp : faChevronDown} />
         </div>
         <Collapse in={open} className={style.collapse + ' ' + 'w-100 h-100'}>
-            <div id="example-collapse-text">
+            <div id={collapseId} >
                 {
                     items.map(item => {
                         return <FormGroup key={item.name} className="w-100 h-100" >
