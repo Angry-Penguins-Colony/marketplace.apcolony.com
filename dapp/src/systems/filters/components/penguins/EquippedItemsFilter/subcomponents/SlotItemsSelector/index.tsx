@@ -38,7 +38,7 @@ export const SlotItemsSelector = ({
             <FontAwesomeIcon icon={open ? faChevronUp : faChevronDown} />
         </div>
         <Collapse in={open} className={style.collapse + ' ' + 'w-100 h-100'}>
-            <div id={collapseId} >
+            <div id={collapseId} className="w-100 h-100">
                 {
                     items.map(item => {
                         return <FormGroup key={item.name} className="w-100 h-100" >
