@@ -2,7 +2,7 @@ import React from 'react';
 import { IOffer, IPenguin } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import AddressWrapper from 'components/AddressWrapper';
-import { marketplaceContractAddress } from 'config';
+import { marketplaceContractAddress, stakeTokenName } from 'config';
 import SubProperties from '../SubProperties';
 
 interface Props {
@@ -37,9 +37,22 @@ const PenguinSubProperties = ({ penguin, offer }: Props) => {
         }
     }
 
+    properties.push(`${calcualteIceSum(penguin)} ${stakeTokenName}`);
+
     return <SubProperties
         properties={properties}
     />
 };
 
 export default PenguinSubProperties;
+
+function calcualteIceSum(penguin: IPenguin) {
+    let iceSum = 0;
+
+    for (const slot in penguin.equippedItems) {
+        const item = penguin.equippedItems[slot];
+        iceSum += item.stakePoints;
+    }
+
+    return iceSum;
+}
