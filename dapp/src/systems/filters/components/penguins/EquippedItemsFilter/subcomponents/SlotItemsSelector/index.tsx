@@ -11,7 +11,10 @@ export const SlotItemsSelector = ({
     slot,
     onSelectionUpdate
 }: {
-    items: string[],
+    items: {
+        name: string;
+        amount: number
+    }[],
     slot: string,
     onSelectionUpdate: (selected: string[]) => void
 }) => {
@@ -37,11 +40,11 @@ export const SlotItemsSelector = ({
             <div id="example-collapse-text">
                 {
                     items.map(item => {
-                        return <FormGroup key={item} >
+                        return <FormGroup key={item.name} >
                             <FormCheckLabel>
-                                {item}
+                                {item.name} <span className="text-muted">({item.amount})</span>
                             </FormCheckLabel>
-                            <input className="float-right" type="checkbox" name={item} onChange={handleChange} />
+                            <input className="float-right" type="checkbox" name={item.name} onChange={handleChange} />
                         </FormGroup>
                     })
                 }

@@ -7,6 +7,15 @@ import { SlotItemsSelector } from './subcomponents/SlotItemsSelector';
 
 type Props = GenericFilterProps<IPenguin>
 
+type ItemList = {
+    [slot: string]: {
+        name: string;
+        amount: number;
+    }[];
+};
+
+
+
 export const EquippedItemsFilter = ({
     elements: penguins,
     onFilterUpdate
@@ -73,9 +82,9 @@ export const EquippedItemsFilter = ({
 
 
 
-function getEquipedItems(penguins: IPenguin[]): { [slot: string]: string[] } {
+function getEquipedItems(penguins: IPenguin[]): ItemList {
 
-    const result: { [slot: string]: string[] } = {};
+    const result: ItemList = {};
 
     for (const penguin of penguins) {
         for (const slot in penguin.equippedItems) {
@@ -86,8 +95,16 @@ function getEquipedItems(penguins: IPenguin[]): { [slot: string]: string[] } {
                 result[slot] = [];
             }
 
-            if (!result[slot].includes(item.displayName)) {
-                result[slot].push(item.displayName);
+            const index = result[slot].findIndex(i => i.name == item.displayName);
+
+            if (index === -1) {
+                result[slot].push({
+                    name: item.displayName,
+                    amount: 1
+                })
+            }
+            else {
+                result[slot][index].amount++;
             }
         }
     }
