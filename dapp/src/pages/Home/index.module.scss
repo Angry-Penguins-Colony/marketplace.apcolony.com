@@ -75,12 +75,17 @@
 
         .content {
             display: flex;
+            flex-direction: column;
             gap: 15px;
             flex-wrap: nowrap;
             overflow: auto;
             padding-right: var(--padding-section);
             padding-left: var(--padding-section);
             padding-bottom: 15px;
+
+            > * {
+                height: 200px;
+            }
         }
 
         .items h2 {
@@ -330,6 +335,16 @@
             .button {
                 min-width: auto;
                 grid-area: button;
+            }
+        }
+
+        .chose-category {
+            .content {
+                flex-direction: row;
+
+                > * {
+                    height: 365px;
+                }
             }
         }
 
