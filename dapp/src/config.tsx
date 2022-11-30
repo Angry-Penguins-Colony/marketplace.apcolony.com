@@ -77,7 +77,7 @@ export const stakingContract: Address = new Address(getNetworkInfos().stakingCon
 export const stakingToken = getNetworkInfos().nftStakingToken;
 export const itemsDatabase = getNetworkInfos().itemsDatabase;
 export const environment = getNetworkInfos().environment;
-export const stakeTokenName = 'ICE';
+export const stakeTokenName = '$ICE';
 
 if (marketplaceApi.endsWith('/') == false) {
   throw new Error('Marketplace API should end with a slash');
