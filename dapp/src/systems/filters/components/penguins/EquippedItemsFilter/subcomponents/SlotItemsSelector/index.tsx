@@ -36,7 +36,7 @@ export const SlotItemsSelector = ({
             {capitalize(slot)}
             <FontAwesomeIcon icon={open ? faChevronUp : faChevronDown} />
         </div>
-        <Collapse in={open} className={style.collapse}>
+        <Collapse in={open} className={style.collapse + ' ' + 'w-100 h-100'}>
             <div id="example-collapse-text">
                 {
                     items.map(item => {
