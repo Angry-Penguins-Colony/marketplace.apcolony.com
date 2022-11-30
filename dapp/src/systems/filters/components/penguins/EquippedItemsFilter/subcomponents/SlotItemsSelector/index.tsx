@@ -34,15 +34,15 @@ export const SlotItemsSelector = ({
             {capitalize(slot)}
             <FontAwesomeIcon icon={faChevronDown} />
         </div>
-        <Collapse in={open}>
+        <Collapse in={open} className={style.collapse}>
             <div id="example-collapse-text">
                 {
                     items.map(item => {
                         return <FormGroup key={item} >
-                            <FormCheckInput name={item} onChange={handleChange} />
                             <FormCheckLabel>
                                 {item}
                             </FormCheckLabel>
+                            <input className="float-right" type="checkbox" name={item} onChange={handleChange} />
                         </FormGroup>
                     })
                 }
