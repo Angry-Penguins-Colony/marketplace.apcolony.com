@@ -3,7 +3,6 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { capitalize } from 'lodash';
 import { Collapse, FormGroup } from 'react-bootstrap';
-import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
 import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
 import style from './index.module.scss';
 

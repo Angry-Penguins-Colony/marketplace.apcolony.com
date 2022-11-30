@@ -1,7 +1,6 @@
 import React from 'react';
 import { IItem } from '@apcolony/marketplace-api';
 import { FormGroup } from 'react-bootstrap';
-import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
 import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
 import { stakePointsToTier } from 'sdk/utils';
 import { GenericFilterProps } from 'systems/filters/popup/GenericFiltersPopup';
@@ -49,7 +48,7 @@ export const ItemsTier = ({
         {
             tiers.map(tier =>
                 <FormGroup key={tier} className={style.form}>
-                    <FormCheckInput name={tier} onChange={handleChange} />
+                    <input type="checkbox" className="float-right" name={tier} onChange={handleChange} />
                     <FormCheckLabel>
                         {tier} <span className="text-muted">({getTierCount(tier)})</span>
                     </FormCheckLabel>
