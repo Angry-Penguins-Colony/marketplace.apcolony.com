@@ -1,5 +1,5 @@
 import React from 'react';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { capitalize } from 'lodash';
 import { Collapse, FormGroup } from 'react-bootstrap';
@@ -31,7 +31,7 @@ export const SlotItemsSelector = ({
             className={style.collapseHeader}
         >
             {capitalize(slot)}
-            <FontAwesomeIcon icon={faChevronDown} />
+            <FontAwesomeIcon icon={open ? faChevronUp : faChevronDown} />
         </div>
         <Collapse in={open} className={style.collapse}>
             <div id="example-collapse-text">
