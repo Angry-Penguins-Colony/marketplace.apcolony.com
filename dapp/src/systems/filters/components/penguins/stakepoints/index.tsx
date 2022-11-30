@@ -1,6 +1,6 @@
 import React from 'react';
 import { IPenguin } from '@apcolony/marketplace-api';
-import { FormGroup, FormLabel, FormControl } from 'react-bootstrap'
+import { FormGroup, FormLabel, FormControl, InputGroup } from 'react-bootstrap'
 import { stakeTokenName } from 'config';
 import { getStakePointsSum } from 'sdk/utils';
 import { GenericFilterProps } from 'systems/filters/popup/GenericFiltersPopup';
@@ -68,7 +68,7 @@ export const StakePointsFilter = ({
 
     return <FormGroup>
         <FormLabel>{stakeTokenName} Generated</FormLabel>
-        <div>
+        <InputGroup>
             <FormControl
                 type="number"
                 placeholder="Min"
@@ -86,7 +86,7 @@ export const StakePointsFilter = ({
                 value={stakePoints?.max}
                 onChange={handleChange}
             />
-        </div>
+        </InputGroup>
     </FormGroup>;
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
