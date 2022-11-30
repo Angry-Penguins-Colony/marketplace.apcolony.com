@@ -41,10 +41,10 @@ export const SlotItemsSelector = ({
                 {
                     items.map(item => {
                         return <FormGroup key={item.name} className="w-100 h-100" >
+                            <input className="float-right" type="checkbox" name={item.name} onChange={handleChange} />
                             <FormCheckLabel>
                                 {item.name} <span className="text-muted">({item.amount})</span>
                             </FormCheckLabel>
-                            <input className="float-right" type="checkbox" name={item.name} onChange={handleChange} />
                         </FormGroup>
                     })
                 }
