@@ -11,3 +11,17 @@
     padding-right: $padding !important;
     padding-top: 20px !important;
 }
+
+.filtersContainer {
+    width: 100%;
+
+    .filter {
+        width: 100%;
+
+        &:last-child {
+            hr {
+                display: none;
+            }
+        }
+    }
+}
