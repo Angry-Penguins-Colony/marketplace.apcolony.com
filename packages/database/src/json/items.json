@@ -2323,12 +2323,12 @@
     {
         "id": "2000",
         "renderUrl": "https://apc-items.s3.eu-west-3.amazonaws.com/render/2000-render.png",
-        "name": "Happy BearMarket 2022",
+        "name": "Happy 2022 BearMarket",
         "stakePoints": 1,
         "slot": "clothes",
-        "attributeName": "Happy BearMarket 2022",
+        "attributeName": "Happy 2022 BearMarket",
         "supply": 100,
         "collection": "APCITEMS-65bd55",
-        "nonce": 2
+        "nonce": 3
     }
 ]
