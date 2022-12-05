@@ -172,12 +172,20 @@ export class APCNetworkProvider {
                 }
 
                 default:
-                    const item: IOwnedItem = {
-                        ownedAmount: nft.supply.toNumber(),
-                        ...this.itemsDatabase.getItemFromToken(nft.collection, nft.nonce)
-                    };
 
-                    items.push(item);
+                    const itemDb = this.itemsDatabase.getItemFromTokenSilent(nft.collection, nft.nonce);
+
+                    if (itemDb != undefined) {
+                        const item: IOwnedItem = {
+                            ownedAmount: nft.supply.toNumber(),
+                            ...this.itemsDatabase.getItemFromToken(nft.collection, nft.nonce)
+                        };
+
+                        items.push(item);
+                    }
+                    else {
+                        console.warn(`Unknown item ${nft.collection}-${nft.nonce} when getting inventory`);
+                    }
                     break;
             }
         }

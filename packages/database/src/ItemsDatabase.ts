@@ -144,8 +144,12 @@ export default class ItemsDatabase {
         return this._items.find(i => i.identifier == identifier);
     }
 
+    public getItemFromTokenSilent(collection: string, nonce: number) {
+        return this._items.find(item => item.collection === collection && item.nonce === nonce);
+    }
+
     public getItemFromToken(collection: string, nonce: number) {
-        const item = this._items.find(item => item.collection === collection && item.nonce === nonce);
+        const item = this.getItemFromTokenSilent(collection, nonce);
         if (!item) {
             throw new Error(`Unknown item with collection ${collection} and nonce ${nonce}`);
         }
