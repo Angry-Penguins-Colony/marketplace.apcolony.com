@@ -546,11 +546,14 @@ export class APCNetworkProvider {
         const output: MyItem[] = [];
 
         for (let i = 0; i < data.length; i += 4) {
+
+            console.log(data[i + 3]);
+
             output.push({
                 slot: data[i],
                 name: data[i + 1],
                 collection: data[i + 2],
-                nonce: parseInt(data[i + 3]),
+                nonce: parseInt(Buffer.from(data[i + 3], "binary").toString("hex"), 16),
             });
         }
         return output;
