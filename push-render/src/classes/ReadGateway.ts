@@ -51,8 +51,13 @@ export default class ReadGateway {
 
             if (!isBadgeNumberValid(badgeNumber)) continue;
 
-            const renderAttribute = RenderAttributes.fromAttributes(attributes, badgeNumber, this._itemsDatabase.items);
-            renderAttributes.push(renderAttribute);
+            try {
+                const renderAttribute = RenderAttributes.fromAttributes(attributes, badgeNumber, this._itemsDatabase.items);
+                renderAttributes.push(renderAttribute);
+            }
+            catch (e) {
+                console.error("Cannot build attributes because :", e);
+            }
         }
 
         return renderAttributes;
