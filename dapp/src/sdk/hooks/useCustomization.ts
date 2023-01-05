@@ -68,6 +68,8 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
     }, [selectedPenguin, previousSelectedPenguin])
 
     React.useEffect(() => {
+        if (initialItemsIdentifier) return;
+
         resetItems();
 
     }, [selectedPenguin]);
@@ -239,7 +241,6 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
     }
 
     function resetItems() {
-        if (initialItemsIdentifier) return;
         if (!selectedPenguin) return;
 
         const equippedItemsIdentifierFromFetchedData = Object.values(selectedPenguin.equippedItems)
