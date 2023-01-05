@@ -56,7 +56,16 @@ export default class ReadGateway {
                 renderAttributes.push(renderAttribute);
             }
             catch (e) {
-                console.error("Cannot build attributes because :", e);
+
+                const ignoreLogName = [
+                    "Investissons nous"
+                ];
+
+                const isIgnored: boolean = ignoreLogName.find(ignoredName => attributes.includes(ignoredName)) != undefined;
+
+                if (isIgnored == false) {
+                    console.error("Cannot build attributes because :", e);
+                }
             }
         }
 
@@ -71,4 +80,4 @@ export default class ReadGateway {
 
 function isBadgeNumberValid(badgeNumber: number) {
     return isNaN(badgeNumber) == false && badgeNumber > 0 && badgeNumber <= 5555;
-}
+} 
