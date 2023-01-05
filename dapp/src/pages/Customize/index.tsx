@@ -7,7 +7,6 @@ import Button from 'components/Abstract/Button/Button';
 import CustomizeControls from 'components/Customize/Controls';
 import ErrorPage from 'components/ErrorPage';
 import LoadingOverlay from 'components/Foreground/LoadingOverlay';
-import RefreshIcon from 'components/Icons/RefreshIcon';
 import TrashIcon from 'components/Icons/TrashIcon';
 import PopupFromBottom from 'components/Inventory/PopupFromBottom/PopupFromBottom';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
@@ -38,7 +37,6 @@ const Customize = () => {
     const initialAttributes = load();
 
     const {
-        resetItems,
         unequipAllItems,
         equipItem,
         unequipItem,
@@ -147,9 +145,6 @@ const Customize = () => {
                     (editingEnabled) &&
                     <>
                         <div className={style.utilsBtn}>
-                            {/* <Button icon={<RefreshIcon />} onClick={resetItems}>
-                                Reset
-                            </Button> */}
 
                             <Button icon={<TrashIcon />} onClick={unequipAllItems}>
                                 Unequip All
