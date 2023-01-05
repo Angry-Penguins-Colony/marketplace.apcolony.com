@@ -147,9 +147,9 @@ const Customize = () => {
                     (editingEnabled) &&
                     <>
                         <div className={style.utilsBtn}>
-                            <Button icon={<RefreshIcon />} onClick={resetItems}>
+                            {/* <Button icon={<RefreshIcon />} onClick={resetItems}>
                                 Reset
-                            </Button>
+                            </Button> */}
 
                             <Button icon={<TrashIcon />} onClick={unequipAllItems}>
                                 Unequip All
