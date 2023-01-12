@@ -10,7 +10,7 @@ const eggsCollection = "EGGS-e93d67";
 
 const devnetConfig: Config = {
 
-    itemsDatabase: ItemsDatabase.fromJson(Items, DeployDevnet.items),
+    itemsDatabase: ItemsDatabase.fromJson(Items, true),
     eggsDatabase: new EggsDatabase(eggsCollection),
 
     penguinsCollection: DeployDevnet.penguinsIdentifier,

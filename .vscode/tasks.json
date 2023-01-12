@@ -6,8 +6,7 @@
             "dependsOrder": "parallel",
             "dependsOn": [
                 "run-dapp",
-                "run-api",
-                "run-push-render"
+                "run-api"
             ],
             "runOptions": {
                 "runOn": "folderOpen"

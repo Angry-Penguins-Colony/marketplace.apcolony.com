@@ -1,6 +1,6 @@
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { EggsDatabase } from "./EggsDatabase";
-import ItemsDatabase, { splitCollectionAndNonce } from "./ItemsDatabase";
+import ItemsDatabase from "./ItemsDatabase";
 import Items from "./json/items.json";
 import { Config, ItemsCollections } from "./types/config";
 
@@ -8,7 +8,7 @@ import { Config, ItemsCollections } from "./types/config";
 const eggsCollection = "EGGS-502867";
 const mainnetConfig: Config = {
 
-    itemsDatabase: ItemsDatabase.fromJson(Items),
+    itemsDatabase: ItemsDatabase.fromJson(Items, false),
     eggsDatabase: new EggsDatabase(eggsCollection),
 
     penguinsCollection: "APC-928458",

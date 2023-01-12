@@ -1,5 +1,6 @@
 import { IItem, IPenguin } from "@apcolony/marketplace-api";
 import fs from "fs";
+import { parse } from "path";
 import { getItemWebThumbnail, getRenderWebThumbnail, ipfsGateway } from "./uris";
 import { toIdentifier } from "./utils";
 
@@ -20,8 +21,11 @@ type ItemInDatabase = {
     slot: string;
     attributeName: string;
     supply?: number;
-    collection: string;
-    nonce: number;
+
+    collection?: string | null | undefined;
+    nonce?: number | null | undefined;
+    devnetCollection?: string | null | undefined;
+    devnetNonce?: number | null | undefined;
 };
 
 export default class ItemsDatabase {
@@ -34,51 +38,68 @@ export default class ItemsDatabase {
 
     constructor(private readonly _items: IItem[]) { }
 
-    public static fromJson(parsedItems: ItemInDatabase[], forceIdentifier?: DeployedItem[]) {
-        const items: IItem[] = parsedItems
-            .filter(({ name }) => name != "Default")
-            .map(({ name, id, renderUrl, slot, supply, attributeName, stakePoints, collection, nonce }): IItem => {
+    public static fromJson(parsedItems: ItemInDatabase[], useDevnetCollection: boolean) {
 
-                if (!id) {
-                    throw new Error(`Item ${name} has no id`);
-                }
+        const items: IItem[] = [];
 
-                const item: IItem = {
-                    id,
-                    type: "items",
-                    displayName: name,
-                    attributeName: attributeName,
+        for (const parsedItem of parsedItems) {
 
-                    thumbnailUrls: {
-                        high: getItemWebThumbnail(id),
-                        small: getItemWebThumbnail(id), // TODO: use a small thumbnail
-                    },
-                    collection: collection,
-                    nonce: nonce,
-                    identifier: toIdentifier(collection, nonce),
+            const {
+                id,
+                name,
+                collection: mainnetCollection,
+                nonce: mainnetNonce,
+                devnetCollection,
+                devnetNonce,
+                attributeName,
+                slot,
+                renderUrl,
+                supply,
+                stakePoints
+            } = parsedItem;
 
-                    slot,
-                    description: "", // TODO:
-                    renderUrls: {
-                        ipfs: renderUrl,
-                        high: getRenderWebThumbnail(id),
-                    },
-                    supply: supply ?? -1,
-                    stakePoints: stakePoints
-                }
+            if (name == "Default") break;
 
-                if (forceIdentifier) {
-                    const forcedData = forceIdentifier.find(i => i.id == id);
 
-                    if (forcedData) {
-                        item.identifier = toIdentifier(forcedData.collection, forcedData.nonce);
-                        item.collection = forcedData.collection;
-                        item.nonce = forcedData.nonce;
-                    }
-                }
+            if (!id) {
+                console.error(`Item ${name} has no id`);
+                break;
+            }
 
-                return item;
-            });
+            const selectedCollection = useDevnetCollection ? devnetCollection : mainnetCollection;
+            const selectedNonce = useDevnetCollection ? devnetNonce : mainnetNonce;
+
+            if (!selectedCollection || !selectedNonce) {
+                console.warn("No collection or nonce for item", id);
+                break;
+            }
+
+            const item: IItem = {
+                id,
+                type: "items",
+                displayName: name,
+                attributeName: attributeName,
+
+                thumbnailUrls: {
+                    high: getItemWebThumbnail(id),
+                    small: getItemWebThumbnail(id), // TODO: use a small thumbnail
+                },
+                collection: selectedCollection,
+                nonce: selectedNonce,
+                identifier: toIdentifier(selectedCollection, selectedNonce),
+
+                slot,
+                description: "", // TODO:
+                renderUrls: {
+                    ipfs: renderUrl,
+                    high: getRenderWebThumbnail(id),
+                },
+                supply: supply ?? -1,
+                stakePoints: stakePoints
+            }
+
+            items.push(item);
+        }
 
         return new ItemsDatabase(items);
     }
