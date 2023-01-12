@@ -113,7 +113,13 @@ export class APCNetworkProvider {
 
     public async getRankedPenguin(id: string) {
         const penguins = await this.getRankedPenguins();
-        return penguins.find(p => p.id == id);
+
+        const index = penguins.findIndex(p => p.id == id);
+
+        return {
+            rank: index + 1,
+            ...penguins[index]
+        }
     }
 
     public async getNft(collection: string, nonce: number): Promise<APCNft> {
