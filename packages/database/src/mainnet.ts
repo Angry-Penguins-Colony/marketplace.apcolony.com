@@ -44,6 +44,7 @@ function getItemsIdentifiers(): ItemsCollections {
     };
 
     for (const item of Items) {
+        if (!item.collection) continue;
         addCollection(item.slot, item.collection);
     }
 
