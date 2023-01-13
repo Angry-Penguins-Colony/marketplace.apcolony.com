@@ -63,15 +63,15 @@ export default class ItemsDatabase {
 
             if (!id) {
                 console.error(`Item ${name} has no id`);
-                break;
+                continue;
             }
 
             const selectedCollection = useDevnetCollection ? devnetCollection : mainnetCollection;
             const selectedNonce = useDevnetCollection ? devnetNonce : mainnetNonce;
 
             if (!selectedCollection || !selectedNonce) {
-                console.warn("No collection or nonce for item", id);
-                break;
+                console.warn("No collection or nonce for id:", id);
+                continue;
             }
 
             const item: IItem = {
