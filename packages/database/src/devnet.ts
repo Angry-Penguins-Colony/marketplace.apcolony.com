@@ -8,13 +8,14 @@ import { Config } from "./types/config";
 
 const eggsCollection = "EGGS-e93d67";
 
+const itemsDatabase = ItemsDatabase.fromJson(Items, true);
 const devnetConfig: Config = {
 
-    itemsDatabase: ItemsDatabase.fromJson(Items, true),
+    itemsDatabase: itemsDatabase,
     eggsDatabase: new EggsDatabase(eggsCollection),
 
     penguinsCollection: DeployDevnet.penguinsIdentifier,
-    itemsCollections: DeployDevnet.itemsIdentifier,
+    itemsCollections: itemsDatabase.getUniqueItemsCollections(),
     penguinsCount: 5555,
     eggsCollection: eggsCollection,
     customisationContractAddress: DeployDevnet.customizationContractAddress.bech32,

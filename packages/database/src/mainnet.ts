@@ -6,14 +6,16 @@ import { Config, ItemsCollections } from "./types/config";
 
 
 const eggsCollection = "EGGS-502867";
+const itemsDatabase = ItemsDatabase.fromJson(Items, false);
+
 const mainnetConfig: Config = {
 
-    itemsDatabase: ItemsDatabase.fromJson(Items, false),
+    itemsDatabase: itemsDatabase,
     eggsDatabase: new EggsDatabase(eggsCollection),
 
     penguinsCollection: "APC-928458",
     eggsCollection: eggsCollection,
-    itemsCollections: getItemsIdentifiers(),
+    itemsCollections: itemsDatabase.getUniqueItemsCollections(),
 
     customisationContractAddress: "erd1qqqqqqqqqqqqqpgqfpwpevmk6k8lqv7kp7m3tguql49sxjpnsc2s7lgkgn",
     penguinsCount: 5555,
@@ -29,36 +31,3 @@ const mainnetConfig: Config = {
 Object.freeze(mainnetConfig);
 
 export default mainnetConfig;
-
-
-function getItemsIdentifiers(): ItemsCollections {
-
-    const identifiers: ItemsCollections = {
-        "background": [],
-        "beak": [],
-        "clothes": [],
-        "eyes": [],
-        "hat": [],
-        "skin": [],
-        "weapon": [],
-    };
-
-    for (const item of Items) {
-        if (!item.collection) continue;
-        addCollection(item.slot, item.collection);
-    }
-
-    return identifiers;
-
-    function addCollection(slot: string, identifier: string) {
-
-        const currentArray = identifiers[slot as keyof typeof identifiers] || [];
-
-        // make sure there is no duplicates
-        if (currentArray.includes(identifier)) return;
-
-        currentArray.push(identifier);
-
-        identifiers[slot as keyof typeof identifiers] = currentArray;
-    }
-}

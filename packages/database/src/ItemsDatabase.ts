@@ -1,6 +1,7 @@
 import { IItem, IPenguin } from "@apcolony/marketplace-api";
 import fs from "fs";
 import { parse } from "path";
+import { ItemsCollections } from "./types/config";
 import { getItemWebThumbnail, getRenderWebThumbnail, ipfsGateway } from "./uris";
 import { toIdentifier } from "./utils";
 
@@ -70,7 +71,7 @@ export default class ItemsDatabase {
             const selectedNonce = useDevnetCollection ? devnetNonce : mainnetNonce;
 
             if (!selectedCollection || !selectedNonce) {
-                console.warn("No collection or nonce for id:", id);
+                console.warn("No collection or nonce for id:", id, "in", useDevnetCollection ? "devnet" : "mainnet");
                 continue;
             }
 
@@ -211,6 +212,37 @@ export default class ItemsDatabase {
         if (!item.identifier) throw new Error("Item has no identifier");
 
         return splitCollectionAndNonce(item.identifier);
+    }
+
+    public getUniqueItemsCollections(): ItemsCollections {
+        const identifiers: ItemsCollections = {
+            "background": [],
+            "beak": [],
+            "clothes": [],
+            "eyes": [],
+            "hat": [],
+            "skin": [],
+            "weapon": [],
+        };
+
+        for (const item of this._items) {
+            if (!item.collection) continue;
+            addCollection(item.slot, item.collection);
+        }
+
+        return identifiers;
+
+        function addCollection(slot: string, identifier: string) {
+
+            const currentArray = identifiers[slot as keyof typeof identifiers] || [];
+
+            // make sure there is no duplicates
+            if (currentArray.includes(identifier)) return;
+
+            currentArray.push(identifier);
+
+            identifiers[slot as keyof typeof identifiers] = currentArray;
+        }
     }
 }
 
