@@ -70,7 +70,7 @@ export default function AccessoriesList() {
   <article id="a744ec6b-5c7d-4a7a-96a8-3ade7cce6549" className="page sans">
 
   <br /><br />
-  <div className="page-body">
+  <div className="page-body accessories-table">
    <table className="collection-content matable">
     <thead>
      <tr>
