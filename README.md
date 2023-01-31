@@ -15,7 +15,7 @@ Then, run it
 
 # 💡 Improvements
 
-- Use /src folder instead of /out for packages (avoid building each modification)
+- Use typescript /src folder instead of /out for packages (avoid building each modification)
 - The conversion from multirepo to mono was late. 
     - Thus, a lot of things can be moved to a common packages (like utils folder)
     - We aren't using lerna yet
