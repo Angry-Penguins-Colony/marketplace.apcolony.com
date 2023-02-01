@@ -31,7 +31,7 @@ export const ItemsList = () => {
                             <ResponsiveElementThumbnail
                                 key={element.id}
                                 element={element}
-                                subProperty={'#' + element.id} />
+                                subProperty={'Total supply: ' + element.supply} />
                         </Link>
                     )
             }
