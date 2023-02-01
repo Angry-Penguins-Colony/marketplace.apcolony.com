@@ -49,8 +49,7 @@
                 }
             }
             button {
-                DISPLAY: inline-flex;
-                margin: 0 5px;
+                margin: auto;
                 padding: 19px 39px;
             }
         }
@@ -66,82 +65,7 @@
         }
     }
 
-    .rewards{
-        padding: $layout_padding;
-        overflow: hidden;
-        >div{
-            text-align: center;
-            position: relative;
-            border-radius: $radius;
-            background-color: white;
-            img{
-                position: absolute;
-                top: 0;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }
-            h2{
-                font-family: "CHEDROS", sans-serif;
-                font-weight: 900;
-                font-size: 3.1rem;
-            }
-            >span{
-                font-family: "Config Rounded", sans-serif;
-                display: block;
-                font-weight: 700;
-                font-size: 2.1rem;
-                margin: 10px 0 29px;
-                color:$primary;
-            }
-            
-        }
-        .claim{
-            margin-top: 160px;
-            padding:90px 32px 17px;
-            img{
-                width:400px;
-            }
-            button{
-                margin:auto;
-                margin-bottom: 15px;
-                padding: 20px 43px;
-            }
-            a{
-                font-family: "Config Rounded", sans-serif;
-                letter-spacing: 0;
-                font-weight: bold;
-                color: #ACBBEE;
-                font-size: 1.3rem;
-                span{
-                    position: relative;
-                    display:inline-block;
-                    margin-left: 17px;
-                    font-size: 1.1rem;
-                    font-weight: 600;
-                    &::after{
-                        content:'';
-                        position: absolute;
-                        inset:50%;
-                        transform: translate(-50%, -50%);
-                        border: 2px solid;
-                        border-radius: 100%;
-                        width: 22px;
-                        height: 22px;
-                    }
-                }
-                &:hover{
-                    color:$primary;
-                }
-            }
-        }
-        .staked{
-            margin: 140px 0 110px;
-            padding:100px 32px 17px;
-            img{
-                width: 170px;
-            }
-        }
-    }
+    
     --padding-section: 37px;
     .stake-list{
         >p{
@@ -200,7 +124,6 @@
     }
     .accessories{
         overflow: hidden;
-        margin-top: 60px;
         >div:first-child{
             padding: $layout_padding;
             
@@ -212,6 +135,7 @@
             font-weight: 700;
             text-transform: uppercase;
             text-align: center;
+            margin-top:30px;
             span{
                 color:$primary;
             }
@@ -326,43 +250,6 @@
                 }
             }
         }
-        .rewards{
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            padding: 23vh 14vw 17vh;
-            grid-column-gap: 10vw;
-            column-gap: 7vw;
-            overflow: unset;
-            .claim, .staked{
-                margin:0;
-                h2{
-                    font-size: 3.6rem;
-                    font-weight: 900;
-                }
-            }
-            .claim{
-                img{
-                    transform: translate(-50%, -50%);
-                    width: 588px;
-                }
-                > span{
-                    margin-top:0px;
-                    font-size: 2.7rem;
-                }
-                button{
-                    span{
-                        font-size: 1.4rem;
-                    }
-                }
-            }
-            .staked{
-                padding-top:140px;
-                img{
-                    transform: translate(-50%, -58%);
-                    width: 309px;
-                }
-            }
-        }
         .stake-list{
             >p{
                 font-size: 2.1rem;
@@ -397,7 +284,6 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             align-items: center;
-            margin-top:100px;
             >div:first-child{
                 position: relative;
                 height: 100%;
