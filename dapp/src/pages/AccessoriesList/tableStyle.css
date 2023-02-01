@@ -783,10 +783,18 @@
    background-color: #bbb;
  }
  */
+
+ table{
+  margin: auto;
+ }
    
    table tr:nth-child(even){
    background-color:#e6f6fd;
  }
+
+ table td:nth-child(1), table th:nth-child(1){
+  display: none;
+}
    
    a
    {
@@ -794,7 +802,14 @@
    }
 
    .accessories-table{
-    overflow: scroll;
+    overflow-x: scroll;
+    padding: 0 30px;
+   }
+
+   .accessories-table table{
+    margin: auto;
+    /* padding: 0 30px; */
+    width: 100%;
    }
 
    .accessories-table img{
