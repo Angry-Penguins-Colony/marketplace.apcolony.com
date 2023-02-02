@@ -1,32 +1,20 @@
 import React, { useEffect } from 'react'
-import { IPenguin } from '@apcolony/marketplace-api';
-import { useGetAccountInfo, useGetPendingTransactions, useTrackTransactionStatus } from '@elrondnetwork/dapp-core/hooks';
-import { sendTransactions } from '@elrondnetwork/dapp-core/services';
-import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
+import { useNavigate } from 'react-router-dom';
 import AccessoryIconBronze from 'assets/img/accessory_icon_bronze.png';
 import AccessoryIconDiamond from 'assets/img/accessory_icon_diamond.png';
 import AccessoryIconGold from 'assets/img/accessory_icon_gold.png';
 import AccessoryIconSilver from 'assets/img/accessory_icon_silver.png';
 import APCLogoWhite from 'assets/img/apc-logo/white.png';
-import apCoinRewardsImg from 'assets/img/apc_coin_reward.png';
-import apcStakedImg from 'assets/img/apc_staked.png';
 import penguinAndStack from 'assets/img/penguin_and_stack.png';
-import tokenGeneratedDesktop from 'assets/img/token_generated_desktop.png';
-import tokenGeneratedMobile from 'assets/img/token_generated_mobile.png';
 import AccessoriesExamples from 'components/Abstract/AccessoriesExamples/AccessoriesExamples';
 import AccessoriesGeneration from 'components/Abstract/AccessoriesGeneration/AccessoriesGeneration';
 import Button from 'components/Abstract/Button/Button';
-import StakePopup from 'components/Foreground/Popup/StakePopup/StakePopup';
-import { GenericItemExplorer } from 'components/Navigation/GenericItemExplorer';
-import { stakingContract } from 'config';
-import { buildRouteLinks } from 'routes';
-import { useGetStakingClaimable, useGetPenguinsStaked, useGetTokensGenerated, useGetPenguinsUnstaked } from 'sdk/hooks/api/useGetStaking';
-import ClaimTransactioNBuilder from 'sdk/transactionsBuilders/staking/ClaimTransactionBuilder';
 import style from './index.module.scss';
 import './tableStyle.css'
 
 
 export default function AccessoriesList() {
+  const navigate = useNavigate();
 
   //Function to smoothly scroll to id 
   const scrollTo = (id: string) => {
@@ -43,7 +31,8 @@ export default function AccessoriesList() {
         <h1>APC STACKING REWARDS</h1>
         <div className={style['cta']}>
           <p>Use control + F or command + F to find item</p>
-          <Button className={style.button} onClick={()=>scrollTo('a744ec6b-5c7d-4a7a-96a8-3ade7cce6549')} type='primary-outline'>See items</Button>
+          <Button className={style.button}  onClick={() => navigate('/staking')} type='primary-outline'>Stake my penguins</Button>
+          <Button className={style.button} onClick={()=>scrollTo('a744ec6b-5c7d-4a7a-96a8-3ade7cce6549')} type='primary-outline'>Scroll to items</Button>
         </div>
       </section>
 
