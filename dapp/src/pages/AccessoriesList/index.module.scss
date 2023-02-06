@@ -1,0 +1,394 @@
+@import "./../../assets/sass/var.scss";
+@import "./../../assets/sass/theme.scss";
+
+#launchpadVente {
+    background-color: $background;
+
+    .top-page {
+        min-height: 100vh;
+        padding: $layout_padding;
+
+        background-image: url("./../../assets/img/Hero_image_Stacking_mobile.jpg");
+        background-size: cover;
+        background-position: center center;
+        text-align: center;
+
+        img {
+            height: 52px;
+            margin: 20px 0 80px;
+        }
+        color: white;
+
+        h1 {
+            font-family: "CHEDROS", sans-serif;
+            letter-spacing: 2px;
+            font-size: 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 1;
+            text-align: center;
+            line-height: 120%;
+        }
+        .cta{
+            position:absolute;
+            bottom: 126px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            z-index: 20;
+            p{
+                font-family: "Config Rounded", sans-serif;
+                font-size: 1.3rem;
+                max-width: 260px;
+                margin: auto;
+                line-height: 120%;
+                margin-bottom: 10px;
+                br{
+                    display: none;
+                }
+            }
+            button {
+                display: inline-flex;
+                margin: 5px 0px;
+                padding: 19px 39px;
+            }
+        }
+        &::after {
+            content: "";
+            background: linear-gradient(to top, #041836eb 0%, transparent 100%);
+            width: 100%;
+            height: 28vh;
+            position: absolute;
+            bottom: 0;
+            left:0;
+            z-index: 1;
+        }
+    }
+
+    
+    --padding-section: 37px;
+    .stake-list{
+        >p{
+            font-family: "CHEDROS", sans-serif;
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            span{
+                position: relative;
+                display: inline-block;
+                color:white;
+                z-index: 1;
+                margin: 0 10px;
+                &::after{
+                    content:'';
+                    position: absolute;
+                    inset:50%;
+                    transform: translate(-50%, -56%);
+                    background-color: $primary;
+                    border-radius: 100%;
+                    width: 28px;
+                    height: 28px;
+                    z-index: -1;
+                }
+            }
+        }
+        
+        > .content {
+            display: flex;
+            overflow: auto;
+            gap:18px;
+            padding-right: var(--padding-section);
+            padding-left: var(--padding-section);
+            padding-bottom: 15px;
+            @extend .custom-scrollbar;
+            -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
+            scrollbar-width: none;  /* Hide scrollbar for Firefox */
+
+            >div{
+                min-width: 250px;
+            }
+
+            &::-webkit-scrollbar-track {
+                margin: var(--padding-section);
+            }
+            &::-webkit-scrollbar{
+                display: none; /* Hide scrollbar for Chrome, Safari and Opera */
+            }
+        }
+        >div>a>div{
+            width: 300px;
+        }
+    }
+    .accessories{
+        overflow: hidden;
+        >div:first-child{
+            padding: $layout_padding;
+            
+        }
+        h2{
+            position: relative;
+            z-index: 10;
+            font-family: "CHEDROS", sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-align: center;
+            margin-top:30px;
+            span{
+                color:$primary;
+            }
+            br{
+                display: none;
+            }
+        }
+        .accessories-list{
+            display: flex;
+            overflow: auto;
+            column-gap:18px;
+            padding-right: var(--padding-section);
+            padding-bottom: 15px;
+            padding-top:38px;
+
+            &::-webkit-scrollbar-track {
+                margin: var(--padding-section);
+            }
+        }
+        .img-container{
+            text-align: center;
+            margin-bottom: 20px;
+            img{
+                width: 100%;
+                margin-top: 62px;
+                transform: scale(1.35);
+                max-width: 350px;
+            }
+        }
+    }
+    .token-generated{
+        position: relative;
+        .img-container{
+            .desktop{
+                display: none;
+            }
+            img{
+                width: 100%;
+            }
+        }
+        .content-container{
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            h2{
+                display: none;
+            }
+            .counter{
+                position: relative;
+                font-family: "Config Rounded", sans-serif;
+                background-color: #090d26;
+                color: white;
+                border-radius: 10px;
+                padding: 30px 30px 30px 35px;
+                font-weight: 700;
+                font-size: 2.3rem;
+                letter-spacing: 11px;
+                box-sizing: content-box;
+                &::after{
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: calc(100% + 17px);
+                    height: calc(100% + 17px);
+                    border-radius: 10px;
+                    border: 2.5px solid #090d26;
+                }
+            }
+        }
+    }
+}
+
+// desktop
+@media (min-width: $desktop_min_width) {
+    #launchpadVente {
+        .top-page {
+            position: relative;
+            padding-top: 100px;
+            background-image: url("./../../assets/img/hero_image_Stacking_V3.jpg");
+            // background-attachment: fixed;
+            // background-position: calc(50vh + 77vw) center;
+            background-size: cover;
+            background-position-x: center;
+            background-position-y: center;
+            min-height: 100vh;
+            text-align: center;
+            img {
+                display: none;
+            }
+            h1{
+                margin-top: 6.5vh;
+                font-size: 4.5rem; 
+            }
+            &::after {
+                content: unset;
+            }
+            .cta{
+                bottom: 5vh;
+                p{
+                    max-width: 500px;
+                    font-size: 1.66rem;
+                    margin-bottom: 39px;
+                }
+                button{
+                    margin: 0px 5px;
+                    span{
+                        font-size: 1.5rem;
+                        letter-spacing: 1px;
+                    }
+                }
+            }
+        }
+        .stake-list{
+            >p{
+                font-size: 2.1rem;
+                span{
+                    &::after{
+                        width: 37px;
+                        height: 37px;
+                        transform: translate(-50%, -58%);
+                    }
+                }
+            }
+            .content{
+                -ms-overflow-style: unset;  /* Show scrollbar for IE and Edge */
+                scrollbar-width: unset;  /* Show scrollbar for Firefox */
+    
+                >div{
+                    min-width: 250px;
+                }
+    
+                &::-webkit-scrollbar-track {
+                    margin: var(--padding-section);
+                }
+                &::-webkit-scrollbar{
+                    display: unset; /* Show scrollbar for Chrome, Safari and Opera */
+                }
+            }
+            >div>a>div{
+                width: auto;
+            }
+        }
+        .accessories{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            >div:first-child{
+                position: relative;
+                height: 100%;
+                overflow: hidden;
+                padding: 0;
+                padding: 0 8vw;
+                width: 100%;                
+                margin: auto;
+                >div:first-child{
+                    position: relative;
+                    z-index: 10;
+                    h2{
+                        font-size: 3rem;
+                        br{
+                            display: block;
+                        }
+                    }
+                    &:after{
+                        content:"";
+                        position: absolute;
+                        top: 0;
+                        left:0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: $background;
+                        opacity: 0.7;
+                    }
+                }
+                .accessories-list{
+                    position: relative;
+                    z-index: 10;
+                }
+                .img-container{
+                    img{
+                        position: absolute;
+                        bottom: 0;
+                        z-index: 0;
+                        transform: scale(3.35) translate(-18%, 11%)
+                    }
+                }
+            }
+            .accessories-list{
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr;
+                justify-content: center;
+                row-gap: 18px;
+            }
+        }
+        .token-generated{
+            .img-container{
+                .mobile{
+                    display: none;
+                }
+                .desktop{
+                    display: block;
+                }
+            }
+            .content-container{
+                top:42%;
+                h2{
+                    display: block;
+                    font-family: "CHEDROS", sans-serif;
+                    font-weight: 900;
+                    text-transform: uppercase;
+                    text-align: center;
+                    color: #5078df;
+                    font-size: 5rem;
+                    line-height: 100%;
+                    letter-spacing: 1px;
+                    margin-bottom: 30px;
+                }
+                .counter{
+                    position: absolute;
+                    bottom: -112px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    padding: 35px 35px 35px 50px;
+                    font-size: 3.4rem;
+                    letter-spacing: 25px;
+                    border-radius: 15px;
+                    &::after{
+                        border-radius: 25px;
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+@media (min-width: 1308px) {
+    #launchpadVente {
+        .accessories{
+            align-items: start;
+
+            .accessories-list{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
+                justify-content: center;
+                row-gap: 18px;
+            }
+        }
+    }
+}
