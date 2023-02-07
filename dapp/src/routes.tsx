@@ -2,6 +2,7 @@ import React from 'react';
 import { RouteType } from '@elrondnetwork/dapp-core/types';
 import AuthentificatedPatternRouteWrapper from 'components/Abstract/AuthentificatedPatternRouteWrapper';
 import { dAppName } from 'config';
+import AccessoriesList from 'pages/AccessoriesList';
 import CategoriesOffers from 'pages/GenericOfferListPage';
 import Inspect from 'pages/Inspect';
 import ItemsOffersNavigator from 'pages/ItemsOffersNavigator';
@@ -37,6 +38,7 @@ export const routeNames = {
   walletconnect: '/walletconnect',
   staking: '/staking',
   launchpad: '/launchpad',
+  accessories : '/accessories',
 };
 
 export const buildRouteLinks = {
@@ -113,7 +115,12 @@ const routes: Array<ITitledRoute> = [
     path: routeNames.allItemsHome,
     title: 'Items Offers',
     component: ItemsOffersNavigator
-  }
+  },
+  {
+    path: routeNames.accessories,
+    title: 'Accessories',
+    component: AccessoriesList
+  },
 ];
 
 const mappedRoutes: ITitledRoute[] = routes.map((route) => {

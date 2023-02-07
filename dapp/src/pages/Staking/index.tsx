@@ -3,6 +3,7 @@ import { IPenguin } from '@apcolony/marketplace-api';
 import { useGetAccountInfo, useGetPendingTransactions, useTrackTransactionStatus } from '@elrondnetwork/dapp-core/hooks';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
+import { Navigate, useNavigate } from 'react-router-dom';
 import AccessoryIconBronze from 'assets/img/accessory_icon_bronze.png';
 import AccessoryIconDiamond from 'assets/img/accessory_icon_diamond.png';
 import AccessoryIconGold from 'assets/img/accessory_icon_gold.png';
@@ -26,6 +27,8 @@ import style from './index.module.scss';
 
 
 export default function Staking() {
+  const navigate = useNavigate();
+  
   const { address: connectedAddress } = useGetAccountInfo();
   const [isStakePopupVisible, setIsStakePopupVisible] = React.useState(false);
 
@@ -95,6 +98,7 @@ export default function Staking() {
         <div className={style['cta']}>
           <p>Here is the place where you can Stake <br />your Angry Penguins and receive the colony’s token!</p>
           <Button onClick={() => setIsStakePopupVisible(true)} className={style.button} type='primary-outline'>STAKE / UNSTAKE</Button>
+          <Button onClick={() => navigate('/accessories')} className={style.button} type='primary-outline'>SEE ITEMS</Button>
         </div>
       </section>
 
@@ -109,7 +113,7 @@ export default function Staking() {
 
         <div className={style['staked']}>
           <img src={apcStakedImg} alt="$ICE staked" />
-          <h2>$ICE STAKED</h2>
+          <h2>PENGUINS STAKED</h2>
           <span>{penguinsStakedCount}/5555</span>
         </div>
       </section>
@@ -140,10 +144,10 @@ export default function Staking() {
             <h2><span>Each accessory</span> on your penguin <br /><span>generates</span> a <span>certain amount <br />of token per day</span> when it is deposited <br />in staking.</h2>
           </div>
           <div className={style['accessories-list']}>
-            <AccessoriesGeneration rarity='Bronze' tokenGenerated={1} img={AccessoryIconBronze} />
-            <AccessoriesGeneration rarity='Silver' tokenGenerated={2} img={AccessoryIconSilver} />
-            <AccessoriesGeneration rarity='Gold' tokenGenerated={3} img={AccessoryIconGold} />
-            <AccessoriesGeneration rarity='Diamond' tokenGenerated={5} img={AccessoryIconDiamond} />
+            <AccessoriesGeneration rarity='Bronze' tokenGenerated={2} img={AccessoryIconBronze} />
+            <AccessoriesGeneration rarity='Silver' tokenGenerated={4} img={AccessoryIconSilver} />
+            <AccessoriesGeneration rarity='Gold' tokenGenerated={6} img={AccessoryIconGold} />
+            <AccessoriesGeneration rarity='Diamond' tokenGenerated={10} img={AccessoryIconDiamond} />
           </div>
           <div className={style['img-container']}>
             <img src={penguinAndStack} alt="Penguin on APC stack" />

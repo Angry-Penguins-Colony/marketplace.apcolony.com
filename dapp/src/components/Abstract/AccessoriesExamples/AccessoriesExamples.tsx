@@ -28,28 +28,28 @@ export default function AccessoriesExamples() {
                 setAccessoryBg(bgBronze)
                 setAccessoryName('Blue Hawaiian Shirt')
                 setAccessoryIcon(AccessoryIconBronze)
-                setAccessoryPrice('1')
+                setAccessoryPrice('2')
                 break;
             case 2:
                 setAccessoryImg(hoodie)
                 setAccessoryBg(bgSilver)
                 setAccessoryName('Black EGLD Hoodie')
                 setAccessoryIcon(AccessoryIconSilver)
-                setAccessoryPrice('2')
+                setAccessoryPrice('4')
                 break;
             case 3:
                 setAccessoryImg(kimono)
                 setAccessoryBg(bgGold)
                 setAccessoryName('Kimono With Black Belt')
                 setAccessoryIcon(AccessoryIconGold)
-                setAccessoryPrice('3')
+                setAccessoryPrice('6')
                 break;
             case 4:
                 setAccessoryImg(bouee)
                 setAccessoryBg(bgDiamond)
                 setAccessoryName('Duck Buoy')
                 setAccessoryIcon(AccessoryIconDiamond)
-                setAccessoryPrice('5')
+                setAccessoryPrice('10')
                 break; 
         }                      
     }, [accessory])
