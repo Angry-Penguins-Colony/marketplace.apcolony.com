@@ -11,10 +11,10 @@ import ErrorPage from 'components/ErrorPage';
 import BuyingPopup from 'components/Foreground/Popup/BuyingPopup/BuyingPopup';
 import ShowMyOffersPopup from 'components/Foreground/Popup/ShowMyOffersPopup';
 import ShowOffersPopup from 'components/Foreground/Popup/ShowOffersPopup';
-import ShareIcon from 'components/Icons/ShareIcon';
 import ItemSubProperties from 'components/InspectSubProperties/ItemSubProperties';
 import PenguinSubProperties from 'components/InspectSubProperties/PenguinSubProperties';
 import ItemsAndActivities from 'components/Inventory/ItemsAndActivities/ItemsAndActivities';
+import ItemPageLayout from 'components/Layout/ItemPageLayout';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { hatchLink, marketplaceContractAddress } from 'config';
 import { buildRouteLinks } from 'routes';
@@ -69,33 +69,13 @@ const Inspect = () => {
 
     const typeInText = getTypeInText();
 
-    return (
-        <div id={style['item-in-inventory']}>
-            <MobileHeader title={typeInText.plural} type='light' />
-            <div className={style.thumbnail}>
-                {
-                    item ?
-                        <img className={style.img} src={item.thumbnailUrls.high} alt={item.displayName} />
-                        :
-                        <Skeleton height={250} />
-                }
-            </div>
-            <div className={style.infos}>
-                <p className={style.name}>{item?.displayName ?? <Skeleton />}</p>
-                <div className={style.share} onClick={() => {
-                    if (!item) return;
-                    window.navigator.share({
-                        title: item.displayName,
-                        text: 'Check out this item Angry Penguin Marketplace',
-                        url: window.location.href,
-                    })
-                }}>
-                    <ShareIcon />
-                </div>
-                <div className={style.rank}>
-                    {getSubProperties()}
-                </div>
-            </div>
+    return <>
+        <MobileHeader title={typeInText.plural} type='light' />
+
+        <ItemPageLayout
+            itemData={item ? { url: item.thumbnailUrls.high, displayName: item.displayName } : undefined}
+            subProperties={getSubProperties()}
+        >
             <div>
 
                 {canBuy &&
@@ -212,8 +192,8 @@ const Inspect = () => {
                     onCloseClicked={() => { showOffersPopup(false) }}
                 />
             }
-        </div >
-    );
+        </ItemPageLayout>
+    </>
 
     function getItems() {
         if (!item) return undefined;
