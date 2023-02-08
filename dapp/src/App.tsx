@@ -20,6 +20,7 @@ import routes, { routeNames } from 'routes';
 import { ItemsList } from 'tabs/ItemsList';
 import { OffersList } from 'tabs/OffersList';
 import { RanksList } from 'tabs/RanksList';
+import 'react-tooltip/dist/react-tooltip.css'
 
 const App = () => {
   return <>

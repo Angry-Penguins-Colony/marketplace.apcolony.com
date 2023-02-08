@@ -5,6 +5,7 @@ import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useParams } from 'react-router-dom';
+import { Tooltip } from 'react-tooltip'
 import Button from 'components/Abstract/Button/Button';
 import CustomizeControls from 'components/Customize/Controls';
 import ErrorPage from 'components/ErrorPage';
@@ -109,12 +110,14 @@ const Customize = () => {
                         currentPenguin={selectedPenguin}
                         subTitle={selectedPenguin?.displayName ?? ''}
                     />
-                    <div className={style.iceBadgeContainer} title="$ICE given by staking with the current customisation">
+                    <div className={style.iceBadgeContainer} id="iceBadgeContainer" data-tooltip-content="$ICE given by staking with the current customisation">
                         <div className={style.iceBadge}>
                             {totalIceEquipped} $ICE <FontAwesomeIcon icon={faInfoCircle} className={'pl-2'} />
                         </div>
                     </div>
+                    <Tooltip anchorId="iceBadgeContainer" />
                 </div>
+
             }
 
             <section className={style.customize}>
