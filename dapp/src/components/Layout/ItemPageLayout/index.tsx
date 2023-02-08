@@ -9,6 +9,9 @@ interface Props {
     subProperties?: React.ReactNode;
 }
 
+/**
+ * The layout of an inspect page: on a desktop => a thumbnail at the left, and some informations at the right.
+ */
 const ItemPageLayout = ({ itemData, subProperties, children }: Props) => {
 
 
