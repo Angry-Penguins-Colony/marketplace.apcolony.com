@@ -14,7 +14,8 @@ const BuyPriceContainer = ({
     buyableOffersCount,
     tokenSymbol = 'EGLD',
     showTitle = true,
-    unlockTimestamp
+    unlockTimestamp,
+    children
 }: {
     className?: string,
     showOffersCount: boolean,
@@ -26,6 +27,7 @@ const BuyPriceContainer = ({
     tokenSymbol?: string;
     showTitle?: boolean;
     unlockTimestamp?: number
+    children?: React.ReactNode
 }) => {
 
     return (
@@ -73,6 +75,8 @@ const BuyPriceContainer = ({
                     :
                     <p>No buyables offers</p>
             }
+
+            {children}
 
         </section>
     );

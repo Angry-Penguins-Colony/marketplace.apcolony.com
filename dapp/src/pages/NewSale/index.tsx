@@ -17,13 +17,6 @@ const NewSale = () => {
         itemData={newSaleInfo ? { url: newSaleInfo.item.url, displayName: newSaleInfo.item.displayName } : undefined} >
 
 
-        <p>
-            {newSaleInfo ?
-                <>{newSaleInfo.remainingSupply} remaining</> :
-                <Skeleton />
-            }
-        </p>
-
         {newSaleInfo ?
             <BuyPriceContainer
                 buyableOffersCount={newSaleInfo.remainingSupply}
@@ -34,7 +27,11 @@ const NewSale = () => {
                 onBuy={onBuy}
                 showTitle={false}
                 unlockTimestamp={newSaleInfo.startTimestamp}
-            />
+            >
+                <div className="mt-2">
+                    {newSaleInfo.remainingSupply} {newSaleInfo.item.displayName} remaining
+                </div>
+            </BuyPriceContainer>
             :
             <Skeleton />
         }
