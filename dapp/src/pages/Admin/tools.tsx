@@ -4,7 +4,9 @@ export interface ITool {
     component: JSX.Element;
 }
 const CreateNewSale = () => {
-    return <>Create new sale</>
+    return <>
+        On va sûrement utiliser un autre outil au lieu que je fasse tout à la mano
+    </>
 }
 
 export const tools: ITool[] = [
