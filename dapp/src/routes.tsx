@@ -120,7 +120,7 @@ const routes: Array<ITitledRoute> = [
     path: routeNames.accessories,
     title: 'Accessories',
     component: AccessoriesList
-  }
+  },
 ];
 
 const mappedRoutes: ITitledRoute[] = routes.map((route) => {
