@@ -13,15 +13,19 @@ const BuyPriceContainer = ({
     offersCount,
     onBuy = () => { /* do nothing*/ },
     onOffersCountClick,
-    buyableOffersCount
+    buyableOffersCount,
+    tokenName = 'EGLD',
+    showTitle = true
 }: {
     className?: string,
     showOffersCount: boolean,
     offersCount: number | undefined,
     buyableOffersCount: number | undefined,
     price?: Price,
-    onBuy?: () => void
-    onOffersCountClick?: () => void
+    onBuy?: () => void,
+    onOffersCountClick?: () => void,
+    tokenName?: string;
+    showTitle?: boolean
 }) => {
 
     const isConnected = useIsConnected();
@@ -29,13 +33,15 @@ const BuyPriceContainer = ({
     return (
         <section className={style.buy + ' ' + className}>
 
-            <h2>Price</h2>
+            {showTitle &&
+                <h2>Price</h2>
+            }
 
             {
                 buyableOffersCount == undefined || buyableOffersCount > 0 ?
                     <>
                         <p className={style.price}>
-                            {price?.toDenomination() ?? <Skeleton />} EGLD
+                            {price?.toDenomination() ?? <Skeleton />} {tokenName}
                         </p>
 
                         {
