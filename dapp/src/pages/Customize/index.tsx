@@ -2,6 +2,8 @@ import * as React from 'react';
 import { IItem, IOwnedItem } from '@apcolony/marketplace-api';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useParams } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
 import CustomizeControls from 'components/Customize/Controls';
@@ -45,6 +47,7 @@ const Customize = () => {
         getCustomizeTransaction,
         getRenderTransaction,
         isSlotModified,
+        totalIceEquipped,
         equippedItemsIdentifier,
         attributesStatus,
         hasSomeModifications,
@@ -98,6 +101,22 @@ const Customize = () => {
                     openItemsPopup(type, 'Select ' + type);
                 }}
             />
+
+            {
+                (selectedPenguin) &&
+                <div className={style.head}>
+                    <PenguinCustomizeHeader
+                        currentPenguin={selectedPenguin}
+                        subTitle={selectedPenguin?.displayName ?? ''}
+                    />
+                    <div className={style.iceBadgeContainer} title="$ICE given by staking with the current customisation">
+                        <div className={style.iceBadge}>
+                            {totalIceEquipped} $ICE <FontAwesomeIcon icon={faInfoCircle} className={'pl-2'} />
+                        </div>
+                    </div>
+                </div>
+            }
+
             <section className={style.customize}>
                 <div className={style.content}>
                     <div className={style.items}>
@@ -166,13 +185,10 @@ const Customize = () => {
                     </>
                 }
             </section >
-            {
-                (selectedPenguin) &&
-                <PenguinCustomizeHeader className={style['another-penguins']}
-                    currentPenguin={selectedPenguin}
-                    subTitle={selectedPenguin?.displayName ?? ''}
-                />
-            }
+
+
+
+
         </div >
     );
 

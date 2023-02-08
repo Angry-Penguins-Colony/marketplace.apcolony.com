@@ -99,10 +99,43 @@
     }
 }
 
+.head {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.iceBadgeContainer {
+    display: flex;
+    justify-content: center;
+
+    padding-top: 15px;
+
+    .iceBadge {
+        background-color: white;
+        border-radius: 9999px;
+
+        display: flex;
+        align-items: center;
+
+        padding: 8px;
+
+        font-family: "Config Rounded", sans-serif;
+        font-weight: 600;
+        font-size: 1.2rem;
+        color: $primary-dark;
+        text-transform: uppercase;
+    }
+}
+
 // desktop
 @media (min-width: $desktop_min_width) {
     body {
         background-position: center;
+    }
+
+    .head {
+        grid-area: head;
     }
 
     #body-content {

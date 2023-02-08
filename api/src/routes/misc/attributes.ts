@@ -13,6 +13,11 @@ export default async function getAttributes(req: Request, res: Response, network
 
         const uri = await networkProvider.getUriOf(attributes, penguinName);
 
+        sendResponse(res, {
+            renderStatus: "none",
+        })
+        return;
+
         if (uri) {
             sendResponse(res, {
                 renderStatus: "rendered",

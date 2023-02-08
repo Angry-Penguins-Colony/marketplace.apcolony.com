@@ -34,6 +34,15 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
     const { data, forceReload: reloadSelectedPenguin } = useGetGenericItem('penguins', selectedPenguinId);
     const selectedPenguin = data as IPenguin | undefined;
     const previousSelectedPenguin = usePrevious(data);
+    const totalIceEquipped: number = Object.values(equippedItemsIdentifier)
+        .reduce((total: number, identifier: string | undefined) => {
+            if (!identifier) return total;
+
+            const item = itemsDatabase.getItemFromIdentifier(identifier);
+            console.log(identifier + ' => ' + item);
+
+            return total + (item?.stakePoints ?? 0);
+        }, 0 as number);
 
 
     const equippedItems = parseAttributes(equippedItemsIdentifier);
@@ -89,6 +98,7 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
         isSlotModified,
         setEquippedItemsIdentifier,
         unequipAllItems,
+        totalIceEquipped,
         isCustomizationPending,
         equippedItemsIdentifier,
         attributesStatus,
