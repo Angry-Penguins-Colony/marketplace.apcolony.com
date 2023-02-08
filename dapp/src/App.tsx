@@ -9,6 +9,8 @@ import { SkeletonTheme } from 'react-loading-skeleton';
 import { Route, Routes, BrowserRouter as Router, Navigate } from 'react-router-dom';
 import Layout from 'components/Layout';
 import { environment } from 'config';
+import Admin from 'pages/Admin';
+import { tools } from 'pages/Admin/tools';
 import CategoriesOffers from 'pages/GenericOfferListPage';
 import Home from 'pages/Home';
 import PageNotFound from 'pages/PageNotFound';
@@ -62,6 +64,13 @@ const App = () => {
                   <Route index element={<Navigate to="offers" replace />} />
                   <Route path="offers" element={<OffersList category="eggs" />} />
                 </Route>
+
+                <Route path={routeNames.admin} element={<Admin />}>
+                  {tools.map((tool) => (
+                    <Route key={tool.route} path={tool.route} element={tool.component} />
+                  ))}
+                </Route>
+
 
                 {routes.map((route: any, index: number) => (
                   <Route

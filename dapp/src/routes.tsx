@@ -40,7 +40,8 @@ export const routeNames = {
   staking: '/staking',
   launchpad: '/launchpad',
   accessories: '/accessories',
-  newSale: '/new-sale/:id'
+  newSale: '/new-sale/:id',
+  admin: '/admin',
 };
 
 export const buildRouteLinks = {
