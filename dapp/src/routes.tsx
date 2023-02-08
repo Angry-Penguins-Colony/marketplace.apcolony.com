@@ -6,8 +6,8 @@ import AccessoriesList from 'pages/AccessoriesList';
 import CategoriesOffers from 'pages/GenericOfferListPage';
 import Inspect from 'pages/Inspect';
 import ItemsOffersNavigator from 'pages/ItemsOffersNavigator';
+import NewSale from 'pages/NewSale';
 import SelectCustomizePenguin from 'pages/SelectCustomizePenguin';
-import SpecialOfferPage from 'pages/SpecialOffer';
 import CategoriesType from 'sdk/types/CategoriesType';
 import withPageTitle from './components/PageTitle';
 import Customize from './pages/Customize';
@@ -40,7 +40,7 @@ export const routeNames = {
   staking: '/staking',
   launchpad: '/launchpad',
   accessories: '/accessories',
-  specialOffers: '/special-offers/:id'
+  newSale: '/new-sale/:id'
 };
 
 export const buildRouteLinks = {
@@ -124,9 +124,9 @@ const routes: Array<ITitledRoute> = [
     component: AccessoriesList
   },
   {
-    path: routeNames.specialOffers,
+    path: routeNames.newSale,
     title: 'Special Offer',
-    component: SpecialOfferPage
+    component: NewSale
   }
 ];
 

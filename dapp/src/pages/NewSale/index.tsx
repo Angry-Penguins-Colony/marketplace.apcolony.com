@@ -1,7 +1,7 @@
 import React from 'react';
 import ItemPageLayout from 'components/Layout/ItemPageLayout';
 
-const SpecialOfferPage = () => {
+const NewSale = () => {
 
     return <ItemPageLayout
         itemData={{
@@ -12,4 +12,4 @@ const SpecialOfferPage = () => {
     </ItemPageLayout >
 }
 
-export default SpecialOfferPage;
+export default NewSale;
