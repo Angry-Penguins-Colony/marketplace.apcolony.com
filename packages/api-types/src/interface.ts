@@ -95,3 +95,20 @@ export interface IMarketData {
     averagePrice: Price;
     totalListed: number;
 }
+
+export interface INewSaleData {
+    item: {
+        url: string;
+        displayName: string;
+    },
+    startTimestamp: number,
+    price: Price,
+    token: IToken,
+    maxSupply: number,
+    remainingSupply: number
+}
+
+export interface IToken {
+    symbol: string;
+    decimals: number;
+}

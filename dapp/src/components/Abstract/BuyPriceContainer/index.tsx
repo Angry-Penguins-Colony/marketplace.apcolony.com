@@ -14,7 +14,7 @@ const BuyPriceContainer = ({
     onBuy = () => { /* do nothing*/ },
     onOffersCountClick,
     buyableOffersCount,
-    tokenName = 'EGLD',
+    tokenSymbol = 'EGLD',
     showTitle = true
 }: {
     className?: string,
@@ -24,7 +24,7 @@ const BuyPriceContainer = ({
     price?: Price,
     onBuy?: () => void,
     onOffersCountClick?: () => void,
-    tokenName?: string;
+    tokenSymbol?: string;
     showTitle?: boolean
 }) => {
 
@@ -41,7 +41,7 @@ const BuyPriceContainer = ({
                 buyableOffersCount == undefined || buyableOffersCount > 0 ?
                     <>
                         <p className={style.price}>
-                            {price?.toDenomination() ?? <Skeleton />} {tokenName}
+                            {price?.toDenomination() ?? <Skeleton />} {tokenSymbol}
                         </p>
 
                         {

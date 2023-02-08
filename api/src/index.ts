@@ -14,6 +14,7 @@ import getItem from "./routes/items/item";
 import getAttributes from "./routes/misc/attributes";
 import getExploreItems from "./routes/misc/exploreItems";
 import getItemsList from "./routes/misc/getItems";
+import getNewSaleInfo from "./routes/new-sale/new-sale";
 import getEggsOffers from "./routes/offers/eggs/offers";
 import getEggsOffersStats from "./routes/offers/eggs/offersStats";
 import getItemsOffers from "./routes/offers/items/offers";
@@ -91,6 +92,7 @@ function start(id: number) {
     app.get('/staking/claimable/:bech32', (req: any, res: any) => getStakingClaimable(req, res, networkProvider));
     app.get('/staking/tokensGenerated/', (req: any, res: any) => getGeneratedTokens(req, res, networkProvider));
 
+    app.get("/new-sale/:id", getNewSaleInfo);
 
     app.get('/attributes/:penguinId', (req: any, res: any) => getAttributes(req, res, networkProvider));
     app.get("/exploreItems", (req: any, res: any) => getExploreItems(req, res, networkProvider, itemsDatabase));

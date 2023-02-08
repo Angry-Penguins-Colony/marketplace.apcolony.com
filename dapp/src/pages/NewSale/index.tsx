@@ -1,36 +1,44 @@
 import React from 'react';
+import Skeleton from 'react-loading-skeleton';
+import { useParams } from 'react-router-dom';
 import BuyPriceContainer from 'components/Abstract/BuyPriceContainer';
 import ItemPageLayout from 'components/Layout/ItemPageLayout';
 import Price from 'sdk/classes/Price';
+import useGetNewSaleInfo from 'sdk/hooks/api/useGetNewSaleInfo';
 
 const NewSale = () => {
 
-    const {
-        url,
-        displayName,
-        remainingSupply,
-        price,
-        token
-    } = useGetNewSaleInfo(-1);
+    const { id } = useParams();
+    if (!id) throw new Error('Missing ID');
+
+    const { data: newSaleInfo } = useGetNewSaleInfo(id);
 
     return <ItemPageLayout
-        itemData={{ url, displayName }} >
+        itemData={newSaleInfo ? { url: newSaleInfo.item.url, displayName: newSaleInfo.item.displayName } : undefined} >
+
 
         <p>
-            {remainingSupply} remaining
+            {newSaleInfo ?
+                <>{newSaleInfo.remainingSupply} remaining</> :
+                <Skeleton />
+            }
         </p>
 
-        <BuyPriceContainer
-            buyableOffersCount={remainingSupply}
-            offersCount={remainingSupply}
-            showOffersCount={false}
-            price={price}
-            tokenName={token}
-            onBuy={onBuy}
-            showTitle={false}
-        />
+        {newSaleInfo ?
+            <BuyPriceContainer
+                buyableOffersCount={newSaleInfo.remainingSupply}
+                offersCount={newSaleInfo.remainingSupply}
+                showOffersCount={false}
+                price={new Price(newSaleInfo.price, newSaleInfo.token.decimals)}
+                tokenSymbol={newSaleInfo.token.symbol}
+                onBuy={onBuy}
+                showTitle={false}
+            />
+            :
+            <Skeleton />
+        }
 
-    </ItemPageLayout>;
+    </ItemPageLayout >;
 
     function onBuy() {
         console.warn('OnBuy no implemented yet');
@@ -39,16 +47,3 @@ const NewSale = () => {
 
 export default NewSale;
 
-function useGetNewSaleInfo(id: number) {
-    console.log('Getting new sale id #' + id)
-
-    return {
-        url: 'https://apc-items.s3.eu-west-3.amazonaws.com/thumbnail_web/15-thumbnail-web.jpg',
-        displayName: 'Chewing Gum',
-        startTimestamp: -1,
-        price: Price.fromEgld(1),
-        token: '$ICE',
-        maxSupply: 50,
-        remainingSupply: 10
-    }
-}
