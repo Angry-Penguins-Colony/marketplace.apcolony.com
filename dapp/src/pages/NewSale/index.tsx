@@ -3,6 +3,7 @@ import Skeleton from 'react-loading-skeleton';
 import { useParams } from 'react-router-dom';
 import BuyPriceContainer from 'components/Abstract/BuyPriceContainer';
 import ItemPageLayout from 'components/Layout/ItemPageLayout';
+import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import Price from 'sdk/classes/Price';
 import useGetNewSaleInfo from 'sdk/hooks/api/useGetNewSaleInfo';
 
@@ -13,30 +14,33 @@ const NewSale = () => {
 
     const { data: newSaleInfo } = useGetNewSaleInfo(id);
 
-    return <ItemPageLayout
-        itemData={newSaleInfo ? { url: newSaleInfo.item.url, displayName: newSaleInfo.item.displayName } : undefined} >
+    return <>
+        <MobileHeader title={'New Sale ' + newSaleInfo?.item.displayName} type='light' />
 
+        <ItemPageLayout
+            itemData={newSaleInfo ? { url: newSaleInfo.item.url, displayName: newSaleInfo.item.displayName } : undefined} >
 
-        {newSaleInfo ?
-            <BuyPriceContainer
-                buyableOffersCount={newSaleInfo.remainingSupply}
-                offersCount={newSaleInfo.remainingSupply}
-                showOffersCount={false}
-                price={new Price(newSaleInfo.price, newSaleInfo.token.decimals)}
-                tokenSymbol={newSaleInfo.token.symbol}
-                onBuy={onBuy}
-                showTitle={false}
-                unlockTimestamp={newSaleInfo.startTimestamp}
-            >
-                <div className="mt-2">
-                    {newSaleInfo.remainingSupply} {newSaleInfo.item.displayName} remaining
-                </div>
-            </BuyPriceContainer>
-            :
-            <Skeleton />
-        }
+            {newSaleInfo ?
+                <BuyPriceContainer
+                    buyableOffersCount={newSaleInfo.remainingSupply}
+                    offersCount={newSaleInfo.remainingSupply}
+                    showOffersCount={false}
+                    price={new Price(newSaleInfo.price, newSaleInfo.token.decimals)}
+                    tokenSymbol={newSaleInfo.token.symbol}
+                    onBuy={onBuy}
+                    showTitle={false}
+                    unlockTimestamp={newSaleInfo.startTimestamp}
+                >
+                    <div className="mt-2">
+                        {newSaleInfo.remainingSupply} {newSaleInfo.item.displayName} remaining
+                    </div>
+                </BuyPriceContainer>
+                :
+                <Skeleton />
+            }
 
-    </ItemPageLayout >;
+        </ItemPageLayout >
+    </>;
 
     function onBuy() {
         console.warn('OnBuy no implemented yet');
