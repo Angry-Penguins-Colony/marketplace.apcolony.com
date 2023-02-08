@@ -1,9 +1,7 @@
 import * as React from 'react';
 import Skeleton from 'react-loading-skeleton';
-import ConnectWalletButton from 'components/Buttons/ConnectWalletButton';
+import SendTransactionButton from 'components/Buttons/SendTransactionButton';
 import Price from 'sdk/classes/Price';
-import useIsConnected from 'sdk/hooks/dapp-core-upgraded/useIsConnected';
-import Button from '../Button/Button';
 import style from './style.module.scss';
 
 const BuyPriceContainer = ({
@@ -15,7 +13,8 @@ const BuyPriceContainer = ({
     onOffersCountClick,
     buyableOffersCount,
     tokenSymbol = 'EGLD',
-    showTitle = true
+    showTitle = true,
+    unlockTimestamp
 }: {
     className?: string,
     showOffersCount: boolean,
@@ -25,10 +24,9 @@ const BuyPriceContainer = ({
     onBuy?: () => void,
     onOffersCountClick?: () => void,
     tokenSymbol?: string;
-    showTitle?: boolean
+    showTitle?: boolean;
+    unlockTimestamp?: number
 }) => {
-
-    const isConnected = useIsConnected();
 
     return (
         <section className={style.buy + ' ' + className}>
@@ -44,15 +42,11 @@ const BuyPriceContainer = ({
                             {price?.toDenomination() ?? <Skeleton />} {tokenSymbol}
                         </p>
 
-                        {
-                            isConnected ?
-
-                                <Button onClick={onBuy} type='primary' className={style.button}>
-                                    Buy
-                                </Button>
-                                :
-                                <ConnectWalletButton className={style.button} />
-                        }
+                        <SendTransactionButton
+                            sendBtnLabel="Buy"
+                            onSend={onBuy}
+                            unlockTimestamp={unlockTimestamp}
+                            className={style.button} />
 
                         {showOffersCount &&
                             <span className="mt-1">

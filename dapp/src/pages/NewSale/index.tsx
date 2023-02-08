@@ -33,6 +33,7 @@ const NewSale = () => {
                 tokenSymbol={newSaleInfo.token.symbol}
                 onBuy={onBuy}
                 showTitle={false}
+                unlockTimestamp={newSaleInfo.startTimestamp}
             />
             :
             <Skeleton />

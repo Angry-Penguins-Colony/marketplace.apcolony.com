@@ -35,7 +35,7 @@ export default async function getNewSaleInfo(
                     url: 'https://apc-items.s3.eu-west-3.amazonaws.com/thumbnail_web/201-thumbnail-web.jpg',
                     displayName: 'Crossbow',
                 },
-                startTimestamp: Date.now() + 60,
+                startTimestamp: Date.now() + 5 * 1000,
                 price: "0.5e18",
                 token: {
                     symbol: 'EGLD',
