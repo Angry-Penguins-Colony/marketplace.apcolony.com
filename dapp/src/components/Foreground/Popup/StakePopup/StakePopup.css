@@ -17,6 +17,7 @@
 
 .items-inventory > div{ /* Not in the main ItemsInventory.module.scss because introduce a double scroll issue */
     overflow-y: auto;
+    overscroll-behavior: contain;
 }
 
 .stakingPopup > div{
