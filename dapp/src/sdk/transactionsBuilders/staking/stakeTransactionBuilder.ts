@@ -58,11 +58,12 @@ export default class stakeTransactionBuilder {
             
 
         }else if(type === 'unstake') {
-            /*const { argumentsString } = new ArgSerializer().valuesToString([
-                new U64Value(new BigNumber(this.nonce)),
-            ]);
-
-            return 'unstake@00000000000000' + argumentsString;*/
+            //return 'unstake@00000000000000' + argumentsString;
+            let noncesArg = '';
+            this.nonces.map((nonce) => {
+                noncesArg +=  '00000000000000' + nonce.toString(16);
+            });
+            return 'unstake@' + noncesArg;
         }
     }
 }
