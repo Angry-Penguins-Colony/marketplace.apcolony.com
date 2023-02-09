@@ -63,6 +63,7 @@ const StakePopup = (
 
         if (sessionId != null) {
             setTransactionSessionId(sessionId);
+            setNoncesForStakingTx([]);
         }
     }
 
