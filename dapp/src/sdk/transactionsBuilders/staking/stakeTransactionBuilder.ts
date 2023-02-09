@@ -7,7 +7,7 @@ export default class stakeTransactionBuilder {
     private stakingContract?: Address;
     private connecteAddress?: string;
     private collection = '';
-    private nonce = 0;
+    private nonces:number[] = [];
 
 
     public setStakingContract(stakingContract: Address): stakeTransactionBuilder {
@@ -15,9 +15,9 @@ export default class stakeTransactionBuilder {
         return this;
     }
 
-    public setStaking(staking: {collection: string, nonce: number, connectedAddress: string }): stakeTransactionBuilder {
+    public setStaking(staking: {collection: string, nonces: number[], connectedAddress: string }): stakeTransactionBuilder {
         this.collection = staking.collection;
-        this.nonce = staking.nonce;
+        this.nonces = staking.nonces;
         this.connecteAddress = staking.connectedAddress;
         return this;
     }
@@ -38,22 +38,31 @@ export default class stakeTransactionBuilder {
         if (this.stakingContract === undefined) throw new Error('stakingContract is undefined');
 
         if (type === 'stake') {
-            const { argumentsString } = new ArgSerializer().valuesToString([
-                BytesValue.fromUTF8(this.collection),
-                new U64Value(new BigNumber(this.nonce)),
-                new U64Value(new BigNumber(1)),
-                new AddressValue(this.stakingContract), // receiver
-                new StringValue('stake'), // amount
-            ]);
 
-            return 'ESDTNFTTransfer@' + argumentsString;
+            const preArg = new ArgSerializer().valuesToString([
+                new AddressValue(this.stakingContract), // receiver
+                new U64Value(new BigNumber(this.nonces.length)),
+
+            ]).argumentsString;
+
+            let noncesArg = '';
+            this.nonces.map((nonce) => {
+                noncesArg += new ArgSerializer().valuesToString([BytesValue.fromUTF8(this.collection)]).argumentsString + '@' + nonce.toString(16) + '@' + '01' + '@';
+            });
+
+            const postArg = new ArgSerializer().valuesToString([
+                new StringValue('stake'), // amount
+            ]).argumentsString;
+
+            return 'MultiESDTNFTTransfer@'+ preArg + '@' + noncesArg + postArg;
+            
 
         }else if(type === 'unstake') {
-            const { argumentsString } = new ArgSerializer().valuesToString([
+            /*const { argumentsString } = new ArgSerializer().valuesToString([
                 new U64Value(new BigNumber(this.nonce)),
             ]);
 
-            return 'unstake@00000000000000' + argumentsString;
+            return 'unstake@00000000000000' + argumentsString;*/
         }
     }
 }

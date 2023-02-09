@@ -20,11 +20,9 @@ interface IProps {
     buildLink?: (item: IGenericElementOwned) => string,
     makeItemComponent?: (item: IGenericElementOwned | undefined, key: React.Key) => JSX.Element,
     loadingColor?: LoadingColor,
-
-
     displayStakingStatus?: boolean,
-    isStaked?: boolean,
-    stakingFunction?: (type: string, itemNonce: number) => void
+    noncesForStakingTx?: number[],
+    addNonceToStakingTx?: (itemNonce: number) => void
 }
 
 const ItemsInventory = ({
@@ -35,22 +33,22 @@ const ItemsInventory = ({
     title,
     hasFilter,
     makeItemComponent = (item, key) => {
+        //If noncesForStakingTx include the item nonce, then display the staking status
+        const selectedClass = noncesForStakingTx && item && noncesForStakingTx.includes(item.nonce) ? style['selected'] : '';
         return (
-            <div className={style['item-wrapper']} key={key}>
+            <div className={style['item-wrapper'] + ' ' + selectedClass} key={key} 
+            onClick={()=>(
+                item && displayStakingStatus && addNonceToStakingTx(item.nonce)
+            )}>
                 <SquaredItem
                     item={item}
-                    link={item ? buildLink(item) : undefined} />
-                {displayStakingStatus && stakingFunction && item &&
-                    <Button onClick={() => stakingFunction(isStaked ? 'unstake' : 'stake', item.nonce)}>
-                        {isStaked ? 'Unstake' : 'Stake'}
-                    </Button>
-                }
+                    link={item && !displayStakingStatus ? buildLink(item) : undefined} />
             </div>
         )
     },
     displayStakingStatus = false,
-    isStaked,
-    stakingFunction,
+    addNonceToStakingTx = (itemNonce) => { },
+    noncesForStakingTx = [],
     buildLink = (item) => buildRouteLinks.inspect(type, item.id)
 }: IProps) => {
     return (
@@ -96,4 +94,6 @@ export default ItemsInventory;
 function compareItems(a: IGenericElementOwned, b: IGenericElementOwned) {
     return parseInt(a.id) - parseInt(b.id);
 }
+
+
 
