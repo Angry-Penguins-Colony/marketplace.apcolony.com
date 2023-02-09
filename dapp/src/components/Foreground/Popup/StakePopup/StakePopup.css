@@ -1,3 +1,5 @@
+/** Use of .css because style['className'] doesn't work **/
+
 .stakingButton{
     padding: 17px 26px;
     position: sticky;
@@ -7,4 +9,16 @@
 .stakingButton.disabled{
     background: #e0e0e0;
     color: #9e9e9e;
+}
+
+.items-inventory{
+    padding-bottom: 10px;
+}
+
+.items-inventory > div{ /* Not in the main ItemsInventory.module.scss because introduce a double scroll issue */
+    overflow-y: auto;
+}
+
+.stakingPopup > div{
+    max-height: 90vh !important;
 }

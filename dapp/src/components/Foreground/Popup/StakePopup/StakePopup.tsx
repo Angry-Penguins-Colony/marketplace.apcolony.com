@@ -74,12 +74,12 @@ const StakePopup = (
         }
     }
 
-    return <Popup haveCloseButton={true} isVisible={isVisible} onCloseClicked={closeModal}  >
+    return <Popup haveCloseButton={true} isVisible={isVisible} onCloseClicked={closeModal} className='stakingPopup' >
         {penguinsStakedArray && penguinsUnstakedArray ?
             <>
                 <NavigationStakedType className={style['navigation-type']} onClick={() => setNoncesForStakingTx([])} onChangeType={setInventoryType} itemsType={inventoryType} stakedPenguinsCount={stakedPenguinsCount} unstakedPenguinsCount={penguinsCount} />
                 <ItemsInventory
-                    className={style['items-inventory']}
+                    className={style['items-inventory'] + ' ' + 'items-inventory'}
                     items={inventoryElements}
                     type='penguins'
                     hasFilter={false}
