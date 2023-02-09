@@ -4,7 +4,7 @@ import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import throng from "throng";
 import { APCNetworkProvider } from "./classes/APCNetworkProvider";
-import { gateway, api, itemsDatabase, eggsDatabase, penguinsCollection } from "./const";
+import { gateway, api, itemsDatabase, eggsDatabase } from "./const";
 import { getNetworkType } from "./env";
 import { getOffersOfAccount } from "./routes/accounts/offers";
 import { getInventoryOfAccount, getItemsOfAccount, getPenguinsOfAccount } from "./routes/accounts/owned";
@@ -60,11 +60,6 @@ function start(id: number) {
     app.use(limiter);
 
     const networkProvider = new APCNetworkProvider(gateway, api, itemsDatabase, eggsDatabase);
-
-    networkProvider.cacheCollection(penguinsCollection)
-        .then(() => console.log("Penguins collection cached"))
-        .catch((e) => console.log("Penguins collection cache failed", e));
-
 
     app.get("/accounts/:bech32/owned", async (req: any, res: any) => getInventoryOfAccount(req, res, networkProvider));
     app.get("/accounts/:bech32/offers", async (req: any, res: any) => getOffersOfAccount(req, res, networkProvider));
