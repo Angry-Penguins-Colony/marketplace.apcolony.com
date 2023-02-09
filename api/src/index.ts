@@ -27,6 +27,7 @@ import getPenguinsRanks from "./routes/penguins/ranks";
 import getStakingClaimable from "./routes/staking/claim";
 import getGeneratedTokens from "./routes/staking/generated";
 import getPenguinsStaked from "./routes/staking/owned";
+import { APIRequestsReporter } from "./utils/APIRequestsReporter";
 import { logErrorIfMissingItems } from "./utils/dbHelper";
 
 
@@ -106,9 +107,7 @@ function start(id: number) {
         console.log(`   api: ${api}`)
     });
 
-    if (process.env.SHOW_STATS == "true") {
-        setInterval(() => logRequestsInfo(networkProvider), 1_000);
-    }
+    new APIRequestsReporter(1_000, networkProvider).start();
 }
 
 async function master() {
@@ -116,16 +115,3 @@ async function master() {
     logErrorIfMissingItems(networkProvider);
 }
 
-function logRequestsInfo(networkProvider: APCNetworkProvider) {
-
-    const { api, gateway } = networkProvider.lastMinuteRequests;
-
-    const message = `api [${api.averageRequestPerSeconds.toFixed(2)} req/s; ${api.lastMinuteRequests} reqs]`
-        + `- gateway [${gateway.averageRequestPerSeconds.toFixed(2)} req/s; ${gateway.lastMinuteRequests} reqs]`;
-
-    rewriteLine(message);
-}
-
-function rewriteLine(msg: string) {
-    process.stdout.write(msg + "\r");
-}
