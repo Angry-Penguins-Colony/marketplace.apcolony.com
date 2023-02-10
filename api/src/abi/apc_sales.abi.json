@@ -1,0 +1,187 @@
+{
+    "buildInfo": {
+        "rustc": {
+            "version": "1.69.0-nightly",
+            "commitHash": "ef934d9b632b8ac00276558824664c104b92b5f0",
+            "commitDate": "2023-02-08",
+            "channel": "Nightly",
+            "short": "rustc 1.69.0-nightly (ef934d9b6 2023-02-08)"
+        },
+        "contractCrate": {
+            "name": "apc_sales",
+            "version": "0.0.0"
+        },
+        "framework": {
+            "name": "multiversx-sc",
+            "version": "0.39.5"
+        }
+    },
+    "name": "EmptyContract",
+    "constructor": {
+        "inputs": [],
+        "outputs": []
+    },
+    "endpoints": [
+        {
+            "name": "getNextAuctionId",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "createAuction",
+            "onlyOwner": true,
+            "mutability": "mutable",
+            "payableInTokens": [
+                "*"
+            ],
+            "inputs": [
+                {
+                    "name": "input_token_id",
+                    "type": "EgldOrEsdtTokenIdentifier"
+                },
+                {
+                    "name": "input_token_nonce",
+                    "type": "u64"
+                },
+                {
+                    "name": "price",
+                    "type": "BigUint"
+                },
+                {
+                    "name": "start_timestamp",
+                    "type": "u64"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "addTokenToAuction",
+            "onlyOwner": true,
+            "mutability": "mutable",
+            "payableInTokens": [
+                "*"
+            ],
+            "inputs": [
+                {
+                    "name": "auction_id",
+                    "type": "u64"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "retireTokenFromAuction",
+            "onlyOwner": true,
+            "mutability": "mutable",
+            "inputs": [
+                {
+                    "name": "auction_id",
+                    "type": "u64"
+                },
+                {
+                    "name": "amount",
+                    "type": "BigUint"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "withdrawBalance",
+            "onlyOwner": true,
+            "mutability": "mutable",
+            "inputs": [],
+            "outputs": []
+        },
+        {
+            "name": "buy",
+            "mutability": "mutable",
+            "payableInTokens": [
+                "*"
+            ],
+            "inputs": [
+                {
+                    "name": "auction_id",
+                    "type": "u64"
+                }
+            ],
+            "outputs": []
+        },
+        {
+            "name": "getAuctionStats",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "auction_id",
+                    "type": "u64"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "AuctionStats"
+                }
+            ]
+        }
+    ],
+    "events": [],
+    "hasCallback": false,
+    "types": {
+        "Auction": {
+            "type": "struct",
+            "fields": [
+                {
+                    "name": "input_token_id",
+                    "type": "EgldOrEsdtTokenIdentifier"
+                },
+                {
+                    "name": "input_token_nonce",
+                    "type": "u64"
+                },
+                {
+                    "name": "output_token_id",
+                    "type": "TokenIdentifier"
+                },
+                {
+                    "name": "output_token_nonce",
+                    "type": "u64"
+                },
+                {
+                    "docs": [
+                        "aka input amount for one output "
+                    ],
+                    "name": "price",
+                    "type": "BigUint"
+                },
+                {
+                    "name": "start_timestamp",
+                    "type": "u64"
+                },
+                {
+                    "name": "max_quantity",
+                    "type": "BigUint"
+                }
+            ]
+        },
+        "AuctionStats": {
+            "type": "struct",
+            "fields": [
+                {
+                    "name": "auction",
+                    "type": "Auction"
+                },
+                {
+                    "name": "remaining_output_items",
+                    "type": "BigUint"
+                }
+            ]
+        }
+    }
+}

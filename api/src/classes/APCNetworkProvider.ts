@@ -1,14 +1,14 @@
-import { EggTier, ElementType, IActivity, IAddress, IEgg, IItem, IMarketData, IOffer, IOwnedItem, IPenguin } from "@apcolony/marketplace-api";
+import { EggTier, ElementType, IActivity, IAddress, IEgg, IItem, IMarketData, INewSaleData, IOffer, IOwnedItem, IPenguin, IToken } from "@apcolony/marketplace-api";
 import { Attributes } from "@apcolony/marketplace-api/out/classes";
 import { ApiNetworkProvider, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { AbiRegistry, Address, AddressValue, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, U64Value } from "@elrondnetwork/erdjs/out";
 import { promises } from "fs";
-import { customisationContract, penguinsCollection, marketplaceContract, itemsCollection, getPenguinWebThumbnail, nftStakingContract, nftStakingToken, originalTokensAmountInStakingSc, allCollections, eggsCollection } from "../const";
+import { customisationContract, penguinsCollection, marketplaceContract, itemsCollection, getPenguinWebThumbnail, nftStakingContract, nftStakingToken, originalTokensAmountInStakingSc, allCollections, eggsCollection, newSalesContract } from "../const";
 import { getRandomsPenguinsIds, isCollectionAnItem } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, getNameFromPenguinId, parseAttributes } from "../utils/string";
 import APCNft from "./APCNft";
-import { parseActivity, parseMarketData, parseMultiValueIdAuction, parseStakedPenguins } from "./ABIParser";
+import { parseActivity, parseMarketData, parseMultiValueIdAuction, parseNewSaleData, parseStakedPenguins } from "./ABIParser";
 import { toIdentifier } from "../utils/conversion";
 import ItemsDatabase from "@apcolony/db-marketplace/out/ItemsDatabase";
 import RequestsMonitor from "./RequestsMonitor";
@@ -411,6 +411,17 @@ export class APCNetworkProvider {
         return contract;
     }
 
+
+    private async getNewSaleSmartContract() {
+        const jsonContent: string = await promises.readFile("src/abi/apc_sales.abi.json", { encoding: "utf8" });
+        const json = JSON.parse(jsonContent);
+        const abiRegistry = AbiRegistry.create(json);
+        const abi = new SmartContractAbi(abiRegistry, ["apc_sales"]);
+
+        const contract = new SmartContract({ address: newSalesContract, abi: abi });
+        return contract;
+    }
+
     private async getStakingSmartContract() {
         const jsonContent: string = await promises.readFile("src/abi/nft-staking.abi.json", { encoding: "utf8" });
         const json = JSON.parse(jsonContent);
@@ -600,6 +611,39 @@ export class APCNetworkProvider {
         if (nft.collection != eggsCollection) throw new Error("Invalid collection");
 
         return this.eggsDatabase.getEggFromNonce(nft.nonce);
+    }
+
+    public async getNewSaleInfo(id: string): Promise<INewSaleData> {
+
+        const contract = await this.getNewSaleSmartContract();
+
+        const contractViewName = "getAuctionStats";
+        const query = contract.createQuery({
+            func: new ContractFunction(contractViewName),
+            args: [new U64Value(id)],
+        });
+
+        const queryResponse = await this.gatewayProvider.queryContract(query);
+
+        if (queryResponse.returnCode == "user error") {
+            throw new Error(queryResponse.returnMessage);
+        }
+
+        this.gatewayRequestMonitor.increment();
+        const endpointDefinition = contract.getEndpoint(contractViewName);
+
+        const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition);
+
+        return parseNewSaleData(firstValue, this.getEsdtToken.bind(this));
+    }
+
+    public async getEsdtToken(identifier: string): Promise<IToken> {
+        const def = await this.gatewayProvider.getDefinitionOfFungibleToken(identifier)
+
+        return {
+            decimals: def.decimals,
+            symbol: def.name
+        };
     }
 }
 

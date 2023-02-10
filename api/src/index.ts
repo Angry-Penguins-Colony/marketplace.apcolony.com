@@ -88,7 +88,7 @@ function start(id: number) {
     app.get('/staking/claimable/:bech32', (req: any, res: any) => getStakingClaimable(req, res, networkProvider));
     app.get('/staking/tokensGenerated/', (req: any, res: any) => getGeneratedTokens(req, res, networkProvider));
 
-    app.get("/new-sale/:id", getNewSaleInfo);
+    app.get("/new-sale/:id", (req: any, res: any) => getNewSaleInfo(req, res, networkProvider));
 
     app.get('/attributes/:penguinId', (req: any, res: any) => getAttributes(req, res, networkProvider));
     app.get("/exploreItems", (req: any, res: any) => getExploreItems(req, res, networkProvider, itemsDatabase));
