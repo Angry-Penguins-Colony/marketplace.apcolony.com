@@ -11,7 +11,7 @@ export default async function getNewSaleInfo(
     const id = req.params.id;
 
     proxyNetwork.getNewSaleInfo(id)
-        .then((newSaleData: INewSaleData) => sendSuccessfulJSON(res, { sale: newSaleData }))
+        .then((newSaleData: INewSaleData) => sendSuccessfulJSON(res, newSaleData))
         .catch((err: any) => {
 
             const getUserFriendlyErrorMessage = () => {

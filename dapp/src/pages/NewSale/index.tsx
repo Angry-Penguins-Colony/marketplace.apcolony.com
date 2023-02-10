@@ -13,9 +13,10 @@ const NewSale = () => {
     if (!id) throw new Error('Missing ID');
 
     const { data: newSaleInfo } = useGetNewSaleInfo(id);
+    console.log(newSaleInfo?.item);
 
     return <>
-        <MobileHeader title={'New Sale ' + newSaleInfo?.item.displayName} type='light' />
+        <MobileHeader title={'New Sale ' + (newSaleInfo?.item.displayName ?? '')} type='light' />
 
         <ItemPageLayout
             itemData={newSaleInfo ? { url: newSaleInfo.item.url, displayName: newSaleInfo.item.displayName } : undefined} >
