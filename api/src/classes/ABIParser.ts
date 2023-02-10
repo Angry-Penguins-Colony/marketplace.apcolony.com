@@ -80,7 +80,6 @@ export async function parseNewSaleData(response: any, getToken: (identifier: str
         },
 
         price: new BigNumber(priceNoDecimals)
-            .div(10 ** inputToken.decimals)
             .toString(),
         token: inputToken
     };
