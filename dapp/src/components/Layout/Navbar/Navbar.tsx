@@ -75,6 +75,12 @@ const Navbar = () => {
       route: hatchLink,
       mobileType: 'menu',
       openInNewTab: true,
+    },
+    {
+      name: 'Staking',
+      route: routeNames.staking,
+      mobileType: 'menu',
+      visibleIfConnected: true
     }
   ];
 
