@@ -5,6 +5,7 @@
     padding: 15px;
     width: 100%;
     padding-bottom: 120px;
+    overflow: auto;
 
     &.has-filter {
         top: 200px;
@@ -21,13 +22,16 @@
         flex-direction: row;
         flex-wrap: wrap;
         gap: 10px;
-        overflow: auto;
         height: 100%;
 
         @extend .custom-scrollbar;
 
         .item-wrapper {
             flex-basis: calc(50% - 5px);
+        }
+        .item-wrapper.selected {
+            border: 5px solid $primary;
+            border-radius: 16px;
         }
     }
 }

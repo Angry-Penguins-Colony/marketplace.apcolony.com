@@ -9,16 +9,18 @@ const NavigationStakedType = ({
     onChangeType,
     itemsType,
     stakedPenguinsCount,
-    unstakedPenguinsCount
+    unstakedPenguinsCount,
+    onClick
 }: {
     className?: string,
     onChangeType?: (type: StakedType) => void,
     itemsType?: StakedType,
     stakedPenguinsCount?: number,
-    unstakedPenguinsCount?: number
+    unstakedPenguinsCount?: number,
+    onClick?: () => void
 }) => {
     return (
-        <section id={style['navigation-type']} className={className}>
+        <section id={style['navigation-type']} className={className} onClick={onClick}>
             <span className={style.item + (itemsType === 'unstaked' ? ' ' + style.active : '')} onClick={() => onChangeType && onChangeType('unstaked')}>Unstaked ({unstakedPenguinsCount != undefined && unstakedPenguinsCount})</span>
             <span className={style.item + (itemsType === 'staked' ? ' ' + style.active : '')} onClick={() => onChangeType && onChangeType('staked')}>Staked ({stakedPenguinsCount != undefined && stakedPenguinsCount})</span>
         </section>
