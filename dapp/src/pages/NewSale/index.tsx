@@ -39,19 +39,6 @@ const NewSale = () => {
                     <div className="mt-2">
                         {newSaleInfo.remainingSupply} {newSaleInfo.item.displayName} remaining
                     </div>
-
-                    {/* <BuyPriceContainer
-                        buyableOffersCount={newSaleInfo.remainingSupply}
-                        offersCount={newSaleInfo.remainingSupply}
-                        showOffersCount={false}
-                        price={new Price(newSaleInfo.price, newSaleInfo.token.decimals)}
-                        tokenSymbol={newSaleInfo.token.symbol}
-                        onBuy={onBuy}
-                        showTitle={false}
-                        unlockTimestamp={newSaleInfo.startTimestamp}
-                    >
-
-                    </BuyPriceContainer> */}
                 </div>
                 :
                 <Skeleton />
