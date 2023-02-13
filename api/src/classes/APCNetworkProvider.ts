@@ -642,7 +642,8 @@ export class APCNetworkProvider {
 
         return {
             decimals: def.decimals,
-            symbol: def.name
+            symbol: def.name,
+            identifier: identifier
         };
     }
 }

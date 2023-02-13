@@ -111,4 +111,5 @@ export interface INewSaleData {
 export interface IToken {
     symbol: string;
     decimals: number;
+    identifier: string;
 }
