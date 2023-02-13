@@ -634,7 +634,9 @@ export class APCNetworkProvider {
 
         const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition);
 
-        return parseNewSaleData(firstValue, this.getEsdtToken.bind(this));
+        const data = await parseNewSaleData(firstValue, this.getEsdtToken.bind(this));
+
+        return data;
     }
 
     public async getEsdtToken(identifier: string): Promise<IToken> {

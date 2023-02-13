@@ -91,7 +91,7 @@ const NewSaleContent = ({
     </>
 
     function getMaxBuyable() {
-        return MAX_BUYABLE_DEFAULT;
+        return Math.min(MAX_BUYABLE_DEFAULT, newSaleInfo.remainingSupply);
     }
 
     async function onBuy() {
