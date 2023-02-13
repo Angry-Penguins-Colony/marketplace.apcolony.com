@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { useParams } from 'react-router-dom';
+import NumberInput from 'components/Buttons/NumberInput';
 import SendTransactionButton from 'components/Buttons/SendTransactionButton';
 import ItemPageLayout from 'components/Layout/ItemPageLayout';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
@@ -14,8 +15,9 @@ const NewSale = () => {
     if (!id) throw new Error('Missing ID');
 
     const { data: newSaleInfo } = useGetNewSaleInfo(id);
-    console.log(newSaleInfo?.item);
     const price = newSaleInfo ? new Price(newSaleInfo.price, newSaleInfo.token.decimals) : undefined;
+
+    const [cartQuantity, setCardQuantity] = useState(1);
 
     return <>
         <MobileHeader title={'New Sale ' + (newSaleInfo?.item.displayName ?? '')} type='light' />
@@ -29,6 +31,13 @@ const NewSale = () => {
                     <p className={style.price}>
                         {price?.toDenomination() ?? <Skeleton />} {newSaleInfo.token.symbol}
                     </p>
+
+                    <NumberInput
+                        value={cartQuantity}
+                        onChanged={(v) => setCardQuantity(v)}
+                        min={1}
+                        max={5}
+                    />
 
                     <SendTransactionButton
                         sendBtnLabel="Buy"
