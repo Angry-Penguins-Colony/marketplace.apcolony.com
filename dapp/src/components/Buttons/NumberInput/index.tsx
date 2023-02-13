@@ -26,20 +26,28 @@ const NumberInput = ({ value, onChanged, step = 1, min, max }: IProps) => {
     ].join(' ')
 
     return <>
-        <div className={style.mintButton}>
-            <div className={style.numberSelector}>
-                <div className={minusClassName} onClick={decrement}>
-                    <FontAwesomeIcon icon={minusIcon} />
-                </div>
-                <div className={style.numberSelect + ' ' + style.centerText}>
-                    {value}
-                </div>
-                <div className={plusClassName} onClick={increment} >
-                    <FontAwesomeIcon icon={plusIcon} />
-                </div>
-            </div>
+        <div className={style['number-input']}>
+            <button className={minusClassName} onClick={decrement}>
+                <FontAwesomeIcon icon={minusIcon} />
+            </button>
+
+            <input className={style.quantity} onChange={onManualChange} min={min} max={max} name="quantity" value={value} type="number" />
+
+            <button className={plusClassName} onClick={increment}>
+                <FontAwesomeIcon icon={plusIcon} />
+            </button>
         </div>
     </>;
+
+    function onManualChange(e: any) {
+        const newValue = e.target.value;
+
+        if (isNumberBetweenTwoValues(newValue, min, max)) {
+            onChanged(newValue);
+        }
+    }
+
+
 
     function canDecrement() {
         if (min != undefined) {
@@ -72,3 +80,18 @@ const NumberInput = ({ value, onChanged, step = 1, min, max }: IProps) => {
 };
 
 export default NumberInput;
+
+function isNumberBetweenTwoValues(v: number, min: number | undefined, max: number | undefined) {
+    if (min != undefined && max != undefined) {
+        return v >= min && v <= max;
+    }
+    else if (min != undefined) {
+        return v >= min;
+    }
+    else if (max != undefined) {
+        return v <= max;
+    }
+    else {
+        return true;
+    }
+}
