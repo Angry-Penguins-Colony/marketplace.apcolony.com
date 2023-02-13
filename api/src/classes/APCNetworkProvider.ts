@@ -638,6 +638,15 @@ export class APCNetworkProvider {
     }
 
     public async getEsdtToken(identifier: string): Promise<IToken> {
+
+        if (identifier == "EGLD") {
+            return {
+                decimals: 18,
+                symbol: "EGLD",
+                identifier: "EGLD"
+            }
+        }
+
         const def = await this.gatewayProvider.getDefinitionOfFungibleToken(identifier)
 
         return {

@@ -62,6 +62,7 @@ export async function parseNewSaleData(response: any, getToken: (identifier: str
         throw new Error(`Cannot found item ${outputToken}`);
     }
 
+
     const inputToken: IToken = await getToken(auction.fieldsByName.get("input_token_id").value.value);
     const priceNoDecimals = (auction.fieldsByName.get("price").value.value);
 
