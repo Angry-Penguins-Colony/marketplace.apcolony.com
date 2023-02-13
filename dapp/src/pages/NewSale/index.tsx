@@ -45,10 +45,10 @@ const NewSaleContent = ({
     id: string
 }) => {
 
+    const MAX_BUYABLE_DEFAULT = 5;
     const [cartQuantity, setCardQuantity] = useState(1);
 
     const price = new Price(new BigNumber(newSaleInfo.price).multipliedBy(cartQuantity), newSaleInfo.token.decimals);
-
 
     return <>
 
@@ -65,7 +65,7 @@ const NewSaleContent = ({
                         value={cartQuantity}
                         onChanged={(v) => setCardQuantity(v)}
                         min={1}
-                        max={5}
+                        max={getMaxBuyable()}
                     />
 
                     <SendTransactionButton
@@ -79,6 +79,10 @@ const NewSaleContent = ({
             <NoItemsAvailable />
         }
     </>
+
+    function getMaxBuyable() {
+        return MAX_BUYABLE_DEFAULT;
+    }
 
     async function onBuy() {
         const builder = new BuyNewSaleTransactionBuilder(newSalesContract, parseInt(id))
