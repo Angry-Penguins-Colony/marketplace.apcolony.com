@@ -13,6 +13,7 @@ import { newSalesContract } from 'config';
 import Price from 'sdk/classes/Price';
 import { useGetGenericItem } from 'sdk/hooks/api/useGetGenericItem';
 import useGetNewSaleInfo from 'sdk/hooks/api/useGetNewSaleInfo';
+import useGetOnTransactionSuccesful from 'sdk/hooks/useGetOnTransactionSuccesful';
 import BuyNewSaleTransactionBuilder from 'sdk/transactionsBuilders/buyNewSale/BuyNewSaleTransaction';
 import style from './index.module.scss';
 
@@ -21,8 +22,9 @@ const NewSale = () => {
     const { id } = useParams();
     if (!id) throw new Error('Missing ID');
 
-    const { data: newSaleInfo } = useGetNewSaleInfo(id);
+    const { data: newSaleInfo, forceReload } = useGetNewSaleInfo(id);
 
+    useGetOnTransactionSuccesful(forceReload);
 
     return <>
         <MobileHeader title={'New Sale ' + (newSaleInfo?.item.displayName ?? '')} type='light' />
@@ -46,13 +48,14 @@ const NewSaleContent = ({
     auctionId: string
 }) => {
 
-    const { data: item } = useGetGenericItem('items', newSaleInfo.item.id);
-
+    const { data: item, forceReload } = useGetGenericItem('items', newSaleInfo.item.id);
 
     const MAX_BUYABLE_DEFAULT = 5;
     const [cartQuantity, setCardQuantity] = useState(1);
 
     const price = new Price(new BigNumber(newSaleInfo.price).multipliedBy(cartQuantity), newSaleInfo.token.decimals);
+
+    React.useEffect(() => { forceReload() }, [newSaleInfo]);
 
     return <>
 

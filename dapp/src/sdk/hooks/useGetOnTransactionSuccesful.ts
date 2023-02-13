@@ -3,7 +3,7 @@ import { useGetPendingTransactions, useGetSuccessfulTransactions } from '@elrond
 import ITransactionFilter, { filter } from './transactionsFilters/ITransactionFilter';
 import usePrevious from './usePrevious';
 
-const useGetOnTransactionSuccesful = (onTransactionSuccesful: (sessionId: string) => void, transactionFilter: ITransactionFilter) => {
+const useGetOnTransactionSuccesful = (onTransactionSuccesful: (sessionId: string) => void, transactionFilter?: ITransactionFilter) => {
     const { pendingTransactions } = useGetPendingTransactions();
     const { successfulTransactions } = useGetSuccessfulTransactions()
 
@@ -13,8 +13,11 @@ const useGetOnTransactionSuccesful = (onTransactionSuccesful: (sessionId: string
 
         if (!previousPendingTransactions) return;
 
-        const nowSuccesfulSessionIds = intersect(previousPendingTransactions, successfulTransactions)
-            .filter(sessionId => filter(sessionId, successfulTransactions, transactionFilter));
+        let nowSuccesfulSessionIds = intersect(previousPendingTransactions, successfulTransactions);
+
+        if (transactionFilter != undefined) {
+            nowSuccesfulSessionIds = nowSuccesfulSessionIds.filter(sessionId => filter(sessionId, successfulTransactions, transactionFilter));
+        }
 
         for (const sessionId of nowSuccesfulSessionIds) {
             onTransactionSuccesful(sessionId);
