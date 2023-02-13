@@ -1,11 +1,12 @@
 import React from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { useParams } from 'react-router-dom';
-import BuyPriceContainer from 'components/Abstract/BuyPriceContainer';
+import SendTransactionButton from 'components/Buttons/SendTransactionButton';
 import ItemPageLayout from 'components/Layout/ItemPageLayout';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import Price from 'sdk/classes/Price';
 import useGetNewSaleInfo from 'sdk/hooks/api/useGetNewSaleInfo';
+import style from './index.module.scss';
 
 const NewSale = () => {
 
@@ -14,6 +15,7 @@ const NewSale = () => {
 
     const { data: newSaleInfo } = useGetNewSaleInfo(id);
     console.log(newSaleInfo?.item);
+    const price = newSaleInfo ? new Price(newSaleInfo.price, newSaleInfo.token.decimals) : undefined;
 
     return <>
         <MobileHeader title={'New Sale ' + (newSaleInfo?.item.displayName ?? '')} type='light' />
@@ -22,20 +24,35 @@ const NewSale = () => {
             itemData={newSaleInfo ? { url: newSaleInfo.item.url, displayName: newSaleInfo.item.displayName } : undefined} >
 
             {newSaleInfo ?
-                <BuyPriceContainer
-                    buyableOffersCount={newSaleInfo.remainingSupply}
-                    offersCount={newSaleInfo.remainingSupply}
-                    showOffersCount={false}
-                    price={new Price(newSaleInfo.price, newSaleInfo.token.decimals)}
-                    tokenSymbol={newSaleInfo.token.symbol}
-                    onBuy={onBuy}
-                    showTitle={false}
-                    unlockTimestamp={newSaleInfo.startTimestamp}
-                >
+                <div className={style['buyContainer']}>
+
+                    <p className={style.price}>
+                        {price?.toDenomination() ?? <Skeleton />} {newSaleInfo.token.symbol}
+                    </p>
+
+                    <SendTransactionButton
+                        sendBtnLabel="Buy"
+                        onSend={onBuy}
+                        unlockTimestamp={newSaleInfo.startTimestamp}
+                        className={style.button} />
+
                     <div className="mt-2">
                         {newSaleInfo.remainingSupply} {newSaleInfo.item.displayName} remaining
                     </div>
-                </BuyPriceContainer>
+
+                    {/* <BuyPriceContainer
+                        buyableOffersCount={newSaleInfo.remainingSupply}
+                        offersCount={newSaleInfo.remainingSupply}
+                        showOffersCount={false}
+                        price={new Price(newSaleInfo.price, newSaleInfo.token.decimals)}
+                        tokenSymbol={newSaleInfo.token.symbol}
+                        onBuy={onBuy}
+                        showTitle={false}
+                        unlockTimestamp={newSaleInfo.startTimestamp}
+                    >
+
+                    </BuyPriceContainer> */}
+                </div>
                 :
                 <Skeleton />
             }
