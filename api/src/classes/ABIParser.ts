@@ -53,12 +53,7 @@ export function parseMarketData(response: any): IMarketData {
 
 export async function parseNewSaleData(response: any, getToken: (identifier: string) => Promise<IToken>): Promise<INewSaleData> {
 
-    console.log("parseNewSaleData response", response);
-
     const auction = response.fieldsByName.get("auction").value;
-
-
-
     const outputToken = auction.fieldsByName.get("output_token_id").value.value + "-" + new Nonce(auction.fieldsByName.get("output_token_nonce").value.value).hex();
 
     const outputItem = itemsDatabase.getItemFromIdentifier(outputToken);
