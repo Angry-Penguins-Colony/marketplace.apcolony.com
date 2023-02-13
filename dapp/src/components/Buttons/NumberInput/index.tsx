@@ -39,8 +39,8 @@ const NumberInput = ({ value, onChanged, step = 1, min, max }: IProps) => {
         </div>
     </>;
 
-    function onManualChange(e: any) {
-        const newValue = e.target.value;
+    function onManualChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const newValue = parseInt(e.target.value);
 
         if (isNumberBetweenTwoValues(newValue, min, max)) {
             onChanged(newValue);
