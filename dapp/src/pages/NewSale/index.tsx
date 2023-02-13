@@ -36,26 +36,33 @@ const NewSale = () => {
             {newSaleInfo && price ?
 
                 <>
-                    <div className="mt-2">
-                        {newSaleInfo.remainingSupply} {newSaleInfo.item.displayName} remaining
-                    </div>
-                    <div className={style['buyContainer']}>
 
-                        <NumberInput
-                            value={cartQuantity}
-                            onChanged={(v) => setCardQuantity(v)}
-                            min={1}
-                            max={5}
-                        />
+                    {newSaleInfo.remainingSupply > 0 ?
 
-                        <SendTransactionButton
-                            sendBtnLabel={price.toDenomination() + ' ' + newSaleInfo.token.symbol}
-                            onSend={onBuy}
-                            unlockTimestamp={newSaleInfo.startTimestamp}
-                            className={style.button + ' ' + 'mt-2'} />
+                        <>
+                            <div className="mt-2">
 
+                                {newSaleInfo.remainingSupply} {newSaleInfo.item.displayName} remaining
 
-                    </div>
+                            </div>
+                            <div className={style['buyContainer']}>
+                                <NumberInput
+                                    value={cartQuantity}
+                                    onChanged={(v) => setCardQuantity(v)}
+                                    min={1}
+                                    max={5}
+                                />
+
+                                <SendTransactionButton
+                                    sendBtnLabel={price.toDenomination() + ' ' + newSaleInfo.token.symbol}
+                                    onSend={onBuy}
+                                    unlockTimestamp={newSaleInfo.startTimestamp}
+                                    className={style.button + ' ' + 'mt-2'} />
+                            </div>
+                        </>
+                        :
+                        <NoItemsAvailable />
+                    }
                 </>
                 :
                 <Skeleton />
@@ -89,3 +96,10 @@ const NewSale = () => {
 
 export default NewSale;
 
+const NoItemsAvailable = () => {
+
+    return <div className={style['buyContainer']}>
+        <p>Sorry, there are no more items available</p>
+    </div>
+
+};
