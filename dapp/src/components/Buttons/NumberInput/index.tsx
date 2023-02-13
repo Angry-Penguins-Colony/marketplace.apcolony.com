@@ -13,27 +13,15 @@ interface IProps {
 
 const NumberInput = ({ value, onChanged, step = 1, min, max }: IProps) => {
 
-    const minusClassName = [
-        style.minus,
-        style.centerText,
-        canDecrement() ? '' : style.disabled
-    ].join(' ');
-
-    const plusClassName = [
-        style.plus,
-        style.centerText,
-        canIncrement() ? '' : style.disabled
-    ].join(' ')
-
     return <>
         <div className={style['number-input']}>
-            <button className={minusClassName} onClick={decrement}>
+            <button className={style.minus} onClick={decrement} disabled={canDecrement() == false}>
                 <FontAwesomeIcon icon={minusIcon} />
             </button>
 
             <input className={style.quantity} onChange={onManualChange} min={min} max={max} name="quantity" value={value} type="number" />
 
-            <button className={plusClassName} onClick={increment}>
+            <button className={style.plus} onClick={increment} disabled={canIncrement() == false}>
                 <FontAwesomeIcon icon={plusIcon} />
             </button>
         </div>
