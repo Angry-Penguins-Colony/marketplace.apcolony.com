@@ -26,10 +26,15 @@ export default class BuyNewSaleTransactionBuilder {
     }
 
     setTokenPayment(identifier: string) {
-        this.paymentType = PaymentType.ESDT;
-        this.tokenIdentifier = identifier;
+        if (identifier == 'EGLD') {
+            return this.setEgldPayment();
+        }
+        else {
+            this.paymentType = PaymentType.ESDT;
+            this.tokenIdentifier = identifier;
 
-        return this;
+            return this;
+        }
     }
 
     setPaymentValue(balance: BigNumber) {
