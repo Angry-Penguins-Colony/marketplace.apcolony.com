@@ -97,10 +97,7 @@ export interface IMarketData {
 }
 
 export interface INewSaleData {
-    item: {
-        url: string;
-        displayName: string;
-    },
+    item: IItem,
     startTimestamp: number,
     price: Price,
     token: IToken,

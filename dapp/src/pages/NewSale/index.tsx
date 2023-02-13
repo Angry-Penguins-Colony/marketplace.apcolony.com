@@ -11,6 +11,7 @@ import ItemPageLayout from 'components/Layout/ItemPageLayout';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { newSalesContract } from 'config';
 import Price from 'sdk/classes/Price';
+import { useGetGenericItem } from 'sdk/hooks/api/useGetGenericItem';
 import useGetNewSaleInfo from 'sdk/hooks/api/useGetNewSaleInfo';
 import BuyNewSaleTransactionBuilder from 'sdk/transactionsBuilders/buyNewSale/BuyNewSaleTransaction';
 import style from './index.module.scss';
@@ -27,8 +28,8 @@ const NewSale = () => {
         <MobileHeader title={'New Sale ' + (newSaleInfo?.item.displayName ?? '')} type='light' />
 
         <ItemPageLayout
-            itemData={newSaleInfo ? { url: newSaleInfo.item.url, displayName: newSaleInfo.item.displayName } : undefined} >
-            {newSaleInfo ? <NewSaleContent newSaleInfo={newSaleInfo} id={id} /> : <Skeleton />}
+            itemData={newSaleInfo ? { url: newSaleInfo.item.thumbnailUrls.high, displayName: newSaleInfo.item.displayName } : undefined} >
+            {newSaleInfo ? <NewSaleContent newSaleInfo={newSaleInfo} auctionId={id} /> : <Skeleton />}
         </ItemPageLayout >
     </>;
 
@@ -39,11 +40,14 @@ export default NewSale;
 
 const NewSaleContent = ({
     newSaleInfo,
-    id
+    auctionId
 }: {
     newSaleInfo: INewSaleData,
-    id: string
+    auctionId: string
 }) => {
+
+    const { data: item } = useGetGenericItem('items', newSaleInfo.item.id);
+
 
     const MAX_BUYABLE_DEFAULT = 5;
     const [cartQuantity, setCardQuantity] = useState(1);
@@ -73,6 +77,12 @@ const NewSaleContent = ({
                         onSend={onBuy}
                         unlockTimestamp={newSaleInfo.startTimestamp}
                         className={style.button + ' ' + 'mt-2'} />
+
+                    {item &&
+                        <p className="mt-2 text-muted" >
+                            You have {item?.ownedAmount ?? '0'} {item?.displayName}
+                        </p>
+                    }
                 </div>
             </>
             :
@@ -85,7 +95,7 @@ const NewSaleContent = ({
     }
 
     async function onBuy() {
-        const builder = new BuyNewSaleTransactionBuilder(newSalesContract, parseInt(id))
+        const builder = new BuyNewSaleTransactionBuilder(newSalesContract, parseInt(auctionId))
             .setTokenPayment(newSaleInfo.token.identifier)
             .setPaymentValue(new BigNumber(newSaleInfo.price).multipliedBy(cartQuantity));
 

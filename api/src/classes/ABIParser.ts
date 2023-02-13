@@ -70,11 +70,7 @@ export async function parseNewSaleData(response: any, getToken: (identifier: str
         remainingSupply: response.fieldsByName.get("remaining_output_items").value.value,
         startTimestamp: auction.fieldsByName.get("start_timestamp").value.value,
         maxSupply: auction.fieldsByName.get("max_quantity").value.value,
-        item: {
-            displayName: outputItem?.displayName,
-            url: outputItem?.thumbnailUrls.high,
-        },
-
+        item: outputItem,
         price: new BigNumber(priceNoDecimals)
             .toString(),
         token: inputToken
