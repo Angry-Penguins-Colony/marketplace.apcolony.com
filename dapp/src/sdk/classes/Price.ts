@@ -10,8 +10,16 @@ export default class Price {
         this.decimals = decimals;
     }
 
-    toDenomination() {
-        return new BigNumber(this.completePrice).div(10 ** this.decimals).toString();
+    toDenomination(decimalPlaces?: number) {
+        const price = new BigNumber(this.completePrice)
+            .div(10 ** this.decimals);
+
+        if (decimalPlaces != undefined) {
+            return price.toFixed(decimalPlaces);
+        }
+        else {
+            return price.toString();
+        }
     }
 
     toString() {

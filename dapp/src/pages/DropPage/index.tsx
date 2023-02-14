@@ -13,6 +13,7 @@ import { dropsContract, stakeTokenName } from 'config';
 import Price from 'sdk/classes/Price';
 import useGetDropData from 'sdk/hooks/api/useGetDropData';
 import { useGetGenericItem } from 'sdk/hooks/api/useGetGenericItem';
+import useGetBalance from 'sdk/hooks/useGetBalance';
 import useGetOnTransactionSuccesful from 'sdk/hooks/useGetOnTransactionSuccesful';
 import BuyDropTransactionBuilder from 'sdk/transactionsBuilders/buyDrop/BuyDropTransactionBuilder';
 import style from './index.module.scss';
@@ -50,12 +51,15 @@ const DropPageContent = ({
     auctionId: string
 }) => {
 
+    const { balance, decimals } = useGetBalance(dropData.token.identifier)
+
     const { data: item, forceReload } = useGetGenericItem('items', dropData.item.id);
 
     const MAX_CART_SIZE = 9999;
     const [cartQuantity, setCardQuantity] = useState(1);
 
     const price = new Price(new BigNumber(dropData.price).multipliedBy(cartQuantity), dropData.token.decimals);
+
 
     React.useEffect(() => { forceReload() }, [dropData]);
 
@@ -64,6 +68,8 @@ const DropPageContent = ({
         {dropData.remainingSupply > 0 ?
 
             <>
+                <p>Your balance {new Price(balance, decimals).toDenomination(2)} {dropData.token.symbol}</p>
+
                 <div className={style['buyContainer']}>
 
                     <h1 className={style.dropRemainingProgression}>{dropData.remainingSupply} / {dropData.maxSupply}</h1>
@@ -72,7 +78,7 @@ const DropPageContent = ({
                         value={cartQuantity}
                         onChanged={(v) => setCardQuantity(v)}
                         min={1}
-                        max={getMaxBuyable()}
+                        max={getCardMaxSize()}
                     />
 
                     <SendTransactionButton
@@ -93,8 +99,10 @@ const DropPageContent = ({
         }
     </>
 
-    function getMaxBuyable() {
-        return Math.min(MAX_CART_SIZE, dropData.remainingSupply);
+    function getCardMaxSize() {
+        const maxBuyableWithBalance = new BigNumber(balance).dividedBy(dropData.price).toNumber();
+
+        return Math.min(MAX_CART_SIZE, dropData.remainingSupply, maxBuyableWithBalance);
     }
 
     async function onBuy() {
