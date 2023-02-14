@@ -17,7 +17,7 @@ import useGetOnTransactionSuccesful from 'sdk/hooks/useGetOnTransactionSuccesful
 import BuyNewSaleTransactionBuilder from 'sdk/transactionsBuilders/buyNewSale/BuyNewSaleTransaction';
 import style from './index.module.scss';
 
-const NewSale = () => {
+const DropPage = () => {
 
     const { id } = useParams();
     if (!id) throw new Error('Missing ID');
@@ -31,16 +31,16 @@ const NewSale = () => {
 
         <ItemPageLayout
             itemData={newSaleInfo ? { url: newSaleInfo.item.thumbnailUrls.high, displayName: newSaleInfo.item.displayName } : undefined} >
-            {newSaleInfo ? <NewSaleContent newSaleInfo={newSaleInfo} auctionId={id} /> : <Skeleton />}
+            {newSaleInfo ? <DropPageContent newSaleInfo={newSaleInfo} auctionId={id} /> : <Skeleton />}
         </ItemPageLayout >
     </>;
 
 
 }
 
-export default NewSale;
+export default DropPage;
 
-const NewSaleContent = ({
+const DropPageContent = ({
     newSaleInfo,
     auctionId
 }: {

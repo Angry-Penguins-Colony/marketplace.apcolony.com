@@ -3,10 +3,11 @@ import { RouteType } from '@elrondnetwork/dapp-core/types';
 import AuthentificatedPatternRouteWrapper from 'components/Abstract/AuthentificatedPatternRouteWrapper';
 import { dAppName } from 'config';
 import AccessoriesList from 'pages/AccessoriesList';
+import DropPage from 'pages/DropPage';
+import { DropsList } from 'pages/DropsList';
 import CategoriesOffers from 'pages/GenericOfferListPage';
 import Inspect from 'pages/Inspect';
 import ItemsOffersNavigator from 'pages/ItemsOffersNavigator';
-import NewSale from 'pages/NewSale';
 import SelectCustomizePenguin from 'pages/SelectCustomizePenguin';
 import CategoriesType from 'sdk/types/CategoriesType';
 import withPageTitle from './components/PageTitle';
@@ -40,7 +41,8 @@ export const routeNames = {
   staking: '/staking',
   launchpad: '/launchpad',
   accessories: '/accessories',
-  newSale: '/new-sale/:id',
+  dropsList: '/drops/list/',
+  dropPage: '/drops/drop/:id',
   admin: '/admin',
 };
 
@@ -125,9 +127,14 @@ const routes: Array<ITitledRoute> = [
     component: AccessoriesList
   },
   {
-    path: routeNames.newSale,
-    title: 'Special Offer',
-    component: NewSale
+    path: routeNames.dropPage,
+    title: 'Special Drop',
+    component: DropPage
+  },
+  {
+    path: routeNames.dropsList,
+    title: 'Drops List',
+    component: DropsList,
   }
 ];
 
