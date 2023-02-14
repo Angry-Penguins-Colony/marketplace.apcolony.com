@@ -32,11 +32,6 @@ const Navbar = () => {
 
   const navItems: NavItem[] = [
     {
-      name: 'Home',
-      route: routeNames.home,
-      icon: <HomeIcon />,
-    },
-    {
       name: 'Shop',
       mobileType: 'menu',
       nestedItems: [
@@ -58,29 +53,46 @@ const Navbar = () => {
       ]
     },
     {
+      name: 'Manage',
+      mobileType: 'menu',
+      nestedItems: [
+        {
+          name: 'Customize',
+          route: routeNames.customizeInventory,
+          icon: <LabIcon />,
+          className: style.labIcon,
+          visibleIfConnected: true,
+        },
+        {
+          name: 'Hatch',
+          route: hatchLink,
+          mobileType: 'menu',
+          openInNewTab: true,
+        },
+        {
+          name: 'Stake',
+          route: routeNames.staking,
+          mobileType: 'menu',
+          visibleIfConnected: true
+        },
+      ]
+    },
+    {
       name: 'My Inventory',
       route: buildRouteLinks.inventory(address),
       icon: <ProfileIcon />,
       visibleIfConnected: true,
     },
+
     {
-      name: 'Customize',
-      route: routeNames.customizeInventory,
-      icon: <LabIcon />,
-      className: style.labIcon,
-      visibleIfConnected: true,
+      name: 'Ranking',
+      route: routeNames.penguinsHome + 'ranks',
+      mobileType: 'menu'
     },
     {
-      name: 'Hatch',
-      route: hatchLink,
-      mobileType: 'menu',
-      openInNewTab: true,
-    },
-    {
-      name: 'Staking',
-      route: routeNames.staking,
-      mobileType: 'menu',
-      visibleIfConnected: true
+      name: 'Drops',
+      route: routeNames.dropsList,
+      mobileType: 'menu'
     }
   ];
 
