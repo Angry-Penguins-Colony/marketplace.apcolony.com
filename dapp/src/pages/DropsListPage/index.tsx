@@ -1,7 +1,9 @@
 import React from 'react';
 import { IDropData } from '@apcolony/marketplace-api';
+import { Link } from 'react-router-dom';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
 import { ResponsiveElementThumbnail } from 'components/ResponsiveElementThumbnail';
+import { buildRouteLinks } from 'routes';
 import Price from 'sdk/classes/Price';
 import useGetAllDrops from 'sdk/hooks/api/useGetAllDrops';
 import style from './index.module.scss'
@@ -39,15 +41,17 @@ const DropsList = ({ drops }: { drops: IDropData[] | undefined }) => {
 
     return <div className={style.items}>
         {drops ?
-            drops.map((drop, index) => {
+            drops.map((drop) => {
 
                 const subProperty = new Price(drop.price, drop.token.decimals).toDenomination() + ' ' + drop.token.symbol + ' (' + drop.remainingSupply + '/' + drop.maxSupply + ')';
 
-                return <ResponsiveElementThumbnail
-                    key={drop.id}
-                    element={drop.item}
-                    subProperty={subProperty}
-                />
+                return <Link to={buildRouteLinks.dropPage(drop.id)}>
+                    <ResponsiveElementThumbnail
+                        key={drop.id}
+                        element={drop.item}
+                        subProperty={subProperty}
+                    />
+                </Link>;
             })
             :
             Array(LOADING_ELEMENTS).map((drop, index) => {
