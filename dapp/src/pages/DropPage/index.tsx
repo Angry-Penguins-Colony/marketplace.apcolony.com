@@ -51,16 +51,21 @@ const DropPageContent = ({
     auctionId: string
 }) => {
 
-    const balance = useGetBalance(dropData.token.identifier)
+    const { balance, forceUpdate: forceReloadBalance } = useGetBalance(dropData.token.identifier)
 
-    const { data: item, forceReload } = useGetGenericItem('items', dropData.item.id);
+    const { data: item, forceReload: forceReloadItem } = useGetGenericItem('items', dropData.item.id);
 
     const MAX_CART_SIZE = 9999;
     const [cartQuantity, setCardQuantity] = useState(1);
 
     const price = new Price(new BigNumber(dropData.price).multipliedBy(cartQuantity), dropData.token.decimals);
 
-    React.useEffect(() => { forceReload() }, [dropData]);
+    React.useEffect(() => { forceReload(); }, [dropData]);
+
+    function forceReload() {
+        forceReloadItem();
+        forceReloadBalance();
+    }
 
     return <>
 

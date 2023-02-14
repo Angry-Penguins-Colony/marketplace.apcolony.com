@@ -11,7 +11,7 @@ interface IBalance {
 /**
  * Returns token balance if token is defined. Else, returns egld balance.
  */
-export default function useGetBalance(tokenIdentifier?: string | 'EGLD'): IBalance | undefined {
+export default function useGetBalance(tokenIdentifier?: string | 'EGLD') {
     const { account } = useGetAccountInfo();
     const [balance, setBalance] = React.useState<IBalance | undefined>(undefined);
 
@@ -23,17 +23,24 @@ export default function useGetBalance(tokenIdentifier?: string | 'EGLD'): IBalan
             });
         }
         else {
-            const url = marketplaceApi + `accounts/${account.address}/tokens/${tokenIdentifier}`;
-            axios.get(url)
-                .then(({ data }: any) => {
-                    setBalance({
-                        amount: data.balance,
-                        decimals: data.decimals
-                    });
-                })
+            update();
         }
     }, [tokenIdentifier]);
 
+    return {
+        balance,
+        forceUpdate: update,
+    };
 
-    return balance;
+    function update() {
+        const url = marketplaceApi + `accounts/${account.address}/tokens/${tokenIdentifier}`;
+        axios.get(url)
+            .then(({ data }: any) => {
+                setBalance({
+                    amount: data.balance,
+                    decimals: data.decimals
+                });
+            });
+    }
+
 }
