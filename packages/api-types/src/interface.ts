@@ -97,6 +97,7 @@ export interface IMarketData {
 }
 
 export interface IDropData {
+    id: string;
     item: IItem,
     startTimestamp: number,
     price: Price,

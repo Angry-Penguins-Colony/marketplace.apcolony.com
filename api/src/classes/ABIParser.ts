@@ -67,6 +67,7 @@ export async function parseDropData(response: any, getToken: (identifier: string
     const priceNoDecimals = (auction.fieldsByName.get("price").value.value);
 
     return {
+        id: response.fieldsByName.get("id").value.value,
         remainingSupply: response.fieldsByName.get("remaining_output_items").value.value,
         startTimestamp: auction.fieldsByName.get("start_timestamp").value.value,
         maxSupply: auction.fieldsByName.get("max_quantity").value.value,

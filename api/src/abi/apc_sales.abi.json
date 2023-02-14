@@ -129,6 +129,16 @@
                     "type": "AuctionStats"
                 }
             ]
+        },
+        {
+            "name": "getAllAuctionStats",
+            "mutability": "readonly",
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "List<AuctionStats>"
+                }
+            ]
         }
     ],
     "events": [],
@@ -180,6 +190,10 @@
                 {
                     "name": "remaining_output_items",
                     "type": "BigUint"
+                },
+                {
+                    "name": "id",
+                    "type": "u64"
                 }
             ]
         }
