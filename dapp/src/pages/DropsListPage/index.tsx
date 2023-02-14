@@ -1,6 +1,6 @@
 import React from 'react';
 import { IDropData } from '@apcolony/marketplace-api';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import PageIcon from 'assets/img/Gift-alone.png';
 import OffersPageLayout from 'components/Layout/OffersPageLayout';
 import { ResponsiveElementThumbnail } from 'components/ResponsiveElementThumbnail';
@@ -10,41 +10,49 @@ import useGetAllDrops from 'sdk/hooks/api/useGetAllDrops';
 import style from './index.module.scss'
 
 export const DropsListPage = () => {
-    const {
-        currentDrops,
-        soldoutDrops
-    } = useGetAllDrops();
-
     return <OffersPageLayout
         pageTitle='New drops'
         pageStyle='items'
         iconClassName='bg-transparent'
         icon={PageIcon}
-    >
-        <div className={style.content}>
+        tabs={[
             {
-                !currentDrops || currentDrops.length > 0 ?
-                    <DropsList drops={currentDrops} />
-                    :
-                    <div className={style.noCurrentDropsInfo}>
-                        No current drops.
-                    </div>
+                name: 'Current',
+                path: 'current'
+            },
+            {
+                name: 'Closed',
+                path: 'closed'
             }
-
-            {soldoutDrops && soldoutDrops.length > 0 &&
-
-                <>
-                    <hr />
-                    <h3>Over drops</h3>
-
-                    <DropsList drops={soldoutDrops} />
-                </>
-            }
-        </div>
-    </OffersPageLayout>;
+        ]} >
+        <Outlet />
+    </OffersPageLayout >;
 }
 
-const DropsList = ({ drops }: { drops: IDropData[] | undefined }) => {
+export const CurrentDropsList = () => {
+    const {
+        currentDrops
+    } = useGetAllDrops();
+
+    if (!currentDrops || currentDrops.length > 0) {
+        return <DropsList drops={currentDrops} />
+    }
+    else {
+        return <div className={style.noCurrentDropsInfo}>
+            No current drops.
+        </div>
+    }
+}
+
+export const ClosedDropsList = () => {
+    const {
+        soldoutDrops
+    } = useGetAllDrops();
+
+    return <DropsList drops={soldoutDrops} showSubProperty={false} />
+}
+
+const DropsList = ({ drops, showSubProperty = true }: { drops: IDropData[] | undefined, showSubProperty?: boolean }) => {
 
     const LOADING_ELEMENTS = 2;
 
@@ -58,7 +66,7 @@ const DropsList = ({ drops }: { drops: IDropData[] | undefined }) => {
                     <ResponsiveElementThumbnail
                         key={drop.id}
                         element={drop.item}
-                        subProperty={subProperty}
+                        subProperty={showSubProperty ? subProperty : ''}
                     />
                 </Link>;
             })

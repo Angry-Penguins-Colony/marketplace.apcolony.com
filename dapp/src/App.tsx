@@ -11,6 +11,7 @@ import Layout from 'components/Layout';
 import { environment } from 'config';
 import Admin from 'pages/Admin';
 import { tools } from 'pages/Admin/tools';
+import { CurrentDropsList, DropsListPage, ClosedDropsList } from 'pages/DropsListPage';
 import CategoriesOffers from 'pages/GenericOfferListPage';
 import Home from 'pages/Home';
 import PageNotFound from 'pages/PageNotFound';
@@ -70,6 +71,12 @@ const App = () => {
                   {tools.map((tool) => (
                     <Route key={tool.route} path={tool.route} element={tool.component} />
                   ))}
+                </Route>
+
+                <Route path={routeNames.dropsList} element={<DropsListPage />}>
+                  <Route index element={<Navigate to="current" replace />} />
+                  <Route path="current" element={<CurrentDropsList />} />
+                  <Route path="closed" element={<ClosedDropsList />} />
                 </Route>
 
 
