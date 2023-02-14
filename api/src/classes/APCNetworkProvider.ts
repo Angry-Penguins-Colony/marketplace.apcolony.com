@@ -95,6 +95,31 @@ export class APCNetworkProvider {
         return nfts;
     }
 
+    public async getFungibleTokensOfAccount(address: IAddress, token: string) {
+        this.apiRequestsMonitor.increment();
+
+        const url = `accounts/${address.bech32()}/tokens/${token}`;
+
+        const json = await this.apiProvider.doGetGeneric(url)
+            .catch((err) => {
+                if (err.message.includes("Token for given account not found")) {
+                    return {
+                        balance: 0,
+                        decimals: 0
+                    };
+                } else {
+                    throw err;
+                }
+            });
+
+        return {
+            balance: json.balance,
+            decimals: json.decimals
+        }
+    }
+
+
+
     public async getAllPenguins(): Promise<IPenguin[]> {
         const penguins = await this.getNfts(penguinsCollection, { size: 10_000 });
 

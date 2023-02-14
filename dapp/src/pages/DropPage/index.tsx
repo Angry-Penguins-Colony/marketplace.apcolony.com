@@ -51,7 +51,7 @@ const DropPageContent = ({
     auctionId: string
 }) => {
 
-    const { balance, decimals } = useGetBalance(dropData.token.identifier)
+    const balance = useGetBalance(dropData.token.identifier)
 
     const { data: item, forceReload } = useGetGenericItem('items', dropData.item.id);
 
@@ -60,7 +60,6 @@ const DropPageContent = ({
 
     const price = new Price(new BigNumber(dropData.price).multipliedBy(cartQuantity), dropData.token.decimals);
 
-
     React.useEffect(() => { forceReload() }, [dropData]);
 
     return <>
@@ -68,7 +67,9 @@ const DropPageContent = ({
         {dropData.remainingSupply > 0 ?
 
             <>
-                <p>Your balance {new Price(balance, decimals).toDenomination(2)} {dropData.token.symbol}</p>
+                {balance != undefined &&
+                    <p>Your balance {new Price(balance.amount, balance.decimals).toDenomination(2)} {dropData.token.symbol}</p>
+                }
 
                 <div className={style['buyContainer']}>
 
@@ -85,7 +86,8 @@ const DropPageContent = ({
                         sendBtnLabel={price.toDenomination() + ' ' + dropData.token.symbol}
                         onSend={onBuy}
                         unlockTimestamp={dropData.startTimestamp}
-                        className={style.button + ' ' + 'mt-2'} />
+                        className={style.button + ' ' + 'mt-2'}
+                        disabled={getCardMaxSize() == 0} />
 
                     {item &&
                         <p className="mt-2 text-muted" >
@@ -100,7 +102,7 @@ const DropPageContent = ({
     </>
 
     function getCardMaxSize() {
-        const maxBuyableWithBalance = new BigNumber(balance).dividedBy(dropData.price).toNumber();
+        const maxBuyableWithBalance = balance ? new BigNumber(balance.amount).dividedBy(dropData.price).toNumber() : 999999;
 
         return Math.min(MAX_CART_SIZE, dropData.remainingSupply, maxBuyableWithBalance);
     }

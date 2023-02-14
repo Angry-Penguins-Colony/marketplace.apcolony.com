@@ -30,6 +30,7 @@ import getPenguinsStaked from "./routes/staking/owned";
 import { APIRequestsReporter } from "./utils/APIRequestsReporter";
 import { logErrorIfMissingItems } from "./utils/dbHelper";
 import getAllDropsData from "./routes/drops/all";
+import { Address } from "@elrondnetwork/erdjs/out";
 
 
 const workers = parseInt(process.env.WEB_CONCURRENCY || "1");
@@ -96,6 +97,14 @@ function start(id: number) {
     app.get("/exploreItems", (req: any, res: any) => getExploreItems(req, res, networkProvider, itemsDatabase));
     app.get("/itemsList", (req: any, res: any) => getItemsList(req, res, networkProvider));
 
+
+    app.get("/accounts/:address/tokens/:token", (req: any, res: any) => {
+
+        const { address, token } = req.params;
+
+        networkProvider.getFungibleTokensOfAccount(new Address(address), token)
+            .then((data) => res.send(data));
+    })
 
     app.listen(port, () => {
         console.log(`Thread #${id} listening on port ${port}.`);

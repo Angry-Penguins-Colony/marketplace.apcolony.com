@@ -9,13 +9,15 @@ export interface ISendTransactionButtonProps {
     onSend: () => void;
     unlockTimestamp?: number
     className?: string;
+    disabled?: boolean;
 }
 
 const SendTransactionButton = ({
     sendBtnLabel,
     onSend,
     unlockTimestamp,
-    className
+    className,
+    disabled = false
 }: ISendTransactionButtonProps) => {
 
     const isConnected = useIsConnected();
@@ -37,7 +39,7 @@ const SendTransactionButton = ({
         </Button>
     }
     else {
-        return <Button onClick={onSend} type='primary' className={className}>
+        return <Button onClick={onSend} type='primary' className={className} disabled={disabled}>
             {sendBtnLabel}
         </Button>
     }
