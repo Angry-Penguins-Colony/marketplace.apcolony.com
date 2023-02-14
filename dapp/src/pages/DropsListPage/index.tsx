@@ -62,9 +62,8 @@ const DropsList = ({ drops, showSubProperty = true }: { drops: IDropData[] | und
 
                 const subProperty = new Price(drop.price, drop.token.decimals).toDenomination() + ' ' + drop.token.symbol + ' (' + drop.remainingSupply + '/' + drop.maxSupply + ')';
 
-                return <Link to={buildRouteLinks.dropPage(drop.id)}>
+                return <Link to={buildRouteLinks.dropPage(drop.id)} key={drop.id}>
                     <ResponsiveElementThumbnail
-                        key={drop.id}
                         element={drop.item}
                         subProperty={showSubProperty ? subProperty : ''}
                     />
