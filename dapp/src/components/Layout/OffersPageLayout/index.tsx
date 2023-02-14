@@ -64,19 +64,20 @@ const OffersPageLayout = ({
                     totalListed={marketData.totalListed}
                 />
             }
-            <p className={style.description}></p>
-            <div className={style.labels}>
-                {
-                    tabs.map((tab) => (
-                        <Link to={tab.path} key={tab.path}>
-                            <UnderlineNavElmt
-                                name={tab.name}
-                                isActive={activeTab === tab.path}
-                            />
-                        </Link>
-                    ))
-                }
-            </div>
+            {tabs &&
+                <div className={style.labels}>
+                    {
+                        tabs.map((tab) => (
+                            <Link to={tab.path} key={tab.path}>
+                                <UnderlineNavElmt
+                                    name={tab.name}
+                                    isActive={activeTab === tab.path}
+                                />
+                            </Link>
+                        ))
+                    }
+                </div>
+            }
             {/* TODO: add filters */}
             <div className={style.items}>
                 {children}
