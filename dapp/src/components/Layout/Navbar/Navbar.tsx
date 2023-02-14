@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import APCLogoColored from 'assets/img/apc-logo/colored.png';
 import LoginLogoutButton from 'components/Buttons/LoginLogoutButton';
 import SocialButtons from 'components/Buttons/SocialButtons';
-import HomeIcon from 'components/Icons/HomeIcon';
 import LabIcon from 'components/Icons/LabIcon';
 import MenuIcon from 'components/Icons/MenuIcon';
 import ProfileIcon from 'components/Icons/ProfileIcon';
