@@ -70,7 +70,7 @@ const DropsList = ({ drops, showSubProperty = true }: { drops: IDropData[] | und
                 </Link>;
             })
             :
-            Array(LOADING_ELEMENTS).map((drop, index) => {
+            Array.from({ length: LOADING_ELEMENTS }).map((drop, index) => {
                 return <ResponsiveElementThumbnail
                     key={index}
                 />
