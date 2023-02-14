@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { IDropData } from '@apcolony/marketplace-api';
+import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
 import BigNumber from 'bignumber.js';
@@ -51,6 +52,7 @@ const DropPageContent = ({
     auctionId: string
 }) => {
 
+    const { address } = useGetAccountInfo();
     const { balance, forceUpdate: forceReloadBalance } = useGetBalance(dropData.token.identifier)
 
     const { data: item, forceReload: forceReloadItem } = useGetGenericItem('items', dropData.item.id);
@@ -92,7 +94,7 @@ const DropPageContent = ({
                         className={style.button + ' ' + 'mt-2'}
                         disabled={getCardMaxSize() == 0} />
 
-                    {item &&
+                    {(item && address) &&
                         <>
                             <p className="mt-2 text-muted" >
                                 You have {item?.ownedAmount ?? '0'} {item?.displayName}
