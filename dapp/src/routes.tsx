@@ -4,7 +4,7 @@ import AuthentificatedPatternRouteWrapper from 'components/Abstract/Authentifica
 import { dAppName } from 'config';
 import AccessoriesList from 'pages/AccessoriesList';
 import DropPage from 'pages/DropPage';
-import { DropsList } from 'pages/DropsList';
+import { DropsListPage } from 'pages/DropsListPage';
 import CategoriesOffers from 'pages/GenericOfferListPage';
 import Inspect from 'pages/Inspect';
 import ItemsOffersNavigator from 'pages/ItemsOffersNavigator';
@@ -136,7 +136,7 @@ const routes: Array<ITitledRoute> = [
   {
     path: routeNames.dropsList,
     title: 'Drops List',
-    component: DropsList,
+    component: DropsListPage,
   }
 ];
 

@@ -1,0 +1,25 @@
+@import "assets/sass/var.scss";
+
+.items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.content {
+    min-height: 100vh;
+    padding-top: 120px;
+    max-width: 1400px;
+    margin: auto;
+}
+
+// desktop
+@media (min-width: $desktop_min_width) {
+    .items {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+}
