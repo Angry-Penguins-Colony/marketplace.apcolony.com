@@ -22,12 +22,20 @@ export const DropsListPage = () => {
         icon={PageIcon}
     >
         <div className={style.content}>
-            <DropsList drops={currentDrops} />
+            {
+                !currentDrops || currentDrops.length > 0 ?
+                    <DropsList drops={currentDrops} />
+                    :
+                    <div className={style.noCurrentDropsInfo}>
+                        No current drops.
+                    </div>
+            }
 
             {soldoutDrops && soldoutDrops.length > 0 &&
 
                 <>
-                    <h1>Over drops</h1>
+                    <hr />
+                    <h3>Over drops</h3>
 
                     <DropsList drops={soldoutDrops} />
                 </>
