@@ -49,7 +49,14 @@ export const ClosedDropsList = () => {
         soldoutDrops
     } = useGetAllDrops();
 
-    return <DropsList drops={soldoutDrops} showSubProperty={false} />
+    if (!soldoutDrops || soldoutDrops.length > 0) {
+        return <DropsList drops={soldoutDrops} showSubProperty={false} />
+    }
+    else {
+        return <div className={style.noCurrentDropsInfo}>
+            No closed drops.
+        </div>
+    }
 }
 
 const DropsList = ({ drops, showSubProperty = true }: { drops: IDropData[] | undefined, showSubProperty?: boolean }) => {
