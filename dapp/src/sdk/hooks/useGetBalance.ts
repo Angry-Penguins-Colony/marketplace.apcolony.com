@@ -16,15 +16,7 @@ export default function useGetBalance(tokenIdentifier?: string | 'EGLD') {
     const [balance, setBalance] = React.useState<IBalance | undefined>(undefined);
 
     React.useEffect(() => {
-        if (tokenIdentifier == 'EGLD' || !tokenIdentifier) {
-            setBalance({
-                amount: account.balance,
-                decimals: 18
-            });
-        }
-        else {
-            update();
-        }
+        update();
     }, [tokenIdentifier]);
 
     return {
@@ -33,14 +25,24 @@ export default function useGetBalance(tokenIdentifier?: string | 'EGLD') {
     };
 
     function update() {
-        const url = marketplaceApi + `accounts/${account.address}/tokens/${tokenIdentifier}`;
-        axios.get(url)
-            .then(({ data }: any) => {
-                setBalance({
-                    amount: data.balance,
-                    decimals: data.decimals
-                });
+        if (account.address == undefined) return;
+
+        if ((tokenIdentifier == 'EGLD' || !tokenIdentifier)) {
+            setBalance({
+                amount: account.balance,
+                decimals: 18
             });
+        }
+        else {
+            const url = marketplaceApi + `accounts/${account.address}/tokens/${tokenIdentifier}`;
+            axios.get(url)
+                .then(({ data }: any) => {
+                    setBalance({
+                        amount: data.balance,
+                        decimals: data.decimals
+                    });
+                });
+        }
     }
 
 }
