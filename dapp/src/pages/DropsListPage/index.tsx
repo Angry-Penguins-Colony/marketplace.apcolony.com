@@ -1,7 +1,8 @@
 import React from 'react';
 import { IDropData } from '@apcolony/marketplace-api';
 import { Link } from 'react-router-dom';
-import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
+import PageIcon from 'assets/img/Gift-alone.png';
+import OffersPageLayout from 'components/Layout/OffersPageLayout';
 import { ResponsiveElementThumbnail } from 'components/ResponsiveElementThumbnail';
 import { buildRouteLinks } from 'routes';
 import Price from 'sdk/classes/Price';
@@ -14,13 +15,13 @@ export const DropsListPage = () => {
         soldoutDrops
     } = useGetAllDrops();
 
-    return <>
-        <MobileHeader title={'Drops List'} type='light' />
-
+    return <OffersPageLayout
+        pageTitle='New drops'
+        pageStyle='items'
+        iconClassName='bg-transparent'
+        icon={PageIcon}
+    >
         <div className={style.content}>
-
-            <h1>Special drops !</h1>
-
             <DropsList drops={currentDrops} />
 
             {soldoutDrops && soldoutDrops.length > 0 &&
@@ -32,7 +33,7 @@ export const DropsListPage = () => {
                 </>
             }
         </div>
-    </>;
+    </OffersPageLayout>;
 }
 
 const DropsList = ({ drops }: { drops: IDropData[] | undefined }) => {
