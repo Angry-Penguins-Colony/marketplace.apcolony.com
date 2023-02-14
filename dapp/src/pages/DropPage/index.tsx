@@ -50,7 +50,7 @@ const DropPageContent = ({
 
     const { data: item, forceReload } = useGetGenericItem('items', dropData.item.id);
 
-    const MAX_BUYABLE_DEFAULT = 5;
+    const MAX_CART_SIZE = 9999;
     const [cartQuantity, setCardQuantity] = useState(1);
 
     const price = new Price(new BigNumber(dropData.price).multipliedBy(cartQuantity), dropData.token.decimals);
@@ -94,7 +94,7 @@ const DropPageContent = ({
     </>
 
     function getMaxBuyable() {
-        return Math.min(MAX_BUYABLE_DEFAULT, dropData.remainingSupply);
+        return Math.min(MAX_CART_SIZE, dropData.remainingSupply);
     }
 
     async function onBuy() {
