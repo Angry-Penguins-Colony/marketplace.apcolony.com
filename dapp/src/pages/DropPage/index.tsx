@@ -72,9 +72,7 @@ const DropPageContent = ({
         {dropData.remainingSupply > 0 ?
 
             <>
-                {balance != undefined &&
-                    <p>Your balance {new Price(balance.amount, balance.decimals).toDenomination(2)} {dropData.token.symbol}</p>
-                }
+
 
                 <div className={style['buyContainer']}>
 
@@ -95,10 +93,22 @@ const DropPageContent = ({
                         disabled={getCardMaxSize() == 0} />
 
                     {item &&
-                        <p className="mt-2 text-muted" >
-                            You have {item?.ownedAmount ?? '0'} {item?.displayName}
-                        </p>
+                        <>
+                            <p className="mt-2 text-muted" >
+                                You have {item?.ownedAmount ?? '0'} {item?.displayName}
+                            </p>
+                            {balance != undefined &&
+                                <>
+                                    <hr />
+                                    <p className="text-muted">
+                                        Your balance {new Price(balance.amount, balance.decimals).toDenomination(2)} {dropData.token.symbol}
+                                    </p>
+                                </>
+                            }
+                        </>
                     }
+
+
                 </div>
             </>
             :
