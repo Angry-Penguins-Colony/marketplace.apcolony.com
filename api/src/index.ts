@@ -29,6 +29,7 @@ import getGeneratedTokens from "./routes/staking/generated";
 import getPenguinsStaked from "./routes/staking/owned";
 import { APIRequestsReporter } from "./utils/APIRequestsReporter";
 import { logErrorIfMissingItems } from "./utils/dbHelper";
+import getAllDropsData from "./routes/drops/all";
 
 
 const workers = parseInt(process.env.WEB_CONCURRENCY || "1");
@@ -89,6 +90,7 @@ function start(id: number) {
     app.get('/staking/tokensGenerated/', (req: any, res: any) => getGeneratedTokens(req, res, networkProvider));
 
     app.get("/drops/drop/:id", (req: any, res: any) => getDropData(req, res, networkProvider));
+    app.get("/drops/all", (req: any, res: any) => getAllDropsData(req, res, networkProvider));
 
     app.get('/attributes/:penguinId', (req: any, res: any) => getAttributes(req, res, networkProvider));
     app.get("/exploreItems", (req: any, res: any) => getExploreItems(req, res, networkProvider, itemsDatabase));

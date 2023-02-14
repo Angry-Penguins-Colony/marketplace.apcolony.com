@@ -51,6 +51,18 @@ export function parseMarketData(response: any): IMarketData {
     }
 }
 
+export async function parseGetAllAuctionStats(response: any, getToken: (identifier: string) => Promise<IToken>): Promise<IDropData[]> {
+
+    const drops: IDropData[] = [];
+
+    for (const item of response.backingCollection.items) {
+        await parseDropData(item, getToken)
+            .then((drop) => drops.push(drop))
+            .catch(() => { /* ignore errors*/ });
+    }
+    return drops;
+}
+
 export async function parseDropData(response: any, getToken: (identifier: string) => Promise<IToken>): Promise<IDropData> {
 
     const auction = response.fieldsByName.get("auction").value;

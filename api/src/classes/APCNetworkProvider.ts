@@ -8,7 +8,7 @@ import { customisationContract, penguinsCollection, marketplaceContract, itemsCo
 import { getRandomsPenguinsIds, isCollectionAnItem } from "../utils/dbHelper";
 import { extractCIDFromIPFS, getIdFromPenguinName, getNameFromPenguinId, parseAttributes } from "../utils/string";
 import APCNft from "./APCNft";
-import { parseActivity, parseMarketData, parseMultiValueIdAuction, parseDropData as parseDropData, parseStakedPenguins } from "./ABIParser";
+import { parseActivity, parseMarketData, parseMultiValueIdAuction, parseDropData as parseDropData, parseStakedPenguins, parseGetAllAuctionStats } from "./ABIParser";
 import { toIdentifier } from "../utils/conversion";
 import ItemsDatabase from "@apcolony/db-marketplace/out/ItemsDatabase";
 import RequestsMonitor from "./RequestsMonitor";
@@ -611,6 +611,32 @@ export class APCNetworkProvider {
         if (nft.collection != eggsCollection) throw new Error("Invalid collection");
 
         return this.eggsDatabase.getEggFromNonce(nft.nonce);
+    }
+
+
+    public async getAllDropsData(): Promise<IDropData[]> {
+        const contract = await this.getDropSmartContract();
+
+        const contractViewName = "getAllAuctionStats";
+        const query = contract.createQuery({
+            func: new ContractFunction(contractViewName),
+            args: [],
+        });
+
+        const queryResponse = await this.gatewayProvider.queryContract(query);
+
+        if (queryResponse.returnCode == "user error") {
+            throw new Error(queryResponse.returnMessage);
+        }
+
+        this.gatewayRequestMonitor.increment();
+        const endpointDefinition = contract.getEndpoint(contractViewName);
+
+        const { firstValue } = new ResultsParser().parseQueryResponse(queryResponse, endpointDefinition);
+
+        const data = await parseGetAllAuctionStats(firstValue, this.getEsdtToken.bind(this));
+
+        return data;
     }
 
     public async getDropData(id: string): Promise<IDropData> {
