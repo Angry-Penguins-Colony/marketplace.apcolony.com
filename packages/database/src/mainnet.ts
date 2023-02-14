@@ -2,7 +2,7 @@ import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { EggsDatabase } from "./EggsDatabase";
 import ItemsDatabase from "./ItemsDatabase";
 import Items from "./json/items.json";
-import { Config, ItemsCollections } from "./types/config";
+import { Config } from "./types/config";
 
 
 const eggsCollection = "EGGS-502867";
@@ -25,7 +25,7 @@ const mainnetConfig: Config = {
      */
     stakingContract: "erd1qqqqqqqqqqqqqpgqd42nhklsaf3pyfqs8je7pmmk8qs8gjwusc2s5hvhkj",
     nftStakingToken: "unset",
-    newSalesContract: "",
+    dropsContract: "",
     originalTokensAmountInStakingSc: -1, //Todo : Find a better way to calculate tokens generated
 };
 

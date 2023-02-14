@@ -17,7 +17,7 @@ export interface Config {
     customisationContractAddress: string;
     sellingContract: string;
     stakingContract: string;
-    newSalesContract: string;
+    dropsContract: string;
 }
 
 export interface ItemsCollections {

@@ -77,7 +77,7 @@ export const stakingContract: Address = new Address(getNetworkInfos().stakingCon
 export const stakingToken = getNetworkInfos().nftStakingToken;
 export const itemsDatabase = getNetworkInfos().itemsDatabase;
 export const environment = getNetworkInfos().environment;
-export const newSalesContract = new Address(getNetworkInfos().newSalesContract);
+export const dropsContract = new Address(getNetworkInfos().dropsContract);
 export const stakeTokenName = '$ICE';
 
 if (marketplaceApi.endsWith('/') == false) {

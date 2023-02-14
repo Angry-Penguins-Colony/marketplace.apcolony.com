@@ -21,7 +21,7 @@ const devnetConfig: Config = {
     customisationContractAddress: DeployDevnet.customizationContractAddress.bech32,
     sellingContract: "erd1qqqqqqqqqqqqqpgqxygtu607umpgtnp3xwkskeqsyhc26ej0v4xqyglrkj",
     stakingContract: "erd1qqqqqqqqqqqqqpgq4r5lhttf3s98na2vxmk7qyk2t8qs79wt68mq0qs6z3",
-    newSalesContract: "erd1qqqqqqqqqqqqqpgqnc4dk30z0jrljyl0dztz6wruphkwlmpuvqhsuy0y4h",
+    dropsContract: "erd1qqqqqqqqqqqqqpgqnc4dk30z0jrljyl0dztz6wruphkwlmpuvqhsuy0y4h",
     nftStakingToken: "TEST-17e1db",
     originalTokensAmountInStakingSc: 1000000, //Todo : Find a better way to calculate tokens generated
 };

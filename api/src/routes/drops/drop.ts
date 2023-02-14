@@ -1,17 +1,17 @@
-import { INewSaleData } from '@apcolony/marketplace-api';
+import { IDropData } from '@apcolony/marketplace-api';
 import { Request, Response } from 'express';
 import { APCNetworkProvider } from '../../classes/APCNetworkProvider';
 import { sendSuccessfulJSON } from '../../utils/response';
 
-export default async function getNewSaleInfo(
+export default async function getDropData(
     req: Request,
     res: Response,
     proxyNetwork: APCNetworkProvider) {
 
     const id = req.params.id;
 
-    proxyNetwork.getNewSaleInfo(id)
-        .then((newSaleData: INewSaleData) => sendSuccessfulJSON(res, newSaleData))
+    proxyNetwork.getDropData(id)
+        .then((data: IDropData) => sendSuccessfulJSON(res, data))
         .catch((err: any) => {
 
             const getUserFriendlyErrorMessage = () => {

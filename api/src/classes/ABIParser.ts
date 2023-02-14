@@ -1,4 +1,4 @@
-import { IOffer, IActivity, IMarketData, INewSaleData, IToken } from "@apcolony/marketplace-api";
+import { IOffer, IActivity, IMarketData, IToken, IDropData } from "@apcolony/marketplace-api";
 import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
 import { Address } from "@elrondnetwork/erdjs/out";
 import { BigNumber } from "bignumber.js";
@@ -51,7 +51,7 @@ export function parseMarketData(response: any): IMarketData {
     }
 }
 
-export async function parseNewSaleData(response: any, getToken: (identifier: string) => Promise<IToken>): Promise<INewSaleData> {
+export async function parseDropData(response: any, getToken: (identifier: string) => Promise<IToken>): Promise<IDropData> {
 
     const auction = response.fieldsByName.get("auction").value;
     const outputToken = auction.fieldsByName.get("output_token_id").value.value + "-" + new Nonce(auction.fieldsByName.get("output_token_nonce").value.value).hex();

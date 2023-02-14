@@ -96,7 +96,7 @@ export interface IMarketData {
     totalListed: number;
 }
 
-export interface INewSaleData {
+export interface IDropData {
     item: IItem,
     startTimestamp: number,
     price: Price,

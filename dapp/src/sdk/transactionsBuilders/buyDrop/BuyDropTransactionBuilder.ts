@@ -8,7 +8,7 @@ enum PaymentType { EGLD, ESDT }
 const ENDPOINT_NAME = 'buy';
 
 
-export default class BuyNewSaleTransactionBuilder {
+export default class BuyDropTransactionBuilder {
 
     private paymentType: PaymentType = PaymentType.EGLD;
     private tokenIdentifier = '';
