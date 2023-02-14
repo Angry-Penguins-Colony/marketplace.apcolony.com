@@ -9,7 +9,7 @@ import NumberInput from 'components/Buttons/NumberInput';
 import SendTransactionButton from 'components/Buttons/SendTransactionButton';
 import ItemPageLayout from 'components/Layout/ItemPageLayout';
 import MobileHeader from 'components/Layout/MobileHeader/MobileHeader';
-import { dropsContract } from 'config';
+import { dropsContract, stakeTokenName } from 'config';
 import Price from 'sdk/classes/Price';
 import useGetDropData from 'sdk/hooks/api/useGetDropData';
 import { useGetGenericItem } from 'sdk/hooks/api/useGetGenericItem';
@@ -30,7 +30,9 @@ const DropPage = () => {
         <MobileHeader title={'New Sale ' + (dropData?.item.displayName ?? '')} type='light' />
 
         <ItemPageLayout
-            itemData={dropData ? { url: dropData.item.thumbnailUrls.high, displayName: dropData.item.displayName } : undefined} >
+            itemData={dropData ? { url: dropData.item.thumbnailUrls.high, displayName: dropData.item.displayName } : undefined}
+            subProperties={dropData ? `${dropData.item.stakePoints} ${stakeTokenName}` : ''}
+        >
             {dropData ? <DropPageContent dropData={dropData} auctionId={id} /> : <Skeleton />}
         </ItemPageLayout >
     </>;
