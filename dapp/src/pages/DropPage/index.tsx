@@ -62,12 +62,10 @@ const DropPageContent = ({
         {dropData.remainingSupply > 0 ?
 
             <>
-                <div className="mt-2">
-
-                    {dropData.remainingSupply} {dropData.item.displayName} remaining
-
-                </div>
                 <div className={style['buyContainer']}>
+
+                    <h1 className={style.dropRemainingProgression}>{dropData.remainingSupply} / {dropData.maxSupply}</h1>
+
                     <NumberInput
                         value={cartQuantity}
                         onChanged={(v) => setCardQuantity(v)}
