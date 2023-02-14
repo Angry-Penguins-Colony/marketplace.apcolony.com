@@ -56,6 +56,8 @@ export const buildRouteLinks = {
     .replace(':address', address),
   itemsOffers: (slot: string) => routeNames.itemsSlotHome
     .replace(':slot', slot),
+  dropPage: (dropId: string) => routeNames.dropPage
+    .replace(':id', dropId)
 }
 
 const routes: Array<ITitledRoute> = [
