@@ -103,7 +103,7 @@ const DropPageContent = ({
                                 <>
                                     <hr />
                                     <p className="text-muted">
-                                        Your balance {new Price(balance.amount, balance.decimals).toDenomination(2)} {dropData.token.symbol}
+                                        You have {new Price(balance.amount, balance.decimals).toDenomination(2)} {dropData.token.symbol}
                                     </p>
                                 </>
                             }
