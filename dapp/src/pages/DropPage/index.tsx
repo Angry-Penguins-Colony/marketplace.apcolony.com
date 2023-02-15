@@ -1,3 +1,4 @@
+import { EMSGSIZE } from 'constants';
 import React, { useState } from 'react';
 import { IDropData } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
@@ -88,7 +89,7 @@ const DropPageContent = ({
                     />
 
                     <SendTransactionButton
-                        sendBtnLabel={price.toDenomination() + ' ' + dropData.token.symbol}
+                        sendBtnLabel={price.toDenomination() + ' ' + prefixTokenIfNeeded(dropData.token.symbol)}
                         onSend={onBuy}
                         unlockTimestamp={dropData.startTimestamp}
                         className={style.button + ' ' + 'mt-2'}
@@ -103,7 +104,7 @@ const DropPageContent = ({
                                 <>
                                     <hr />
                                     <p className="text-muted">
-                                        You have {new Price(balance.amount, balance.decimals).toDenomination(2)} {dropData.token.symbol}
+                                        You have {new Price(balance.amount, balance.decimals).toDenomination(2)} {prefixTokenIfNeeded(dropData.token.symbol)}
                                     </p>
                                 </>
                             }
@@ -150,3 +151,10 @@ const NoItemsAvailable = () => {
     </div>
 
 };
+
+function prefixTokenIfNeeded(token: string) {
+    if (token == 'ICE')
+        return '$ICE';
+    else
+        return token;
+}
