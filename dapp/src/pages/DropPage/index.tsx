@@ -1,4 +1,3 @@
-import { EMSGSIZE } from 'constants';
 import React, { useState } from 'react';
 import { IDropData } from '@apcolony/marketplace-api';
 import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
