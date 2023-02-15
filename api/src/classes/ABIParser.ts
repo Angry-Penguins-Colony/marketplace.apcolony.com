@@ -58,7 +58,7 @@ export async function parseGetAllAuctionStats(response: any, getToken: (identifi
     for (const item of response.backingCollection.items) {
         await parseDropData(item, getToken)
             .then((drop) => drops.push(drop))
-            .catch(() => { /* ignore errors*/ });
+            .catch((err) => { console.trace(err) });
     }
     return drops;
 }
@@ -80,7 +80,7 @@ export async function parseDropData(response: any, getToken: (identifier: string
 
     return {
         id: response.fieldsByName.get("id").value.value,
-        remainingSupply: response.fieldsByName.get("remaining_output_items").value.value,
+        remainingSupply: auction.fieldsByName.get("current_quantity").value.value,
         startTimestamp: auction.fieldsByName.get("start_timestamp").value.value,
         maxSupply: auction.fieldsByName.get("max_quantity").value.value,
         item: outputItem,

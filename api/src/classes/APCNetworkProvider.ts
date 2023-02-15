@@ -677,7 +677,7 @@ export class APCNetworkProvider {
         const queryResponse = await this.gatewayProvider.queryContract(query);
 
         if (queryResponse.returnCode == "user error") {
-            throw new Error(queryResponse.returnMessage);
+            throw new Error(JSON.stringify(queryResponse.toJSON()));
         }
 
         this.gatewayRequestMonitor.increment();
@@ -691,6 +691,10 @@ export class APCNetworkProvider {
     }
 
     public async getEsdtToken(identifier: string): Promise<IToken> {
+
+        if (!identifier) throw new Error("The undefined is undefined");
+
+        identifier = identifier.trim();
 
         if (identifier == "EGLD") {
             return {

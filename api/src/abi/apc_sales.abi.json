@@ -175,6 +175,10 @@
                     "type": "u64"
                 },
                 {
+                    "name": "current_quantity",
+                    "type": "BigUint"
+                },
+                {
                     "name": "max_quantity",
                     "type": "BigUint"
                 }
@@ -186,10 +190,6 @@
                 {
                     "name": "auction",
                     "type": "Auction"
-                },
-                {
-                    "name": "remaining_output_items",
-                    "type": "BigUint"
                 },
                 {
                     "name": "id",

@@ -19,6 +19,8 @@ export default async function getAllDropsData(
                 }
             };
 
+            console.trace(err);
+
             res.status(400).send(getUserFriendlyErrorMessage())
         });
 }

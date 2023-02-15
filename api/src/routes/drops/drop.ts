@@ -24,6 +24,8 @@ export default async function getDropData(
                 }
             };
 
+            console.trace(err);
+
             res.status(400).send(getUserFriendlyErrorMessage())
         });
 }
