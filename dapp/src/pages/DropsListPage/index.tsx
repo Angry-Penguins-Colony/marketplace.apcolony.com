@@ -50,7 +50,7 @@ export const ClosedDropsList = () => {
     } = useGetAllDrops();
 
     if (!soldoutDrops || soldoutDrops.length > 0) {
-        return <DropsList drops={soldoutDrops} showSubProperty={false} />
+        return <DropsList drops={soldoutDrops} showSupplyProgression={false} />
     }
     else {
         return <div className={style.noCurrentDropsInfo}>
@@ -59,7 +59,7 @@ export const ClosedDropsList = () => {
     }
 }
 
-const DropsList = ({ drops, showSubProperty = true }: { drops: IDropData[] | undefined, showSubProperty?: boolean }) => {
+const DropsList = ({ drops, showSupplyProgression = true }: { drops: IDropData[] | undefined, showSupplyProgression?: boolean }) => {
 
     const LOADING_ELEMENTS = 2;
 
@@ -67,12 +67,16 @@ const DropsList = ({ drops, showSubProperty = true }: { drops: IDropData[] | und
         {drops ?
             drops.map((drop) => {
 
-                const subProperty = new Price(drop.price, drop.token.decimals).toDenomination() + ' ' + drop.token.symbol + ' (' + drop.remainingSupply + '/' + drop.maxSupply + ')';
+                let subProperty = new Price(drop.price, drop.token.decimals).toDenomination() + ' ' + drop.token.symbol;
+
+                if (showSupplyProgression) {
+                    subProperty += ' (' + drop.remainingSupply + '/' + drop.maxSupply + ')';
+                }
 
                 return <Link to={buildRouteLinks.dropPage(drop.id)} key={drop.id}>
                     <ResponsiveElementThumbnail
                         element={drop.item}
-                        subProperty={showSubProperty ? subProperty : ''}
+                        subProperty={subProperty}
                     />
                 </Link>;
             })
