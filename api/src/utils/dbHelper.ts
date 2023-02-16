@@ -65,15 +65,23 @@ async function getMissingItems(networkProvider: APCNetworkProvider, itemsDatabas
         for (const { slot, itemName } of attributes) {
             if (itemName == "unequipped") continue;
 
-            const item = itemsDatabase.getItemFromAttributeName(itemName, slot);
+            try {
 
-            if (item == undefined) {
-                missingItems.set(
-                    itemName,
-                    {
-                        slot: missingItems.get(itemName)?.slot || slot,
-                        identifiers: [...(missingItems.get(itemName)?.identifiers || []), nft.identifier]
-                    });
+                itemsDatabase.getItemFromAttributeName(itemName, slot);
+            }
+            catch (err: any) {
+                if (err.message.includes("Unknown item with attributeName")) {
+
+                    missingItems.set(
+                        itemName,
+                        {
+                            slot: missingItems.get(itemName)?.slot || slot,
+                            identifiers: [...(missingItems.get(itemName)?.identifiers || []), nft.identifier]
+                        });
+                }
+                else {
+                    throw err;
+                }
             }
         }
     }
