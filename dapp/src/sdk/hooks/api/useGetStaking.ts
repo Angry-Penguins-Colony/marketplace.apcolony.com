@@ -20,3 +20,7 @@ export function useGetPenguinsUnstaked(address: string) {
 export function useGetTokensGenerated() {
     return useGenericAPICall('/staking/tokensGenerated/');
 }
+
+export function useGetTotalPenguinsStaked() {
+    return useGenericAPICall('/staking/totalPenguinsStaked/');
+}

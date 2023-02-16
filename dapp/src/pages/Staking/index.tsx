@@ -3,7 +3,7 @@ import { IPenguin } from '@apcolony/marketplace-api';
 import { useGetAccountInfo, useGetPendingTransactions, useTrackTransactionStatus } from '@elrondnetwork/dapp-core/hooks';
 import { sendTransactions } from '@elrondnetwork/dapp-core/services';
 import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AccessoryIconBronze from 'assets/img/accessory_icon_bronze.png';
 import AccessoryIconDiamond from 'assets/img/accessory_icon_diamond.png';
 import AccessoryIconGold from 'assets/img/accessory_icon_gold.png';
@@ -21,7 +21,7 @@ import StakePopup from 'components/Foreground/Popup/StakePopup/StakePopup';
 import { GenericItemExplorer } from 'components/Navigation/GenericItemExplorer';
 import { stakingContract } from 'config';
 import { buildRouteLinks } from 'routes';
-import { useGetStakingClaimable, useGetPenguinsStaked, useGetTokensGenerated, useGetPenguinsUnstaked } from 'sdk/hooks/api/useGetStaking';
+import { useGetStakingClaimable, useGetPenguinsStaked, useGetTokensGenerated, useGetPenguinsUnstaked, useGetTotalPenguinsStaked } from 'sdk/hooks/api/useGetStaking';
 import ClaimTransactioNBuilder from 'sdk/transactionsBuilders/staking/ClaimTransactionBuilder';
 import style from './index.module.scss';
 
@@ -44,6 +44,10 @@ export default function Staking() {
   const { data: tokensGeneratedByTheColony, forceReload: reloadTokensGeneratedByTheColony } = useGetTokensGenerated();
   const tokensGeneratedByTheColonyData = tokensGeneratedByTheColony as any;
 
+  const { data: totalPenguinsStaked, forceReload : reloadtotalPenguinsStaked } = useGetTotalPenguinsStaked();
+  const totalPenguinsStakedData = totalPenguinsStaked as any;
+  
+
 
 
   const [transactionSessionId, setTransactionSessionId] = React.useState<string | null>(null);
@@ -65,6 +69,7 @@ export default function Staking() {
       reloadPenguinsUnstaked();
       reloadStakingClaimable();
       reloadTokensGeneratedByTheColony();
+      // reloadtotalPenguinsStaked();
     }
   });
 
@@ -114,7 +119,7 @@ export default function Staking() {
         <div className={style['staked']}>
           <img src={apcStakedImg} alt="$ICE staked" />
           <h2>PENGUINS STAKED</h2>
-          <span>{penguinsStakedCount}/5555</span>
+          <span>{totalPenguinsStakedData === undefined ? 0 : totalPenguinsStakedData.totalPenguinsStaked}/5555</span>
         </div>
       </section>
 
