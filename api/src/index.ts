@@ -31,6 +31,7 @@ import { APIRequestsReporter } from "./utils/APIRequestsReporter";
 import { logErrorIfMissingItems } from "./utils/dbHelper";
 import getAllDropsData from "./routes/drops/all";
 import { Address } from "@elrondnetwork/erdjs/out";
+import getTotalPenguinsStaked from "./routes/staking/penguinsStaked";
 
 
 const workers = parseInt(process.env.WEB_CONCURRENCY || "1");
@@ -89,6 +90,7 @@ function start(id: number) {
     app.get('/staking/owned/:bech32', (req: any, res: any) => getPenguinsStaked(req, res, networkProvider));
     app.get('/staking/claimable/:bech32', (req: any, res: any) => getStakingClaimable(req, res, networkProvider));
     app.get('/staking/tokensGenerated/', (req: any, res: any) => getGeneratedTokens(req, res, networkProvider));
+    app.get('/staking/totalPenguinsStaked/', (req: any, res: any) => getTotalPenguinsStaked(req, res, networkProvider));
 
     app.get("/drops/drop/:id", (req: any, res: any) => getDropData(req, res, networkProvider));
     app.get("/drops/all", (req: any, res: any) => getAllDropsData(req, res, networkProvider));

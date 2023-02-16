@@ -565,6 +565,13 @@ export class APCNetworkProvider {
         return originalTokensAmountInStakingSc - res[0].balance
     }
 
+    public async getTotalPenguinsStakedInSc() {
+
+        const res = await this.apiProvider.doGetGeneric(`accounts/${nftStakingContract}/nfts/count?collection=${penguinsCollection}`);       
+
+        return res
+    }
+
     public async getItemsList() {
         interface MyItem {
             slot: string;
