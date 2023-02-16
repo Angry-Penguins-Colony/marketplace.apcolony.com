@@ -30,6 +30,7 @@ const StakePopup = (
     }
 ) => {
     const { address: connectedAddress } = useGetAccountInfo();
+    
     const [noncesForStakingTx, setNoncesForStakingTx] = React.useState<number[]>([]);
 
     const {
@@ -76,7 +77,8 @@ const StakePopup = (
     }
 
     return <Popup haveCloseButton={true} isVisible={isVisible} onCloseClicked={closeModal} className='stakingPopup' >
-        {penguinsStakedArray && penguinsUnstakedArray ?
+        
+        {penguinsStakedArray && penguinsUnstakedArray &&
             <>
                 <NavigationStakedType className={style['navigation-type']} onClick={() => setNoncesForStakingTx([])} onChangeType={setInventoryType} itemsType={inventoryType} stakedPenguinsCount={stakedPenguinsCount} unstakedPenguinsCount={penguinsCount} />
                 <ItemsInventory
@@ -89,15 +91,21 @@ const StakePopup = (
                     noncesForStakingTx={noncesForStakingTx}
                 />
             </>
-            :
-            <img src={LOADER} alt="loader" className={style['loader']} />}
-            { inventoryElements && inventoryElements.length > 0 &&
-                <Button 
-                    onClick={() => stakeFunc(inventoryType == 'unstaked' ? 'stake' : 'unstake')} 
-                    className={`stakingButton ${noncesForStakingTx.length == 0 && 'disabled'}`} 
-                    type='primary-outline'>{inventoryType == 'unstaked' ? 'Stake' : 'Unstake'}  {noncesForStakingTx.length > 0 ? ' (' + noncesForStakingTx.length + ')' : ''}
-                </Button>
-            }
+        }
+        {
+            !penguinsStakedArray && !penguinsUnstakedArray && connectedAddress != '' &&
+            <img src={LOADER} alt="loader" className={style['loader']} />
+        }
+        {
+            connectedAddress === '' && <h4>Please connect your wallet to stake / unstake</h4>
+        } 
+        {inventoryElements && inventoryElements.length > 0 &&
+            <Button 
+                onClick={() => stakeFunc(inventoryType == 'unstaked' ? 'stake' : 'unstake')} 
+                className={`stakingButton ${noncesForStakingTx.length == 0 && 'disabled'}`} 
+                type='primary-outline'>{inventoryType == 'unstaked' ? 'Stake' : 'Unstake'}  {noncesForStakingTx.length > 0 ? ' (' + noncesForStakingTx.length + ')' : ''}
+            </Button>
+        }
     </Popup>
 }
 
