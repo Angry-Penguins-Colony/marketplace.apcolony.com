@@ -3,6 +3,3 @@ node_modules
 
 memory-usage.csv
 .DS_store
-
-.history
-./.history
