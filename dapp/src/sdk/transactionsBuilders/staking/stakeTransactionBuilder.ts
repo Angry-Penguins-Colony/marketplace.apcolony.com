@@ -47,7 +47,7 @@ export default class stakeTransactionBuilder {
 
             let noncesArg = '';
             this.nonces.map((nonce) => {
-                noncesArg += new ArgSerializer().valuesToString([BytesValue.fromUTF8(this.collection)]).argumentsString + '@' + DecimalHexTwosComplement(nonce) + '@' + '01' + '@';
+                noncesArg += new ArgSerializer().valuesToString([BytesValue.fromUTF8(this.collection)]).argumentsString + '@' + DecimalHexTwosComplement(nonce, 4) + '@' + '01' + '@';
             });
 
             const postArg = new ArgSerializer().valuesToString([
@@ -61,15 +61,14 @@ export default class stakeTransactionBuilder {
             //return 'unstake@00000000000000' + argumentsString;
             let noncesArg = '';
             this.nonces.map((nonce) => {
-                noncesArg +=  '00000000000000' + nonce.toString(16);
+                noncesArg +=  DecimalHexTwosComplement(nonce, 16);
             });
             return 'unstake@' + noncesArg;
         }
     }
 }
 
-function DecimalHexTwosComplement(decimal: number) {
-    const size = 4;
+function DecimalHexTwosComplement(decimal: number, size: number) {
 
     if (decimal >= 0) {
       let hexadecimal = decimal.toString(16);
