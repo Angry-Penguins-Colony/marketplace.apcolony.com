@@ -64,7 +64,7 @@ async function main() {
             .filter(err => ignoredErrors.includes(err.message) == false)
             .forEach((err) => {
                 ignoredErrors.push(err.message)
-                console.trace("Skipping building of attributes because we got this error: ", err);
+                console.log(`Skipping building of attributes [${err}]`);
             })
 
         // remove alreadyProcessedAttributes
