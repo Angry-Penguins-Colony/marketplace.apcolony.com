@@ -106,3 +106,5 @@ dist
 start.bat
 
 *.env*
+
+api-requests.csv
