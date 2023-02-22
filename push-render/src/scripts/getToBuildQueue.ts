@@ -10,7 +10,7 @@ main();
 
 async function main() {
     const gateway = new ReadGateway(config.gatewayUrl, config.customisationContract, new Bottleneck(), Devnet.itemsDatabase);
-    const queue = await gateway.getToBuildQueue();
+    const { renderAttributes: queue } = await gateway.getToBuildQueue();
 
 
     for (const renderAttribute of queue) {

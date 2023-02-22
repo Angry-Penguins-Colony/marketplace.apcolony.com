@@ -43,6 +43,7 @@ export default class ReadGateway {
 
         const rawAttributes = output.returnData;
         const renderAttributes: RenderAttributes[] = [];
+        const errors: any[] = [];
 
         for (var i = 0; i < rawAttributes.length; i += 2) {
             const attributes = Buffer.from(rawAttributes[i], "base64").toString();
@@ -56,20 +57,11 @@ export default class ReadGateway {
                 renderAttributes.push(renderAttribute);
             }
             catch (e) {
-
-                const ignoreLogName = [
-                    "Investissons nous"
-                ];
-
-                const isIgnored: boolean = ignoreLogName.find(ignoredName => attributes.includes(ignoredName)) != undefined;
-
-                if (isIgnored == false) {
-                    console.error("Cannot build attributes because :", e);
-                }
+                errors.push(e);
             }
         }
 
-        return renderAttributes;
+        return { renderAttributes, errors };
     }
 
     public async getBalance(address: IAddress): Promise<BigNumber> {

@@ -47,15 +47,25 @@ async function main() {
     await init();
 
     const alreadyProcessedAttributes: RenderAttributes[] = [];
+    const ignoredErrors: any[] = [];
 
     while (true) {
 
-        let queue = await readGateway.getToBuildQueue()
+        let { renderAttributes: queue, errors } = await readGateway.getToBuildQueue()
             .catch((e) => {
                 console.error("Error while fetching the queue. Retrying in 5s");
                 console.trace(e);
-                return [] as RenderAttributes[];
+                return {
+                    renderAttributes: [] as RenderAttributes[],
+                    errors: []
+                }
             });
+        errors
+            .filter(err => ignoredErrors.includes(err.message) == false)
+            .forEach((err) => {
+                ignoredErrors.push(err.message)
+                console.trace("Skipping building of attributes because we got this error: ", err);
+            })
 
         // remove alreadyProcessedAttributes
         queue = queue
