@@ -181,6 +181,8 @@ function useCustomization(selectedPenguinId: string, initialItemsIdentifier?: Pe
             .setName(selectedPenguin.displayName)
             .build();
 
+        console.log(payload.toString())
+
         const transaction: SimpleTransactionType = {
             value: new BigNumber('0.001e18').toString(), // 0.001 EGLD
             data: payload.toString(),
