@@ -6,7 +6,6 @@ import Popup from 'components/Foreground/Popup/Generic/Popup';
 import { routeNames } from 'routes';
 import { createModal } from 'sdk/misc/shorthands';
 import ElrondLogo from './../../assets/img/icons/Elrond_logo.png';
-import LedgerLogo from './../../assets/img/icons/Ledger_logo.png';
 import MaiarLogo from './../../assets/img/icons/Maiar_logo.png';
 import walletImg from './../../assets/img/wallet.png';
 import style from './unlock.module.scss';
@@ -65,7 +64,6 @@ export const UnlockModal = ({ loginRoute, isVisible = true, onCloseClicked }: Pr
         return <LoginButtons
           loginRoute={loginRoute}
           onMaiarClicked={() => setState(State.WalletConnect)}
-          onLedgerClicked={() => setState(State.Ledger)}
         />;
 
       case State.WalletConnect:
@@ -99,10 +97,9 @@ export default UnlockModal;
 interface LoginButtonsProps {
   loginRoute: string;
   onMaiarClicked: () => void;
-  onLedgerClicked: () => void;
 }
 
-const LoginButtons = ({ loginRoute, onMaiarClicked, onLedgerClicked }: LoginButtonsProps) => {
+const LoginButtons = ({ loginRoute, onMaiarClicked }: LoginButtonsProps) => {
 
 
 
@@ -115,8 +112,6 @@ const LoginButtons = ({ loginRoute, onMaiarClicked, onLedgerClicked }: LoginButt
     <WebWalletLoginButton loginRoute={loginRoute} />
 
     <ExtensionLoginButton loginRoute={loginRoute} />
-
-    <LoginButton icon={LedgerLogo} onClick={onLedgerClicked} text="Ledger" />
   </>
 }
 
