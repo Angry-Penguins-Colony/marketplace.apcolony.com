@@ -1,6 +1,6 @@
 import React from 'react';
 import { IOffer, IPenguin } from '@apcolony/marketplace-api';
-import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import { useGetAccountInfo } from '@multiversx/sdk-dapp/hooks';
 import AddressWrapper from 'components/AddressWrapper';
 import { marketplaceContractAddress, stakeTokenName } from 'config';
 import SubProperties from '../SubProperties';

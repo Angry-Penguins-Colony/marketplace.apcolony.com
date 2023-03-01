@@ -1,6 +1,6 @@
 import React from 'react';
 import { IOffer } from '@apcolony/marketplace-api';
-import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import { useGetAccountInfo } from '@multiversx/sdk-dapp/hooks';
 import BigNumber from 'bignumber.js';
 import AddressWrapper from 'components/AddressWrapper';
 import Popup, { IPopupProps } from '../Generic/Popup';

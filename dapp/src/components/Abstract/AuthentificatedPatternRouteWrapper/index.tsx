@@ -1,6 +1,6 @@
 import React from 'react';
-import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
-import { safeRedirect } from '@elrondnetwork/dapp-core/utils';
+import { useGetAccountInfo } from '@multiversx/sdk-dapp/hooks';
+import { safeRedirect } from '@multiversx/sdk-dapp/utils';
 
 interface Props {
     children: React.ReactNode;
@@ -10,7 +10,7 @@ interface Props {
 /**
  * AuthenticatedRoutesWrapper but only for children and works with patterns (eg. /customize/:id) 
  * 
- * Updating @elrondnetwork/dapp-core to 2.0.3 will make this component obsolete (but update cause troubles for the moment)
+ * Updating @multiversx/sdk-dapp to 2.0.3 will make this component obsolete (but update cause troubles for the moment)
  */
 const AuthentificatedPatternRouteWrapper = ({ children, unlockRoute }: Props) => {
     const { address } = useGetAccountInfo();

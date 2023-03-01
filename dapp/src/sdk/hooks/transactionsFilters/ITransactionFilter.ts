@@ -1,4 +1,4 @@
-import { SignedTransactionsType } from '@elrondnetwork/dapp-core/types';
+import { SignedTransactionsType } from '@multiversx/sdk-dapp/types';
 
 export default interface ITransactionFilter {
     contains: (data: string) => boolean;

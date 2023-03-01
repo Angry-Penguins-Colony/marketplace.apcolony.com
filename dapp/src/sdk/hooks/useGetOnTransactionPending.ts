@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGetPendingTransactions } from '@elrondnetwork/dapp-core/hooks';
+import { useGetPendingTransactions } from '@multiversx/sdk-dapp/hooks';
 import ITransactionFilter, { filter } from './transactionsFilters/ITransactionFilter';
 
 const useGetOnNewPendingTransaction = (onNewPendingTrnasaction: (sessionId: string) => void, transactionFilter: ITransactionFilter) => {

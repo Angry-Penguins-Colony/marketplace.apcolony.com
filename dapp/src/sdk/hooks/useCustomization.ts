@@ -1,8 +1,8 @@
 import React from 'react';
 import { Attributes, IItem, IOwnedItem, IPenguin } from '@apcolony/marketplace-api';
-import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
-import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
 import { Address } from '@elrondnetwork/erdjs/out';
+import { useGetAccountInfo } from '@multiversx/sdk-dapp/hooks';
+import { SimpleTransactionType } from '@multiversx/sdk-dapp/types';
 import BigNumber from 'bignumber.js';
 import { customisationContractAddress, itemsDatabase, penguinCollection } from 'config';
 import { capitalize } from 'sdk/conversion/string';

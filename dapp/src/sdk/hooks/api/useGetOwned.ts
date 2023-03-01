@@ -1,6 +1,6 @@
 import React from 'react';
 import { IAddress, IPenguin, IEgg, IItem } from '@apcolony/marketplace-api/out';
-import useGetAccountInfo from '@elrondnetwork/dapp-core/hooks/account/useGetAccountInfo';
+import { useGetAccountInfo } from '@multiversx/sdk-dapp/hooks/account/useGetAccountInfo';
 import doGetGeneric from 'sdk/api/doGetGeneric';
 
 export function useGetOwnedPenguins(options?: IOptions<IPenguin>): IPenguin[] | undefined {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import { useGetAccountInfo } from '@multiversx/sdk-dapp/hooks';
 import { Link } from 'react-router-dom';
 import APCLogoWhite from 'assets/img/apc-logo/white.png';
 import EggsCover from 'assets/img/background/header-eggs.png';

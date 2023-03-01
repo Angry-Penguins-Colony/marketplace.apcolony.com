@@ -1,8 +1,8 @@
 import React from 'react'
 import { IPenguin } from '@apcolony/marketplace-api';
-import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
-import { sendTransactions } from '@elrondnetwork/dapp-core/services';
-import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
+import { useGetAccountInfo } from '@multiversx/sdk-dapp/hooks';
+import { sendTransactions } from '@multiversx/sdk-dapp/services';
+import { refreshAccount } from '@multiversx/sdk-dapp/utils';
 import { LOADER } from 'components/Images/ReactImageAppear/constants';
 import ItemsInventory from 'components/Inventory/ItemsInventory/ItemsInventory';
 import NavigationStakedType from 'components/Inventory/NavigationType/NavigationStakingType';

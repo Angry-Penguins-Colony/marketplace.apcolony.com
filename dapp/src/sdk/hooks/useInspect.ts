@@ -1,6 +1,6 @@
 import { IOffer, IPenguin } from '@apcolony/marketplace-api';
-import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
-import { SimpleTransactionType } from '@elrondnetwork/dapp-core/types';
+import { useGetAccountInfo } from '@multiversx/sdk-dapp/hooks';
+import { SimpleTransactionType } from '@multiversx/sdk-dapp/types';
 import { marketplaceContractAddress } from 'config';
 import Price from 'sdk/classes/Price';
 import RetireOfferTransactionBuilder from 'sdk/transactionsBuilders/retireOffer/RetireOfferTransactionBuilder';

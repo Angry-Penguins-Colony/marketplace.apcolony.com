@@ -1,6 +1,6 @@
 import React from 'react';
-import { useExtensionLogin, useGetLoginInfo, useWebWalletLogin } from '@elrondnetwork/dapp-core/hooks';
-import { LedgerLoginContainer, WalletConnectLoginContainer } from '@elrondnetwork/dapp-core/UI';
+import { useExtensionLogin, useGetLoginInfo, useWebWalletLogin } from '@multiversx/sdk-dapp/hooks';
+import { LedgerLoginContainer, WalletConnectLoginContainer } from '@multiversx/sdk-dapp/UI';
 import { useNavigate } from 'react-router-dom';
 import Popup from 'components/Foreground/Popup/Generic/Popup';
 import { routeNames } from 'routes';
@@ -69,12 +69,13 @@ export const UnlockModal = ({ loginRoute, isVisible = true, onCloseClicked }: Pr
       case State.WalletConnect:
         return <WalletConnectLoginContainer
           callbackRoute={loginRoute}
-          loginButtonText={'Maiar App'}
-          title={'Maiar Login'}
+          loginButtonText={'xPortal App'}
+          title={'xPortal Login'}
           token={undefined}
           className={undefined}
           logoutRoute={routeNames.unlock}
-          lead={'Scan the QR code using Maiar'}
+          isWalletConnectV2={true}
+          lead={'Scan the QR code using xPortal'}
           wrapContentInsideModal={false}
           onClose={() => { setState(State.LoginButtons) }}
         />
@@ -107,7 +108,7 @@ const LoginButtons = ({ loginRoute, onMaiarClicked }: LoginButtonsProps) => {
     <h1>Connect Wallet</h1>
     <p className={style.desc}>Choose one of the available wallet providers or create a new wallet</p>
 
-    <LoginButton icon={MaiarLogo} onClick={onMaiarClicked} text="Maiar" />
+    <LoginButton icon={MaiarLogo} onClick={onMaiarClicked} text="xPortal" />
 
     <WebWalletLoginButton loginRoute={loginRoute} />
 

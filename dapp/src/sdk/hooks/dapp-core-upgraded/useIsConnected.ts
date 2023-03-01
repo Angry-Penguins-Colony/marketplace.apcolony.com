@@ -1,4 +1,4 @@
-import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import { useGetAccountInfo } from '@multiversx/sdk-dapp/hooks';
 
 function useIsConnected(): boolean {
     const { address } = useGetAccountInfo();

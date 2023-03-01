@@ -1,5 +1,5 @@
 import React from 'react';
-import { RouteType } from '@elrondnetwork/dapp-core/types';
+import { RouteType } from '@multiversx/sdk-dapp/types';
 import AuthentificatedPatternRouteWrapper from 'components/Abstract/AuthentificatedPatternRouteWrapper';
 import { dAppName } from 'config';
 import AccessoriesList from 'pages/AccessoriesList';
@@ -38,7 +38,7 @@ export const routeNames = {
   walletconnect: '/walletconnect',
   staking: '/staking',
   launchpad: '/launchpad',
-  accessories : '/accessories',
+  accessories: '/accessories',
 };
 
 export const buildRouteLinks = {

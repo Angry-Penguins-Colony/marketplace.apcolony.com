@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import { useGetAccountInfo } from '@multiversx/sdk-dapp/hooks';
 import { ButtonType } from 'components/Abstract/Button/Button';
 import ConnectWalletButton from '../ConnectWalletButton';
 import DisconnectWalletButton from '../DisconnectWalletButton';

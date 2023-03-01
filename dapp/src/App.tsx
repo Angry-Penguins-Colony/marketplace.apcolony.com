@@ -3,8 +3,8 @@ import {
   TransactionsToastList,
   SignTransactionsModals,
   NotificationModal
-} from '@elrondnetwork/dapp-core/UI';
-import { DappProvider } from '@elrondnetwork/dapp-core/wrappers';
+} from '@multiversx/sdk-dapp/UI';
+import { DappProvider } from '@multiversx/sdk-dapp/wrappers';
 import { SkeletonTheme } from 'react-loading-skeleton';
 import { Route, Routes, BrowserRouter as Router, Navigate } from 'react-router-dom';
 import Layout from 'components/Layout';
@@ -27,7 +27,11 @@ const App = () => {
       <Router>
         <DappProvider
           environment={environment}
-          customNetworkConfig={{ name: 'customConfig', apiTimeout: 6000 }}
+          customNetworkConfig={{
+            name: 'customConfig',
+            apiTimeout: 6000,
+            walletConnectV2ProjectId: '88ea7d65878119406126185b772c9d7d'
+          }}
         >
           <Layout>
             <TransactionsToastList />

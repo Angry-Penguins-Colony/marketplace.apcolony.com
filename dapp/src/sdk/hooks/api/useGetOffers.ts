@@ -1,5 +1,5 @@
 import { IOffer } from '@apcolony/marketplace-api';
-import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import { useGetAccountInfo } from '@multiversx/sdk-dapp/hooks';
 import CategoriesType from 'sdk/types/CategoriesType';
 import { RetireTransactionFilter, SellTransactionFilter } from '../transactionsFilters/filters';
 import useGetOnTransactionSuccesful from '../useGetOnTransactionSuccesful';

@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { IPenguin } from '@apcolony/marketplace-api';
-import { useGetAccountInfo, useGetPendingTransactions, useTrackTransactionStatus } from '@elrondnetwork/dapp-core/hooks';
-import { sendTransactions } from '@elrondnetwork/dapp-core/services';
-import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useGetAccountInfo, useGetPendingTransactions, useTrackTransactionStatus } from '@multiversx/sdk-dapp/hooks';
+import { sendTransactions } from '@multiversx/sdk-dapp/services';
+import { refreshAccount } from '@multiversx/sdk-dapp/utils';
+import { useNavigate } from 'react-router-dom';
 import AccessoryIconBronze from 'assets/img/accessory_icon_bronze.png';
 import AccessoryIconDiamond from 'assets/img/accessory_icon_diamond.png';
 import AccessoryIconGold from 'assets/img/accessory_icon_gold.png';
@@ -28,7 +28,7 @@ import style from './index.module.scss';
 
 export default function Staking() {
   const navigate = useNavigate();
-  
+
   const { address: connectedAddress } = useGetAccountInfo();
   const [isStakePopupVisible, setIsStakePopupVisible] = React.useState(false);
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import { useGetAccountInfo } from '@multiversx/sdk-dapp/hooks';
 import { Link, useNavigate } from 'react-router-dom';
 import APCLogoColored from 'assets/img/apc-logo/colored.png';
 import LoginLogoutButton from 'components/Buttons/LoginLogoutButton';

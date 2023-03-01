@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IItem, IOwnedItem } from '@apcolony/marketplace-api';
-import { sendTransactions } from '@elrondnetwork/dapp-core/services';
-import { refreshAccount } from '@elrondnetwork/dapp-core/utils';
+import { sendTransactions } from '@multiversx/sdk-dapp/services';
+import { refreshAccount } from '@multiversx/sdk-dapp/utils';
 import { useParams } from 'react-router-dom';
 import Button from 'components/Abstract/Button/Button';
 import CustomizeControls from 'components/Customize/Controls';

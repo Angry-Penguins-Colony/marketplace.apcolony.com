@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGetPendingTransactions, useGetSuccessfulTransactions } from '@elrondnetwork/dapp-core/hooks';
+import { useGetPendingTransactions, useGetSuccessfulTransactions } from '@multiversx/sdk-dapp/hooks';
 import ITransactionFilter, { filter } from './transactionsFilters/ITransactionFilter';
 import usePrevious from './usePrevious';
 

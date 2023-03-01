@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useGetAccountInfo } from '@elrondnetwork/dapp-core/hooks';
+import { useGetAccountInfo } from '@multiversx/sdk-dapp/hooks';
 import { useParams } from 'react-router-dom';
 import Loading from 'components/Abstract/Loading';
 import AddressWrapper from 'components/AddressWrapper';
