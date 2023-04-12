@@ -15,15 +15,15 @@ function getNetworkInfos() {
     switch (getNetworkType()) {
         case "MAINNET":
             return {
-                gateway: process.env.ELROND_GATEWAY ?? "https://gateway.elrond.com",
-                api: process.env.ELROND_API ?? "https://api.elrond.com",
+                gateway: process.env.ELROND_GATEWAY ?? "https://gateway.multiversx.com",
+                api: process.env.ELROND_API ?? "https://api.multiversx.com",
                 ...mainnetConfig
             };
 
         case "DEVNET":
             return {
-                gateway: process.env.ELROND_GATEWAY ?? "https://devnet-gateway.elrond.com",
-                api: process.env.ELROND_API ?? "https://devnet-api.elrond.com",
+                gateway: process.env.ELROND_GATEWAY ?? "https://devnet-gateway.multiversx.com",
+                api: process.env.ELROND_API ?? "https://devnet-api.multiversx.com",
                 ...devnetConfig
             };
     }
