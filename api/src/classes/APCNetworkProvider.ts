@@ -58,7 +58,7 @@ export class APCNetworkProvider {
 
         return withCache(this.pendingRequests_getPenguinFromId, id, async () => {
             const nfts = await this.getNfts(penguinsCollection, {
-                name: id,
+                name: 'Penguin #' + id,
                 withOwner: true
             });
 
