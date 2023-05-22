@@ -14,14 +14,14 @@ function getNetworkConfig() {
     switch (process.env.NETWORK_TYPE) {
         case "DEVNET":
             return {
-                gatewayUrl: "https://devnet-gateway.elrond.com",
+                gatewayUrl: "https://devnet-gateway.multiversx.com",
                 customisationContract: Address.fromBech32(devnetConfig.customisationContractAddress),
                 itemsDatabase: devnetConfig.itemsDatabase
             };
 
         case "MAINNET":
             return {
-                gatewayUrl: "https://gateway.elrond.com",
+                gatewayUrl: "https://gateway.multiversx.com",
                 customisationContract: Address.fromBech32(mainnetConfig.customisationContractAddress),
                 itemsDatabase: mainnetConfig.itemsDatabase
             };
