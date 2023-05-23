@@ -156,9 +156,9 @@ export default class ItemsDatabase {
 
     public getItemFromAttributeName(attributeName: string, slot: string): IItem {
         const item = this._items.find(item => item.attributeName == attributeName && item.slot == slot);
-        // if (!item) {
-           // throw new Error(`Unknown item with attributeName ${attributeName} for slot ${slot}`);
-        // }
+        if (!item) {
+           throw new Error(`Unknown item with attributeName ${attributeName} for slot ${slot}`);
+        }
         return item;
     }
 
