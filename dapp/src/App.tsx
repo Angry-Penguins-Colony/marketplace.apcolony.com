@@ -32,6 +32,9 @@ const App = () => {
             apiTimeout: 6000,
             walletConnectV2ProjectId: '513427a6d31ac7e06fb21783a9c178ad'
           }}
+          dappConfig={{
+            shouldUseWebViewProvider: true
+          }}
         >
           <Layout>
             <TransactionsToastList />
