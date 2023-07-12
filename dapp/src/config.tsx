@@ -1,6 +1,6 @@
 import devnetConfig from '@apcolony/db-marketplace/out/devnet';
 import mainnetConfig from '@apcolony/db-marketplace/out/mainnet';
-import { Address } from '@elrondnetwork/erdjs/out';
+import { Address } from '@multiversx/sdk-core/out';
 import APCLogger, { LogType } from 'logger';
 import Explorer from 'sdk/classes/Explorer';
 

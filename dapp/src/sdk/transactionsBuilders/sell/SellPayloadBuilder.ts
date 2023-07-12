@@ -1,5 +1,5 @@
 
-import { AddressValue, ArgSerializer, BigIntValue, BytesValue, IAddress, TransactionPayload, U64Value } from '@elrondnetwork/erdjs/out';
+import { AddressValue, ArgSerializer, BigIntValue, BytesValue, IAddress, TransactionPayload, U64Value } from '@multiversx/sdk-core/out';
 
 export class SellPayloadBuilder {
 

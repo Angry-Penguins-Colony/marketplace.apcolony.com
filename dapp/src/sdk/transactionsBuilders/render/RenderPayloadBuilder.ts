@@ -1,5 +1,5 @@
 import { Attributes } from '@apcolony/marketplace-api';
-import { ArgSerializer, BytesValue, TransactionPayload } from '@elrondnetwork/erdjs/out';
+import { ArgSerializer, BytesValue, TransactionPayload } from '@multiversx/sdk-core/out';
 
 export class RenderPayloadBuilder {
     public attributes?: Attributes;

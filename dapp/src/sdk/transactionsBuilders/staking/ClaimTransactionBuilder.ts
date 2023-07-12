@@ -1,4 +1,4 @@
-import { Address } from '@elrondnetwork/erdjs/out';
+import { Address } from '@multiversx/sdk-core/out';
 import Price from 'sdk/classes/Price';
 
 export default class ClaimTransactioNBuilder {

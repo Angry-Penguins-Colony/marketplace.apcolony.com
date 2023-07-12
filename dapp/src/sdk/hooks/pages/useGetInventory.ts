@@ -1,6 +1,6 @@
 import React from 'react';
 import { IGenericElement } from '@apcolony/marketplace-api';
-import { Address } from '@elrondnetwork/erdjs/out';
+import { Address } from '@multiversx/sdk-core/out';
 import CategoriesType from 'sdk/types/CategoriesType';
 import useGetOffersOfAccount from '../api/useGetOffersOfAccount';
 import useGetUserOwnedAmount from '../api/useGetUserOwnedAmount';

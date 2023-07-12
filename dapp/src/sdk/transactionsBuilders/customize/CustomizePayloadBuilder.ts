@@ -1,4 +1,4 @@
-import { Address, AddressValue, ArgSerializer, BytesValue, TransactionPayload, TypedValue, U64Value } from '@elrondnetwork/erdjs/out';
+import { Address, AddressValue, ArgSerializer, BytesValue, TransactionPayload, TypedValue, U64Value } from '@multiversx/sdk-core/out';
 import { BigNumber } from 'bignumber.js';
 
 export interface ItemToken {

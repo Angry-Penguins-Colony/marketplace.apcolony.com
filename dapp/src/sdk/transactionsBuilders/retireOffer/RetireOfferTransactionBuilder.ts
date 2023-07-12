@@ -1,5 +1,5 @@
 import { IAddress } from '@apcolony/marketplace-api';
-import { ArgSerializer, U64Value } from '@elrondnetwork/erdjs/out';
+import { ArgSerializer, U64Value } from '@multiversx/sdk-core/out';
 import { SimpleTransactionType } from '@multiversx/sdk-dapp/types';
 
 export default class RetireOfferTransactionBuilder {

@@ -1,4 +1,4 @@
-import { Address } from '@elrondnetwork/erdjs/out';
+import { Address } from '@multiversx/sdk-core/out';
 import CustomizePayloadBuilder, { ERR_PENGUIN_NONCE_MUST_BE_POSITIVE, ERR_PENGUIN_COLLECTION_UNDEFINED, ERR_CUSTOMIZATION_SC_ADDRESS_UNSET, ERR_NO_ITEMS_SET } from './CustomizePayloadBuilder';
 
 // documentation about customize tx: https://github.com/Angry-Penguins-Colony/sc-customize-nft

@@ -1,4 +1,4 @@
-import { Address, AddressValue, ArgSerializer, BytesValue, StringValue, U64Value } from '@elrondnetwork/erdjs/out';
+import { Address, AddressValue, ArgSerializer, BytesValue, StringValue, U64Value } from '@multiversx/sdk-core/out';
 import BigNumber from 'bignumber.js';
 import Price from 'sdk/classes/Price';
 
