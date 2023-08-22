@@ -1,5 +1,5 @@
 import React from 'react';
-import { IGenericElement } from '@apcolony/marketplace-api';
+import { IGenericElement, IPenguin } from '@apcolony/marketplace-api';
 import { Address } from '@multiversx/sdk-core/out';
 import CategoriesType from 'sdk/types/CategoriesType';
 import useGetOffersOfAccount from '../api/useGetOffersOfAccount';
@@ -18,6 +18,17 @@ function useGetInventory(walletAddress: string) {
         updateInventory();
     }, [owned, offersOfAccount, inventoryType]);
 
+    function calculateIceSum(penguin: IPenguin) {
+        let iceSum = 5;
+    
+        for (const slot in penguin.equippedItems) {
+            const item = penguin.equippedItems[slot];
+            iceSum += item.stakePoints;
+        }
+    
+        return iceSum;
+    }
+
     return {
         inventoryElements,
         inventoryType,
@@ -26,6 +37,9 @@ function useGetInventory(walletAddress: string) {
         itemsCount: owned && owned.items.reduce((acc, item) => acc + item.ownedAmount, 0),
         eggsCount: owned && owned.eggs.reduce((acc, egg) => acc + egg.ownedAmount, 0),
         totalOffers: totalOffersCount,
+        totalIcesum: owned?.penguins.reduce((accumulator, penguin) => {
+            return accumulator + calculateIceSum(penguin);
+        }, 0),
         setInventoryType
     };
 

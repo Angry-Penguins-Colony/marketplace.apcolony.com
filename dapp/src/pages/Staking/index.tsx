@@ -37,10 +37,10 @@ export default function Staking() {
 
   const { data: penguinsStaked, forceReload: reloadPenguinsStaked } = useGetPenguinsStaked(connectedAddress);
   const { data: penguinsUnstaked, forceReload: reloadPenguinsUnstaked } = useGetPenguinsUnstaked(connectedAddress);
-  const penguinsStakedArray = penguinsStaked as Array<IPenguin> | undefined;
-  const penguinsUnstakedArray = penguinsUnstaked as Array<IPenguin> | undefined;
+  const penguinsStakedArray: IPenguin[] = Array.isArray(penguinsStaked) ? penguinsStaked : [];
+  const penguinsUnstakedArray: IPenguin[] = Array.isArray(penguinsUnstaked) ? penguinsUnstaked : [];
 
-  const penguinsStakedCount = penguinsStakedArray != undefined ? penguinsStakedArray.length : 0;
+  const penguinsStakedCount = penguinsStakedArray.length;  
   const { data: tokensGeneratedByTheColony, forceReload: reloadTokensGeneratedByTheColony } = useGetTokensGenerated();
   const tokensGeneratedByTheColonyData = tokensGeneratedByTheColony as any;
 
@@ -94,10 +94,10 @@ export default function Staking() {
     <div id={style.launchpadVente}>
       <section className={style['top-page']}>
         <img src={APCLogoWhite} alt="" className="logo" />
-        <h1>Welcome to one of the most <br /> important places of the <br /> Angry Penguins colony…</h1>
+        <h1>Welcome to one of the most <br /> important places of the <br /> Angry Penguins colony…<br /> Coming Soon...</h1>
         <div className={style['cta']}>
-          <p>Here is the place where you can Stake <br />your Angry Penguins and receive the colony’s token!</p>
-          <Button onClick={() => setIsStakePopupVisible(true)} className={style.button} type='primary-outline'>STAKE / UNSTAKE</Button>
+          <p>Here is the place where you can Stake <br />your Angry Penguins!</p>
+          {/* <Button onClick={() => setIsStakePopupVisible(true)} className={style.button} type='primary-outline'>STAKE / UNSTAKE</Button> */}
           <Button onClick={() => navigate('/accessories')} className={style.button} type='primary-outline'>SEE ITEMS</Button>
         </div>
       </section>

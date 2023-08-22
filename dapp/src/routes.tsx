@@ -97,7 +97,12 @@ const routes: Array<ITitledRoute> = [
   {
     path: routeNames.staking,
     title: 'Staking',
-    component: Staking
+    component: () => {
+      return <AuthentificatedPatternRouteWrapper unlockRoute={routeNames.unlock}>
+        <Staking />
+      </AuthentificatedPatternRouteWrapper>;
+    },
+    authenticatedRoute: true,
   },
   {
     path: routeNames.launchpad,

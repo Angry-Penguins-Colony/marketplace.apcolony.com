@@ -7,6 +7,7 @@ import SocialButtons from 'components/Buttons/SocialButtons';
 import HomeIcon from 'components/Icons/HomeIcon';
 import LabIcon from 'components/Icons/LabIcon';
 import MenuIcon from 'components/Icons/MenuIcon';
+import StakeIcon from 'components/Icons/StakeIcon'
 import ProfileIcon from 'components/Icons/ProfileIcon';
 import { hatchLink } from 'config';
 import { buildRouteLinks, routeNames } from 'routes';
@@ -67,6 +68,13 @@ const Navbar = () => {
       name: 'Customize',
       route: routeNames.customizeInventory,
       icon: <LabIcon />,
+      className: style.labIcon,
+      visibleIfConnected: true,
+    },
+    {
+      name: 'Staking',
+      route: routeNames.staking,
+      icon: <StakeIcon />,
       className: style.labIcon,
       visibleIfConnected: true,
     },

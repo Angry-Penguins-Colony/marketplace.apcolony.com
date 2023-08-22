@@ -47,7 +47,7 @@ const PenguinSubProperties = ({ penguin, offer }: Props) => {
 export default PenguinSubProperties;
 
 function calcualteIceSum(penguin: IPenguin) {
-    let iceSum = 0;
+    let iceSum = 5;
 
     for (const slot in penguin.equippedItems) {
         const item = penguin.equippedItems[slot];

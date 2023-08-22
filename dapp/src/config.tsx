@@ -12,7 +12,7 @@ export const apcLogger = new APCLogger(logFlags as LogType[]);
 export const dAppName = 'Marketplace';
 
 export const twitter = 'https://twitter.com/angrypenguins_';
-export const discordInvitation = 'https://discord.com/invite/GKUV3XFcG8';
+export const discordInvitation = 'https://discord.com/invite/estar';
 
 export const defaultImages = {
   'background': 'https://apc-items.s3.eu-west-3.amazonaws.com/render/default-background-render.png',
@@ -43,24 +43,11 @@ export function getBadgeUri(id: number) {
 }
 
 function getNetworkInfos() {
-  switch (process.env.REACT_APP_NETWORK_TYPE) {
-    case 'DEVNET':
-      return {
-        api: process.env.REACT_APP_DEVNET_API ?? 'https://marketplace-api-devnet.onrender.com/',
-        explorerUrl: 'https://devnet-explorer.elrond.com/',
-        environment: 'devnet',
-        ...devnetConfig
-      }
-    case 'MAINNET':
-      return {
-        api: process.env.REACT_APP_MAINNET_API ?? 'https://api.marketplace.angrypenguinscolony.com/',
-        explorerUrl: 'https://explorer.elrond.com/',
-        environment: 'mainnet',
-        ...mainnetConfig
-      }
-
-    default:
-      throw new Error('Unknown network');
+  return {
+    api: process.env.REACT_APP_MAINNET_API ?? 'https://api.marketplace.angrypenguinscolony.com/',
+    explorerUrl: 'https://explorer.multiversx.com/',
+    environment: 'mainnet',
+    ...mainnetConfig
   }
 
 }
@@ -77,7 +64,7 @@ export const stakingContract: Address = new Address(getNetworkInfos().stakingCon
 export const stakingToken = getNetworkInfos().nftStakingToken;
 export const itemsDatabase = getNetworkInfos().itemsDatabase;
 export const environment = getNetworkInfos().environment;
-export const stakeTokenName = '$ICE';
+export const stakeTokenName = '$ICE Power';
 
 if (marketplaceApi.endsWith('/') == false) {
   throw new Error('Marketplace API should end with a slash');

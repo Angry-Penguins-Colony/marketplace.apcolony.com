@@ -33,6 +33,7 @@ const Inventory = () => {
         eggsCount,
         itemsCount,
         totalOffers,
+        totalIcesum,
         setInventoryType,
     } = useGetInventory(walletAddress);
 
@@ -100,6 +101,11 @@ const Inventory = () => {
                             <p className={style.number}>{eggsCount ?? '-'}</p>
                             <p className={style.name}>Eggs</p>
                         </div>
+                        <div className={style.item}>
+                            <p className={style.number}>{totalIcesum ?? '-'}</p>
+                            <p className={style.name}>Ice Power</p>
+                        </div>
+                        
                     </div>
                     <div className={style.title}>
                         <h3>My {inventoryType.charAt(0).toUpperCase() + inventoryType.slice(1)}</h3>
