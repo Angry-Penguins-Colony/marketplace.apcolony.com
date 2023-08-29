@@ -13,6 +13,7 @@ import Customize from './pages/Customize';
 import Home from './pages/Home';
 import Inventory from './pages/Inventory';
 import launchpad from './pages/Launchpad';
+import Leaderboard from './pages/Leaderboard';
 import Staking from './pages/Staking';
 import Transaction from './pages/Transaction';
 
@@ -38,6 +39,7 @@ export const routeNames = {
   walletconnect: '/walletconnect',
   staking: '/staking',
   launchpad: '/launchpad',
+  leaderboard: '/leaderboard',
   accessories: '/accessories',
 };
 
@@ -108,6 +110,11 @@ const routes: Array<ITitledRoute> = [
     path: routeNames.launchpad,
     title: 'Launchpad Vente',
     component: launchpad
+  },
+  {
+    path: routeNames.leaderboard,
+    title: 'Leaderboard',
+    component: Leaderboard
   },
   {
     path: routeNames.eggsHome,

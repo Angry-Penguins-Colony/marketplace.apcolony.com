@@ -1,4 +1,6 @@
 import React from 'react';
+import { faList } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useGetAccountInfo } from '@multiversx/sdk-dapp/hooks';
 import { Link, useNavigate } from 'react-router-dom';
 import APCLogoColored from 'assets/img/apc-logo/colored.png';
@@ -7,8 +9,8 @@ import SocialButtons from 'components/Buttons/SocialButtons';
 import HomeIcon from 'components/Icons/HomeIcon';
 import LabIcon from 'components/Icons/LabIcon';
 import MenuIcon from 'components/Icons/MenuIcon';
-import StakeIcon from 'components/Icons/StakeIcon'
 import ProfileIcon from 'components/Icons/ProfileIcon';
+import StakeIcon from 'components/Icons/StakeIcon'
 import { hatchLink } from 'config';
 import { buildRouteLinks, routeNames } from 'routes';
 import MobileMenu from '../MobileMenu/MobileMenu';
@@ -75,6 +77,13 @@ const Navbar = () => {
       name: 'Staking',
       route: routeNames.staking,
       icon: <StakeIcon />,
+      className: style.labIcon,
+      visibleIfConnected: true,
+    },
+    {
+      name: 'Leaderboard',
+      route: routeNames.leaderboard,
+      icon: <FontAwesomeIcon icon={faList} color='#5078df' />,
       className: style.labIcon,
       visibleIfConnected: true,
     },

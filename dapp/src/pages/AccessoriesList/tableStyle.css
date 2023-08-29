@@ -6,6 +6,10 @@
     margin-top: 0;
  /*   margin-bottom: 0.75em;*/
    }
+
+   table {
+    overflow: auto;
+   }
  
    h1 {
     font-size: 1.875rem;
