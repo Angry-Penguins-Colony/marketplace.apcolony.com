@@ -418,7 +418,7 @@ export class APCNetworkProvider {
         const abiRegistry = AbiRegistry.create(json);
         const abi = new SmartContract(abiRegistry, ["nftStaking"]);
 
-        const contract = new SmartContract({ address: nftStakingContract, abi: abi });
+        const contract = new SmartContract({ address: nftStakingContract, abi: abiRegistry });
         return contract;
     }
 
