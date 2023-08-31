@@ -2,7 +2,7 @@ import { EggTier, ElementType, IActivity, IAddress, IEgg, IItem, IMarketData, IO
 import { Attributes } from "@apcolony/marketplace-api/out/classes";
 import { ApiNetworkProvider, ProxyNetworkProvider } from "@multiversx/sdk-network-providers/out";
 import { Nonce } from "@multiversx/sdk-network-providers/out/primitives";
-import { AbiRegistry, Address, AddressValue, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, U64Value } from "@multiversx/sdk-core/out";
+import { AbiRegistry, Address, AddressValue, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract,  U64Value } from "@multiversx/sdk-core/out";
 import { promises } from "fs";
 import { customisationContract, penguinsCollection, marketplaceContract, itemsCollection, getPenguinWebThumbnail, nftStakingContract, nftStakingToken, originalTokensAmountInStakingSc, allCollections, eggsCollection } from "../const";
 import { getRandomsPenguinsIds, isCollectionAnItem } from "../utils/dbHelper";
@@ -405,7 +405,7 @@ export class APCNetworkProvider {
         const jsonContent: string = await promises.readFile("src/abi/esdt-nft-marketplace.abi.json", { encoding: "utf8" });
         const json = JSON.parse(jsonContent);
         const abiRegistry = AbiRegistry.create(json);
-        const abi = new SmartContractAbi(abiRegistry, ["EsdtNftMarketplace"]);
+        const abi = new SmartContract(abiRegistry, ["EsdtNftMarketplace"]);
 
         const contract = new SmartContract({ address: marketplaceContract, abi: abi });
         return contract;
@@ -415,7 +415,7 @@ export class APCNetworkProvider {
         const jsonContent: string = await promises.readFile("src/abi/nft-staking.abi.json", { encoding: "utf8" });
         const json = JSON.parse(jsonContent);
         const abiRegistry = AbiRegistry.create(json);
-        const abi = new SmartContractAbi(abiRegistry, ["nftStaking"]);
+        const abi = new SmartContract(abiRegistry, ["nftStaking"]);
 
         const contract = new SmartContract({ address: nftStakingContract, abi: abi });
         return contract;
