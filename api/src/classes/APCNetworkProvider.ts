@@ -1,8 +1,8 @@
 import { EggTier, ElementType, IActivity, IAddress, IEgg, IItem, IMarketData, IOffer, IOwnedItem, IPenguin } from "@apcolony/marketplace-api";
 import { Attributes } from "@apcolony/marketplace-api/out/classes";
-import { ApiNetworkProvider, ProxyNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out";
-import { Nonce } from "@elrondnetwork/erdjs-network-providers/out/primitives";
-import { AbiRegistry, Address, AddressValue, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, U64Value } from "@elrondnetwork/erdjs/out";
+import { ApiNetworkProvider, ProxyNetworkProvider } from "@multiversx/sdk-network-providers/out";
+import { Nonce } from "@multiversx/sdk-network-providers/out/primitives";
+import { AbiRegistry, Address, AddressValue, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi, U64Value } from "@multiversx/sdk-core/out";
 import { promises } from "fs";
 import { customisationContract, penguinsCollection, marketplaceContract, itemsCollection, getPenguinWebThumbnail, nftStakingContract, nftStakingToken, originalTokensAmountInStakingSc, allCollections, eggsCollection } from "../const";
 import { getRandomsPenguinsIds, isCollectionAnItem } from "../utils/dbHelper";
@@ -12,7 +12,7 @@ import { parseActivity, parseMarketData, parseMultiValueIdAuction, parseStakedPe
 import { toIdentifier } from "../utils/conversion";
 import ItemsDatabase from "@apcolony/db-marketplace/out/ItemsDatabase";
 import RequestsMonitor from "./RequestsMonitor";
-import { ErrNetworkProvider } from "@elrondnetwork/erdjs-network-providers/out/errors";
+import { ErrNetworkProvider } from "@multiversx/sdk-network-providers/out/errors";
 import { Cache, CacheClass } from "memory-cache";
 import { EggsDatabase } from "@apcolony/db-marketplace/out/EggsDatabase";
 import { IOwnedEgg } from "@apcolony/marketplace-api";
