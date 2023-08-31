@@ -1,5 +1,5 @@
 import { IOffer, IActivity, IMarketData } from "@apcolony/marketplace-api";
-import { Address } from "@elrondnetwork/erdjs/out";
+import { Address } from "@multiversx/sdk-core/out";
 import { BigNumber } from "bignumber.js";
 import { penguinsCollection } from "../const";
 import { APCNetworkProvider } from "./APCNetworkProvider";
