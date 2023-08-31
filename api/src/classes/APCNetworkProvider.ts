@@ -2,7 +2,7 @@ import { EggTier, ElementType, IActivity, IAddress, IEgg, IItem, IMarketData, IO
 import { Attributes } from "@apcolony/marketplace-api/out/classes";
 import { ApiNetworkProvider, ProxyNetworkProvider } from "@multiversx/sdk-network-providers/out";
 import { Nonce } from "@multiversx/sdk-network-providers/out/primitives";
-import { abiRegistry, Address, AddressValue, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, SmartContractAbi,  U64Value } from "@multiversx/sdk-core/out";
+import { AbiRegistry, Address, AddressValue, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract, U64Value } from "@multiversx/sdk-core/out";
 import { promises } from "fs";
 import { customisationContract, penguinsCollection, marketplaceContract, itemsCollection, getPenguinWebThumbnail, nftStakingContract, nftStakingToken, originalTokensAmountInStakingSc, allCollections, eggsCollection } from "../const";
 import { getRandomsPenguinsIds, isCollectionAnItem } from "../utils/dbHelper";
@@ -407,7 +407,8 @@ export class APCNetworkProvider {
         const abiRegistry = AbiRegistry.create(json);
         const abi = new SmartContract(abiRegistry, ["EsdtNftMarketplace"]);
 
-        const contract = new SmartContract({ address: marketplaceContract, abi: abi });
+        const contract = new SmartContract(abi);
+        contract.address = marketplaceContract;
         return contract;
     }
 
