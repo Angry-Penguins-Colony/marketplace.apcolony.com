@@ -1,4 +1,4 @@
-import { NonFungibleTokenOfAccountOnNetwork } from "@elrondnetwork/erdjs-network-providers/out";
+import { NonFungibleTokenOfAccountOnNetwork } from "@multiversx/sdk-network-providers/out";
 
 /**
  * The NonFungibleTokenOfAccountOnNetwork class is not implemented properly by erdjs.
