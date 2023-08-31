@@ -2,7 +2,7 @@ import { EggTier, ElementType, IActivity, IAddress, IEgg, IItem, IMarketData, IO
 import { Attributes } from "@apcolony/marketplace-api/out/classes";
 import { ApiNetworkProvider, ProxyNetworkProvider } from "@multiversx/sdk-network-providers/out";
 import { Nonce } from "@multiversx/sdk-network-providers/out/primitives";
-import { AbiRegistry, Address, AddressValue, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract,  U64Value } from "@multiversx/sdk-core/out";
+import { IAbi, Address, AddressValue, ArgSerializer, BytesValue, ContractFunction, ResultsParser, SmartContract,  U64Value } from "@multiversx/sdk-core/out";
 import { promises } from "fs";
 import { customisationContract, penguinsCollection, marketplaceContract, itemsCollection, getPenguinWebThumbnail, nftStakingContract, nftStakingToken, originalTokensAmountInStakingSc, allCollections, eggsCollection } from "../const";
 import { getRandomsPenguinsIds, isCollectionAnItem } from "../utils/dbHelper";
@@ -404,8 +404,8 @@ export class APCNetworkProvider {
     private async getMarketplaceSmartContract() {
         const jsonContent: string = await promises.readFile("src/abi/esdt-nft-marketplace.abi.json", { encoding: "utf8" });
         const json = JSON.parse(jsonContent);
-        const abiRegistry = AbiRegistry.create(json);
-        const abi = new SmartContract(abiRegistry, ["EsdtNftMarketplace"]);
+        const IAbi = IAbi.create(json);
+        const abi = new SmartContract(IAbi, ["EsdtNftMarketplace"]);
 
         const contract = new SmartContract({ address: marketplaceContract, abi: abi });
         return contract;
@@ -414,8 +414,8 @@ export class APCNetworkProvider {
     private async getStakingSmartContract() {
         const jsonContent: string = await promises.readFile("src/abi/nft-staking.abi.json", { encoding: "utf8" });
         const json = JSON.parse(jsonContent);
-        const abiRegistry = AbiRegistry.create(json);
-        const abi = new SmartContract(abiRegistry, ["nftStaking"]);
+        const IAbi = IAbi.create(json);
+        const abi = new SmartContract(IAbi, ["nftStaking"]);
 
         const contract = new SmartContract({ address: nftStakingContract, abi: abi });
         return contract;
