@@ -1,5 +1,5 @@
 import ItemsDatabase from '@apcolony/db-marketplace/out/ItemsDatabase';
-import { Address } from '@elrondnetwork/erdjs/out';
+import { Address } from '@multiversx/sdk-core/out';
 import { Request, Response } from 'express';
 import { APCNetworkProvider } from '../../classes/APCNetworkProvider';
 import { sendSuccessfulJSON, withTryCatch } from '../../utils/response';
