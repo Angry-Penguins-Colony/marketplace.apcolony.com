@@ -1,11 +1,11 @@
 [
  {
-   "address": "erd1p2mhkuxkxwe06rkfl9uy6n2u9y0hqky7mx6f238c4kdf4jtxg6jszz2msv",
-   "ice_power": 1073
+   "address": "erd1cse07mtetmd273mcf40ukqx7vugtfx32r2a4ayadjfx063p5m7nsfr3ymk",
+   "ice_power": 1099
  },
  {
-   "address": "erd1cse07mtetmd273mcf40ukqx7vugtfx32r2a4ayadjfx063p5m7nsfr3ymk",
-   "ice_power": 1013
+   "address": "erd1p2mhkuxkxwe06rkfl9uy6n2u9y0hqky7mx6f238c4kdf4jtxg6jszz2msv",
+   "ice_power": 1090
  },
  {
    "address": "erd1yy2zhk4h9ntg9x4qlh80z63kfses20tywra9j3ql85802v5q2rzsc30qr6",
@@ -13,7 +13,7 @@
  },
  {
    "address": "erd1e68tcag7r4r5vkgr3dq3swy0spqcyysna7zrz0wy0qf78nm8zddq8muwxc",
-   "ice_power": 898
+   "ice_power": 945
  },
  {
    "address": "erd1fmsn8v577rjhah8rfx867e3l069jw84pgud5h0wjc67348p4fmwsjj5nqj",
@@ -25,11 +25,15 @@
  },
  {
    "address": "erd1lf2kw3aec3p7ha9k09lhrf3ge5rhwzvk4c79myk2ufkr73p47v3qnrups0",
-   "ice_power": 775
+   "ice_power": 798
  },
  {
    "address": "erd14f4zf5f5rtn2dewwa64t0ceuy66qtg9df53zm0p50p9z520xdt5qhul8xs",
-   "ice_power": 646
+   "ice_power": 724
+ },
+ {
+   "address": "erd1x67vnd5fhnt5yhp6rr2g3spuh274edcp04vj43w37scsmfzz34gsmd3krx",
+   "ice_power": 582
  },
  {
    "address": "erd12w6ktk7x6cvqd277aecch0385sa33urhk76j578p27tmzhyc792sh85ny7",
@@ -37,11 +41,7 @@
  },
  {
    "address": "erd1jkd354c4mz9cfp8vjh2cvv2vtc7fg4klfktrqp8c627r6x86sa8qquzu45",
-   "ice_power": 523
- },
- {
-   "address": "erd19wjjxty40r6356r5mzjf2fmg8we2gxzshltunntk5tg45pl35r7ql8yzym",
-   "ice_power": 505
+   "ice_power": 527
  },
  {
    "address": "erd1ydjyxlkps7zdpm6dc05530pl8h7glmgym0qfvdlmc572t0g8vcxq8gvpk6",
@@ -50,10 +50,6 @@
  {
    "address": "erd1ggzjc22gtegwuf3jsw44asvjtauqrf8sfrvdr56j2rguy2tvcpwql9at23",
    "ice_power": 474
- },
- {
-   "address": "erd1x67vnd5fhnt5yhp6rr2g3spuh274edcp04vj43w37scsmfzz34gsmd3krx",
-   "ice_power": 431
  },
  {
    "address": "erd17rud5syyk3g5w2ktach0muh64kx42g6l786su2yvmdevg66m49qq9jrlp9",
@@ -68,12 +64,12 @@
    "ice_power": 391
  },
  {
-   "address": "erd1cclxfvtl8gr66af5jzae4sznh23kr0alwn3mfs3f2gcld8gz9c5q3evetm",
-   "ice_power": 390
+   "address": "erd1rfwps8qsgzmzt4exul6v2wepsjudnrhmv0e2exza6cwvejjhvx3qys5wqm",
+   "ice_power": 391
  },
  {
-   "address": "erd1rfwps8qsgzmzt4exul6v2wepsjudnrhmv0e2exza6cwvejjhvx3qys5wqm",
-   "ice_power": 389
+   "address": "erd1cclxfvtl8gr66af5jzae4sznh23kr0alwn3mfs3f2gcld8gz9c5q3evetm",
+   "ice_power": 390
  },
  {
    "address": "erd1xu308kng9xwf5jja68364cgn4etl0a2vlzyx6s3cjxrqzv3pdmns6plhsp",
@@ -92,10 +88,6 @@
    "ice_power": 352
  },
  {
-   "address": "erd1xwdzj494f8c3mygtkfngpvlvpjwrlac9ckmgwewyylqkpzpr0lys9e54pj",
-   "ice_power": 351
- },
- {
    "address": "erd1na3kv7ks2g548gw70wc3p0rl4qs8thgwtkk2tjm83rtmhfct4wgqyyega2",
    "ice_power": 350
  },
@@ -110,6 +102,10 @@
  {
    "address": "erd1t22n6ffug0ekegnkflkx5appsmxe8vtzyq7v5ge0pm9484rc25fq0axh0w",
    "ice_power": 334
+ },
+ {
+   "address": "erd1n3yfk2dywguwlxwmpkww5glg7dcumkenmuerfnq7pn3fc49tph7srssq9p",
+   "ice_power": 325
  },
  {
    "address": "erd1ynf6xdhem8kltp4j0pvk9n5900hnafq8e5psv75jqm4sqwl0384q2t654x",
@@ -128,12 +124,16 @@
    "ice_power": 299
  },
  {
+   "address": "erd1djaulckxkuqlkcxyx7w90ht23hggkkmf8ttnm93atekn5glhsvmqpns58y",
+   "ice_power": 298
+ },
+ {
    "address": "erd1pxljk7hukrjzq3cc0y00s5zs9r49q8pcc7wn6n8g752nuxpwdmfsxlm5y3",
    "ice_power": 297
  },
  {
-   "address": "erd1djaulckxkuqlkcxyx7w90ht23hggkkmf8ttnm93atekn5glhsvmqpns58y",
-   "ice_power": 285
+   "address": "erd1u4k3qazgj2l942z47838qjjycn229wx4huj40kkjvs0kq68jv4es8740wa",
+   "ice_power": 283
  },
  {
    "address": "erd1ga5t0degp9tg06jfwjkf8d7amwqdxcqt4tkvm2r5cnyzreyjza9st0ne35",
@@ -152,12 +152,12 @@
    "ice_power": 269
  },
  {
-   "address": "erd1n3yfk2dywguwlxwmpkww5glg7dcumkenmuerfnq7pn3fc49tph7srssq9p",
-   "ice_power": 269
- },
- {
    "address": "erd1dlapzx63eu6dtaqt30rfhlkve6ay2jaf3547uvd4xr8l8w8hkgpshg8vdq",
    "ice_power": 268
+ },
+ {
+   "address": "erd1ml0q0pzj3d3seszwldy7prmlt4kd7gqlnyyfxg7map0f72cfu9aq33rzxt",
+   "ice_power": 262
  },
  {
    "address": "erd189hazytvay8r6sx6k9p729mfuskn5fnpp5k7f4d804rje7wxveuqwv69aq",
@@ -166,6 +166,10 @@
  {
    "address": "erd1nwptlw0ffmrfhwwvxl3fxwqfccnvmc0zn6y77ahzaz3h9unsrv7scxesec",
    "ice_power": 258
+ },
+ {
+   "address": "erd1vaytdn3afhh760anh4j6a047v7ns0a9pa5ntz94eskw734ysl2wq08rr60",
+   "ice_power": 255
  },
  {
    "address": "erd1u7pf83vnydfgy3j3f8matenf2avaan5utkt59uljjct52yj2nz2qh5rsuk",
@@ -240,6 +244,10 @@
    "ice_power": 196
  },
  {
+   "address": "erd10ljy8s8ctrvy93hzgugr3wx2k8zjlwnnnggrmmjfa9u7dx0ux5qspj0jgp",
+   "ice_power": 195
+ },
+ {
    "address": "erd13ja92ggyqdf4xltsvkmqu8zeah09afz6xvxxlfwrc55w4krxwv5q8v3wr0",
    "ice_power": 194
  },
@@ -254,6 +262,10 @@
  {
    "address": "erd1m0p6msffygqdlgvd3mghc0ynte5vk2zm00as777r88rwhc84n99qg5v6k0",
    "ice_power": 192
+ },
+ {
+   "address": "erd1yz3teqm9g375fprddw292m4fn5wg7xl8q0ttgq353pzwgutynm2qm4l2sm",
+   "ice_power": 190
  },
  {
    "address": "erd14yeydx8733tzyece225c8p4ha06u7ppgak24tds48kwm0fdjjyeqv7wfat",
@@ -286,10 +298,6 @@
  {
    "address": "erd1u2hdr3s49jxy8anas4kz6pudrcmt0wzjv0ya3rtyydx2578zrntqn4hh6p",
    "ice_power": 179
- },
- {
-   "address": "erd1yz3teqm9g375fprddw292m4fn5wg7xl8q0ttgq353pzwgutynm2qm4l2sm",
-   "ice_power": 177
  },
  {
    "address": "erd1hxs8r50utmyh3u5hgy2xs2ys3mrdjx325tchn9mrdxlp3ayeyvpqjrv69g",
@@ -326,6 +334,10 @@
  {
    "address": "erd19ecdk0dk7e7htmdt699qh6ur6hrvw3rk9aadxpkxhczxnknmywaqxktaf2",
    "ice_power": 168
+ },
+ {
+   "address": "erd1fjyf5yl44z6cnun7kdl0kpuclwems47lc6a6hqxxamj53x20v5mqsmca42",
+   "ice_power": 166
  },
  {
    "address": "erd124zyul0jgqk57d3lep49hyehzvhk2lrxk37yyfjctmpk5mweacjqj6jcfe",
@@ -378,10 +390,6 @@
  {
    "address": "erd1sx3r88na675xfs268q4aq95pa8s42uqcx4ddpm0pzcq9s6avav0qs4gum7",
    "ice_power": 155
- },
- {
-   "address": "erd1fjyf5yl44z6cnun7kdl0kpuclwems47lc6a6hqxxamj53x20v5mqsmca42",
-   "ice_power": 153
  },
  {
    "address": "erd1sek4mf5pv8xwnmm6kefwh0ju3xtf829ws3kf6lff7s8xm939vl5s2xg32j",
@@ -480,10 +488,6 @@
    "ice_power": 124
  },
  {
-   "address": "erd1ml0q0pzj3d3seszwldy7prmlt4kd7gqlnyyfxg7map0f72cfu9aq33rzxt",
-   "ice_power": 124
- },
- {
    "address": "erd1nt4q4um78zx4sq4429s9wvps674tf6ztvvufre0y97ze6mrx5mzqeeqlnc",
    "ice_power": 123
  },
@@ -498,10 +502,6 @@
  {
    "address": "erd1snkuusjqqx8l0ekq69xjnpfjyk2dv7qmug7n4kdyc0jknk399r4q2raqhy",
    "ice_power": 122
- },
- {
-   "address": "erd10ljy8s8ctrvy93hzgugr3wx2k8zjlwnnnggrmmjfa9u7dx0ux5qspj0jgp",
-   "ice_power": 120
  },
  {
    "address": "erd184tzlnynlswk668usldw6q545079arj7hn0nmfamudr5m66kgaxq0ncqau",
@@ -581,10 +581,6 @@
  },
  {
    "address": "erd1k08yccnm422st2xk336y5jtvj6vff0unxy955ezgnx08kpfvh37qwtl36t",
-   "ice_power": 104
- },
- {
-   "address": "erd1yfxtk0s7eu9eq8zzwsvgsnuq85xrj0yysjhsp28tc2ldrps25mwqztxgph",
    "ice_power": 104
  },
  {
@@ -712,6 +708,10 @@
    "ice_power": 89
  },
  {
+   "address": "erd1yfxtk0s7eu9eq8zzwsvgsnuq85xrj0yysjhsp28tc2ldrps25mwqztxgph",
+   "ice_power": 89
+ },
+ {
    "address": "erd1ph2krvzgnu82sjr2qj4gdgknpndhjumv7fmvhf2hdvk0gv4njc2sdn5d4p",
    "ice_power": 88
  },
@@ -726,6 +726,10 @@
  {
    "address": "erd1q3yfrdhvl38qlx9gqrtfs0cufmqlnz0ytzsq2a5ul6ltwvugz8uqx2nn30",
    "ice_power": 87
+ },
+ {
+   "address": "erd1vfqvyzuep5aq59d9dvuhchrr048qcw0lp7wl42fapss4w0d249gqtfh77l",
+   "ice_power": 86
  },
  {
    "address": "erd13gjrsayl6atc660jyz9anujrepjzslg4q6xvp55p73nh8f793r6qxswpkn",
@@ -1032,10 +1036,6 @@
    "ice_power": 67
  },
  {
-   "address": "erd1uvn7nvq485aythttfk4yw782shqey68tak37ksdf8p2ta7v7sqes0k354r",
-   "ice_power": 67
- },
- {
    "address": "erd1uz3sqgermhgqqfn7u278csxakgc5g5vky3x9egu2dcrf3v6qf0yqfnjvjy",
    "ice_power": 67
  },
@@ -1073,6 +1073,10 @@
  },
  {
    "address": "erd15jy0h98hthz60dc8398830arckxhg93ckmt035gv4eql9ky8j85s56pdhm",
+   "ice_power": 63
+ },
+ {
+   "address": "erd1a6ryxgfr746umcsdthxerxnqwcpy9yfnxru86htfth5al9l896pq7g8fkq",
    "ice_power": 63
  },
  {
@@ -1157,10 +1161,6 @@
  },
  {
    "address": "erd1539d9axuttuk4qmgrdp0t7fq7qj4ha27d2dpw8pvg88sn9zvsvhs9zllkr",
-   "ice_power": 59
- },
- {
-   "address": "erd1a6ryxgfr746umcsdthxerxnqwcpy9yfnxru86htfth5al9l896pq7g8fkq",
    "ice_power": 59
  },
  {
@@ -1332,6 +1332,10 @@
    "ice_power": 51
  },
  {
+   "address": "erd19c6vf8k2pfrg9d7csr2gj4uvgta7ahpxvfyy9af74xyggdyd4t2sv67nwk",
+   "ice_power": 51
+ },
+ {
    "address": "erd1hgg2gug967qwqjkrst8n4zfd6wyps5msgjec23kw3geeazxvd7hsvraerc",
    "ice_power": 51
  },
@@ -1441,6 +1445,10 @@
  },
  {
    "address": "erd1pj0223y9n256h7ctxu86fhm8ndqnclcf0ephp5ge7rkvsvny76vs5g8kwv",
+   "ice_power": 48
+ },
+ {
+   "address": "erd1pxrn6s3hkla0pvg2hwmvj9qcqlwdvt4nnq2etjcmgsc70plyrayspw3tmx",
    "ice_power": 48
  },
  {
@@ -1844,6 +1852,10 @@
    "ice_power": 38
  },
  {
+   "address": "erd1q2p9cew62anp9u6cdjcxru9fsdjk3lmkre2et03c95jsq40kc8nqctc85k",
+   "ice_power": 38
+ },
+ {
    "address": "erd1rekeh98vsmm95qdlqf6nkn23luccvjwe9dh9vl5mdz3ajcmkuf5s7pta9a",
    "ice_power": 38
  },
@@ -1865,6 +1877,10 @@
  },
  {
    "address": "erd1t8l5jlem6n9l38h8aqulshmpkjy5kk77qztdlmqz3apm7hf8m7wqnf7rmu",
+   "ice_power": 38
+ },
+ {
+   "address": "erd1uvn7nvq485aythttfk4yw782shqey68tak37ksdf8p2ta7v7sqes0k354r",
    "ice_power": 38
  },
  {
@@ -2033,10 +2049,6 @@
  },
  {
    "address": "erd1rxdtmh24q30sf0p2gh7r2642ngvnk5jzcavut99r6yvzhqr70eds0tcdrc",
-   "ice_power": 36
- },
- {
-   "address": "erd1scu2re9kz64a65su9cceeyef0yvrjvgzrgtvnsd5e923a5fkmcrq8clek2",
    "ice_power": 36
  },
  {
@@ -2332,6 +2344,10 @@
    "ice_power": 32
  },
  {
+   "address": "erd1k79c88llmt6ay4dt744tdske5ump24ew7ate5cr2550dcegj7pnqksefh6",
+   "ice_power": 32
+ },
+ {
    "address": "erd1kkr6xhurapjxtm8dplqqk4cwtd5k3pw59yswmgp88nax6fd9npzq5kqm2h",
    "ice_power": 32
  },
@@ -2425,6 +2441,10 @@
  },
  {
    "address": "erd1gnwy3e8ag7mfyyjqpuhhwpvqmyxw2zyaf4n93df9vrpd9yyt26gq6uuys9",
+   "ice_power": 30
+ },
+ {
+   "address": "erd1j0t2d66nf34dkj9dvwkny86z3eu8jztcwjh6kykhmjkrmncs057qvsa9u2",
    "ice_power": 30
  },
  {
@@ -2565,6 +2585,10 @@
  },
  {
    "address": "erd1e4dpmtfr8l22ztua9f4atwum7xa83pgpt37jsfwg7k3322ysnnysz6mtpx",
+   "ice_power": 27
+ },
+ {
+   "address": "erd1hpulp028jrghyh9pmgrv7ch0gszxn3l3nkc9rslhvjrrfpv0vtcqcdvn2p",
    "ice_power": 27
  },
  {
@@ -2788,10 +2812,6 @@
    "ice_power": 23
  },
  {
-   "address": "erd1q2p9cew62anp9u6cdjcxru9fsdjk3lmkre2et03c95jsq40kc8nqctc85k",
-   "ice_power": 23
- },
- {
    "address": "erd1qh28wp0fhak6cjrdfe2tpjnfkksfz76t7dy0tpja3zgxecvzw7ps8p9k6m",
    "ice_power": 23
  },
@@ -2828,19 +2848,11 @@
    "ice_power": 23
  },
  {
-   "address": "erd1vfqvyzuep5aq59d9dvuhchrr048qcw0lp7wl42fapss4w0d249gqtfh77l",
-   "ice_power": 23
- },
- {
    "address": "erd1vtqq3lgcn9trah8ktjmmqrzled5j0kd89e3s74kf57vtd6vxcncs0xpn66",
    "ice_power": 23
  },
  {
    "address": "erd1vztqwuv49teft72vgakg968mtneu4pufxs89uyg82h42s8976e0qcey57t",
-   "ice_power": 23
- },
- {
-   "address": "erd1wn02yhzjytds4fhuzc2kfh2pen6dk2uns8atanvsr75y50hzg7nqttmjqs",
    "ice_power": 23
  },
  {
@@ -3140,6 +3152,10 @@
    "ice_power": 20
  },
  {
+   "address": "erd1v0ph387hpttllg4cc39uzpuj0h9pcmn087yp429fpkgktj82c7msq33ql8",
+   "ice_power": 20
+ },
+ {
    "address": "erd1yk7kqfr9gre8kc6hgyv6ykeueyhfyldex35t57rpyux7ac90up5qm9gxgr",
    "ice_power": 20
  },
@@ -3404,10 +3420,6 @@
    "ice_power": 19
  },
  {
-   "address": "erd1pxrn6s3hkla0pvg2hwmvj9qcqlwdvt4nnq2etjcmgsc70plyrayspw3tmx",
-   "ice_power": 19
- },
- {
    "address": "erd1pysfp00h9g9e66ygcnpulndrhxyy8ywx276hp00hcenqr24qtceqzegpvr",
    "ice_power": 19
  },
@@ -3449,10 +3461,6 @@
  },
  {
    "address": "erd1vakxmcwa7kxnaen48qm3gwtzzxj5ywt76x634nk85d74yflkteysww5pnh",
-   "ice_power": 19
- },
- {
-   "address": "erd1vaytdn3afhh760anh4j6a047v7ns0a9pa5ntz94eskw734ysl2wq08rr60",
    "ice_power": 19
  },
  {
@@ -3549,6 +3557,10 @@
  },
  {
    "address": "erd10g2aguc5tffgtcdvdscfvlv06nch38pk2pae9c7gplxcgsgxegms0tq2fp",
+   "ice_power": 17
+ },
+ {
+   "address": "erd10gtc39nulwfkwe7gsakka0drzcg96l6z292quxdn8upv6n2putcs2u78tt",
    "ice_power": 17
  },
  {
@@ -3697,10 +3709,6 @@
  },
  {
    "address": "erd18zrntdu03nuwqykfv6257m8035sxlyetq39my2xzml4ulradauzqdnrapf",
-   "ice_power": 17
- },
- {
-   "address": "erd19c6vf8k2pfrg9d7csr2gj4uvgta7ahpxvfyy9af74xyggdyd4t2sv67nwk",
    "ice_power": 17
  },
  {
@@ -3860,10 +3868,6 @@
    "ice_power": 17
  },
  {
-   "address": "erd1j0t2d66nf34dkj9dvwkny86z3eu8jztcwjh6kykhmjkrmncs057qvsa9u2",
-   "ice_power": 17
- },
- {
    "address": "erd1jw9d9kjdh8rdc75cwdnskazav3clk90l62w3g9fgp4kyxcwctfvqfljllt",
    "ice_power": 17
  },
@@ -3873,10 +3877,6 @@
  },
  {
    "address": "erd1k4rza32kx5vay5eavdhlrpd6z8g2d0p4q543j92x03slqvth2mlsjq0yv7",
-   "ice_power": 17
- },
- {
-   "address": "erd1k79c88llmt6ay4dt744tdske5ump24ew7ate5cr2550dcegj7pnqksefh6",
    "ice_power": 17
  },
  {
@@ -4084,10 +4084,6 @@
    "ice_power": 17
  },
  {
-   "address": "erd1yuhwayqppjpxujm8h97pyvmvf2m5cjcuyfa6tpcndgfks6xwnn7qw0zm58",
-   "ice_power": 17
- },
- {
    "address": "erd1zfgdvazh0r68l4ax36lwqzhe8ck80j3gs66jz8ludw7dxfculd9spwjk3c",
    "ice_power": 17
  },
@@ -4098,10 +4094,6 @@
  {
    "address": "erd1zsa6npmky0d9y5j9r3qyaqhk3vpx2kza5l2tqtn4t3zdgmy9f5pqaplqzc",
    "ice_power": 17
- },
- {
-   "address": "erd10jckttzxgdp2da70gh2c8d4d8jymlcc0fpv2zsculy2d5zt5m43sw2apsw",
-   "ice_power": 16
  },
  {
    "address": "erd15kmdrk9mzyavgs3rjy4mjdhuqac7xq30ysgzguw35d228qctv66qmd5tdp",
@@ -4120,11 +4112,11 @@
    "ice_power": 16
  },
  {
-   "address": "erd1ujy25lmme80mvp6s45852j7lleqkrtuhqlpsn499vjzddanshvzq3qj9sf",
+   "address": "erd1scu2re9kz64a65su9cceeyef0yvrjvgzrgtvnsd5e923a5fkmcrq8clek2",
    "ice_power": 16
  },
  {
-   "address": "erd1xl6maq8ksj9sufwzf62xwq5nmpv2929p7gnygxe3cc85xtv2unds97hm3y",
+   "address": "erd1ujy25lmme80mvp6s45852j7lleqkrtuhqlpsn499vjzddanshvzq3qj9sf",
    "ice_power": 16
  },
  {
@@ -4245,6 +4237,10 @@
  },
  {
    "address": "erd18sfs22nkfswfplrd9yevfzeq6e7qz58n3slux94d6dcu5d70wepqqeh6aw",
+   "ice_power": 15
+ },
+ {
+   "address": "erd18sw9c6wmjhnqu0uye660c4yawu2he07jlc0ydly0uph0x92y3wzq8y5ms5",
    "ice_power": 15
  },
  {
@@ -4461,6 +4457,10 @@
  },
  {
    "address": "erd1ng3k68rfne5523pmvg4xcpaffuljde7hwt3wyhmlrfy2mtt8m8nstgmn8y",
+   "ice_power": 15
+ },
+ {
+   "address": "erd1nsafm3hxyhe7flman6uj6vrksr0dp7xtreyjat97gy0t9ma7ferq0ldz93",
    "ice_power": 15
  },
  {
