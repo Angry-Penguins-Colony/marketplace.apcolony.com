@@ -407,8 +407,8 @@ export class APCNetworkProvider {
         const abiRegistry = AbiRegistry.create(json);
         const abi = new SmartContract(abiRegistry, ["EsdtNftMarketplace"]);
 
-        const contract = new SmartContract(abi);
-        contract.address = marketplaceContract;
+        const contract = new SmartContract({ address: marketplaceContract, abi: abiRegistry });
+
         return contract;
     }
 
