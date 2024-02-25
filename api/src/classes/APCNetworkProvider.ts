@@ -405,9 +405,9 @@ export class APCNetworkProvider {
         const jsonContent: string = await promises.readFile("src/abi/esdt-nft-marketplace.abi.json", { encoding: "utf8" });
         const json = JSON.parse(jsonContent);
         const abiRegistry = AbiRegistry.create(json);
-        const abi = new SmartContract({ registry: abiRegistry, contracts: ["EsdtNftMarketplace"] });
+        // const abi = new SmartContract(abiRegistry, ["EsdtNftMarketplace"]);
 
-
+        
         const contract = new SmartContract({ address: marketplaceContract, abi: abiRegistry });
 
         return contract;
@@ -417,7 +417,7 @@ export class APCNetworkProvider {
         const jsonContent: string = await promises.readFile("src/abi/nft-staking.abi.json", { encoding: "utf8" });
         const json = JSON.parse(jsonContent);
         const abiRegistry = AbiRegistry.create(json);
-        const abi = new SmartContract({ registry: abiRegistry, contracts: ["nftStaking"] });
+        // const abi = new SmartContract(abiRegistry, ["nftStaking"]);
 
 
         const contract = new SmartContract({ address: nftStakingContract, abi: abiRegistry });
